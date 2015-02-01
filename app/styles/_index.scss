@@ -1,10 +1,9 @@
-.index {
-  padding-left: 1em;
-  padding-right: 1em;
+@import "grid_items";
 
-  h1 {
-    margin-bottom: 1em;
-    margin-top: 1em;
-    font-weight: 300;
+.index {
+  @include outer-padding;
+
+  .grid-item:nth-of-type(5){
+    @include grid-item-big;
   }
 }

@@ -2,54 +2,13 @@
   <h1 id="title">Categories</h1>
 
   <div class="grid-items-lines">
-    <a href="javascript:void(0)" class="grid-item">
+    {{#each category in controller}}
+      {{#link-to "categories.show" category class="grid-item"}}
+        <h2>{{category.name}}</h2>
 
-      <h2>Authentication</h2>
-
-      <p>Addons for auth</p>
-    </a>
-    <a href="javascript:void(0)" class="grid-item">
-
-      <h2>Components</h2>
-
-      <p>Addons that provide a component.</p>
-    </a>
-    <a href="javascript:void(0)" class="grid-item">
-
-      <h2>Styles</h2>
-
-      <p>Addons that provide styles, css frameworks, preprocessors, etc.</p>
-    </a>
-    <a href="javascript:void(0)" class="grid-item">
-
-      <h2>Testing</h2>
-
-      <p>Addons related to testing.</p>
-    </a>
-    <a href="javascript:void(0)" class="grid-item grid-item-big">
-
-      <h2>Build tools</h2>
-
-      <p>Addons related to preprocessing, broccoli plugins, dependencies of ember-cli, etc.</p>
-    </a>
-    <a href="javascript:void(0)" class="grid-item">
-
-      <h2>Data</h2>
-
-      <p>Addons related to ember-data or alternatives to ember-data.</p>
-    </a>
-    <a href="javascript:void(0)" class="grid-item">
-
-      <h2>Library wrappers</h2>
-
-      <p>Addons that wrap third party libaries, jQuery plugins and the like.</p>
-    </a>
-    <a href="javascript:void(0)" class="grid-item">
-
-      <h2>Miscellaneous</h2>
-
-      <p>The addons that don't fit into other categories.</p>
-    </a>
+        <p>{{category.description}}</p>
+      {{/link-to}}
+    {{/each}}
 
     <div class="right-cover"></div>
     <div class="bottom-cover"></div>

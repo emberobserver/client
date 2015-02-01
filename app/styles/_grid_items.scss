@@ -4,6 +4,18 @@
   width: (100% / 12) * $columns;
 }
 
+$grid-item-big-columns: 8;
+
+@mixin grid-item-big {
+  @include media($large-screen) {
+    @include grid-item-columns($grid-item-big-columns);
+  }
+  p {
+    @include media($medium-screen) {
+      max-width: 60%;
+    }
+  }
+}
 .grid-items-lines {
   ///////////////////////////////////////////////////////////////////////////////////
   $base-background-color: white !default;
@@ -26,7 +38,6 @@
   $grid-item-background: $base-background-color;
   $grid-item-border: 1px solid transparentize($base-accent-color, 0.8);
   $grid-item-columns: 4;
-  $grid-item-big-columns: 8;
   $grid-item-color: $base-font-color;
   $grid-item-height: 14em;
 
@@ -77,14 +88,7 @@
   }
 
   .grid-item-big {
-    @include media($large-screen) {
-      @include grid-item-columns($grid-item-big-columns);
-    }
-    p {
-      @include media($medium-screen) {
-        max-width: 60%;
-      }
-    }
+    @include grid-item-big;
   }
 
   // this, below, might not be the most beautiful solution but it removes the outer borders by using the background color.

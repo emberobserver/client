@@ -2,8 +2,8 @@
 @import "bower_components/bourbon/dist/_bourbon";
 @import "bower_components/neat/app/assets/stylesheets/_neat";
 @import "base/base";
-@import "grid_items";
 @import "index";
+@import "category_show";
 
 .container {
   @include outer-container;
@@ -21,4 +21,10 @@ header.navigation {
   input {
     margin-top: 1em;
   }
+}
+
+h1 {
+  margin-bottom: 1em;
+  margin-top: 1em;
+  font-weight: 300;
 }

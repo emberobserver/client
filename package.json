@@ -22,6 +22,7 @@
     "broccoli-asset-rev": "^2.0.0",
     "broccoli-ember-hbs-template-compiler": "^1.6.1",
     "broccoli-sass": "^0.3.3",
+    "connect-restreamer": "^1.0.1",
     "ember-cli": "0.1.12",
     "ember-cli-6to5": "^3.0.0",
     "ember-cli-app-version": "0.3.1",
@@ -34,6 +35,7 @@
     "ember-data": "1.0.0-beta.12",
     "ember-export-application-global": "^1.0.0",
     "express": "^4.8.5",
-    "glob": "^4.0.5"
+    "glob": "^4.0.5",
+    "morgan": "^1.5.1"
   }
 }
