@@ -13,5 +13,9 @@
     "ember-qunit": "0.1.8",
     "ember-qunit-notifications": "0.0.5",
     "qunit": "~1.17.1"
+  },
+  "devDependencies": {
+    "bourbon": "4.0.0",
+    "neat": "~1.7.1"
   }
 }
