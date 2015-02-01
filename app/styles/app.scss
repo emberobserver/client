@@ -2,3 +2,23 @@
 @import "bower_components/bourbon/dist/_bourbon";
 @import "bower_components/neat/app/assets/stylesheets/_neat";
 @import "base/base";
+@import "grid_items";
+@import "index";
+
+.container {
+  @include outer-container;
+}
+
+header.navigation {
+  padding: 1em;
+  background-color: $dark-gray;
+  position: relative;
+
+  .name {
+    font-size: 2em;
+  }
+
+  input {
+    margin-top: 1em;
+  }
+}

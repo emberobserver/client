@@ -1,8 +1,9 @@
 // Typography
+$lato: 'Lato', sans-serif;
 $sans-serif: $helvetica;
 $serif: $georgia;
-$base-font-family: $sans-serif;
-$header-font-family: $base-font-family;
+$base-font-family: $lato;
+$header-font-family: $lato;
 
 // Font Sizes
 $base-font-size: 1em;
@@ -23,26 +24,33 @@ $base-spacing: $base-line-height * 1em;
 $base-z-index: 0;
 
 // Colors
-$blue: #477DCA;
-$dark-gray: #333;
-$medium-gray: #999;
-$light-gray: #DDD;
+$blue: #8EB2C5;
+$coral: #E5625C;
+$dark-coral: #D1313D;
+$hay: #F9BF76;
+$purple: #615375;
+
+$dark-gray: shade($blue, 70%); // #333;
+$medium-gray: shade($blue, 50%); //#999;
+$light-gray: tint($blue, 70%); //#DDD;
 $light-red: #FBE3E4;
 $light-yellow: #FFF6BF;
 $light-green: #E6EFC2;
 
+
 // Background Color
-$base-background-color: white;
+$base-background-color: tint($blue, 99%);
 
 // Font Colors
 $base-font-color: $dark-gray;
 $base-accent-color: $blue;
+$accent-color: $coral;
 
 // Link Colors
 $base-link-color: $base-accent-color;
 $hover-link-color: darken($base-accent-color, 15);
-$base-button-color: $base-link-color;
-$hover-button-color: $hover-link-color;
+$base-button-color: $accent-color;
+$hover-button-color: $dark-coral;
 
 // Flash Colors
 $alert-color: $light-yellow;
@@ -61,5 +69,5 @@ $form-border-color-focus: $base-accent-color;
 $form-border-radius: $base-border-radius;
 $form-box-shadow: inset 0 1px 3px rgba(black,0.06);
 $form-box-shadow-focus: $form-box-shadow, 0 0 5px rgba(darken($form-border-color-focus, 5), 0.7);
-$form-font-size: $base-font-size;
+$form-font-size: 1.5em;
 $form-font-family: $base-font-family;
