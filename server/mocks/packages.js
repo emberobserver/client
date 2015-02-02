@@ -3,9 +3,9 @@ module.exports = function(app) {
   var packagesRouter = express.Router();
 
   var packages = [
-    {id: 1, name: 'ember-cli-feature-flags', npmjs_url: 'http://npm.com', github_url: 'http;//github.com', categories: [1,2,3,4,5,6,7]},
-    {id: 2, name: 'ember-stripe-service', npmjs_url: 'http://npm.com', github_url: 'http;//github.com', categories: [8]},
-    {id: 3, name: 'ember-easy-form', npmjs_url: 'http://npm.com', github_url: 'http;//github.com', categories: [1,2,3,4,5,6,7]}
+    {id: 1, name: 'ember-cli-feature-flags', npmjs_url: 'http://npm.com', github_url: 'http;//github.com', categories: [1,2,3,4,5,6,7], description: "This is a package"},
+    {id: 2, name: 'ember-stripe-service', npmjs_url: 'http://npm.com', github_url: 'http;//github.com', categories: [8], description: "This is a package"},
+    {id: 3, name: 'ember-easy-form', npmjs_url: 'http://npm.com', github_url: 'http;//github.com', categories: [1,2,3,4,5,6,7],  description: "This is a package"}
   ];
 
   packagesRouter.get('/', function(req, res) {

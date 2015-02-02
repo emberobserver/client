@@ -4,13 +4,13 @@ module.exports = function(app) {
 
   var categories = [
     {id: 1, name: 'Authentication', description: 'Addons for auth', package_ids: [1, 2, 3]},
-    {id: 2, name: 'Components', description: 'Addons that provide a component'},
-    {id: 3, name: 'Styles', description: 'Addons that provide styles, css frameworks, preprocessors'},
-    {id: 4, name: 'Testing', description: 'Addons related to testing'},
-    {id: 5, name: 'Build tools', description: 'Addons related to preprocessing, broccoli plugins and dependencies of ember-cli'},
-    {id: 6, name: 'Data', description: 'Addons related to ember-data or alternatives to ember-data'},
-    {id: 7, name: 'Library wrappers', description: 'Addons that wrap third party libraries, jQuery plugins and the like'},
-    {id: 8, name: 'Miscellaneous', description: 'The addons that don\'t fit into other categories'}
+    {id: 2, name: 'Components', description: 'Addons that provide a component', package_ids: [1, 2]},
+    {id: 3, name: 'Styles', description: 'Addons that provide styles, css frameworks, preprocessors', package_ids: [3]},
+    {id: 4, name: 'Testing', description: 'Addons related to testing', package_ids: [1, 2, 3]},
+    {id: 5, name: 'Build tools', description: 'Addons related to preprocessing, broccoli plugins and dependencies of ember-cli', package_ids: [1, 2, 3]},
+    {id: 6, name: 'Data', description: 'Addons related to ember-data or alternatives to ember-data', package_ids: []},
+    {id: 7, name: 'Library wrappers', description: 'Addons that wrap third party libraries, jQuery plugins and the like', package_ids: [2]},
+    {id: 8, name: 'Miscellaneous', description: 'The addons that don\'t fit into other categories', package_ids: [1, 2, 3]}
   ];
 
   categoriesRouter.get('/', function(req, res) {

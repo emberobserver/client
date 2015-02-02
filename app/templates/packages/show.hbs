@@ -1,5 +1,6 @@
 <div class="container packages-show">
   <h1>{{model.name}}</h1>
+  <p>{{model.description}}</p>
   <label>Categories</label>
   {{#each category in model.categories}}
     {{#comma-separated list=model.categories item=category as |value separator|}}
