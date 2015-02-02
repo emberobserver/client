@@ -3,7 +3,8 @@
 @import "bower_components/neat/app/assets/stylesheets/_neat";
 @import "base/base";
 @import "index";
-@import "category_show";
+@import "categories_show";
+@import "packages_show";
 
 .container {
   @include outer-container;
