@@ -7,5 +7,5 @@ export default DS.Model.extend({
   name: attr('string'),
   npmjsUrl: attr('string'),
   githubUrl: attr('string'),
-  categories: hasMany('category')
+  categories: hasMany('category', {async: true})
 });
