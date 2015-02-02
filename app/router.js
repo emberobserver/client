@@ -13,6 +13,10 @@ Router.map(function() {
   this.route("packages", function() {
     this.route("show", { path: "/:id" });
   });
+
+  this.route("admin", function() {
+    this.route("login");
+  });
 });
 
 export default Router;

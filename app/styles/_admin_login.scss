@@ -1,0 +1,14 @@
+.admin-login {
+  @include outer-padding;
+  margin-top: 1em;
+
+  form {
+    @include span-columns(3);
+  }
+
+  input[type=submit] {
+    width: 100%;
+    padding-top: 1em;
+    padding-bottom: 1em;
+  }
+}
