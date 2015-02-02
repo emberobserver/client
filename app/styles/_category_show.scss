@@ -1,3 +1,11 @@
 .category-show {
   @include outer-padding;
+
+  h1 {
+    margin-bottom: .25em;
+  }
+  
+  h2 {
+    font-weight: 300;
+  }
 }

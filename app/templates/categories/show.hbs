@@ -1,3 +1,13 @@
 <div class="container category-show">
   <h1>{{model.name}}</h1>
+  <p>{{model.description}}</p>
+
+  <ul>
+    {{#each package in model.packages}}
+      <li>
+        <h2>{{#link-to "packages.show" package}}{{package.name}}{{/link-to}}</h2>
+        <small>Last updated 101 days ago</small>
+      </li>
+    {{/each}}
+  </ul>
 </div>

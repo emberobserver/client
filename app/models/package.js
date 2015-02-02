@@ -5,6 +5,7 @@ var hasMany = DS.hasMany;
 
 export default DS.Model.extend({
   name: attr('string'),
-  description: attr('string'),
-  packages: hasMany('package', {async: true})
+  npmjsUrl: attr('string'),
+  githubUrl: attr('string'),
+  categories: hasMany('category')
 });

@@ -3,7 +3,7 @@ module.exports = function(app) {
   var categoriesRouter = express.Router();
 
   var categories = [
-    {id: 1, name: 'Authentication', description: 'Addons for auth'},
+    {id: 1, name: 'Authentication', description: 'Addons for auth', package_ids: [1, 2, 3]},
     {id: 2, name: 'Components', description: 'Addons that provide a component'},
     {id: 3, name: 'Styles', description: 'Addons that provide styles, css frameworks, preprocessors'},
     {id: 4, name: 'Testing', description: 'Addons related to testing'},
