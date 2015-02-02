@@ -8,5 +8,7 @@ export default DS.Model.extend({
   description: attr('string'),
   npmjsUrl: attr('string'),
   repositoryUrl: attr('string'),
+  latestVersion: attr('string'),
+  latestVersionDate: attr('date'),
   categories: hasMany('category', {async: true})
 });

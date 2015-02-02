@@ -4,4 +4,37 @@
   h1 {
     margin-bottom: .25em;
   }
+
+  .package-info {
+    @include span-columns(8);
+  }
+
+  .package-stats {
+    @include span-columns(4);
+
+    .package-install {
+      margin-top: 3.5em;
+      font-family: 'Inconsolata';
+      font-weight: 300;
+    }
+  }
+
+  ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    font-weight: 300;
+
+    li {
+      line-height: 2.5;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
 }

@@ -11,7 +11,8 @@
     "ember-load-initializers": "ember-cli/ember-load-initializers#0.0.2",
     "ember-qunit": "0.1.8",
     "ember-qunit-notifications": "0.0.5",
-    "qunit": "~1.17.1"
+    "qunit": "~1.17.1",
+    "timeago": "~1.4.1"
   },
   "devDependencies": {
     "bourbon": "4.0.0",
