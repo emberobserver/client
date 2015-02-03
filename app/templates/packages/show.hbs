@@ -13,6 +13,7 @@
       {{/each}}
       {{#if session.isAuthenticated}}
         <form {{action "save" on="submit"}}>
+          <fieldset>
           {{multiselect-checkboxes options=categories labelProperty='name' selection=model.categories}}
 
             {{#if isSaving}}
@@ -20,6 +21,7 @@
             {{else}}
               {{input type="submit" value="Save"}}
             {{/if}}
+          </fieldset>
         </form>
       {{/if}}
     </section>
@@ -37,7 +39,7 @@
   <div class="package-stats">
     <p class="package-install">npm install {{model.name}}</p>
     <ul class="stats-list">
-      <li><b>{{model.latestVersion}}</b> from {{model.latestVersionDate}}</li>
+      <li><b>{{model.latestVersion}}</b> from {{ago model.latestVersionDate}}</li>
       <li>{{human-url url=model.repositoryUrl}}</li>
       <li>{{human-url url=model.npmUrl}}</li>
     </ul>
