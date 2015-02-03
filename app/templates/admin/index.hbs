@@ -1,1 +1,17 @@
-Admin
+<div class="container admin-index">
+  <h1>Admin</h1>
+
+  <h2>Categories ({{model.categories.length}})</h2>
+  <ul>
+    {{#each category in model.categories}}
+      <li>{{category.name}} - {{category.description}}</li>
+    {{/each}}
+  </ul>
+
+  <h2>Packages ({{model.packages.length}})</h2>
+  <ul>
+    {{#each package in model.packages}}
+      <li>{{package.name}}</li>
+    {{/each}}
+  </ul>
+</div>
