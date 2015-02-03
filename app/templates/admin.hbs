@@ -1,1 +1,5 @@
+{{#if session.isAuthenticated}}
+  <a href="#" {{action "logout"}}>Log out</a>
+{{/if}}
 {{outlet}}
+

@@ -14,8 +14,9 @@ Router.map(function() {
     this.route("show", { path: "/:id" });
   });
 
-  this.route("admin", function() {
-    this.route("login");
+  this.route("login");
+  this.route("admin", function(){
+
   });
 });
 
