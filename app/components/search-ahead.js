@@ -28,7 +28,7 @@ export default Ember.Component.extend({
 
         if (input && input !== "") {
             var _this = this;
-            matches = this.get('items').filter(function(item, index, enumerable) {
+            matches = this.get('items').filter(function(item) {
                 return _this.inputMatches(input, item.get('name'));
             });
         }
@@ -56,17 +56,17 @@ export default Ember.Component.extend({
         }
     }.observes('query'),
 
-    hideMatches: function(event) {
+    hideMatches: function() {
         this.set('showMatches', false);
         this.get('matches').setEach('active', false);
     },
 
     actions: {
-        lostFocus: function(event) {
+        lostFocus: function() {
             this.hideMatches();
         },
 
-        arrowUp: function(event) {
+        arrowUp: function() {
             if (!this.get('showMatches')) {
                 return;
             }
@@ -85,7 +85,7 @@ export default Ember.Component.extend({
             }
         },
 
-        arrowDown: function(event) {
+        arrowDown: function() {
             if (!this.get('showMatches')) {
                 return;
             }
@@ -104,7 +104,7 @@ export default Ember.Component.extend({
             }
         },
 
-        enter: function(event) {
+        enter: function() {
             if (!this.get('showMatches')) {
                 return;
             }

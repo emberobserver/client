@@ -3,7 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   tagName: 'span',
   separator: function(){
-    if(this.get('list.lastObject') == this.get('item')){
+    if(this.get('list.lastObject') === this.get('item')){
       return "";
     }
     else {

@@ -11,7 +11,7 @@ export default Ember.Object.extend({
         dataType: 'json',
         success: Ember.run.bind(null, resolve),
         error: Ember.run.bind(null, reject)
-      })
+      });
     }).then(function(response){
       session.set('token', response.token);
       window.localStorage.setItem('sessionToken', response.token);
@@ -32,8 +32,8 @@ export default Ember.Object.extend({
         dataType: 'json',
         success: Ember.run.bind(null, resolve),
         error: Ember.run.bind(null, reject)
-      })
-    }).finally(function(response){
+      });
+    }).finally(function(){
         session.set('token', null);
         window.localStorage.removeItem('sessionToken');
       });
