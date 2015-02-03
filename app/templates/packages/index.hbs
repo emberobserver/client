@@ -1,11 +1,5 @@
 <div class="container packages-index">
   <h1>Addons ({{model.length}})</h1>
 
-  <table class="tables">
-    <tbody>
-    {{#each addon in model}}
-      {{addon-row addon=addon}}
-    {{/each}}
-    </tbody>
-  </table>
+  {{packages-table packages=model}}
 </div>

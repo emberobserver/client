@@ -6,9 +6,11 @@ var hasMany = DS.hasMany;
 export default DS.Model.extend({
   name: attr('string'),
   description: attr('string'),
-  npmjsUrl: attr('string'),
   repositoryUrl: attr('string'),
   latestVersion: attr('string'),
   latestVersionDate: attr('date'),
-  categories: hasMany('category', {async: true})
+  categories: hasMany('category', {async: true}),
+  npmUrl: function(){
+    return `https://www.npmjs.com/package/${this.get('name')}`;
+  }.property('name')
 });

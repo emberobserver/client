@@ -37,9 +37,9 @@
   <div class="package-stats">
     <p class="package-install">npm install {{model.name}}</p>
     <ul class="stats-list">
-      <li><b>{{latestVersion}}</b> from {{latestVersionDate}}</li>
-      <li>{{human-url url=repositoryUrl}}</li>
-      <li>{{human-url url=npmjsUrl}}</li>
+      <li><b>{{model.latestVersion}}</b> from {{model.latestVersionDate}}</li>
+      <li>{{human-url url=model.repositoryUrl}}</li>
+      <li>{{human-url url=model.npmUrl}}</li>
     </ul>
   </div>
 </div>
