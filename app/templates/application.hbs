@@ -1,7 +1,7 @@
 <header class="navigation">
   <div class="container">
     {{#link-to "index" class="name"}}The Ember Addon Review{{/link-to}}
-    {{input class="blank" placeholder="Search for addons"}}
+    {{search-ahead items=controller placeholder="Search for addons" minSearchLength=3}}
   </div>
 </header>
 

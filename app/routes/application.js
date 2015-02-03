@@ -14,5 +14,9 @@ export default Ember.Route.extend({
         route.transitionTo('index');
       });
     }
+  },
+
+  model: function(){
+    return this.store.find('package');
   }
 });

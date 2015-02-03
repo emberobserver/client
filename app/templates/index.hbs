@@ -1,5 +1,5 @@
 <div class="container index">
-  <h1 id="title">Categories</h1>
+{{!--   <h1 id="title">Categories</h1>
 
   <div class="grid-items-lines">
     {{#each category in controller}}
@@ -12,5 +12,8 @@
 
     <div class="right-cover"></div>
     <div class="bottom-cover"></div>
-  </div>
+  </div> --}}
+
+  <h2>Featured Packages</h2>
+  {{featured-packages packages=controller count=4 sort='todo'}}
 </div>

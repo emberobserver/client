@@ -1,0 +1,61 @@
+.service-selector {
+    position: relative;
+}
+
+.service-selector .matches {
+    border: 1px solid #c4c4c4;
+    border-top: none;
+    @include border-bottom-radius(5px);
+
+    background: white;
+
+    position: absolute;
+    top: 34px;
+    z-index: 100;
+
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.search-ahead {
+    position: relative;
+
+    .matches {
+        border: 1px solid #c4c4c4;
+        border-top: none;
+        @include border-bottom-radius(5px);
+
+        background: white;
+
+        position: absolute;
+        top: 52px;
+        z-index: 100;
+
+        box-sizing: border-box;
+        width: 100%;
+    }
+
+    .matches li {
+        font-size: 0.6em;
+    }
+
+    .matches li:last-child {
+        @include border-bottom-radius(5px);
+    }
+
+    .matches li.active .desc {
+        color: #CCF;
+    }
+
+    .matches li.active .name {
+        color: white;
+    }
+
+    .matches li {
+        padding: 8px;
+    }
+
+    .matches li.active {
+        background: #477DCA;
+    }
+}

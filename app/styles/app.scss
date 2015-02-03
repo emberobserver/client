@@ -6,6 +6,8 @@
 @import "categories_show";
 @import "packages_show";
 @import "admin_login";
+@import "featured_packages";
+@import "search_ahead";
 
 .container {
   @include outer-container;
@@ -29,4 +31,17 @@ h1 {
   margin-bottom: 1em;
   margin-top: 1em;
   font-weight: 300;
+}
+
+h2 {
+  margin-bottom: 1em;
+  margin-top: 1em;
+  font-weight: 300;
+}
+
+h3 {
+  margin-bottom: 1em;
+  margin-top: 1em;
+  font-size: 1em;
+  font-weight: 700;
 }
