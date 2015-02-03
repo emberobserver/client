@@ -1,19 +1,32 @@
 <div class="container packages-show">
-  <div class='package-info'>
+  <div class="package-info">
     <h1>{{model.name}}</h1>
     <p>{{model.description}}</p>
-    <label>Categories</label>
-    {{#each category in model.categories}}
-      {{#comma-separated list=model.categories item=category as |value separator|}}
-        {{#link-to "categories.show" value}}{{value.name}}{{separator}}{{/link-to}}
-      {{/comma-separated}}
-    {{/each}}
+    <section>
+      <h4>Categories</h4>
+      {{#each category in model.categories}}
+        {{#comma-separated list=model.categories item=category as |value separator|}}
+          {{#link-to "categories.show" value}}{{value.name}}{{separator}}{{/link-to}}
+        {{/comma-separated}}
+      {{else}}
+        This addon hasn't been categorized yet. <a href="mailto:">Suggest categories &raquo;</a>
+      {{/each}}
+    </section>
+    <section>
+      <h4>Review</h4>
+      <small>Reviewed on December 28, 2014 for version 0.0.3</small>
+      <ol class="questions">
+        <li><span class="question">Has the addon been updated in the last six months?</span><span class="dots"></span><span class="answer"><strong>Yes</strong></span></li>
+        <li><span class="question">Is the README reasonably complete?</span><span class="dots"></span><span class="answer"><strong>No</strong></span></li>
+        <li><span class="question">Does it refrain from using private APIs?</span><span class="dots"></span><span class="answer"><strong>Yes</strong></span></li>
+     </ol>
+    </section>
   </div>
 
-  <div class='package-stats'>
-    <p class='package-install'>npm install {{model.name}}</p>
-    <ul class='stats-list'>
-      <li><b>{{latestVersion}}</b> from {{time-ago latestVersionDate}}</li>
+  <div class="package-stats">
+    <p class="package-install">npm install {{model.name}}</p>
+    <ul class="stats-list">
+      <li><b>{{latestVersion}}</b> from {{latestVersionDate}}</li>
       <li>{{human-url url=repositoryUrl}}</li>
       <li>{{human-url url=npmjsUrl}}</li>
     </ul>

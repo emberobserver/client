@@ -2,10 +2,14 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   domain: function() {
-    return new URL(this.get('url')).hostname.replace(/^(www.)?/, '');
+    if(this.get('url')){
+      return new URL(this.get('url')).hostname.replace(/^(www.)?/, '');
+    }
   }.property('url'),
 
   pathname: function() {
-    return new URL(this.get('url')).pathname;
+    if(this.get('url')){
+      return new URL(this.get('url')).pathname;
+    }
   }.property('url')
 });

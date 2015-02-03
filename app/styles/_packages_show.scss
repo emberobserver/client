@@ -5,6 +5,10 @@
     margin-bottom: .25em;
   }
 
+  section {
+    margin-bottom: 1em;
+  }
+
   .package-info {
     @include span-columns(8);
   }
@@ -18,8 +22,37 @@
       font-weight: 300;
     }
   }
+  .questions {
+    li
+    {
+      display: flex;
+    }
+    li .question,
+    li .answer
+    {
+      flex: 1 0 auto;
+    }
 
-  ul {
+    li .dots
+    {
+      flex: 0 1 auto;
+    }
+
+    .dots::before
+    {
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: clip;
+      content:
+      ". . . . . . . . . . . . . . . . . . . . "
+      ". . . . . . . . . . . . . . . . . . . . "
+      ". . . . . . . . . . . . . . . . . . . . "
+      ". . . . . . . . . . . . . . . . . . . . "
+    }
+  }
+
+  ul.stats-list {
     list-style: none;
     padding: 0px;
     margin: 0px;

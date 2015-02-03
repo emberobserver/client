@@ -5,11 +5,15 @@
 @import "index";
 @import "categories_show";
 @import "packages_show";
+<<<<<<< HEAD
+@import "admin_login";
+@import "featured_packages";
+@import "search_ahead";
+=======
 @import "login";
 @import "packages_index";
 @import "components/addon-row";
-@import "featured_packages";
-@import "search_ahead";
+>>>>>>> 2b3997b61559d52a21b38f079f54f8de09aa3f07
 
 .container {
   @include outer-container;

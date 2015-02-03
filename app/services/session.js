@@ -14,9 +14,15 @@ export default Ember.Object.extend({
       })
     }).then(function(response){
       session.set('token', response.token);
+      window.localStorage.setItem('sessionToken', response.token);
     });
   },
-
+  fetch: function(){
+    var token = window.localStorage.getItem('sessionToken');
+    if(token){
+      this.set('token', token);
+    }
+  },
   close: function(){
     var session = this;
     return new Ember.RSVP.Promise(function(resolve, reject){
@@ -29,7 +35,8 @@ export default Ember.Object.extend({
       })
     }).finally(function(response){
         session.set('token', null);
-    });
+        window.localStorage.removeItem('sessionToken');
+      });
   },
   isAuthenticated: isPresent('token')
 });
