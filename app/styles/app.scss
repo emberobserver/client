@@ -6,6 +6,8 @@
 @import "categories_show";
 @import "packages_show";
 @import "login";
+@import "packages_index";
+@import "components/addon-row";
 
 .container {
   @include outer-container;
