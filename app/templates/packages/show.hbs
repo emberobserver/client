@@ -11,6 +11,17 @@
       {{else}}
         This addon hasn't been categorized yet. <a href="mailto:">Suggest categories &raquo;</a>
       {{/each}}
+      {{#if session.isAuthenticated}}
+        <form {{action "save" on="submit"}}>
+          {{multiselect-checkboxes options=categories labelProperty='name' selection=model.categories}}
+
+            {{#if isSaving}}
+              <input type="submit" value="Saving" disabled>
+            {{else}}
+              {{input type="submit" value="Save"}}
+            {{/if}}
+        </form>
+      {{/if}}
     </section>
     <section>
       <h4>Review</h4>
