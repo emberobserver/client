@@ -6,15 +6,26 @@ export default Ember.Object.extend({
     return new Ember.RSVP.Promise(function(resolve, reject){
       Ember.$.ajax({
         type: 'POST',
-        url: 'api/auth.json',
+        url: 'api/authentication/login.json',
         data: { email: email, password: password },
         dataType: 'json',
         success: Ember.run.bind(null, resolve),
         error: Ember.run.bind(null, reject)
       });
     }).then(function(response){
-      session.set('token', response.token);
-      window.localStorage.setItem('sessionToken', response.token);
+      return new Ember.RSVP.Promise(function(resolve, reject){
+        if(response.token){
+          session.set('token', response.token);
+          window.localStorage.setItem('sessionToken', response.token);
+          resolve();
+        }
+        else {
+          reject();
+        }
+      });
+    }).catch(function(){
+      session.clearToken();
+      console.log('Failed logging in');
     });
   },
   fetch: function(){
@@ -28,17 +39,24 @@ export default Ember.Object.extend({
     return new Ember.RSVP.Promise(function(resolve, reject){
       Ember.$.ajax({
         type: 'POST',
-        url: 'api/logout.json',
+        url: 'api/authentication/logout.json',
         dataType: 'json',
+        headers: session.get('header'),
         success: Ember.run.bind(null, resolve),
         error: Ember.run.bind(null, reject)
       });
     }).finally(function(){
-        session.set('token', null);
-        window.localStorage.removeItem('sessionToken');
-      });
+      session.clearToken();
+    });
   },
-  isAuthenticated: isPresent('token')
+  clearToken: function(){
+    this.set('token', null);
+    window.localStorage.removeItem('sessionToken');
+  },
+  isAuthenticated: isPresent('token'),
+  header: function(){
+    return {"Authorization": 'Token token=' + this.get('token')};
+  }.property('token')
 });
 
 function isPresent ( strProp ) {
