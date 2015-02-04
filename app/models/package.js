@@ -10,6 +10,7 @@ export default DS.Model.extend({
   latestVersion: attr('string'),
   latestVersionDate: attr('date'),
   categories: hasMany('category', {async: true}),
+  keywords: hasMany('keyword', {async: true}),
   npmUrl: function(){
     return `https://www.npmjs.com/package/${this.get('name')}`;
   }.property('name')

@@ -24,6 +24,14 @@ export default Ember.Route.extend({
   },
 
   model: function(){
-    return this.store.find('package');
+    return Ember.RSVP.hash({
+      packages: this.store.find('package'),
+      categories: this.store.find('category')
+    });
+  },
+  afterModel: function(){
+    this.store.find('keyword');
   }
+
+
 });

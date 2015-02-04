@@ -43,5 +43,13 @@
       <li>{{human-url url=model.repositoryUrl}}</li>
       <li>{{human-url url=model.npmUrl}}</li>
     </ul>
+    <h6>npm keywords</h6>
+    <p>
+      {{#each keyword in model.keywords}}
+        {{#comma-separated list=model.keywords item=keyword as |value separator|}}
+          {{value.keyword}}{{separator}}
+        {{/comma-separated}}
+      {{/each}}
+    </p>
   </div>
 </div>
