@@ -1,9 +1,9 @@
+// todo Fix observes and add debounce
 import Ember from 'ember';
 
 export default Ember.Component.extend({
     showMatches: false,
     matches: [],
-    itemId: null,
     classNames: ['search-ahead'],
     minSearchLength: 1,
 
@@ -20,41 +20,34 @@ export default Ember.Component.extend({
 
     matchItems: function() {
         var input = this.get('query');
-        var matches = [];
 
         if (input.length < this.get('minSearchLength')) {
-          return matches;
+            this.setProperties({'showMatches': false, 'matches': []});
+            return;
         }
 
         if (input && input !== "") {
             var _this = this;
-            matches = this.get('items').filter(function(item) {
+            var matches = this.get('items').filter(function(item) {
                 return _this.inputMatches(input, item.get('name'));
             });
-        }
 
-        if (matches.length) {
-            this.setProperties({
-                'showMatches': true,
-                'matches': matches,
-            });
-        } else {
-            this.setProperties({
-                'showMatches': false,
-                'matches': [],
-            });
+            if (matches.length) {
+                this.setProperties({'showMatches': true, 'matches': matches});
+            } else {
+                this.setProperties({'showMatches': false, 'matches': []});
+            }
         }
     }.observes('query'),
 
-    setItemId: function() {
+    item: function() {
         var nameMatch = this.get('matches').findBy('name', this.get('query'));
         if (nameMatch) {
-            this.set('itemId', nameMatch.get('id'));
-            console.log(nameMatch);
+            return nameMatch;
         } else {
-            this.set('itemId', null);
+            return null;
         }
-    }.observes('query'),
+    }.property('query'),
 
     hideMatches: function() {
         this.set('showMatches', false);
@@ -105,6 +98,10 @@ export default Ember.Component.extend({
         },
 
         enter: function() {
+            if (this.get('item')) {
+                this.sendAction('action', this.get('item'));
+            };
+
             if (!this.get('showMatches')) {
                 return;
             }
@@ -113,6 +110,7 @@ export default Ember.Component.extend({
 
             if (active) {
                 this.set('query', active.get('name'));
+                this.sendAction('action', active);
             }
 
             this.hideMatches();

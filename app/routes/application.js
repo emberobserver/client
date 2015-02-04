@@ -16,6 +16,10 @@ export default Ember.Route.extend({
       this.get('session').close().finally(function(){
         route.transitionTo('index');
       });
+    },
+
+    showPackage: function(pkg) {
+      this.transitionTo('packages.show', pkg);
     }
   },
 
