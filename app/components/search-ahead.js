@@ -100,7 +100,7 @@ export default Ember.Component.extend({
         enter: function() {
             if (this.get('item')) {
                 this.sendAction('action', this.get('item'));
-            };
+            }
 
             if (!this.get('showMatches')) {
                 return;
