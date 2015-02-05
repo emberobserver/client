@@ -40,8 +40,9 @@
     <p class="package-install">npm install {{model.name}}</p>
     <ul class="stats-list">
       <li><b>{{model.latestVersion}}</b> from {{ago model.latestVersionDate}}</li>
-      <li>{{human-url url=model.repositoryUrl}}</li>
-      <li>{{human-url url=model.npmUrl}}</li>
+      <li><b>repo</b> {{human-url url=model.repositoryUrl}}</li>
+      <li><b>package</b> {{human-url url=model.npmUrl}}</li>
+      <li><b>license</b> <a {{bind-attr href="licenseUrl"}}>{{model.license}}</a></li>
     </ul>
     <h6>npm keywords</h6>
     <p>

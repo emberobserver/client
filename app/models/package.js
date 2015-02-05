@@ -9,6 +9,7 @@ export default DS.Model.extend({
   repositoryUrl: attr('string'),
   latestVersion: attr('string'),
   latestVersionDate: attr('date'),
+  license: attr('string'),
   categories: hasMany('category', {async: true}),
   keywords: hasMany('keyword', {async: true}),
   npmUrl: function(){

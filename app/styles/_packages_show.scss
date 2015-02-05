@@ -65,7 +65,8 @@
     font-weight: 300;
 
     li {
-      line-height: 2.5;
+      padding-top: .5em;
+      padding-bottom: .5em;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
