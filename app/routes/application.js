@@ -28,9 +28,6 @@ export default Ember.Route.extend({
       addons: this.store.find('addon'),
       categories: this.store.find('category')
     });
-  },
-  afterModel: function(){
-    this.store.find('keyword');
   }
 
 

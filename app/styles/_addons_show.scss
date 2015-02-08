@@ -21,6 +21,14 @@
       font-family: 'Inconsolata';
       font-weight: 300;
     }
+
+    .keywords, .versions {
+      font-weight: 300;
+    }
+
+    .version-number {
+      font-weight: normal;
+    }
   }
 
   label {

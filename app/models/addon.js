@@ -12,6 +12,7 @@ export default DS.Model.extend({
   license: attr('string'),
   categories: hasMany('category', {async: true}),
   keywords: hasMany('keyword', {async: true}),
+  versions: hasMany('version', {async: true}),
   npmUrl: function(){
     return `https://www.npmjs.com/package/${this.get('name')}`;
   }.property('name')
