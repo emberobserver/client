@@ -3,7 +3,7 @@ import {
   test
 } from 'ember-qunit';
 
-moduleFor('controller:packages/show', 'PackagesShowController', {
+moduleFor('controller:addons/show', 'AddonsShowController', {
   // Specify the other units that are required for this test.
   // needs: ['controller:foo']
 });

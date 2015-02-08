@@ -3,7 +3,7 @@ import {
   test
 } from 'ember-qunit';
 
-moduleForComponent('featured-packages', 'FeaturedPackagesComponent', {
+moduleForComponent('addons-table', 'AddonsTableComponent', {
   // specify the other units that are required for this test
   // needs: ['component:foo', 'helper:bar']
 });

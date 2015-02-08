@@ -5,5 +5,5 @@ var hasMany = DS.hasMany;
 
 export default DS.Model.extend({
   keyword: attr('string'),
-  packages: hasMany('package')
+  addons: hasMany('addon')
 });

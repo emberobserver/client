@@ -9,5 +9,5 @@ export default Ember.Component.extend({
     else {
       return ", ";
     }
-  }.property('list', 'item')
+  }.property('list.lastObject', 'item')
 });

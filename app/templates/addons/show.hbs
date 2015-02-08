@@ -1,5 +1,5 @@
-<div class="container packages-show">
-  <div class="package-info">
+<div class="container addons-show">
+  <div class="addon-info">
     <h1>{{model.name}}</h1>
     <p>{{model.description}}</p>
     <section>
@@ -36,12 +36,12 @@
     </section>
   </div>
 
-  <div class="package-stats">
-    <p class="package-install">npm install {{model.name}}</p>
+  <div class="addon-stats">
+    <p class="addon-install">npm install {{model.name}}</p>
     <ul class="stats-list">
       <li><b>{{model.latestVersion}}</b> from {{ago model.latestVersionDate}}</li>
       <li><b>repo</b> {{human-url url=model.repositoryUrl}}</li>
-      <li><b>package</b> {{human-url url=model.npmUrl}}</li>
+      <li><b>addon</b> {{human-url url=model.npmUrl}}</li>
       <li><b>license</b> <a {{bind-attr href="licenseUrl"}}>{{model.license}}</a></li>
     </ul>
     <h6>npm keywords</h6>

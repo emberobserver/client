@@ -10,7 +10,7 @@ Router.map(function() {
     this.route("show", { path: "/:id" });
   });
 
-  this.route("packages", function() {
+  this.route("addons", function() {
     this.route("show", { path: "/:id" });
   });
 

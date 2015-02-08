@@ -4,7 +4,7 @@
   <div class="grid-items-lines">
     {{#each category in controller}}
       {{#link-to "categories.show" category class="grid-item"}}
-        <h2>{{category.name}} ({{category.packages.length}})</h2>
+        <h2>{{category.name}} ({{category.addons.length}})</h2>
 
         <p>{{category.description}}</p>
       {{/link-to}}
@@ -14,6 +14,6 @@
     <div class="bottom-cover"></div>
   </div>
 
-  {{!--<h2>Featured Packages</h2>--}}
-  {{!--{{featured-packages packages=controller count=4 sort='todo'}}--}}
+  {{!--<h2>Featured addons</h2>--}}
+  {{!--{{featured-addons addons=controller count=4 sort='todo'}}--}}
 </div>

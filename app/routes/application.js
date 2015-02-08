@@ -18,14 +18,14 @@ export default Ember.Route.extend({
       });
     },
 
-    showPackage: function(pkg) {
-      this.transitionTo('packages.show', pkg);
+    showAddon: function(pkg) {
+      this.transitionTo('addons.show', pkg);
     }
   },
 
   model: function(){
     return Ember.RSVP.hash({
-      packages: this.store.find('package'),
+      addons: this.store.find('addon'),
       categories: this.store.find('category')
     });
   },

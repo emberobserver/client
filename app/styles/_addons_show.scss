@@ -1,4 +1,4 @@
-.packages-show {
+.addons-show {
   @include outer-padding;
 
   h1 {
@@ -9,14 +9,14 @@
     margin-bottom: 1em;
   }
 
-  .package-info {
+  .addon-info {
     @include span-columns(8);
   }
 
-  .package-stats {
+  .addon-stats {
     @include span-columns(4);
 
-    .package-install {
+    .addon-install {
       margin-top: 3.5em;
       font-family: 'Inconsolata';
       font-weight: 300;

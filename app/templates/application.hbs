@@ -2,10 +2,10 @@
   <div class="container">
     {{#link-to "index" class="name"}}The Ember Addon Review{{/link-to}}
     {{search-ahead
-      items=model.packages
+      items=model.addons
       placeholder="Search for addons"
       minSearchLength=3
-      action="showPackage"
+      action="showAddon"
     }}
   </div>
   {{#if session.isAuthenticated}}
@@ -20,7 +20,7 @@
     <ul>
       <li><h3>Content</h3></li>
       <li>{{#link-to "index"}}Categories{{/link-to}}</li>
-      <li>{{#link-to "packages.index"}}Addons{{/link-to}}</li>
+      <li>{{#link-to "addons.index"}}Addons{{/link-to}}</li>
       <li><a href="javascript:void(0)">Keywords</a></li>
     </ul>
     <ul>
