@@ -26,6 +26,13 @@
       {{/if}}
     </section>
     <section>
+      {{#if session.isAuthenticated}}
+        {{#if isReviewing}}
+          {{addon-review-form review=newReview save="saveReview"}}
+        {{else}}
+          <button {{action "review"}}>Review</button>
+        {{/if}}
+      {{/if}}
       <h4>Review</h4>
       <small>Reviewed on December 28, 2014 for version 0.0.3</small>
       <ol class="questions">

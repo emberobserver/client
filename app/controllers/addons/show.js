@@ -29,6 +29,20 @@ export default Ember.Controller.extend({
       this.get('model').save().finally(function(){
         controller.set('isSaving', false);
       });
+    },
+    review: function(){
+      var newReview = this.store.createRecord('review', {
+        version: this.get('sortedVersions.lastObject')
+      });
+      this.set('newReview', newReview);
+      this.set('isReviewing', true);
+    },
+    saveReview: function(newReview){
+      var controller = this;
+      newReview.save().finally(function(){
+        controller.set('newReview', null);
+        controller.set('isReviewing', false);
+      });
     }
   }
 
