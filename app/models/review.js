@@ -14,9 +14,23 @@ export default DS.Model.extend({
     3: "N/A",
     4: "Unknown"
   },
-  answer: function(){
-    return this.answerMap[this.get('answerCode')];
-  }.property('answerCode'),
+  answeredQuestions: function(){
+    var review = this;
+    return this.questions.map(function(question){
+      return Ember.Object.create({
+        text: question.text,
+        answer: review.answerMap[review.get(question.fieldName)]
+      });
+    });
+  }.property(),
+  questions: [
+    {text: 'Is it more than an empty addon?', fieldName: 'isMoreThanEmptyAddon'},
+    {text: 'Are there meaningful tests?', fieldName: 'hasTests'},
+    {text: 'Is the README filled out?', fieldName: 'hasReadme'},
+    {text: 'Is the source accessible?', fieldName: 'isOpenSource'},
+    {text: 'If so, does the addon use only public Ember APIs?', fieldName: 'usesOnlyPublicApis'},
+    {text: 'Does the addon have a build?', fieldName: 'hasBuild'}
+  ],
   review: attr('string'),
   createdAt: attr('date'),
   version: belongsTo('version'),

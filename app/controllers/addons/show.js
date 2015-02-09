@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-export function sortBy( arrProp, sortProperty ) {
+function sortBy( arrProp, sortProperty ) {
   var sortProperties = sortProperty.split(':');
   var sortProp = sortProperties[0];
   var sortDirection = sortProperties[1];
@@ -22,6 +22,8 @@ export default Ember.Controller.extend({
     return `https://spdx.org/licenses/${this.get('model.license')}`;
   }.property('model.license'),
   sortedVersions: sortBy('model.versions', 'released:desc'),
+  latestVersion: Ember.computed.alias('sortedVersions.firstObject'),
+  review: Ember.computed.alias('latestVersion.review'),
   actions: {
     save: function(){
       var controller = this;
@@ -32,7 +34,7 @@ export default Ember.Controller.extend({
     },
     review: function(){
       var newReview = this.store.createRecord('review', {
-        version: this.get('sortedVersions.lastObject')
+        version: this.get('latestVersion')
       });
       this.set('newReview', newReview);
       this.set('isReviewing', true);

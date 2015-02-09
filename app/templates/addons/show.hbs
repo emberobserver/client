@@ -1,6 +1,7 @@
 <div class="container addons-show">
   <div class="addon-info">
     <h1>{{model.name}}</h1>
+
     <p>{{model.description}}</p>
     <section>
       <h4>Categories</h4>
@@ -14,7 +15,7 @@
       {{#if session.isAuthenticated}}
         <form {{action "save" on="submit"}}>
           <fieldset>
-          {{multiselect-checkboxes options=categories labelProperty='name' selection=model.categories}}
+            {{multiselect-checkboxes options=categories labelProperty="name" selection=model.categories}}
 
             {{#if isSaving}}
               <input type="submit" value="Saving" disabled>
@@ -28,23 +29,29 @@
     <section>
       {{#if session.isAuthenticated}}
         {{#if isReviewing}}
-          {{addon-review-form review=newReview save="saveReview"}}
+          {{addon-review-form review=newReview questions=review.questions save="saveReview"}}
         {{else}}
           <button {{action "review"}}>Review</button>
         {{/if}}
       {{/if}}
       <h4>Review</h4>
-      <small>Reviewed on December 28, 2014 for version 0.0.3</small>
+      <small>Reviewed on {{moment review.createdAt "MMMM Do YYYY"}} for version {{review.version.version}}</small>
       <ol class="questions">
-        <li><span class="question">Has the addon been updated in the last six months?</span><span class="dots"></span><span class="answer"><strong>Yes</strong></span></li>
-        <li><span class="question">Is the README reasonably complete?</span><span class="dots"></span><span class="answer"><strong>No</strong></span></li>
-        <li><span class="question">Does it refrain from using private APIs?</span><span class="dots"></span><span class="answer"><strong>Yes</strong></span></li>
-     </ol>
+        {{#each question in review.answeredQuestions}}
+          <li>
+            <span class="question">{{question.text}}</span>
+            <span class="dots"></span>
+            <span class="answer"><strong>{{question.answer}}</strong></span>
+          </li>
+        {{/each}}
+      </ol>
+      <p>{{review.review}}</p>
     </section>
   </div>
 
   <div class="addon-stats">
     <p class="addon-install">npm install {{model.name}}</p>
+
     <ul class="stats-list">
       <li><b>{{model.latestVersion}}</b> from {{ago model.latestVersionDate}}</li>
       <li><b>repo</b> {{human-url url=model.repositoryUrl}}</li>
@@ -52,6 +59,7 @@
       <li><b>license</b> <a {{bind-attr href="licenseUrl"}}>{{model.license}}</a></li>
     </ul>
     <h6>npm keywords</h6>
+
     <p class="keywords">
       {{#each keyword in model.keywords}}
         {{#comma-separated list=model.keywords item=keyword as |value separator|}}
@@ -61,9 +69,10 @@
     </p>
 
     <h6>versions</h6>
+
     <ul class="versions">
       {{#each version in sortedVersions}}
-        <li>{{moment version.released "YYYY-MMM-DD"}} <span class=version-number>{{version.version}}</span></li>
+        <li>{{moment version.released "YYYY-MMM-DD"}} <span class="version-number">{{version.version}}</span></li>
       {{/each}}
     </ul>
   </div>
