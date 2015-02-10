@@ -24,6 +24,22 @@ export default Ember.Controller.extend({
   sortedVersions: sortBy('model.versions', 'released:desc'),
   latestVersion: Ember.computed.alias('sortedVersions.firstObject'),
   review: Ember.computed.alias('latestVersion.review'),
+  answerMap: {
+    1: "Yes",
+    2: "No",
+    3: "N/A",
+    4: "Unknown"
+  },
+  answeredQuestions: function(){
+    var controller = this;
+    var review = this.get('review');
+    return review.questions.map(function(question){
+      return Ember.Object.create({
+        text: question.text,
+        answer: controller.answerMap[review.get(question.fieldName)]
+      });
+    });
+  }.property('review'),
   actions: {
     save: function(){
       var controller = this;

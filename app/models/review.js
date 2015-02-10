@@ -8,21 +8,6 @@ export default DS.Model.extend({
   autoQuestions: [
     {text: 'Has it been released within the last 6 months', field: 'hasBeenReleasedRecently'}
   ],
-  answerMap: {
-    1: "Yes",
-    2: "No",
-    3: "N/A",
-    4: "Unknown"
-  },
-  answeredQuestions: function(){
-    var review = this;
-    return this.questions.map(function(question){
-      return Ember.Object.create({
-        text: question.text,
-        answer: review.answerMap[review.get(question.fieldName)]
-      });
-    });
-  }.property(),
   questions: [
     {text: 'Is it more than an empty addon?', fieldName: 'isMoreThanEmptyAddon'},
     {text: 'Are there meaningful tests?', fieldName: 'hasTests'},

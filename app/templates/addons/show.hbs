@@ -27,18 +27,11 @@
       {{/if}}
     </section>
     <section>
-      {{#if session.isAuthenticated}}
-        {{#if isReviewing}}
-          {{addon-review-form review=newReview questions=review.questions save="saveReview"}}
-        {{else}}
-          <button {{action "review"}}>Review</button>
-        {{/if}}
-      {{/if}}
       <h4>Review</h4>
       {{#if review}}
         <small>Reviewed on {{moment review.createdAt "MMMM Do YYYY"}} for version {{review.version.version}}</small>
         <ol class="questions">
-          {{#each question in review.answeredQuestions}}
+          {{#each question in answeredQuestions}}
             <li>
               <span class="question">{{question.text}}</span>
               <span class="dots"></span>
@@ -46,9 +39,21 @@
             </li>
           {{/each}}
         </ol>
-        <p>{{review.review}}</p>
+        <br>
+        {{#if review.review}}
+          <h6>Comments</h6>
+          <p>{{review.review}}</p>
+        {{/if}}
       {{else}}
         This addon has not yet been reviewed. <a href="#">Review now &raquo;</a>
+      {{/if}}
+      <br>
+      {{#if session.isAuthenticated}}
+        {{#if isReviewing}}
+          {{addon-review-form review=newReview questions=review.questions save="saveReview"}}
+        {{else}}
+          <button {{action "review"}}>Review</button>
+        {{/if}}
       {{/if}}
     </section>
   </div>
