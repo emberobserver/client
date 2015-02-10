@@ -1,11 +1,11 @@
 <header class="navigation">
   <div class="container">
     {{#link-to "index" class="name"}}The Ember Addon Review{{/link-to}}
-    {{search-ahead
+    {{autocomplete-textfield
       items=model.addons
+      displayKey="name"
       placeholder="Search for addons"
-      minSearchLength=3
-      action="showAddon"
+      select="showAddon"
     }}
   </div>
   {{#if session.isAuthenticated}}
@@ -39,5 +39,3 @@
 
   <p>Created by <a href="http://www.codeallday.com">Katie Gengler</a>, <a href="http://louissimons.com/">Louis Simons</a> and <a href="http://pgengler.net">Phil Gengler.</a></p>
 </footer>
-
-

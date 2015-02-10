@@ -12,7 +12,8 @@
     "ember-qunit": "0.1.8",
     "ember-qunit-notifications": "0.0.5",
     "qunit": "~1.17.1",
-    "ember-cli-moment-shim": "~0.0.3"
+    "ember-cli-moment-shim": "~0.0.3",
+    "jquery-ui": "~1.11.2"
   },
   "devDependencies": {
     "bourbon": "4.0.0",
