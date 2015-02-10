@@ -35,17 +35,21 @@
         {{/if}}
       {{/if}}
       <h4>Review</h4>
-      <small>Reviewed on {{moment review.createdAt "MMMM Do YYYY"}} for version {{review.version.version}}</small>
-      <ol class="questions">
-        {{#each question in review.answeredQuestions}}
-          <li>
-            <span class="question">{{question.text}}</span>
-            <span class="dots"></span>
-            <span class="answer"><strong>{{question.answer}}</strong></span>
-          </li>
-        {{/each}}
-      </ol>
-      <p>{{review.review}}</p>
+      {{#if review}}
+        <small>Reviewed on {{moment review.createdAt "MMMM Do YYYY"}} for version {{review.version.version}}</small>
+        <ol class="questions">
+          {{#each question in review.answeredQuestions}}
+            <li>
+              <span class="question">{{question.text}}</span>
+              <span class="dots"></span>
+              <span class="answer"><strong>{{question.answer}}</strong></span>
+            </li>
+          {{/each}}
+        </ol>
+        <p>{{review.review}}</p>
+      {{else}}
+        This addon has not yet been reviewed. <a href="#">Review now &raquo;</a>
+      {{/if}}
     </section>
   </div>
 
