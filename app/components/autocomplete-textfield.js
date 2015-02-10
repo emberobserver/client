@@ -18,7 +18,6 @@ export default Ember.Component.extend({
 		var select = function(_, ui) {
 			var selected = ui.item.value;
 			var item = component.get('items').findBy(displayKey, selected);
-			console.dir(item);
 			component.sendAction('select', item);
 		};
 		var source = this.get('items').map(function(item) { return item.get(displayKey); });
