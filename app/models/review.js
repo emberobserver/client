@@ -25,7 +25,7 @@ export default DS.Model.extend({
   isOpenSource: attr('number'),
   usesOnlyPublicApis: attr('number'),
   hasBuild: attr('number'),
-  addon: Ember.computed.alias('version.addon'),
+  addon: belongsTo('addon'),
   hasBeenReleasedRecently: Ember.computed.alias('addon.hasBeenReleasedRecently'),
   hasLicense: Ember.computed.alias('addon.hasLicense')
 });

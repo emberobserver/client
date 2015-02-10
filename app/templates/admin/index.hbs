@@ -8,10 +8,25 @@
     {{/each}}
   </ul>
 
-  <h2>Addons ({{model.addons.length}})</h2>
-  <ul>
-    {{#each addon in model.addons}}
-      <li>{{addon.name}}</li>
-    {{/each}}
-  </ul>
+  <h2>Addons needing categorization ({{addonsNeedingCategorization.length}} / {{model.addons.length}})</h2>
+  {{#if showAddonsNeedingCategorization}}
+    <ul>
+      {{#each addon in addonsNeedingCategorization}}
+        <li>{{addon-row addon=addon}}</li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <a href="#" {{action "showNeedingCategories"}}>Show</a>
+  {{/if}}
+
+  <h2>Addons needing review ({{addonsNeedingReview.length}} / {{model.addons.length}})</h2>
+  {{#if showAddonsNeedingReview}}
+    <ul>
+      {{#each addon in addonsNeedingReview}}
+        <li>{{addon-row addon=addon}}</li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <a href="#" {{action "showNeedingReview"}}>Show</a>
+  {{/if}}
 </div>
