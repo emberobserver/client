@@ -77,6 +77,11 @@
       {{/each}}
     </p>
 
+    <h6>maintainers</h6>
+    {{#each maintainer in model.maintainers}}
+      {{gravatar-avatar gravatarId=maintainer.gravatar title=maintainer.name alt=maintainer.name}}
+    {{/each}}
+
     <h6>versions</h6>
 
     <ul class="versions">
