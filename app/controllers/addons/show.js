@@ -49,14 +49,13 @@ export default Ember.Controller.extend({
       });
     },
     review: function(){
-      var newReview = this.store.createRecord('review', {
-        version: this.get('latestVersion')
-      });
+      var newReview = this.store.createRecord('review');
       this.set('newReview', newReview);
       this.set('isReviewing', true);
     },
     saveReview: function(newReview){
       var controller = this;
+      newReview.set('version', this.get('latestVersion'));
       newReview.save().finally(function(){
         controller.set('newReview', null);
         controller.set('isReviewing', false);

@@ -42,18 +42,12 @@
         <br>
         {{#if review.review}}
           <h6>Comments</h6>
-          <p>{{review.review}}</p>
+          <fieldset>
+            {{markdown-section content=review.review}}
+          </fieldset>
         {{/if}}
       {{else}}
         This addon has not yet been reviewed. <a href="#">Review now &raquo;</a>
-      {{/if}}
-      <br>
-      {{#if session.isAuthenticated}}
-        {{#if isReviewing}}
-          {{addon-review-form review=newReview questions=review.questions save="saveReview"}}
-        {{else}}
-          <button {{action "review"}}>Review</button>
-        {{/if}}
       {{/if}}
     </section>
   </div>
@@ -91,5 +85,13 @@
     </ul>
   </div>
 
-
+  <div class="new-review">
+    {{#if session.isAuthenticated}}
+      {{#if isReviewing}}
+        {{addon-review-form review=newReview questions=newReview.questions save="saveReview"}}
+      {{else}}
+        <button {{action "review"}}>Review</button>
+      {{/if}}
+    {{/if}}
+  </div>
 </div>

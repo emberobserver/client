@@ -9,12 +9,17 @@
     margin-bottom: 1em;
   }
 
+  .new-review {
+    @include span-columns(12);
+  }
+
   .addon-info {
     @include span-columns(8);
   }
 
   .addon-stats {
     @include span-columns(4);
+    @include omega();
 
     .addon-install {
       margin-top: 3.5em;
