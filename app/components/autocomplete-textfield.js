@@ -4,8 +4,7 @@ export default Ember.Component.extend({
 	tagName: 'input',
 	placeholder: '',
 	type: 'text',
-	value: '',
-	attributeBindings: [ 'placeholder', 'type', 'value' ],
+	attributeBindings: [ 'placeholder', 'type' ],
 
 	items: null,
 	displayKey: '',
@@ -17,12 +16,25 @@ export default Ember.Component.extend({
 		var displayKey = this.get('displayKey');
 		var select = function(_, ui) {
 			var selected = ui.item.value;
-			var item = component.get('items').findBy(displayKey, selected);
-			component.sendAction('select', item);
+			component.trigger('selected', selected);
 		};
 		var source = this.get('items').map(function(item) { return item.get(displayKey); });
 		$input.autocomplete({
 			select, source
 		});
+	},
+
+	keyPress: function(event) {
+		if (event.keyCode === 13) {
+			this.trigger('selected', event.target.value);
+		}
+	},
+
+	selected: function(value) {
+		var displayKey = this.get('displayKey');
+		var item = this.get('items').findBy(displayKey, value);
+		if (item) {
+			this.sendAction('select', item);
+		}
 	}
 });
