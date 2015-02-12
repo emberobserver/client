@@ -1,12 +1,38 @@
 .addons-show {
   @include outer-padding;
 
+  margin-top: 3.5em;
+
   h1 {
+    margin-top: 0;
     margin-bottom: .25em;
+    color: darken($blue, 5);
   }
 
   section {
-    margin-bottom: 1em;
+    margin-bottom: 2em;
+  }
+
+  .categories {
+    p {
+      margin-top: .5em;
+      font-size: 1.1em;
+    }
+  }
+
+  .latest-review {
+    .review-date {
+      font-size: .8em;
+      color: #999;
+    }
+
+    ol {
+      margin-top: 1em;
+    }
+
+    h6 {
+      margin-bottom: 1em;
+    }
   }
 
   .new-review {
@@ -14,15 +40,15 @@
   }
 
   .addon-info {
-    @include span-columns(8);
+    @include span-columns(7);
   }
 
   .addon-stats {
     @include span-columns(4);
+    @include shift(1);
     @include omega();
 
     .addon-install {
-      margin-top: 3.5em;
       font-family: 'Inconsolata';
       font-weight: 300;
     }
@@ -34,11 +60,6 @@
     .version-number {
       font-weight: normal;
     }
-  }
-
-  label {
-    font-size: 1em;
-    font-weight: 400;
   }
 
   .questions {
@@ -54,6 +75,7 @@
 
     li .dots
     {
+      color: #999;
       flex: 0 1 auto;
     }
 
@@ -112,8 +134,8 @@
 
   ul.stats-list {
     list-style: none;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     font-weight: 300;
 
     li {

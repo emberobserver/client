@@ -1,6 +1,6 @@
 <div class="container categories-show">
   <h1>{{model.name}}</h1>
-  <p>{{model.description}}</p>
+  <p class="description">{{model.description}}</p>
 
-  {{addons-table addons=model.addons}}
+  {{addons-table addons=model.addons showAddon="showAddon"}}
 </div>

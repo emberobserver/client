@@ -1,5 +1,5 @@
-<td>
+<td {{action "showAddon" addon}}>
   <h4>{{#link-to "addons.show" addon}}{{addon.name}}{{/link-to}}</h4>
-  <small>Last updated {{ago addon.latestVersionDate}}</small>
+  <p class="last-updated">Last updated {{ago addon.latestVersionDate}}</p>
   <p>{{addon.description}}</p>
 </td>

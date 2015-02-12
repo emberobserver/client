@@ -30,7 +30,9 @@ $dark-coral: #D1313D;
 $hay: #F9BF76;
 $purple: #615375;
 
-$dark-gray: shade($blue, 70%); // #333;
+$dark-blue-gray: shade($blue, 70%);
+
+$dark-gray: #444;
 $medium-gray: shade($blue, 50%); //#999;
 $light-gray: tint($blue, 70%); //#DDD;
 $light-red: #FBE3E4;

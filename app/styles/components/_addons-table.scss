@@ -1,5 +1,4 @@
-.tables {
-
+.addons-table {
   $table-border-color: $base-border-color;
   $table-border: 1px solid $table-border-color;
   $table-background: lighten($table-border-color, 12%);
@@ -7,7 +6,7 @@
   $table-hover-background: darken($table-background, 5%);
   $table-stripe-background: darken($table-background, 2%);
   $table-stripe-background-hover: darken($table-stripe-background, 5%);
-  $table-padding: 0.75em 1em;
+  $table-padding: 1.75em 2em;
 
   border-collapse: separate;
   border-left: 0px;
@@ -66,6 +65,7 @@
     background-color: $table-background;
 
     td {
+      cursor: pointer;
       border-bottom: 0px;
       border-left: 1px solid $table-border-color;
       border-top: 1px solid $table-border-color;
@@ -93,4 +93,15 @@
       }
     }
   }
+
+  h4 {
+    margin-bottom: .25em;
+  }
+
+  .last-updated {
+    color: #999;
+    font-size: .8em;
+    margin-bottom: 1em;
+  }
+
 }

@@ -10,7 +10,7 @@
 @import "addons_show";
 @import "login";
 @import "addons_index";
-@import "components/addon-row";
+@import "components/addons-table";
 @import "featured_addons";
 @import "search_ahead";
 
@@ -20,7 +20,7 @@
 
 header.navigation {
   padding: 1em;
-  background-color: $dark-gray;
+  background-color: $dark-blue-gray;
   position: relative;
 
   .name {
