@@ -18,6 +18,8 @@ export default Ember.Controller.extend({
   categories: function(){
     return this.store.all('category');
   }.property(),
+  //BUG: See https://github.com/emberjs/data/issues/2666
+  keywords: Ember.computed.filterBy('model.keywords', 'isDeleted', false),
   licenseUrl: function(){
     return `https://spdx.org/licenses/${this.get('model.license')}`;
   }.property('model.license'),

@@ -68,7 +68,8 @@
     <h6>npm keywords</h6>
 
     <p class="keywords">
-      {{#each keyword in model.keywords}}
+
+      {{#each keyword in keywords}}
         {{#comma-separated list=model.keywords item=keyword as |value separator|}}
           {{value.keyword}}{{separator}}
         {{/comma-separated}}
