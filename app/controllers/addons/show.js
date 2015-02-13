@@ -20,6 +20,8 @@ export default Ember.Controller.extend({
   }.property(),
   //BUG: See https://github.com/emberjs/data/issues/2666
   keywords: Ember.computed.filterBy('model.keywords', 'isDeleted', false),
+  maintainers: Ember.computed.filterBy('model.maintainers', 'isDeleted', false),
+
   licenseUrl: function(){
     return `https://spdx.org/licenses/${this.get('model.license')}`;
   }.property('model.license'),
