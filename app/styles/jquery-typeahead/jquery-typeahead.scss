@@ -1,0 +1,51 @@
+.typeahead-container {
+  position: relative;
+  z-index: 998;
+}
+
+.typeahead-field {
+  background-color: $base-background-color;
+  border-radius: 3px;
+}
+
+.typeahead-result {
+  position: absolute;
+  left: 0;
+  background-color: $base-background-color;
+  width: 100%;
+  -webkit-box-shadow: $form-box-shadow-focus;
+  box-shadow: $form-box-shadow-focus;
+}
+
+.typeahead-result > ul {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  list-style: none;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+
+.typeahead-result > ul > li:first-child {
+  border-top: none;
+}
+
+.typeahead-result > ul > li {
+  border-top: $base-border;
+}
+
+.typeahead-result > ul > li > a {
+  display: block;
+  padding: .9em 1em;
+  white-space: nowrap;
+  text-decoration: none;
+  color: $base-font-color;
+  clear: both;
+  background-color: $base-background-color;
+  position: relative;
+}
+
+.typeahead-result > ul > li.active > a {
+  background-color: $light-gray;
+}

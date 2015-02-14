@@ -5,6 +5,8 @@ function sortBy( arrProp, sortProperty ) {
   var sortProp = sortProperties[0];
   var sortDirection = sortProperties[1];
   return Ember.computed( arrProp + '.@each.' + sortProp, function(){
+    var val = this.get(arrProp);
+    if(!val) { return []; }
     var sorted = this.get(arrProp).sortBy(sortProp);
     if (sortDirection === 'desc') {
       return sorted.reverse();
@@ -37,6 +39,7 @@ export default Ember.Controller.extend({
   answeredQuestions: function(){
     var controller = this;
     var review = this.get('review');
+    if(!review) { return; }
     return review.questions.map(function(question){
       return Ember.Object.create({
         text: question.text,

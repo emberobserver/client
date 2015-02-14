@@ -19,16 +19,7 @@ var app = new EmberApp();
 // please specify an object with the list of modules as keys
 // along with the exports of each module as its value.
 
-app.import('vendor/jquery-ui/jquery-ui.js');
-app.import('vendor/jquery-ui/jquery-ui.theme.css');
+app.import('vendor/jquery-typeahead/jquery.typeahead.js');
 
-var imageFileDir = path.join(app.trees.vendor.dir, 'jquery-ui', 'images');
-var imageFiles = fs.readdirSync(imageFileDir);
-
-imageFiles.forEach(function(file) {
-  app.import(path.join(imageFileDir, file), {
-    destDir: "/assets/images"
-  });
-});
 
 module.exports = app.toTree();
