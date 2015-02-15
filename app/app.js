@@ -13,25 +13,28 @@ var App = Ember.Application.extend({
 
 loadInitializers(App, config.modulePrefix);
 
-Ember.onerror = function(error){
+if(config.environment === "production"){
 
-  if(window.trackJs) {
-    window.trackJs.track(error);
-  }
+  Ember.onerror = function(error){
 
-  Ember.Logger.assert(false, error);
+    if(window.trackJs) {
+      window.trackJs.track(error);
+    }
 
-};
+    Ember.Logger.assert(false, error);
+
+  };
 
 
-Ember.RSVP.on('error', function(error) {
+  Ember.RSVP.on('error', function(error) {
 
-  if(window.trackJs) {
-    window.trackJs.track(error);
-  }
+    if(window.trackJs) {
+      window.trackJs.track(error);
+    }
 
-  Ember.Logger.assert(false, error);
+    Ember.Logger.assert(false, error);
 
-});
+  });
+}
 
 export default App;

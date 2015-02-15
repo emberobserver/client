@@ -1,15 +1,25 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  domain: function() {
-    if(this.get('url')){
-      return new URL(this.get('url')).hostname.replace(/^(www.)?/, '');
+  anchor: function(){
+    if(this.get('isInserted')){
+      return this.$('a')[0];
     }
-  }.property('url'),
+  }.property('url', 'isInserted'),
+
+  domain: function() {
+    if(this.get('anchor')){
+      return this.get('anchor').hostname.replace(/^(www.)?/, '');
+    }
+  }.property('anchor'),
 
   pathname: function() {
-    if(this.get('url')){
-      return new URL(this.get('url')).pathname;
+    if(this.get('anchor')){
+      return this.get('anchor').pathname;
     }
-  }.property('url')
+  }.property('anchor'),
+
+  didInsertElement: function(){
+    this.set('isInserted', true)
+  }
 });
