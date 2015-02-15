@@ -40,13 +40,29 @@
   }
 
   .addon-info {
-    @include span-columns(7);
+    @include span-columns(12);
+
+    @include media($medium-screen) {
+      @include span-columns(7);
+    }
   }
 
   .addon-stats {
-    @include span-columns(4);
-    @include shift(1);
-    @include omega();
+    @include span-columns(12);
+
+    @include media($medium-screen) {
+      @include span-columns(4);
+      @include shift(1);
+      @include omega();
+
+      .single-column-header {
+        display: none;
+      }
+    }
+
+    .single-column-header {
+      margin-bottom: .5em;
+    }
 
     .addon-install {
       font-family: 'Inconsolata';
@@ -63,33 +79,25 @@
   }
 
   .questions {
-    li
-    {
+    li {
       display: flex;
     }
     li .question,
-    li .answer
-    {
+    li .answer {
       flex: 1 0 auto;
     }
 
-    li .dots
-    {
+    li .dots {
       color: #999;
       flex: 0 1 auto;
     }
 
-    .dots::before
-    {
+    .dots::before {
       display: block;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: clip;
-      content:
-      ". . . . . . . . . . . . . . . . . . . . "
-      ". . . . . . . . . . . . . . . . . . . . "
-      ". . . . . . . . . . . . . . . . . . . . "
-      ". . . . . . . . . . . . . . . . . . . . "
+      content: ". . . . . . . . . . . . . . . . . . . . " ". . . . . . . . . . . . . . . . . . . . " ". . . . . . . . . . . . . . . . . . . . " ". . . . . . . . . . . . . . . . . . . . "
     }
   }
 
