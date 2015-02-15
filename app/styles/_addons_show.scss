@@ -80,24 +80,22 @@
 
   .questions {
     li {
-      display: flex;
-    }
-    li .question,
-    li .answer {
-      flex: 1 0 auto;
+      @include clearfix();
+      margin-bottom: .7em;
+      border-bottom: 1px dotted tint($blue, 50%);;
+
+      &:hover {
+        color: $base-accent-color;
+      }
     }
 
-    li .dots {
-      color: #999;
-      flex: 0 1 auto;
+    .question {
+      float: left;
     }
 
-    .dots::before {
-      display: block;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: clip;
-      content: ". . . . . . . . . . . . . . . . . . . . " ". . . . . . . . . . . . . . . . . . . . " ". . . . . . . . . . . . . . . . . . . . " ". . . . . . . . . . . . . . . . . . . . "
+    .answer {
+      float: right;
+      font-weight: bold;
     }
   }
 

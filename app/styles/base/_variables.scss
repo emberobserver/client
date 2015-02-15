@@ -63,6 +63,7 @@ $success-color: $light-green;
 // Border color
 $base-border-color: $light-gray;
 $base-border: 1px solid $base-border-color;
+$base-border-dotted: 1px dotted $base-border-color;
 
 // Forms
 $form-border-color: $base-border-color;
