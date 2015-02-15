@@ -1,0 +1,19 @@
+{{#if review}}
+  <p class="review-date">Reviewed on {{moment review.createdAt "MMMM Do YYYY"}} for
+    version {{review.version.version}}</p>
+  <ol class="questions">
+    {{#each question in answeredQuestions}}
+      <li>
+        <span class="question">{{question.text}}</span>
+        <span class="answer">{{question.answer}}</span>
+      </li>
+    {{/each}}
+  </ol>
+  <br>
+  {{#if review.review}}
+    <h6>Comments</h6>
+    <fieldset>
+      {{markdown-section content=review.review}}
+    </fieldset>
+  {{/if}}
+{{/if}}

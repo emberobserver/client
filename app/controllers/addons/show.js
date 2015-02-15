@@ -20,6 +20,7 @@ export default Ember.Controller.extend({
   categories: function(){
     return this.store.all('category');
   }.property(),
+
   //BUG: See https://github.com/emberjs/data/issues/2666
   keywords: Ember.computed.filterBy('model.keywords', 'isDeleted', false),
   maintainers: Ember.computed.filterBy('model.maintainers', 'isDeleted', false),
@@ -29,24 +30,7 @@ export default Ember.Controller.extend({
   }.property('model.license'),
   sortedVersions: sortBy('model.versions', 'released:desc'),
   latestVersion: Ember.computed.alias('sortedVersions.firstObject'),
-  review: Ember.computed.alias('latestVersion.review'),
-  answerMap: {
-    1: "Yes",
-    2: "No",
-    3: "N/A",
-    4: "Unknown"
-  },
-  answeredQuestions: function(){
-    var controller = this;
-    var review = this.get('review');
-    if(!review) { return; }
-    return review.questions.map(function(question){
-      return Ember.Object.create({
-        text: question.text,
-        answer: controller.answerMap[review.get(question.fieldName)]
-      });
-    });
-  }.property('review'),
+  latestReview: Ember.computed.alias('latestVersion.review'),
   actions: {
     save: function(){
       var controller = this;
