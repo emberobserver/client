@@ -23,6 +23,11 @@ header.navigation {
   padding: 1em;
   background-color: $dark-blue-gray;
   position: relative;
+  text-align: center;
+
+  @include media($medium-screen){
+    text-align: left;
+  }
 
   .name {
     font-size: 2em;
@@ -38,23 +43,4 @@ header.navigation {
     top: 1em;
     right: 5em;
   }
-}
-
-h1 {
-  margin-bottom: 1em;
-  margin-top: 1em;
-  font-weight: 300;
-}
-
-h2 {
-  margin-bottom: 1em;
-  margin-top: 1em;
-  font-weight: 300;
-}
-
-h3 {
-  margin-bottom: 1em;
-  margin-top: 1em;
-  font-size: 1em;
-  font-weight: 700;
 }

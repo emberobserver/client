@@ -22,7 +22,6 @@ $grid-item-big-columns: 8;
   $grid-item-border: 1px solid transparentize($base-accent-color, 0.8);
   $grid-item-columns: 4;
   $grid-item-color: $base-font-color;
-  $grid-item-height: 14em;
 
   @include clearfix;
   position: relative;
@@ -34,7 +33,7 @@ $grid-item-big-columns: 8;
     border-right: $grid-item-border;
     cursor: pointer;
     float: left;
-    height: $grid-item-height;
+    height: 8em;
     overflow: hidden;
     outline: none;
     padding: 2em;
@@ -42,6 +41,8 @@ $grid-item-big-columns: 8;
 
     @include media($large-screen) {
       @include grid-item-columns($grid-item-columns);
+
+      height: 14em;
     }
 
     &:focus,

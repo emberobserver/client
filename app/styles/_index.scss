@@ -6,4 +6,10 @@
   .grid-item:nth-of-type(5){
     @include grid-item-big;
   }
+
+  h1 {
+    margin-bottom: .5em;
+
+    border-bottom: $base-border;
+  }
 }
