@@ -8,6 +8,5 @@ export default Ember.Route.extend(scrollFix, {
   afterModel: function(model){
     this.store.findQuery('keyword', {addon_id: model.get('id')});
     this.store.findQuery('version', {addon_id: model.get('id')});
-    this.store.findQuery('maintainer', {addon_id: model.get('id')});
   }
 });

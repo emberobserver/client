@@ -7,5 +7,5 @@ export default DS.Model.extend({
   name: attr('string'),
   email: attr('string'),
   gravatar: attr('string'),
-  addons: hasMany('addon')
+  addons: hasMany('addon', {async: true})
 });

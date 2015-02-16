@@ -13,7 +13,7 @@ export default DS.Model.extend({
   categories: hasMany('category', {async: true}),
   keywords: hasMany('keyword', {async: true}),
   versions: hasMany('version', {async: true}),
-  maintainers: hasMany('maintainer', {async: true}),
+  maintainers: hasMany('maintainer'),
   reviews: hasMany('review', {async: true}),
   npmUrl: function(){
     return `https://www.npmjs.com/package/${this.get('name')}`;
