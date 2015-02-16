@@ -33,6 +33,9 @@
     <section class="latest-review">
       <h4>Review</h4>
       {{#if latestReview}}
+        {{#unless isLatestReviewForLatestVersion}}
+          <em><span class="icon-new-releases"></span> New versions of this addon have been released since this review was undertaken.</em>
+        {{/unless}}
         {{addon-review review=latestReview}}
       {{else}}
         This addon has not yet been reviewed. <a href="#">Review now &raquo;</a>

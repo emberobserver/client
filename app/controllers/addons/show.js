@@ -30,7 +30,11 @@ export default Ember.Controller.extend({
   }.property('model.license'),
   sortedVersions: sortBy('model.versions', 'released:desc'),
   latestVersion: Ember.computed.alias('sortedVersions.firstObject'),
-  latestReview: Ember.computed.alias('latestVersion.review'),
+  sortedReviews: sortBy('model.reviews', 'version.released:desc'),
+  latestReview: Ember.computed.alias('sortedReviews.firstObject'),
+  isLatestReviewForLatestVersion: function(){
+    return this.get('latestReview') === this.get('latestVersion.review');
+  }.property('latestReview', 'latestVersion.review'),
   actions: {
     save: function(){
       var controller = this;
