@@ -20,6 +20,6 @@ export default Ember.Component.extend({
   }.property('anchor'),
 
   didInsertElement: function(){
-    this.set('isInserted', true)
+    this.set('isInserted', true);
   }
 });
