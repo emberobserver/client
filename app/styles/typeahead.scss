@@ -7,6 +7,14 @@
   width: 100%;
   -webkit-box-shadow: $form-box-shadow-focus;
   box-shadow: $form-box-shadow-focus;
+
+  h3 {
+    background-color: $medium-gray;
+    color: $light-gray;
+    padding: 0.25em 0.5em;
+    font-size: 1.25em;
+    font-weight: 300;
+  }
 }
 
 .tt-hint {

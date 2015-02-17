@@ -2,10 +2,8 @@
   <div class="container">
     {{#link-to "index" class="name"}}Ember Observer{{/link-to}}
     {{autocomplete-textfield
-      items=model.addons
-      displayKey="name"
+      datasets=autocompleteData
       placeholder="Find addons"
-      select="showAddon"
     }}
   </div>
   {{#if session.isAuthenticated}}

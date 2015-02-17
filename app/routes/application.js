@@ -20,6 +20,10 @@ export default Ember.Route.extend({
 
     showAddon: function(pkg) {
       this.transitionTo('addons.show', pkg);
+    },
+
+    showCategory: function(category) {
+      this.transitionTo('categories.show', category);
     }
   },
 
