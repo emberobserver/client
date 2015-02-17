@@ -3,46 +3,54 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 
 	items: null,
-	displayKey: '',
   placeholder: 'Search',
 
 	didInsertElement: function() {
 		var component = this;
-		var $input = this.$('#typeahead');
+		var $input = this.$('input');
 
-		var displayKey = this.get('displayKey');
-
-		var source = this.get('items').map(function(item) { return item.get(displayKey); });
-    $input.typeahead({
-      hint: true,
-      maxItem: 15,
-      source: {
-        data: source
-      },
-      callback: {
-        onClick: function (node, a, selected) {
-          component.selected(selected.display);
-        },
-        onSubmit: function(node, form, selected){
-
-          if(selected){
-            component.selected(selected.display);
-          }
-          else {
-            var searchText = $input.val();
-            if(source.indexOf(searchText)){
-              component.selected(searchText);
-            }
-          }
-        }
+		var source = this.get('items').map(function(item) {
+      return {
+        name: item.get('name')
       }
     });
+    $input.typeahead({
+      highlight: true,
+      hint: true
+    }, {
+      name: 'addons',
+      displayKey: 'name',
+      source: substringMatcher(source)
+    }).on('typeahead:selected typeahead:autocompleted', Ember.run.bind(this, function(e, obj, dataSet){
+      this.selected(obj);
+      $input.typeahead('close');
+    }));
 	},
+
+  keyUp: function(event){
+    if(event.which == 13){
+      this.$(".tt-suggestion:first-child").click();
+    }
+  },
+
   selected: function(value) {
-    var displayKey = this.get('displayKey');
-    var item = this.get('items').findBy(displayKey, value);
+    var item = this.get('items').findBy('name', value.name);
     if (item) {
       this.sendAction('select', item);
     }
-  }
+  },
+
+  cleanup: Ember.observer(function(){
+    this.$(input).typeahead('destroy');
+  }).on('willDestroyElement')
 });
+
+function substringMatcher(strs) {
+  return function findMatches(query, callback) {
+    var matcher = new RegExp( query, "i" );
+    var results = strs.filter( function ( item ) {
+      return matcher.test( item.name );
+    });
+    callback(results);
+  };
+}

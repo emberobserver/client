@@ -2,7 +2,7 @@
 @import "bower_components/bourbon/dist/_bourbon";
 @import "bower_components/neat/app/assets/stylesheets/_neat";
 @import "base/base";
-@import "jquery-typeahead/jquery-typeahead";
+@import "typeahead";
 @import "font-icons";
 @import "markdown";
 @import "footer";
@@ -34,8 +34,8 @@ header.navigation {
     font-size: 2em;
   }
 
-  form {
-    margin-top: 1.75em;
+  input {
+    margin-top: 1.5em;
     margin-bottom: 1em;
   }
 

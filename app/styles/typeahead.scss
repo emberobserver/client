@@ -1,0 +1,41 @@
+.twitter-typeahead {
+  width: 100%;
+}
+
+.tt-dropdown-menu {
+  background-color: $base-background-color;
+  width: 100%;
+  -webkit-box-shadow: $form-box-shadow-focus;
+  box-shadow: $form-box-shadow-focus;
+}
+
+.tt-hint {
+  color: #ccc;
+}
+
+.tt-suggestion {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  list-style: none;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border-top: $base-border-dotted;
+  color: $base-font-color;
+  background-color: $base-background-color;
+  cursor: pointer;
+
+  &:first-child {
+    border-top: none;
+  }
+
+  p {
+    margin: 0;
+    padding: .9em 1em;
+  }
+
+  &.tt-cursor {
+    background-color: $light-gray;
+  }
+}
