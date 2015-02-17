@@ -5,43 +5,38 @@ export default Ember.Component.extend({
 
 	didInsertElement: function() {
 		var component = this;
+    var dataset, data;
 		var $input = this.$('input');
+    var typeaheadOptions = [];
 
-		var addons = this.get('datasets.addons.data').map(function(item){
-      return {
-        name: item.get( component.get('datasets.addons.key') )
-      };
-    });
-
-    this.set('addonsAction', this.get('datasets.addons.action'));
-    this.set('categoriesAction', this.get('datasets.categories.action'));
-    var categories = this.get('datasets.categories.data').map(function(item){
-      return {
-        name: item.get( component.get('datasets.categories.key') )
-      };
-    });
-
-    $input.typeahead({
+    typeaheadOptions.push({
       highlight: true,
-      hint: true
-    }, {
-      name: 'addons',
-      displayKey: 'name',
-      source: substringMatcher(addons),
-      templates: {
-        header: '<h3>Addons</h3>'
-      }
-    }, {
-      name: 'categories',
-      displayKey: 'name',
-      source: substringMatcher(categories),
-      templates: {
-        header: '<h3>Categories</h3>'
-      }
-    }).on('typeahead:selected typeahead:autocompleted', Ember.run.bind(this, function(e, obj, dataSet){
-      this.selected(obj, dataSet);
-      $input.typeahead('close');
-    }));
+      hint: true,
+      minLength: 2
+    });
+
+    var keys = Object.keys(this.get('datasets'));
+    keys.forEach(function(datasetName){
+      dataset = component.get(`datasets.${datasetName}`);
+      component.set(`${datasetName}Action`, dataset.action);
+      data = dataset.data.map(function(item){
+        return {name: item.get( dataset.key )};
+      });
+      typeaheadOptions.push({
+        name: datasetName,
+        displayKey: dataset.key,
+        source: substringMatcher(data),
+        templates: {
+          header: `<h3>${datasetName.capitalize()}</h3>`
+        }
+      });
+    });
+
+    $input.typeahead.apply($input, typeaheadOptions)
+      .on('typeahead:selected typeahead:autocompleted', Ember.run.bind(this, function(e, obj, dataSet){
+        this.selected(obj, dataSet);
+        $input.typeahead('close');
+      }));
 	},
 
   keyUp: function(event){
@@ -50,10 +45,10 @@ export default Ember.Component.extend({
     }
   },
 
-  selected: function(value, dataset) {
-    var item = this.get(`datasets.${dataset}.data`).findBy('name', value.name);
+  selected: function(value, datasetName) {
+    var item = this.get(`datasets.${datasetName}.data`).findBy(this.get(`datasets.${datasetName}.key`), value.name);
     if (item) {
-      this.sendAction(`${dataset}Action`, item);
+      this.sendAction(`${datasetName}Action`, item);
     }
   },
 
