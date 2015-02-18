@@ -41,7 +41,7 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 ### Deploying
 
-Specify what it takes to deploy your app.
+* `./deploy.sh` 
 
 ## Further Reading / Useful Links
 
@@ -50,4 +50,10 @@ Specify what it takes to deploy your app.
 * Development Browser Extensions
   * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
   * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
+  
+  
+# Process when new Ember-CLI version is released
+
+1. Generate new app using the new version
+1. Compare set of dependencies to set of addons set to 'isCliDependency'
 

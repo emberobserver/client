@@ -1,20 +1,5 @@
 import Ember from 'ember';
-
-function sortBy( arrProp, sortProperty ) {
-  var sortProperties = sortProperty.split(':');
-  var sortProp = sortProperties[0];
-  var sortDirection = sortProperties[1];
-  return Ember.computed( arrProp + '.@each.' + sortProp, function(){
-    var val = this.get(arrProp);
-    if(!val) { return []; }
-    var sorted = this.get(arrProp).sortBy(sortProp);
-    if (sortDirection === 'desc') {
-      return sorted.reverse();
-    } else {
-      return sorted;
-    }
-  });
-}
+import sortBy from '../../utils/sort-by';
 
 export default Ember.Controller.extend({
   categories: function(){
@@ -28,13 +13,11 @@ export default Ember.Controller.extend({
   licenseUrl: function(){
     return `https://spdx.org/licenses/${this.get('model.license')}`;
   }.property('model.license'),
-  sortedVersions: sortBy('model.versions', 'released:desc'),
-  latestVersion: Ember.computed.alias('sortedVersions.firstObject'),
   sortedReviews: sortBy('model.reviews', 'version.released:desc'),
   latestReview: Ember.computed.alias('sortedReviews.firstObject'),
   isLatestReviewForLatestVersion: function(){
-    return this.get('latestReview') === this.get('latestVersion.review');
-  }.property('latestReview', 'latestVersion.review'),
+    return this.get('latestReview') === this.get('model.latestVersion.review');
+  }.property('latestReview', 'model.latestVersion.review'),
   actions: {
     save: function(){
       var controller = this;
@@ -50,7 +33,7 @@ export default Ember.Controller.extend({
     },
     saveReview: function(newReview){
       var controller = this;
-      newReview.set('version', this.get('latestVersion'));
+      newReview.set('version', this.get('model.latestVersion'));
       newReview.save().finally(function(){
         controller.set('newReview', null);
         controller.set('isReviewing', false);

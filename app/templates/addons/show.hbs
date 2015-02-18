@@ -5,6 +5,10 @@
         <label class="alert">DEPRECATED</label>
       {{/if}}
 
+      {{#if model.isNewAddon}}
+        <small>NEW!</small>
+      {{/if}}
+
       <h1>
         {{#if model.isOfficial}}
           <span class="icon-stars official" title="Offical Ember-CLI addon"></span>
@@ -15,6 +19,7 @@
         {{/if}}
 
         {{model.name}}
+
       </h1>
 
       <p>{{model.description}}</p>
@@ -95,7 +100,7 @@
     <p class="addon-install">npm install {{model.name}}</p>
 
     <ul class="stats-list">
-      <li><b>{{model.latestVersion}}</b> from {{ago model.latestVersionDate}}</li>
+      <li><b>{{model.latestVersion.version}}</b> from {{ago model.latestVersionDate}}</li>
       <li><b>repo</b> {{human-url url=model.repositoryUrl}}</li>
       <li><b>package</b> {{human-url url=model.npmUrl}}</li>
       <li><b>license</b> <a {{bind-attr href="licenseUrl"}}>{{model.license}}</a></li>
@@ -121,7 +126,7 @@
     <h6>versions</h6>
 
     <ul class="versions">
-      {{#each version in sortedVersions}}
+      {{#each version in model.sortedVersions}}
         <li>{{moment version.released "YYYY-MMM-DD"}} <span class="version-number">{{version.version}}</span></li>
       {{/each}}
     </ul>
