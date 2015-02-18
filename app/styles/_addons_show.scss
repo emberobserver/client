@@ -7,6 +7,12 @@
     color: darken($blue, 5);
   }
 
+  form {
+    label {
+      display: inline-block;
+    }
+  }
+
   section {
     margin-bottom: 2em;
   }

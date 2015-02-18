@@ -48,3 +48,15 @@ header.navigation {
     right: 5em;
   }
 }
+
+.alert {
+  color: $alert-color;
+}
+
+.official {
+  color: $hay;
+}
+
+.dependency {
+  color: $base-accent-color;
+}

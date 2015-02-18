@@ -1,10 +1,57 @@
 <div class="container addons-show">
   <div class="addon-info">
     <section>
-      <h1>{{model.name}}</h1>
+      {{#if model.isDeprecated}}
+        <label class="alert">DEPRECATED</label>
+      {{/if}}
+
+      <h1>
+        {{#if model.isOfficial}}
+          <span class="icon-stars official" title="Offical Ember-CLI addon"></span>
+        {{/if}}
+
+        {{#if model.isCliDependency}}
+          <span class="icon-stars dependency" title="Dependency of newly generated Ember-CLI applications"></span>
+        {{/if}}
+
+        {{model.name}}
+      </h1>
 
       <p>{{model.description}}</p>
     </section>
+    {{#if model.note}}
+      <strong>{{model.note}}</strong>
+    {{/if}}
+
+    {{#if session.isAuthenticated}}
+      <form {{action "save" on="submit"}}>
+        <fieldset>
+          <label>Note</label>
+          {{input value=model.note}}
+
+          {{#if isSaving}}
+            <input type="submit" value="Saving" disabled>
+          {{else}}
+            {{input type="submit" value="Save"}}
+          {{/if}}
+        </fieldset>
+
+        <fieldset>
+          <ul>
+            <li>{{input type="checkbox" id="official" checked=model.isOfficial}} <label for="official">Is Official?</label></li>
+            <li>{{input type="checkbox" id="deprecated" checked=model.isDeprecated}} <label for="deprecated">Is Deprecated?</label></li>
+            <li>{{input type="checkbox" id="cli-dependency" checked=model.isCliDependency}} <label for="cli-dependency">Is CLI Dependency?</label></li>
+            <li>{{input type="checkbox" id="hide" checked=model.isHidden}} <label for="hide">Hide?</label></li>
+          </ul>
+          {{#if isSaving}}
+            <input type="submit" value="Saving" disabled>
+          {{else}}
+            {{input type="submit" value="Save"}}
+          {{/if}}
+        </fieldset>
+      </form>
+    {{/if}}
+
     <section class="categories">
       <h4>Categories</h4>
       <p>
