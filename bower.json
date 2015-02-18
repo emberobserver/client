@@ -13,7 +13,8 @@
     "ember-qunit": "0.2.8",
     "ember-qunit-notifications": "0.0.7",
     "qunit": "~1.17.1",
-    "ember-cli-moment-shim": "~0.0.3"
+    "ember-cli-moment-shim": "~0.0.3",
+    "typeahead.js": "~0.10.5"
   },
   "devDependencies": {
     "bourbon": "4.0.0",
