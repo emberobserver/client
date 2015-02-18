@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import DS from 'ember-data';
 import sortBy from '../utils/sort-by';
 
@@ -24,9 +25,9 @@ export default DS.Model.extend({
   latestVersion: Ember.computed.alias('sortedVersions.firstObject'),
   oldestVersion: Ember.computed.alias('sortedVersions.lastObject'),
   isNewAddon: function(){
-    var twoWeeksAgo = moment().subtract(14, 'days');
+    var twoWeeksAgo = window.moment().subtract(14, 'days');
     var firstRelease = this.get('oldestVersion.released');
-    return moment(firstRelease).isAfter(twoWeeksAgo);
+    return window.moment(firstRelease).isAfter(twoWeeksAgo);
   }.property('oldestVersion.released'),
   npmUrl: function(){
     return `https://www.npmjs.com/package/${this.get('name')}`;

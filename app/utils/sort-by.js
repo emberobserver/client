@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 export default function( arrProp, sortProperty ) {
   var sortProperties = sortProperty.split(':');
   var sortProp = sortProperties[0];

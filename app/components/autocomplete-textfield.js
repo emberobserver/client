@@ -44,7 +44,7 @@ export default Ember.Component.extend({
 	},
 
   keyUp: function(event){
-    if(event.which == 13 && !this.$(".tt-cursor").length){
+    if(event.which === 13 && !this.$(".tt-cursor").length){
       this.$(".tt-suggestion:first-child").click();
     }
   },

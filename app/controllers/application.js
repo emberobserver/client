@@ -18,6 +18,6 @@ export default Ember.Controller.extend({
         key: 'name',
         action: 'showMaintainer'
       }
-    }
+    };
   }.property('model.categories', 'model.addons')
 });
