@@ -24,6 +24,10 @@ export default Ember.Route.extend({
 
     showCategory: function(category) {
       this.transitionTo('categories.show', category);
+    },
+
+    showMaintainer: function(maintainer) {
+      this.transitionTo('maintainers.show', maintainer);
     }
   },
 

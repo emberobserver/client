@@ -14,9 +14,12 @@ Router.map(function() {
     this.route("show", { path: "/:id" });
   });
 
+  this.route("maintainers", function(){
+    this.route("show", { path: "/:id" });
+  });
+
   this.route("login");
   this.route("admin", function(){
-
   });
 });
 

@@ -20,11 +20,15 @@ export default Ember.Component.extend({
       dataset = component.get(`datasets.${datasetName}`);
       component.set(`${datasetName}Action`, dataset.action);
       data = dataset.data.map(function(item){
-        return {name: item.get( dataset.key )};
+        return {
+          display: item.get( dataset.key ),
+          id: item.get('id')
+        };
       });
+
       typeaheadOptions.push({
         name: datasetName,
-        displayKey: dataset.key,
+        displayKey: 'display',
         source: substringMatcher(data),
         templates: {
           header: `<h3>${datasetName.capitalize()}</h3>`
@@ -46,7 +50,7 @@ export default Ember.Component.extend({
   },
 
   selected: function(value, datasetName) {
-    var item = this.get(`datasets.${datasetName}.data`).findBy(this.get(`datasets.${datasetName}.key`), value.name);
+    var item = this.get(`datasets.${datasetName}.data`).findBy('id', value.id);
     if (item) {
       this.sendAction(`${datasetName}Action`, item);
     }
@@ -61,7 +65,7 @@ function substringMatcher(strs) {
   return function findMatches(query, callback) {
     var matcher = new RegExp( query, "i" );
     var results = strs.filter( function ( item ) {
-      return matcher.test( item.name );
+      return matcher.test( item.display );
     });
     callback(results);
   };

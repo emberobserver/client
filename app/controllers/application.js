@@ -12,6 +12,11 @@ export default Ember.Controller.extend({
         data: this.get('model.addons'),
         key: 'name',
         action: 'showAddon'
+      },
+      maintainers: {
+        data: this.store.all('maintainer'),
+        key: 'name',
+        action: 'showMaintainer'
       }
     }
   }.property('model.categories', 'model.addons')

@@ -1,0 +1,14 @@
+.maintainers-show {
+  @include outer-padding;
+
+  header {
+    width: 100%;
+
+    img {
+      float: left;
+      margin-right: 1em;
+    }
+
+    padding-bottom: .5em;
+  }
+}
