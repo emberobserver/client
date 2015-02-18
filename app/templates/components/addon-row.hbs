@@ -1,5 +1,20 @@
 <td {{action "showAddon" addon}}>
-  <h4>{{#link-to "addons.show" addon}}{{addon.name}}{{/link-to}}</h4>
+  <h4>
+    {{#link-to "addons.show" addon}}
+      {{addon.name}}
+      {{#if addon.isDeprecated}}
+        <span class="notice">(DEPRECATED)</span>
+      {{/if}}
+    {{/link-to}}
+
+    {{#if addon.isOfficial}}
+      <span class="icon-stars official" title="Offical Ember-CLI addon"></span>
+    {{/if}}
+
+    {{#if addon.isCliDependency}}
+      <span class="icon-stars dependency" title="Dependency of newly generated Ember-CLI applications"></span>
+    {{/if}}
+  </h4>
   <p class="last-updated">Last updated {{ago addon.latestVersionDate}}</p>
   <p>{{addon.description}}</p>
 </td>
