@@ -21,6 +21,8 @@ Router.map(function() {
   this.route("login");
   this.route("admin", function(){
   });
+
+  this.route('not-found', { path: '/*path' });
 });
 
 export default Router;
