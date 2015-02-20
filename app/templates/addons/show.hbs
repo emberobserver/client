@@ -65,7 +65,7 @@
             {{#link-to "categories.show" value}}{{value.name}}{{separator}}{{/link-to}}
           {{/comma-separated}}
         {{else}}
-          {{!--This addon hasn't been categorized yet. <a href="mailto:">Suggest categories &raquo;</a>--}}
+          This addon hasn't been categorized yet.
         {{/each}}
       </p>
       {{#if session.isAuthenticated}}
@@ -90,7 +90,7 @@
         {{/unless}}
         {{addon-review review=latestReview}}
       {{else}}
-        {{!--This addon has not yet been reviewed. <a href="#">Review now &raquo;</a>--}}
+        <p class="no-review">This addon has not yet been reviewed.</p>
       {{/if}}
     </section>
   </div>
