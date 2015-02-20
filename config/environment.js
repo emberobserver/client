@@ -22,8 +22,11 @@ module.exports = function(environment) {
     },
 
     contentSecurityPolicy: {
+      'connect-src': "'self' api.segment.io",
       'font-src': "'self' fonts.gstatic.com",
-      'style-src': "'self' 'unsafe-inline' fonts.googleapis.com"
+      'img-src': "'self' secure.gravatar.com usage.trackjs.com www.google-analytics.com",
+      'script-src': "'self' 'unsafe-inline' cdn.segment.com cdnjs.cloudflare.com d2zah9y47r7bi2.cloudfront.net www.google-analytics.com",
+      'style-src': "'self' 'unsafe-inline' cdnjs.cloudflare.com fonts.googleapis.com"
     }
   };
 
