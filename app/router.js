@@ -7,11 +7,11 @@ var Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route("categories", function() {
-    this.route("show", { path: "/:id" });
+    this.route("show", { path: "/:name" });
   });
 
   this.route("addons", function() {
-    this.route("show", { path: "/:id" });
+    this.route("show", { path: "/:name" });
   });
 
   this.route("maintainers", function(){
