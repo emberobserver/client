@@ -24,11 +24,7 @@ export default DS.Model.extend({
   sortedVersions: sortBy('versions', 'released:desc'),
   latestVersion: Ember.computed.alias('sortedVersions.firstObject'),
   oldestVersion: Ember.computed.alias('sortedVersions.lastObject'),
-  isNewAddon: function(){
-    var twoWeeksAgo = window.moment().subtract(14, 'days');
-    var firstRelease = this.get('oldestVersion.released');
-    return window.moment(firstRelease).isAfter(twoWeeksAgo);
-  }.property('oldestVersion.released'),
+  isNewAddon: attr('boolean'),
   npmUrl: function(){
     return `https://www.npmjs.com/package/${this.get('name')}`;
   }.property('name')
