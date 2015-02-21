@@ -3,7 +3,7 @@ import scrollFix from '../../mixins/scroll-fix';
 
 export default Ember.Route.extend(scrollFix, {
   model: function(params){
-    return this.store.find('category', params.name);
+    return this.store.all('category').findBy('name', params.name);
   },
 
   actions: {
