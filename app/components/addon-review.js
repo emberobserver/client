@@ -11,7 +11,9 @@ export default Ember.Component.extend({
     var component = this;
     var review = this.get('review');
     if(!review) { return; }
-    return review.questions.map(function(question){
+    return review.questions.filter(function(question) {
+      return !Ember.isEmpty(review.get(question.fieldName));
+    }).map(function(question){
       return Ember.Object.create({
         text: question.text,
         answer: component.answerMap[review.get(question.fieldName)]
