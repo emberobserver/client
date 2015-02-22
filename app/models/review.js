@@ -13,7 +13,6 @@ export default DS.Model.extend({
     {text: 'Are there meaningful tests?', fieldName: 'hasTests'},
     {text: 'Is the README filled out?', fieldName: 'hasReadme'},
     {text: 'Is the source accessible?', fieldName: 'isOpenSource'},
-    {text: 'If so, does the addon use only public Ember APIs?', fieldName: 'usesOnlyPublicApis'},
     {text: 'Does the addon have a build?', fieldName: 'hasBuild'}
   ],
   review: attr('string'),
@@ -23,7 +22,6 @@ export default DS.Model.extend({
   hasReadme: attr('number'),
   isMoreThanEmptyAddon: attr('number'),
   isOpenSource: attr('number'),
-  usesOnlyPublicApis: attr('number'),
   hasBuild: attr('number'),
   addon: belongsTo('addon'),
   hasBeenReleasedRecently: Ember.computed.alias('addon.hasBeenReleasedRecently'),
