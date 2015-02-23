@@ -1,4 +1,14 @@
 <div class="container categories-show">
+  {{#if hasSubcategories}}
+  <h1>Subcategories</h1>
+  <ul>
+    {{#each category in model.categories}}
+    <li>
+      {{#link-to 'categories.show' category}}{{category.name}}{{/link-to}}
+    </li>
+    {{/each}}
+  </ul>
+  {{/if}}
   <h1 class="test-category-header">{{model.name}}</h1>
   <p class="description test-category-description">{{model.description}}</p>
 
