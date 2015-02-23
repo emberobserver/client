@@ -3,11 +3,18 @@
 
   <div class="grid-items-lines">
     {{#each category in topLevelCategories}}
-      {{#link-to "categories.show" category class="grid-item test-category"}}
-        <h2>{{category.name}} ({{category.addons.length}})</h2>
+      <div class="grid-item" {{action "showCategory" category}}>
+        {{#link-to "categories.show" category class="test-category"}}
+          <h2>{{category.name}} ({{category.addons.length}})</h2>
 
-        <p>{{category.description}}</p>
-      {{/link-to}}
+          <p>{{category.description}}</p>
+        {{/link-to}}
+        <p>
+          {{#if category.subcategories}}
+            Subcategories: {{inline-category-list categories=category.subcategories showAddonCount=true}}
+          {{/if}}
+        </p>
+      </div>
     {{/each}}
 
     <div class="right-cover"></div>

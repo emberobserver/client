@@ -2,7 +2,7 @@
   {{#if hasSubcategories}}
   <h1>Subcategories</h1>
   <ul>
-    {{#each category in model.categories}}
+    {{#each category in model.subcategories}}
     <li>
       {{#link-to 'categories.show' category}}{{category.name}}{{/link-to}}
     </li>

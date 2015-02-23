@@ -9,5 +9,5 @@ export default DS.Model.extend({
   description: attr('string'),
   addons: hasMany('addon', {async: true}),
   parent: belongsTo('category'),
-  categories: hasMany('category', {inverse: 'parent'})
+  subcategories: hasMany('category', {inverse: 'parent'})
 });
