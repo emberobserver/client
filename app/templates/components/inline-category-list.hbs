@@ -1,0 +1,5 @@
+{{#each category in categories}}
+  {{#comma-separated list=categories item=category as |value separator|}}
+    {{#link-to "categories.show" value}}{{value.name}}{{separator}}{{/link-to}}
+  {{/comma-separated}}
+{{/each}}
