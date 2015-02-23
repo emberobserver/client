@@ -13,6 +13,7 @@
   border-radius: $base-border-radius;
   border-spacing: 0;
   border: $table-border;
+  color: #999;
 
   tbody {
     background-color: $table-background;
@@ -95,13 +96,18 @@
   }
 
   h4 {
-    margin-bottom: .25em;
+    margin-bottom: 0;
   }
 
   .last-updated {
     color: #999;
     font-size: .8em;
     margin-bottom: 1em;
+  }
+
+
+  .category-list {
+    font-weight: 300;
   }
 
 }

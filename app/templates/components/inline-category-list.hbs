@@ -1,11 +1,7 @@
 {{#each category in categories}}
   {{#comma-separated list=categories item=category as |value separator|}}
     {{#link-to "categories.show" value}}
-      {{value.name}}
-      {{#if showAddonCount}}
-        ({{value.addons.length}})
-      {{/if}}
-      {{separator}}
+      {{value.name}}{{#if showAddonCount}} ({{value.addons.length}}){{/if}}{{separator}}
     {{/link-to}}
   {{/comma-separated}}
 {{/each}}

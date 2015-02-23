@@ -4,13 +4,18 @@
   <ul>
     {{#each category in model.subcategories}}
     <li>
-      {{#link-to 'categories.show' category}}{{category.name}}{{/link-to}}
+      {{#link-to 'categories.show' category}}{{category.name}} ({{category.addons.length}}){{/link-to}}
     </li>
     {{/each}}
   </ul>
   {{/if}}
   <h1 class="test-category-header">{{model.name}}</h1>
-  <p class="description test-category-description">{{model.description}}</p>
+  <p class="description test-category-description">
+    {{model.description}}<br>
+    {{#if model.parent}}
+      Subcategory of {{#link-to 'categories.show' model.parent}}{{model.parent.name}} ({{model.parent.addons.length}}){{/link-to}}
+    {{/if}}
+  </p>
 
   {{addons-table addons=model.addons showAddon="showAddon"}}
 </div>
