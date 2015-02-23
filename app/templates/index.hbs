@@ -2,7 +2,7 @@
    <h1 id="title">Categories</h1>
 
   <div class="grid-items-lines">
-    {{#each category in controller}}
+    {{#each category in topLevelCategories}}
       {{#link-to "categories.show" category class="grid-item test-category"}}
         <h2>{{category.name}} ({{category.addons.length}})</h2>
 
