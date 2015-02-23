@@ -1,14 +1,4 @@
 <div class="container categories-show">
-  {{#if hasSubcategories}}
-  <h1>Subcategories</h1>
-  <ul>
-    {{#each category in model.subcategories}}
-    <li>
-      {{#link-to 'categories.show' category}}{{category.name}} ({{category.addons.length}}){{/link-to}}
-    </li>
-    {{/each}}
-  </ul>
-  {{/if}}
   <h1 class="test-category-header">{{model.name}}</h1>
   <p class="description test-category-description">
     {{model.description}}<br>
@@ -16,6 +6,10 @@
       Subcategory of {{#link-to 'categories.show' model.parent}}{{model.parent.name}} ({{model.parent.addons.length}}){{/link-to}}
     {{/if}}
   </p>
+  {{#if hasSubcategories}}
+    <h6>Subcategories</h6>
+    {{inline-category-list categories=model.subcategories showAddonCount=true}}
+  {{/if}}
 
   {{addons-table addons=model.addons showAddon="showAddon"}}
 </div>
