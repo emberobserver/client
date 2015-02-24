@@ -8,7 +8,7 @@ export default Ember.Route.extend(scrollFix, {
 
   actions: {
     error: function() {
-      this.transitionTo('/not-found');
+      this.replaceWith('/not-found');
     }
   }
 });
