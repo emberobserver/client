@@ -9,7 +9,7 @@
 
           <p>{{category.description}}</p>
         {{/link-to}}
-        <p>
+        <p class="subcategories">
           {{#if category.subcategories}}
             Subcategories: {{inline-category-list categories=category.subcategories showAddonCount=true showWithoutParent=true}}
           {{/if}}

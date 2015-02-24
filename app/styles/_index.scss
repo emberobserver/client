@@ -7,6 +7,14 @@
     @include grid-item-big;
   }
 
+  .grid-items-lines .grid-item p.subcategories {
+    max-width: 100%;
+  }
+
+  .category-list a {
+    white-space: nowrap;
+  }
+
   h1 {
     margin-bottom: .5em;
 
