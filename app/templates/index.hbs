@@ -5,13 +5,13 @@
     {{#each category in topLevelCategories}}
       <div class="grid-item" {{action "showCategory" category}}>
         {{#link-to "categories.show" category class="test-category"}}
-          <h2>{{category.name}} ({{category.addons.length}})</h2>
+          <h2>{{category.name}} ({{category.addonCount}})</h2>
 
           <p>{{category.description}}</p>
         {{/link-to}}
         <p>
           {{#if category.subcategories}}
-            Subcategories: {{inline-category-list categories=category.subcategories showAddonCount=true}}
+            Subcategories: {{inline-category-list categories=category.subcategories showAddonCount=true showWithoutParent=true}}
           {{/if}}
         </p>
       </div>

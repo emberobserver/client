@@ -3,12 +3,12 @@
   <p class="description test-category-description">
     {{model.description}}<br>
     {{#if model.parent}}
-      Subcategory of {{#link-to 'categories.show' model.parent}}{{model.parent.name}} ({{model.parent.addons.length}}){{/link-to}}
+      Subcategory of {{#link-to 'categories.show' model.parent}}{{model.parent.name}} ({{model.parent.addonCount}}){{/link-to}}
     {{/if}}
   </p>
   {{#if hasSubcategories}}
     <h6>Subcategories</h6>
-    {{inline-category-list categories=model.subcategories showAddonCount=true}}
+    {{inline-category-list categories=model.subcategories showAddonCount=true showWithoutParent=true}}
   {{/if}}
 
   {{addons-table addons=model.addons showAddon="showAddon"}}

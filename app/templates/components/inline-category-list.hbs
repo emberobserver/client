@@ -1,7 +1,8 @@
 {{#each category in categories}}
   {{#comma-separated list=categories item=category as |value separator|}}
     {{#link-to "categories.show" value}}
-      {{value.name}}{{#if showAddonCount}} ({{value.addons.length}}){{/if}}{{separator}}
+      {{!--This is in one long line cause otherwise weird whitespace appears--}}
+      {{#if showWithoutParent}}{{value.name}}{{else}}{{#if value.parent}}{{value.parent.name}} > {{/if}}{{value.name}}{{/if}}{{#if showAddonCount}} ({{value.addonCount}}){{/if}}{{separator}}
     {{/link-to}}
   {{/comma-separated}}
 {{/each}}
