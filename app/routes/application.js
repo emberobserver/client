@@ -36,7 +36,14 @@ export default Ember.Route.extend({
       addons: this.store.find('addon'),
       categories: this.store.find('category')
     });
+  },
+
+  title: function(tokens){
+    var tokenStr = tokens.join('');
+    if (tokenStr) {
+      return tokenStr + ' - Ember Observer';
+    } else {
+      return 'Ember Observer';
+    }
   }
-
-
 });

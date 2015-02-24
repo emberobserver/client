@@ -6,6 +6,10 @@ export default Ember.Route.extend(scrollFix, {
     return this.store.all('category').findBy('name', params.name);
   },
 
+  titleToken: function(model){
+    return model.get('name');
+  },
+
   actions: {
     error: function() {
       this.replaceWith('/not-found');

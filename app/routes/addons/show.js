@@ -6,6 +6,10 @@ export default Ember.Route.extend(scrollFix, {
     return this.store.all('addon').findBy('name', params.name);
   },
 
+  titleToken: function(model){
+    return model.get('name');
+  },
+
   afterModel: function(model){
     this.store.findQuery('keyword', {addon_id: model.get('id')});
     this.store.findQuery('version', {addon_id: model.get('id')});
