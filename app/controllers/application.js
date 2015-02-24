@@ -5,7 +5,7 @@ export default Ember.Controller.extend({
     return {
       categories: {
         data: this.get('model.categories'),
-        key: 'name',
+        key: 'displayName',
         action: 'showCategory'
       },
       addons: {

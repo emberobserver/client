@@ -11,6 +11,14 @@ export default DS.Model.extend({
   addons: hasMany('addon', {async: true}),
   parent: belongsTo('category'),
   subcategories: hasMany('category', {inverse: 'parent'}),
+  displayName: function(){
+    if(this.get('parent')){
+      return this.get('parent.name') + ' > ' + this.get('name');
+    }
+    else {
+      return this.get('name')
+    }
+  }.property('parent.name', 'name'),
   addonCount: function(){
     return this.get('subcategories').mapBy('addons.length').reduce(function(categoryA, categoryB) {
       return categoryA + categoryB;
