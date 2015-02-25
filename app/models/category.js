@@ -11,6 +11,9 @@ export default DS.Model.extend({
   addons: hasMany('addon', {async: true}),
   parent: belongsTo('category'),
   subcategories: hasMany('category', {inverse: 'parent'}),
+  slug: function(){
+    return this.get('name').dasherize();
+  }.property('name'),
   displayName: function(){
     if(this.get('parent')){
       return this.get('parent.name') + ' > ' + this.get('name');
