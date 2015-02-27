@@ -16,6 +16,7 @@ export default DS.Model.extend({
   isOfficial: attr('boolean'),
   isCliDependency: attr('boolean'),
   isHidden: attr('boolean'),
+  hasInvalidGithubRepo: attr('boolean'),
   categories: hasMany('category', {async: true}),
   keywords: hasMany('keyword', {async: true}),
   versions: hasMany('version', {async: true}),
