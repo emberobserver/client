@@ -13,6 +13,7 @@ export default DS.Model.extend({
   license: attr('string'),
   isDeprecated: attr('boolean'),
   note: attr('string'),
+  renderedNote: attr('string'),
   isOfficial: attr('boolean'),
   isCliDependency: attr('boolean'),
   isHidden: attr('boolean'),

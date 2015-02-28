@@ -25,7 +25,7 @@
       <p class='description'>{{markdown-limited content=model.description}}</p>
     </section>
     {{#if model.note}}
-      {{addon-note content=model.note}}
+      {{addon-note content=model.renderedNote}}
     {{/if}}
 
     {{#if session.isAuthenticated}}

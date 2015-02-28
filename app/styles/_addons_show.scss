@@ -25,7 +25,7 @@
     }
   }
 
-  fieldset {
+  .note {
     legend {
       padding: 0 .25em;
       font-weight: 700;
@@ -33,6 +33,10 @@
 
     section {
       margin-bottom: 0;
+    }
+
+    p {
+      margin: 0;
     }
   }
 
