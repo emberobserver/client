@@ -1,0 +1,18 @@
+.addons-correct {
+	@include outer-padding;
+
+	h1 {
+		margin-top: 0;
+		margin-bottom: .25em;
+		color: darken($blue, 5);
+	}
+
+	button.cancel {
+		$background-color: #999;
+		background-color: $background-color;
+
+		&:hover {
+			background-color: darken($background-color, 20%);
+		}
+	}
+}

@@ -1,0 +1,26 @@
+<div class="container addons-correct">
+	<h1>
+		{{#if model.isOfficial}}
+			<span class="icon-stars official" title="Offical Ember-CLI addon"></span>
+		{{/if}}
+
+		{{#if model.isCliDependency}}
+			<span class="icon-stars dependency" title="Dependency of newly generated Ember-CLI applications"></span>
+		{{/if}}
+
+		{{model.name}}
+
+	</h1>
+
+	<p class='description'>{{markdown-limited content=model.description}}</p>
+
+	<h2>Suggest a correction</h2>
+
+	<form {{action "submitCorrection" on="submit"}}>
+		{{input type="text" value=name placeholder="Your name"}}
+		{{input type="text" value=email placeholder="Your email address"}}
+		{{textarea value=correction placeholder="Describe what needs correcting"}}
+		<input type="submit" value="Submit">
+		<button type="button" {{action "cancel" on="click"}} class="cancel">Cancel</button>
+	</form>
+</div>
