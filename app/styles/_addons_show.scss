@@ -25,6 +25,17 @@
     }
   }
 
+  fieldset {
+    legend {
+      padding: 0 .25em;
+      font-weight: 700;
+    }
+
+    section {
+      margin-bottom: 0;
+    }
+  }
+
   .categories {
     p {
       margin-top: .5em;
