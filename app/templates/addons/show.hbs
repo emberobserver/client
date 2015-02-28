@@ -22,7 +22,7 @@
 
       </h1>
 
-      <p>{{model.description}}</p>
+      <p class='description'>{{markdown-limited content=model.description}}</p>
     </section>
     {{#if model.note}}
       <strong>{{model.note}}</strong>

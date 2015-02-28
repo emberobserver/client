@@ -17,6 +17,14 @@
     margin-bottom: 2em;
   }
 
+  .description {
+    h1, h2, h3, h4, h5, h6 {
+      font-size: 1.1em;
+      font-family: 'Lato', sans-serif;
+      font-weight: normal;
+    }
+  }
+
   .categories {
     p {
       margin-top: .5em;
