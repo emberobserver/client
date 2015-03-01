@@ -121,14 +121,14 @@
       {{/link-to}}
     {{/each}}
 
-    <h6>versions</h6>
+    <h6>versions ({{model.sortedVersions.length}})</h6>
 
     <ul class="versions">
       {{#each version in model.sortedVersions}}
         <li>{{moment version.released "YYYY-MMM-DD"}} <span class="version-number">{{version.version}}</span></li>
       {{/each}}
     </ul>
-
+    <hr>
     {{link-to 'Suggest a correction' 'addons.correct' model}}
   </div>
 
