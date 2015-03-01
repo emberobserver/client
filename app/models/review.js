@@ -9,10 +9,10 @@ export default DS.Model.extend({
     {text: 'Has it been released within the last 6 months', field: 'hasBeenReleasedRecently'}
   ],
   questions: [
+    {text: 'Is the source accessible?', fieldName: 'isOpenSource'},
     {text: 'Is it more than an empty addon?', fieldName: 'isMoreThanEmptyAddon'},
     {text: 'Are there meaningful tests?', fieldName: 'hasTests'},
     {text: 'Is the README filled out?', fieldName: 'hasReadme'},
-    {text: 'Is the source accessible?', fieldName: 'isOpenSource'},
     {text: 'Does the addon have a build?', fieldName: 'hasBuild'}
   ],
   review: attr('string'),
