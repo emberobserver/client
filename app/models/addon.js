@@ -27,6 +27,7 @@ export default DS.Model.extend({
   latestVersion: Ember.computed.alias('sortedVersions.firstObject'),
   oldestVersion: Ember.computed.alias('sortedVersions.lastObject'),
   isNewAddon: attr('boolean'),
+  score: attr('number'),
   npmUrl: function(){
     return `https://www.npmjs.com/package/${this.get('name')}`;
   }.property('name')
