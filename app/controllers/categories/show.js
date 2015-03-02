@@ -4,7 +4,7 @@ export default Ember.Controller.extend({
 	queryParams: {
 		addonSortKey: 'sort'
 	},
-	addonSortKey: 'score:desc',
+	addonSortKey: 'score',
 
 	hasSubcategories: function() {
 		return this.get('model.subcategories.length') > 0;
