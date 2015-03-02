@@ -21,4 +21,12 @@
   .sort-buttons {
     text-align: right;
   }
+
+  .category-details {
+    @include span-columns(9);
+  }
+
+  .sort-controls {
+    @include span-columns(3);
+  }
 }

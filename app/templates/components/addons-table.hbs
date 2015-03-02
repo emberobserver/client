@@ -1,13 +1,6 @@
-<div class="sort-buttons">
-  {{#button-select selected=sortKey label='Sort: '}}
-    {{button-option label='Score' value='score'}}
-    {{button-option label='Name' value='name'}}
-    {{button-option label='Updated' value='latestVersionDate'}}
-  {{/button-select}}
-</div>
 <table class="addons-table">
   <tbody>
-  {{#each addon in sortedAddons}}
+  {{#each addon in addons}}
     {{addon-row addon=addon showAddon="showAddon"}}
   {{/each}}
   </tbody>
