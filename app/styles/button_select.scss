@@ -1,5 +1,7 @@
 .button-select {
-	button {
+  white-space: nowrap;
+
+  button {
 		@include button(flat, $base-accent-color);
 		display: inline-block;
 		line-height: $base-line-height;
@@ -27,9 +29,8 @@
 			color: white !important;
 		}
 
-		@include media($medium-screen) {
-			margin-bottom: 0;
-			width: auto;
-		}
+    margin-bottom: 1em;
+    width: auto;
+
 	}
 }
