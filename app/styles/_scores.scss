@@ -1,0 +1,46 @@
+$score-font-size: 0.75em !default;
+$medium-gray: #999 !default;
+$low-color: #ff7e63 !default;
+$med-low-color: #fbab61 !default;
+$medium-color: #f8ef52 !default;
+$med-high-color: #9eef47 !default;
+$high-color: #28b36d !default;
+
+@mixin score($color: $medium-gray) {
+  background-color: $color;
+  color: lighten($color, 60%);
+  display: inline-block;
+  font-size: $score-font-size;
+  line-height: 1;
+  padding: .5em .75em;
+  border-radius: $base-border-radius;
+  font-weight: 300;
+}
+
+.score {
+  @include score($light-gray);
+}
+
+.score[data-score="0"]{
+  @include score($medium-gray);
+}
+
+.score[data-score="1"], .score[data-score="2"] {
+  @include score($low-color);
+}
+
+.score[data-score="3"], .score[data-score="4"] {
+  @include score($med-low-color);
+}
+
+.score[data-score="5"], .score[data-score="6"] {
+  @include score($medium-color);
+}
+
+.score[data-score="7"], .score[data-score="8"] {
+  @include score($med-high-color);
+}
+
+.score[data-score="9"], .score[data-score="10"]{
+  @include score($high-color);
+}

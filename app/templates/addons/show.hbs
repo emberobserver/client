@@ -19,7 +19,6 @@
         {{/if}}
 
         {{model.name}}
-
       </h1>
 
       <p class='description'>{{markdown-limited content=model.description}}</p>
@@ -27,6 +26,14 @@
     {{#if model.note}}
       {{addon-note content=model.renderedNote}}
     {{/if}}
+
+    <section>
+      <h4>
+        <span class="score" {{bind-attr data-score="model.score"}}>
+          Score <b>{{model.score}}{{#unless latestReview}}*{{/unless}}</b>
+        </span>
+      </h4>
+    </section>
 
     {{#if session.isAuthenticated}}
       <form {{action "save" on="submit"}}>
@@ -116,6 +123,8 @@
         <p class="no-review">This addon has not yet been reviewed.</p>
       {{/if}}
     </section>
+
+    <small>* Incomplete</small>
   </div>
 
   <div class="addon-stats">

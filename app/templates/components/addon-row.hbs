@@ -15,7 +15,11 @@
       <span class="icon-stars dependency" title="Dependency of newly generated Ember-CLI applications"></span>
     {{/if}}
   </h4>
+
   <p class="last-updated">Last updated {{ago addon.latestVersionDate}}</p>
+  <p>
+    <span class="score" {{bind-attr data-score="addon.score"}}>Score {{addon.score}}</span>
+  </p>
   <p>{{addon.description}}</p>
   <p>{{inline-category-list categories=addon.categories}}</p>
 </td>
