@@ -18,6 +18,17 @@ export default DS.Model.extend({
   isCliDependency: attr('boolean'),
   isHidden: attr('boolean'),
   hasInvalidGithubRepo: attr('boolean'),
+  isNewAddon: attr('boolean'),
+  score: attr('number'),
+  openIssues: attr('number'),
+  forks: attr('number'),
+  contributors: attr('array'),
+  firstCommitDate: attr('date'),
+  latestCommitDate: attr('date'),
+  lastMonthDownloads: attr('number'),
+  stars: attr('number'),
+  isTopDownloaded: attr('boolean'),
+  isTopStarred: attr('boolean'),
   categories: hasMany('category', {async: true}),
   keywords: hasMany('keyword', {async: true}),
   versions: hasMany('version', {async: true}),
@@ -26,8 +37,9 @@ export default DS.Model.extend({
   sortedVersions: sortBy('versions', 'released:desc'),
   latestVersion: Ember.computed.alias('sortedVersions.firstObject'),
   oldestVersion: Ember.computed.alias('sortedVersions.lastObject'),
-  isNewAddon: attr('boolean'),
-  score: attr('number'),
+  hasGithubData: function(){
+    return !this.get('hasInvalidGithubRepo') && this.get('firstCommitDate');
+  }.property('hasInvalidGithubRepo', 'firstCommitDate'),
   npmUrl: function(){
     return `https://www.npmjs.com/package/${this.get('name')}`;
   }.property('name')

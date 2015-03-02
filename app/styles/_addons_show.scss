@@ -51,6 +51,12 @@
     }
   }
 
+  .commit-stats {
+    @include clearfix();
+    margin-top: 3em;
+    padding: 0.75em;
+  }
+
   .latest-review {
     .review-date {
       font-size: .8em;

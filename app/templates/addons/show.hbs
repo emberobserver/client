@@ -80,6 +80,31 @@
         </form>
       {{/if}}
     </section>
+    {{#if model.hasGithubData}}
+      <section class="repo-info">
+        <h4>Github</h4>
+
+        {{#if model.isTopStarred}}
+          <small>TOP 10% STARRED</small>
+        {{/if}}
+        <div class="stats">
+          <ul>
+            <li>{{model.openIssues}}<span>Open Issues</span></li>
+            <li>{{model.forks}}<span>Forks</span></li>
+            <li>{{model.stars}}<span>Starred</span></li>
+            <li>{{model.contributors.length}}<span>Contributors</span></li>
+          </ul>
+        </div>
+        <div class="commit-stats">
+          <strong>latest commit</strong>
+          <p>{{ago model.lastestCommitDate}}</p>
+
+          <strong>first commit</strong>
+          <p>{{ago model.firstCommitDate}}</p>
+        </div>
+      </section>
+    {{/if}}
+
     <section class="latest-review">
       <h4>Review</h4>
       {{#if latestReview}}
@@ -99,6 +124,7 @@
 
     <ul class="stats-list">
       <li><b>{{model.latestVersion.version}}</b> from {{ago model.latestVersionDate}}</li>
+      <li>{{#if model.isTopDownloaded}}<div><small>TOP 10%!</small></div>{{/if}}<b>{{model.lastMonthDownloads}}</b> downloads in last month </li>
       <li><b>repo</b> {{human-url url=model.repositoryUrl}}</li>
       <li><b>package</b> {{human-url url=model.npmUrl}}</li>
       <li><b>license</b> <a {{bind-attr href="licenseUrl"}}>{{model.license}}</a></li>
