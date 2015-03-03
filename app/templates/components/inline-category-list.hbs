@@ -1,4 +1,4 @@
-{{#each category in categories}}
+{{#each category in categoriesSortedByAddonCount}}
   {{#comma-separated list=categories item=category as |value separator|}}
     {{#link-to "categories.show" value}}
       {{!--This is in one long line cause otherwise weird whitespace appears--}}
