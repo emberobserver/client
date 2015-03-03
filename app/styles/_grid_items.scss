@@ -4,7 +4,7 @@
   width: (100% / 12) * $columns;
 }
 
-$grid-item-big-columns: 8;
+$grid-item-big-columns: 12;
 
 @mixin grid-item-big {
   @include media($large-screen) {

@@ -3,7 +3,7 @@
 .index {
   @include outer-padding;
 
-  .grid-item:nth-of-type(5){
+  .grid-item:nth-of-type(4){
     @include grid-item-big;
   }
 
