@@ -2,7 +2,6 @@
   white-space: nowrap;
 
   button {
-		@include button(flat, $base-accent-color);
 		display: inline-block;
 		line-height: $base-line-height;
 		margin-bottom: 0.3em;
@@ -10,6 +9,7 @@
 		outline: none;
 		padding: 0.3em 1em;
 		width: 100%;
+    color: $base-accent-color;
 		background-color: white;
 		border: 1px solid $base-accent-color;
 		font-weight: 300;

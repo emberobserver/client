@@ -24,7 +24,7 @@ $base-spacing: $base-line-height * 1em;
 $base-z-index: 0;
 
 // Colors
-$blue: #8EB2C5;
+$blue: #2F7498;
 $coral: #E5625C;
 $dark-coral: #D1313D;
 $hay: #F9BF76;
@@ -34,7 +34,7 @@ $dark-blue-gray: shade($blue, 70%);
 
 $dark-gray: #444;
 $medium-gray: shade($blue, 50%); //#999;
-$light-gray: tint($blue, 70%); //#DDD;
+$light-gray: tint($blue, 80%); //#DDD;
 $light-red: #FBE3E4;
 $light-yellow: #FFF6BF;
 $light-green: #E6EFC2;
