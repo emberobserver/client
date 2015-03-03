@@ -1,25 +1,30 @@
 <div class="container categories-show">
-  <div class="category-details">
-    <h1 class="test-category-header">{{model.name}}</h1>
-    <p class="description test-category-description">
-      {{model.description}}<br>
-      {{#if model.parent}}
-        Subcategory of {{#link-to 'categories.show' model.parent}}{{model.parent.name}} ({{model.parent.addonCount}}){{/link-to}}
+  <div class="details">
+    <div class="category-details">
+      <h1 class="test-category-header">{{model.name}}</h1>
+      <p class="description test-category-description">
+        {{model.description}}<br>
+        {{#if model.parent}}
+          Subcategory of {{#link-to 'categories.show' model.parent}}{{model.parent.name}} ({{model.parent.addonCount}}){{/link-to}}
+        {{/if}}
+      </p>
+      {{#if hasSubcategories}}
+        <h6>Subcategories</h6>
+        {{inline-category-list categories=model.subcategories showAddonCount=true showWithoutParent=true}}
       {{/if}}
-    </p>
-    {{#if hasSubcategories}}
-      <h6>Subcategories</h6>
-      {{inline-category-list categories=model.subcategories showAddonCount=true showWithoutParent=true}}
-    {{/if}}
-  </div>
-  <div class="sort-controls">
-    Sort by:
-    {{#button-select selected=addonSortKey}}
-      {{button-option label='Score' value='score'}}
-      {{button-option label='Name' value='name'}}
-      {{button-option label='Updated' value='latestVersionDate'}}
-    {{/button-select}}
+    </div>
+    <div class="sort-controls">
+      Sort by:
+      {{#button-select selected=addonSortKey}}
+        {{button-option label='Score' value='score'}}
+        {{button-option label='Name' value='name'}}
+        {{button-option label='Updated' value='latestVersionDate'}}
+      {{/button-select}}
+    </div>
   </div>
 
-  {{addons-table addons=sortedAddons sortKey=addonSortKey showAddon="showAddon"}}
+  <div class="addons">
+    <span class="addon-count">Displaying {{sortedAddons.length}} addons</span>
+    {{addons-table addons=sortedAddons sortKey=addonSortKey showAddon="showAddon"}}
+  </div>
 </div>

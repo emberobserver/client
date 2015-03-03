@@ -14,8 +14,17 @@
     font-weight: 300;
   }
 
-  .addons-table {
+  .details {
+    @include clearfix;
+  }
+
+  .addons {
+    @include clearfix;
     margin-top: 2.5em;
+
+    .addon-count {
+      font-weight: 300;
+    }
   }
 
   .sort-buttons {
