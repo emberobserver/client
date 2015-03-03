@@ -22,7 +22,9 @@ export default Ember.Controller.extend({
     save: function(){
       var controller = this;
       this.set('isSaving', true);
-      this.get('model').save().finally(function(){
+      this.get('model').save().catch(function() {
+        alert("Saving failed");
+      }).finally(function(){
         controller.set('isSaving', false);
       });
     },
@@ -34,7 +36,9 @@ export default Ember.Controller.extend({
     saveReview: function(newReview){
       var controller = this;
       newReview.set('version', this.get('model.latestVersion'));
-      newReview.save().finally(function(){
+      newReview.save().catch(function() {
+        alert("Saving failed");
+      }).finally(function(){
         controller.set('newReview', null);
         controller.set('isReviewing', false);
       });
