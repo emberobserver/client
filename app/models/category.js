@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import DS from 'ember-data';
 
 var attr = DS.attr;
@@ -19,7 +18,7 @@ export default DS.Model.extend({
       return this.get('parent.name') + ' > ' + this.get('name');
     }
     else {
-      return this.get('name')
+      return this.get('name');
     }
   }.property('parent.name', 'name'),
   addonCount: function(){
