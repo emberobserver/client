@@ -1,0 +1,52 @@
+<div class="about-index container">
+  <article>
+    <h1>What is Ember Observer?</h1>
+    <p>We built this site to provide a better way to discover and compare ember-cli addons.
+      The site has a secondary goal of promoting quality and sustainability in addon development.
+      Ember Observer is heavily inspired by <a href="https://www.ruby-toolbox.com/">Ruby Toolbox</a>.
+      We've attempted to achieve these goals through a number of features:
+    </p>
+    <h3>Categorization</h3>
+    <p>Every addon is categorized. The first pass at categorization is a bit rough.</p>
+    <p>Addons that do not provide reusable functionality or that we were unable to evaluate do not appear on the site. We will regularly re-review these to see if they can be listed.</p>
+
+    <h3>"Reviews"</h3>
+    <p>Every addon that is published has been and will be "reviewed", though "evaluated" would perhaps be a better term. The review consists of five questions:</p>
+    <p><em>Is the source accessible?</em> - This one is straightforward: can the source be found? In practice this has turned out to not be a terribly useful question and will probably be removed at somepoint.</p>
+    <p><em>Is it more than an empty addon?</em> - Is the addon more than the base generated addon? Another question that turns out to not be very useful. It will probably be removed in favor of hiding addons from the site until they are more than an empty addon.</p>
+    <p><em>Are there meaningful tests?</em> - The key word here is "meaningful", in reviewing we took this to mean <em>any</em> tests beyond the tests provided by generators.</p>
+    <p><em>Is the README filled out?</em> - Does the README have content that is not the default generated content?</p>
+    <p><em>Does the addon have a build?</em> - Is there a continuous integration build? We answered N/A if there were not meaningful tests but there was a build.</p>
+
+    <h3>Score</h3>
+    <p>Every addon has a score, based on the following conditions:</p>
+    <ul>
+      <li>1 point is given for every 'Yes' answer in the review.</li>
+      <li>1 point is given for a recent release (within last 3 months).</li>
+      <li>1 point is given for more than 1 commit within the last 3 months.</li>
+      <li>1 point is given for having more than 1 contributor.</li>
+      <li>1 point is given for having a download count in the last 30 days that is in the top 10% for all addons.</li>
+      <li>1 point is given for having a Github star count in the top 10% of all addons.</li>
+      <li>The total score is out of 10.</li>
+    </ul>
+    <br>
+    <p>This score is far from perfect. Currently it is biased against any addon not hosted on Github or with an incorrect repo url. To fix this we are thinking about averaging the Github-reliant portion of the score with portion provided by npm info and the review.</p>
+
+    <h3>Actions for addon maintainers</h3>
+    <p>In the course of reviewing every ember addon, I opened 52 pull requests to update or fix the repository url in package.json.</p>
+
+    <p>Please fill out your package.json files. Make sure the repo URL is correct and set a good description.</p>
+
+    <h3>Building this site</h3>
+    <p>This site, is, itself, an Ember app! It is now open source and available at: </p>
+
+    <h3>Future goals</h3>
+    <p>We have many ideas for where to take this project, but the first step is opening it up to the community. We expect to hear many great ideas.
+      One idea that we are sure we will have to tackle, for sustainability, is making the reviews and categorization community-sourced. More thoughts on that soon, and input is welcome.
+    </p>
+
+    <p>
+      -Katie Gengler, Louis Simons & Phil Gengler
+    </p>
+  </article>
+</div>

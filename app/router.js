@@ -23,6 +23,8 @@ Router.map(function() {
   this.route("admin", function(){
   });
 
+  this.route("about");
+
   this.route('not-found', { path: '/*path' });
 });
 

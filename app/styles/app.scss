@@ -21,6 +21,7 @@
 @import "button_select";
 @import "stats";
 @import "scores";
+@import "about_index";
 
 .container {
   @include outer-container;
@@ -40,6 +41,16 @@ header.navigation {
     color: #70B3DB;
     font-size: 2em;
     font-weight: 700;
+  }
+
+  .about {
+    color: #70B3DB;
+    margin-top: 1em;
+    float: right;
+
+    &:hover {
+      color: lighten(#70B3DB, 20%);
+    }
   }
 
   input {
