@@ -16,14 +16,19 @@ export default Ember.Component.extend({
     });
 
     var keys = Object.keys(this.get('datasets'));
+    var tmp;
     keys.forEach(function(datasetName){
       dataset = component.get(`datasets.${datasetName}`);
       component.set(`${datasetName}Action`, dataset.action);
       data = dataset.data.map(function(item){
-        return {
+        tmp = {
           display: item.get( dataset.key ),
           id: item.get('id')
         };
+        if(item.get('score') !== undefined){
+          tmp.score = item.get('score');
+        }
+        return tmp;
       });
 
       typeaheadOptions.push({
@@ -31,7 +36,13 @@ export default Ember.Component.extend({
         displayKey: 'display',
         source: substringMatcher(data),
         templates: {
-          header: `<h3>${datasetName.capitalize()}</h3>`
+          header: `<h3>${datasetName.capitalize()}</h3>`,
+          suggestion: function(properties){
+            if( properties.score !== undefined ){
+              return `<p><span class="score" data-score="${properties.score}">${properties.score}</span> ${properties.display}</p>`;
+            }
+            return `<p>${properties.display}</p>`;
+          }
         }
       });
     });

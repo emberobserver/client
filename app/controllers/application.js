@@ -9,7 +9,7 @@ export default Ember.Controller.extend({
         action: 'showCategory'
       },
       addons: {
-        data: this.get('model.addons'),
+        data: this.get('model.addons').sortBy('score').reverse(),
         key: 'name',
         action: 'showAddon'
       },
