@@ -1,7 +1,6 @@
-# Ember-addon-review
+# Ember Observer
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+This is the frontend code for the [Ember Observer](http://emberobserver.com/) website.
 
 ## Prerequisites
 
@@ -25,10 +24,6 @@ You will need the following things properly installed on your computer.
 * `ember server`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 
-### Code Generators
-
-Make use of the many generators for code, try `ember help generate` for more details
-
 ### Running Tests
 
 * `ember test`
@@ -41,19 +36,15 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 ### Deploying
 
-* `./deploy.sh` 
+* `./deploy.sh`
 
-## Further Reading / Useful Links
+## Depends On
 
 * [ember.js](http://emberjs.com/)
 * [ember-cli](http://www.ember-cli.com/)
-* Development Browser Extensions
-  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
-  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
-  
-  
+* [Bourbon](http://bourbon.io/) / [Neat](http://neat.bourbon.io/) / [Bitters](http://bitters.bourbon.io/) / [Refills](http://refills.bourbon.io/)
+
 # Process when new Ember-CLI version is released
 
 1. Generate new app using the new version
 1. Compare set of dependencies to set of addons set to 'isCliDependency'
-
