@@ -74,10 +74,18 @@ export default Ember.Component.extend({
 
 function substringMatcher(strs) {
   return function findMatches(query, callback) {
+    query = escapeForRegex(query);
     var matcher = new RegExp( query, "i" );
     var results = strs.filter( function ( item ) {
       return matcher.test( item.display );
     });
     callback(results);
   };
+}
+
+function escapeForRegex(str)
+{
+  str = str.replace('(', '\\(');
+  str = str.replace(')', '\\)');
+  return str;
 }
