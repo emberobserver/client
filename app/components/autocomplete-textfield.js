@@ -85,7 +85,5 @@ function substringMatcher(strs) {
 
 function escapeForRegex(str)
 {
-  str = str.replace('(', '\\(');
-  str = str.replace(')', '\\)');
-  return str;
+  return str.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&");
 }
