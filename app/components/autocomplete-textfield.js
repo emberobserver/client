@@ -54,12 +54,6 @@ export default Ember.Component.extend({
       }));
 	},
 
-  keyUp: function(event){
-    if(event.which === 13 && !this.$(".tt-cursor").length){
-      this.$(".tt-suggestion:first-child").click();
-    }
-  },
-
   selected: function(value, datasetName) {
     var item = this.get(`datasets.${datasetName}.data`).findBy('id', value.id);
     if (item) {
@@ -69,6 +63,12 @@ export default Ember.Component.extend({
 
   willDestroyElement: function(){
     this.$('input').typeahead('destroy');
+  },
+
+  actions: {
+    submit: function(){
+      this.$(".tt-suggestion:first-child").click();
+    }
   }
 });
 
@@ -83,7 +83,6 @@ function substringMatcher(strs) {
   };
 }
 
-function escapeForRegex(str)
-{
+function escapeForRegex(str) {
   return str.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&");
 }
