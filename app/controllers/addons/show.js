@@ -2,6 +2,7 @@ import Ember from 'ember';
 import sortBy from '../../utils/sort-by';
 
 export default Ember.Controller.extend({
+  showExplanation: false,
   categories: function(){
     return this.store.all('category');
   }.property(),
@@ -15,6 +16,10 @@ export default Ember.Controller.extend({
   }.property('model.license'),
   sortedReviews: sortBy('model.reviews', 'version.released:desc'),
   latestReview: Ember.computed.alias('sortedReviews.firstObject'),
+  isLatestReleaseInLast3Months: function(){
+    var threeMonthsAgo = window.moment().subtract(3, 'months');
+    return window.moment(this.get('model.latestVersion.released')).isAfter(threeMonthsAgo);
+  }.property('model.latestVersion.released'),
   isLatestReviewForLatestVersion: function(){
     return this.get('latestReview') === this.get('model.latestVersion.review');
   }.property('latestReview', 'model.latestVersion.review'),
@@ -42,6 +47,9 @@ export default Ember.Controller.extend({
         controller.set('newReview', null);
         controller.set('isReviewing', false);
       });
+    },
+    toggleExplainScore: function(){
+      this.toggleProperty('showExplanation');
     }
   }
 

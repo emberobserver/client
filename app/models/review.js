@@ -25,5 +25,14 @@ export default DS.Model.extend({
   hasBuild: attr('number'),
   addon: belongsTo('addon'),
   hasBeenReleasedRecently: Ember.computed.alias('addon.hasBeenReleasedRecently'),
-  hasLicense: Ember.computed.alias('addon.hasLicense')
+  hasLicense: Ember.computed.alias('addon.hasLicense'),
+  score: function(){
+    var s = 0;
+    if(this.get('hasTests') === 1){ s++; }
+    if(this.get('isMoreThanEmptyAddon') === 1){ s++; }
+    if(this.get('isOpenSource') === 1){ s++; }
+    if(this.get('hasBuild') === 1){ s++; }
+    if(this.get('hasReadme') === 1){ s++; }
+    return s;
+  }.property('hasTests', 'isMoreThanEmptyAddon', 'isOpenSource', 'hasBuild', 'hasReadme')
 });

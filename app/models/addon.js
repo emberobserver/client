@@ -28,6 +28,7 @@ export default DS.Model.extend({
   lastMonthDownloads: attr('number'),
   stars: attr('number'),
   isTopDownloaded: attr('boolean'),
+  committedToRecently: attr('boolean'),
   isTopStarred: attr('boolean'),
   categories: hasMany('category', {async: true}),
   keywords: hasMany('keyword', {async: true}),
@@ -37,6 +38,7 @@ export default DS.Model.extend({
   sortedVersions: sortBy('versions', 'released:desc'),
   latestVersion: Ember.computed.alias('sortedVersions.firstObject'),
   oldestVersion: Ember.computed.alias('sortedVersions.lastObject'),
+  hasMoreThan1Contributor: Ember.computed.gt('contributors.length', 1),
   hasGithubData: function(){
     return !this.get('hasInvalidGithubRepo') && this.get('firstCommitDate');
   }.property('hasInvalidGithubRepo', 'firstCommitDate'),
