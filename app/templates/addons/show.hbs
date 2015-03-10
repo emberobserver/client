@@ -207,6 +207,9 @@
         <li>{{moment version.released "YYYY-MMM-DD"}} <span class="version-number">{{version.version}}</span></li>
       {{/each}}
     </ul>
+    <section class="badge">
+      <img src={{badgeSrc}}>{{zero-clipboard text=badgeText label="" innerClass="icon-content-paste" class="copy-to-clipboard" title="Copy badge markdown to clipboard"}}
+    </section>
     <hr>
     {{link-to 'Suggest a correction' 'addons.correct' model}}
   </div>

@@ -206,4 +206,30 @@
       }
     }
   }
+
+  .badge {
+    margin-top: 1em;
+
+    img {
+      float: left;
+      padding-right: .5em;
+    }
+
+    .copy-to-clipboard {
+      cursor: pointer;
+
+      button {
+        padding: 0;
+        background: none;
+        color: $base-accent-color;
+        vertical-align: baseline;
+      }
+
+    }
+
+    .zeroclipboard-is-hover.copy-to-clipboard button {
+      color: $hover-link-color;
+    }
+  }
+
 }

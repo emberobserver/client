@@ -36,6 +36,7 @@
     "ember-cli-qunit": "0.3.7",
     "ember-cli-segment": "0.0.2",
     "ember-cli-uglify": "1.0.1",
+    "ember-cli-zero-clipboard": "^1.0.2",
     "ember-data": "1.0.0-beta.14.1",
     "ember-export-application-global": "^1.0.2",
     "ember-marked": "0.0.5",
