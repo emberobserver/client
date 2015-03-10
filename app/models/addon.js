@@ -10,6 +10,7 @@ export default DS.Model.extend({
   description: attr('string'),
   repositoryUrl: attr('string'),
   latestVersionDate: attr('date'),
+  latestReviewedVersionDate: attr('date'),
   license: attr('string'),
   isDeprecated: attr('boolean'),
   note: attr('string'),
