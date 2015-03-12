@@ -22,7 +22,7 @@ module.exports = function(environment) {
     },
 
     contentSecurityPolicy: {
-      'connect-src': "'self' api.segment.io",
+      'connect-src': "'self' api.segment.io api.github.com",
       'font-src': "'self' fonts.gstatic.com",
       'img-src': "'self' secure.gravatar.com usage.trackjs.com www.google-analytics.com",
       'script-src': "'self' 'unsafe-inline' cdn.segment.com cdnjs.cloudflare.com d2zah9y47r7bi2.cloudfront.net www.google-analytics.com",
