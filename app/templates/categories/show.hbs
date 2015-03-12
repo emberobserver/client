@@ -5,7 +5,7 @@
       <p class="description test-category-description">
         {{model.description}}<br>
         {{#if model.parent}}
-          Subcategory of {{#link-to 'categories.show' model.parent}}{{model.parent.name}} ({{model.parent.addonCount}}){{/link-to}}
+          Subcategory of {{#link-to 'categories.show' model.parent class="test-parent-category-link"}}{{model.parent.name}} ({{model.parent.addonCount}}){{/link-to}}
         {{/if}}
       </p>
       {{#if hasSubcategories}}
@@ -24,7 +24,7 @@
   </div>
 
   <div class="addons">
-    <span class="addon-count">Displaying {{sortedAddons.length}} addons</span>
+    <span class="addon-count test-category-addon-count">Displaying {{pluralize sortedAddons.length "addon"}}</span>
     {{addons-table addons=sortedAddons sortKey=addonSortKey showAddon="showAddon"}}
   </div>
 </div>
