@@ -22,7 +22,8 @@
     "currentURL",
     "currentPath",
     "currentRouteName",
-    "QUnit"
+    "QUnit",
+    "server"
   ],
   "node": false,
   "browser": false,
