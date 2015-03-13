@@ -29,53 +29,55 @@
 
     <section>
       <h4>
-        <span class="score" {{bind-attr data-score="model.score"}}>
-          Score <b>{{model.score}}{{#unless latestReview}}*{{/unless}}</b>
+        <span class="score" data-score={{score-class model.score}}>
+          Score <b>{{score-display model.score}}</b>
         </span>
       </h4>
-      {{#if showExplanation}}
-        <a href="#" {{action "toggleExplainScore"}} class="info-action">Hide This</a>
-        <ul>
-          {{#if latestReview}}
-            <li>{{pluralize latestReview.score "point"}} from review</li>
-          {{else}}
-            <li>0 points from review (Not yet reviewed)</li>
-          {{/if}}
-          {{#if model.isTopDownloaded}}
-            <li>1 point for having a download count in the last 30 days that is in the top 10% for all addons.</li>
-          {{else}}
-            <li>0 points - Download count for the last 30 days that is NOT in the top 10% for all addons.</li>
-          {{/if}}
-          {{#if isLatestReleaseInLast3Months}}
-            <li>1 point for having published a released within the last 3 months</li>
-          {{else}}
-            <li>0 points - Most recent release is older than 3 months.</li>
-          {{/if}}
-
-          {{#unless model.hasGithubData}}
-            <li>No Github info is available, so 3 of the available points could not be evaluated. Is the repo url correct in the package.json?</li>
-          {{else}}
-            {{#if model.committedToRecently}}
-              <li>1 point for more than 1 commit within the last 3 months</li>
+      {{#if model.score}}
+        {{#if showExplanation}}
+          <a href="#" {{action "toggleExplainScore"}} class="info-action">Hide This</a>
+          <ul>
+            {{#if latestReview}}
+              <li>{{pluralize latestReview.score "point"}} from review</li>
             {{else}}
-              <li>0 points - Fewer than 2 commits within the last 3 months</li>
+              <li>0 points from review (Not yet reviewed)</li>
             {{/if}}
-            {{#if model.hasMoreThan1Contributor}}
-              <li>1 point for having more than 1 contributor</li>
+            {{#if model.isTopDownloaded}}
+              <li>1 point for having a download count in the last 30 days that is in the top 10% for all addons.</li>
             {{else}}
-              <li>0 points - Fewer than 2 contributors</li>
+              <li>0 points - Download count for the last 30 days that is NOT in the top 10% for all addons.</li>
+            {{/if}}
+            {{#if isLatestReleaseInLast3Months}}
+              <li>1 point for having published a released within the last 3 months</li>
+            {{else}}
+              <li>0 points - Most recent release is older than 3 months.</li>
             {{/if}}
 
-            {{#if model.isTopStarred}}
-              <li>1 point for having a Github star count in the top 10% of all addons.</li>
+            {{#unless model.hasGithubData}}
+              <li>No Github info is available, so 3 of the available points could not be evaluated. Is the repo url correct in the package.json?</li>
             {{else}}
-              <li>0 points - Star count on Github is NOT in the top 10% of all addons.</li>
-            {{/if}}
-          {{/unless}}
-        </ul>
+              {{#if model.committedToRecently}}
+                <li>1 point for more than 1 commit within the last 3 months</li>
+              {{else}}
+                <li>0 points - Fewer than 2 commits within the last 3 months</li>
+              {{/if}}
+              {{#if model.hasMoreThan1Contributor}}
+                <li>1 point for having more than 1 contributor</li>
+              {{else}}
+                <li>0 points - Fewer than 2 contributors</li>
+              {{/if}}
 
-      {{else}}
-        <a href="#" {{action "toggleExplainScore"}} class="info-action">Explain This</a>
+              {{#if model.isTopStarred}}
+                <li>1 point for having a Github star count in the top 10% of all addons.</li>
+              {{else}}
+                <li>0 points - Star count on Github is NOT in the top 10% of all addons.</li>
+              {{/if}}
+            {{/unless}}
+          </ul>
+
+        {{else}}
+          <a href="#" {{action "toggleExplainScore"}} class="info-action">Explain This</a>
+        {{/if}}
       {{/if}}
     </section>
 
@@ -167,8 +169,6 @@
         <p class="no-review">This addon has not yet been reviewed.</p>
       {{/if}}
     </section>
-
-    <small>* Incomplete</small>
   </div>
 
   <div class="addon-stats">

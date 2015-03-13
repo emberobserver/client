@@ -1,4 +1,5 @@
 $score-font-size: 0.75em !default;
+$gray: #9f9f9f !default;
 $medium-gray: #999 !default;
 $low-color: #ff7e63 !default;
 $med-low-color: #fbab61 !default;
@@ -15,6 +16,10 @@ $high-color: #28b36d !default;
   padding: .5em .75em;
   border-radius: $base-border-radius;
   font-weight: 700;
+}
+
+.score[data-score="na"]{
+  background-color: $gray;
 }
 
 .score[data-score="0"]{

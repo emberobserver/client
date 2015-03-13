@@ -38,7 +38,7 @@ export default Ember.Component.extend({
         templates: {
           header: `<h3>${datasetName.capitalize()}</h3>`,
           suggestion: function(properties){
-            if( properties.score !== undefined ){
+            if( properties.score !== undefined && properties.score !== null ){
               return `<p><span class="score" data-score="${properties.score}">${properties.score}</span> ${properties.display}</p>`;
             }
             return `<p>${properties.display}</p>`;
