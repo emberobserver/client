@@ -208,7 +208,10 @@
       {{/each}}
     </ul>
     <section class="badge">
-      <img src={{badgeSrc}}>{{zero-clipboard text=badgeText label="" innerClass="icon-content-paste" class="copy-to-clipboard" title="Copy badge markdown to clipboard"}}
+      <img src={{badgeSrc}}>
+      {{#zero-clipboard text=badgeText class="copy-to-clipboard" title="Copy badge markdown to clipboard"}}
+        <span class="icon-content-paste"></span>
+      {{/zero-clipboard}}
     </section>
     <hr>
     {{link-to 'Suggest a correction' 'addons.correct' model}}
