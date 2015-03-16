@@ -4,7 +4,7 @@ import sortBy from '../../utils/sort-by';
 export default Ember.Controller.extend({
   showExplanation: false,
   categories: function(){
-    return this.store.all('category');
+    return this.store.all('category').sortBy('displayName');
   }.property(),
 
   //BUG: See https://github.com/emberjs/data/issues/2666
