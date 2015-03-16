@@ -28,6 +28,7 @@ export default DS.Model.extend({
   latestCommitDate: attr('date'),
   lastMonthDownloads: attr('number'),
   stars: attr('number'),
+  isWip: attr('boolean'),
   isTopDownloaded: attr('boolean'),
   committedToRecently: attr('boolean'),
   isTopStarred: attr('boolean'),
