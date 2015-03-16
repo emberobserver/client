@@ -1,0 +1,52 @@
+<h4 class="single-column-header">Stats</h4>
+<p class="addon-install">
+  {{installCommandText}}
+  {{#zero-clipboard text=installCommandText class="copy-to-clipboard" title="Copy install command to clipboard"}}
+    <span class="icon-content-paste"></span>
+  {{/zero-clipboard}}
+</p>
+
+<ul class="stats-list">
+  <li><b>{{model.latestVersion.version}}</b> from {{ago model.latestVersionDate}}</li>
+  <li>{{#if model.isTopDownloaded}}
+    <div>
+      <small>TOP 10%!</small>
+    </div>{{/if}}<b>{{model.lastMonthDownloads}}</b> downloads in last month
+  </li>
+  <li><b>repo</b> {{human-url url=model.repositoryUrl}}</li>
+  <li><b>package</b> {{human-url url=model.npmUrl}}</li>
+  <li><b>license</b> <a {{bind-attr href="licenseUrl"}}>{{model.license}}</a></li>
+</ul>
+<h6>npm keywords</h6>
+
+<p class="keywords">
+
+  {{#each keyword in keywords}}
+    {{#comma-separated list=model.keywords item=keyword as |value separator|}}
+      {{value.keyword}}{{separator}}
+    {{/comma-separated}}
+  {{/each}}
+</p>
+
+<h6>maintainers</h6>
+{{#each maintainer in maintainers}}
+  {{#link-to "maintainers.show" maintainer}}
+    {{gravatar-avatar gravatarId=maintainer.gravatar title=maintainer.name alt=maintainer.name}}
+  {{/link-to}}
+{{/each}}
+
+<h6>versions ({{model.sortedVersions.length}})</h6>
+
+<ul class="versions">
+  {{#each version in model.sortedVersions}}
+    <li>{{moment version.released "YYYY-MMM-DD"}} <span class="version-number">{{version.version}}</span></li>
+  {{/each}}
+</ul>
+<section class="badge">
+  <img src={{badgeSrc}}>
+  {{#zero-clipboard text=badgeText class="copy-to-clipboard" title="Copy badge markdown to clipboard"}}
+    <span class="icon-content-paste"></span>
+  {{/zero-clipboard}}
+</section>
+<hr>
+{{link-to 'Suggest a correction' 'addons.correct' model}}

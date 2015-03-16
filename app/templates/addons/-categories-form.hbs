@@ -1,0 +1,11 @@
+<form {{action "save" on="submit"}}>
+  <fieldset>
+    {{multiselect-checkboxes options=categories labelProperty="displayName" selection=model.categories}}
+
+    {{#if isSaving}}
+      <input type="submit" value="Saving" disabled>
+    {{else}}
+      {{input type="submit" value="Save"}}
+    {{/if}}
+  </fieldset>
+</form>
