@@ -4,17 +4,17 @@ export default Ember.Controller.extend({
   addonsNeedingReview: function(){
     return this.get('model.addons').filter(function(addon){
       return addon.get('reviews.length') === 0;
-    });
+    }).sortBy('latestVersionDate').reverse();
   }.property('model.addons.@each.reviews.length'),
   addonsNeedingCategorization: function(){
     return this.get('model.addons').filter(function(addon){
       return addon.get('categories.length') === 0;
-    });
+    }).sortBy('latestVersionDate').reverse();
   }.property('model.addons.@each.categories.length'),
   addonsWithNewUpdates: function(){
     return this.get('model.addons').filter(function(addon){
       return addon.get('latestVersionDate') > addon.get('latestReviewedVersionDate');
-    });
+    }).sortBy('latestVersionDate').reverse();
   }.property('model.addons.@each.latestVersionDate', 'model.addons.@each.latestReviewedVersionDate'),
   actions: {
     showNeedingCategories: function(){
