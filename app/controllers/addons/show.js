@@ -47,6 +47,17 @@ export default Ember.Controller.extend({
       this.set('newReview', newReview);
       this.set('isReviewing', true);
     },
+    renewLatestReview: function(){
+      var newReview = this.store.createRecord('review');
+      var latestReview = this.get('latestReview');
+
+      latestReview.questions.forEach(function(question){
+        newReview.set(question.fieldName, latestReview.get(question.fieldName));
+      });
+      newReview.set('review', latestReview.get('review'));
+
+      this.send('saveReview', newReview);
+    },
     saveReview: function(newReview){
       var controller = this;
       newReview.set('version', this.get('model.latestVersion'));
