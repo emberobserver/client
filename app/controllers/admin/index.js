@@ -16,6 +16,9 @@ export default Ember.Controller.extend({
       return addon.get('latestVersionDate') > addon.get('latestReviewedVersionDate');
     }).sortBy('latestVersionDate').reverse();
   }.property('model.addons.@each.latestVersionDate', 'model.addons.@each.latestReviewedVersionDate'),
+  hiddenAddons: function(){
+    return this.store.findQuery('addon', {hidden: true});
+  }.property(),
   actions: {
     showNeedingCategories: function(){
       this.set('showAddonsNeedingCategorization', true);
@@ -25,6 +28,9 @@ export default Ember.Controller.extend({
     },
     showNewUpdates: function(){
       this.set('showAddonsWithNewUpdates', true);
+    },
+    showHidden: function(){
+      this.set('showHiddenAddons', true);
     }
   }
 });

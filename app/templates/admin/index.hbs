@@ -10,34 +10,29 @@
 
   <h2>Addons needing categorization ({{addonsNeedingCategorization.length}} / {{model.addons.length}})</h2>
   {{#if showAddonsNeedingCategorization}}
-    <ul>
-      {{#each addon in addonsNeedingCategorization}}
-        <li>{{addon-row addon=addon}}</li>
-      {{/each}}
-    </ul>
+    {{addons-table addons=addonsNeedingCategorization showAddon="showAddon"}}
   {{else}}
     <a href="#" {{action "showNeedingCategories"}}>Show</a>
   {{/if}}
 
   <h2>Addons needing review ({{addonsNeedingReview.length}} / {{model.addons.length}})</h2>
   {{#if showAddonsNeedingReview}}
-    <ul>
-      {{#each addon in addonsNeedingReview}}
-        <li>{{addon-row addon=addon}}</li>
-      {{/each}}
-    </ul>
+    {{addons-table addons=addonsNeedingReview showAddon="showAddon"}}
   {{else}}
     <a href="#" {{action "showNeedingReview"}}>Show</a>
   {{/if}}
 
   <h2>Addons with new updates since last review ({{addonsWithNewUpdates.length}} / {{model.addons.length}})</h2>
   {{#if showAddonsWithNewUpdates}}
-    <ul>
-      {{#each addon in addonsWithNewUpdates}}
-        <li>{{addon-row addon=addon}}</li>
-      {{/each}}
-    </ul>
+    {{addons-table addons=addonsWithNewUpdates showAddon="showAddon"}}
   {{else}}
     <a href="#" {{action "showNewUpdates"}}>Show</a>
+  {{/if}}
+
+  <h2>Hidden Addons</h2>
+  {{#if showHiddenAddons}}
+    {{addons-table addons=hiddenAddons showAddon="showAddon"}}
+  {{else}}
+    <a href="#" {{action "showHidden"}}>Show</a>
   {{/if}}
 </div>
