@@ -18,7 +18,9 @@
 
   <p class="last-updated">Last updated {{ago addon.latestVersionDate}}</p>
   <p>
-    <span class="score" data-score={{score-class addon}}>Score {{score-display addon}}</span>
+    {{#score-display addon=addon as |val|}}
+      Score {{val}}
+    {{/score-display}}
   </p>
   <p>{{addon.description}}</p>
   <p>{{inline-category-list categories=addon.categories}}</p>

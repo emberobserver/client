@@ -6,6 +6,7 @@ var attr = DS.attr;
 var hasMany = DS.hasMany;
 
 export default DS.Model.extend({
+  isAddon: true,
   name: attr('string'),
   description: attr('string'),
   repositoryUrl: attr('string'),

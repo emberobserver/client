@@ -1,8 +1,8 @@
 <section>
   <h4>
-        <span class="score" data-score={{score-class model}}>
-          Score <b>{{score-display model}}</b>
-        </span>
+   {{#score-display addon=model as |val|}}
+     Score <b>{{val}}</b>
+   {{/score-display}}
   </h4>
   {{#if showExplanation}}
     <a href="#" {{action "toggleExplainScore"}} class="info-action">Hide This</a>

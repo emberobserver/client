@@ -25,8 +25,9 @@ export default Ember.Component.extend({
           display: item.get( dataset.key ),
           id: item.get('id')
         };
-        if(item.get('score') !== undefined){
-          tmp.score = item.get('score');
+        if(item.get('isAddon')){
+          tmp.isAddon = item.get('isAddon');
+          tmp.scoreHtml = scoreHtml(item);
         }
         return tmp;
       });
@@ -38,8 +39,8 @@ export default Ember.Component.extend({
         templates: {
           header: `<h3>${datasetName.capitalize()}</h3>`,
           suggestion: function(properties){
-            if( properties.score !== undefined && properties.score !== null ){
-              return `<p><span class="score" data-score="${properties.score}">${properties.score}</span> ${properties.display}</p>`;
+            if( properties.isAddon ){
+              return `<p>${properties.scoreHtml} ${properties.display}</p>`;
             }
             return `<p>${properties.display}</p>`;
           }
@@ -85,4 +86,14 @@ function substringMatcher(strs) {
 
 function escapeForRegex(str) {
   return str.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&");
+}
+
+function scoreHtml(addon){
+  if(addon.get('isWip')){
+    return `<span class="score">WIP</span>`;
+  }
+  if(addon.get('score') !== undefined && addon.get('score') !== null){
+    return `<span class="score" data-score="${addon.get('score')}">${addon.get('score')}</span>`;
+  }
+  return `<span class="score">N/A</span>`;
 }

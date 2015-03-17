@@ -1,0 +1,16 @@
+{{#if addon.isWip}}
+  <span class="score">
+    {{yield "WIP"}}
+  </span>
+{{else}}
+  {{#unless addon.score}}
+    <span class="score">
+      {{yield "N/A"}}
+    </span>
+  {{else}}
+    <span class="score" data-score="{{addon.score}}">
+      {{yield addon.score}}
+    </span>
+  {{/unless}}
+{{/if}}
+

@@ -8,7 +8,7 @@ $med-high-color: #7ECF27 !default;
 $high-color: #28b36d !default;
 
 .score {
-  background-color: $light-gray;
+  background-color: $gray;
   color: white;
   display: inline-block;
   font-size: $score-font-size;
@@ -16,10 +16,6 @@ $high-color: #28b36d !default;
   padding: .5em .75em;
   border-radius: $base-border-radius;
   font-weight: 700;
-}
-
-.score[data-score="na"]{
-  background-color: $gray;
 }
 
 .score[data-score="0"]{
