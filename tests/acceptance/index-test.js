@@ -58,7 +58,7 @@ test('visiting /', function( assert ) {
     assert.contains('.test-category-header', 'Authentication', 'Header should display');
     assert.contains('.test-category-description', 'Addons for auth', 'Description should display');
     assert.inDOM('.test-addon-row', 4, 'All addons in category should display');
-    assert.contains('.test-category-addon-count', 'Displaying 4 addons', 'Should show addon count');
+    assert.contains('.test-addon-table-count', 'Displaying 4 addons', 'Should show addon count');
   });
 
   click("a:contains('Simple Auth (1)')");
@@ -69,7 +69,7 @@ test('visiting /', function( assert ) {
     assert.contains('.test-category-description', 'Simple Auth addons', 'Description should display');
     assert.inDOM('.test-addon-row', 1, 'All addons in category should display');
     assert.contains('.test-parent-category-link', 'Authentication (6)', 'Should link to parent category');
-    assert.contains('.test-category-addon-count', 'Displaying 1 addon', 'Should show addon count');
+    assert.contains('.test-addon-table-count', 'Displaying 1 addon', 'Should show addon count');
   });
 });
 

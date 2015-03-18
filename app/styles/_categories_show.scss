@@ -21,10 +21,6 @@
   .addons {
     @include clearfix;
     margin-top: 2.5em;
-
-    .addon-count {
-      font-weight: 300;
-    }
   }
 
   .sort-buttons {
