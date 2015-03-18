@@ -27,7 +27,7 @@ export default Ember.Component.extend({
         };
         if(item.get('isAddon')){
           tmp.isAddon = item.get('isAddon');
-          tmp.scoreHtml = scoreHtml(item);
+          tmp.displayHtml = displayHtml(item, tmp);
         }
         return tmp;
       });
@@ -40,7 +40,7 @@ export default Ember.Component.extend({
           header: `<h3>${datasetName.capitalize()}</h3>`,
           suggestion: function(properties){
             if( properties.isAddon ){
-              return `<p>${properties.scoreHtml} ${properties.display}</p>`;
+              return `<p>${properties.displayHtml}</p>`;
             }
             return `<p>${properties.display}</p>`;
           }
@@ -93,12 +93,16 @@ function escapeForRegex(str) {
   return str.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&");
 }
 
-function scoreHtml(addon){
+function displayHtml(addon, result){
+  var base = `${result.display}`;
+  if(addon.get('isDeprecated')){
+    base = `${base} <span class="notice">(DEPRECATED)</span>`;
+  }
   if(addon.get('isWip')){
-    return `<span class="score">WIP</span>`;
+    return `<span class="score">WIP</span> ${base}`;
   }
   if(addon.get('score') !== undefined && addon.get('score') !== null){
-    return `<span class="score" data-score="${addon.get('score')}">${addon.get('score')}</span>`;
+    return `<span class="score" data-score="${addon.get('score')}">${addon.get('score')}</span> ${base}`;
   }
-  return `<span class="score">N/A</span>`;
+  return `<span class="score">N/A</span> ${base}`;
 }
