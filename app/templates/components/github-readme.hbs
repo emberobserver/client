@@ -1,6 +1,6 @@
 <button {{action 'toggleReadme'}}>{{actionMessage}}</button>
 {{#if showReadme}}
   <div class='readme'>
-    {{{readme}}}
+    {{markdown-section content=text}}
   </div>
 {{/if}}

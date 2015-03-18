@@ -4,6 +4,7 @@ import sortBy from '../utils/sort-by';
 
 var attr = DS.attr;
 var hasMany = DS.hasMany;
+var belongsTo = DS.belongsTo;
 
 export default DS.Model.extend({
   name: attr('string'),
@@ -36,6 +37,7 @@ export default DS.Model.extend({
   versions: hasMany('version', {async: true}),
   maintainers: hasMany('maintainer'),
   reviews: hasMany('review', {async: true}),
+  readme: belongsTo('readme', {async: true}),
   sortedVersions: sortBy('versions', 'released:desc'),
   latestVersion: Ember.computed.alias('sortedVersions.firstObject'),
   oldestVersion: Ember.computed.alias('sortedVersions.lastObject'),

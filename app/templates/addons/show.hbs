@@ -154,7 +154,9 @@
           <p>{{ago model.firstCommitDate}}</p>
         </div>
 
-        {{github-readme url=model.repositoryUrl}}
+        {{#if model.readme}}
+          {{github-readme text=model.readme.text}}
+        {{/if}}
       </section>
     {{/if}}
 
