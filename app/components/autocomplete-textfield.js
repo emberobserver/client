@@ -75,6 +75,11 @@ export default Ember.Component.extend({
 
 function substringMatcher(strs) {
   return function findMatches(query, callback) {
+    var emMatcher = /(^e$|^em$|^emb$|^embe$|^ember$)/;
+    if(emMatcher.test(query)){
+      return callback([]);
+    }
+
     query = escapeForRegex(query);
     var matcher = new RegExp( query, "i" );
     var results = strs.filter( function ( item ) {
