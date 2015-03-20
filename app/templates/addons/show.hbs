@@ -76,7 +76,9 @@
           <em><span class="icon-new-releases"></span> New versions of this addon have been released since this review was undertaken.</em>
         {{/unless}}
         {{addon-review review=latestReview}}
-        <button {{action "renewLatestReview"}}>Renew Review</button>
+        {{#if session.isAuthenticated}}
+          <button {{action "renewLatestReview"}}>Renew Review</button>
+        {{/if}}
       {{else}}
         <p class="no-review">This addon has not yet been reviewed.</p>
       {{/if}}
