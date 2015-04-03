@@ -16,7 +16,7 @@ export default Router.map(function() {
   });
 
   this.route("maintainers", function(){
-    this.route("show", { path: "/:id" });
+    this.route("show", { path: "/:name" });
   });
 
   this.route("login");
