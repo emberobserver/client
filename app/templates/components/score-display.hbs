@@ -3,7 +3,7 @@
     {{yield "WIP"}}
   </span>
 {{else}}
-  {{#unless addon.score}}
+  {{#unless hasNumericScore}}
     <span class="score">
       {{yield "N/A"}}
     </span>
@@ -13,4 +13,3 @@
     </span>
   {{/unless}}
 {{/if}}
-

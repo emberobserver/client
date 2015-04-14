@@ -10,6 +10,8 @@ export default function() {
 
   this.get('/categories', 'categories');
   this.get('/addons', ['addons', 'maintainers']);
+  this.get('/keywords', 'keywords');
+  this.get('/versions', 'versions');
   /*
     Route shorthand cheatsheet
   */
