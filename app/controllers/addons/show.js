@@ -27,7 +27,7 @@ export default Ember.Controller.extend({
     return `[![Ember Observer Score](http://emberobserver.com/badges/${this.get('model.name')}.svg)](http://emberobserver.com/addons/${this.get('model.name')})`;
   }.property('model.name'),
   installCommandText: function(){
-    return `ember install:addon ${this.get('model.name')}`;
+    return `ember install ${this.get('model.name')}`;
   }.property('model.name'),
   badgeSrc: function(){
     return `http://emberobserver.com/badges/${this.get('model.name')}.svg`;
