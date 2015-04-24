@@ -33,7 +33,6 @@ $grid-item-big-columns: 12;
     border-right: $grid-item-border;
     cursor: pointer;
     float: left;
-    height: 10em;
     overflow: hidden;
     outline: none;
     padding: 2em;
@@ -67,7 +66,7 @@ $grid-item-big-columns: 12;
     color: transparentize($grid-item-color, 0.4);
 
     @include media($medium-screen) {
-      max-width: 70%;
+      max-width: 85%;
     }
   }
 
