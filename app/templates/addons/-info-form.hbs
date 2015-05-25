@@ -1,7 +1,7 @@
 <form {{action "save" on="submit"}}>
   <fieldset>
     <label>Note</label>
-    {{input value=model.note}}
+    {{textarea value=model.note rows="3"}}
 
     {{#if isSaving}}
       <input type="submit" value="Saving" disabled>
