@@ -13,6 +13,9 @@
       <small>TOP 10%!</small>
     </div>{{/if}}<b>{{model.lastMonthDownloads}}</b> downloads in last month
   </li>
+  {{#if model.demoUrl}}
+  <li><b>demo</b> {{human-url url=model.demoUrl}}</li>
+  {{/if}}
   <li><b>repo</b> {{human-url url=model.repositoryUrl}}</li>
   <li><b>package</b> {{human-url url=model.npmUrl}}</li>
   <li><b>license</b> <a {{bind-attr href="licenseUrl"}}>{{model.license}}</a></li>

@@ -33,6 +33,7 @@ export default DS.Model.extend({
   isTopDownloaded: attr('boolean'),
   committedToRecently: attr('boolean'),
   isTopStarred: attr('boolean'),
+  demoUrl: attr('string'),
   categories: hasMany('category', {async: true}),
   keywords: hasMany('keyword', {async: true}),
   versions: hasMany('version', {async: true}),
