@@ -32,11 +32,18 @@
 </p>
 
 <h6>maintainers</h6>
+<p>
 {{#each maintainer in maintainers}}
   {{#link-to "maintainers.show" maintainer}}
     {{gravatar-avatar gravatarId=maintainer.gravatar title=maintainer.name alt=maintainer.name}}
   {{/link-to}}
 {{/each}}
+</p>
+
+{{#if model.latestVersion.emberCliVersion}}
+  <h6>ember-cli version</h6>
+  <p>{{model.latestVersion.emberCliVersion}}</p>
+{{/if}}
 
 <h6>versions ({{model.sortedVersions.length}})</h6>
 
