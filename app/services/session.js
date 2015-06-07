@@ -54,9 +54,9 @@ export default Ember.Object.extend({
     window.localStorage.removeItem('sessionToken');
   },
   isAuthenticated: isPresent('token'),
-  header: function(){
+  header: Ember.computed('token', function(){
     return {"Authorization": 'Token token=' + this.get('token')};
-  }.property('token')
+  })
 });
 
 function isPresent ( strProp ) {

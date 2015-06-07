@@ -7,7 +7,7 @@ export default Ember.Component.extend({
     3: "N/A",
     4: "Unknown"
   },
-  answeredQuestions: function(){
+  answeredQuestions: Ember.computed('review', function(){
     var component = this;
     var review = this.get('review');
     if(!review) { return; }
@@ -19,5 +19,5 @@ export default Ember.Component.extend({
         answer: component.answerMap[review.get(question.fieldName)]
       });
     });
-  }.property('review')
+  })
 });
