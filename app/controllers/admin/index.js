@@ -1,24 +1,28 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  addonsNeedingReview: function(){
+  addonsNeedingReview: Ember.computed('model.addons.@each.reviews.length', function(){
     return this.get('model.addons').filter(function(addon){
       return addon.get('reviews.length') === 0;
     }).sortBy('latestVersionDate').reverse();
-  }.property('model.addons.@each.reviews.length'),
-  addonsNeedingCategorization: function(){
+  }),
+  addonsNeedingCategorization: Ember.computed('model.addons.@each.categories.length', function(){
     return this.get('model.addons').filter(function(addon){
       return addon.get('categories.length') === 0;
     }).sortBy('latestVersionDate').reverse();
-  }.property('model.addons.@each.categories.length'),
-  addonsWithNewUpdates: function(){
-    return this.get('model.addons').filter(function(addon){
-      return addon.get('latestVersionDate') > addon.get('latestReviewedVersionDate');
-    }).sortBy('latestVersionDate').reverse();
-  }.property('model.addons.@each.latestVersionDate', 'model.addons.@each.latestReviewedVersionDate'),
-  hiddenAddons: function(){
+  }),
+  addonsWithNewUpdates: Ember.computed(
+    'model.addons.@each.latestVersionDate',
+    'model.addons.@each.latestReviewedVersionDate',
+    function(){
+      return this.get('model.addons').filter(function(addon){
+        return addon.get('latestVersionDate') > addon.get('latestReviewedVersionDate');
+      }).sortBy('latestVersionDate').reverse();
+    }
+  ),
+  hiddenAddons: Ember.computed(function(){
     return this.store.findQuery('addon', {hidden: true});
-  }.property(),
+  }),
   actions: {
     showNeedingCategories: function(){
       this.set('showAddonsNeedingCategorization', true);
