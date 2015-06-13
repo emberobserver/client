@@ -10,13 +10,16 @@ export default Ember.Controller.extend({
 	sortedTopLevelCategories: Ember.computed.sort('topLevelCategories', 'categorySorting'),
 
 	actions: {
-		addCategory: function(name, description) {
+		addCategory: function() {
 			let newCategory = this.store.createRecord('category', {
 				name: this.get('newCategoryName'),
 				description: this.get('newCategoryDescription'),
 				position: this.get('newCategoryPosition')
 			});
-			newCategory.save().then(() => this.transitionToRoute('admin'));
+			newCategory.save().then(() => {
+				this.transitionToRoute('admin');
+				location.reload();
+			});
 		}
 	}
 });
