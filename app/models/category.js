@@ -7,6 +7,7 @@ var hasMany = DS.hasMany;
 export default DS.Model.extend({
   name: attr('string'),
   description: attr('string'),
+  position: attr('number'),
   addons: hasMany('addon', {async: true}),
   parent: belongsTo('category'),
   subcategories: hasMany('category', {inverse: 'parent'}),

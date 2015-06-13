@@ -1,5 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-	topLevelCategories: Ember.computed.filterBy('model', 'parent', null)
+	categorySorting: [ 'position:asc' ],
+	topLevelCategories: Ember.computed.filterBy('model', 'parent', null),
+	sortedTopLevelCategories: Ember.computed.sort('topLevelCategories', 'categorySorting')
 });
