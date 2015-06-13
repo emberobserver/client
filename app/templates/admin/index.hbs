@@ -6,6 +6,9 @@
     {{#each category in model.categories}}
       <li>{{category.name}} - {{category.description}}</li>
     {{/each}}
+    <li>
+      {{link-to 'Add category' 'admin.categories.new'}}
+    </li>
   </ul>
 
   <h2>Addons needing categorization ({{addonsNeedingCategorization.length}} / {{model.addons.length}})</h2>
