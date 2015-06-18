@@ -2,11 +2,12 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   placeholder: 'Search',
+  autofocus: false,
 
-	didInsertElement: function() {
-		var component = this;
+  didInsertElement: function() {
+    var component = this;
     var dataset, data;
-		var $input = this.$('input');
+    var $input = this.$('input');
     var typeaheadOptions = [];
 
     typeaheadOptions.push({
@@ -53,7 +54,11 @@ export default Ember.Component.extend({
         this.selected(obj, dataSet);
         $input.typeahead('close');
       }));
-	},
+
+    if (this.get('autofocus')) {
+      $input.focus();
+    }
+  },
 
   selected: function(value, datasetName) {
     var item = this.get(`datasets.${datasetName}.data`).findBy('id', value.id);
