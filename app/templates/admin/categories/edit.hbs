@@ -1,0 +1,15 @@
+<form {{action "updateCategory" on="submit"}}>
+	<fieldset>
+		<label for="name">
+			Name:
+		</label>
+		{{input type="text" id="name" value=categoryName}}
+		<br>
+		<label for="description">
+			Description:
+		</label>
+		{{input type="text" id="description" value=categoryDescription}}
+		<br>
+		<input type="submit" value="Save category">
+	</fieldset>
+</form>

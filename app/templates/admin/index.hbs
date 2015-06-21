@@ -4,7 +4,7 @@
   <h2>Categories ({{model.categories.length}})</h2>
   <ul>
     {{#each category in model.categories}}
-      <li>{{category.name}} - {{category.description}}</li>
+      <li>{{link-to category.name 'admin.categories.edit' category}} - {{category.description}}</li>
     {{/each}}
     <li>
       {{link-to 'Add category' 'admin.categories.new'}}

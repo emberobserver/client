@@ -23,6 +23,7 @@ export default Router.map(function() {
   this.route("admin", function(){
     this.route("categories", function() {
       this.route("new");
+      this.route("edit", { path: "/:slug" });
     });
   });
 
