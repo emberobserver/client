@@ -1,15 +1,28 @@
-<form {{action "updateCategory" on="submit"}}>
-	<fieldset>
-		<label for="name">
-			Name:
-		</label>
-		{{input type="text" id="name" value=categoryName}}
-		<br>
-		<label for="description">
-			Description:
-		</label>
-		{{input type="text" id="description" value=categoryDescription}}
-		<br>
-		<input type="submit" value="Save category">
-	</fieldset>
-</form>
+<div class="container admin-categories-edit">
+	<form {{action "updateCategory" on="submit"}}>
+		<fieldset>
+			<label for="name">
+				Name:
+			</label>
+			{{input type="text" id="name" value=categoryName}}
+			<br>
+			<label for="description">
+				Description:
+			</label>
+			{{input type="text" id="description" value=categoryDescription}}
+			<br>
+			<input type="submit" value="Save category">
+		</fieldset>
+	</form>
+
+	<h4>Subcategories</h4>
+	{{#if subcategories}}
+	<ol>
+	{{#each subcategories as |category|}}
+		<li>{{link-to category.name 'admin.categories.edit' category}}</li>
+	{{/each}}
+	</ol>
+	{{else}}
+		This category has no subcategories.
+	{{/if}}
+</div>
