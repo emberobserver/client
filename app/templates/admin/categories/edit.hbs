@@ -20,6 +20,16 @@
 				{{input type="hidden" id="position" value=categoryPosition}}
 			{{/if}}
 			<br>
+			<label for="parent">
+				Parent category:
+			</label>
+			{{#x-select name="parent" value=categoryParent}}
+				{{#x-option}}(none){{/x-option}}
+				{{#each alphabeticTopLevelCategories as |category|}}
+					{{#x-option value=category.id}}{{category.name}}{{/x-option}}
+				{{/each}}
+			{{/x-select}}
+			<br>
 			<input type="submit" value="Save category">
 		</fieldset>
 	</form>

@@ -1,29 +1,59 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-	categorySorting: [ 'position:asc' ],
+	categoryNameSorting: [ 'name:asc' ],
+	categoryPositionSorting: [ 'position:asc' ],
 
 	categories: Ember.computed.alias('model.categories'),
 	category: Ember.computed.alias('model.category'),
 
-	categoryName: Ember.computed.oneWay('category.name'),
 	categoryDescription: Ember.computed.oneWay('category.description'),
+	categoryName: Ember.computed.oneWay('category.name'),
+	categoryParent: Ember.computed.oneWay('category.parent.id'),
 	categoryPosition: Ember.computed.oneWay('category.position'),
 
-	subcategories: Ember.computed.sort('category.subcategories', 'categorySorting'),
+	subcategories: Ember.computed.sort('category.subcategories', 'categoryPositionSorting'),
 	siblingCategories: Ember.computed.filter('categories', function(item) {
 		return item.get('parent.id') === this.get('category.parent.id');
 	}),
-	sortedSiblingCategories: Ember.computed.sort('siblingCategories', 'categorySorting'),
+	sortedSiblingCategories: Ember.computed.sort('siblingCategories', 'categoryPositionSorting'),
 	hasSiblingCategories: Ember.computed.gt('siblingCategories.length', 1),
+
+	topLevelCategories: Ember.computed.filterBy('categories', 'parent', null),
+	alphabeticTopLevelCategories: Ember.computed.sort('topLevelCategories', 'categoryNameSorting'),
 
 	actions: {
 		updateCategory: function() {
 			let category = this.get('category');
+
+			let parentId = this.get('categoryParent');
+			let position = this.get('categoryPosition');
+
+			if (parentId === category.get('id')) {
+				alert("You can't make a category a subcategory of itself");
+				return;
+			}
+
+			if (parentId !== category.get('parent.id')) {
+				// when changing a category's parent, always put it at the end of the list
+				position = -1;
+			}
+
 			category.set('name', this.get('categoryName'));
 			category.set('description', this.get('categoryDescription'));
-			category.set('position', this.get('categoryPosition'));
-			category.save().then(() => this.transitionToRoute('admin.index'));
+			category.set('position', position);
+
+			let findPromise;
+			if (parentId) {
+				findPromise = this.store.find('category', parentId);
+			} else {
+				findPromise = new Ember.RSVP.Promise((resolve) => resolve(null));
+			}
+
+			findPromise.then(function(parentCategory) {
+				category.set('parent', parentCategory);
+				return category.save();
+			}).then(() => this.transitionToRoute('admin'));
 		}
 	}
 });
