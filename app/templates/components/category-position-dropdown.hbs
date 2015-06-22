@@ -1,4 +1,6 @@
-<option value="-1">At end</option>
-{{#each categories as |category|}}
-<option value={{category.position}}>Before "{{category.name}}"</option>
-{{/each}}
+{{#x-select value=position}}
+	{{#x-option value=-1}}At end{{/x-option}}
+	{{#each categories as |category|}}
+		{{#x-option value=category.position}}Before "{{category.name}}"{{/x-option}}
+	{{/each}}
+{{/x-select}}

@@ -10,6 +10,15 @@
 				Description:
 			</label>
 			{{input type="text" id="description" value=categoryDescription}}
+			{{#if hasSiblingCategories}}
+				<br>
+				<label for="position">
+					Position:
+				</label>
+				{{category-position-dropdown name="position" position=categoryPosition categories=sortedSiblingCategories}}
+			{{else}}
+				{{input type="hidden" id="position" value=categoryPosition}}
+			{{/if}}
 			<br>
 			<input type="submit" value="Save category">
 		</fieldset>
