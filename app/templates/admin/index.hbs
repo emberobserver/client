@@ -3,8 +3,17 @@
 
   <h2>Categories ({{model.categories.length}})</h2>
   <ul>
-    {{#each category in model.categories}}
-      <li>{{link-to category.name 'admin.categories.edit' category}} - {{category.description}}</li>
+    {{#each topLevelCategories as |category|}}
+      <li>
+        {{link-to category.name 'admin.categories.edit' category}} - {{category.description}}
+        {{#if category.subcategories}}
+        <ul>
+          {{#each category.subcategories as |category|}}
+          <li>&raquo; {{link-to category.name 'admin.categories.edit' category}} - {{category.description}}</li>
+          {{/each}}
+        </ul>
+        {{/if}}
+      </li>
     {{/each}}
     <li>
       {{link-to 'Add category' 'admin.categories.new'}}

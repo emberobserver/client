@@ -1,6 +1,10 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+  categorySorting: [ 'position:desc' ],
+  unsortedTopLevelCategories: Ember.computed.filterBy('model.categories', 'parent', null),
+  topLevelCategories: Ember.computed.sort('unsortedTopLevelCategories', 'categorySorting'),
+
   addonsNeedingReview: function(){
     return this.get('model.addons').filter(function(addon){
       return addon.get('reviews.length') === 0;
