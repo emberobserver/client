@@ -19,6 +19,8 @@ export default Ember.Controller.extend({
 	sortedSiblingCategories: Ember.computed.sort('siblingCategories', 'categoryPositionSorting'),
 	hasSiblingCategories: Ember.computed.gt('siblingCategories.length', 1),
 
+	isTopLevelCategory: Ember.computed.empty('category.parent'),
+
 	topLevelCategories: Ember.computed.filterBy('categories', 'parent', null),
 	alphabeticTopLevelCategories: Ember.computed.sort('topLevelCategories', 'categoryNameSorting'),
 

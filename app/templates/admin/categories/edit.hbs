@@ -34,14 +34,16 @@
 		</fieldset>
 	</form>
 
-	<h4>Subcategories</h4>
-	{{#if subcategories}}
-	<ol>
-	{{#each subcategories as |category|}}
-		<li>{{link-to category.name 'admin.categories.edit' category}}</li>
-	{{/each}}
-	</ol>
-	{{else}}
-		This category has no subcategories.
+	{{#if isTopLevelCategory}}
+		<h4>Subcategories</h4>
+		{{#if subcategories}}
+		<ol>
+		{{#each subcategories as |category|}}
+			<li>{{link-to category.name 'admin.categories.edit' category}}</li>
+		{{/each}}
+		</ol>
+		{{else}}
+			This category has no subcategories.
+		{{/if}}
 	{{/if}}
 </div>
