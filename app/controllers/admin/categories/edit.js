@@ -39,6 +39,9 @@ export default Ember.Controller.extend({
 			newCategory.save().then(() => {
 				this.transitionToRoute('admin');
 				location.reload();
+			}).catch((message) => {
+				newCategory.deleteRecord();
+				alert(message);
 			});
 		},
 		updateCategory: function() {
@@ -71,7 +74,13 @@ export default Ember.Controller.extend({
 			findPromise.then(function(parentCategory) {
 				category.set('parent', parentCategory);
 				return category.save();
-			}).then(() => this.transitionToRoute('admin'));
+			}).then(() => {
+				this.transitionToRoute('admin');
+				location.reload();
+			}).catch((message) => {
+				category.rollback();
+				alert(message);
+			});
 		}
 	}
 });

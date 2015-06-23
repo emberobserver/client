@@ -19,6 +19,9 @@ export default Ember.Controller.extend({
 			newCategory.save().then(() => {
 				this.transitionToRoute('admin');
 				location.reload();
+			}).catch((message) => {
+				newCategory.deleteRecord();
+				alert(message);
 			});
 		}
 	}
