@@ -1,5 +1,6 @@
 {
   "predef": [
+    "server",
     "document",
     "window",
     "location",
@@ -22,8 +23,7 @@
     "currentURL",
     "currentPath",
     "currentRouteName",
-    "QUnit",
-    "server"
+    "QUnit"
   ],
   "node": false,
   "browser": false,

@@ -3,15 +3,17 @@ export default function() {
   // These comments are here to help you get started. Feel free to delete them.
 
   /*
-    Default config
-  */
-  this.namespace = 'api';    //make this `api`, for example, if your API is namespaced
-  // this.timing = 400;      delay for each request, automatically set to 0 during testing
+    Config (with defaults).
 
-  this.get('/categories', 'categories');
+    Note: these only affect routes defined *after* them!
+  */
+  this.namespace = 'api';    // make this `api`, for example, if your API is namespaced
+  // this.timing = 400;      // delay for each request, automatically set to 0 during testing
+
+  this.get('/categories');
   this.get('/addons', ['addons', 'maintainers']);
-  this.get('/keywords', 'keywords');
-  this.get('/versions', 'versions');
+  this.get('/keywords');
+  this.get('/versions');
   /*
     Route shorthand cheatsheet
   */
@@ -56,18 +58,17 @@ export default function() {
   /*
     Function fallback. Manipulate data in the db via
 
-      - db.find(key, id)
-      - db.findAll(key)
-      - db.findQuery(key, query)
-      - db.push(key, data)
-      - db.remove(key, id)
-      - db.removeQuery(key, query)
+      - db.{collection} // returns all the data defined in /app/mirage/fixtures/{collection}.js
+      - db.{collection}.find(id)
+      - db.{collection}.where(query)
+      - db.{collection}.update(target, attrs)
+      - db.{collection}.remove(target)
 
     // Example: return a single object with related models
     this.get('/contacts/:id', function(db, request) {
       var contactId = +request.params.id;
-      var contact = db.find('contact', contactId);
-      var addresses = db.findAll('address')
+      var contact = db.contacts.find(contactId);
+      var addresses = db.addresses
         .filterBy('contact_id', contactId);
 
       return {
@@ -78,3 +79,10 @@ export default function() {
 
   */
 }
+
+/*
+You can optionally export a config that is only loaded during tests
+export function testConfig() {
+
+}
+*/
