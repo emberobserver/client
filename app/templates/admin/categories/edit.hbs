@@ -48,20 +48,20 @@
 
 		<form {{action "addSubcategory" on="submit"}}>
 			<fieldset>
-				<label for="name">
+				<label for="subcategoryName">
 					Name:
 				</label>
-				{{input type="text" id="name" value=newCategoryName}}
+				{{input type="text" id="subcategoryName" value=newCategoryName}}
 				<br>
-				<label for="description">
+				<label for="subcategoryDescription">
 					Description:
 				</label>
-				{{input type="text" id="description" value=newCategoryDescription}}
+				{{input type="text" id="subcategoryDescription" value=newCategoryDescription}}
 				<br>
-				<label for="position">
+				<label for="subcategoryPosition">
 					Position:
 				</label>
-				{{category-position-dropdown name="position" position=newCategoryPosition categories=subcategories}}
+				{{category-position-dropdown name="subcategoryPosition" position=newCategoryPosition categories=subcategories}}
 				<br>
 				<input type="submit" value="Add category">
 			</fieldset>

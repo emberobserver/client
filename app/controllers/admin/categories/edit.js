@@ -24,6 +24,10 @@ export default Ember.Controller.extend({
 	topLevelCategories: Ember.computed.filterBy('categories', 'parent', null),
 	alphabeticTopLevelCategories: Ember.computed.sort('topLevelCategories', 'categoryNameSorting'),
 
+	newCategoryName: '',
+	newCategoryDescription: '',
+	newCategoryPosition: -1,
+
 	actions: {
 		addSubcategory: function() {
 			let newCategory = this.store.createRecord('category', {
