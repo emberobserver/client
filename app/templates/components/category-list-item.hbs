@@ -1,0 +1,6 @@
+<li>
+	{{prefix}}{{link-to category.name 'admin.categories.edit' category}} - {{category.description}}
+	{{#if category.subcategories}}
+		{{category-list categories=sortedSubcategories prefix="» "}}
+	{{/if}}
+</li>

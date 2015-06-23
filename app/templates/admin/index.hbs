@@ -2,23 +2,7 @@
   <h1>Admin</h1>
 
   <h2>Categories ({{model.categories.length}})</h2>
-  <ul>
-    {{#each topLevelCategories as |category|}}
-      <li>
-        {{link-to category.name 'admin.categories.edit' category}} - {{category.description}}
-        {{#if category.subcategories}}
-        <ul>
-          {{#each category.subcategories as |category|}}
-          <li>&raquo; {{link-to category.name 'admin.categories.edit' category}} - {{category.description}}</li>
-          {{/each}}
-        </ul>
-        {{/if}}
-      </li>
-    {{/each}}
-    <li>
-      {{link-to 'Add category' 'admin.categories.new'}}
-    </li>
-  </ul>
+  {{category-list categories=topLevelCategories showAddCategory=true}}
 
   <h2>Addons needing categorization ({{addonsNeedingCategorization.length}} / {{model.addons.length}})</h2>
   {{#if showAddonsNeedingCategorization}}
