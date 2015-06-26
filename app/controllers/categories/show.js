@@ -13,11 +13,11 @@ export default Ember.Controller.extend({
 
 	addonSorting: function() {
 		var sortKeyMapping = {
-			'latestVersionDate': 'latestVersionDate:desc',
-			'name': 'name:asc',
-			'score': 'score:desc',
+			'latestVersionDate': [ 'latestVersionDate:desc' ],
+			'name': [ 'name:asc' ],
+			'score': [ 'isDeprecated:asc', 'score:desc' ],
 		};
-		var sortKey = sortKeyMapping[ this.get('addonSortKey') ] || 'score:desc';
-		return [ sortKey ];
+		var sortKey = sortKeyMapping[ this.get('addonSortKey') ] || sortKeyMapping['score'];
+		return sortKey;
 	}.property('addonSortKey')
 });
