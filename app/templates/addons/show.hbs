@@ -61,10 +61,10 @@
         </div>
         <div class="commit-stats">
           <strong>latest commit</strong>
-          <p>{{ago model.latestCommitDate}}</p>
+          <p>{{relative-time date=model.latestCommitDate}}</p>
 
           <strong>first commit</strong>
-          <p>{{ago model.firstCommitDate}}</p>
+          <p>{{relative-time date=model.firstCommitDate}}</p>
         </div>
       </section>
     {{/if}}

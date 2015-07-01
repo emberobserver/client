@@ -16,7 +16,7 @@
     {{/if}}
   </h4>
 
-  <p class="last-updated">Last updated {{ago addon.latestVersionDate}}</p>
+  <p class="last-updated">Last updated {{relative-time date=addon.latestVersionDate}}</p>
   <p>
     {{#score-display addon=addon as |val|}}
       Score {{val}}

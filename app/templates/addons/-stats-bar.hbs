@@ -7,7 +7,7 @@
 </p>
 
 <ul class="stats-list">
-  <li><b>{{model.latestVersion.version}}</b> from {{ago model.latestVersionDate}}</li>
+  <li><b>{{model.latestVersion.version}}</b> from {{relative-time date=model.latestVersionDate}}</li>
   <li>{{#if model.isTopDownloaded}}
     <div>
       <small>TOP 10%!</small>
