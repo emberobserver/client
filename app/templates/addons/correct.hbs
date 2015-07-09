@@ -20,6 +20,13 @@
 		{{input type="text" value=name placeholder="Your name"}}
 		{{input type="text" value=email placeholder="Your email address"}}
 		{{textarea value=correction placeholder="Describe what needs correcting"}}
+		<p>
+			<strong>Note:</strong>
+			Most of the data (other than the reviews) presented for an addon comes from NPM.
+			If you've updated the <code>package.json</code> file for an addon, you'll need to push a new release to NPM for the information to update.
+			<br>
+			A new NPM release also means the addon will be queued up for a new review.
+		</p>
 		<input type="submit" value="Submit">
 		<button type="button" {{action "cancel" on="click"}} class="cancel">Cancel</button>
 	</form>
