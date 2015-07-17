@@ -1,19 +1,19 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  beforeModel: function(){
+  beforeModel: function() {
     this.get('session').fetch();
   },
   actions: {
-    login: function(email, password){
+    login: function(email, password) {
       var route = this;
-      this.get('session').open(email, password).then(function(){
+      this.get('session').open(email, password).then(function() {
         route.transitionTo('admin.index');
       });
     },
-    logout: function(){
+    logout: function() {
       var route = this;
-      this.get('session').close().finally(function(){
+      this.get('session').close().finally(function() {
         route.transitionTo('index');
       });
     },
@@ -31,14 +31,14 @@ export default Ember.Route.extend({
     }
   },
 
-  model: function(){
+  model: function() {
     return Ember.RSVP.hash({
       addons: this.store.find('addon'),
       categories: this.store.find('category')
     });
   },
 
-  title: function(tokens){
+  title: function(tokens) {
     var tokenStr = tokens.join('');
     if (tokenStr) {
       return tokenStr + ' - Ember Observer';

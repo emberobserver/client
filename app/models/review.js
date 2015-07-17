@@ -6,14 +6,14 @@ var belongsTo = DS.belongsTo;
 
 export default DS.Model.extend({
   autoQuestions: [
-    {text: 'Has it been released within the last 6 months', field: 'hasBeenReleasedRecently'}
+    { text: 'Has it been released within the last 6 months', field: 'hasBeenReleasedRecently' }
   ],
   questions: [
-    {text: 'Is the source accessible?', fieldName: 'isOpenSource'},
-    {text: 'Is it more than an empty addon?', fieldName: 'isMoreThanEmptyAddon'},
-    {text: 'Are there meaningful tests?', fieldName: 'hasTests'},
-    {text: 'Is the README filled out?', fieldName: 'hasReadme'},
-    {text: 'Does the addon have a build?', fieldName: 'hasBuild'}
+    { text: 'Is the source accessible?', fieldName: 'isOpenSource' },
+    { text: 'Is it more than an empty addon?', fieldName: 'isMoreThanEmptyAddon' },
+    { text: 'Are there meaningful tests?', fieldName: 'hasTests' },
+    { text: 'Is the README filled out?', fieldName: 'hasReadme' },
+    { text: 'Does the addon have a build?', fieldName: 'hasBuild' }
   ],
   review: attr('string'),
   createdAt: attr('date'),
@@ -26,13 +26,13 @@ export default DS.Model.extend({
   addon: belongsTo('addon'),
   hasBeenReleasedRecently: Ember.computed.alias('addon.hasBeenReleasedRecently'),
   hasLicense: Ember.computed.alias('addon.hasLicense'),
-  score: function(){
+  score: function() {
     var s = 0;
-    if(this.get('hasTests') === 1){ s++; }
-    if(this.get('isMoreThanEmptyAddon') === 1){ s++; }
-    if(this.get('isOpenSource') === 1){ s++; }
-    if(this.get('hasBuild') === 1){ s++; }
-    if(this.get('hasReadme') === 1){ s++; }
+    if (this.get('hasTests') === 1) { s++; }
+    if (this.get('isMoreThanEmptyAddon') === 1) { s++; }
+    if (this.get('isOpenSource') === 1) { s++; }
+    if (this.get('hasBuild') === 1) { s++; }
+    if (this.get('hasReadme') === 1) { s++; }
     return s;
   }.property('hasTests', 'isMoreThanEmptyAddon', 'isOpenSource', 'hasBuild', 'hasReadme')
 });

@@ -1,9 +1,9 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-	category: null,
-	prefix: '',
+  category: null,
+  prefix: '',
 
-	subcategorySorting: [ 'position:asc' ],
-	sortedSubcategories: Ember.computed.sort('category.subcategories', 'subcategorySorting')
+  subcategorySorting: ['position:asc'],
+  sortedSubcategories: Ember.computed.sort('category.subcategories', 'subcategorySorting')
 });

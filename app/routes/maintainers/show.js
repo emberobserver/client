@@ -13,7 +13,7 @@ export default Ember.Route.extend({
     });
   },
 
-  titleToken: function(model){
+  titleToken: function(model) {
     return model.get('name');
   },
 

@@ -34,19 +34,19 @@ export default DS.Model.extend({
   committedToRecently: attr('boolean'),
   isTopStarred: attr('boolean'),
   demoUrl: attr('string'),
-  categories: hasMany('category', {async: true}),
-  keywords: hasMany('keyword', {async: true}),
-  versions: hasMany('version', {async: true}),
+  categories: hasMany('category', { async: true }),
+  keywords: hasMany('keyword', { async: true }),
+  versions: hasMany('version', { async: true }),
   maintainers: hasMany('maintainer'),
-  reviews: hasMany('review', {async: true}),
+  reviews: hasMany('review', { async: true }),
   sortedVersions: sortBy('versions', 'released:desc'),
   latestVersion: Ember.computed.alias('sortedVersions.firstObject'),
   oldestVersion: Ember.computed.alias('sortedVersions.lastObject'),
   hasMoreThan1Contributor: Ember.computed.gt('contributors.length', 1),
-  hasGithubData: function(){
+  hasGithubData: function() {
     return !this.get('hasInvalidGithubRepo') && this.get('firstCommitDate');
   }.property('hasInvalidGithubRepo', 'firstCommitDate'),
-  npmUrl: function(){
+  npmUrl: function() {
     return `https://www.npmjs.com/package/${this.get('name')}`;
   }.property('name')
 });

@@ -2,7 +2,6 @@ import Ember from 'ember';
 import { module, test } from 'qunit';
 import startApp from '../helpers/start-app';
 import stopApp from '../helpers/stop-app';
-import { validResponse } from '../helpers';
 
 var application;
 
@@ -16,14 +15,14 @@ module('Acceptance: Index', {
   }
 });
 
-test('visiting /', function( assert ) {
+test('visiting /', function(assert) {
   var categories = server.createList('category', 7);
   var addons = server.createList('addon', 4);
   var category = server.create('category',
     {
       name: 'Authentication',
       addon_ids: addons.mapBy('id'),
-      description: "Addons for auth"
+      description: 'Addons for auth'
     });
 
   var subcategory = server.create('category',
@@ -53,8 +52,8 @@ test('visiting /', function( assert ) {
 
   click('.test-category:contains(Authentication)');
 
-  andThen(function(){
-    assert.equal(currentURL(), "/categories/authentication", "URL should use category name token");
+  andThen(function() {
+    assert.equal(currentURL(), '/categories/authentication', 'URL should use category name token');
     assert.contains('.test-category-header', 'Authentication', 'Header should display');
     assert.contains('.test-category-description', 'Addons for auth', 'Description should display');
     assert.inDOM('.test-addon-row', 4, 'All addons in category should display');
@@ -63,8 +62,8 @@ test('visiting /', function( assert ) {
 
   click("a:contains('Simple Auth (1)')");
 
-  andThen(function(){
-    assert.equal(currentURL(), "/categories/simple-auth", "URL should use category name token");
+  andThen(function() {
+    assert.equal(currentURL(), '/categories/simple-auth', 'URL should use category name token');
     assert.contains('.test-category-header', 'Simple Auth', 'Header should display');
     assert.contains('.test-category-description', 'Simple Auth addons', 'Description should display');
     assert.inDOM('.test-addon-row', 1, 'All addons in category should display');
@@ -73,7 +72,7 @@ test('visiting /', function( assert ) {
   });
 });
 
-test('Unknown routes are handled', function( assert ) {
+test('Unknown routes are handled', function(assert) {
   visit('/bullshit');
 
   andThen(function() {
@@ -81,30 +80,30 @@ test('Unknown routes are handled', function( assert ) {
   });
 });
 
-QUnit.assert.inDOM = function( selector, expectedCount, message) {
+QUnit.assert.inDOM = function(selector, expectedCount, message) {
   var actualCount = find(selector).length;
   var result = (actualCount === expectedCount);
   this.push(result, actualCount, expectedCount, `${message} - ${expectedCount} of ${selector} expected`);
 };
 
-QUnit.assert.contains = function( selector, text, message ) {
+QUnit.assert.contains = function(selector, text, message) {
   var elements = find(selector);
   var result = false;
-  var regex = new RegExp(escapeForRegex(text) + "($|\\W)", 'gm');
-  elements.each(function(){
-    if(regex.test($(this).text())){
+  var regex = new RegExp(escapeForRegex(text) + '($|\\W)', 'gm');
+  elements.each(function() {
+    if (regex.test($(this).text())) {
       result = true;
     }
   });
 
-  if(!result){
+  if (!result) {
     message = message + ` - ${selector} containing ${text} should exist.`;
   }
 
   this.push(result, result, true, message);
 };
 
-function escapeForRegex(str) {
-  return str.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&");
+function escapeForRegex (str) {
+  return str.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, '\\$&');
 }
 

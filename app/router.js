@@ -6,28 +6,28 @@ var Router = Ember.Router.extend({
 });
 
 export default Router.map(function() {
-  this.route("categories", function() {
-    this.route("show", { path: "/:slug" });
+  this.route('categories', function() {
+    this.route('show', { path: '/:slug' });
   });
 
-  this.route("addons", function() {
-    this.route("show", { path: "/:name" });
-    this.route("correct", { path: "/:name/correct" });
+  this.route('addons', function() {
+    this.route('show', { path: '/:name' });
+    this.route('correct', { path: '/:name/correct' });
   });
 
-  this.route("maintainers", function(){
-    this.route("show", { path: "/:name" });
+  this.route('maintainers', function() {
+    this.route('show', { path: '/:name' });
   });
 
-  this.route("login");
-  this.route("admin", function(){
-    this.route("categories", function() {
-      this.route("new");
-      this.route("edit", { path: "/:slug" });
+  this.route('login');
+  this.route('admin', function() {
+    this.route('categories', function() {
+      this.route('new');
+      this.route('edit', { path: '/:slug' });
     });
   });
 
-  this.route("about");
+  this.route('about');
 
   this.route('not-found', { path: '/*path' });
 });

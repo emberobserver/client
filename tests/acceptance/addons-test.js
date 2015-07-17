@@ -41,23 +41,23 @@ test('displays N/A for score when addon has no score', function(assert) {
   });
 });
 
-QUnit.assert.contains = function( selector, text, message ) {
+QUnit.assert.contains = function(selector, text, message) {
   var elements = find(selector);
   var result = false;
-  var regex = new RegExp(escapeForRegex(text) + "($|\\W)", 'gm');
-  elements.each(function(){
-    if(regex.test($(this).text())){
+  var regex = new RegExp(escapeForRegex(text) + '($|\\W)', 'gm');
+  elements.each(function() {
+    if (regex.test($(this).text())) {
       result = true;
     }
   });
 
-  if(!result){
+  if (!result) {
     message = message + ` - ${selector} containing ${text} should exist.`;
   }
 
   this.push(result, result, true, message);
 };
 
-function escapeForRegex(str) {
-  return str.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&");
+function escapeForRegex (str) {
+  return str.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, '\\$&');
 }

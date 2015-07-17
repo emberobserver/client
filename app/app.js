@@ -13,11 +13,11 @@ var App = Ember.Application.extend({
 
 loadInitializers(App, config.modulePrefix);
 
-if(config.environment === "production"){
+if (config.environment === 'production') {
 
-  Ember.onerror = function(error){
+  Ember.onerror = function(error) {
 
-    if(window.trackJs) {
+    if (window.trackJs) {
       window.trackJs.track(error);
     }
 
@@ -25,10 +25,9 @@ if(config.environment === "production"){
 
   };
 
-
   Ember.RSVP.on('error', function(error) {
 
-    if(window.trackJs) {
+    if (window.trackJs) {
       window.trackJs.track(error);
     }
 

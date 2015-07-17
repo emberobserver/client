@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  autocompleteData: function(){
+  autocompleteData: function() {
     return {
       categories: {
         data: this.get('model.categories'),

@@ -3,7 +3,7 @@ import sortBy from '../../utils/sort-by';
 
 export default Ember.Controller.extend({
   showExplanation: false,
-  categories: function(){
+  categories: function() {
     return this.store.all('category').sortBy('displayName');
   }.property(),
 
@@ -11,64 +11,64 @@ export default Ember.Controller.extend({
   keywords: Ember.computed.filterBy('model.keywords', 'isDeleted', false),
   maintainers: Ember.computed.filterBy('model.maintainers', 'isDeleted', false),
 
-  licenseUrl: function(){
+  licenseUrl: function() {
     return `https://spdx.org/licenses/${this.get('model.license')}`;
   }.property('model.license'),
   sortedReviews: sortBy('model.reviews', 'version.released:desc'),
   latestReview: Ember.computed.alias('sortedReviews.firstObject'),
-  isLatestReleaseInLast3Months: function(){
+  isLatestReleaseInLast3Months: function() {
     var threeMonthsAgo = window.moment().subtract(3, 'months');
     return window.moment(this.get('model.latestVersion.released')).isAfter(threeMonthsAgo);
   }.property('model.latestVersion.released'),
-  isLatestReviewForLatestVersion: function(){
+  isLatestReviewForLatestVersion: function() {
     return this.get('latestReview') === this.get('model.latestVersion.review');
   }.property('latestReview', 'model.latestVersion.review'),
-  badgeText: function(){
+  badgeText: function() {
     return `[![Ember Observer Score](http://emberobserver.com/badges/${this.get('model.name')}.svg)](http://emberobserver.com/addons/${this.get('model.name')})`;
   }.property('model.name'),
-  installCommandText: function(){
+  installCommandText: function() {
     return `ember install ${this.get('model.name')}`;
   }.property('model.name'),
-  badgeSrc: function(){
+  badgeSrc: function() {
     return `http://emberobserver.com/badges/${this.get('model.name')}.svg`;
   }.property('model.name'),
   actions: {
-    save: function(){
+    save: function() {
       var controller = this;
       this.set('isSaving', true);
       this.get('model').save().catch(function() {
-        alert("Saving failed");
-      }).finally(function(){
+        alert('Saving failed');
+      }).finally(function() {
         controller.set('isSaving', false);
       });
     },
-    review: function(){
+    review: function() {
       var newReview = this.store.createRecord('review');
       this.set('newReview', newReview);
       this.set('isReviewing', true);
     },
-    renewLatestReview: function(){
+    renewLatestReview: function() {
       var newReview = this.store.createRecord('review');
       var latestReview = this.get('latestReview');
 
-      latestReview.questions.forEach(function(question){
+      latestReview.questions.forEach(function(question) {
         newReview.set(question.fieldName, latestReview.get(question.fieldName));
       });
       newReview.set('review', latestReview.get('review'));
 
       this.send('saveReview', newReview);
     },
-    saveReview: function(newReview){
+    saveReview: function(newReview) {
       var controller = this;
       newReview.set('version', this.get('model.latestVersion'));
       newReview.save().catch(function() {
-        alert("Saving failed");
-      }).finally(function(){
+        alert('Saving failed');
+      }).finally(function() {
         controller.set('newReview', null);
         controller.set('isReviewing', false);
       });
     },
-    toggleExplainScore: function(){
+    toggleExplainScore: function() {
       this.toggleProperty('showExplanation');
     }
   }
