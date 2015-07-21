@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import { module, test } from 'qunit';
 import startApp from '../helpers/start-app';
 import stopApp from '../helpers/stop-app';
@@ -16,7 +15,7 @@ module('Acceptance: Index', {
 });
 
 test('visiting /', function(assert) {
-  var categories = server.createList('category', 7);
+  server.createList('category', 7);
   var addons = server.createList('addon', 4);
   var category = server.create('category',
     {
@@ -25,7 +24,7 @@ test('visiting /', function(assert) {
       description: 'Addons for auth'
     });
 
-  var subcategory = server.create('category',
+  server.create('category',
     {
       name: 'Simple Auth',
       addon_ids: [addons[0].id],
@@ -33,7 +32,7 @@ test('visiting /', function(assert) {
       parent_id: category.id
     });
 
-  var subcategory2 = server.create('category',
+  server.create('category',
     {
       name: 'Other Auth',
       addon_ids: [addons[1].id],
