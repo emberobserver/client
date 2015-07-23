@@ -1,21 +1,21 @@
 <div class="container addons-show">
   <div class="addon-info">
-    <section>
+    <section class="test-addon-header">
       {{#if model.isDeprecated}}
-        <label class="alert">DEPRECATED</label>
+        <label class="alert test-addon-flag-deprecation">DEPRECATED</label>
       {{/if}}
 
       {{#if model.isNewAddon}}
-        <small>NEW!</small>
+        <small class="test-addon-flag-new">NEW!</small>
       {{/if}}
 
       <h1>
         {{#if model.isOfficial}}
-          <span class="icon-stars official" title="Offical Ember-CLI addon"></span>
+          <span class="icon-stars official test-addon-flag-official" title="Offical Ember-CLI addon"></span>
         {{/if}}
 
         {{#if model.isCliDependency}}
-          <span class="icon-stars dependency" title="Dependency of newly generated Ember-CLI applications"></span>
+          <span class="icon-stars dependency test-addon-flag-cli-dependency" title="Dependency of newly generated Ember-CLI applications"></span>
         {{/if}}
 
         {{model.name}}
@@ -45,7 +45,7 @@
       {{/if}}
     </section>
     {{#if model.hasGithubData}}
-      <section class="repo-info">
+      <section class="repo-info test-github-data">
         <h4>Github</h4>
 
         {{#if model.isTopStarred}}
@@ -53,18 +53,18 @@
         {{/if}}
         <div class="stats">
           <ul>
-            <li>{{model.openIssues}}<span>Open Issues</span></li>
-            <li>{{model.forks}}<span>Forks</span></li>
-            <li>{{model.stars}}<span>Starred</span></li>
-            <li>{{model.contributors.length}}<span>Contributors</span></li>
+            <li class="test-open-issues">{{model.openIssues}}<span>Open Issues</span></li>
+            <li class="test-forks">{{model.forks}}<span>Forks</span></li>
+            <li class="test-stars">{{model.stars}}<span>Starred</span></li>
+            <li class="test-contributors">{{model.contributors.length}}<span>Contributors</span></li>
           </ul>
         </div>
         <div class="commit-stats">
           <strong>latest commit</strong>
-          <p>{{relative-time date=model.latestCommitDate}}</p>
+          <p class="test-latest-commit">{{relative-time date=model.latestCommitDate}}</p>
 
           <strong>first commit</strong>
-          <p>{{relative-time date=model.firstCommitDate}}</p>
+          <p class="test-first-commit">{{relative-time date=model.firstCommitDate}}</p>
         </div>
       </section>
     {{/if}}

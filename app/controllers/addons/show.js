@@ -17,6 +17,7 @@ export default Ember.Controller.extend({
   sortedReviews: sortBy('model.reviews', 'version.released:desc'),
   latestReview: Ember.computed.alias('sortedReviews.firstObject'),
   isLatestReleaseInLast3Months: function() {
+    if (!this.get('model.latestVersion.released')) { return false; }
     var threeMonthsAgo = window.moment().subtract(3, 'months');
     return window.moment(this.get('model.latestVersion.released')).isAfter(threeMonthsAgo);
   }.property('model.latestVersion.released'),
