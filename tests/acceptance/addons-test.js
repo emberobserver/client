@@ -233,7 +233,7 @@ test('displays addon stats', function(assert) {
     license: 'MIT'
   });
 
-  var addonVersion = server.create('version', {
+  server.create('version', {
     version: '1.0.1',
     addon_id: addon.id,
     ember_cli_version: '1.13.1',
