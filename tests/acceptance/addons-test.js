@@ -17,6 +17,14 @@ module('Acceptance: Addons', {
   }
 });
 
+test('addon not found', function(assert) {
+  visit('/addons/what');
+  andThen(function() {
+    assert.equal(currentURL(), '/not-found');
+    assert.contains('.test-not-found', "Oops! We can't find what you were looking for. Try searching above?");
+  });
+});
+
 test('displays 0 for score when addon has zero score', function(assert) {
   var addon = server.create('addon', {
     name: 'test-with-zero-score',
@@ -208,5 +216,82 @@ test('displays review', function(assert) {
     assert.contains('.test-review-notes', 'Seems ok');
 
     assert.contains('.test-review-new-version-warning', 'New versions of this addon have been released since this review was undertaken.');
+  });
+});
+
+test('displays addon stats', function(assert) {
+  var maintainers = server.createList('maintainer', 3);
+
+  var addon = server.create('addon', {
+    name: 'test-addon',
+    maintainer_ids: maintainers.map((m) => m.id),
+    latest_version_date: window.moment().subtract(3, 'months'),
+    is_top_downloaded: true,
+    last_month_downloads: 1564,
+    demo_url: 'http://www.example.com/demo_of_addon',
+    repository_url: 'http://www.example.com/addon_repo',
+    license: 'MIT'
+  });
+
+  var addonVersion = server.create('version', {
+    version: '1.0.1',
+    addon_id: addon.id,
+    ember_cli_version: '1.13.1',
+    released: window.moment().subtract(3, 'months')
+  });
+
+  server.create('version', {
+    version: '1.0.0',
+    addon_id: addon.id,
+    ember_cli_version: '1.13.0',
+    released: window.moment().subtract(4, 'months')
+  });
+
+  server.createList('keyword', 5, { addon_ids: [addon.id] });
+
+
+  visit(`/addons/${addon.name}`);
+
+  andThen(function() {
+    assert.contains('.test-addon-install-command', 'ember install test-addon');
+    assert.exists('.test-addon-install-command .copy-to-clipboard .icon-content-paste', 'Install command should have copy to clipboard button');
+
+    assert.contains('.test-addon-latest-version', '1.0.1 from 3 months ago');
+
+    assert.contains('.test-addon-top-downloaded', 'TOP 10%');
+    assert.contains('.test-addon-top-downloaded', '1564 downloads in last month');
+
+    assert.exists('.test-addon-demo-url a[href="http://www.example.com/demo_of_addon"]');
+    assert.contains('.test-addon-demo-url b', 'example.com');
+    assert.contains('.test-addon-demo-url', '/demo_of_addon');
+
+    assert.exists('.test-addon-repo-url a[href="http://www.example.com/addon_repo"]');
+    assert.contains('.test-addon-repo-url b', 'example.com');
+    assert.contains('.test-addon-repo-url', '/addon_repo');
+
+    assert.exists('.test-addon-package-url a[href="https://www.npmjs.com/package/test-addon"]');
+    assert.contains('.test-addon-package-url b', 'npmjs.com');
+    assert.contains('.test-addon-package-url', '/package/test-addon');
+
+    assert.contains('.test-addon-license a[href="https://spdx.org/licenses/MIT"]', 'MIT');
+
+    assert.containsExactly('.test-addon-keywords', 'keyword-0, keyword-1, keyword-2, keyword-3, keyword-4');
+
+    assert.exists('.test-addon-maintainers a', 3, 'maintainers should display');
+    assert.exists('.test-addon-maintainers a[href*="/maintainers/maintainer-0"]', 'maintainers should have link to them');
+    assert.exists('.test-addon-maintainers img[src="https://secure.gravatar.com/avatar/412412d3d6d6fc8809f9121216dd0?d=identicon"]', 'maintainers should have gravatar');
+    assert.exists('.test-addon-maintainers img[title="maintainer-0"][alt="maintainer-0"]', 'Title and source of gravatar are set');
+
+    assert.contains('.test-addon-ember-cli-version', '1.13.1');
+
+    assert.contains('.test-addon-version-count', 'versions (2)');
+    assert.contains('.test-addon-versions li:eq(0)', '1.0.1');
+    assert.contains('.test-addon-versions li:eq(1)', '1.0.0');
+
+    assert.exists('.test-addon-badge img[src="http://emberobserver.com/badges/test-addon.svg"]');
+    assert.exists('.test-addon-badge .copy-to-clipboard .icon-content-paste', 'Copy to clipboard for badge markdown');
+    assert.exists('.test-addon-badge [data-clipboard-text="[![Ember Observer Score](http://emberobserver.com/badges/test-addon.svg)](http://emberobserver.com/addons/test-addon)"]');
+
+    assert.contains('.test-addon-correction-link[href*="/addons/test-addon/correct"]', 'Suggest a correction');
   });
 });

@@ -1,5 +1,5 @@
 <h4 class="single-column-header">Stats</h4>
-<p class="addon-install">
+<p class="addon-install test-addon-install-command">
   {{installCommandText}}
   {{#zero-clipboard text=installCommandText class="copy-to-clipboard" title="Copy install command to clipboard"}}
     <span class="icon-content-paste"></span>
@@ -7,22 +7,22 @@
 </p>
 
 <ul class="stats-list">
-  <li><b>{{model.latestVersion.version}}</b> from {{relative-time date=model.latestVersionDate}}</li>
-  <li>{{#if model.isTopDownloaded}}
+  <li class="test-addon-latest-version"><b>{{model.latestVersion.version}}</b> from {{relative-time date=model.latestVersionDate}}</li>
+  <li class="test-addon-top-downloaded">{{#if model.isTopDownloaded}}
     <div>
       <small>TOP 10%!</small>
     </div>{{/if}}<b>{{model.lastMonthDownloads}}</b> downloads in last month
   </li>
   {{#if model.demoUrl}}
-  <li><b>demo</b> {{human-url url=model.demoUrl}}</li>
+  <li class="test-addon-demo-url"><b>demo</b> {{human-url url=model.demoUrl}}</li>
   {{/if}}
-  <li><b>repo</b> {{human-url url=model.repositoryUrl}}</li>
-  <li><b>package</b> {{human-url url=model.npmUrl}}</li>
-  <li><b>license</b> <a {{bind-attr href="licenseUrl"}}>{{model.license}}</a></li>
+  <li class="test-addon-repo-url"><b>repo</b> {{human-url url=model.repositoryUrl}}</li>
+  <li class="test-addon-package-url"><b>package</b> {{human-url url=model.npmUrl}}</li>
+  <li class="test-addon-license"><b>license</b> <a {{bind-attr href="licenseUrl"}}>{{model.license}}</a></li>
 </ul>
 <h6>npm keywords</h6>
 
-<p class="keywords">
+<p class="keywords test-addon-keywords">
 
   {{#each keyword in keywords}}
     {{#comma-separated list=model.keywords item=keyword as |value separator|}}
@@ -32,7 +32,7 @@
 </p>
 
 <h6>maintainers</h6>
-<p>
+<p class="test-addon-maintainers">
 {{#each maintainer in maintainers}}
   {{#link-to "maintainers.show" maintainer}}
     {{gravatar-avatar gravatarId=maintainer.gravatar title=maintainer.name alt=maintainer.name}}
@@ -42,21 +42,21 @@
 
 {{#if model.latestVersion.emberCliVersion}}
   <h6>ember-cli version</h6>
-  <p>{{model.latestVersion.emberCliVersion}}</p>
+  <p class="test-addon-ember-cli-version">{{model.latestVersion.emberCliVersion}}</p>
 {{/if}}
 
-<h6>versions ({{model.sortedVersions.length}})</h6>
+<h6 class="test-addon-version-count">versions ({{model.sortedVersions.length}})</h6>
 
-<ul class="versions">
+<ul class="versions test-addon-versions">
   {{#each version in model.sortedVersions}}
     <li>{{moment version.released "YYYY-MMM-DD"}} <span class="version-number">{{version.version}}</span></li>
   {{/each}}
 </ul>
-<section class="badge">
+<section class="badge test-addon-badge">
   <img src={{badgeSrc}}>
   {{#zero-clipboard text=badgeText class="copy-to-clipboard" title="Copy badge markdown to clipboard"}}
     <span class="icon-content-paste"></span>
   {{/zero-clipboard}}
 </section>
 <hr>
-{{link-to 'Suggest a correction' 'addons.correct' model}}
+{{link-to 'Suggest a correction' 'addons.correct' model class="test-addon-correction-link"}}
