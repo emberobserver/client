@@ -13,7 +13,7 @@ export default function() {
   this.get('/categories');
   this.get('/addons', ['addons', 'maintainers']);
   this.get('/keywords');
-  this.get('/versions');
+  this.get('/versions', ['versions', 'reviews']);
   /*
     Route shorthand cheatsheet
   */

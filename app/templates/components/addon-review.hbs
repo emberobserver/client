@@ -3,7 +3,7 @@
     version {{review.version.version}}</p>
   <ol class="questions">
     {{#each question in answeredQuestions}}
-      <li>
+      <li class="test-review-question">
         <span class="question">{{question.text}}</span>
         <span class="answer">{{question.answer}}</span>
       </li>
@@ -12,7 +12,7 @@
   <br>
   {{#if review.review}}
     <h6>Comments</h6>
-    <fieldset>
+    <fieldset class="test-review-notes">
       {{markdown-section content=review.review}}
     </fieldset>
   {{/if}}

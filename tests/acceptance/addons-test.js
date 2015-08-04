@@ -150,3 +150,63 @@ test('displays header', function(assert) {
     assert.exists('.test-addon-flag-cli-dependency', 'CLI Dependency flag displays');
   });
 });
+
+test('displays review', function(assert) {
+  var addon = server.create('addon', {
+    name: 'test-addon'
+  });
+
+  visit(`/addons/${addon.name}`);
+
+  andThen(function() {
+    assert.exists('.test-no-review', 'Warning about not yet reviewed appears');
+  });
+
+  var addonWithReview = server.create('addon', {
+    name: 'test-addon-with-review'
+  });
+
+  var review = server.create('review', {
+    addon_id: addonWithReview.id,
+    has_tests: 1,
+    has_readme: 4,
+    is_more_than_empty_addon: 3,
+    is_open_source: 2,
+    has_build: 1,
+    review: 'Seems ok'
+  });
+
+  var addonVersion = server.create('version', {
+    addon_id: addonWithReview.id,
+    review_id: review.id,
+    released: window.moment().subtract(3, 'months')
+  });
+
+  //Newer version without review
+  server.create('version', {
+    addon_id: addonWithReview.id,
+    review_id: null,
+    released: window.moment().subtract(1, 'months')
+  });
+
+  review.version_id = addonVersion.id;
+
+  visit(`/addons/${addonWithReview.name}`);
+
+  andThen(function() {
+    assert.contains('.test-review-question:eq(0)', 'Is the source accessible?');
+    assert.contains('.test-review-question:eq(0)', 'No');
+    assert.contains('.test-review-question:eq(1)', 'Is it more than an empty addon?');
+    assert.contains('.test-review-question:eq(1)', 'N/A');
+    assert.contains('.test-review-question:eq(2)', 'Are there meaningful tests?');
+    assert.contains('.test-review-question:eq(2)', 'Yes');
+    assert.contains('.test-review-question:eq(3)', 'Is the README filled out?');
+    assert.contains('.test-review-question:eq(3)', 'Unknown');
+    assert.contains('.test-review-question:eq(4)', 'Does the addon have a build?');
+    assert.contains('.test-review-question:eq(4)', 'Yes');
+
+    assert.contains('.test-review-notes', 'Seems ok');
+
+    assert.contains('.test-review-new-version-warning', 'New versions of this addon have been released since this review was undertaken.');
+  });
+});

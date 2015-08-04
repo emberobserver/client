@@ -4,7 +4,7 @@ QUnit.assert.contains = function(selector, text, message) {
   var elements = find(selector);
   var regex = new RegExp(escapeForRegex(text) + '($|\\W)', 'gm');
   var result = false;
-  message = `${(message || '')} - At least one element ${selector} containing ${text} should exist.`;
+  message = `${(message || '')} - At least one element ${selector} containing "${text}" should exist.`;
 
   if (elements.length === 1) {
     var resultText = Ember.$(elements).text();
@@ -16,7 +16,7 @@ QUnit.assert.contains = function(selector, text, message) {
         result = true;
       }
     });
-    this.push(result, result, text, message);
+    this.push(result, result, true, message);
   }
 };
 
