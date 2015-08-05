@@ -5,7 +5,7 @@ var Router = Ember.Router.extend({
   location: config.locationType
 });
 
-export default Router.map(function() {
+Router.map(function() {
   this.route('categories', function() {
     this.route('show', { path: '/:slug' });
   });
@@ -31,3 +31,5 @@ export default Router.map(function() {
 
   this.route('not-found', { path: '/*path' });
 });
+
+export default Router;

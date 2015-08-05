@@ -207,8 +207,8 @@ test('updating addons', function(assert) {
   });
 
   fillIn('.test-note-input', '#New');
-  click('label[for=official]');
-  click('label[for=wip]');
+  click('input#official');
+  click('input#wip');
   click('label:contains(Category1) input');
   click('label:contains(Category3) input');
 
