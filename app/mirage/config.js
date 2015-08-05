@@ -14,6 +14,7 @@ export default function() {
   this.get('/addons', ['addons', 'maintainers']);
   this.get('/keywords');
   this.get('/versions', ['versions', 'reviews']);
+  this.get('/reviews');
   /*
     Route shorthand cheatsheet
   */

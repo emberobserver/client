@@ -1,7 +1,7 @@
 <form {{action "login" on="submit"}}>
   <label for="email">Email</label>
-  {{input value=email name="email"}}
+  {{input value=email name="email" class="test-email"}}
   <label for="password">Password</label>
-  {{input type="password" value=password name="password"}}
-  {{input type="submit" value="Log in"}}
+  {{input type="password" value=password name="password" class="test-password"}}
+  {{input type="submit" value="Log in" class="test-log-in"}}
 </form>

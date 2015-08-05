@@ -5,12 +5,12 @@
     {{#each question in questions}}
       <li>
         <div class="question">{{question.text}}</div>
-        {{radio-button-set selectOption="selectOption" valueField=question.fieldName options=questionOptions class="question-radio-buttons"}}
+        {{radio-button-set selectOption="selectOption" valueField=question.fieldName options=questionOptions class="question-radio-buttons test-question-buttons"}}
       </li>
     {{/each}}
     </ol>
-    {{textarea value=review.review}}
-    <input type="submit" value="Create Review">
+    {{textarea value=review.review class="test-addon-review-notes"}}
+    <input type="submit" class="test-addon-review-save" value="Create Review">
   </fieldset>
 </form>
 {{markdown-section content=review.review}}

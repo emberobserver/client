@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import LocalStore from '../utils/local-storage';
 
 export default Ember.Object.extend({
   open: function(email, password) {
@@ -16,7 +17,7 @@ export default Ember.Object.extend({
         return new Ember.RSVP.Promise(function(resolve, reject) {
           if (response.token) {
             session.set('token', response.token);
-            window.localStorage.setItem('sessionToken', response.token);
+            LocalStore.save('sessionToken', response.token);
             resolve();
           } else {
             reject();
@@ -28,7 +29,7 @@ export default Ember.Object.extend({
       });
   },
   fetch: function() {
-    var token = window.localStorage.getItem('sessionToken');
+    var token = LocalStore.fetch('sessionToken');
     if (token) {
       this.set('token', token);
     }
@@ -50,7 +51,7 @@ export default Ember.Object.extend({
   },
   clearToken: function() {
     this.set('token', null);
-    window.localStorage.removeItem('sessionToken');
+    LocalStore.remove('sessionToken');
   },
   isAuthenticated: isPresent('token'),
   header: function() {

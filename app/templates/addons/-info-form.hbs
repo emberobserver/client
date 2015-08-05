@@ -1,7 +1,7 @@
-<form {{action "save" on="submit"}}>
+<form {{action "save" on="submit"}} class="test-addon-info-form">
   <fieldset>
     <label>Note</label>
-    {{textarea value=model.note rows="3"}}
+    {{textarea value=model.note rows="3" class="test-note-input"}}
 
     {{#if isSaving}}
       <input type="submit" value="Saving" disabled>
@@ -11,7 +11,7 @@
   </fieldset>
 
   <fieldset>
-    <ul>
+    <ul class="test-addon-property-list">
       <li>{{input type="checkbox" id="official" checked=model.isOfficial}} <label for="official">Is Official?</label></li>
       <li>{{input type="checkbox" id="deprecated" checked=model.isDeprecated}} <label for="deprecated">Is Deprecated?</label></li>
       <li>{{input type="checkbox" id="cli-dependency" checked=model.isCliDependency}} <label for="cli-dependency">Is CLI Dependency?</label></li>
@@ -22,7 +22,7 @@
     {{#if isSaving}}
       <input type="submit" value="Saving" disabled>
     {{else}}
-      {{input type="submit" value="Save"}}
+      {{input type="submit" value="Save" class="test-save-addon-properties"}}
     {{/if}}
   </fieldset>
 </form>
