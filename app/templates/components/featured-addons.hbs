@@ -1,5 +1,5 @@
 <ul class='featured-addons'>
-  {{#each addon in displayedAddons}}
+  {{#each displayedAddons as |addon|}}
     <li class='featured-addon'>
       <h3>{{link-to addon.name 'addons.show' addon}}</h3>
       {{addon.description}}

@@ -1,3 +1,3 @@
-<button {{action "select" option}} {{bind-attr class="isSelected:selected"}}>
+<button {{action "select" option}} class={{if isSelected 'selected'}}>
   {{option.label}}
 </button>

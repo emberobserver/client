@@ -2,7 +2,7 @@
 <form {{action "save" on="submit"}} class="review-form">
   <fieldset>
     <ol>
-    {{#each question in questions}}
+    {{#each questions as |question|}}
       <li>
         <div class="question">{{question.text}}</div>
         {{radio-button-set selectOption="selectOption" valueField=question.fieldName options=questionOptions class="question-radio-buttons test-question-buttons"}}

@@ -18,13 +18,13 @@
   {{/if}}
   <li class="test-addon-repo-url"><b>repo</b> {{human-url url=model.repositoryUrl}}</li>
   <li class="test-addon-package-url"><b>package</b> {{human-url url=model.npmUrl}}</li>
-  <li class="test-addon-license"><b>license</b> <a {{bind-attr href="licenseUrl"}}>{{model.license}}</a></li>
+  <li class="test-addon-license"><b>license</b> <a href={{licenseUrl}}>{{model.license}}</a></li>
 </ul>
 <h6>npm keywords</h6>
 
 <p class="keywords test-addon-keywords">
 
-  {{#each keyword in keywords}}
+  {{#each keywords as |keyword|}}
     {{#comma-separated list=model.keywords item=keyword as |value separator|}}
       {{value.keyword}}{{separator}}
     {{/comma-separated}}
@@ -33,7 +33,7 @@
 
 <h6>maintainers</h6>
 <p class="test-addon-maintainers">
-{{#each maintainer in maintainers}}
+{{#each maintainers as |maintainer|}}
   {{#link-to "maintainers.show" maintainer}}
     {{gravatar-avatar gravatarId=maintainer.gravatar title=maintainer.name alt=maintainer.name}}
   {{/link-to}}
@@ -48,7 +48,7 @@
 <h6 class="test-addon-version-count">versions ({{model.sortedVersions.length}})</h6>
 
 <ul class="versions test-addon-versions">
-  {{#each version in model.sortedVersions}}
+  {{#each model.sortedVersions as |version|}}
     <li>{{moment version.released "YYYY-MMM-DD"}} <span class="version-number">{{version.version}}</span></li>
   {{/each}}
 </ul>

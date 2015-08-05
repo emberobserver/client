@@ -1,7 +1,7 @@
 <span class="addon-count test-addon-table-count">Displaying {{pluralize addons.length "addon"}}</span>
 <table class="addons-table">
   <tbody>
-  {{#each addon in addons}}
+  {{#each addons as |addon|}}
     {{addon-row addon=addon showAddon="showAddon"}}
   {{/each}}
   </tbody>
