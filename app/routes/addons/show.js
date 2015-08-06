@@ -3,7 +3,7 @@ import scrollFix from '../../mixins/scroll-fix';
 
 export default Ember.Route.extend(scrollFix, {
   model: function(params) {
-    return this.store.all('addon').findBy('name', params.name);
+    return this.store.peekAll('addon').findBy('name', params.name);
   },
 
   titleToken: function(model) {
@@ -11,8 +11,8 @@ export default Ember.Route.extend(scrollFix, {
   },
 
   afterModel: function(model) {
-    this.store.findQuery('keyword', { addon_id: model.get('id') });
-    this.store.findQuery('version', { addon_id: model.get('id') });
+    this.store.query('keyword', { addon_id: model.get('id') });
+    this.store.query('version', { addon_id: model.get('id') });
   },
 
   actions: {

@@ -49,7 +49,7 @@
 
 <ul class="versions test-addon-versions">
   {{#each model.sortedVersions as |version|}}
-    <li>{{moment version.released "YYYY-MMM-DD"}} <span class="version-number">{{version.version}}</span></li>
+    <li>{{moment-format version.released "YYYY-MMM-DD"}} <span class="version-number">{{version.version}}</span></li>
   {{/each}}
 </ul>
 <section class="badge test-addon-badge">

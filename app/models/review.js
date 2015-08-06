@@ -18,8 +18,8 @@ export default DS.Model.extend({
   isMoreThanEmptyAddon: attr('number'),
   isOpenSource: attr('number'),
   hasBuild: attr('number'),
-  addon: belongsTo('addon'),
-  version: belongsTo('version'),
+  addon: belongsTo('addon', { async: false }),
+  version: belongsTo('version', { async: false }),
   score: function() {
     var s = 0;
     if (this.get('hasTests') === 1) { s++; }

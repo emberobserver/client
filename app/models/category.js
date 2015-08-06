@@ -9,8 +9,8 @@ export default DS.Model.extend({
   description: attr('string'),
   position: attr('number'),
   addons: hasMany('addon', { async: true }),
-  parent: belongsTo('category'),
-  subcategories: hasMany('category', { inverse: 'parent' }),
+  parent: belongsTo('category', { async: false }),
+  subcategories: hasMany('category', { inverse: 'parent', async: false }),
   slug: function() {
     return this.get('name').dasherize();
   }.property('name'),

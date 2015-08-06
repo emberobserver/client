@@ -7,6 +7,6 @@ export default DS.Model.extend({
   version: attr('string'),
   released: attr('date'),
   emberCliVersion: attr('string'),
-  addon: belongsTo('addon'),
-  review: belongsTo('review')
+  addon: belongsTo('addon', { async: false }),
+  review: belongsTo('review', { async: false })
 });

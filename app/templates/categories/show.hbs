@@ -15,11 +15,11 @@
     </div>
     <div class="sort-controls">
       Sort by:
-      {{#button-select selected=addonSortKey}}
-        {{button-option label='Score' value='score'}}
-        {{button-option label='Name' value='name'}}
-        {{button-option label='Updated' value='latestVersionDate'}}
-      {{/button-select}}
+      <div class="button-select">
+        {{sort-option name="Score" key="score" selectedSort=addonSortKey sortBy="sortBy"}}
+        {{sort-option name="Name" key="name" selectedSort=addonSortKey sortBy="sortBy"}}
+        {{sort-option name="Updated" key="latestVersionDate" selectedSort=addonSortKey sortBy="sortBy"}}
+      </div>
     </div>
   </div>
 

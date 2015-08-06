@@ -4,7 +4,7 @@ export default Ember.Route.extend({
   model: function(params) {
     var store = this.store;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      var maintainer = store.all('maintainer').findBy('name', params.name);
+      var maintainer = store.peekAll('maintainer').findBy('name', params.name);
       if (maintainer) {
         resolve(maintainer);
       } else {

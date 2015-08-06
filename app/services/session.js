@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import LocalStore from '../utils/local-storage';
 
-export default Ember.Object.extend({
+export default Ember.Service.extend({
   open: function(email, password) {
     var session = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {

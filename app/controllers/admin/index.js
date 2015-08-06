@@ -21,7 +21,7 @@ export default Ember.Controller.extend({
     }).sortBy('latestVersionDate').reverse();
   }.property('model.addons.@each.latestVersionDate', 'model.addons.@each.latestReviewedVersionDate'),
   hiddenAddons: function() {
-    return this.store.findQuery('addon', { hidden: true });
+    return this.store.query('addon', { hidden: true });
   }.property(),
   actions: {
     showNeedingCategories: function() {

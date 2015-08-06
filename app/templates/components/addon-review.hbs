@@ -1,5 +1,5 @@
 {{#if review}}
-  <p class="review-date">Reviewed on {{moment review.createdAt "MMMM Do YYYY"}} for
+  <p class="review-date">Reviewed on {{moment-format review.createdAt "MMMM Do YYYY"}} for
     version {{review.version.version}}</p>
   <ol class="questions">
     {{#each answeredQuestions as |question|}}
@@ -13,7 +13,7 @@
   {{#if review.review}}
     <h6>Comments</h6>
     <fieldset class="test-review-notes">
-      {{markdown-section content=review.review}}
+      {{markdown-to-html markdown=review.review}}
     </fieldset>
   {{/if}}
 {{/if}}

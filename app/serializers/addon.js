@@ -1,6 +1,6 @@
-import DS from 'ember-data';
+import { ActiveModelSerializer } from 'active-model-adapter';
 
-export default DS.ActiveModelSerializer.extend({
+export default ActiveModelSerializer.extend({
   serializeHasMany: function(record, json, relationship) {
     var key = relationship.key;
     if (key === 'categories') {

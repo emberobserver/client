@@ -3,6 +3,6 @@ import scrollFix from '../../mixins/scroll-fix';
 
 export default Ember.Route.extend(scrollFix, {
   afterModel: function() {
-    this.store.find('review');
+    this.store.findAll('review', { reload: true });
   }
 });

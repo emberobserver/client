@@ -37,7 +37,7 @@ export default DS.Model.extend({
   categories: hasMany('category', { async: true }),
   keywords: hasMany('keyword', { async: true }),
   versions: hasMany('version', { async: true }),
-  maintainers: hasMany('maintainer'),
+  maintainers: hasMany('maintainer', { async: false }),
   reviews: hasMany('review', { async: true }),
   sortedVersions: sortBy('versions', 'released:desc'),
   latestVersion: Ember.computed.alias('sortedVersions.firstObject'),

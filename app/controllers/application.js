@@ -14,7 +14,7 @@ export default Ember.Controller.extend({
         action: 'showAddon'
       },
       maintainers: {
-        data: this.store.all('maintainer'),
+        data: this.store.peekAll('maintainer'),
         key: 'name',
         action: 'showMaintainer'
       }

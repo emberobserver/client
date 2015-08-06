@@ -19,5 +19,11 @@ export default Ember.Controller.extend({
     };
     var sortKey = sortKeyMapping[this.get('addonSortKey')] || sortKeyMapping['score'];
     return sortKey;
-  }.property('addonSortKey')
+  }.property('addonSortKey'),
+
+  actions: {
+    sortBy: function(key) {
+      this.set('addonSortKey', key);
+    }
+  }
 });
