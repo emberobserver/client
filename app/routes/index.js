@@ -2,7 +2,7 @@ import Ember from 'ember';
 import scrollFix from '../mixins/scroll-fix';
 
 export default Ember.Route.extend(scrollFix, {
-  model: function() {
+  model() {
     return this.modelFor('application').categories;
   }
 });

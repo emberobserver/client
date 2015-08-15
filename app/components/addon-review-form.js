@@ -8,10 +8,10 @@ export default Ember.Component.extend({
     { label: 'Unknown', value: 4 }
   ],
   actions: {
-    save: function() {
+    save() {
       this.sendAction('save', this.get('review'));
     },
-    selectOption: function(fieldName, value) {
+    selectOption(fieldName, value) {
       this.get('review').set(fieldName, value);
     }
   }

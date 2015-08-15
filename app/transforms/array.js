@@ -2,7 +2,7 @@ import DS from 'ember-data';
 import Ember from 'ember';
 
 export default DS.Transform.extend({
-  deserialize: function(serialized) {
+  deserialize(serialized) {
     var type = Ember.typeOf(serialized);
     if (type === 'array') {
       return serialized;
@@ -10,7 +10,7 @@ export default DS.Transform.extend({
       return [];
     }
   },
-  serialize: function(deserialized) {
+  serialize(deserialized) {
     return deserialized;
   }
 });

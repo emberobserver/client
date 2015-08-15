@@ -1,18 +1,18 @@
 export default {
-  storage: function() {
+  storage() {
     return window.localStorage;
   },
-  save: function(item, value) {
+  save(item, value) {
     if (this.storage()) {
       return this.storage().setItem(item, value);
     }
   },
-  fetch: function(item) {
+  fetch(item) {
     if (this.storage()) {
       return this.storage().getItem(item);
     }
   },
-  remove: function(item) {
+  remove(item) {
     if (this.storage()) {
       return this.storage().removeItem(item);
     }

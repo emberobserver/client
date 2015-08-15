@@ -4,7 +4,7 @@ export default Ember.Component.extend({
   placeholder: 'Search',
   autofocus: false,
 
-  didInsertElement: function() {
+  didInsertElement() {
     var component = this;
     var dataset, data;
     var $input = this.$('input');
@@ -39,7 +39,7 @@ export default Ember.Component.extend({
         source: substringMatcher(data),
         templates: {
           header: `<h3>${datasetName.capitalize()}</h3>`,
-          suggestion: function(properties) {
+          suggestion(properties) {
             if (properties.isAddon) {
               return `<p>${properties.displayHtml}</p>`;
             }
@@ -60,19 +60,19 @@ export default Ember.Component.extend({
     }
   },
 
-  selected: function(value, datasetName) {
+  selected(value, datasetName) {
     var item = this.get(`datasets.${datasetName}.data`).findBy('id', value.id);
     if (item) {
       this.sendAction(`${datasetName}Action`, item);
     }
   },
 
-  willDestroyElement: function() {
+  willDestroyElement() {
     this.$('input').typeahead('destroy');
   },
 
   actions: {
-    submit: function() {
+    submit() {
       this.$('.tt-suggestion:first-child').click();
     }
   }
