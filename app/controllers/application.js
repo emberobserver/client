@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  autocompleteData: function() {
+  autocompleteData: Ember.computed('model.categories', 'model.addons', 'model.maintainers', function() {
     return {
       categories: {
         data: this.get('model.categories'),
@@ -19,5 +19,5 @@ export default Ember.Controller.extend({
         action: 'showMaintainer'
       }
     };
-  }.property('model.categories', 'model.addons', 'model.maintainers')
+  })
 });

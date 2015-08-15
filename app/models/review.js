@@ -1,4 +1,5 @@
 import DS from 'ember-data';
+import Ember from 'ember';
 
 var attr = DS.attr;
 var belongsTo = DS.belongsTo;
@@ -20,7 +21,7 @@ export default DS.Model.extend({
   hasBuild: attr('number'),
   addon: belongsTo('addon', { async: false }),
   version: belongsTo('version', { async: false }),
-  score: function() {
+  score: Ember.computed('hasTests', 'isMoreThanEmptyAddon', 'isOpenSource', 'hasBuild', 'hasReadme', function() {
     var s = 0;
     if (this.get('hasTests') === 1) { s++; }
     if (this.get('isMoreThanEmptyAddon') === 1) { s++; }
@@ -28,5 +29,5 @@ export default DS.Model.extend({
     if (this.get('hasBuild') === 1) { s++; }
     if (this.get('hasReadme') === 1) { s++; }
     return s;
-  }.property('hasTests', 'isMoreThanEmptyAddon', 'isOpenSource', 'hasBuild', 'hasReadme')
+  })
 });
