@@ -38,7 +38,7 @@ if (config.environment === 'production') {
   });
 }
 
-if (config.environment === 'development') {
+if (config.environment === 'development' || config.environment === 'test') {
   Error.stackTraceLimit=100;
 }
 
