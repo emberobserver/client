@@ -78,7 +78,7 @@ export default Ember.Controller.extend({
         this.transitionToRoute('admin');
         location.reload();
       }).catch((message) => {
-        category.rollback();
+        category.rollbackAttributes();
         alert(message);
       });
     }

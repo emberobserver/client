@@ -3,6 +3,7 @@ import sortBy from '../../utils/sort-by';
 
 export default Ember.Controller.extend({
   showExplanation: false,
+  showBadgeText: false,
   categories: function() {
     return this.store.peekAll('category').sortBy('displayName');
   }.property(),
@@ -71,6 +72,9 @@ export default Ember.Controller.extend({
     },
     toggleExplainScore: function() {
       this.toggleProperty('showExplanation');
+    },
+    toggleBadgeText: function() {
+      this.toggleProperty('showBadgeText');
     }
   }
 

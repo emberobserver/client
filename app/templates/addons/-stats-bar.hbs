@@ -1,9 +1,6 @@
 <h4 class="single-column-header">Stats</h4>
 <p class="addon-install test-addon-install-command">
   {{installCommandText}}
-  {{#zero-clipboard text=installCommandText class="copy-to-clipboard" title="Copy install command to clipboard"}}
-    <span class="icon-content-paste"></span>
-  {{/zero-clipboard}}
 </p>
 
 <ul class="stats-list">
@@ -54,9 +51,13 @@
 </ul>
 <section class="badge test-addon-badge">
   <img src={{badgeSrc}}>
-  {{#zero-clipboard text=badgeText class="copy-to-clipboard" title="Copy badge markdown to clipboard"}}
-    <span class="icon-content-paste"></span>
-  {{/zero-clipboard}}
+  <span class="icon-content-paste copy-to-clipboard test-show-badge-markdown" title="Show badge markdown to copy" {{action "toggleBadgeText"}}></span>
+  {{#if showBadgeText}}
+    <hr>
+    <code class="test-badge-markdown">
+     {{badgeText}}
+    </code>
+  {{/if}}
 </section>
 <hr>
 {{link-to 'Suggest a correction' 'addons.correct' model class="test-addon-correction-link"}}

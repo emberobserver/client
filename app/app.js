@@ -38,4 +38,8 @@ if (config.environment === 'production') {
   });
 }
 
+if (config.environment === 'development') {
+  Error.stackTraceLimit=100;
+}
+
 export default App;

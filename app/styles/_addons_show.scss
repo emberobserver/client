@@ -226,10 +226,9 @@
     &:focus {
       outline: 0;
     }
-  }
 
-  .zeroclipboard-is-hover.copy-to-clipboard button {
-    color: $hover-link-color;
+    &:hover {
+      color: $hover-link-color;
+    }
   }
-
 }

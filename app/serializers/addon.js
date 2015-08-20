@@ -1,6 +1,7 @@
 import { ActiveModelSerializer } from 'active-model-adapter';
 
 export default ActiveModelSerializer.extend({
+  isNewSerializerAPI: true,
   serializeHasMany: function(record, json, relationship) {
     var key = relationship.key;
     if (key === 'categories') {
