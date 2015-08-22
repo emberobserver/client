@@ -12,7 +12,7 @@
     {{/unless}}
     <ul>
       {{#if latestReview}}
-        <li>{{pluralize latestReview.score "point"}} from review</li>
+        <li>{{pluralize-this latestReview.score "point"}} from review</li>
       {{/if}}
       {{#if model.isTopDownloaded}}
         <li>1 point for having a download count in the last 30 days that is in the top 10% for all addons.</li>
