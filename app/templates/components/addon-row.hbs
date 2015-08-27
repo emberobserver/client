@@ -1,6 +1,6 @@
 <td {{action "showAddon" addon}} class="test-addon-row">
   <h4>
-    {{#link-to "addons.show" addon}}
+    {{#link-to "addons.show" addon.name}}
       {{addon.name}}
       {{#if addon.isDeprecated}}
         <span class="notice">(DEPRECATED)</span>

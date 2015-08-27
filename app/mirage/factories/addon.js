@@ -30,9 +30,5 @@ export default Mirage.Factory.extend({
   committed_to_recently: true,
   is_top_starred: false,
   demoUrl: null,
-  category_ids: [],
-  keyword_ids: [],
-  version_ids: [],
-  maintainer_ids: [],
-  review_ids: []
+  is_fully_loaded: true
 });

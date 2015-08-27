@@ -11,7 +11,20 @@ export default function() {
   // this.timing = 400;      // delay for each request, automatically set to 0 during testing
 
   this.get('/categories');
-  this.get('/addons', ['addons', 'maintainers']);
+
+  this.get('/addons', function(db, request) {
+    if (request.queryParams.name) {
+      return { addons: db.addons.where({ name: request.queryParams.name }) };
+    }
+
+    let simpleAddonProps = ['id', 'name', 'latest_version_date', 'description', 'is_deprecated', 'is_official', 'is_cli_dependency', 'is_hidden', 'score', 'is_wip'];
+    let simpleAddonData = db.addons.map(function(addon) {
+      return window._.pick(addon, simpleAddonProps);
+    });
+    return { addons: simpleAddonData };
+  });
+
+  this.get('/maintainers');
   this.get('/keywords');
   this.get('/versions', ['versions', 'reviews']);
   this.get('/reviews');

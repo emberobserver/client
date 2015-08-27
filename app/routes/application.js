@@ -33,8 +33,9 @@ export default Ember.Route.extend({
 
   model: function() {
     return Ember.RSVP.hash({
-      addons: this.store.findAll('addon', { reload: true }),
-      categories: this.store.findAll('category', { reload: true })
+      addons: this.store.findAll('addon'),
+      categories: this.store.findAll('category'),
+      maintainers: this.store.findAll('maintainer')
     });
   },
 

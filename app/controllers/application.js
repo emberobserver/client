@@ -14,10 +14,10 @@ export default Ember.Controller.extend({
         action: 'showAddon'
       },
       maintainers: {
-        data: this.store.peekAll('maintainer'),
+        data: this.get('model.maintainers'),
         key: 'name',
         action: 'showMaintainer'
       }
     };
-  }.property('model.categories', 'model.addons')
+  }.property('model.categories', 'model.addons', 'model.maintainers')
 });
