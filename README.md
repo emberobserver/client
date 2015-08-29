@@ -1,4 +1,5 @@
 # Ember Observer [![Circle CI](https://circleci.com/gh/emberobserver/client.svg?style=svg)](https://circleci.com/gh/emberobserver/client)
+[![Code Climate](https://codeclimate.com/github/emberobserver/client/badges/gpa.svg)](https://codeclimate.com/github/emberobserver/client)
 
 This is the frontend code for the [Ember Observer](http://emberobserver.com/) website.
 
