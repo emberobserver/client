@@ -23,6 +23,9 @@ export default Ember.Controller.extend({
   hiddenAddons: function() {
     return this.store.query('addon', { hidden: true });
   }.property(),
+  sortedHiddenAddons: function() {
+    return this.get('hiddenAddons').sortBy('latestVersionDate').reverse();
+  }.property('hiddenAddons.[]'),
   actions: {
     showNeedingCategories: function() {
       this.set('showAddonsNeedingCategorization', true);

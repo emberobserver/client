@@ -27,7 +27,7 @@
 
   <h2>Hidden Addons</h2>
   {{#if showHiddenAddons}}
-    {{addons-table addons=hiddenAddons showAddon="showAddon"}}
+    {{addons-table addons=sortedHiddenAddons showAddon="showAddon"}}
   {{else}}
     <a href="#" {{action "showHidden"}}>Show</a>
   {{/if}}
