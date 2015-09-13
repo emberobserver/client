@@ -73,7 +73,14 @@
     font-size: 0.9em;
     line-height: 1.5em;
     margin: auto;
+    margin-bottom: 1em;
     max-width: 35em;
     text-align: center;
+  }
+
+  .sponsor {
+    img {
+      width: 200px;
+    }
   }
 }
