@@ -44,11 +44,8 @@
 
 <h6 class="test-addon-version-count">versions ({{model.sortedVersions.length}})</h6>
 
-<ul class="versions test-addon-versions">
-  {{#each model.sortedVersions as |version|}}
-    <li>{{moment-format version.released "YYYY-MMM-DD"}} <span class="version-number">{{version.version}}</span></li>
-  {{/each}}
-</ul>
+{{addon-version-list versions=model.sortedVersions}}
+
 <section class="badge test-addon-badge">
   <img src={{badgeSrc}}>
   <span class="icon-content-paste copy-to-clipboard test-show-badge-markdown" title="Show badge markdown to copy" {{action "toggleBadgeText"}}></span>

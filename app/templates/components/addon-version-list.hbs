@@ -1,0 +1,8 @@
+<ul class="versions test-addon-versions">
+  {{#each showingVersions as |version|}}
+    <li>{{moment-format version.released "YYYY-MMM-DD"}} <span class="version-number">{{version.version}}</span></li>
+  {{/each}}
+  {{#if thereAreHiddenVersions}}
+    <a href="#" {{action "showAllVersions"}}>Show all versions</a>
+  {{/if}}
+</ul>
