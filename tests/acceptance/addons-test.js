@@ -249,10 +249,10 @@ test('displays addon stats', function(assert) {
   });
 
   server.get('https://api.github.com/repos/emberjs/ember.js/releases', function(/*db, request*/) {
-    let version = EmberVersionsResponse[0];
+    let version = Ember.copy(EmberVersionsResponse[0]);
     version['published_at'] = window.moment().subtract(14, 'weeks');
     version['name'] = 'Ember v15.0.0';
-    let olderVersion = EmberVersionsResponse[1];
+    let olderVersion = Ember.copy(EmberVersionsResponse[1]);
     olderVersion['published_at'] = window.moment().subtract(5, 'months');
     olderVersion['name'] = 'Ember v14.0.0';
 
