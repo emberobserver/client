@@ -1,3 +1,4 @@
+import EmberVersionsResponse from 'ember-addon-review/tests/ember-version-response';
 export default function() {
 
   // These comments are here to help you get started. Feel free to delete them.
@@ -28,6 +29,10 @@ export default function() {
   this.get('/keywords');
   this.get('/versions', ['versions', 'reviews']);
   this.get('/reviews');
+
+  this.get('https://api.github.com/repos/emberjs/ember.js/releases', function(/*db, request*/) {
+    return EmberVersionsResponse;
+  });
   /*
     Route shorthand cheatsheet
   */

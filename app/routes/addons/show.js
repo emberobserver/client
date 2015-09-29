@@ -13,8 +13,9 @@ export default Ember.Route.extend(scrollFix, {
   afterModel: function(model) {
     this.store.query('keyword', { addon_id: model.get('id') });
     this.store.query('version', { addon_id: model.get('id') });
+    this.get('emberVersions').fetch();
   },
-
+  emberVersions: Ember.inject.service(),
   actions: {
     error: function() {
       this.replaceWith('/not-found');

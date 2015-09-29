@@ -4,6 +4,7 @@ import {
   test
 } from 'qunit';
 import startApp from 'ember-addon-review/tests/helpers/start-app';
+import EmberVersionsResponse from 'ember-addon-review/tests/ember-version-response';
 
 var application;
 
@@ -247,8 +248,18 @@ test('displays addon stats', function(assert) {
     released: window.moment().subtract(4, 'months')
   });
 
-  server.createList('keyword', 5, { addon_ids: [addon.id] });
+  server.get('https://api.github.com/repos/emberjs/ember.js/releases', function(/*db, request*/) {
+    let version = EmberVersionsResponse[0];
+    version['published_at'] = window.moment().subtract(14, 'weeks');
+    version['name'] = 'Ember v15.0.0';
+    let olderVersion = EmberVersionsResponse[1];
+    olderVersion['published_at'] = window.moment().subtract(5, 'months');
+    olderVersion['name'] = 'Ember v14.0.0';
 
+    return [version, olderVersion];
+  });
+
+  server.createList('keyword', 5, { addon_ids: [addon.id] });
 
   visit(`/addons/${addon.name}`);
 
@@ -284,8 +295,10 @@ test('displays addon stats', function(assert) {
     assert.contains('.test-addon-ember-cli-version', '1.13.1');
 
     assert.contains('.test-addon-version-count', 'versions (2)');
+    assert.exists('.test-addon-versions li', 3, 'Only 3 list items should be under versions, 2 for versions, 1 for ember verions after publishing of addon');
     assert.contains('.test-addon-versions li:eq(0)', '1.0.1');
-    assert.contains('.test-addon-versions li:eq(1)', '1.0.0');
+    assert.contains('.test-addon-versions li:eq(1)', 'Ember v15.0.0');
+    assert.contains('.test-addon-versions li:eq(2)', '1.0.0');
 
     assert.exists('.test-addon-badge img[src="http://emberobserver.com/badges/test-addon.svg"]');
     assert.exists('.test-addon-badge .test-show-badge-markdown.icon-content-paste', 'Show badge markdown to copy');
