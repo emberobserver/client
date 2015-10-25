@@ -1,4 +1,5 @@
 import DS from 'ember-data';
+import Ember from 'ember';
 
 var attr = DS.attr;
 var belongsTo = DS.belongsTo;
@@ -11,19 +12,19 @@ export default DS.Model.extend({
   addons: hasMany('addon', { async: true }),
   parent: belongsTo('category', { async: false }),
   subcategories: hasMany('category', { inverse: 'parent', async: false }),
-  slug: function() {
+  slug: Ember.computed('name', function() {
     return this.get('name').dasherize();
-  }.property('name'),
-  displayName: function() {
+  }),
+  displayName: Ember.computed('parent.name', 'name', function() {
     if (this.get('parent')) {
       return this.get('parent.name') + ' > ' + this.get('name');
     } else {
       return this.get('name');
     }
-  }.property('parent.name', 'name'),
-  addonCount: function() {
+  }),
+  addonCount: Ember.computed('addons.length', 'subcategories.@each.addons.lenth', function() {
     return this.get('subcategories').mapBy('addons.length').reduce(function(categoryA, categoryB) {
       return categoryA + categoryB;
     }, this.get('addons.length'));
-  }.property('addons.length', 'subcategories.@each.addons.length')
+  })
 });

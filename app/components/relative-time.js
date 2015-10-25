@@ -5,8 +5,8 @@ export default Ember.Component.extend({
   attributeBindings: ['isoDate:datetime', 'isoDate:title'],
 
   date: null,
-  isoDate: function() {
+  isoDate: Ember.computed('date', function() {
     let date = this.get('date');
     return date ? date.toISOString() : null;
-  }.property('date')
+  })
 });

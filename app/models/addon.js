@@ -44,10 +44,10 @@ export default DS.Model.extend({
   latestVersion: Ember.computed.alias('sortedVersions.firstObject'),
   oldestVersion: Ember.computed.alias('sortedVersions.lastObject'),
   hasMoreThan1Contributor: Ember.computed.gt('contributors.length', 1),
-  hasGithubData: function() {
+  hasGithubData: Ember.computed('hasInvalidGithubRepo', 'firstCommitDate', function() {
     return !this.get('hasInvalidGithubRepo') && this.get('firstCommitDate');
-  }.property('hasInvalidGithubRepo', 'firstCommitDate'),
-  npmUrl: function() {
+  }),
+  npmUrl: Ember.computed('name', function() {
     return `https://www.npmjs.com/package/${this.get('name')}`;
-  }.property('name')
+  })
 });
