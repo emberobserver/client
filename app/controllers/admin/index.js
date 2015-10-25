@@ -22,7 +22,7 @@ export default Ember.Controller.extend({
   }),
   hiddenAddons: Ember.computed(function() {
     return this.store.query('addon', { hidden: true });
-  },
+  }),
   sortedHiddenAddons: Ember.computed('hiddenAddons.[]', function() {
     return this.get('hiddenAddons').sortBy('latestVersionDate').reverse();
   }),
