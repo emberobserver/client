@@ -229,6 +229,19 @@ test('updating addons', function(assert) {
   click('.test-save-addon-properties');
 });
 
+test('list of uncategorized addons shows correct addons', function(assert) {
+  let categorizedAddons = server.createList('addon', 10);
+  server.create('category', { addon_ids: categorizedAddons.map(addon => addon.id) });
+  let uncategorizedAddons = server.createList('addon', 5);
+  login();
+
+  visit('/admin');
+  click('a:contains(Addons needing categorization)');
+  andThen(function() {
+    assert.equal(find('.test-addon').length, 5, 'only uncategorized addons are displayed');
+  });
+});
+
 function login() {
   server.post('/authentication/login.json', function() {
     return {
