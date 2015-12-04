@@ -8,6 +8,7 @@
 @import "footer";
 @import "index";
 @import "admin_index";
+@import "admin_uncategorized";
 @import "categories_show";
 @import "addons_show";
 @import "addons_correct";
@@ -22,6 +23,7 @@
 @import "stats";
 @import "scores";
 @import "about_index";
+@import "vertical_tabs";
 
 .container {
   @include outer-container;

@@ -1,0 +1,7 @@
+.admin-uncategorized {
+	@include outer-padding;
+
+	.vertical-tabs.addon-list {
+		height: auto;
+	}
+}

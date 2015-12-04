@@ -1,5 +1,14 @@
-<ul>
-{{#each uncategorizedAddons as |addon|}}
-	<li class='test-addon'>{{addon.name}}</li>
-{{/each}}
-</ul>
+<div class="container admin-uncategorized">
+	<div class="vertical-tabs-container">
+	  <div class="vertical-tabs addon-list">
+			<h2>Addons needing categorization</h2>
+			{{#each model as |addon|}}
+				{{#link-to 'admin.uncategorized.addon' addon.name class='test-addon js-vertical-tab vertical-tab'}}{{addon.name}}{{/link-to}}
+			{{/each}}
+		</div>
+	</div>
+
+	<div class="vertical-tab-content-container">
+		{{outlet}}
+	</div>
+</div>

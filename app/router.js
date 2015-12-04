@@ -21,7 +21,9 @@ Router.map(function() {
 
   this.route('login');
   this.route('admin', function() {
-    this.route('uncategorized');
+    this.route('uncategorized', function() {
+      this.route('addon', { path: '/:name' });
+    });
     this.route('categories', function() {
       this.route('new');
       this.route('edit', { path: '/:slug' });
