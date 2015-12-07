@@ -1,0 +1,97 @@
+<section class="test-addon-header">
+  {{#if addon.isDeprecated}}
+    <label class="alert test-addon-flag-deprecation">DEPRECATED</label>
+  {{/if}}
+
+  {{#if addon.isNewAddon}}
+    <small class="test-addon-flag-new">NEW!</small>
+  {{/if}}
+
+  <h1>
+    {{#if addon.isOfficial}}
+      <span class="icon-stars official test-addon-flag-official" title="Offical Ember-CLI addon"></span>
+    {{/if}}
+
+    {{#if addon.isCliDependency}}
+      <span class="icon-stars dependency test-addon-flag-cli-dependency" title="Dependency of newly generated Ember-CLI applications"></span>
+    {{/if}}
+
+    {{addon.name}}
+  </h1>
+
+  <p>{{addon.description}}</p>
+</section>
+{{#if addon.note}}
+  {{addon-note content=addon.renderedNote}}
+{{/if}}
+
+{{partial "addons/score-detail"}}
+{{#if session.isAuthenticated}}
+  {{partial "addons/info-form"}}
+{{/if}}
+
+<section class="categories">
+  <h4>Categories</h4>
+  <p>
+    {{inline-category-list categories=addon.categories}}
+    {{#unless addon.categories}}
+      This addon hasn't been categorized yet.
+    {{/unless}}
+  </p>
+  {{#if session.isAuthenticated}}
+    {{partial "addons/categories-form"}}
+  {{/if}}
+</section>
+{{#if addon.hasGithubData}}
+  <section class="repo-info test-github-data">
+    <h4>Github</h4>
+
+    {{#if addon.isTopStarred}}
+      <small>TOP 10% STARRED</small>
+    {{/if}}
+    <div class="stats">
+      <ul>
+        <li class="test-open-issues">{{addon.openIssues}}<span>Open Issues</span></li>
+        <li class="test-forks">{{addon.forks}}<span>Forks</span></li>
+        <li class="test-stars">{{addon.stars}}<span>Starred</span></li>
+        <li class="test-contributors">{{addon.contributors.length}}<span>Contributors</span></li>
+      </ul>
+    </div>
+    <div class="commit-stats">
+      <strong>latest commit</strong>
+      <p class="test-latest-commit">{{relative-time date=addon.latestCommitDate}}</p>
+
+      <strong>first commit</strong>
+      <p class="test-first-commit">{{relative-time date=addon.firstCommitDate}}</p>
+    </div>
+  </section>
+{{/if}}
+
+<section class="latest-review">
+  <h4>Review</h4>
+  {{#if latestReview}}
+    {{#unless isLatestReviewForLatestVersion}}
+      <em class="test-review-new-version-warning"><span class="icon-new-releases"></span> New versions of this addon have been released since this review was undertaken.</em>
+    {{/unless}}
+    {{addon-review review=latestReview}}
+    {{#if session.isAuthenticated}}
+      <button {{action "renewLatestReview"}} class="test-renew-latest-review">Renew Review</button>
+    {{/if}}
+  {{else}}
+    <p class="no-review test-no-review">This addon has not yet been reviewed.</p>
+  {{/if}}
+</section>
+
+<div class="addon-stats">
+{{partial "addons/stats-bar"}}
+</div>
+
+<div class="new-review">
+{{#if session.isAuthenticated}}
+  {{#if isReviewing}}
+    {{addon-review-form review=newReview questions=newReview.questions save="saveReview"}}
+  {{else}}
+    <button {{action "review"}} class="test-addon-review-button">Review</button>
+  {{/if}}
+{{/if}}
+</div>
