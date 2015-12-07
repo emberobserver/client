@@ -232,7 +232,7 @@ test('updating addons', function(assert) {
 test('uncategorized addons', function(assert) {
   let categorizedAddons = server.createList('addon', 10);
   server.create('category', { addon_ids: categorizedAddons.map(addon => addon.id) });
-  let uncategorizedAddons = server.createList('addon', 5);
+  server.createList('addon', 5);
   login();
 
   visit('/admin');
