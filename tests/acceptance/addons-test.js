@@ -26,45 +26,6 @@ test('addon not found', function(assert) {
   });
 });
 
-test('displays 0 for score when addon has zero score', function(assert) {
-  var addon = server.create('addon', {
-    name: 'test-with-zero-score',
-    score: 0
-  });
-
-  visit(`/addons/${addon.name}`);
-
-  andThen(function() {
-    assert.contains('.score', 'Score 0', 'Displays 0 for score when addon has a score of zero');
-  });
-});
-
-test('displays WIP for score when addon is WIP', function(assert) {
-  var addon = server.create('addon', {
-    name: 'test-wip',
-    is_wip: true
-  });
-
-  visit(`/addons/${addon.name}`);
-
-  andThen(function() {
-    assert.contains('.score', 'WIP', 'Displays WIP for score');
-  });
-});
-
-test('displays N/A for score when addon has no score', function(assert) {
-  var addon = server.create('addon', {
-    name: 'test-with-na-score',
-    score: null
-  });
-
-  visit(`/addons/${addon.name}`);
-
-  andThen(function() {
-    assert.contains('.score', 'N/A', 'Displays N/A for score when addon has no score');
-  });
-});
-
 test('displays note', function(assert) {
   var addon = server.create('addon', {
     name: 'test-addon-with-note',
