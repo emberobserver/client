@@ -22,7 +22,7 @@ export default Ember.Controller.extend({
   }.property('addonSortKey'),
 
   actions: {
-    sortBy: function(key) {
+    sortBy(key) {
       this.set('addonSortKey', key);
     }
   }

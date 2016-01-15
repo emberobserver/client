@@ -9,7 +9,7 @@ export default Ember.Component.extend({
     return opt.value === selected.value;
   }.property('selected', 'option'),
   actions: {
-    select: function(option) {
+    select(option) {
       this.sendAction('action', option);
     }
   }

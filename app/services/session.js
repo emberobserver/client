@@ -2,7 +2,7 @@ import Ember from 'ember';
 import LocalStore from '../utils/local-storage';
 
 export default Ember.Service.extend({
-  open: function(email, password) {
+  open(email, password) {
     var session = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       Ember.$.ajax({
@@ -28,13 +28,13 @@ export default Ember.Service.extend({
         console.log('Failed logging in');
       });
   },
-  fetch: function() {
+  fetch() {
     var token = LocalStore.fetch('sessionToken');
     if (token) {
       this.set('token', token);
     }
   },
-  close: function() {
+  close() {
     var session = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       Ember.$.ajax({
@@ -49,7 +49,7 @@ export default Ember.Service.extend({
         session.clearToken();
       });
   },
-  clearToken: function() {
+  clearToken() {
     this.set('token', null);
     LocalStore.remove('sessionToken');
   },

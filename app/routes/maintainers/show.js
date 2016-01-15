@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  model: function(params) {
+  model(params) {
     var store = this.store;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       var maintainer = store.peekAll('maintainer').findBy('name', params.name);
@@ -13,12 +13,12 @@ export default Ember.Route.extend({
     });
   },
 
-  titleToken: function(model) {
+  titleToken(model) {
     return model.get('name');
   },
 
   actions: {
-    error: function() {
+    error() {
       this.replaceWith('/not-found');
     }
   }

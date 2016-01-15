@@ -29,7 +29,7 @@ export default Ember.Controller.extend({
   newCategoryPosition: -1,
 
   actions: {
-    addSubcategory: function() {
+    addSubcategory() {
       let newCategory = this.store.createRecord('category', {
         name: this.get('newCategoryName'),
         description: this.get('newCategoryDescription'),
@@ -44,7 +44,7 @@ export default Ember.Controller.extend({
         alert(message);
       });
     },
-    updateCategory: function() {
+    updateCategory() {
       let category = this.get('category');
 
       let parentId = this.get('categoryParent');

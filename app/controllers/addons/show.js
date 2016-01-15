@@ -35,7 +35,7 @@ export default Ember.Controller.extend({
     return `http://emberobserver.com/badges/${this.get('model.name')}.svg`;
   }.property('model.name'),
   actions: {
-    save: function() {
+    save() {
       var controller = this;
       this.set('isSaving', true);
       this.get('model').save().catch(function() {
@@ -44,12 +44,12 @@ export default Ember.Controller.extend({
         controller.set('isSaving', false);
       });
     },
-    review: function() {
+    review() {
       var newReview = this.store.createRecord('review');
       this.set('newReview', newReview);
       this.set('isReviewing', true);
     },
-    renewLatestReview: function() {
+    renewLatestReview() {
       var newReview = this.store.createRecord('review');
       var latestReview = this.get('latestReview');
 
@@ -60,7 +60,7 @@ export default Ember.Controller.extend({
 
       this.send('saveReview', newReview);
     },
-    saveReview: function(newReview) {
+    saveReview(newReview) {
       var controller = this;
       newReview.set('version', this.get('model.latestVersion'));
       newReview.save().catch(function() {
@@ -70,7 +70,7 @@ export default Ember.Controller.extend({
         controller.set('isReviewing', false);
       });
     },
-    toggleExplainScore: function() {
+    toggleExplainScore() {
       this.toggleProperty('showExplanation');
     },
     toggleBadgeText: function() {

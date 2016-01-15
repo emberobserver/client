@@ -1,37 +1,37 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  beforeModel: function() {
+  beforeModel() {
     this.get('session').fetch();
   },
   actions: {
-    login: function(email, password) {
+    login(email, password) {
       var route = this;
       this.get('session').open(email, password).then(function() {
         route.transitionTo('admin.index');
       });
     },
-    logout: function() {
+    logout() {
       var route = this;
       this.get('session').close().finally(function() {
         route.transitionTo('index');
       });
     },
 
-    showAddon: function(pkg) {
+    showAddon(pkg) {
       this.transitionTo('addons.show', pkg.get('name'));
     },
 
-    showCategory: function(category) {
+    showCategory(category) {
       this.transitionTo('categories.show', category);
     },
 
-    showMaintainer: function(maintainer) {
+    showMaintainer(maintainer) {
       this.transitionTo('maintainers.show', maintainer);
     }
   },
 
-  model: function() {
+  model() {
     return Ember.RSVP.hash({
       addons: this.store.findAll('addon'),
       categories: this.store.findAll('category'),
@@ -39,7 +39,7 @@ export default Ember.Route.extend({
     });
   },
 
-  title: function(tokens) {
+  title(tokens) {
     var tokenStr = tokens.join('');
     if (tokenStr) {
       return tokenStr + ' - Ember Observer';
