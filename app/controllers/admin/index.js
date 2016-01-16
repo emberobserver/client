@@ -10,10 +10,10 @@ export default Ember.Controller.extend({
   }),
 
   addonsNeedingReview: function() {
-    return this.get('model.addons').filter(function(addon) {
+    return this.get('nonWIPAddons').filter(function(addon) {
       return addon.get('reviews.length') === 0;
     }).sortBy('latestVersionDate').reverse();
-  }.property('model.addons.@each.reviews.length'),
+  }.property('nonWIPAddons.@each.reviews.length'),
   addonsNeedingCategorization: function() {
     return this.get('nonWIPAddons').filter(function(addon) {
       return addon.get('categories.length') === 0;
