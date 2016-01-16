@@ -49,6 +49,27 @@ test('"Addons needing review" section does not include WIP addons', function(ass
   });
 });
 
+test('"Addons with new updates since last review" section does not include addons with no reviews', function(assert) {
+  server.createList('addon', 5, {
+    latest_version_date: window.moment().subtract(2, 'months'),
+    latest_reviewed_version_date: window.moment().subtract(3, 'months')
+  });
+  server.createList('addon', 6);
+
+  login();
+  visit('/admin');
+
+  andThen(function() {
+    assert.contains('.test-addons-with-new-updates h2', 'Addons with new updates since last review (5 / 11)', 'displays the correct number of addons in the section header');
+  });
+
+  click('.test-addons-with-new-updates a:contains(Show)');
+
+  andThen(function() {
+    assert.equal(find('.test-addons-with-new-updates .addons-table tr').length, 5, 'shows the correct number of addons in the list');
+  });
+});
+
 function login() {
   server.post('/authentication/login.json', function() {
     return {

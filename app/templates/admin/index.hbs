@@ -22,12 +22,14 @@
     {{/if}}
   </section>
 
-  <h2>Addons with new updates since last review ({{addonsWithNewUpdates.length}} / {{model.addons.length}})</h2>
-  {{#if showAddonsWithNewUpdates}}
-    {{addons-table addons=addonsWithNewUpdates showAddon="showAddon"}}
-  {{else}}
-    <a href="#" {{action "showNewUpdates"}}>Show</a>
-  {{/if}}
+  <section class="test-addons-with-new-updates">
+    <h2>Addons with new updates since last review ({{addonsWithNewUpdates.length}} / {{model.addons.length}})</h2>
+    {{#if showAddonsWithNewUpdates}}
+      {{addons-table addons=addonsWithNewUpdates showAddon="showAddon"}}
+    {{else}}
+      <a href="#" {{action "showNewUpdates"}}>Show</a>
+    {{/if}}
+  </section>
 
   <h2>Hidden Addons</h2>
   {{#if showHiddenAddons}}

@@ -9,6 +9,12 @@ export default Ember.Controller.extend({
     return this.get('model.addons').filterBy('isWip', false);
   }),
 
+  reviewedAddons: Ember.computed('model.addons.@each.latestReviewedVersionDate', function() {
+    return this.get('model.addons').filter(function(addon) {
+      return !!addon.get('latestReviewedVersionDate');
+    });
+  }),
+
   addonsNeedingReview: function() {
     return this.get('nonWIPAddons').filter(function(addon) {
       return addon.get('reviews.length') === 0;
@@ -20,10 +26,10 @@ export default Ember.Controller.extend({
     }).sortBy('latestVersionDate').reverse();
   }.property('nonWIPAddons.@each.categories.length'),
   addonsWithNewUpdates: function() {
-    return this.get('model.addons').filter(function(addon) {
+    return this.get('reviewedAddons').filter(function(addon) {
       return addon.get('latestVersionDate') > addon.get('latestReviewedVersionDate');
     }).sortBy('latestVersionDate').reverse();
-  }.property('model.addons.@each.latestVersionDate', 'model.addons.@each.latestReviewedVersionDate'),
+  }.property('reviewedAddons.@each.latestVersionDate', 'reviewedAddons.@each.latestReviewedVersionDate'),
   hiddenAddons: function() {
     return this.store.query('addon', { hidden: true });
   }.property(),

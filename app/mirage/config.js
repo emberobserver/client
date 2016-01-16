@@ -18,7 +18,7 @@ export default function() {
       return { addons: db.addons.where({ name: request.queryParams.name }) };
     }
 
-    let simpleAddonProps = ['id', 'name', 'latest_version_date', 'description', 'is_deprecated', 'is_official', 'is_cli_dependency', 'is_hidden', 'score', 'is_wip'];
+    let simpleAddonProps = ['id', 'name', 'latest_version_date', 'latest_reviewed_version_date', 'description', 'is_deprecated', 'is_official', 'is_cli_dependency', 'is_hidden', 'score', 'is_wip'];
     let simpleAddonData = db.addons.map(function(addon) {
       return window._.pick(addon, simpleAddonProps);
     });
