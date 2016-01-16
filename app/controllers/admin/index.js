@@ -5,6 +5,10 @@ export default Ember.Controller.extend({
   unsortedTopLevelCategories: Ember.computed.filterBy('model.categories', 'parent', null),
   topLevelCategories: Ember.computed.sort('unsortedTopLevelCategories', 'categorySorting'),
 
+  workInProgressAddons: Ember.computed('model.addons.@each.isWip', function() {
+    return this.get('model.addons').filterBy('isWip', true).sortBy('latestVersionDate').reverse();
+  }),
+
   nonWIPAddons: Ember.computed('model.addons.@each.isWip', function() {
     return this.get('model.addons').filterBy('isWip', false);
   }),
@@ -36,6 +40,7 @@ export default Ember.Controller.extend({
   sortedHiddenAddons: function() {
     return this.get('hiddenAddons').sortBy('latestVersionDate').reverse();
   }.property('hiddenAddons.[]'),
+
   actions: {
     showNeedingCategories: function() {
       this.set('showAddonsNeedingCategorization', true);
@@ -48,6 +53,9 @@ export default Ember.Controller.extend({
     },
     showHidden: function() {
       this.set('showHiddenAddons', true);
+    },
+    showWIPAddons: function() {
+      this.set('showWIPAddons', true);
     }
   }
 });

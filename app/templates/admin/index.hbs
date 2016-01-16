@@ -37,4 +37,13 @@
   {{else}}
     <a href="#" {{action "showHidden"}}>Show</a>
   {{/if}}
+
+  <section class="test-wip-addons">
+    <h2>WIP addons ({{workInProgressAddons.length}} / {{model.addons.length}})</h2>
+    {{#if showWIPAddons}}
+      {{addons-table addons=workInProgressAddons showAddon="showAddon"}}
+    {{else}}
+      <a href="#" {{action "showWIPAddons"}}>Show</a>
+    {{/if}}
+  </section>
 </div>

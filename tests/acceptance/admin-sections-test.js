@@ -70,6 +70,24 @@ test('"Addons with new updates since last review" section does not include addon
   });
 });
 
+test('"WIP addons" section includes only WIP addons', function(assert) {
+  server.createList('addon', 5);
+  server.createList('addon', 6, { is_wip: true });
+
+  login();
+  visit('/admin');
+
+  andThen(function() {
+    assert.contains('.test-wip-addons h2', 'WIP addons (6 / 11)', 'displays the correct number of addons in the section header');
+  });
+
+  click('.test-wip-addons a:contains(Show)');
+
+  andThen(function() {
+    assert.equal(find('.test-wip-addons .addons-table tr').length, 6, 'shows the correct number of addons in the list');
+  });
+});
+
 function login() {
   server.post('/authentication/login.json', function() {
     return {
