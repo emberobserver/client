@@ -5,16 +5,20 @@ export default Ember.Controller.extend({
   unsortedTopLevelCategories: Ember.computed.filterBy('model.categories', 'parent', null),
   topLevelCategories: Ember.computed.sort('unsortedTopLevelCategories', 'categorySorting'),
 
+  nonWIPAddons: Ember.computed('model.addons.@each.isWip', function() {
+    return this.get('model.addons').filterBy('isWip', false);
+  }),
+
   addonsNeedingReview: function() {
     return this.get('model.addons').filter(function(addon) {
       return addon.get('reviews.length') === 0;
     }).sortBy('latestVersionDate').reverse();
   }.property('model.addons.@each.reviews.length'),
   addonsNeedingCategorization: function() {
-    return this.get('model.addons').filter(function(addon) {
+    return this.get('nonWIPAddons').filter(function(addon) {
       return addon.get('categories.length') === 0;
     }).sortBy('latestVersionDate').reverse();
-  }.property('model.addons.@each.categories.length'),
+  }.property('nonWIPAddons.@each.categories.length'),
   addonsWithNewUpdates: function() {
     return this.get('model.addons').filter(function(addon) {
       return addon.get('latestVersionDate') > addon.get('latestReviewedVersionDate');

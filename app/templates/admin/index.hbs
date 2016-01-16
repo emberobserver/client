@@ -4,12 +4,14 @@
   <h2>Categories ({{model.categories.length}})</h2>
   {{category-list categories=topLevelCategories showAddCategory=true}}
 
-  <h2>Addons needing categorization ({{addonsNeedingCategorization.length}} / {{model.addons.length}})</h2>
-  {{#if showAddonsNeedingCategorization}}
-    {{addons-table addons=addonsNeedingCategorization showAddon="showAddon"}}
-  {{else}}
-    <a href="#" {{action "showNeedingCategories"}}>Show</a>
-  {{/if}}
+  <section class='test-addons-needing-categorization'>
+    <h2>Addons needing categorization ({{addonsNeedingCategorization.length}} / {{model.addons.length}})</h2>
+    {{#if showAddonsNeedingCategorization}}
+      {{addons-table addons=addonsNeedingCategorization showAddon="showAddon"}}
+    {{else}}
+      <a href="#" {{action "showNeedingCategories"}}>Show</a>
+    {{/if}}
+  </section>
 
   <h2>Addons needing review ({{addonsNeedingReview.length}} / {{model.addons.length}})</h2>
   {{#if showAddonsNeedingReview}}
