@@ -26,7 +26,7 @@ test('"Addons needing categorization" section does not include WIP addons', func
   click('.test-addons-needing-categorization a:contains(Show)');
 
   andThen(function() {
-    assert.contains('.test-addons-needing-categorization .test-addon-table-count', 'Displaying 10 addons', 'displays the correct number of addons in the count above the list')
+    assert.contains('.test-addons-needing-categorization .test-addon-table-count', 'Displaying 10 addons', 'displays the correct number of addons in the count above the list');
     assert.equal(find('.test-addons-needing-categorization .addons-table tr').length, 10, 'displays the correct number of addons');
   });
 });
@@ -39,7 +39,7 @@ test('"Addons needing review" section does not include WIP addons', function(ass
   visit('/admin');
 
   andThen(function() {
-    assert.contains('.test-addons-needing-review h2', 'Addons needing review (10 / 11)', 'displays the correct number of addons in the section header')
+    assert.contains('.test-addons-needing-review h2', 'Addons needing review (10 / 11)', 'displays the correct number of addons in the section header');
   });
 
   click('.test-addons-needing-review a:contains(Show)');
