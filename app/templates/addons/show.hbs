@@ -27,6 +27,9 @@
       {{addon-note content=model.renderedNote}}
     {{/if}}
 
+    {{#if model.ranking}}
+      <span>{{#link-to "addons.top"}}Ranks #{{model.ranking}} of the top 100 addons!{{/link-to}}</span>
+    {{/if}}
     {{partial "addons/score-detail"}}
     {{#if session.isAuthenticated}}
       {{partial "addons/info-form"}}

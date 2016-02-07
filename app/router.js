@@ -13,6 +13,7 @@ Router.map(function() {
   this.route('addons', function() {
     this.route('show', { path: '/:name' });
     this.route('correct', { path: '/:name/correct' });
+    this.route('top', { path: '/lists/top' });
   });
 
   this.route('maintainers', function() {

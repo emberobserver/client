@@ -1,4 +1,7 @@
 <td {{action "showAddon" addon}} class="test-addon-row">
+  {{#if showRanking}}
+    <span>#{{addon.ranking}}</span>
+  {{/if}}
   <h4>
     {{#link-to "addons.show" addon.name}}
       {{addon.name}}

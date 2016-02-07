@@ -24,6 +24,7 @@ export default DS.Model.extend({
   isNewAddon: attr('boolean'),
   score: attr('number'),
   openIssues: attr('number'),
+  ranking: attr('number'),
   forks: attr('number'),
   contributors: attr('array'),
   firstCommitDate: attr('date'),
