@@ -30,7 +30,7 @@ export default Ember.Controller.extend({
 
   actions: {
     addSubcategory: function() {
-      let newCategory = this.store.createRecord('category', {
+      let newCategory = this.get('store').createRecord('category', {
         name: this.get('newCategoryName'),
         description: this.get('newCategoryDescription'),
         position: this.get('newCategoryPosition'),
@@ -66,7 +66,7 @@ export default Ember.Controller.extend({
 
       let findPromise;
       if (parentId) {
-        findPromise = this.store.find('category', parentId);
+        findPromise = this.get('store').find('category', parentId);
       } else {
         findPromise = new Ember.RSVP.Promise((resolve) => resolve(null));
       }

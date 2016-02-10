@@ -1,4 +1,4 @@
-import EmberVersionsResponse from 'ember-addon-review/tests/ember-version-response';
+import EmberVersionsResponse from './ember-version-response';
 export default function() {
 
   // These comments are here to help you get started. Feel free to delete them.

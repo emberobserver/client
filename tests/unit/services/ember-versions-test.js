@@ -1,4 +1,4 @@
-import EmberVersionData from 'ember-addon-review/tests/ember-version-response';
+import EmberVersionData from 'ember-addon-review/mirage/ember-version-response';
 import { moduleFor, test } from 'ember-qunit';
 
 moduleFor('service:ember-versions', 'Unit | Service | ember versions', {

@@ -3,7 +3,7 @@ import scrollFix from '../../mixins/scroll-fix';
 
 export default Ember.Route.extend(scrollFix, {
   model: function(params) {
-    return this.store.peekAll('category').findBy('slug', params.slug);
+    return this.get('store').peekAll('category').findBy('slug', params.slug);
   },
 
   titleToken: function(model) {
@@ -12,7 +12,7 @@ export default Ember.Route.extend(scrollFix, {
 
   actions: {
     error: function() {
-      this.replaceWith('/not-found');
+      this.replaceWith('model-not-found');
     }
   }
 });

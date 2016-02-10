@@ -35,7 +35,7 @@ export default Ember.Controller.extend({
     }).sortBy('latestVersionDate').reverse();
   }.property('reviewedAddons.@each.latestVersionDate', 'reviewedAddons.@each.latestReviewedVersionDate'),
   hiddenAddons: function() {
-    return this.store.query('addon', { hidden: true });
+    return this.get('store').query('addon', { hidden: true });
   }.property(),
   sortedHiddenAddons: function() {
     return this.get('hiddenAddons').sortBy('latestVersionDate').reverse();

@@ -4,7 +4,7 @@ import {
   test
 } from 'qunit';
 import startApp from 'ember-addon-review/tests/helpers/start-app';
-import EmberVersionsResponse from 'ember-addon-review/tests/ember-version-response';
+import EmberVersionsResponse from 'ember-addon-review/mirage/ember-version-response';
 
 var application;
 
@@ -21,7 +21,7 @@ module('Acceptance: Addons', {
 test('addon not found', function(assert) {
   visit('/addons/what');
   andThen(function() {
-    assert.equal(currentURL(), '/not-found');
+    assert.equal(currentURL(), '/model-not-found');
     assert.contains('.test-not-found', "Oops! We can't find what you were looking for. Try searching above?");
   });
 });

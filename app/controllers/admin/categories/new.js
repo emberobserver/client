@@ -11,7 +11,7 @@ export default Ember.Controller.extend({
 
   actions: {
     addCategory: function() {
-      let newCategory = this.store.createRecord('category', {
+      let newCategory = this.get('store').createRecord('category', {
         name: this.get('newCategoryName'),
         description: this.get('newCategoryDescription'),
         position: this.get('newCategoryPosition')

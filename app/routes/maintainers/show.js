@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model: function(params) {
-    var store = this.store;
+    var store = this.get('store');
     return new Ember.RSVP.Promise(function(resolve, reject) {
       var maintainer = store.peekAll('maintainer').findBy('name', params.name);
       if (maintainer) {
@@ -19,7 +19,7 @@ export default Ember.Route.extend({
 
   actions: {
     error: function() {
-      this.replaceWith('/not-found');
+      this.replaceWith('model-not-found');
     }
   }
 });

@@ -5,7 +5,7 @@ export default Ember.Controller.extend({
   showExplanation: false,
   showBadgeText: false,
   categories: function() {
-    return this.store.peekAll('category').sortBy('displayName');
+    return this.get('store').peekAll('category').sortBy('displayName');
   }.property(),
 
   //BUG: See https://github.com/emberjs/data/issues/2666
@@ -45,12 +45,12 @@ export default Ember.Controller.extend({
       });
     },
     review: function() {
-      var newReview = this.store.createRecord('review');
+      var newReview = this.get('store').createRecord('review');
       this.set('newReview', newReview);
       this.set('isReviewing', true);
     },
     renewLatestReview: function() {
-      var newReview = this.store.createRecord('review');
+      var newReview = this.get('store').createRecord('review');
       var latestReview = this.get('latestReview');
 
       latestReview.questions.forEach(function(question) {

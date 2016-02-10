@@ -48,6 +48,7 @@ module.exports = function(environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
     ENV.APP.rootElement = '#ember-testing';
+    ENV.segment.LOG_EVENT_TRACKING = false;
   }
 
   if (environment === 'production') {

@@ -31,6 +31,6 @@ test('trying to view a nonexistent maintainer redirects to not-found page', func
   visit('/maintainers/404maintainernotfound');
 
   andThen(function() {
-    assert.equal(currentPath(), 'not-found');
+    assert.equal(currentPath(), 'model-not-found');
   });
 });
