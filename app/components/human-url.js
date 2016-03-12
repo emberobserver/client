@@ -1,22 +1,13 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  regex: /\/\/(.*\..*?)(\/.*)/,
-  results: function() {
+  parsed: Ember.computed('url', function() {
     if (this.get('url')) {
-      return this.get('url').match(this.regex);
+      return new URL(this.get('url'));
     }
-  }.property('url'),
-  domain: function() {
-    var results = this.get('results');
-    if (results && results[1]) {
-      return results[1].replace(/^(www.)?/, '');
-    }
-  }.property('results'),
-  pathname: function() {
-    var results = this.get('results');
-    if (results && results[2]) {
-      return results[2];
-    }
-  }.property('results')
+  }),
+  domain: Ember.computed('parsed.host', function() {
+    return this.getWithDefault('parsed.host', '').replace(/^(www.)?/, '');
+  }),
+  pathname: Ember.computed.alias('parsed.pathname')
 });
