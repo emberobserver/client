@@ -1,23 +1,135 @@
-@import "grid_items";
+.route-index {
+  .main {
+    @include span-columns(12);
 
-.index {
-  @include outer-padding;
-
-  .grid-item:nth-of-type(4){
-    @include grid-item-big;
+    @include media($medium-screen) {
+      @include span-columns(8);
+    }
   }
 
-  .grid-items-lines .grid-item p.subcategories {
-    max-width: 100%;
+  .categories-list {
+    @include span-columns(12);
+    border-top: 2px solid $light-gray;
+
+    @include media($medium-screen) {
+      @include span-columns(4);
+      @include omega();
+      border-top: none;
+      border-left: $base-border;
+    }
+
+    padding: 0.25rem;
+    font-size: 1.25rem;
+
+    .filter {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+
+      input {
+        font-size: 1.2rem;
+        border: $base-border;
+      }
+    }
+
+    #title {
+      font-size: 1.5rem;
+      padding: 0.75rem;
+    }
+
+    ul {
+      border-top: $base-border-dotted;
+
+      li {
+        padding: 0.80rem;
+        border-bottom: $base-border-dotted;
+
+        &.indent {
+          padding-left: 2.25rem;
+          text-indent: -1.5rem;
+          line-height: 1.1;
+        }
+
+        &:hover {
+          background-color: #fff8e7;
+        }
+      }
+    }
   }
 
-  .category-list a {
-    white-space: nowrap;
+  .content {
+    padding: 1rem;
+    padding-top: 2rem;
+
+    ul {
+      padding-top: 1rem;
+      font-size: 1.2rem;
+
+      li {
+        border-radius: 2px;
+        border-bottom: 1px dotted $light-gray;
+        padding: .9em 1em;
+
+        p {
+          margin: 0;
+        }
+
+        .addon-name {
+          font-weight: 600;
+        }
+
+        .desc {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .score {
+          margin-right: 1em;
+        }
+        &:hover {
+          background-color: $light-gray;
+        }
+      }
+    }
   }
 
-  h1 {
-    margin-bottom: .5em;
+  header.navigation {
+    border-radius: 2px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    padding: 1rem 1.5rem;
+    background-color: $dark-blue-gray;
+    text-align: center;
+    @include media($medium-screen){
+      text-align: left;
+    }
 
-    border-bottom: $base-border;
+    .name {
+      color: #70B3DB;
+      font-size: 2em;
+      font-weight: 300;
+    }
+
+    .about {
+      color: #70B3DB;
+      margin-top: 1em;
+      float: right;
+
+      &:hover {
+        color: lighten(#70B3DB, 20%);
+      }
+    }
+
+    input {
+      margin-top: 1em;
+      color: lighten($base-accent-color, 20);
+      background-color: $dark-blue-gray;
+    }
+
+    .logout {
+      position: absolute;
+      top: 1em;
+      right: 5em;
+    }
   }
 }

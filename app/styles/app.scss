@@ -27,42 +27,8 @@
   @include outer-container;
 }
 
-header.navigation {
-  padding: 1em;
-  background-color: $dark-blue-gray;
-  position: relative;
-  text-align: center;
-
-  @include media($medium-screen){
-    text-align: left;
-  }
-
-  .name {
-    color: #70B3DB;
-    font-size: 2em;
-    font-weight: 700;
-  }
-
-  .about {
-    color: #70B3DB;
-    margin-top: 1em;
-    float: right;
-
-    &:hover {
-      color: lighten(#70B3DB, 20%);
-    }
-  }
-
-  input {
-    margin-top: 1.5em;
-    margin-bottom: 1em;
-  }
-
-  .logout {
-    position: absolute;
-    top: 1em;
-    right: 5em;
-  }
+body {
+  margin: 1rem;
 }
 
 .alert {
