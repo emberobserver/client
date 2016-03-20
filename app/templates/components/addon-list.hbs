@@ -1,6 +1,5 @@
 <ul>
   {{#each addons as |addon|}}
-    {{#link-to "addons.show" addon}}
       <li>
         {{#if addon.isDeprecated}}
           <span class="notice">(DEPRECATED)</span>
@@ -12,14 +11,14 @@
           <span class="score">?</span>
         {{/if}}
         <div class="desc">
-          <span class="addon-name">{{addon.name}}</span>
-          <small>- {{addon.description}}</small>
-
+          {{#link-to "addons.show" addon}}
+            <span class="addon-name">{{addon.name}}</span>
+            <small>- {{addon.description}}</small>
+          {{/link-to}}
           <p>
             <small>{{inline-category-list categories=addon.categories}}</small>
           </p>
         </div>
       </li>
-    {{/link-to}}
   {{/each}}
 </ul>

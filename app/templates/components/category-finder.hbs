@@ -11,12 +11,12 @@
     {{/link-to}}
     {{#if category.subcategories}}
       {{#each category.subcategories as |subcategory|}}
-        {{#link-to "categories.show" subcategory class="test-subcategory"}}
           <li class="indent" title="{{subcategory.description}}">
-            <span class="icon-chevron-right"></span>
-            {{subcategory.name}} ({{subcategory.addonCount}})
+            {{#link-to "categories.show" subcategory class="test-subcategory"}}
+              <span class="icon-chevron-right"></span>
+              {{subcategory.name}} ({{subcategory.addonCount}})
+            {{/link-to}}
           </li>
-        {{/link-to}}
       {{/each}}
     {{/if}}
   {{/each}}
