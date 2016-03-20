@@ -13,9 +13,9 @@
         <a href="#" {{action clearSearch}} class="icon-close"></a>
       {{/if}}
     </div>
-    {{!--{{#if session.isAuthenticated}}--}}
-    {{!--<a href="#" {{action "logout"}} class="logout">Log out</a>--}}
-    {{!--{{/if}}--}}
+    {{#if session.isAuthenticated}}
+      <a href="#" {{action logoutUser}} class="logout">Log out</a>
+    {{/if}}
     <h6 class="no-results {{if hasSearchedAndNoResults 'showing'}}">No results found for "{{query}}"</h6>
   </header>
   <div class="content">

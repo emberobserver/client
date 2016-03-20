@@ -180,6 +180,7 @@
   }
 
   header.navigation {
+    position: relative;
     border-radius: 2px;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
@@ -244,8 +245,8 @@
 
     .logout {
       position: absolute;
-      top: 1em;
-      right: 5em;
+      top: 1rem;
+      right: 2rem;
     }
   }
 }

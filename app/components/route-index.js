@@ -4,6 +4,7 @@ import FocusableComponent from 'ember-component-focus/mixins/focusable-component
 
 export default Ember.Component.extend(FocusableComponent, {
   store: Ember.inject.service(),
+  session: Ember.inject.service(),
   searchService: Ember.inject.service('search'),
   addonSets: Ember.inject.service('addon-sets'),
   focusNode: '#search-input',
@@ -44,6 +45,9 @@ export default Ember.Component.extend(FocusableComponent, {
     this.set('query', '');
     this.set('results', null);
     this.focus();
+  },
+  logoutUser() {
+    this.sendAction('logout');
   }
 });
 
