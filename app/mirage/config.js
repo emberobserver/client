@@ -28,7 +28,7 @@ export default function() {
 
   this.get('/maintainers');
   this.get('/keywords');
-  this.get('/versions', ['versions', 'reviews']);
+  this.get('/versions', ['versions', 'reviews', 'ember-version-compatibilities']);
   this.get('/reviews');
 
   this.get('https://api.github.com/repos/emberjs/ember.js/releases', function(/*db, request*/) {

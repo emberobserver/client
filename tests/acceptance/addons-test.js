@@ -322,3 +322,20 @@ test('displays addon stats', function(assert) {
     assert.contains('.test-addon-badge .test-badge-markdown', '[![Ember Observer Score](https://emberobserver.com/badges/test-addon.svg)](https://emberobserver.com/addons/test-addon)');
   });
 });
+
+test('displays Ember version compatibility when an addon has it', function(assert) {
+  let addon = server.create('addon');
+  let emberVersionCompatibility = server.create('ember-version-compatibility');
+  server.create('version', { addon_id: addon.id, ember_version_compatibility_ids: [ emberVersionCompatibility.id ] });
+
+  visit(`/addons/${addon.name}`);
+  andThen(() => assert.exists('.test-ember-version-compatibility-list'));
+});
+
+test('does not display Ember version compatibility when an addon does not have it', function(assert) {
+  let addon = server.create('addon');
+  server.create('version', { addon_id: addon.id });
+
+  visit(`/addons/${addon.name}`);
+  andThen(() => assert.notExists('.test-ember-version-compatibility-list'));
+});

@@ -44,7 +44,13 @@
 
 <h6 class="test-addon-version-count">versions ({{model.sortedVersions.length}})</h6>
 
-{{addon-version-list versions=model.sortedVersions}}
+<p>
+  {{addon-version-list versions=model.sortedVersions}}
+</p>
+
+{{#if model.latestVersion.emberVersionCompatibilities}}
+  {{ember-version-compatibility-list versionCompatibilities=model.latestVersion.emberVersionCompatibilities}}
+{{/if}}
 
 <section class="badge test-addon-badge">
   <img src={{badgeSrc}}>

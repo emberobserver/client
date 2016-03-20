@@ -1,0 +1,19 @@
+<h6>Version Compatibility</h6>
+<p class="test-ember-version-compatibility-list">
+  <table>
+    <thead>
+      <tr>
+        <th>Ember Version</th>
+        <th>Compatible?</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each versionCompatibilities as |versionCompatibility|}}
+      <tr>
+        <td>{{versionCompatibility.emberVersion}}</td>
+        <td>{{versionCompatibility.compatible}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</p>
