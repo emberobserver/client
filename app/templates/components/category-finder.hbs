@@ -1,7 +1,7 @@
 <h2 id="title">Categories</h2>
-<div class="filter">
-  <input type="search" placeholder="Filter categories">
-</div>
+{{!--<div class="filter">--}}
+  {{!--<input type="search" placeholder="Filter categories">--}}
+{{!--</div>--}}
 <ul>
   {{#each sortedTopLevelCategories as |category|}}
     {{#link-to "categories.show" category class="test-category"}}
@@ -13,7 +13,7 @@
       {{#each category.subcategories as |subcategory|}}
           <li class="indent" title="{{subcategory.description}}">
             {{#link-to "categories.show" subcategory class="test-subcategory"}}
-              <span class="icon-chevron-right"></span>
+              <span class="bullet">&#9632;</span>
               {{subcategory.name}} ({{subcategory.addonCount}})
             {{/link-to}}
           </li>
