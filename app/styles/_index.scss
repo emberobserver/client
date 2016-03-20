@@ -74,6 +74,7 @@
 
     h4 {
       margin-left: 1.5rem;
+      margin-bottom: 1rem;
     }
 
     h1 {
@@ -81,8 +82,9 @@
       margin-bottom: 1rem;
     }
 
-    ul {
+    .addon-list {
       font-size: 1.2rem;
+      margin-bottom: 1rem;
 
       li {
         border-radius: 2px;
@@ -127,16 +129,30 @@
       margin-left: 1.5rem;
     }
 
-    .addon-results {
-      margin-top: 1rem;
-    }
-
     .category-results, .maintainer-results {
-      margin-top: 1rem;
       margin-left: 1.5rem;
 
-      div {
+      h5 {
+        margin-bottom: 0.5rem;
+      }
+
+      ul {
         font-size: 1.2rem;
+
+        li {
+          div {
+            padding-left: 3rem;
+          }
+        }
+        margin-bottom: 1rem;
+      }
+
+      .bullet {
+        position: absolute;
+        margin-right: 0.5rem;
+        margin-left: 0.5rem;
+        width: 1rem;
+        text-align: center;
       }
     }
   }

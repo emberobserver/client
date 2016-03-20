@@ -21,32 +21,33 @@
   <div class="content">
     {{#if results.length}}
       <h4>Results for "{{query}}"</h4>
-      {{#if results.categories.length}}
-        <div class="category-results">
-          <h5>Categories</h5>
+      {{#search-result-set results=results.categories title="Categories" resultClass="category-results"}}
+        <ul>
           {{#each results.categories as |category|}}
-            <div class="category-result">{{#link-to "categories.show" category}}{{category.name}} ({{category.addonCount}}){{/link-to}}</div>
-          {{/each}}
-        </div>
-      {{/if}}
-      {{#if results.addons.length}}
-        <div class="addon-results">
-          <h5>Addons ({{results.addons.length}})</h5>
-          {{addon-list addons=results.addons}}
-        </div>
-      {{/if}}
-      {{#if results.maintainers.length}}
-        <div class="maintainer-results">
-          <h5>Maintainers ({{results.maintainers.length}})</h5>
-          {{#each results.maintainers as |maintainer|}}
-            <div>
-              {{#link-to "maintainers.show" maintainer}}
-                {{maintainer.name}}
+            <li>
+              {{#link-to "categories.show" category}}
+                <span class="bullet">&#9632;</span>
+                <div>{{category.name}} ({{category.addonCount}})</div>
               {{/link-to}}
-            </div>
+            </li>
           {{/each}}
-        </div>
-      {{/if}}
+        </ul>
+      {{/search-result-set}}
+      {{#search-result-set results=results.addons title="Addons" resultClass="addon-results"}}
+        {{addon-list addons=results.addons}}
+      {{/search-result-set}}
+      {{#search-result-set results=results.maintainers title="Maintainers" resultClass="maintainer-results"}}
+        <ul>
+          {{#each results.maintainers as |maintainer|}}
+            <li>
+              {{#link-to "maintainers.show" maintainer}}
+                <span class="bullet">&#9632;</span>
+                <div>{{maintainer.name}}</div>
+              {{/link-to}}
+            </li>
+          {{/each}}
+        </ul>
+      {{/search-result-set}}
     {{else}}
       <h1>Top addons</h1>
       {{addon-list addons=categories.firstObject.addons}}
