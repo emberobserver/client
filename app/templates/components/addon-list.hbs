@@ -1,0 +1,25 @@
+<ul>
+  {{#each addons as |addon|}}
+    {{#link-to "addons.show" addon}}
+      <li>
+        {{#if addon.isDeprecated}}
+          <span class="notice">(DEPRECATED)</span>
+        {{else if addon.isWip}}
+          <span class="score wip">WIP</span>
+        {{else if addon.score}}
+          <span class="score" data-score="{{addon.score}}">{{addon.score}}</span>
+        {{else}}
+          <span class="score">?</span>
+        {{/if}}
+        <div class="desc">
+          <span class="addon-name">{{addon.name}}</span>
+          <small>- {{addon.description}}</small>
+
+          <p>
+            <small>{{inline-category-list categories=addon.categories}}</small>
+          </p>
+        </div>
+      </li>
+    {{/link-to}}
+  {{/each}}
+</ul>

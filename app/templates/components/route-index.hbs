@@ -1,0 +1,54 @@
+<div class="main">
+  <header class="navigation">
+    {{#link-to "index" class="name"}}Ember Observer{{/link-to}}
+
+    <input type="search"
+           placeholder="Search for addons, maintainers and categories"
+           autocomplete="off"
+           id="search-input"
+           spellcheck="false"
+           value={{query}}
+           oninput={{action (perform search) value="target.value"}}>
+    {{!--{{#if session.isAuthenticated}}--}}
+    {{!--<a href="#" {{action "logout"}} class="logout">Log out</a>--}}
+    {{!--{{/if}}--}}
+    {{#if hasSearchedAndNoResults}}
+      <h6 class="no-results">No results found for "{{query}}"</h6>
+    {{/if}}
+  </header>
+  <div class="content">
+    {{#if results.length}}
+      <h4>Results for "{{query}}"</h4>
+      {{#if results.categories.length}}
+        <div class="category-results">
+          <h5>Categories</h5>
+          {{#each results.categories as |category|}}
+            <div class="category-result">{{#link-to "categories.show" category}}{{category.name}} ({{category.addonCount}}){{/link-to}}</div>
+          {{/each}}
+        </div>
+      {{/if}}
+      {{#if results.addons.length}}
+        <div class="addon-results">
+          <h5>Addons ({{results.addons.length}})</h5>
+          {{addon-list addons=results.addons}}
+        </div>
+      {{/if}}
+      {{#if results.maintainers.length}}
+        <div class="maintainer-results">
+          <h5>Maintainers ({{results.maintainers.length}})</h5>
+          {{#each results.maintainers as |maintainer|}}
+            <div>
+              {{#link-to "maintainers.show" maintainer}}
+                {{maintainer.name}}
+              {{/link-to}}
+            </div>
+          {{/each}}
+        </div>
+      {{/if}}
+    {{else}}
+      <h1>Top addons</h1>
+      {{addon-list addons=categories.firstObject.addons}}
+    {{/if}}
+  </div>
+</div>
+{{category-finder class="categories-list" categories=categories}}

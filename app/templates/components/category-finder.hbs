@@ -1,0 +1,23 @@
+<h2 id="title">Categories</h2>
+<div class="filter">
+  <input type="search" placeholder="Filter categories">
+</div>
+<ul>
+  {{#each sortedTopLevelCategories as |category|}}
+    {{#link-to "categories.show" category class="test-category"}}
+      <li title="{{category.description}}">
+        {{category.name}} ({{category.addonCount}})
+      </li>
+    {{/link-to}}
+    {{#if category.subcategories}}
+      {{#each category.subcategories as |subcategory|}}
+        {{#link-to "categories.show" subcategory class="test-subcategory"}}
+          <li class="indent" title="{{subcategory.description}}">
+            <span class="icon-chevron-right"></span>
+            {{subcategory.name}} ({{subcategory.addonCount}})
+          </li>
+        {{/link-to}}
+      {{/each}}
+    {{/if}}
+  {{/each}}
+</ul>

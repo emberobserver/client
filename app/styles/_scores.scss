@@ -13,7 +13,7 @@ $high-color: #28b36d !default;
   display: inline-block;
   font-size: $score-font-size;
   line-height: 1;
-  padding: .5em .75em;
+  padding: .5rem .75rem;
   border-radius: $base-border-radius;
   font-weight: 700;
 }
@@ -40,4 +40,8 @@ $high-color: #28b36d !default;
 
 .score[data-score="9"], .score[data-score="10"]{
   background-color: $high-color;
+}
+
+.score.wip {
+  padding: 0.25rem;
 }

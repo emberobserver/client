@@ -57,17 +57,25 @@
   }
 
   .content {
-    padding: 1rem;
+    padding: 1rem 0;
     padding-top: 2rem;
 
+    h4 {
+      margin-left: 1.5rem;
+    }
+
+    h1 {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
     ul {
-      padding-top: 1rem;
       font-size: 1.2rem;
 
       li {
         border-radius: 2px;
         border-bottom: 1px dotted $light-gray;
-        padding: .9em 1em;
+        padding: .9rem 1.5rem;
 
         p {
           margin: 0;
@@ -78,17 +86,45 @@
         }
 
         .desc {
+          padding-left: 3rem;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
         }
 
         .score {
-          margin-right: 1em;
+          margin-right: 1rem;
+          position: absolute;
         }
-        &:hover {
+
+        &:hover, &:focus {
           background-color: $light-gray;
         }
+      }
+    }
+
+    h5 {
+      margin-bottom: 0.5rem;
+      display: inline-block;
+      font-size: 1.2rem;
+      border-bottom: 1px solid $light-gray;
+      padding-bottom: 0.2rem;
+    }
+
+    .addon-results h5 {
+      margin-left: 1.5rem;
+    }
+
+    .addon-results {
+      margin-top: 1rem;
+    }
+
+    .category-results, .maintainer-results {
+      margin-top: 1rem;
+      margin-left: 1.5rem;
+
+      div {
+        font-size: 1.2rem;
       }
     }
   }
@@ -106,8 +142,12 @@
 
     .name {
       color: #70B3DB;
-      font-size: 2em;
+      font-size: 2rem;
       font-weight: 300;
+    }
+
+    .no-results {
+      color: white;
     }
 
     .about {
@@ -121,7 +161,7 @@
     }
 
     input {
-      margin-top: 1em;
+      margin-top: 1rem;
       color: lighten($base-accent-color, 20);
       background-color: $dark-blue-gray;
     }
