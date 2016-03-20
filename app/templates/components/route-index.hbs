@@ -1,20 +1,22 @@
 <div class="main">
   <header class="navigation">
     {{#link-to "index" class="name"}}Ember Observer{{/link-to}}
-
-    <input type="search"
-           placeholder="Search for addons, maintainers and categories"
-           autocomplete="off"
-           id="search-input"
-           spellcheck="false"
-           value={{query}}
-           oninput={{action (perform search) value="target.value"}}>
+    <div class="search-wrapper">
+      <input type="search"
+             placeholder="Search for addons, maintainers and categories"
+             autocomplete="off"
+             id="search-input"
+             spellcheck="false"
+             value={{query}}
+             oninput={{action (perform search) value="target.value"}}>
+      {{#if query}}
+        <a href="#" {{action clearSearch}} class="icon-close"></a>
+      {{/if}}
+    </div>
     {{!--{{#if session.isAuthenticated}}--}}
     {{!--<a href="#" {{action "logout"}} class="logout">Log out</a>--}}
     {{!--{{/if}}--}}
-    {{#if hasSearchedAndNoResults}}
-      <h6 class="no-results">No results found for "{{query}}"</h6>
-    {{/if}}
+    <h6 class="no-results {{if hasSearchedAndNoResults 'showing'}}">No results found for "{{query}}"</h6>
   </header>
   <div class="content">
     {{#if results.length}}

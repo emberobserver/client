@@ -9,7 +9,6 @@ export default Ember.Component.extend(FocusableComponent, {
   didInsertElement() {
     this.focus();
   },
-  queryInvalid: false,
   init() {
     this._super(...arguments);
     this.get('search').perform(this.get('query'));
@@ -23,10 +22,9 @@ export default Ember.Component.extend(FocusableComponent, {
     return !(Ember.isBlank(query) || query.length < 3 || emMatcher.test(query));
   }),
   search: task(function * (query) {
-    console.log(query);
     this.set('query', query.trim());
     if(!this.get('queryIsValid')) {
-      this.set('results', {});
+      this.set('results', null);
       return;
     }
 
@@ -34,6 +32,10 @@ export default Ember.Component.extend(FocusableComponent, {
 
     let results = yield this.get('searchService').search(query);
     this.set('results', results);
-  }).restartable()
+  }).restartable(),
+  clearSearch() {
+    this.set('query', '');
+    this.set('results', null);
+  }
 });
 
