@@ -23,6 +23,10 @@
 @import "scores";
 @import "about_index";
 
+::-ms-clear {
+  display: none;
+}
+
 .container {
   @include outer-container;
 }
