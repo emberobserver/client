@@ -82,6 +82,15 @@
       margin-bottom: 1rem;
     }
 
+    .new-addons {
+      margin-top: 3rem;
+    }
+
+    .more {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
     .addon-list {
       font-size: 1.2rem;
       margin-bottom: 1rem;
@@ -106,9 +115,14 @@
           text-overflow: ellipsis;
         }
 
-        .score {
+        .score, .ranking {
           margin-right: 1rem;
           position: absolute;
+        }
+
+        .ranking {
+          font-size: 1rem;
+          color: #999;
         }
 
         &:hover, &:focus {

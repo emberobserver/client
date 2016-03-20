@@ -5,6 +5,7 @@ import FocusableComponent from 'ember-component-focus/mixins/focusable-component
 export default Ember.Component.extend(FocusableComponent, {
   store: Ember.inject.service(),
   searchService: Ember.inject.service('search'),
+  addonSets: Ember.inject.service('addon-sets'),
   focusNode: '#search-input',
   didInsertElement() {
     this.focus();
@@ -21,6 +22,12 @@ export default Ember.Component.extend(FocusableComponent, {
     let query = this.get('query');
     return !(Ember.isBlank(query) || query.length < 3 || emMatcher.test(query));
   }),
+  topAddons: Ember.computed(function() {
+    return this.get('addonSets.top').slice(0, 10);
+  }),
+  newAddons: Ember.computed(function() {
+    return this.get('addonSets.newest').slice(0, 10);
+  }),
   search: task(function * (query) {
     this.set('query', query.trim());
     if(!this.get('queryIsValid')) {
@@ -36,6 +43,7 @@ export default Ember.Component.extend(FocusableComponent, {
   clearSearch() {
     this.set('query', '');
     this.set('results', null);
+    this.focus();
   }
 });
 

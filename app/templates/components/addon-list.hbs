@@ -1,14 +1,18 @@
 <ul class="addon-list">
   {{#each addons as |addon|}}
       <li>
-        {{#if addon.isDeprecated}}
-          <span class="notice">(DEPRECATED)</span>
-        {{else if addon.isWip}}
-          <span class="score wip">WIP</span>
-        {{else if addon.score}}
-          <span class="score" data-score="{{addon.score}}">{{addon.score}}</span>
+        {{#if showRanking}}
+          <span class="ranking">#{{addon.ranking}}</span>
         {{else}}
-          <span class="score">?</span>
+          {{#if addon.isDeprecated}}
+            <span class="notice">(DEPRECATED)</span>
+          {{else if addon.isWip}}
+            <span class="score wip">WIP</span>
+          {{else if addon.score}}
+            <span class="score" data-score="{{addon.score}}">{{addon.score}}</span>
+          {{else}}
+            <span class="score">?</span>
+          {{/if}}
         {{/if}}
         <div class="desc">
           {{#link-to "addons.show" addon}}
@@ -21,4 +25,5 @@
         </div>
       </li>
   {{/each}}
+  {{yield}}
 </ul>
