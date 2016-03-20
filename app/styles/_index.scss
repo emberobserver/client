@@ -64,6 +64,10 @@
         &:hover {
           background-color: #fff8e7;
         }
+
+        a {
+          display: block;
+        }
       }
     }
   }
@@ -113,6 +117,10 @@
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+        }
+
+        .addon-link {
+          display: block;
         }
 
         .score, .ranking {
