@@ -1,4 +1,5 @@
-<div class="main">
+<div class="page-layout-with-search">
+  <div class="main">
   <header class="navigation">
     {{#link-to "index" class="name"}}Ember Observer{{/link-to}}
     <div class="search-wrapper">
@@ -20,7 +21,7 @@
   </header>
   <div class="content">
     {{#if results.length}}
-      <h4>Results for "{{query}}"</h4>
+      <h4 class="result-info">Results for "{{query}}"</h4>
       {{#search-result-set results=results.categories title="Categories" resultClass="category-results"}}
         <ul>
           {{#each results.categories as |category|}}
@@ -53,4 +54,5 @@
     {{/if}}
   </div>
 </div>
-{{category-finder class="categories-list" categories=categories}}
+  {{category-finder class="categories-list" categories=categories}}
+</div>

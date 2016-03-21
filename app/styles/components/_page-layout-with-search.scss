@@ -1,0 +1,194 @@
+.page-layout-with-search {
+  .main {
+    @include span-columns(12);
+
+    @include media($medium-screen) {
+      @include span-columns(8);
+    }
+  }
+
+  header.navigation {
+    position: relative;
+    border-radius: 2px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    padding: 1.5rem;
+    padding-bottom: 0.5rem;
+    background-color: $dark-blue-gray;
+    text-align: center;
+    @include media($medium-screen){
+      text-align: left;
+    }
+
+    .search-wrapper {
+      display: inline-block;
+      width: 100%;
+      position: relative;
+      margin-top: 1.5rem;
+    }
+
+    .name {
+      color: #70B3DB;
+      font-size: 2rem;
+      font-weight: 300;
+      line-height: 1;
+    }
+
+    .no-results {
+      color: white;
+      margin-top: 0.5rem;
+      visibility: hidden;
+
+      &.showing {
+        visibility: visible;
+      }
+    }
+
+    .about {
+      color: #70B3DB;
+      margin-top: 1em;
+      float: right;
+
+      &:hover {
+        color: lighten(#70B3DB, 20%);
+      }
+    }
+
+    input {
+      margin: 0;
+      padding-right: 3rem;
+      color: lighten($base-accent-color, 20);
+      background-color: $dark-blue-gray;
+    }
+
+    .icon-close {
+      position: absolute;
+      top: 50%;
+      right: 1rem;
+      margin-top: -1rem;
+      font-size: 2rem;
+      line-height: 1;
+      color: $light-gray;
+    }
+
+    .logout {
+      position: absolute;
+      top: 1rem;
+      right: 2rem;
+    }
+  }
+
+  .categories-list {
+    @include span-columns(12);
+    border-top: 2px solid $light-gray;
+
+    @include media($medium-screen) {
+      @include span-columns(4);
+      @include omega();
+      border-top: none;
+      border-left: $base-border;
+    }
+
+    padding: 0.25rem;
+    font-size: 1.25rem;
+
+    .filter {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+
+      input {
+        font-size: 1.2rem;
+        border: $base-border;
+        box-shadow: none;
+
+        &:hover {
+          border-color: $form-border-color-hover;
+        }
+
+        &:focus {
+          border-color: $form-border-color-focus;
+          box-shadow: $form-box-shadow-focus;
+          outline: none;
+        }
+      }
+    }
+
+    #title {
+      font-size: 1.5rem;
+      padding: 1.5rem 0.75rem;
+      line-height: 1;
+    }
+
+    ul {
+      border-top: $base-border-dotted;
+
+      li {
+        padding: 0.80rem;
+        border-bottom: $base-border-dotted;
+
+        &.indent {
+          padding-left: 2.25rem;
+          text-indent: -1rem;
+          line-height: 1;
+        }
+
+        &:hover {
+          background-color: #fff8e7;
+        }
+
+        a {
+          display: block;
+        }
+      }
+    }
+  }
+
+  .content {
+    padding: 1rem 0;
+    padding-top: 2rem;
+
+    .result-info {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .results h5 {
+      margin-bottom: 0.5rem;
+      display: inline-block;
+      font-size: 1.2rem;
+      border-bottom: 1px solid $light-gray;
+      padding-bottom: 0.2rem;
+    }
+
+    .addon-results h5 {
+      margin-left: 1.5rem;
+    }
+
+    .category-results, .maintainer-results {
+      margin-left: 1.5rem;
+
+      h5 {
+        margin-bottom: 0.5rem;
+      }
+
+      ul {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+
+        li {
+          div {
+            padding-left: 3rem;
+          }
+        }
+      }
+
+      .bullet {
+        position: absolute;
+        margin-right: 0.5rem;
+        margin-left: 0.5rem;
+        width: 1rem;
+        text-align: center;
+      }
+    }
+  }
+}
