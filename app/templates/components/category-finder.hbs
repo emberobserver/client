@@ -4,11 +4,11 @@
 {{!--</div>--}}
 <ul>
   {{#each sortedTopLevelCategories as |category|}}
-    {{#link-to "categories.show" category class="test-category"}}
       <li title="{{category.description}}">
-        {{category.name}} ({{category.addonCount}})
+        {{#link-to "categories.show" category class="test-category"}}
+          {{category.name}} ({{category.addonCount}})
+        {{/link-to}}
       </li>
-    {{/link-to}}
     {{#if category.subcategories}}
       {{#each category.subcategories as |subcategory|}}
           <li class="indent" title="{{subcategory.description}}">

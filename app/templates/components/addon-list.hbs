@@ -5,7 +5,7 @@
           <span class="ranking">#{{addon.ranking}}</span>
         {{else}}
           {{#if addon.isDeprecated}}
-            <span class="notice">(DEPRECATED)</span>
+            <span class="score deprecated">x</span>
           {{else if addon.isWip}}
             <span class="score wip">WIP</span>
           {{else if addon.score}}
@@ -16,11 +16,19 @@
         {{/if}}
         <div class="desc">
           {{#link-to "addons.show" addon class="addon-link"}}
-            <span class="addon-name">{{addon.name}}</span>
+            <span class="addon-name">
+              {{addon.name}}
+              {{#if addon.isDeprecated}}
+                <span class="notice">
+                  (Deprecated)
+                </span>
+              {{/if}}
+            </span>
             <small>- {{addon.description}}</small>
           {{/link-to}}
           <p>
             <small>{{inline-category-list categories=addon.categories}}</small>
+            <span class="last-updated">Last updated {{relative-time date=addon.latestVersionDate}}</span>
           </p>
         </div>
       </li>
