@@ -1,25 +1,25 @@
 <div class="page-layout-with-search">
   <div class="main">
-  <header class="navigation">
-    {{#link-to "index" class="name"}}Ember Observer{{/link-to}}
-    <div class="search-wrapper">
-      <input type="search"
-             placeholder="Search for addons, maintainers and categories"
-             autocomplete="off"
-             id="search-input"
-             spellcheck="false"
-             value={{query}}
-             oninput={{action (perform search) value="target.value"}}>
-      {{#if query}}
-        <a href="#" {{action clearSearch}} class="icon-close"></a>
+    <header class="navigation">
+      {{#link-to "with-search.index" class="name"}}Ember Observer{{/link-to}}
+      <div class="search-wrapper">
+        <input type="search"
+               placeholder="Search for addons, maintainers and categories"
+               autocomplete="off"
+               id="search-input"
+               spellcheck="false"
+               value={{query}}
+               oninput={{action (perform search) value="target.value"}}>
+        {{#if query}}
+          <a href="#" {{action clearSearch}} class="icon-close"></a>
+        {{/if}}
+      </div>
+      {{#if session.isAuthenticated}}
+        <a href="#" {{action logoutUser}} class="logout">Log out</a>
       {{/if}}
-    </div>
-    {{#if session.isAuthenticated}}
-      <a href="#" {{action logoutUser}} class="logout">Log out</a>
-    {{/if}}
-    <h6 class="no-results {{if hasSearchedAndNoResults 'showing'}}">No results found for "{{query}}"</h6>
-  </header>
-  <div class="content">
+      <h6 class="no-results {{if hasSearchedAndNoResults 'showing'}}">No results found for "{{query}}"</h6>
+    </header>
+    <div class="content">
     {{#if results.length}}
       <h4 class="result-info">Results for "{{query}}"</h4>
       {{#search-result-set results=results.categories title="Categories" resultClass="category-results"}}
@@ -53,6 +53,6 @@
       {{yield}}
     {{/if}}
   </div>
-</div>
+  </div>
   {{category-finder class="categories-list" categories=categories}}
 </div>

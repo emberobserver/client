@@ -1,23 +1,21 @@
-{{#page-layout-with-search query=query}}
-  <div class="top-addons">
-    <h1>Top addons</h1>
-    {{#addon-list addons=topAddons showRanking=true}}
-      {{#link-to "addons.top"}}
-        <li class="more">
-          See all top 100 addons
-        </li>
-      {{/link-to}}
-    {{/addon-list}}
-  </div>
+<div class="top-addons">
+  <h1>Top addons</h1>
+  {{#addon-list addons=topAddons showRanking=true}}
+    {{#link-to "addons.top"}}
+      <li class="more">
+        See all top 100 addons
+      </li>
+    {{/link-to}}
+  {{/addon-list}}
+</div>
 
-  <div class="new-addons">
-    <h1>New addons</h1>
-    {{#addon-list addons=newAddons}}
-      {{#link-to "addons.top"}}
-        <li class="more">
-          See all new addons
-        </li>
-      {{/link-to}}
-    {{/addon-list}}
-  </div>
-{{/page-layout-with-search}}
+<div class="new-addons">
+  <h1>New addons</h1>
+  {{#addon-list addons=newAddons}}
+    {{#link-to "addons.top"}}
+      <li class="more">
+        See all new addons
+      </li>
+    {{/link-to}}
+  {{/addon-list}}
+</div>
