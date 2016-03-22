@@ -26,7 +26,7 @@
         <ul>
           {{#each results.categories as |category|}}
             <li>
-              {{#link-to "categories.show" category}}
+              {{#link-to "categories.show" category (query-params query="")}}
                 <span class="bullet">&#9632;</span>
                 <div>{{category.name}} ({{category.addonCount}})</div>
               {{/link-to}}
@@ -41,7 +41,7 @@
         <ul>
           {{#each results.maintainers as |maintainer|}}
             <li>
-              {{#link-to "maintainers.show" maintainer}}
+              {{#link-to "maintainers.show" maintainer (query-params query="")}}
                 <span class="bullet">&#9632;</span>
                 <div>{{maintainer.name}}</div>
               {{/link-to}}
