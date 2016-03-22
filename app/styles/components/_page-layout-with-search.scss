@@ -144,6 +144,10 @@
 
         a {
           display: block;
+
+          &.active {
+            font-weight: bold;
+          }
         }
       }
     }
