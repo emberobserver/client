@@ -29,18 +29,24 @@ export default Ember.Component.extend(FocusableComponent, {
   search: task(function * (query) {
     this.set('query', query.trim());
     if(!this.get('queryIsValid')) {
-      this.set('results', null);
+      this.set('_results', null);
       return;
     }
 
     yield timeout(250);
 
     let results = yield this.get('searchService').search(query);
-    this.set('results', results);
+    this.set('_results', results);
   }).restartable(),
+  results: Ember.computed('query', '_results', function() {
+    if(this.get('queryIsValid')) {
+      return this.get('_results');
+    }
+    return null;
+  }),
   clearSearch() {
     this.set('query', '');
-    this.set('results', null);
+    this.set('_results', null);
     this.focus();
   },
   logoutUser() {
