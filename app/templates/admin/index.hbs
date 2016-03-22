@@ -7,7 +7,7 @@
   <section class="test-addons-needing-categorization">
     <h2>Addons needing categorization ({{addonsNeedingCategorization.length}} / {{model.addons.length}})</h2>
     {{#if showAddonsNeedingCategorization}}
-      {{addons-table addons=addonsNeedingCategorization showAddon="showAddon"}}
+      {{addon-list addons=addonsNeedingCategorization}}
     {{else}}
       <a href="#" {{action "showNeedingCategories"}}>Show</a>
     {{/if}}
@@ -16,7 +16,7 @@
   <section class="test-addons-needing-review">
     <h2>Addons needing review ({{addonsNeedingReview.length}} / {{model.addons.length}})</h2>
     {{#if showAddonsNeedingReview}}
-      {{addons-table addons=addonsNeedingReview showAddon="showAddon"}}
+      {{addon-list addons=addonsNeedingReview}}
     {{else}}
       <a href="#" {{action "showNeedingReview"}}>Show</a>
     {{/if}}
@@ -25,7 +25,7 @@
   <section class="test-addons-with-new-updates">
     <h2>Addons with new updates since last review ({{addonsWithNewUpdates.length}} / {{model.addons.length}})</h2>
     {{#if showAddonsWithNewUpdates}}
-      {{addons-table addons=addonsWithNewUpdates showAddon="showAddon"}}
+      {{addon-list addons=addonsWithNewUpdates}}
     {{else}}
       <a href="#" {{action "showNewUpdates"}}>Show</a>
     {{/if}}
@@ -33,7 +33,7 @@
 
   <h2>Hidden Addons</h2>
   {{#if showHiddenAddons}}
-    {{addons-table addons=sortedHiddenAddons showAddon="showAddon"}}
+    {{addon-list addons=sortedHiddenAddons}}
   {{else}}
     <a href="#" {{action "showHidden"}}>Show</a>
   {{/if}}
@@ -41,7 +41,7 @@
   <section class="test-wip-addons">
     <h2>WIP addons ({{workInProgressAddons.length}} / {{model.addons.length}})</h2>
     {{#if showWIPAddons}}
-      {{addons-table addons=workInProgressAddons showAddon="showAddon"}}
+      {{addon-list addons=workInProgressAddons}}
     {{else}}
       <a href="#" {{action "showWIPAddons"}}>Show</a>
     {{/if}}

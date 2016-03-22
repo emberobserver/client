@@ -50,7 +50,7 @@ export default Ember.Component.extend(FocusableComponent, {
     this.focus();
   },
   logoutUser() {
-    this.get('session').close().finally(function() {
+    this.get('session').close().finally(() => {
       this.get('routing').transitionTo('index');
     });
   }

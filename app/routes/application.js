@@ -10,9 +10,6 @@ export default Ember.Route.extend({
       this.get('session').open(email, password).then(function() {
         route.transitionTo('admin.index');
       });
-    },
-    showAddon: function(pkg) {
-      this.transitionTo('addons.show', pkg.get('name'));
     }
   },
 

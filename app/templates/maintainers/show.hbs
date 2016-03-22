@@ -6,5 +6,6 @@
     </h1>
     <p>Addons maintained by {{model.name}}.</p>
   </header>
-  {{addons-table addons=model.addons showAddon="showAddon"}}
+  <span class="addon-count test-addon-table-count">Displaying {{pluralize-this model.addons.length "addon"}}</span>
+  {{addon-list addons=model.addons}}
 </div>
