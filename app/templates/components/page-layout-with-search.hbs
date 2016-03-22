@@ -1,7 +1,7 @@
 <div class="page-layout-with-search">
   <div class="main">
     <header class="navigation">
-      {{#link-to "with-search.index" class="name"}}Ember Observer{{/link-to}}
+      {{#link-to "index" (query-params query="") class="name"}}Ember Observer{{/link-to}}
       <div class="search-wrapper">
         <input type="search"
                placeholder="Search for addons, maintainers and categories"
@@ -54,5 +54,7 @@
     {{/if}}
   </div>
   </div>
-  {{category-finder class="categories-list" categories=categories}}
+  {{!--{{#if showCategories}}--}}
+    {{category-finder class="categories-list" categories=categories}}
+  {{!--{{/if}}--}}
 </div>

@@ -6,10 +6,8 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('with-search', { path: '/'}, function() {
-    this.route('categories', { resetNamespace: true }, function() {
-      this.route('show', { path: '/:slug' });
-    });
+  this.route('categories', function() {
+    this.route('show', { path: '/:slug' });
   });
 
   this.route('addons', function() {

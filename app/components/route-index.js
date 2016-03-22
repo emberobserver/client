@@ -1,8 +1,6 @@
 import Ember from 'ember';
-import { task, timeout } from 'ember-concurrency';
-import FocusableComponent from 'ember-component-focus/mixins/focusable-component';
 
-export default Ember.Component.extend(FocusableComponent, {
+export default Ember.Component.extend({
   addonSets: Ember.inject.service('addon-sets'),
   topAddons: Ember.computed(function() {
     return this.get('addonSets.top').slice(0, 10);

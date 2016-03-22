@@ -1,4 +1,10 @@
 .page-layout-with-search {
+
+  &.categories-collapsed {
+    .main {
+      @include span-columns(12);
+    }
+  }
   .main {
     @include span-columns(12);
 
