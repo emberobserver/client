@@ -32,6 +32,7 @@ Router.map(function() {
       this.route('new');
       this.route('edit', { path: '/:slug' });
     });
+    this.route('build-servers');
   });
 
   this.route('about');
