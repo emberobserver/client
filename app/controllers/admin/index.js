@@ -23,7 +23,7 @@ export default Ember.Controller.extend({
     return this.get('nonWIPAddons').filter(function(addon) {
       return addon.get('reviews.length') === 0;
     }).sortBy('latestVersionDate').reverse();
-  }.property('nonWIPAddons.@each.reviews),
+  }.property('nonWIPAddons.@each.reviews'),
   addonsNeedingCategorization: function() {
     return this.get('nonWIPAddons').filter(function(addon) {
       return addon.get('categories.length') === 0;

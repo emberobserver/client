@@ -29,7 +29,7 @@ export default Ember.Component.extend(FocusableComponent, {
   }),
   search: task(function * (query) {
     this.set('query', query.trim());
-    if(!this.get('queryIsValid')) {
+    if (!this.get('queryIsValid')) {
       this.set('_results', null);
       return;
     }
@@ -40,7 +40,7 @@ export default Ember.Component.extend(FocusableComponent, {
     this.set('_results', results);
   }).restartable(),
   results: Ember.computed('query', '_results', function() {
-    if(this.get('queryIsValid')) {
+    if (this.get('queryIsValid')) {
       return this.get('_results');
     }
     return null;

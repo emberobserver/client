@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Service.extend({
   store: Ember.inject.service(),
-  addonData: Ember.computed(function(){
+  addonData: Ember.computed(function() {
     return this.get('store').peekAll('addon').sortBy('score').reverse().map(function(addon) {
       return {
         name: addon.get('name'),

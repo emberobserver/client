@@ -6,7 +6,7 @@ export default Ember.Component.extend({
       try {
         return new URL(this.get('url'));
       } catch (e) {
-        return "";
+        return '';
       }
     }
   }),
