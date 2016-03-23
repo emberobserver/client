@@ -1,5 +1,4 @@
 .categories-show {
-  @include outer-padding;
 
   h1 {
     margin-bottom: .25em;
@@ -16,11 +15,19 @@
 
   .details {
     @include clearfix;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
   }
 
   .addons {
     @include clearfix;
     margin-top: 1.5rem;
+  }
+
+  .addon-count {
+    margin-left: 1.5rem;
+    margin-bottom: 0.5rem;
+    display: inline-block;
   }
 
   .sort-buttons {

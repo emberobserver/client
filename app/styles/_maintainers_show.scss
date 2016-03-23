@@ -1,8 +1,8 @@
 .maintainers-show {
-  @include outer-padding;
 
   header {
     width: 100%;
+    margin-left: 1.5rem;
 
     img {
       float: left;
@@ -12,6 +12,6 @@
       border-radius: 3px;
     }
 
-    padding-bottom: .5em;
+    padding-bottom: 1rem;
   }
 }

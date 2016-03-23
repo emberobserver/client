@@ -154,6 +154,7 @@
   }
 
   .content {
+    @include span-columns(12);
     padding: 1rem 0;
     padding-top: 2rem;
 
