@@ -49,8 +49,10 @@
           {{/each}}
         </ul>
       {{/search-result-set}}
-    {{else}}
+    {{else if search.isIdle}}
       {{yield}}
+    {{else}}
+      {{dot-spinner}}
     {{/if}}
   </div>
   </div>
