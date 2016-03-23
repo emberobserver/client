@@ -45,8 +45,8 @@ test('visiting /', function(assert) {
   andThen(function() {
     assert.exists('.test-category', 8, 'All categories should display');
     assert.contains('.test-category', 'Authentication (6)', 'Categories should list title and count of addons');
-    assert.contains('.test-subcategories', 'Simple Auth (1)', 'Subcategories should display under category');
-    assert.contains('.test-subcategories', 'Other Auth (1)', 'Subcategories should display under category');
+    assert.contains('.test-subcategory:eq(0)', 'Simple Auth (1)', 'Subcategories should display under category');
+    assert.contains('.test-subcategory:eq(1)', 'Other Auth (1)', 'Subcategories should display under category');
   });
 
   click('.test-category:contains(Authentication)');

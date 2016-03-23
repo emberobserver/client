@@ -28,7 +28,7 @@ export default Ember.Service.extend({
     });
   }),
   search(query) {
-    return new Ember.RSVP.Promise((resolve, reject) => {
+    return new Ember.RSVP.Promise((resolve) => {
       let addonResultsMatchingOnName = findMatches(query, 'name', this.get('addonData'));
       let addonResultsMatchingOnDescription = findMatches(query, 'description', this.get('addonData'));
       let addons = [].concat(addonResultsMatchingOnName, addonResultsMatchingOnDescription).uniq().map((result) => {

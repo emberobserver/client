@@ -26,8 +26,7 @@ test('"Addons needing categorization" section does not include WIP addons', func
   click('.test-addons-needing-categorization a:contains(Show)');
 
   andThen(function() {
-    assert.contains('.test-addons-needing-categorization .test-addon-table-count', 'Displaying 10 addons', 'displays the correct number of addons in the count above the list');
-    assert.equal(find('.test-addons-needing-categorization .addons-table tr').length, 10, 'displays the correct number of addons');
+    assert.equal(find('.test-addons-needing-categorization .addon-list li').length, 10, 'displays the correct number of addons');
   });
 });
 
@@ -45,7 +44,7 @@ test('"Addons needing review" section does not include WIP addons', function(ass
   click('.test-addons-needing-review a:contains(Show)');
 
   andThen(function() {
-    assert.equal(find('.test-addons-needing-review .addons-table tr').length, 10, 'displays the correct number of addons');
+    assert.equal(find('.test-addons-needing-review .addon-list li').length, 10, 'displays the correct number of addons');
   });
 });
 
@@ -66,7 +65,7 @@ test('"Addons with new updates since last review" section does not include addon
   click('.test-addons-with-new-updates a:contains(Show)');
 
   andThen(function() {
-    assert.equal(find('.test-addons-with-new-updates .addons-table tr').length, 5, 'shows the correct number of addons in the list');
+    assert.equal(find('.test-addons-with-new-updates .addon-list li').length, 5, 'shows the correct number of addons in the list');
   });
 });
 
@@ -84,7 +83,7 @@ test('"WIP addons" section includes only WIP addons', function(assert) {
   click('.test-wip-addons a:contains(Show)');
 
   andThen(function() {
-    assert.equal(find('.test-wip-addons .addons-table tr').length, 6, 'shows the correct number of addons in the list');
+    assert.equal(find('.test-wip-addons .addon-list li').length, 6, 'shows the correct number of addons in the list');
   });
 });
 

@@ -1,8 +1,8 @@
+import Ember from 'ember';
 import DS from 'ember-data';
 
-var attr = DS.attr;
-var belongsTo = DS.belongsTo;
-var hasMany = DS.hasMany;
+let { attr, belongsTo, hasMany } = DS;
+let { computed } = Ember;
 
 export default DS.Model.extend({
   name: attr('string'),
@@ -21,7 +21,7 @@ export default DS.Model.extend({
       return this.get('name');
     }
   }.property('parent.name', 'name'),
-  directAddonCount: Ember.computed.alias('addons.length'),
+  directAddonCount: computed.alias('addons.length'),
   addonCount: function() {
     return this.get('subcategories').mapBy('directAddonCount').reduce(function(categoryA, categoryB) {
       return categoryA + categoryB;
