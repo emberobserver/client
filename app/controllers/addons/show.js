@@ -15,7 +15,7 @@ export default Ember.Controller.extend({
   licenseUrl: function() {
     return `https://spdx.org/licenses/${this.get('model.license')}`;
   }.property('model.license'),
-  sortedReviews: sortBy('model.reviews', 'version.released:desc'),
+  sortedReviews: sortBy('model.reviews', 'versionReleased:desc'),
   latestReview: Ember.computed.alias('sortedReviews.firstObject'),
   isLatestReleaseInLast3Months: function() {
     if (!this.get('model.latestVersion.released')) { return false; }

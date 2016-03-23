@@ -20,6 +20,7 @@ export default DS.Model.extend({
   hasBuild: attr('number'),
   addon: belongsTo('addon', { async: false }),
   version: belongsTo('version', { async: false }),
+  versionReleased: Ember.computed.alias('version.released'),
   score: function() {
     var s = 0;
     if (this.get('hasTests') === 1) { s++; }
