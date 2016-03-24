@@ -16,6 +16,12 @@ Router.map(function() {
     this.route('top', { path: '/lists/top' });
   });
 
+  this.route('lists', function() {
+    this.route('top-addons');
+    this.route('new-addons');
+    this.route('recently-scored-addons');
+  });
+
   this.route('maintainers', function() {
     this.route('show', { path: '/:name' });
   });

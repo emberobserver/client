@@ -7,6 +7,9 @@ export default Ember.Component.extend({
   }),
   newAddons: Ember.computed(function() {
     return this.get('addonSets.newest').slice(0, 10);
+  }),
+  recentlyScoredAddons: Ember.computed(function() {
+    return this.get('addonSets.recentlyReviewed').slice(0, 10);
   })
 });
 

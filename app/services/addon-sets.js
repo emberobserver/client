@@ -8,6 +8,9 @@ export default Ember.Service.extend({
     }).sortBy('ranking');
   }),
   newest: Ember.computed(function() {
-    return this.get('store').peekAll('addon').sortBy('firstReleaseDate');
+    return this.get('store').peekAll('addon').sortBy('publishedDate').reverse();
+  }),
+  recentlyReviewed: Ember.computed(function() {
+    return this.get('store').peekAll('addon').sortBy('latestReviewedVersionDate').reverse();
   })
 });

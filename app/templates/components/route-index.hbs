@@ -1,9 +1,20 @@
 <div class="top-addons">
   <h1>Top addons</h1>
   {{#addon-list addons=topAddons showRanking=true}}
-    {{#link-to "addons.top"}}
+    {{#link-to "lists.top-addons"}}
       <li class="more">
         See all top 100 addons
+      </li>
+    {{/link-to}}
+  {{/addon-list}}
+</div>
+
+<div class="recently-scored-addons">
+  <h1>Recently scored addons</h1>
+  {{#addon-list addons=recentlyScoredAddons}}
+    {{#link-to "lists.recently-scored-addons"}}
+      <li class="more">
+        See all recently scored addons
       </li>
     {{/link-to}}
   {{/addon-list}}
@@ -12,7 +23,7 @@
 <div class="new-addons">
   <h1>New addons</h1>
   {{#addon-list addons=newAddons}}
-    {{#link-to "addons.top"}}
+    {{#link-to "lists.new-addons"}}
       <li class="more">
         See all new addons
       </li>

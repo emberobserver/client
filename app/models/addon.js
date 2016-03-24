@@ -22,7 +22,7 @@ export default DS.Model.extend({
   isHidden: attr('boolean'),
   hasInvalidGithubRepo: attr('boolean'),
   isNewAddon: attr('boolean'),
-  firstReleaseDate: attr('date'),
+  publishedDate: attr('date'),
   score: attr('number'),
   openIssues: attr('number'),
   ranking: attr('number'),
