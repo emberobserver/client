@@ -1,0 +1,13 @@
+{{#if results.length}}
+  <div class="results {{resultClass}}">
+    <h5>
+      <a href="#" {{action toggleResultsExpansion}}>
+        <span class="{{if resultsCollapsed 'icon-chevron-right' 'icon-expand-more'}}"></span>
+        {{title}} ({{results.length}})
+      </a>
+    </h5>
+    {{#unless resultsCollapsed}}
+      {{yield}}
+    {{/unless}}
+  </div>
+{{/if}}

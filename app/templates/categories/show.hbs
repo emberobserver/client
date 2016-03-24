@@ -1,4 +1,4 @@
-<div class="container categories-show">
+<div class="categories-show">
   <div class="details">
     <div class="category-details">
       <h1 class="test-category-header">{{model.name}}</h1>
@@ -24,6 +24,7 @@
   </div>
 
   <div class="addons">
-    {{addons-table addons=sortedAddons sortKey=addonSortKey showAddon="showAddon"}}
+    <span class="addon-count test-addon-table-count">Displaying {{pluralize-this sortedAddons.length "addon"}}</span>
+    {{addon-list addons=sortedAddons}}
   </div>
 </div>

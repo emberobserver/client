@@ -1,0 +1,44 @@
+.addon-list {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+
+  li {
+    border-radius: 2px;
+    border-bottom: 1px dotted $light-gray;
+    padding: .9rem 1.5rem;
+
+    p {
+      margin: 0;
+    }
+
+    .addon-name {
+      font-weight: 600;
+    }
+
+    .desc {
+      padding-left: 4rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .last-updated {
+      color: #999;
+      font-size: .8rem;
+    }
+
+    .score, .ranking {
+      margin-right: 1rem;
+      position: absolute;
+    }
+
+    .ranking {
+      font-size: 1rem;
+      color: #999;
+    }
+
+    &:hover, &:focus {
+      background-color: $light-gray;
+    }
+  }
+}

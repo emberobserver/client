@@ -1,6 +1,5 @@
 .footer {
-  margin-top: 5em;
-
+  @include span-columns(12);
   $footer-background: $dark-blue-gray;
   $footer-color: white;
   $footer-link-color: transparentize($footer-color, 0.6);

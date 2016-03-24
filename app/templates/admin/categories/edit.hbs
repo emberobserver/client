@@ -1,70 +1,70 @@
-<div class="container admin-categories-edit">
-	<form {{action "updateCategory" on="submit"}}>
-		<fieldset>
-			<label for="name">
-				Name:
-			</label>
-			{{input type="text" id="name" value=categoryName}}
-			<br>
-			<label for="description">
-				Description:
-			</label>
-			{{input type="text" id="description" value=categoryDescription}}
-			{{#if hasSiblingCategories}}
-				<br>
-				<label for="position">
-					Position:
-				</label>
-				{{category-position-dropdown name="position" position=categoryPosition categories=sortedSiblingCategories}}
-			{{else}}
-				{{input type="hidden" id="position" value=categoryPosition}}
-			{{/if}}
-			<br>
-			<label for="parent">
-				Parent category:
-			</label>
-			{{#x-select name="parent" value=categoryParent}}
-				{{#x-option}}(none){{/x-option}}
-				{{#each alphabeticTopLevelCategories as |category|}}
-					{{#x-option value=category.id}}{{category.name}}{{/x-option}}
-				{{/each}}
-			{{/x-select}}
-			<br>
-			<input type="submit" value="Save category">
-		</fieldset>
-	</form>
+<div class="admin-categories-edit">
+  <form {{action "updateCategory" on="submit"}}>
+    <fieldset>
+      <label for="name">
+        Name:
+      </label>
+      {{input type="text" id="name" value=categoryName}}
+      <br>
+      <label for="description">
+        Description:
+      </label>
+      {{input type="text" id="description" value=categoryDescription}}
+      {{#if hasSiblingCategories}}
+        <br>
+        <label for="position">
+          Position:
+        </label>
+        {{category-position-dropdown name="position" position=categoryPosition categories=sortedSiblingCategories}}
+      {{else}}
+        {{input type="hidden" id="position" value=categoryPosition}}
+      {{/if}}
+      <br>
+      <label for="parent">
+        Parent category:
+      </label>
+      {{#x-select name="parent" value=categoryParent}}
+        {{#x-option}}(none){{/x-option}}
+        {{#each alphabeticTopLevelCategories as |category|}}
+          {{#x-option value=category.id}}{{category.name}}{{/x-option}}
+        {{/each}}
+      {{/x-select}}
+      <br>
+      <input type="submit" value="Save category">
+    </fieldset>
+  </form>
 
-	{{#if isTopLevelCategory}}
-		<h4>Subcategories</h4>
-		{{#if subcategories}}
-		<ol>
-		{{#each subcategories as |category|}}
-			<li>{{link-to category.name 'admin.categories.edit' category}}</li>
-		{{/each}}
-		</ol>
-		{{else}}
-			This category has no subcategories.
-		{{/if}}
+  {{#if isTopLevelCategory}}
+    <h4>Subcategories</h4>
+    {{#if subcategories}}
+      <ol>
+        {{#each subcategories as |category|}}
+          <li>{{link-to category.name 'admin.categories.edit' category}}</li>
+        {{/each}}
+      </ol>
+    {{else}}
+      This category has no subcategories.
+    {{/if}}
 
-		<form {{action "addSubcategory" on="submit"}}>
-			<fieldset>
-				<label for="subcategoryName">
-					Name:
-				</label>
-				{{input type="text" id="subcategoryName" value=newCategoryName}}
-				<br>
-				<label for="subcategoryDescription">
-					Description:
-				</label>
-				{{input type="text" id="subcategoryDescription" value=newCategoryDescription}}
-				<br>
-				<label for="subcategoryPosition">
-					Position:
-				</label>
-				{{category-position-dropdown name="subcategoryPosition" position=newCategoryPosition categories=subcategories}}
-				<br>
-				<input type="submit" value="Add category">
-			</fieldset>
-		</form>
-	{{/if}}
+    <form {{action "addSubcategory" on="submit"}}>
+      <fieldset>
+        <label for="subcategoryName">
+          Name:
+        </label>
+        {{input type="text" id="subcategoryName" value=newCategoryName}}
+        <br>
+        <label for="subcategoryDescription">
+          Description:
+        </label>
+        {{input type="text" id="subcategoryDescription" value=newCategoryDescription}}
+        <br>
+        <label for="subcategoryPosition">
+          Position:
+        </label>
+        {{category-position-dropdown name="subcategoryPosition" position=newCategoryPosition categories=subcategories}}
+        <br>
+        <input type="submit" value="Add category">
+      </fieldset>
+    </form>
+  {{/if}}
 </div>

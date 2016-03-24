@@ -1,0 +1,62 @@
+<div class="page-layout-with-search {{unless showCategories 'categories-collapsed'}}">
+  <div class="main">
+    <header class="navigation">
+      {{#link-to "index" (query-params query="") class="name"}}Ember Observer{{/link-to}}
+      <div class="search-wrapper">
+        <input type="search"
+               placeholder="Search for addons, maintainers and categories"
+               autocomplete="off"
+               id="search-input"
+               spellcheck="false"
+               value={{query}}
+               oninput={{action (perform search) value="target.value"}}>
+        {{#if query}}
+          <a href="#" {{action clearSearch}} class="icon-close test-clear-search"></a>
+        {{/if}}
+      </div>
+      {{#if session.isAuthenticated}}
+        <a href="#" {{action logoutUser}} class="logout">Log out</a>
+      {{/if}}
+      <h6 class="no-results {{if hasSearchedAndNoResults 'showing'}}">No results found for "{{query}}"</h6>
+    </header>
+    <div class="content">
+    {{#if results.length}}
+      <h4 class="result-info test-result-info">Results for "{{query}}"</h4>
+      {{#search-result-set results=results.categories title="Categories" resultClass="category-results"}}
+        <ul>
+          {{#each results.categories as |category|}}
+            <li>
+              {{#link-to "categories.show" category (query-params query="")}}
+                <span class="bullet">&#9632;</span>
+                <div>{{category.name}} ({{category.addonCount}})</div>
+              {{/link-to}}
+            </li>
+          {{/each}}
+        </ul>
+      {{/search-result-set}}
+      {{#search-result-set results=results.addons title="Addons" resultClass="addon-results"}}
+        {{addon-list addons=results.addons}}
+      {{/search-result-set}}
+      {{#search-result-set results=results.maintainers title="Maintainers" resultClass="maintainer-results"}}
+        <ul>
+          {{#each results.maintainers as |maintainer|}}
+            <li>
+              {{#link-to "maintainers.show" maintainer (query-params query="")}}
+                <span class="bullet">&#9632;</span>
+                <div>{{maintainer.name}}</div>
+              {{/link-to}}
+            </li>
+          {{/each}}
+        </ul>
+      {{/search-result-set}}
+    {{else if search.isIdle}}
+      {{yield}}
+    {{else}}
+      {{dot-spinner}}
+    {{/if}}
+  </div>
+  </div>
+  {{#if showCategories}}
+    {{category-finder class="categories-list" categories=categories}}
+  {{/if}}
+</div>

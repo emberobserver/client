@@ -45,8 +45,8 @@ test('visiting /', function(assert) {
   andThen(function() {
     assert.exists('.test-category', 8, 'All categories should display');
     assert.contains('.test-category', 'Authentication (6)', 'Categories should list title and count of addons');
-    assert.contains('.test-subcategories', 'Simple Auth (1)', 'Subcategories should display under category');
-    assert.contains('.test-subcategories', 'Other Auth (1)', 'Subcategories should display under category');
+    assert.contains('.test-subcategory:eq(0)', 'Simple Auth (1)', 'Subcategories should display under category');
+    assert.contains('.test-subcategory:eq(1)', 'Other Auth (1)', 'Subcategories should display under category');
   });
 
   click('.test-category:contains(Authentication)');
@@ -71,6 +71,55 @@ test('visiting /', function(assert) {
   });
 });
 
+testSearch('/', function(assert) {
+  assert.exists('h1:contains(Top addons)');
+});
+
+testSearch('/maintainers/test-master', function(assert) {
+  assert.exists('h1:contains(test-master)');
+});
+
+testSearch('/categories/testing', function(assert) {
+  assert.exists('h1:contains(Testing)');
+});
+
+testSearch('/addons/ember-a-thing', function(assert) {
+  assert.exists('h1:contains(ember-a-thing)');
+});
+
+test('going to a maintainer from search results works', function(assert) {
+  server.create('maintainer', {name: 'test-master' });
+
+  visit('/?query=test');
+  click('.maintainer-results a:contains(test-master)');
+
+  andThen(function() {
+    assert.visible('h1:contains(test-master)');
+  });
+});
+
+test('going to an addon from search results works', function(assert) {
+  server.create('addon', {name: 'ember-test' });
+
+  visit('/?query=test');
+  click('.addon-list a:contains(ember-test)');
+
+  andThen(function() {
+    assert.visible('h1:contains(ember-test)');
+  });
+});
+
+test('going to a category from search results works', function(assert) {
+  server.create('category', {name: 'Testing' });
+
+  visit('/?query=test');
+  click('.category-results a:contains(Testing)');
+
+  andThen(function() {
+    assert.visible('h1:contains(Testing)');
+  });
+});
+
 test('Unknown routes are handled', function(assert) {
   visit('/bullshit');
 
@@ -78,3 +127,34 @@ test('Unknown routes are handled', function(assert) {
     assert.equal(currentPath(), 'not-found');
   });
 });
+
+function testSearch(url, assertForContentOnUrl) {
+  test(`visiting ${url} with a query`, function(assert) {
+    server.create('addon', { name: 'ember-a-thing' });
+    server.create('addon', { name: 'ember-test-me' });
+    server.create('category', { name: 'Another thing' });
+    server.create('category', { name: 'quietest' });
+    server.create('category', { name: 'Testing' });
+    server.create('maintainer', {name: 'test-master' });
+
+    visit(`${url}?query=test`);
+
+    andThen(function() {
+      assert.equal(currentURL(), `${url}?query=test`);
+      assert.contains('.test-result-info', 'Results for "test"');
+      assert.exists('.addon-list li', 1, 'Only 1 addon result');
+      assert.contains('.addon-list li', 'ember-test-me');
+      assert.exists('.category-results li', 2, '2 matching categories');
+      assert.exists('.maintainer-results li', 1, '1 matching maintainer');
+      assert.equal(find('#search-input').val(), 'test', 'Query is in text box');
+    });
+
+    click('.test-clear-search');
+
+    andThen(function() {
+      assert.equal(find('#search-input').val(), '', 'Query is now empty');
+      assert.equal(currentURL(), url);
+      assertForContentOnUrl(assert);
+    });
+  });
+}

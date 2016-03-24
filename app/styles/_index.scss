@@ -1,23 +1,15 @@
-@import "grid_items";
-
-.index {
-  @include outer-padding;
-
-  .grid-item:nth-of-type(4){
-    @include grid-item-big;
-  }
-
-  .grid-items-lines .grid-item p.subcategories {
-    max-width: 100%;
-  }
-
-  .category-list a {
-    white-space: nowrap;
+.route-index {
+  .new-addons {
+    margin-top: 3rem;
   }
 
   h1 {
-    margin-bottom: .5em;
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
 
-    border-bottom: $base-border;
+  .more {
+    font-weight: bold;
+    text-decoration: underline
   }
 }

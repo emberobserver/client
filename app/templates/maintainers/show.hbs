@@ -1,10 +1,10 @@
-<div class="container maintainers-show">
+<div class="maintainers-show">
   <header>
     {{gravatar-avatar gravatarId=model.gravatar title=model.name alt=model.name}}
     <h1>
       {{model.name}}
     </h1>
-    <p>Addons maintained by {{model.name}}.</p>
+    <p>{{pluralize-this model.addons.length "addon"}} maintained by {{model.name}}.</p>
   </header>
-  {{addons-table addons=model.addons showAddon="showAddon"}}
+  {{addon-list addons=model.addons}}
 </div>

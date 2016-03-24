@@ -1,33 +1,34 @@
-<div class="container addons-correct">
-	<h1>
-		{{#if model.isOfficial}}
-			<span class="icon-stars official" title="Offical Ember-CLI addon"></span>
-		{{/if}}
+<div class="addons-correct">
+  <h1>
+    {{#if model.isOfficial}}
+      <span class="icon-stars official" title="Offical Ember-CLI addon"></span>
+    {{/if}}
 
-		{{#if model.isCliDependency}}
-			<span class="icon-stars dependency" title="Dependency of newly generated Ember-CLI applications"></span>
-		{{/if}}
+    {{#if model.isCliDependency}}
+      <span class="icon-stars dependency" title="Dependency of newly generated Ember-CLI applications"></span>
+    {{/if}}
 
-		{{model.name}}
+    {{model.name}}
 
-	</h1>
+  </h1>
 
-	<p class='description'>{{model.description}}</p>
+  <p class='description'>{{model.description}}</p>
 
-	<h2>Suggest a correction</h2>
+  <h2>Suggest a correction</h2>
 
-	<form {{action "submitCorrection" on="submit"}}>
-		{{input type="text" value=name placeholder="Your name"}}
-		{{input type="text" value=email placeholder="Your email address"}}
-		{{textarea value=correction placeholder="Describe what needs correcting"}}
-		<p>
-			<strong>Note:</strong>
-			Most of the data (other than the reviews) presented for an addon comes from NPM.
-			If you've updated the <code>package.json</code> file for an addon, you'll need to push a new release to NPM for the information to update.
-			<br>
-			A new NPM release also means the addon will be queued up for a new review.
-		</p>
-		<input type="submit" value="Submit">
-		<button type="button" {{action "cancel" on="click"}} class="cancel">Cancel</button>
-	</form>
+  <form {{action "submitCorrection" on="submit"}}>
+    {{input type="text" value=name placeholder="Your name"}}
+    {{input type="text" value=email placeholder="Your email address"}}
+    {{textarea value=correction placeholder="Describe what needs correcting"}}
+    <p>
+      <strong>Note:</strong>
+      Most of the data (other than the reviews) presented for an addon comes from NPM.
+      If you've updated the <code>package.json</code> file for an addon, you'll need to push a new release to NPM for
+      the information to update.
+      <br>
+      A new NPM release also means the addon will be queued up for a new review.
+    </p>
+    <input type="submit" value="Submit">
+    <button type="button" {{action "cancel" on="click"}} class="cancel">Cancel</button>
+  </form>
 </div>
