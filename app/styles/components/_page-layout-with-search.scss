@@ -41,9 +41,13 @@
     }
 
     .links {
-      position: absolute;
-      top: 1.8rem;
-      right: 1.5rem;
+      display: none;
+      @include media($medium-screen) {
+        display: block;
+        position: absolute;
+        top: 1.8rem;
+        right: 1.5rem;
+      }
     }
 
     .show-menu {
