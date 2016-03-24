@@ -33,7 +33,9 @@
 }
 
 body {
-  margin: 1rem;
+  @include media($medium-screen) {
+    margin: 1rem;
+  }
 }
 
 .alert {
