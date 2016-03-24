@@ -11,7 +11,7 @@
                value={{query}}
                oninput={{action (perform search) value="target.value"}}>
         {{#if query}}
-          <a href="#" {{action clearSearch}} class="icon-close"></a>
+          <a href="#" {{action clearSearch}} class="icon-close test-clear-search"></a>
         {{/if}}
       </div>
       {{#if session.isAuthenticated}}
@@ -21,7 +21,7 @@
     </header>
     <div class="content">
     {{#if results.length}}
-      <h4 class="result-info">Results for "{{query}}"</h4>
+      <h4 class="result-info test-result-info">Results for "{{query}}"</h4>
       {{#search-result-set results=results.categories title="Categories" resultClass="category-results"}}
         <ul>
           {{#each results.categories as |category|}}
