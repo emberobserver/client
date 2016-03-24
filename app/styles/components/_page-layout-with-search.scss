@@ -40,6 +40,19 @@
       line-height: 1;
     }
 
+    .links {
+      position: absolute;
+      top: 1.8rem;
+      right: 1.5rem;
+    }
+
+    .show-menu {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      font-size: 2rem;
+    }
+
     .no-results {
       color: white;
       margin-top: 0.5rem;

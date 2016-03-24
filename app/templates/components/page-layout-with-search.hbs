@@ -2,6 +2,10 @@
   <div class="main">
     <header class="navigation">
       {{#link-to "index" (query-params query="") class="name"}}Ember Observer{{/link-to}}
+      <nav class="links">
+        {{#link-to "about"}}| About |{{/link-to}}
+      </nav>
+      {{!--<a href="#" class="show-menu"><span class="icon-more-horiz"></span></a>--}}
       <div class="search-wrapper">
         <input type="search"
                placeholder="Search for addons, maintainers and categories"
