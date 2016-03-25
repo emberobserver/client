@@ -75,6 +75,18 @@ testSearch('/', function(assert) {
   assert.exists('h1:contains(Top addons)');
 });
 
+testSearch('/not-found', function(assert) {
+  assert.exists(':contains(Oops)');
+});
+
+testSearch('/model-not-found', function(assert) {
+  assert.exists(':contains(Oops)');
+});
+
+testSearch('/lists/new-addons', function(assert) {
+  assert.exists('h1:contains(New Addons)');
+});
+
 testSearch('/maintainers/test-master', function(assert) {
   assert.exists('h1:contains(test-master)');
 });
