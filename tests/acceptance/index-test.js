@@ -144,7 +144,7 @@ test('Unknown routes are handled', function(assert) {
 function testSearch(url, assertForContentOnUrl) {
   test(`visiting ${url} with a query`, function(assert) {
     server.create('addon', { name: 'ember-a-thing' });
-    server.create('addon', { name: 'ember-test-me' });
+    server.create('addon', { name: 'ember-test-me', description: 'A thin addon' });
     server.create('category', { name: 'Another thing' });
     server.create('category', { name: 'quietest' });
     server.create('category', { name: 'Testing' });
@@ -160,6 +160,19 @@ function testSearch(url, assertForContentOnUrl) {
       assert.exists('.category-results li', 2, '2 matching categories');
       assert.exists('.maintainer-results li', 1, '1 matching maintainer');
       assert.equal(find('#search-input').val(), 'test', 'Query is in text box');
+    });
+
+    fillIn('#search-input', 'thin ');
+
+    andThen(function() {
+      assert.equal(currentURL(), `${url}?query=thin`);
+      assert.contains('.test-result-info', 'Results for "thin"');
+      assert.exists('.addon-list li', 2, '2 addon results');
+      assert.contains('.addon-list li', 'ember-test-me');
+      assert.contains('.addon-list li', 'ember-a-thing');
+      assert.exists('.category-results li', 1, '1 matching category');
+      assert.notExists('.maintainer-results', 'No matching maintainers');
+      assert.equal(find('#search-input').val(), 'thin', 'Query is in text box');
     });
 
     click('.test-clear-search');

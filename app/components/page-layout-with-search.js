@@ -36,7 +36,7 @@ export default Ember.Component.extend(FocusableComponent, {
 
     yield timeout(250);
 
-    let results = yield this.get('searchService').search(query);
+    let results = yield this.get('searchService').search(this.get('query'));
     this.set('_results', results);
   }).restartable(),
   results: Ember.computed('query', '_results', function() {
