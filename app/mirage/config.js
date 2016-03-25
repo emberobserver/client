@@ -1,4 +1,5 @@
 import EmberVersionsResponse from './ember-version-response';
+import Ember from 'ember';
 export default function() {
 
   // These comments are here to help you get started. Feel free to delete them.
@@ -20,7 +21,7 @@ export default function() {
 
     let simpleAddonProps = ['id', 'name', 'latest_version_date', 'latest_reviewed_version_date', 'description', 'is_deprecated', 'is_official', 'is_cli_dependency', 'is_hidden', 'score', 'is_wip'];
     let simpleAddonData = db.addons.map(function(addon) {
-      return window._.pick(addon, simpleAddonProps);
+      return Ember.$.extend({}, window._.pick(addon, simpleAddonProps), { is_fully_loaded: false });
     });
     return { addons: simpleAddonData };
   });

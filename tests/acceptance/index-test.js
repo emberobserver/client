@@ -99,13 +99,14 @@ test('going to a maintainer from search results works', function(assert) {
 });
 
 test('going to an addon from search results works', function(assert) {
-  server.create('addon', {name: 'ember-test' });
+  server.create('addon', {name: 'ember-test', license: 'GPL' });
 
   visit('/?query=test');
   click('.addon-list a:contains(ember-test)');
 
   andThen(function() {
     assert.visible('h1:contains(ember-test)');
+    assert.contains('.test-addon-license', 'GPL');
   });
 });
 

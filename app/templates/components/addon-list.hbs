@@ -15,7 +15,7 @@
           {{/if}}
         {{/if}}
         <div class="desc">
-          {{#link-to "addons.show" addon (query-params query="") class="addon-link"}}
+          {{#link-to "addons.show" addon.name (query-params query="") class="addon-link"}}
             <span class="addon-name">
               {{addon.name}}
               {{#if addon.isDeprecated}}
