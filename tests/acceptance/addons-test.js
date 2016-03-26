@@ -325,11 +325,17 @@ test('displays addon stats', function(assert) {
 
 test('displays Ember version compatibility when an addon has it', function(assert) {
   let addon = server.create('addon');
-  let emberVersionCompatibility = server.create('ember-version-compatibility');
-  server.create('version', { addon_id: addon.id, ember_version_compatibility_ids: [ emberVersionCompatibility.id ] });
+  let testResult = server.create('test_result');
+  let emberVersionCompatibility = server.create('ember_version_compatibility', { ember_version: '2.0.0', test_result_id: testResult.id });
+  server.db.test_results.update(testResult, { ember_version_compatibility_ids: [ emberVersionCompatibility.id ] });
+  server.create('version', { addon_id: addon.id, test_result_id: testResult.id });
 
   visit(`/addons/${addon.name}`);
-  andThen(() => assert.exists('.test-ember-version-compatibility-list'));
+  andThen(function() {
+    assert.exists('.test-ember-version-compatibility-list', 'version compatibility list displays');
+    assert.containsExactly('.test-ember-version-compatibility-ember-version', '2.0.0');
+    assert.containsExactly('.test-ember-version-compatibility-is-compatible', 'yes');
+  });
 });
 
 test('does not display Ember version compatibility when an addon does not have it', function(assert) {

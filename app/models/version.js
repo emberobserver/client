@@ -9,5 +9,5 @@ export default DS.Model.extend({
   emberCliVersion: attr('string'),
   addon: belongsTo('addon', { async: false }),
   review: belongsTo('review', { async: false }),
-  emberVersionCompatibilities: DS.hasMany('ember-version-compatibility', { async: false })
+  testResult: DS.belongsTo('testResult', { async: false })
 });

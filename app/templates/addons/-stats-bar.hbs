@@ -48,8 +48,8 @@
   {{addon-version-list versions=model.sortedVersions}}
 </p>
 
-{{#if model.latestVersion.emberVersionCompatibilities}}
-  {{ember-version-compatibility-list versionCompatibilities=model.latestVersion.emberVersionCompatibilities}}
+{{#if model.latestVersion.testResult}}
+  {{ember-version-compatibility-list versionCompatibilities=model.latestVersion.testResult.emberVersionCompatibilities}}
 {{/if}}
 
 <section class="badge test-addon-badge">

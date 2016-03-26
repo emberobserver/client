@@ -9,9 +9,9 @@
     </thead>
     <tbody>
       {{#each versionCompatibilities as |versionCompatibility|}}
-      <tr>
-        <td>{{versionCompatibility.emberVersion}}</td>
-        <td>{{versionCompatibility.compatible}}</td>
+      <tr class='test-ember-version-compatibility-item'>
+        <td class='test-ember-version-compatibility-ember-version'>{{versionCompatibility.emberVersion}}</td>
+        <td class='test-ember-version-compatibility-is-compatible'>{{if versionCompatibility.compatible 'yes' 'no'}}</td>
       </tr>
       {{/each}}
     </tbody>

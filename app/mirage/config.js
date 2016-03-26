@@ -28,9 +28,9 @@ export default function() {
 
   this.get('/maintainers');
   this.get('/keywords');
-  this.get('/versions', ['versions', 'reviews', 'ember-version-compatibilities']);
+  this.get('/versions', ['versions', 'reviews', 'test_results', 'ember_version_compatibilities']);
   this.get('/reviews');
-  this.get('/build_servers', ['build-servers']);
+  this.get('/build_servers');
 
   this.get('https://api.github.com/repos/emberjs/ember.js/releases', function(/*db, request*/) {
     return EmberVersionsResponse;
