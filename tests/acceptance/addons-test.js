@@ -338,6 +338,26 @@ test('displays Ember version compatibility when an addon has it', function(asser
   });
 });
 
+test('sorts version compatibility entries by version number', function(assert) {
+  let addon = server.create('addon');
+  let testResult = server.create('test_result');
+  let emberVersionCompatibilities = [ ];
+  emberVersionCompatibilities.push(server.create('ember_version_compatibility', { ember_version: '2.0.3', test_result_id: testResult.id }));
+  emberVersionCompatibilities.push(server.create('ember_version_compatibility', { ember_version: '1.13.13', test_result_id: testResult.id }));
+  emberVersionCompatibilities.push(server.create('ember_version_compatibility', { ember_version: '2.1.2', test_result_id: testResult.id }));
+  emberVersionCompatibilities.push(server.create('ember_version_compatibility', { ember_version: '1.12.1', test_result_id: testResult.id }));
+  server.db.test_results.update(testResult, { ember_version_compatibility_ids: emberVersionCompatibilities.map(x => x.id) });
+  server.create('version', { addon_id: addon.id, test_result_id: testResult.id });
+
+  visit(`/addons/${addon.name}`);
+  andThen(function() {
+    assert.containsExactly('.test-ember-version-compatibility-ember-version:eq(0)', '1.12.1');
+    assert.containsExactly('.test-ember-version-compatibility-ember-version:eq(1)', '1.13.13');
+    assert.containsExactly('.test-ember-version-compatibility-ember-version:eq(2)', '2.0.3');
+    assert.containsExactly('.test-ember-version-compatibility-ember-version:eq(3)', '2.1.2');
+  });
+});
+
 test("displays appropriate text when an addon's test result indicated a failure", function(assert) {
   let addon = server.create('addon');
   let testResult = server.create('test_result', { succeeded: false });
