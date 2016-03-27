@@ -26,13 +26,13 @@ export default Ember.Controller.extend({
     return this.get('latestReview') === this.get('model.latestVersion.review');
   }.property('latestReview', 'model.latestVersion.review'),
   badgeText: function() {
-    return `[![Ember Observer Score](http://emberobserver.com/badges/${this.get('model.name')}.svg)](http://emberobserver.com/addons/${this.get('model.name')})`;
+    return `[![Ember Observer Score](https://emberobserver.com/badges/${this.get('model.name')}.svg)](https://emberobserver.com/addons/${this.get('model.name')})`;
   }.property('model.name'),
   installCommandText: function() {
     return `ember install ${this.get('model.name')}`;
   }.property('model.name'),
   badgeSrc: function() {
-    return `http://emberobserver.com/badges/${this.get('model.name')}.svg`;
+    return `https://emberobserver.com/badges/${this.get('model.name')}.svg`;
   }.property('model.name'),
   actions: {
     save: function() {
