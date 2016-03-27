@@ -1,0 +1,10 @@
+<section class="test-ember-version-compatibility-section">
+  <h6>Version Compatibility</h6>
+  {{#if testResult.succeeded}}
+    {{ember-version-compatibility-list versionCompatibilities=testResult.emberVersionCompatibilities}}
+  {{else}}
+    <p class="test-ember-version-compatibility-unknown">
+      Version compatibility could not be determined.
+    </p>
+  {{/if}}
+</section>

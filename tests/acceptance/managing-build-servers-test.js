@@ -12,7 +12,7 @@ test('not-logged-in users cannot see list of build servers', function(assert) {
 });
 
 test('index page lists all build servers', function(assert) {
-  server.createList('build-server', 15);
+  server.createList('build_server', 15);
 
   login();
   visit('/admin/build-servers');

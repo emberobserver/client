@@ -1,6 +1,5 @@
-<h6>Version Compatibility</h6>
-<p class="test-ember-version-compatibility-list">
-  <table>
+<p>
+  <table class="test-ember-version-compatibility-list">
     <thead>
       <tr>
         <th>Ember Version</th>
@@ -9,9 +8,9 @@
     </thead>
     <tbody>
       {{#each versionCompatibilities as |versionCompatibility|}}
-      <tr class='test-ember-version-compatibility-item'>
-        <td class='test-ember-version-compatibility-ember-version'>{{versionCompatibility.emberVersion}}</td>
-        <td class='test-ember-version-compatibility-is-compatible'>{{if versionCompatibility.compatible 'yes' 'no'}}</td>
+      <tr class="test-ember-version-compatibility-item">
+        <td class="test-ember-version-compatibility-ember-version">{{versionCompatibility.emberVersion}}</td>
+        <td class="test-ember-version-compatibility-is-compatible">{{if versionCompatibility.compatible 'yes' 'no'}}</td>
       </tr>
       {{/each}}
     </tbody>

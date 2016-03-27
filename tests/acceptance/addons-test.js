@@ -338,10 +338,22 @@ test('displays Ember version compatibility when an addon has it', function(asser
   });
 });
 
+test("displays appropriate text when an addon's test result indicated a failure", function(assert) {
+  let addon = server.create('addon');
+  let testResult = server.create('test_result', { succeeded: false });
+  server.create('version', { addon_id: addon.id, test_result_id: testResult.id });
+
+  visit(`/addons/${addon.name}`);
+  andThen(function() {
+    assert.exists('.test-ember-version-compatibility-section', 'displays the version compatibility section');
+    assert.exists('.test-ember-version-compatibility-unknown', 'displays a message');
+  });
+});
+
 test('does not display Ember version compatibility when an addon does not have it', function(assert) {
   let addon = server.create('addon');
   server.create('version', { addon_id: addon.id });
 
   visit(`/addons/${addon.name}`);
-  andThen(() => assert.notExists('.test-ember-version-compatibility-list'));
+  andThen(() => assert.notExists('.test-ember-version-compatibility-section'));
 });

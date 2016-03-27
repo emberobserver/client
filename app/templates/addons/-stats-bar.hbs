@@ -49,7 +49,7 @@
 </p>
 
 {{#if model.latestVersion.testResult}}
-  {{ember-version-compatibility-list versionCompatibilities=model.latestVersion.testResult.emberVersionCompatibilities}}
+  {{ember-version-compatibility testResult=model.latestVersion.testResult}}
 {{/if}}
 
 <section class="badge test-addon-badge">
