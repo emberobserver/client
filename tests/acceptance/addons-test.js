@@ -300,13 +300,13 @@ test('displays addon stats', function(assert) {
     assert.contains('.test-addon-versions li:eq(1)', 'Ember v15.0.0');
     assert.contains('.test-addon-versions li:eq(2)', '1.0.0');
 
-    assert.exists('.test-addon-badge img[src="http://emberobserver.com/badges/test-addon.svg"]');
+    assert.exists('.test-addon-badge img[src="https://emberobserver.com/badges/test-addon.svg"]');
     assert.exists('.test-addon-badge .test-show-badge-markdown.icon-content-paste', 'Show badge markdown to copy');
     assert.contains('.test-addon-correction-link[href*="/addons/test-addon/correct"]', 'Suggest a correction');
   });
 
   click('.test-addon-badge .test-show-badge-markdown');
   andThen(function() {
-    assert.contains('.test-addon-badge .test-badge-markdown', '[![Ember Observer Score](http://emberobserver.com/badges/test-addon.svg)](http://emberobserver.com/addons/test-addon)');
+    assert.contains('.test-addon-badge .test-badge-markdown', '[![Ember Observer Score](https://emberobserver.com/badges/test-addon.svg)](https://emberobserver.com/addons/test-addon)');
   });
 });
