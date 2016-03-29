@@ -3,14 +3,10 @@ import moduleForAcceptance from 'ember-addon-review/tests/helpers/module-for-acc
 
 moduleForAcceptance('Acceptance | version compatibility');
 
-function failedVersion(version) {
-  return { version, compatible: false };
-}
-
 test('displays Ember version compatibility when an addon has it', function(assert) {
   let { addon } = createAddonWithVersionCompatibilities([ failedVersion('1.13.13'), '2.0.0' ]);
 
-  visit(`/addons/${addon.name}`);
+  visitAddon(addon);
   andThen(function() {
     assert.exists('.test-ember-version-compatibility-list', 'version compatibility list displays');
     assert.contains('.test-ember-version-compatibility-ember-version', '2.0.0');
@@ -69,6 +65,20 @@ test('displays semver string with compatibility when all tests passed', function
     assert.contains('.test-ember-version-compatibility-semver-compat', '>=2.1.0 <=2.4.0');
   });
 });
+
+test('displays date/time when tests were last run', function(assert) {
+  let { addon, testResult } = createAddonWithVersionCompatibilities([ '2.1.0', '2.2.0', '2.3.0', '2.4.0' ]);
+  server.db.test_results.update(testResult.id, { tests_run_at: moment.utc().subtract(1, 'day') });
+
+  visitAddon(addon);
+  andThen(function() {
+    assert.contains('.test-ember-version-compatibility-timestamp', 'a day ago');
+  });
+});
+
+function failedVersion(version) {
+  return { version, compatible: false };
+}
 
 function createAddonWithVersionCompatibilities(emberVersions)
 {
