@@ -3,7 +3,7 @@
     <header class="navigation">
       {{#link-to "index" (query-params query="") class="name"}}Ember Observer{{/link-to}}
       <nav class="links">
-        {{#link-to "about"}}| About |{{/link-to}}
+        {{#link-to "about"}}About{{/link-to}}
       </nav>
       {{!--<a href="#" class="show-menu"><span class="icon-more-horiz"></span></a>--}}
       <div class="search-wrapper">
@@ -15,11 +15,11 @@
                value={{query}}
                oninput={{action (perform search) value="target.value"}}>
         {{#if query}}
-          <a href="#" {{action clearSearch}} class="icon-close test-clear-search"></a>
+          <button {{action clearSearch}} class="icon-close test-clear-search"></button>
         {{/if}}
       </div>
       {{#if session.isAuthenticated}}
-        <a href="#" {{action logoutUser}} class="logout">Log out</a>
+        <button {{action logoutUser}} class="logout">Log out</button>
       {{/if}}
       <h6 class="no-results {{if hasSearchedAndNoResults 'showing'}}">No results found for "{{query}}"</h6>
     </header>

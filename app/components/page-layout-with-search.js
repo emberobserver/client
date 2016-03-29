@@ -9,9 +9,6 @@ export default Ember.Component.extend(FocusableComponent, {
   routing: Ember.inject.service('-routing'),
   focusNode: '#search-input',
   showCategories: true,
-  didInsertElement() {
-    this.focus();
-  },
   init() {
     this._super(...arguments);
     this.get('search').perform(this.get('query'));
