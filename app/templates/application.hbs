@@ -1,5 +1,7 @@
 <div class="container">
-  {{outlet}}
+  {{#page-layout-with-search query=query showCategories=shouldShowCategories}}
+    {{outlet}}
+  {{/page-layout-with-search}}
   <footer class="footer" role="contentinfo">
     <hr>
     <section class="sponsor">
