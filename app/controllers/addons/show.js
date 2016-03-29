@@ -35,6 +35,14 @@ export default Ember.Controller.extend({
   badgeSrc: function() {
     return `https://emberobserver.com/badges/${this.get('model.name')}.svg`;
   }.property('model.name'),
+
+  latestTestResult: Ember.computed('model.sortedVersions.@each.testResult', function() {
+    return this.get('model.sortedVersions').filter(version => version.get('testResult')).get('firstObject.testResult');
+  }),
+  isTestResultForLatestVersion: Ember.computed('latestTestResult.version', 'model.latestVersion', function() {
+    return this.get('latestTestResult.version.version') === this.get('model.latestVersion.version');
+  }),
+
   actions: {
     save: function() {
       var controller = this;
