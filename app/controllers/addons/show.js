@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import sortBy from '../../utils/sort-by';
+import moment from 'moment';
 
 export default Ember.Controller.extend({
   showExplanation: false,
@@ -19,8 +20,8 @@ export default Ember.Controller.extend({
   latestReview: Ember.computed.alias('sortedReviews.firstObject'),
   isLatestReleaseInLast3Months: function() {
     if (!this.get('model.latestVersion.released')) { return false; }
-    var threeMonthsAgo = window.moment().subtract(3, 'months');
-    return window.moment(this.get('model.latestVersion.released')).isAfter(threeMonthsAgo);
+    var threeMonthsAgo = moment().subtract(3, 'months');
+    return moment(this.get('model.latestVersion.released')).isAfter(threeMonthsAgo);
   }.property('model.latestVersion.released'),
   isLatestReviewForLatestVersion: function() {
     return this.get('latestReview') === this.get('model.latestVersion.review');
