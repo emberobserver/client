@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import RouteWithSearch from '../mixins/route-with-search';
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(RouteWithSearch, {
   beforeModel: function() {
     this.get('session').fetch();
   },
