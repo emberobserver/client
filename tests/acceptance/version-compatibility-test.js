@@ -1,5 +1,6 @@
 import { test } from 'qunit';
 import moduleForAcceptance from 'ember-addon-review/tests/helpers/module-for-acceptance';
+import moment from 'moment';
 
 moduleForAcceptance('Acceptance | version compatibility');
 
@@ -62,7 +63,7 @@ test('displays semver string with compatibility when all tests passed', function
 
   visitAddon(addon);
   andThen(function() {
-    assert.contains('.test-ember-version-compatibility-semver-compat', '>=2.1.0 <=2.4.0');
+    assert.contains('.test-ember-version-compatibility-semver-compat', 'Ember >=2.1.0 <=2.4.0');
   });
 });
 
@@ -91,7 +92,7 @@ function createAddonWithVersionCompatibilities(emberVersions)
       version = emberVersion.version;
       compatible = emberVersion.hasOwnProperty('compatible') ? emberVersion.compatible : true;
     }
-    return server.create('ember_version_compatibility', { ember_version: version, compatible, test_result_id: testResult.id })
+    return server.create('ember_version_compatibility', { ember_version: version, compatible, test_result_id: testResult.id });
   });
   server.db.test_results.update(testResult, { ember_version_compatibility_ids: emberVersionCompatibilities.map(x => x.id) });
   let version = server.create('version', { addon_id: addon.id, test_result_id: testResult.id });

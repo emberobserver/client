@@ -1,9 +1,9 @@
 <section class="test-ember-version-compatibility-section">
-  <h6>Version Compatibility</h6>
+  <h6>tests pass in</h6>
   {{#if testResult.succeeded}}
     {{#if allTestsPassed}}
       <p class="test-ember-version-compatibility-semver-compat">
-        {{compatibilitySemverString}}
+        Ember {{compatibilitySemverString}}
       </p>
     {{else}}
       {{ember-version-compatibility-list versionCompatibilities=sortedVersionCompatibilities}}
