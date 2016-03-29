@@ -89,11 +89,9 @@ test('displays tests results from the latest version with them, if the newest ve
 });
 
 test('displays different headers depending on the status of the tests', function(assert) {
-  let { addon: addonWithAllPassing } = createAddonWithVersionCompatibilities([ '2.3.0', '2.4.0' ]);
+  let { addon: addonWithAllPassing }  = createAddonWithVersionCompatibilities([ '2.3.0', '2.4.0' ]);
   let { addon: addonWithSomePassing } = createAddonWithVersionCompatibilities([ failedVersion('2.3.0'), '2.4.0' ]);
-  let addonWithTestFailure = server.create('addon');
-  let failedTestResult = server.create('test_result', { succeeded: false });
-  server.create('version', { addon_id: addonWithTestFailure.id, test_result_id: failedTestResult.id });
+  let { addon: addonWithTestFailure } = createAddonWithTestFailure();
 
   visitAddon(addonWithAllPassing);
   andThen(() => assert.containsExactly('.test-ember-version-compatibility-section-header', 'tests pass in'));
@@ -118,6 +116,21 @@ test('compatibility table is hidden but toggleable when all tests pass', functio
   andThen(() => assert.notExists('.test-ember-version-compatibility-list'), 'version compatibility list is not displayed after clicking toggle again');
 });
 
+test('preface text for timestamp depends on status of tests', function(assert) {
+  let { addon: addonWithAllPassing }  = createAddonWithVersionCompatibilities([ '2.3.0', '2.4.0' ]);
+  let { addon: addonWithSomePassing } = createAddonWithVersionCompatibilities([ failedVersion('2.3.0'), '2.4.0' ]);
+  let { addon: addonWithTestFailure } = createAddonWithTestFailure();
+
+  visitAddon(addonWithAllPassing);
+  andThen(() => assert.contains('.test-ember-version-compatibility-timestamp', 'tests last ran'));
+
+  visitAddon(addonWithSomePassing);
+  andThen(() => assert.contains('.test-ember-version-compatibility-timestamp', 'tests last ran'));
+
+  visitAddon(addonWithTestFailure);
+  andThen(() => assert.contains('.test-ember-version-compatibility-timestamp', 'last tried'));
+});
+
 function failedVersion(version) {
   return { version, compatible: false };
 }
@@ -139,4 +152,13 @@ function createAddonWithVersionCompatibilities(emberVersions)
   let version = server.create('version', { addon_id: addon.id, test_result_id: testResult.id });
 
   return { addon, testResult, emberVersionCompatibilities, version };
+}
+
+function createAddonWithTestFailure()
+{
+  let addon = server.create('addon');
+  let testResult = server.create('test_result', { succeeded: false });
+  server.create('version', { addon_id: addon.id, test_result_id: testResult.id });
+
+  return { addon, testResult };
 }

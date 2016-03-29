@@ -1,4 +1,4 @@
-<section class="test-ember-version-compatibility-section">
+<div class="test-ember-version-compatibility-section">
   <h6 class="test-ember-version-compatibility-section-header">{{headerText}}</h6>
   {{#if testResult.succeeded}}
     {{#if allTestsPassed}}
@@ -20,6 +20,6 @@
     </p>
   {{/if}}
   <p class="test-run-timestamp test-ember-version-compatibility-timestamp">
-    Tests last ran {{relative-time date=testResult.testsRunAt}}
+    {{timestampPrefixText}} {{relative-time date=testResult.testsRunAt}}
   </p>
-</section>
+</div>
