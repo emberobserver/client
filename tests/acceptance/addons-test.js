@@ -39,6 +39,18 @@ test('displays 0 for score when addon has zero score', function(assert) {
   });
 });
 
+test('Does not display category list', function(assert) {
+  var addon = server.create('addon', {
+    name: 'test-addon'
+  });
+
+  visit(`/addons/${addon.name}`);
+
+  andThen(function() {
+    assert.notExists('.categories-list');
+  });
+});
+
 test('displays WIP for score when addon is WIP', function(assert) {
   var addon = server.create('addon', {
     name: 'test-wip',
