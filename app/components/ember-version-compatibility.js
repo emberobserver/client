@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   tagName: '',
+  showTable: false,
 
   versionCompatibilitiesForReleasedVersions: Ember.computed('testResult.emberVersionCompatibilities.@each.emberVersion', function() {
     return this.get('testResult.emberVersionCompatibilities')
@@ -31,7 +32,13 @@ export default Ember.Component.extend({
       return 'tests pass in';
     }
     return 'tests run in';
-  })
+  }),
+
+  actions: {
+    toggleShowTable() {
+      this.toggleProperty('showTable');
+    }
+  }
 });
 
 function extractVersionParts(versionNumber) {

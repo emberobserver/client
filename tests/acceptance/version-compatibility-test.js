@@ -105,6 +105,19 @@ test('displays different headers depending on the status of the tests', function
   andThen(() => assert.containsExactly('.test-ember-version-compatibility-section-header', 'tests could not be run'));
 });
 
+test('compatibility table is hidden but toggleable when all tests pass', function(assert) {
+  let { addon } = createAddonWithVersionCompatibilities([ '2.3.0', '2.4.0' ]);
+  visitAddon(addon);
+
+  andThen(() => assert.notExists('.test-ember-version-compatibility-list', 'version compatibility list is not displayed initially'));
+
+  click('.test-ember-version-compatibility-show-table');
+  andThen(() => assert.exists('.test-ember-version-compatibility-list', 'version compatiblity list is displayed after clicking toggle'));
+
+  click('.test-ember-version-compatibility-show-table');
+  andThen(() => assert.notExists('.test-ember-version-compatibility-list'), 'version compatibility list is not displayed after clicking toggle again');
+});
+
 function failedVersion(version) {
   return { version, compatible: false };
 }

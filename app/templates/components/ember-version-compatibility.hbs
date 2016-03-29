@@ -5,6 +5,12 @@
       <p class="test-ember-version-compatibility-semver-compat">
         Ember {{compatibilitySemverString}}
       </p>
+      {{#if showTable}}
+        <a href="#" {{action "toggleShowTable"}} class="info-action test-ember-version-compatibility-show-table">Hide results</a>
+        {{ember-version-compatibility-list versionCompatibilities=sortedVersionCompatibilities}}
+      {{else}}
+        <a href="#" {{action "toggleShowTable"}} class="info-action test-ember-version-compatibility-show-table">Show results</a>
+      {{/if}}
     {{else}}
       {{ember-version-compatibility-list versionCompatibilities=sortedVersionCompatibilities}}
     {{/if}}
