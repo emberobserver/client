@@ -1,7 +1,13 @@
 <section class="test-ember-version-compatibility-section">
   <h6>Version Compatibility</h6>
   {{#if testResult.succeeded}}
-    {{ember-version-compatibility-list versionCompatibilities=testResult.emberVersionCompatibilities}}
+    {{#if allTestsPassed}}
+      <p class="test-ember-version-compatibility-semver-compat">
+        {{compatibilitySemverString}}
+      </p>
+    {{else}}
+      {{ember-version-compatibility-list versionCompatibilities=sortedVersionCompatibilities}}
+    {{/if}}
   {{else}}
     <p class="test-ember-version-compatibility-unknown">
       Version compatibility could not be determined.

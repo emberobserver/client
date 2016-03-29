@@ -3,19 +3,23 @@ import moduleForAcceptance from 'ember-addon-review/tests/helpers/module-for-acc
 
 moduleForAcceptance('Acceptance | version compatibility');
 
+function failedVersion(version) {
+  return { version, compatible: false };
+}
+
 test('displays Ember version compatibility when an addon has it', function(assert) {
-  let { addon } = createAddonWithVersionCompatibilities([ '2.0.0' ]);
+  let { addon } = createAddonWithVersionCompatibilities([ failedVersion('1.13.13'), '2.0.0' ]);
 
   visit(`/addons/${addon.name}`);
   andThen(function() {
     assert.exists('.test-ember-version-compatibility-list', 'version compatibility list displays');
-    assert.containsExactly('.test-ember-version-compatibility-ember-version', '2.0.0');
-    assert.containsExactly('.test-ember-version-compatibility-is-compatible', 'yes');
+    assert.contains('.test-ember-version-compatibility-ember-version', '2.0.0');
+    assert.contains('.test-ember-version-compatibility-is-compatible', 'yes');
   });
 });
 
 test('sorts version compatibility entries by version number', function(assert) {
-  let { addon } = createAddonWithVersionCompatibilities([ '2.0.3', '1.13.13', '2.1.2', '1.12.1' ]);
+  let { addon } = createAddonWithVersionCompatibilities([ '2.0.3', '1.13.13', '2.1.2', failedVersion('1.12.1') ]);
 
   visitAddon(addon);
   andThen(function() {
@@ -47,23 +51,38 @@ test('does not display Ember version compatibility when an addon does not have i
 });
 
 test('hides beta and canary versions from the table', function(assert) {
-  let { addon } = createAddonWithVersionCompatibilities([ '2.4.3', '2.5.0-beta.3+7c4288b9', '2.6.0-canary+e35e8b48' ]);
+  let { addon } = createAddonWithVersionCompatibilities([ failedVersion('2.3.0'), '2.4.3', '2.5.0-beta.3+7c4288b9', '2.6.0-canary+e35e8b48' ]);
 
   visitAddon(addon);
   andThen(function() {
-    assert.exists('.test-ember-version-compatibility-ember-version', 1);
+    assert.exists('.test-ember-version-compatibility-ember-version', 2);
     assert.notExists('.test-ember-version-compatibility-ember-version:contains(beta)', 'does not display beta versions');
     assert.notExists('.test-ember-version-compatibility-ember-version:contains(canary)', 'does not display canary versions');
   });
 });
 
-function createAddonWithVersionCompatibilities(emberVersionStrings)
+test('displays semver string with compatibility when all tests passed', function(assert) {
+  let { addon } = createAddonWithVersionCompatibilities([ '2.1.0', '2.2.0', '2.3.0', '2.4.0' ]);
+
+  visitAddon(addon);
+  andThen(function() {
+    assert.contains('.test-ember-version-compatibility-semver-compat', '>=2.1.0 <=2.4.0');
+  });
+});
+
+function createAddonWithVersionCompatibilities(emberVersions)
 {
   let addon = server.create('addon');
   let testResult = server.create('test_result');
-  let emberVersionCompatibilities = emberVersionStrings.map(emberVersionString =>
-    server.create('ember_version_compatibility', { ember_version: emberVersionString, test_result_id: testResult.id })
-  );
+  let emberVersionCompatibilities = emberVersions.map(emberVersion => {
+    let version = emberVersion;
+    let compatible = true;
+    if (typeof(emberVersion) === 'object') {
+      version = emberVersion.version;
+      compatible = emberVersion.hasOwnProperty('compatible') ? emberVersion.compatible : true;
+    }
+    return server.create('ember_version_compatibility', { ember_version: version, compatible, test_result_id: testResult.id })
+  });
   server.db.test_results.update(testResult, { ember_version_compatibility_ids: emberVersionCompatibilities.map(x => x.id) });
   let version = server.create('version', { addon_id: addon.id, test_result_id: testResult.id });
 
