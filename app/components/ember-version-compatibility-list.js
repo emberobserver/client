@@ -3,8 +3,15 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   tagName: '',
 
-  sortedVersionCompatibilities: Ember.computed('versionCompatibilities.@each.emberVersion', function() {
-    return this.get('versionCompatibilities').toArray().sort(sortByVersion);
+  versionCompatibilitiesForReleasedVersions: Ember.computed('versionCompatibilities.[]', 'versionCompatibilities.@each.emberVersion', function() {
+    return this.get('versionCompatibilities').filter(versionCompatibility => {
+      console.dir(versionCompatibility);
+      return !versionCompatibility.get('emberVersion').match(/(beta|canary)/);
+    });
+  }),
+
+  sortedVersionCompatibilities: Ember.computed('versionCompatibilitiesForReleasedVersions.[]', 'versionCompatibilitiesForReleasedVersions.@each.emberVersion', function() {
+    return this.get('versionCompatibilitiesForReleasedVersions').toArray().sort(sortByVersion);
   })
 });
 

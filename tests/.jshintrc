@@ -24,7 +24,8 @@
     "currentPath",
     "currentRouteName",
     "server",
-    "QUnit"
+    "QUnit",
+    "visitAddon"
   ],
   "node": false,
   "browser": false,

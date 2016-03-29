@@ -6,6 +6,8 @@ import './mock-analytics';
 import LocalStore from '../../utils/local-storage';
 import mockStorage from './local-storage-mock';
 
+import './visit-addon';
+
 export default function startApp(attrs) {
   let application;
 
