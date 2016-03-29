@@ -78,7 +78,7 @@ test('displays date/time when tests were last run', function(assert) {
 });
 
 test('displays tests results from the latest version with them, if the newest version has none', function(assert) {
-  let { addon, version } = createAddonWithVersionCompatibilities([ '2.1.0', '2.2.0', '2.3.0', '2.4.0' ]);
+  let { addon } = createAddonWithVersionCompatibilities([ '2.1.0', '2.2.0', '2.3.0', '2.4.0' ]);
   server.create('version', { addon_id: addon.id });
 
   visitAddon(addon);
@@ -86,6 +86,23 @@ test('displays tests results from the latest version with them, if the newest ve
     assert.exists('.test-ember-version-compatibility-section', 'version compatibility list displays');
     assert.exists('.test-ember-version-compatibility-new-version-warning', '"New version" warning displays');
   });
+});
+
+test('displays different headers depending on the status of the tests', function(assert) {
+  let { addon: addonWithAllPassing } = createAddonWithVersionCompatibilities([ '2.3.0', '2.4.0' ]);
+  let { addon: addonWithSomePassing } = createAddonWithVersionCompatibilities([ failedVersion('2.3.0'), '2.4.0' ]);
+  let addonWithTestFailure = server.create('addon');
+  let failedTestResult = server.create('test_result', { succeeded: false });
+  server.create('version', { addon_id: addonWithTestFailure.id, test_result_id: failedTestResult.id });
+
+  visitAddon(addonWithAllPassing);
+  andThen(() => assert.containsExactly('.test-ember-version-compatibility-section-header', 'tests pass in'));
+
+  visitAddon(addonWithSomePassing);
+  andThen(() => assert.containsExactly('.test-ember-version-compatibility-section-header', 'tests run in'));
+
+  visitAddon(addonWithTestFailure);
+  andThen(() => assert.containsExactly('.test-ember-version-compatibility-section-header', 'tests could not be run'));
 });
 
 function failedVersion(version) {

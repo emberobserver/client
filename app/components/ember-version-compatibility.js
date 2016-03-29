@@ -21,6 +21,16 @@ export default Ember.Component.extend({
     let latestVersion = this.get('sortedVersionCompatibilities.lastObject.emberVersion');
 
     return `>=${earliestVersion} <=${latestVersion}`;
+  }),
+
+  headerText: Ember.computed('testResult', 'allTestsPassed', function() {
+    if (this.get('testResult.succeeded') === false) {
+      return 'tests could not be run';
+    }
+    if (this.get('allTestsPassed')) {
+      return 'tests pass in';
+    }
+    return 'tests run in';
   })
 });
 
