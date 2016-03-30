@@ -19,10 +19,10 @@
 </ul>
 
 {{#if latestTestResult}}
-  {{ember-version-compatibility testResult=latestTestResult}}
   {{#unless isTestResultForLatestVersion}}
     <em class="test-ember-version-compatibility-new-version-warning"><span class="icon-new-releases"></span> New versions of this addon have been released since these tests ran.</em>
   {{/unless}}
+  {{ember-version-compatibility testResult=latestTestResult}}
 {{/if}}
 
 <h6>npm keywords</h6>
