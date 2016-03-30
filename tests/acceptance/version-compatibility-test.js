@@ -122,8 +122,8 @@ test('sets ', function(assert) {
   visitAddon(addon);
 
   andThen(function() {
-    assert.ok(find('.test-ember-version-compatibility-test-result:eq(0) .tests-passed'), 'passing tests get the "tests-passed" CSS class');
-    assert.ok(find('.test-ember-version-compatibility-test-result:eq(1) .tests-passed'), 'failing tests get the "tests-failed" CSS class');
+    assert.ok(find('.test-ember-version-compatibility-test-result:eq(0) .result-passed'), 'passing tests get the "result-passed" CSS class');
+    assert.ok(find('.test-ember-version-compatibility-test-result:eq(1) .result-passed'), 'failing tests get the "result-failed" CSS class');
   });
 });
 
