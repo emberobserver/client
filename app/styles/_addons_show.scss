@@ -123,12 +123,20 @@
     .ember-version-compatibility {
       margin-bottom: 0.75em;
 
+      p {
+        margin-bottom: 0;
+      }
+
       em {
         font-size: 80%;
       }
 
       .ember-version-compatibility-list {
         margin-top: 0;
+      }
+
+      .tests-failed {
+        color: red;
       }
     }
   }

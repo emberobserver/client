@@ -8,7 +8,7 @@
         </span>
         <br>
         <em class="test-ember-version-compatibility-timestamp">
-          tests last ran {{relative-time date=testResult.testsRunAt}}
+          last ran {{relative-time date=testResult.testsRunAt}}
         </em>
       </p>
       {{#if showTable}}
@@ -21,7 +21,7 @@
       Tests run against Ember {{compatibilitySemverString}} but not all tests passed.
       <br>
       <em class="test-ember-version-compatibility-timestamp">
-        tests last ran {{relative-time date=testResult.testsRunAt}}
+        last ran {{relative-time date=testResult.testsRunAt}}
       </em>
       {{ember-version-compatibility-list versionCompatibilities=sortedVersionCompatibilities}}
     {{/if}}

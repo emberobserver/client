@@ -11,7 +11,7 @@ test('displays Ember version compatibility when an addon has it', function(asser
   andThen(function() {
     assert.exists('.test-ember-version-compatibility-list', 'version compatibility list displays');
     assert.contains('.test-ember-version-compatibility-ember-version', '2.0.0');
-    assert.contains('.test-ember-version-compatibility-is-compatible', 'yes');
+    assert.contains('.test-ember-version-compatibility-test-result', 'yes');
   });
 });
 
@@ -107,13 +107,24 @@ test('preface text for timestamp depends on status of tests', function(assert) {
   let { addon: addonWithTestFailure } = createAddonWithTestFailure();
 
   visitAddon(addonWithAllPassing);
-  andThen(() => assert.contains('.test-ember-version-compatibility-timestamp', 'tests last ran'));
+  andThen(() => assert.contains('.test-ember-version-compatibility-timestamp', 'last ran'));
 
   visitAddon(addonWithSomePassing);
-  andThen(() => assert.contains('.test-ember-version-compatibility-timestamp', 'tests last ran'));
+  andThen(() => assert.contains('.test-ember-version-compatibility-timestamp', 'last ran'));
 
   visitAddon(addonWithTestFailure);
   andThen(() => assert.contains('.test-ember-version-compatibility-timestamp', 'last tried'));
+});
+
+test('sets ', function(assert) {
+  let { addon } = createAddonWithVersionCompatibilities([ failedVersion('2.3.0'), '2.4.0' ]);
+
+  visitAddon(addon);
+
+  andThen(function() {
+    assert.ok(find('.test-ember-version-compatibility-test-result:eq(0) .tests-passed'), 'passing tests get the "tests-passed" CSS class');
+    assert.ok(find('.test-ember-version-compatibility-test-result:eq(1) .tests-passed'), 'failing tests get the "tests-failed" CSS class');
+  });
 });
 
 function failedVersion(version) {
