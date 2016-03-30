@@ -24,23 +24,6 @@ export default Ember.Component.extend({
     return `>=${earliestVersion} <=${latestVersion}`;
   }),
 
-  headerText: Ember.computed('testResult', 'allTestsPassed', function() {
-    if (!this.get('testResult.succeeded')) {
-      return 'tests could not be run';
-    }
-    if (this.get('allTestsPassed')) {
-      return 'tests pass in';
-    }
-    return 'tests run in';
-  }),
-
-  timestampPrefixText: Ember.computed('testResult', function() {
-    if (!this.get('testResult.succeeded')) {
-      return 'last tried';
-    }
-    return 'tests last ran';
-  }),
-
   actions: {
     toggleShowTable() {
       this.toggleProperty('showTable');

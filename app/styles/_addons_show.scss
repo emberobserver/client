@@ -119,6 +119,18 @@
     .version-number {
       font-weight: normal;
     }
+
+    .ember-version-compatibility {
+      margin-bottom: 0.75em;
+
+      em {
+        font-size: 80%;
+      }
+
+      .ember-version-compatibility-list {
+        margin-top: 0;
+      }
+    }
   }
 
   .questions {

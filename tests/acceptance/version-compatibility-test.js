@@ -88,21 +88,6 @@ test('displays tests results from the latest version with them, if the newest ve
   });
 });
 
-test('displays different headers depending on the status of the tests', function(assert) {
-  let { addon: addonWithAllPassing }  = createAddonWithVersionCompatibilities([ '2.3.0', '2.4.0' ]);
-  let { addon: addonWithSomePassing } = createAddonWithVersionCompatibilities([ failedVersion('2.3.0'), '2.4.0' ]);
-  let { addon: addonWithTestFailure } = createAddonWithTestFailure();
-
-  visitAddon(addonWithAllPassing);
-  andThen(() => assert.containsExactly('.test-ember-version-compatibility-section-header', 'tests pass in'));
-
-  visitAddon(addonWithSomePassing);
-  andThen(() => assert.containsExactly('.test-ember-version-compatibility-section-header', 'tests run in'));
-
-  visitAddon(addonWithTestFailure);
-  andThen(() => assert.containsExactly('.test-ember-version-compatibility-section-header', 'tests could not be run'));
-});
-
 test('compatibility table is hidden but toggleable when all tests pass', function(assert) {
   let { addon } = createAddonWithVersionCompatibilities([ '2.3.0', '2.4.0' ]);
   visitAddon(addon);
