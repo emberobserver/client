@@ -14,9 +14,16 @@ const Router = Ember.Router.extend({
     Ember.run.scheduleOnce('afterRender', this, () => {
       let page = document.location.pathname;
       let title = this.getWithDefault('currentRouteName', 'unknown');
-      if (page !== this.get('previousPage')) {
-        Ember.get(this, 'metrics').trackPage({ page, title });
+      let previousPage = this.get('previousPage');
+      let hasQuery = /query=/.test(document.location.search);
+
+      if (hasQuery) {
+        page = `${page}/?query=`;
+      }
+
+      if (page !== previousPage) {
         this.set('previousPage', page);
+        Ember.get(this, 'metrics').trackPage({ page, title });
       }
     });
   }

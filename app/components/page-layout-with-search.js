@@ -34,7 +34,7 @@ export default Ember.Component.extend(FocusableComponent, {
 
     yield timeout(250);
 
-    this.get('metrics').trackEvent({ event: 'search', query: this.get('query')});
+    this.get('metrics').trackEvent({ category: 'search', action: 'search', query: this.get('query'), page: document.location.pathname });
 
     let results = yield this.get('searchService').search(this.get('query'));
     this.set('_results', results);
@@ -46,6 +46,8 @@ export default Ember.Component.extend(FocusableComponent, {
     return null;
   }),
   clearSearch() {
+    this.get('metrics').trackEvent({ category: 'search', action: 'clear', page: document.location.pathname });
+
     this.set('query', '');
     this.set('_results', null);
     this.focus();
