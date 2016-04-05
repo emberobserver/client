@@ -6,9 +6,6 @@ module.exports = function(environment) {
     environment: environment,
     baseURL: '/',
     locationType: 'auto',
-    segment: {
-      LOG_EVENT_TRACKING: true
-    },
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -20,14 +17,19 @@ module.exports = function(environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
     },
-
-    contentSecurityPolicy: {
-      'connect-src': "'self' api.segment.io api.github.com",
-      'font-src': "'self' fonts.gstatic.com",
-      'img-src': "'self' secure.gravatar.com usage.trackjs.com www.google-analytics.com emberobserver.com",
-      'script-src': "'self' 'unsafe-inline' cdn.segment.com cdnjs.cloudflare.com d2zah9y47r7bi2.cloudfront.net www.google-analytics.com",
-      'style-src': "'self' 'unsafe-inline' cdnjs.cloudflare.com fonts.googleapis.com"
-    }
+    metricsAdapters: [
+      {
+        name: 'GoogleAnalytics',
+        environments: ['production'],
+        config: {
+          id: 'UA-59673320-1'
+        }
+      },
+      {
+        name: 'LocalAdapter',
+        environments: ['development']
+      }
+    ]
   };
 
   if (environment === 'development') {
@@ -48,7 +50,6 @@ module.exports = function(environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
     ENV.APP.rootElement = '#ember-testing';
-    ENV.segment.LOG_EVENT_TRACKING = false;
   }
 
   if (environment === 'production') {

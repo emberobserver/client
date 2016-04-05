@@ -7,6 +7,7 @@ export default Ember.Component.extend(FocusableComponent, {
   session: Ember.inject.service(),
   searchService: Ember.inject.service('search'),
   routing: Ember.inject.service('-routing'),
+  metrics: Ember.inject.service(),
   focusNode: '#search-input',
   showCategories: true,
   init() {
@@ -32,6 +33,8 @@ export default Ember.Component.extend(FocusableComponent, {
     }
 
     yield timeout(250);
+
+    this.get('metrics').trackEvent({ event: 'search', query: this.get('query')});
 
     let results = yield this.get('searchService').search(this.get('query'));
     this.set('_results', results);
