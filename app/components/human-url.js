@@ -3,11 +3,14 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   parsed: Ember.computed('url', function() {
     if (this.get('url')) {
-      try {
-        return new URL(this.get('url'));
-      } catch (e) {
-        return '';
-      }
+      let a = document.createElement('a');
+
+      a.href = this.get('url');
+
+      let host = a.hostname;
+      let pathname = a.pathname.replace(/^\/?/, '/');
+
+      return { host, pathname };
     }
   }),
   domain: Ember.computed('parsed.host', function() {
