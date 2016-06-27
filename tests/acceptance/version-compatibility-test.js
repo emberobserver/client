@@ -116,15 +116,30 @@ test('preface text for timestamp depends on status of tests', function(assert) {
   andThen(() => assert.contains('.test-ember-version-compatibility-timestamp', 'last tried'));
 });
 
-test('sets ', function(assert) {
+test('sets right CSS class depending on test result', function(assert) {
   let { addon } = createAddonWithVersionCompatibilities([ failedVersion('2.3.0'), '2.4.0' ]);
 
   visitAddon(addon);
 
   andThen(function() {
-    assert.ok(find('.test-ember-version-compatibility-test-result:eq(0) .result-passed'), 'passing tests get the "result-passed" CSS class');
-    assert.ok(find('.test-ember-version-compatibility-test-result:eq(1) .result-passed'), 'failing tests get the "result-failed" CSS class');
+    assert.exists('.test-ember-version-compatibility-test-result:eq(0) .result-failed', 'failing tests get the "result-failed" CSS class');
+    assert.exists('.test-ember-version-compatibility-test-result:eq(1) .result-passed', 'passing tests get the "result-passed" CSS class');
   });
+});
+
+test('displays reported compatibility when present', function(assert) {
+  let { addon, testResult } = createAddonWithVersionCompatibilities([ '2.3.0', '2.4.0' ]);
+  server.db.test_results.update(testResult, { semver_string: '>= 2.1.0' });
+
+  visitAddon(addon);
+  andThen(() => assert.contains('.test-ember-version-compatibility-reported', '>= 2.1.0'));
+});
+
+test('does not display reported compatibility section when not present',function(assert) {
+  let { addon } = createAddonWithVersionCompatibilities([ '2.3.0', '2.4.0' ]);
+
+  visitAddon(addon);
+  andThen(() => assert.notExists('.test-ember-version-compatibility-reported'));
 });
 
 function failedVersion(version) {
@@ -144,8 +159,13 @@ function createAddonWithVersionCompatibilities(emberVersions)
     }
     return server.create('ember_version_compatibility', { ember_version: version, compatible, test_result_id: testResult.id });
   });
-  server.db.test_results.update(testResult, { ember_version_compatibility_ids: emberVersionCompatibilities.map(x => x.id) });
   let version = server.create('version', { addon_id: addon.id, test_result_id: testResult.id });
+  server.db.test_results.update(testResult, {
+    ember_version_compatibility_ids: emberVersionCompatibilities.map(x => x.id),
+    version_id: version.id
+  });
+  testResult.ember_version_compatibility_ids = emberVersionCompatibilities.map(x => x.id);
+  testResult.version_id = version.id;
 
   return { addon, testResult, emberVersionCompatibilities, version };
 }

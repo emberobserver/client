@@ -19,7 +19,7 @@ test('versionData returns empty array if data is null', function(assert) {
 test('versionData includes only major and minor releases', function(assert) {
   assert.expect(8);
   var service = this.subject({ data: EmberVersionData });
-  var expectedVersions = ['Ember 1.8.0', 'Ember 1.9.0', 'Ember v1.10.0', 'Ember 1.11.0', 'Ember v1.12.0', 'Ember v1.13.0', 'Ember v2.0.0'];
+  var expectedVersions = ['Ember v1.8.0', 'Ember v1.9.0', 'Ember v1.10.0', 'Ember v1.11.0', 'Ember v1.12.0', 'Ember v1.13.0', 'Ember v2.0.0'];
   var versionData = service.get('versionData');
 
   assert.equal(versionData.length, expectedVersions.length, 'Only the expected versions should be included in the versionData');

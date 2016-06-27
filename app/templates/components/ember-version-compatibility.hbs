@@ -1,10 +1,19 @@
 <div class="ember-version-compatibility test-ember-version-compatibility-section">
   <h6>ember compatibility</h6>
+  {{#if testResult.semverString}}
+    <p class="test-ember-version-compatibility-reported">
+      Reported {{testResult.semverString}}
+    </p>
+  {{/if}}
   {{#if testResult.succeeded}}
     {{#if allTestsPassed}}
       <p>
         <span class="test-ember-version-compatibility-semver-compat">
-          All tests pass with Ember {{compatibilitySemverString}}
+          {{#if testResult.semverString}}
+            All tests pass
+          {{else}}
+            All tests pass with Ember {{compatibilitySemverString}}
+          {{/if}}
         </span>
         <br>
         <em class="test-ember-version-compatibility-timestamp">
@@ -18,7 +27,11 @@
         <a href="#" {{action "toggleShowTable"}} class="info-action test-ember-version-compatibility-show-table">Show detailed results</a>
       {{/if}}
     {{else}}
-      Tests run against Ember {{compatibilitySemverString}} but not all tests passed.
+      {{#if testResult.semverString}}
+        Not all tests passed.
+      {{else}}
+        Tests run against Ember {{compatibilitySemverString}} but not all tests passed.
+      {{/if}}
       <br>
       <em class="test-ember-version-compatibility-timestamp">
         last ran {{relative-time date=testResult.testsRunAt}}

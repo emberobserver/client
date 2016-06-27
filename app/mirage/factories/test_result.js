@@ -5,6 +5,7 @@ export default Mirage.Factory.extend({
   succeeded: true,
   status_message: '',
   tests_run_at: () => moment.utc(),
+  semver_string: null,
 
   version_id: null,
   ember_version_compatibility_ids: [ ]
