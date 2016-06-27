@@ -24,11 +24,11 @@ const betaRegex = /beta/;
 const majorOrMinorRegex = /\.0$/;
 
 function dataForVersion(version) {
-  if (!version.name || !version.published_at) { return null; }
-  if (version.name.match(betaRegex)) { return null; }
-  if (!version.name.match(majorOrMinorRegex)) { return null; }
+  if (!version.tag_name || !version.published_at) { return null; }
+  if (version.tag_name.match(betaRegex)) { return null; }
+  if (!version.tag_name.match(majorOrMinorRegex)) { return null; }
   return {
-    version: version.name,
+    version: `Ember ${version.tag_name}`,
     released: new Date(version.published_at),
     isEmber: true
   };
