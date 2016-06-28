@@ -56,10 +56,10 @@
         {{/if}}
         <div class="stats">
           <ul>
-            <li class="test-open-issues">{{model.openIssues}}<span>Open Issues</span></li>
-            <li class="test-forks">{{model.forks}}<span>Forks</span></li>
+            <li class="test-open-issues">{{model.openIssues}}<span>{{pluralize model.openIssues 'Open Issue'}}</span></li>
+            <li class="test-forks">{{model.forks}}<span>{{pluralize model.forks 'Fork'}}</span></li>
             <li class="test-stars">{{model.stars}}<span>Starred</span></li>
-            <li class="test-contributors">{{model.contributors.length}}<span>Contributors</span></li>
+            <li class="test-contributors">{{model.contributors.length}}<span>{{pluralize model.contributors.length 'Contributor'}}</span></li>
           </ul>
         </div>
         <div class="commit-stats">

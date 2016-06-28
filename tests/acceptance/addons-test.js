@@ -138,6 +138,21 @@ test('displays github data', function(assert) {
   });
 });
 
+test('singularizes text for Github stats when value is 1', function(assert) {
+  let addon = server.create('addon', {
+    open_issues: 1,
+    forks: 1,
+    contributors: [ {} ]
+  });
+  visitAddon(addon);
+
+  andThen(function() {
+    assert.containsExactly('.test-open-issues', '1 Open Issue');
+    assert.containsExactly('.test-forks', '1 Fork');
+    assert.containsExactly('.test-contributors', '1 Contributor');
+  });
+});
+
 test('displays header', function(assert) {
   var addon = server.create('addon', {
     name: 'test-addon'
