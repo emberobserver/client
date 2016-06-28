@@ -296,7 +296,7 @@ test('displays addon stats', function(assert) {
     assert.contains('.test-addon-latest-version', '1.0.1 from 3 months ago');
 
     assert.contains('.test-addon-top-downloaded', 'TOP 10%');
-    assert.contains('.test-addon-top-downloaded', '1564 downloads in last month');
+    assert.contains('.test-addon-top-downloaded', '1,564 downloads in last month');
 
     assert.exists('.test-addon-demo-url a[href="http://www.example.com/demo_of_addon"]');
     assert.contains('.test-addon-demo-url b', 'example.com');

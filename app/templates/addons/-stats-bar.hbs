@@ -8,7 +8,7 @@
   <li class="test-addon-top-downloaded">{{#if model.isTopDownloaded}}
     <div>
       <small>TOP 10%!</small>
-    </div>{{/if}}<b>{{model.lastMonthDownloads}}</b> downloads in last month
+    </div>{{/if}}<b>{{commify model.lastMonthDownloads}}</b> downloads in last month
   </li>
   {{#if model.demoUrl}}
   <li class="test-addon-demo-url"><b>demo</b> {{human-url url=model.demoUrl}}</li>
