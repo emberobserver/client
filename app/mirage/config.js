@@ -16,7 +16,9 @@ export default function() {
 
   this.get('/addons', function(db, request) {
     if (request.queryParams.name) {
-      return { addons: db.addons.where({ name: request.queryParams.name }) };
+      var addons = db.addons.where({ name: request.queryParams.name });
+      var readmes = db.readmes.find(addons.mapBy('readme_id'));
+      return { addon: addons[0], readmes };
     }
 
     let simpleAddonProps = ['id', 'name', 'latest_version_date', 'latest_reviewed_version_date', 'description', 'is_deprecated', 'is_official', 'is_cli_dependency', 'is_hidden', 'score', 'is_wip'];

@@ -86,6 +86,19 @@
         <p class="no-review test-no-review">This addon has not yet been reviewed.</p>
       {{/if}}
     </section>
+
+    <section class="readme">
+      <p class="header">README.md</p>
+      <p class="test-addon-readme contents">
+        {{markdown-to-html
+          markdown=model.readme.contents
+          tables=true
+          ghCodeBlocks=true
+          tasklists=true
+          simplifiedAutoLink=true
+        }}
+      </p>
+    </section>
   </div>
 
   <div class="addon-stats">

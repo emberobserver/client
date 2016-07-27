@@ -1,11 +1,10 @@
 import Ember from 'ember';
-import DS from 'ember-data';
+import Model from 'ember-data/model';
+import attr from 'ember-data/attr';
+import { hasMany, belongsTo } from 'ember-data/relationships';
 import sortBy from '../utils/sort-by';
 
-var attr = DS.attr;
-var hasMany = DS.hasMany;
-
-export default DS.Model.extend({
+export default Model.extend({
   isAddon: true,
   name: attr('string'),
   description: attr('string'),
@@ -42,6 +41,7 @@ export default DS.Model.extend({
   versions: hasMany('version', { async: true }),
   maintainers: hasMany('maintainer', { async: true }),
   reviews: hasMany('review', { async: true }),
+  readme: belongsTo('readme', { async: true }),
   sortedVersions: sortBy('versions', 'released:desc'),
   latestVersion: Ember.computed.alias('sortedVersions.firstObject'),
   oldestVersion: Ember.computed.alias('sortedVersions.lastObject'),

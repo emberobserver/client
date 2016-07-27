@@ -337,3 +337,20 @@ test('displays addon stats', function(assert) {
     assert.contains('.test-addon-badge .test-badge-markdown', '[![Ember Observer Score](https://emberobserver.com/badges/test-addon.svg)](https://emberobserver.com/addons/test-addon)');
   });
 });
+
+test('displays readme', function(assert) {
+  var readme = server.create('readme', {
+    contents: 'fudgesicles'
+  });
+
+  var addon = server.create('addon', {
+    name: 'test-addon',
+    readme_id: readme.id
+  });
+
+  visitAddon(addon);
+
+  andThen(() => {
+    assert.contains('.test-addon-readme', readme.contents);
+  });
+});
