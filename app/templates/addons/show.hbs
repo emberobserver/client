@@ -87,6 +87,16 @@
       {{/if}}
     </section>
 
+    <div class="new-review">
+      {{#if session.isAuthenticated}}
+        {{#if isReviewing}}
+          {{addon-review-form review=newReview questions=newReview.questions save="saveReview"}}
+        {{else}}
+          <button {{action "review"}} class="test-addon-review-button">Review</button>
+        {{/if}}
+      {{/if}}
+    </div>
+
     {{#if model.readme}}
       <section class="readme">
         <p class="header">README.md</p>
@@ -105,15 +115,5 @@
 
   <div class="addon-stats">
     {{partial "addons/stats-bar"}}
-  </div>
-
-  <div class="new-review">
-    {{#if session.isAuthenticated}}
-      {{#if isReviewing}}
-        {{addon-review-form review=newReview questions=newReview.questions save="saveReview"}}
-      {{else}}
-        <button {{action "review"}} class="test-addon-review-button">Review</button>
-      {{/if}}
-    {{/if}}
   </div>
 </div>
