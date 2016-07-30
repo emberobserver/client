@@ -13,4 +13,6 @@
     <input type="submit" class="test-addon-review-save" value="Create Review">
   </fieldset>
 </form>
-{{markdown-to-html markdown=review.review}}
+{{#if review.review}}
+  {{markdown-to-html markdown=review.review}}
+{{/if}}
