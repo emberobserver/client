@@ -30,5 +30,6 @@ export default Mirage.Factory.extend({
   committed_to_recently: true,
   is_top_starred: false,
   demoUrl: null,
-  is_fully_loaded: true
+  is_fully_loaded: true,
+  readme_id: null
 });
