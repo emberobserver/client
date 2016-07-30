@@ -8,7 +8,8 @@
     "pretender": "~0.10.1",
     "lodash": "~3.7.0",
     "Faker": "~3.0.0",
-    "showdown": "^1.4.2"
+    "showdown": "^1.4.2",
+    "sanitize.js": "^1.0.0"
   },
   "devDependencies": {
     "bourbon": "4.2.3",

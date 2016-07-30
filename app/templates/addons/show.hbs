@@ -101,7 +101,7 @@
       <section class="readme">
         <p class="header">README.md</p>
         <p class="test-addon-readme contents">
-          {{markdown-to-html
+          {{markdown-to-sanitized-html
             markdown=model.readme.contents
             tables=true
             ghCodeBlocks=true

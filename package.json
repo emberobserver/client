@@ -51,12 +51,13 @@
     "ember-moment": "7.0.0-beta.3",
     "ember-multiselect-checkboxes": "0.10.0",
     "ember-resolver": "^2.0.3",
+    "ember-sanitize": "2.0.0",
     "ember-welcome-page": "^1.0.1",
     "emberx-select": "2.1.2",
     "glob": "^6.0.4",
     "http-proxy": "^1.13.1",
     "loader.js": "^4.0.1",
-    "showdown": "1.4.2",
-    "morgan": "^1.6.1"
+    "morgan": "^1.6.1",
+    "showdown": "1.4.2"
   }
 }
