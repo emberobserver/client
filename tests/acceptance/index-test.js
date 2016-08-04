@@ -99,6 +99,56 @@ testSearch('/addons/ember-a-thing', function(assert) {
   assert.exists('h1:contains(ember-a-thing)');
 });
 
+test('including readme matches in search', function(assert) {
+  let addon1 = server.create('addon', { name: 'ember-test-thing' });
+  let addon2 = server.create('addon', { name: 'ember-different' });
+
+  server.get('/search', (db, request) => {
+    assert.equal(request.queryParams.query, 'test', 'Query is sent to readme search');
+    return {
+      search: [
+        { addon_id: addon1.id, matches: ['testing stuff', 'more testing tips'] },
+        { addon_id: addon2.id, matches: ['the test of time'] }
+      ]
+    };
+  });
+
+  visit('/');
+
+  fillIn('#search-input', 'test');
+  click('.test-search-readmes');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/?query=test&readmes=true');
+    assert.contains('.test-result-info', 'Results for "test"');
+    assert.exists('.addon-list li', 1, 'Only 1 addon result');
+    assert.contains('.addon-list li', 'ember-test-thing');
+
+    assert.exists('.readme-results li', 2, '2 matching readmes');
+    assert.exists(".test-readme-match:contains('testing stuff')");
+    assert.exists(".test-readme-match:contains('more testing tips')");
+    assert.exists(".test-readme-match:contains('the test of time')");
+
+    assert.equal(find('#search-input').val(), 'test', 'Query is in text box');
+    assert.exists('.test-search-readmes:checked', 'Include readmes is checked');
+  });
+
+  click('.test-search-readmes');
+
+  andThen(() => {
+    assert.equal(currentURL(), '/?query=test');
+    assert.contains('.test-result-info', 'Results for "test"');
+    assert.exists('.addon-list li', 1, 'Only 1 addon result');
+    assert.contains('.addon-list li', 'ember-test-thing');
+
+    assert.notExists('.readme-results li', 'No readme results count showing');
+    assert.notExists('.readme-list li', 'No readme matches showing');
+
+    assert.equal(find('#search-input').val(), 'test', 'Query is still in text box');
+    assert.exists('.test-search-readmes:not(:checked)', 'Include readmes is not checked');
+  });
+});
+
 test('going to a maintainer from search results works', function(assert) {
   server.create('maintainer', {name: 'test-master' });
 

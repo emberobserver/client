@@ -34,6 +34,12 @@ export default function() {
   this.get('/reviews');
   this.get('/build_servers');
 
+  this.get('/search', () => {
+    return {
+      search: []
+    };
+  });
+
   this.get('https://api.github.com/repos/emberjs/ember.js/releases', function(/*db, request*/) {
     return EmberVersionsResponse;
   });

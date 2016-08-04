@@ -36,9 +36,13 @@ export default Ember.Component.extend(FocusableComponent, {
 
     this.get('metrics').trackEvent({ category: 'Search', action: `Search on ${document.location.pathname}`, label: this.get('query') });
 
-    let results = yield this.get('searchService').search(this.get('query'));
+    let results = yield this.get('searchService').search(this.get('query'), { includeReadmes: this.get('searchReadmes') });
     this.set('_results', results);
   }).restartable(),
+  toggleReadmeSearch: task(function * () {
+    this.toggleProperty('searchReadmes');
+    yield this.get('search').perform(this.get('query'));
+  }),
   results: Ember.computed('query', '_results', function() {
     if (this.get('queryIsValid')) {
       return this.get('_results');
