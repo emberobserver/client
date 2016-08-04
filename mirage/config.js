@@ -46,6 +46,12 @@ export default function() {
   this.get('/test_results/:id');
   this.post('/authentication/login.json');
 
+  this.get('/search', () => {
+    return {
+      search: []
+    };
+  });
+
   this.get('https://api.github.com/repos/emberjs/ember.js/releases', function(/*db, request*/) {
     return EmberVersionsResponse;
   });

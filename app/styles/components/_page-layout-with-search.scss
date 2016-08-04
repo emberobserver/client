@@ -37,6 +37,15 @@
       padding: 0; background: none;
     }
 
+    .readme-toggle {
+      color: $light-gray;
+      margin-top: 4px;
+
+      input {
+        margin-right: 2px;
+      }
+    }
+
     .name {
       color: #70B3DB;
       font-size: 2rem;
@@ -174,6 +183,10 @@
     }
   }
 
+  .readme-list {
+    @extend .addon-list;
+  }
+
   .content {
     @include span-columns(12);
     padding: 1rem 0;
@@ -223,6 +236,24 @@
         width: 1rem;
         text-align: center;
       }
+    }
+
+    .readme-results {
+
+      h5 {
+        margin-left: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      ul {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+      }
+    }
+
+    .text-match {
+      font-size: .95rem;
+      margin-top: 1rem;
     }
   }
 }
