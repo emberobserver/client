@@ -57,7 +57,9 @@ Router.map(function() {
       this.route('edit', { path: '/:slug' });
     });
     this.route('build-servers');
-    this.route('build-results');
+    this.route('build-results', function() {
+      this.route('show', { path: '/:id' });
+    });
   });
 
   this.route('about');

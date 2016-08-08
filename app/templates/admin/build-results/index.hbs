@@ -14,8 +14,18 @@
       <td>{{testResult.version.addon.name}}</td>
       <td>{{testResult.version.version}}</td>
       <td>{{moment-format testResult.testsRunAt 'YYYY-MM-DD HH:mm'}}</td>
-      <td></td>
-      <td></td>
+      <td>
+        {{#if testResult.succeeded}}
+          succeeded
+        {{else}}
+          failed - {{testResult.statusMessage}}
+        {{/if}}
+      </td>
+      <td>
+        {{#link-to 'admin.build-results.show' testResult.id}}
+          details
+        {{/link-to}}
+      </td>
     </tr>
   {{/each}}
   </tbody>
