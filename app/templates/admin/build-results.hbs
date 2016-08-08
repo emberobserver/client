@@ -1,0 +1,22 @@
+<table>
+  <thead>
+    <tr>
+      <th>Addon</th>
+      <th>Version</th>
+      <th>Date/time</th>
+      <th>Result</th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+  {{#each model as |testResult|}}
+    <tr class="test-build-result">
+      <td>{{testResult.version.addon.name}}</td>
+      <td>{{testResult.version.version}}</td>
+      <td>{{moment-format testResult.testsRunAt 'YYYY-MM-DD HH:mm'}}</td>
+      <td></td>
+      <td></td>
+    </tr>
+  {{/each}}
+  </tbody>
+</table>

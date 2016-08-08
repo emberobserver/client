@@ -11,6 +11,7 @@ export default function() {
   */
   this.namespace = 'api';    // make this `api`, for example, if your API is namespaced
   // this.timing = 400;      // delay for each request, automatically set to 0 during testing
+  this.logging = true;
 
   this.get('/categories');
 
@@ -33,6 +34,7 @@ export default function() {
   this.get('/versions', ['versions', 'reviews', 'test_results', 'ember_version_compatibilities']);
   this.get('/reviews');
   this.get('/build_servers');
+  this.get('/test_results', ['test_results', 'versions']);
 
   this.get('https://api.github.com/repos/emberjs/ember.js/releases', function(/*db, request*/) {
     return EmberVersionsResponse;
