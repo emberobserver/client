@@ -22,11 +22,33 @@ test('displays basic info about a build', function(assert) {
   });
 });
 
-test('displays appropriate status based on result', function(assert) {
+test('sorts results by run date', function(assert) {
+  let addon = server.create('addon');
+  let addonVersion = server.create('version', { addon_id: addon.id });
+  let middleTestResult = server.create('test_result', {
+    vesion_id: addonVersion.id,
+    tests_run_at: moment().subtract(6, 'hours').utc()
+  });
+  let earliestTestResult = server.create('test_result', {
+    version_id: addonVersion.id,
+    tests_run_at: moment().subtract(12, 'hours').utc()
+  });
+  let latestTestResult = server.create('test_result', {
+    version_id: addonVersion.id,
+    tests_run_at: moment().utc()
+  });
 
+  login();
+  visit('/admin/build-results');
+
+  andThen(function() {
+    assert.equal(find('.test-build-result:eq(0)').attr('data-testResultId'), `${latestTestResult.id}`);
+    assert.equal(find('.test-build-result:eq(1)').attr('data-testResultId'), `${middleTestResult.id}`);
+    assert.equal(find('.test-build-result:eq(2)').attr('data-testResultId'), `${earliestTestResult.id}`);
+  });
 });
 
-test('sorts results by run date', function(assert) {
+test('displays appropriate status based on result', function(assert) {
 
 });
 
