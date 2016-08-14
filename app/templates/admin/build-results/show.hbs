@@ -1,0 +1,20 @@
+<div class="admin-build-result">
+  <h1>
+    Build #{{buildResult.id}}
+    (<span class="test-addon-name">{{addon.name}}</span> <span class="test-addon-version">{{addonVersion.version}}</span>)
+  </h1>
+
+  <div>
+    Status: <span class="test-build-status">{{buildStatus}}</span>
+  </div>
+
+  <div>
+    Tests run at: <span class="test-run-date">{{moment-format buildResult.testsRunAt 'YYYY-MM-DD HH:mm'}}</span>
+  </div>
+
+  <h2>stdout</h2>
+  <pre class="test-stdout">{{buildResult.stdout}}</pre>
+
+  <h2>stderr</h2>
+  <pre class="test-stderr">{{buildResult.stderr}}</pre>
+</div>

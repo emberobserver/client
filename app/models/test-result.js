@@ -4,6 +4,8 @@ export default DS.Model.extend({
   succeeded: DS.attr('boolean'),
   statusMessage: DS.attr('string'),
   testsRunAt: DS.attr('date'),
+  stdout: DS.attr('string'),
+  stderr: DS.attr('string'),
 
   version: DS.belongsTo('version'),
   emberVersionCompatibilities: DS.hasMany('emberVersionCompatibility')

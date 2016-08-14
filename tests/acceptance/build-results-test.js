@@ -54,7 +54,8 @@ test('displays appropriate status based on result', function(assert) {
   let failedResult = server.create('test_result', {
     version_id: addonVersion.id,
     succeeded: false,
-    status_message: 'timed out'
+    status_message: 'timed out',
+    tests_ran_at: moment().subtract(30, 'minutes').utc()
   });
   let succeededResult = server.create('test_result', {
     version_id: addonVersion.id,
@@ -81,6 +82,64 @@ test('links to detail for individual builds', function(assert) {
 
   andThen(function() {
     assert.equal(currentURL(), `/admin/build-results/${testResult.id}`);
+  });
+});
+
+test('detail page shows data for a build', function(assert) {
+  let addon = server.create('addon');
+  let version = server.create('version', {
+    addon_id: addon.id
+  });
+  let testResult = server.create('test_result', {
+    version_id: version.id,
+    stdout: 'this is stdout',
+    stderr: 'this is stderr',
+    tests_run_at: moment('2016-08-01 12:34:56').utc()
+  });
+  server.db.versions.update(version, { test_result_id: testResult.id });
+
+  login();
+  visit(`/admin/build-results/${testResult.id}`);
+
+  andThen(function() {
+    assert.contains('.test-addon-name', addon.name, 'displays addon name');
+    assert.contains('.test-addon-version', version.version, 'displays addon version');
+    assert.contains('.test-run-date', '2016-08-01 12:34', 'displays date/time tests ran');
+    assert.contains('.test-stdout', 'this is stdout', "displays result's stdout");
+    assert.contains('.test-stderr', 'this is stderr', "displays result's stderr");
+  });
+});
+
+test('detail page shows "succeeded" for status when build succeeded', function(assert) {
+  let version = server.create('version');
+  let testResult = server.create('test_result', {
+    version_id: version.id,
+    succeeded: true
+  });
+  server.db.versions.update(version, { test_result_id: testResult.id });
+
+  login();
+  visit(`/admin/build-results/${testResult.id}`);
+
+  andThen(function() {
+    assert.contains('.test-build-status', 'succeeded', 'displays "succeeded" for build status');
+  });
+});
+
+test('detail page shows status message when build did not succeeded', function(assert) {
+  let version = server.create('version');
+  let testResult = server.create('test_result', {
+    version_id: version.id,
+    succeeded: false,
+    status_message: 'this is the status'
+  });
+  server.db.versions.update(version, { test_result_id: testResult.id });
+
+  login();
+  visit(`/admin/build-results/${testResult.id}`);
+
+  andThen(function() {
+    assert.contains('.test-build-status', 'this is the status', 'displays status message for the build');
   });
 });
 
