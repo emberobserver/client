@@ -4,6 +4,7 @@ export default DS.Model.extend({
   succeeded: DS.attr('boolean'),
   statusMessage: DS.attr('string'),
   testsRunAt: DS.attr('date'),
+  canary: DS.attr('boolean'),
   stdout: DS.attr('string'),
   stderr: DS.attr('string'),
 

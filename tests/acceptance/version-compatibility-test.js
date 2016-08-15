@@ -30,7 +30,7 @@ test('sorts version compatibility entries by version number', function(assert) {
 test("displays appropriate text when an addon's test result indicated a failure", function(assert) {
   let addon = server.create('addon');
   let testResult = server.create('test_result', { succeeded: false });
-  server.create('version', { addon_id: addon.id, test_result_id: testResult.id });
+  server.create('version', { addon_id: addon.id, test_result_ids: [ testResult.id ] });
 
   visitAddon(addon);
   andThen(function() {
@@ -116,7 +116,7 @@ test('preface text for timestamp depends on status of tests', function(assert) {
   andThen(() => assert.contains('.test-ember-version-compatibility-timestamp', 'last tried'));
 });
 
-test('sets ', function(assert) {
+test('sets correct CSS class based on result', function(assert) {
   let { addon } = createAddonWithVersionCompatibilities([ failedVersion('2.3.0'), '2.4.0' ]);
 
   visitAddon(addon);
@@ -124,6 +124,57 @@ test('sets ', function(assert) {
   andThen(function() {
     assert.ok(find('.test-ember-version-compatibility-test-result:eq(0) .result-passed'), 'passing tests get the "result-passed" CSS class');
     assert.ok(find('.test-ember-version-compatibility-test-result:eq(1) .result-passed'), 'failing tests get the "result-failed" CSS class');
+  });
+});
+
+test('uses the latest build for version compatibility', function(assert) {
+  let addon = server.create('addon');
+  let version = server.create('version', { addon_id: addon.id });
+  let middleTestResult = server.create('test_result', {
+    tests_run_at: moment().subtract(1, 'hour').utc()
+  });
+  let latestTestResult = server.create('test_result', {
+    succeeded: false,
+    tests_run_at: moment().subtract(30, 'minutes').utc(),
+    version_id: version.id
+  });
+  let earliestTestResult = server.create('test_result', {
+    succeeded: true,
+    tests_run_at: moment().subtract(2, 'hours').utc(),
+    version_id: version.id
+  });
+  server.db.versions.update(version, { test_result_ids: [ middleTestResult.id, latestTestResult.id, earliestTestResult.id ] });
+
+  visitAddon(addon);
+  andThen(function() {
+    assert.exists('.test-ember-version-compatibility-unknown');
+  });
+});
+
+test('excludes canary-only builds for version compatiblity purposes', function(assert) {
+  let addon = server.create('addon');
+  let version = server.create('version', { addon_id: addon.id });
+  let testResults = server.createList('test_result', 5, {
+    canary: true,
+    succeeded: true,
+    tests_run_at: (i) => moment().subtract(i + 1, 'hours').utc()
+  });
+  testResults.push(server.create('test_result', {
+    succeeded: false,
+    tests_run_at: moment().subtract(6, 'hours').utc()
+  }));
+  testResults.concat(server.createList('test_result', 5, {
+    canary: true,
+    succeeded: true,
+    tests_run_at: (i) => moment().subtract(7 + i, 'hours').utc()
+  }));
+  server.db.versions.update(version, {
+    test_result_ids: testResults.map(x => x.id)
+  });
+
+  visitAddon(addon);
+  andThen(function() {
+    assert.exists('.test-ember-version-compatibility-unknown');
   });
 });
 
@@ -144,8 +195,14 @@ function createAddonWithVersionCompatibilities(emberVersions)
     }
     return server.create('ember_version_compatibility', { ember_version: version, compatible, test_result_id: testResult.id });
   });
-  server.db.test_results.update(testResult, { ember_version_compatibility_ids: emberVersionCompatibilities.map(x => x.id) });
-  let version = server.create('version', { addon_id: addon.id, test_result_id: testResult.id });
+  let version = server.create('version', {
+    addon_id: addon.id,
+    test_result_ids: [ testResult.id ]
+  });
+  server.db.test_results.update(testResult.id, {
+    ember_version_compatibility_ids: emberVersionCompatibilities.map(x => x.id),
+    version_id: version.id
+  });
 
   return { addon, testResult, emberVersionCompatibilities, version };
 }
@@ -154,7 +211,7 @@ function createAddonWithTestFailure()
 {
   let addon = server.create('addon');
   let testResult = server.create('test_result', { succeeded: false });
-  server.create('version', { addon_id: addon.id, test_result_id: testResult.id });
+  let version = server.create('version', { addon_id: addon.id, test_result_ids: [ testResult.id ] });
 
-  return { addon, testResult };
+  return { addon, version, testResult };
 }
