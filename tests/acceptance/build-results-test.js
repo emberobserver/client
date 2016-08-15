@@ -52,24 +52,24 @@ test('sorts results by run date', function(assert) {
 test('displays appropriate status based on result', function(assert) {
   let addon = server.create('addon');
   let addonVersion = server.create('version', { addon_id: addon.id });
-  let failedResult = server.create('test_result', {
+  server.create('test_result', {
     version_id: addonVersion.id,
     succeeded: false,
     status_message: 'timed out',
-    tests_ran_at: moment().subtract(30, 'minutes').utc()
+    tests_run_at: moment().subtract(30, 'minutes').utc()
   });
-  let succeededResult = server.create('test_result', {
+  server.create('test_result', {
     version_id: addonVersion.id,
     succeeded: true,
-    tests_ran_at: moment().subtract(1, 'hour').utc()
+    tests_run_at: moment().subtract(1, 'hour').utc()
   });
 
   login();
   visit('/admin/build-results');
 
   andThen(function() {
-    assert.contains('.test-build-result:eq(0) td:eq(3)', 'succeeded', 'displays "succeeded" for successful builds');
-    assert.contains('.test-build-result:eq(1) td:eq(3)', 'failed - timed out', 'displays failure notice with status message for failed builds');
+    assert.contains('.test-build-result:eq(0) td:eq(3)', 'failed - timed out', 'displays failure notice with status message for failed builds');
+    assert.contains('.test-build-result:eq(1) td:eq(3)', 'succeeded', 'displays "succeeded" for successful builds');
   });
 });
 
