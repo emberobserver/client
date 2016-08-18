@@ -36,6 +36,12 @@ export default function() {
   this.get('/test_results', ['test_results', 'versions']);
   this.get('/test_results/:id', [ 'test_result', 'versions' ]);
 
+  this.get('/search', () => {
+    return {
+      search: []
+    };
+  });
+
   this.get('https://api.github.com/repos/emberjs/ember.js/releases', function(/*db, request*/) {
     return EmberVersionsResponse;
   });

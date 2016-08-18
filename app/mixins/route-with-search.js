@@ -4,6 +4,9 @@ export default Ember.Mixin.create({
   queryParams: {
     query: {
       replace: true
+    },
+    searchReadmes: {
+      replace: true
     }
   }
 });

@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Mixin.create({
-  queryParams: ['query'],
-  query: ''
+  queryParams: ['query', { searchReadmes: 'readmes' }],
+  query: '',
+  searchReadmes: false
 });
