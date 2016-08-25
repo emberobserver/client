@@ -5,8 +5,7 @@ export default DS.Model.extend({
   statusMessage: DS.attr('string'),
   testsRunAt: DS.attr('date'),
   canary: DS.attr('boolean'),
-  stdout: DS.attr('string'),
-  stderr: DS.attr('string'),
+  output: DS.attr('string'),
 
   version: DS.belongsTo('version'),
   emberVersionCompatibilities: DS.hasMany('emberVersionCompatibility')

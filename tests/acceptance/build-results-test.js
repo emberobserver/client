@@ -93,8 +93,7 @@ test('detail page shows data for a build', function(assert) {
   });
   let testResult = server.create('test_result', {
     version_id: version.id,
-    stdout: 'this is stdout',
-    stderr: 'this is stderr',
+    output: 'this is the output',
     tests_run_at: moment('2016-08-01 12:34:56').utc()
   });
   server.db.versions.update(version, { test_result_id: testResult.id });
@@ -106,8 +105,7 @@ test('detail page shows data for a build', function(assert) {
     assert.contains('.test-addon-name', addon.name, 'displays addon name');
     assert.contains('.test-addon-version', version.version, 'displays addon version');
     assert.contains('.test-run-date', '2016-08-01 12:34', 'displays date/time tests ran');
-    assert.contains('.test-stdout', 'this is stdout', "displays result's stdout");
-    assert.contains('.test-stderr', 'this is stderr', "displays result's stderr");
+    assert.contains('.test-output', 'this is the output', "displays result's output");
   });
 });
 
