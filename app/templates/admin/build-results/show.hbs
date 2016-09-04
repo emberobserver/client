@@ -13,6 +13,10 @@
     Tests run at: <span class="test-run-date">{{moment-format buildResult.testsRunAt 'YYYY-MM-DD HH:mm'}}</span>
   </div>
 
+  <div>
+    Semver string: <span class="test-semver-string">{{buildResult.semverString}}</span>
+  </div>
+
   <h2>Output</h2>
   <pre class="test-output">{{buildResult.output}}</pre>
 </div>

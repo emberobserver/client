@@ -9,6 +9,7 @@ test('displays basic info about a build', function(assert) {
   let addonVersion = server.create('version', { addon_id: addon.id });
   server.create('test_result', {
     version_id: addonVersion.id,
+    semver_string: '>= 2.0.0',
     tests_run_at: moment('2016-08-07 16:30').utc()
   });
 
@@ -20,6 +21,7 @@ test('displays basic info about a build', function(assert) {
     assert.containsExactly('.test-build-result td:eq(0)', addon.name, 'displays addon name');
     assert.containsExactly('.test-build-result td:eq(1)', '1.0.0', 'displays addon version');
     assert.containsExactly('.test-build-result td:eq(2)', '2016-08-07 16:30', 'displays date/time');
+    assert.containsExactly('.test-build-result td:eq(4)', '>= 2.0.0', 'displays semver string');
   });
 });
 
@@ -94,6 +96,7 @@ test('detail page shows data for a build', function(assert) {
   let testResult = server.create('test_result', {
     version_id: version.id,
     output: 'this is the output',
+    semver_string: '>= 2.0.0',
     tests_run_at: moment('2016-08-01 12:34:56').utc()
   });
   server.db.versions.update(version, { test_result_id: testResult.id });
@@ -106,6 +109,7 @@ test('detail page shows data for a build', function(assert) {
     assert.contains('.test-addon-version', version.version, 'displays addon version');
     assert.contains('.test-run-date', '2016-08-01 12:34', 'displays date/time tests ran');
     assert.contains('.test-output', 'this is the output', "displays result's output");
+    assert.contains('.test-semver-string', '>= 2.0.0', 'displays semver string used for the build');
   });
 });
 

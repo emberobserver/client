@@ -5,6 +5,7 @@
       <th>Version</th>
       <th>Date/time</th>
       <th>Result</th>
+      <th>Semver string</th>
       <th>&nbsp;</th>
     </tr>
   </thead>
@@ -24,6 +25,9 @@
         {{else}}
           failed - {{testResult.statusMessage}}
         {{/if}}
+      </td>
+      <td>
+        {{testResult.semverString}}
       </td>
       <td>
         {{#link-to 'admin.build-results.show' testResult.id}}

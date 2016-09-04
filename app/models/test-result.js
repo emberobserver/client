@@ -6,6 +6,7 @@ export default DS.Model.extend({
   testsRunAt: DS.attr('date'),
   canary: DS.attr('boolean'),
   output: DS.attr('string'),
+  semverString: DS.attr('string'),
 
   version: DS.belongsTo('version'),
   emberVersionCompatibilities: DS.hasMany('emberVersionCompatibility')
