@@ -27,7 +27,7 @@
         {{/if}}
       </td>
       <td>
-        {{testResult.semverString}}
+        {{if testResult.canary 'canary' testResult.semverString}}
       </td>
       <td>
         {{#link-to 'admin.build-results.show' testResult.id}}

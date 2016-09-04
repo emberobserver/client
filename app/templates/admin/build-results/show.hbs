@@ -14,7 +14,10 @@
   </div>
 
   <div>
-    Semver string: <span class="test-semver-string">{{buildResult.semverString}}</span>
+    Semver string:
+    <span class="test-semver-string">
+      {{if buildResult.canary 'canary' buildResult.semverString}}
+    </span>
   </div>
 
   <h2>Output</h2>
