@@ -11,7 +11,11 @@
   <tbody>
   {{#each sortedBuildResults as |testResult|}}
     <tr class="test-build-result" data-testResultId={{testResult.id}}>
-      <td>{{testResult.version.addon.name}}</td>
+      <td>
+        {{#link-to 'addons.show' testResult.version.addon.name}}
+          {{testResult.version.addon.name}}
+        {{/link-to}}
+      </td>
       <td>{{testResult.version.version}}</td>
       <td>{{moment-format testResult.testsRunAt 'YYYY-MM-DD HH:mm'}}</td>
       <td>

@@ -1,7 +1,8 @@
 <div class="admin-build-result">
   <h1>
     Build #{{buildResult.id}}
-    (<span class="test-addon-name">{{addon.name}}</span> <span class="test-addon-version">{{addonVersion.version}}</span>)
+    (<span class="test-addon-name">{{#link-to 'addons.show' addon.name}}{{addon.name}}{{/link-to}}</span>
+    <span class="test-addon-version">{{addonVersion.version}}</span>)
   </h1>
 
   <div>

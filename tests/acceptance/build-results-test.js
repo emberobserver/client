@@ -79,7 +79,7 @@ test('links to detail for individual builds', function(assert) {
 
   login();
   visit('/admin/build-results');
-  click('.test-build-result a');
+  click('.test-build-result a:contains(details)');
 
   andThen(function() {
     assert.equal(currentURL(), `/admin/build-results/${testResult.id}`);
