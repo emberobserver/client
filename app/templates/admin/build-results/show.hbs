@@ -7,6 +7,9 @@
 
   <div>
     Status: <span class="test-build-status">{{buildStatus}}</span>
+    {{#if canRetryBuild}}
+      <button type="button" onclick={{action 'retryBuild'}} class="test-retry-build">Retry</button>
+    {{/if}}
   </div>
 
   <div>

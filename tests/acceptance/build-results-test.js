@@ -187,6 +187,47 @@ test('detail page shows status message when build did not succeeded', function(a
   });
 });
 
+test('detail page has a "retry" button for failed builds', function(assert) {
+  assert.expect(2);
+
+  let version = server.create('version');
+  let testResult = server.create('test_result', {
+    version_id: version.id,
+    succeeded: false,
+    status_message: 'failed'
+  });
+  server.db.versions.update(version, { test_result_id: testResult.id });
+
+  server.post('/test_results/:id/retry', function() {
+    assert.ok(true, 'makes retry request');
+  });
+
+  login();
+  visit(`/admin/build-results/${testResult.id}`);
+
+  andThen(function() {
+    assert.exists('.test-retry-build', '"retry" button exists');
+  });
+
+  click('.test-retry-build');
+});
+
+test('detail page does not have a "retry" button for successful builds', function(assert) {
+  let version = server.create('version');
+  let testResult = server.create('test_result', {
+    version_id: version.id,
+    succeeded: true
+  });
+  server.db.versions.update(version, { test_result_id: testResult.id });
+
+  login();
+  visit(`/admin/build-results/${testResult.id}`);
+
+  andThen(function() {
+    assert.notExists('.test-retry-build', 'no "retry" button should be displayed');
+  });
+});
+
 function login() {
   server.post('/authentication/login.json', function() {
     return {
