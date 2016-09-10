@@ -85,6 +85,8 @@ test('reviewing addons', function(assert) {
     assert.equal(data.has_tests, 2);
     assert.equal(data.is_more_than_empty_addon, 1);
     assert.equal(data.is_open_source, 1);
+    let review = server.create('review', data);
+    return { review: review };
   });
 
   login();
@@ -141,6 +143,8 @@ test('renewing a review', function(assert) {
     assert.equal(data.is_open_source, 2);
     assert.equal(data.has_build, 1);
     assert.equal(data.review, 'Seems ok');
+    let review = server.create('review', data);
+    return { review: review };
   });
 
   login();
