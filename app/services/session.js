@@ -7,7 +7,7 @@ export default Ember.Service.extend({
     return new Ember.RSVP.Promise(function(resolve, reject) {
       Ember.$.ajax({
         type: 'POST',
-        url: 'api/authentication/login.json',
+        url: '/api/authentication/login.json',
         data: { email: email, password: password },
         dataType: 'json',
         success: Ember.run.bind(null, resolve),
@@ -39,7 +39,7 @@ export default Ember.Service.extend({
     return new Ember.RSVP.Promise(function(resolve, reject) {
       Ember.$.ajax({
         type: 'POST',
-        url: 'api/authentication/logout.json',
+        url: '/api/authentication/logout.json',
         dataType: 'json',
         headers: session.get('header'),
         success: Ember.run.bind(null, resolve),
