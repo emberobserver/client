@@ -11,7 +11,7 @@
     </div>{{/if}}<b>{{commify model.lastMonthDownloads}}</b> downloads in last month
   </li>
   {{#if model.demoUrl}}
-  <li class="test-addon-demo-url"><b>demo</b> {{human-url url=model.demoUrl}}</li>
+    <li class="test-addon-demo-url"><b>demo</b> {{human-url url=model.demoUrl}}</li>
   {{/if}}
   <li class="test-addon-repo-url"><b>repo</b> {{human-url url=model.repositoryUrl}}</li>
   <li class="test-addon-package-url"><b>package</b> {{human-url url=model.npmUrl}}</li>
@@ -38,11 +38,11 @@
 
 <h6>maintainers</h6>
 <p class="test-addon-maintainers">
-{{#each maintainers as |maintainer|}}
-  {{#link-to "maintainers.show" maintainer}}
-    {{gravatar-avatar gravatarId=maintainer.gravatar title=maintainer.name alt=maintainer.name}}
-  {{/link-to}}
-{{/each}}
+  {{#each maintainers as |maintainer|}}
+    {{#link-to "maintainers.show" maintainer}}
+      {{gravatar-avatar gravatarId=maintainer.gravatar title=maintainer.name alt=maintainer.name}}
+    {{/link-to}}
+  {{/each}}
 </p>
 
 {{#if model.latestVersion.emberCliVersion}}
@@ -62,7 +62,7 @@
   {{#if showBadgeText}}
     <hr>
     <code class="test-badge-markdown">
-     {{badgeText}}
+      {{badgeText}}
     </code>
   {{/if}}
 </section>
