@@ -46,7 +46,7 @@ export default Ember.Component.extend(FocusableComponent, {
     return null;
   }),
   clearSearch() {
-    this.get('metrics').trackEvent({ category: 'Clear Search', action: `Clear on ${document.location.pathname}`});
+    this.get('metrics').trackEvent({ category: 'Clear Search', action: `Clear on ${document.location.pathname}` });
 
     this.set('query', '');
     this.set('_results', null);
@@ -58,4 +58,3 @@ export default Ember.Component.extend(FocusableComponent, {
     });
   }
 });
-

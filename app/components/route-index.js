@@ -12,4 +12,3 @@ export default Ember.Component.extend({
     return this.get('addonSets.recentlyReviewed').slice(0, 10);
   })
 });
-
