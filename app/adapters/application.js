@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ActiveModelAdapter from 'active-model-adapter';
+import cachedAjax from '../utils/network-cache';
 
 export default ActiveModelAdapter.extend({
   namespace: 'api',
@@ -8,5 +9,9 @@ export default ActiveModelAdapter.extend({
     if (this.get('session.isAuthenticated')) {
       return this.get('session.header');
     }
-  })
+  }),
+
+  ajax(url, type, options) {
+    return cachedAjax(url, type, options, () => this._super(url, type, options));
+  }
 });
