@@ -6,11 +6,19 @@ const Router = Ember.Router.extend({
   rootURL: config.rootURL,
   metrics: Ember.inject.service(),
 
+  willTransition() {
+    this._super(...arguments);
+    performance.mark('willTransition');
+  },
+
   didTransition() {
     this._super(...arguments);
     this._trackPage();
+    performance.mark('didTransition');
   },
+
   previousPage: null,
+
   _trackPage() {
     Ember.run.scheduleOnce('afterRender', this, () => {
       let page = document.location.pathname;

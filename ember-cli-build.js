@@ -25,6 +25,8 @@ module.exports = function(defaults) {
     options.inlineContent['snippets/trackjs'] = 'app/snippets/trackjs.html';
   }
 
+  options.inlineContent['snippets/performance-utils'] = 'app/snippets/performance-utils';
+
   options.minifyJS.enabled = parseFlag('MINIFY_JS', env === 'production');
 
   options.minifyCSS.enabled = parseFlag('MINIFY_CSS', env === 'production');

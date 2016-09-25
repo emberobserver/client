@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{rootURL}}assets/vendor.css">
     <link rel="stylesheet" href="{{rootURL}}assets/ember-addon-review.css">
 
+    {{content-for "snippets/perf-utils"}}
     {{content-for "snippets/favicon"}}
     {{content-for "snippets/external-fonts"}}
     {{content-for "snippets/trackjs"}}
@@ -23,8 +24,16 @@
   <body>
     {{content-for "body"}}
 
+    <script>performance.mark("beforeVendor");</script>
     <script src="{{rootURL}}assets/vendor.js"></script>
+    <script>performance.mark("beforeApp");</script>
+    <script>
+      if (window.location.search === "?perf.profile") {
+        console.profile("initialRender");
+      }
+    </script>
     <script src="{{rootURL}}assets/ember-addon-review.js"></script>
+    <script>performance.mark("afterApp");</script>
 
     {{content-for "body-footer"}}
   </body>
