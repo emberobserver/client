@@ -1,7 +1,7 @@
 {
   "name": "ember-addon-review",
   "dependencies": {
-    "ember": "2.9.0-beta.1",
+    "ember": "beta",
     "ember-cli-shims": "0.1.1",
     "ember-qunit-notifications": "0.1.0",
     "pretender": "~0.10.1",
@@ -13,5 +13,8 @@
   "devDependencies": {
     "bourbon": "4.2.3",
     "neat": "~1.7.1"
+  },
+  "resolutions": {
+    "ember": "beta"
   }
 }

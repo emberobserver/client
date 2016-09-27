@@ -1,4 +1,5 @@
 /* jshint node: true */
+var parseFlag = require('./parse-flag');
 
 module.exports = function(environment) {
   var ENV = {
@@ -16,8 +17,11 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
-    },
-    metricsAdapters: [
+    }
+  };
+
+  if (parseFlag('COLLECT_METRICS', true)) {
+    ENV.metricsAdapters = [
       {
         name: 'GoogleAnalytics',
         environments: ['production'],
@@ -29,8 +33,8 @@ module.exports = function(environment) {
         name: 'LocalAdapter',
         environments: ['development']
       }
-    ]
-  };
+    ];
+  }
 
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;

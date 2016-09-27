@@ -16,10 +16,16 @@ import LocalStorage from './local-storage';
  * (see below). Ideally, we would want to do this at a lower level by stubbing
  * `XMLHttpRequest`, which would allow all network requests to be captured
  * automatically.
+ *
+ * There are also two additional benchmarking modes `?perf.profile` and
+ * `?perf.tracing`. The former wraps the initial render in a CPU profile. The
+ * latter is intended to be used with `chrome-tracing` where it redirects to
+ * `about:blank` after the initial render as the termination signal. Both of
+ * these modes implies `?perf.playback`.
  */
 
 const SHOULD_CAPTURE  = location.search === '?perf.capture';
-const SHOULD_PLAYBACK = location.search === '?perf.playback';
+const SHOULD_PLAYBACK = location.search === '?perf.playback' || location.search === '?perf.profile' || location.search === '?perf.tracing';
 
 let EXPECTED_REQUESTS;
 
@@ -99,4 +105,37 @@ function done() {
   } else if (SHOULD_PLAYBACK) {
     console.log(`Played back all captured requests from localStorage`);
   }
+
+  performance.mark('dataLoaded');
+
+  Ember.run.schedule('afterRender', renderEnd);
+}
+
+function renderEnd() {
+  requestAnimationFrame(function () {
+    performance.mark('beforePaint');
+
+    requestAnimationFrame(function () {
+      performance.mark('afterPaint');
+
+      performance.measure('assets', 'domLoading', 'beforeVendor');
+
+      performance.measure('evalVendor', 'beforeVendor', 'beforeApp');
+      performance.measure('evalApp', 'beforeApp', 'afterApp');
+
+      performance.measure('boot', 'beforeVendor', 'willTransition');
+      performance.measure('routing', 'willTransition', 'didTransition');
+      performance.measure('render', 'didTransition', 'beforePaint');
+      performance.measure('paint', 'beforePaint', 'afterPaint');
+
+      performance.measure('data', 'willTransition', 'dataLoaded');
+      performance.measure('adterData', 'dataLoaded', 'beforePaint');
+
+      if (location.search === '?perf.capture' || location.search === '?perf.tracing') {
+        document.location.href = 'about:blank';
+      } else if (location.search === '?perf.profile') {
+        console.profileEnd('initialRender'); // eslint-disable-line no-console
+      }
+    });
+  });
 }
