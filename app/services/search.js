@@ -59,6 +59,6 @@ function findMatches(query, prop, items) {
   return results;
 }
 
-function escapeForRegex (str) {
+function escapeForRegex(str) {
   return str.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, '\\$&');
 }

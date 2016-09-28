@@ -10,7 +10,7 @@ export default Ember.Service.extend({
     let data = this.get('data');
     return data.map(dataForVersion).compact();
   }.property('isLoaded', 'data'),
-  fetch: function () {
+  fetch: function() {
     if (this.get('isLoaded')) { return; }
     this.get('ajax').request(this.url).then((response) => {
       this.set('data', response);
