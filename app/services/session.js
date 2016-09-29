@@ -14,19 +14,19 @@ export default Ember.Service.extend({
         error: Ember.run.bind(null, reject)
       });
     }).then(function(response) {
-        return new Ember.RSVP.Promise(function(resolve, reject) {
-          if (response.token) {
-            session.set('token', response.token);
-            LocalStore.save('sessionToken', response.token);
-            resolve();
-          } else {
-            reject();
-          }
-        });
-      }).catch(function() {
-        session.clearToken();
-        console.log('Failed logging in');
+      return new Ember.RSVP.Promise(function(resolve, reject) {
+        if (response.token) {
+          session.set('token', response.token);
+          LocalStore.save('sessionToken', response.token);
+          resolve();
+        } else {
+          reject();
+        }
       });
+    }).catch(function() {
+      session.clearToken();
+      console.log('Failed logging in');
+    });
   },
   fetch: function() {
     var token = LocalStore.fetch('sessionToken');
@@ -46,8 +46,8 @@ export default Ember.Service.extend({
         error: Ember.run.bind(null, reject)
       });
     }).finally(function() {
-        session.clearToken();
-      });
+      session.clearToken();
+    });
   },
   clearToken: function() {
     this.set('token', null);
@@ -59,7 +59,7 @@ export default Ember.Service.extend({
   }.property('token')
 });
 
-function isPresent (strProp) {
+function isPresent(strProp) {
   return Ember.computed(strProp, function() {
     var str = this.get(strProp);
     return typeof str !== 'undefined' && !( /^\s*$/ ).test(str) && (str !== null);

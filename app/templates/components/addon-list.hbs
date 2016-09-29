@@ -1,43 +1,43 @@
 <ul class="addon-list">
   {{#each addons as |addon|}}
-      <li class="test-addon-row">
-        {{#if showRanking}}
-          <span class="ranking">#{{addon.ranking}}</span>
+    <li class="test-addon-row">
+      {{#if showRanking}}
+        <span class="ranking">#{{addon.ranking}}</span>
+      {{else}}
+        {{#if addon.isDeprecated}}
+          <span class="score deprecated">x</span>
+        {{else if addon.isWip}}
+          <span class="score wip">WIP</span>
+        {{else if addon.score}}
+          <span class="score" data-score="{{addon.score}}">{{addon.score}}</span>
         {{else}}
-          {{#if addon.isDeprecated}}
-            <span class="score deprecated">x</span>
-          {{else if addon.isWip}}
-            <span class="score wip">WIP</span>
-          {{else if addon.score}}
-            <span class="score" data-score="{{addon.score}}">{{addon.score}}</span>
-          {{else}}
-            <span class="score">?</span>
-          {{/if}}
+          <span class="score">?</span>
         {{/if}}
-        <div class="desc">
-          {{#link-to "addons.show" addon.name (query-params query="") class="addon-link"}}
-            <span class="addon-name">
-              {{addon.name}}
-              {{#if addon.isDeprecated}}
-                <span class="notice">
-                  (Deprecated)
-                </span>
-              {{/if}}
-            </span>
-            {{#if addon.isOfficial}}
-              <span class="icon-stars official" title="Offical Ember-CLI addon"></span>
+      {{/if}}
+      <div class="desc">
+        {{#link-to "addons.show" addon.name (query-params query="") class="addon-link"}}
+          <span class="addon-name">
+            {{addon.name}}
+            {{#if addon.isDeprecated}}
+              <span class="notice">
+                (Deprecated)
+              </span>
             {{/if}}
-            {{#if addon.isCliDependency}}
-              <span class="icon-stars dependency" title="Dependency of newly generated Ember-CLI applications"></span>
-            {{/if}}
-            <small>- {{addon.description}}</small>
-          {{/link-to}}
-          <p>
-            <small>{{inline-category-list categories=addon.categories}}</small>
-            <span class="last-updated">Last updated {{relative-time date=addon.latestVersionDate}}</span>
-          </p>
-        </div>
-      </li>
+          </span>
+          {{#if addon.isOfficial}}
+            <span class="icon-stars official" title="Official Ember-CLI addon"></span>
+          {{/if}}
+          {{#if addon.isCliDependency}}
+            <span class="icon-stars dependency" title="Dependency of newly generated Ember-CLI applications"></span>
+          {{/if}}
+          <small>- {{addon.description}}</small>
+        {{/link-to}}
+        <p>
+          <small>{{inline-category-list categories=addon.categories}}</small>
+          <span class="last-updated">Last updated {{relative-time date=addon.latestVersionDate}}</span>
+        </p>
+      </div>
+    </li>
   {{/each}}
   {{yield}}
 </ul>

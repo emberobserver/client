@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-export function pluralizeThis (params/*, hash*/) {
+export function pluralizeThis(params/*, hash*/) {
   let count = params[0] || 0;
   let singular = params[1];
   let plural = params[2] || singular + 's';
