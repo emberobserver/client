@@ -4,9 +4,6 @@
     "ember": "beta",
     "ember-cli-shims": "0.1.1",
     "ember-qunit-notifications": "0.1.0",
-    "pretender": "~0.10.1",
-    "lodash": "~3.7.0",
-    "Faker": "~3.0.0",
     "showdown": "^1.4.2",
     "sanitize.js": "^1.0.0"
   },

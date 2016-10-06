@@ -5,11 +5,12 @@ import moment from 'moment';
 moduleForAcceptance('Acceptance | build results');
 
 test('displays basic info about a build', function(assert) {
+  server.logging = true;
   let addon = server.create('addon');
-  let addonVersion = server.create('version', { addon_id: addon.id });
-  server.create('test_result', {
-    version_id: addonVersion.id,
-    tests_run_at: moment('2016-08-07 16:30').utc()
+  let addonVersion = server.create('version', { addonId: addon.id });
+  server.create('testResult', {
+    versionId: addonVersion.id,
+    testsRunAt: moment('2016-08-07 16:30').utc()
   });
 
   login();
@@ -25,18 +26,18 @@ test('displays basic info about a build', function(assert) {
 
 test('sorts results by run date', function(assert) {
   let addon = server.create('addon');
-  let addonVersion = server.create('version', { addon_id: addon.id });
-  let middleTestResult = server.create('test_result', {
-    vesion_id: addonVersion.id,
-    tests_run_at: moment().subtract(6, 'hours').utc()
+  let addonVersion = server.create('version', { addonId: addon.id });
+  let middleTestResult = server.create('testResult', {
+    vesionId: addonVersion.id,
+    testsRunAt: moment().subtract(6, 'hours').utc()
   });
-  let earliestTestResult = server.create('test_result', {
-    version_id: addonVersion.id,
-    tests_run_at: moment().subtract(12, 'hours').utc()
+  let earliestTestResult = server.create('testResult', {
+    versionId: addonVersion.id,
+    testsRunAt: moment().subtract(12, 'hours').utc()
   });
-  let latestTestResult = server.create('test_result', {
-    version_id: addonVersion.id,
-    tests_run_at: moment().utc()
+  let latestTestResult = server.create('testResult', {
+    versionId: addonVersion.id,
+    testsRunAt: moment().utc()
   });
 
   login();
@@ -51,17 +52,17 @@ test('sorts results by run date', function(assert) {
 
 test('displays appropriate status based on result', function(assert) {
   let addon = server.create('addon');
-  let addonVersion = server.create('version', { addon_id: addon.id });
-  server.create('test_result', {
-    version_id: addonVersion.id,
+  let addonVersion = server.create('version', { addonId: addon.id });
+  server.create('testResult', {
+    versionId: addonVersion.id,
     succeeded: false,
-    status_message: 'timed out',
-    tests_run_at: moment().subtract(30, 'minutes').utc()
+    statusMessage: 'timed out',
+    testsRunAt: moment().subtract(30, 'minutes').utc()
   });
-  server.create('test_result', {
-    version_id: addonVersion.id,
+  server.create('testResult', {
+    versionId: addonVersion.id,
     succeeded: true,
-    tests_run_at: moment().subtract(1, 'hour').utc()
+    testsRunAt: moment().subtract(1, 'hour').utc()
   });
 
   login();
@@ -76,11 +77,11 @@ test('displays appropriate status based on result', function(assert) {
 test('displays semver string for non-canary builds', function(assert) {
   let addon = server.create('addon');
   let addonVersion = server.create('version', { addon_id: addon.id });
-  server.create('test_result', {
-    version_id: addonVersion.id,
+  server.create('testResult', {
+    versionId: addonVersion.id,
     canary: false,
-    semver_string: '>= 2.0.0',
-    tests_run_at: moment('2016-08-07 16:30').utc()
+    semverString: '>= 2.0.0',
+    testsRunAt: moment('2016-08-07 16:30').utc()
   });
 
   login();
@@ -99,10 +100,10 @@ test('displays semver string for non-canary builds', function(assert) {
 test('displays appropriate indication for canary builds', function(assert) {
   let addon = server.create('addon');
   let addonVersion = server.create('version', { addon_id: addon.id });
-  server.create('test_result', {
-    version_id: addonVersion.id,
+  server.create('testResult', {
+    versionId: addonVersion.id,
     canary: true,
-    tests_run_at: moment('2016-08-07 16:30').utc()
+    testsRunAt: moment('2016-08-07 16:30').utc()
   });
 
   login();
@@ -120,7 +121,7 @@ test('displays appropriate indication for canary builds', function(assert) {
 
 test('links to detail for individual builds', function(assert) {
   let version = server.create('version');
-  let testResult = server.create('test_result', { version_id: version.id });
+  let testResult = server.create('testResult', { versionId: version.id });
 
   login();
   visit('/admin/build-results');
@@ -134,14 +135,14 @@ test('links to detail for individual builds', function(assert) {
 test('detail page shows data for a build', function(assert) {
   let addon = server.create('addon');
   let version = server.create('version', {
-    addon_id: addon.id
+    addonId: addon.id
   });
-  let testResult = server.create('test_result', {
-    version_id: version.id,
+  let testResult = server.create('testResult', {
+    versionId: version.id,
     output: 'this is the output',
-    tests_run_at: moment('2016-08-01 12:34:56').utc()
+    testsRunAt: moment('2016-08-01 12:34:56').utc()
   });
-  server.db.versions.update(version, { test_result_id: testResult.id });
+  server.db.versions.update(version, { testResultId: testResult.id });
 
   login();
   visit(`/admin/build-results/${testResult.id}`);
@@ -156,11 +157,11 @@ test('detail page shows data for a build', function(assert) {
 
 test('detail page shows "succeeded" for status when build succeeded', function(assert) {
   let version = server.create('version');
-  let testResult = server.create('test_result', {
-    version_id: version.id,
+  let testResult = server.create('testResult', {
+    versionId: version.id,
     succeeded: true
   });
-  server.db.versions.update(version, { test_result_id: testResult.id });
+  server.db.versions.update(version, { testResultId: testResult.id });
 
   login();
   visit(`/admin/build-results/${testResult.id}`);
@@ -172,12 +173,12 @@ test('detail page shows "succeeded" for status when build succeeded', function(a
 
 test('detail page shows status message when build did not succeeded', function(assert) {
   let version = server.create('version');
-  let testResult = server.create('test_result', {
-    version_id: version.id,
+  let testResult = server.create('testResult', {
+    versionId: version.id,
     succeeded: false,
-    status_message: 'this is the status'
+    statusMessage: 'this is the status'
   });
-  server.db.versions.update(version, { test_result_id: testResult.id });
+  server.db.versions.update(version, { testResultId: testResult.id });
 
   login();
   visit(`/admin/build-results/${testResult.id}`);
@@ -191,12 +192,12 @@ test('detail page has a "retry" button for failed builds', function(assert) {
   assert.expect(2);
 
   let version = server.create('version');
-  let testResult = server.create('test_result', {
-    version_id: version.id,
+  let testResult = server.create('testResult', {
+    versionId: version.id,
     succeeded: false,
-    status_message: 'failed'
+    statusMessage: 'failed'
   });
-  server.db.versions.update(version, { test_result_id: testResult.id });
+  server.db.versions.update(version, { testResultId: testResult.id });
 
   server.post('/test_results/:id/retry', function() {
     assert.ok(true, 'makes retry request');
@@ -214,11 +215,11 @@ test('detail page has a "retry" button for failed builds', function(assert) {
 
 test('detail page does not have a "retry" button for successful builds', function(assert) {
   let version = server.create('version');
-  let testResult = server.create('test_result', {
-    version_id: version.id,
+  let testResult = server.create('testResult', {
+    versionId: version.id,
     succeeded: true
   });
-  server.db.versions.update(version, { test_result_id: testResult.id });
+  server.db.versions.update(version, { testResultId: testResult.id });
 
   login();
   visit(`/admin/build-results/${testResult.id}`);

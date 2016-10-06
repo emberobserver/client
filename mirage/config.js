@@ -14,31 +14,44 @@ export default function() {
 
   this.get('/categories');
 
-  this.get('/addons', function(db, request) {
+  this.get('/addons', function(schema, request) {
     if (request.queryParams.name) {
-      var addons = db.addons.where({ name: request.queryParams.name });
-      var readmes = db.readmes.find(addons.mapBy('readme_id'));
-      return { addon: addons[0], readmes };
+      return schema.addons.where({ name: request.queryParams.name }).models[0];
     }
 
-    let simpleAddonProps = ['id', 'name', 'latest_version_date', 'latest_reviewed_version_date', 'description', 'is_deprecated', 'is_official', 'is_cli_dependency', 'is_hidden', 'score', 'is_wip'];
-    let simpleAddonData = db.addons.map(function(addon) {
-      return Ember.$.extend({}, window._.pick(addon, simpleAddonProps), { is_fully_loaded: false });
+    let simpleAddonData = schema.db.addons.map(function(addon) {
+      return {
+        id: addon.id,
+        name: addon.name,
+        latest_version_date: addon.latestVersionDate,
+        latest_reviewed_version_date: addon.latestReviewedVersionDate,
+        description: addon.description,
+        is_deprecated: addon.isDeprecated,
+        is_official: addon.isOfficial,
+        is_cli_dependency: addon.isCliDependency,
+        is_hidden: addon.isHidden,
+        score: addon.score,
+        is_wip: addon.isWip,
+        is_fully_loaded: false
+      };
     });
     return { addons: simpleAddonData };
   });
 
   this.get('/maintainers');
   this.get('/keywords');
-  this.get('/versions', ['versions', 'reviews', 'test_results', 'ember_version_compatibilities']);
+  this.get('/versions', ['reviews', 'testResults', 'emberVersionCompatibilities', 'versions']);
   this.get('/reviews');
   this.get('/build_servers');
-  this.get('/test_results', ['test_results', 'versions']);
-  this.get('/test_results/:id', [ 'test_result', 'versions' ]);
+  this.get('/test_results');
+  this.get('/test_results/:id');
+  this.post('/authentication/login.json');
 
   this.get('https://api.github.com/repos/emberjs/ember.js/releases', function(/*db, request*/) {
     return EmberVersionsResponse;
   });
+
+
   /*
     Route shorthand cheatsheet
   */

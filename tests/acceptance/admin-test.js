@@ -1,18 +1,7 @@
-import Ember from 'ember';
-import { module, test } from 'qunit';
-import startApp from 'ember-addon-review/tests/helpers/start-app';
+import { test } from 'qunit';
+import moduleForAcceptance from 'ember-addon-review/tests/helpers/module-for-acceptance';
 
-var application;
-
-module('Acceptance: admin', {
-  beforeEach: function() {
-    application = startApp();
-  },
-
-  afterEach: function() {
-    Ember.run(application, 'destroy');
-  }
-});
+moduleForAcceptance('Acceptance: admin');
 
 test('visiting /admin not logged in', function(assert) {
   visit('/admin');
@@ -51,29 +40,29 @@ test('reviewing addons', function(assert) {
   });
 
   var review = server.create('review', {
-    addon_id: addon.id,
-    has_tests: 1,
-    has_readme: 4,
-    is_more_than_empty_addon: 3,
-    is_open_source: 2,
-    has_build: 1,
+    addonId: addon.id,
+    hasTests: 1,
+    hasReadme: 4,
+    isMoreThanEmptyAddon: 3,
+    isOpenSource: 2,
+    hasBuild: 1,
     review: 'Seems ok'
   });
 
   server.create('version', {
-    addon_id: addon.id,
-    review_id: review.id,
+    addonId: addon.id,
+    reviewId: review.id,
     released: window.moment().subtract(3, 'months')
   });
 
   var latestVersion = server.create('version', {
-    addon_id: addon.id,
+    addonId: addon.id,
     released: window.moment().subtract(1, 'months')
   });
 
   server.create('category', {
     name: 'Category1',
-    addon_ids: [addon.id]
+    addonIds: [addon.id]
   });
 
   server.post('/reviews', function(db, request) {
@@ -114,23 +103,23 @@ test('renewing a review', function(assert) {
   });
 
   var review = server.create('review', {
-    addon_id: addon.id,
-    has_tests: 1,
-    has_readme: 4,
-    is_more_than_empty_addon: 3,
-    is_open_source: 2,
-    has_build: 1,
+    addonId: addon.id,
+    hasTests: 1,
+    hasReadme: 4,
+    isMoreThanEmptyAddon: 3,
+    isOpenSource: 2,
+    hasBuild: 1,
     review: 'Seems ok'
   });
 
   server.create('version', {
-    addon_id: addon.id,
-    review_id: review.id,
+    addonId: addon.id,
+    reviewId: review.id,
     released: window.moment().subtract(3, 'months')
   });
 
   var latestVersion = server.create('version', {
-    addon_id: addon.id,
+    addonId: addon.id,
     released: window.moment().subtract(1, 'months')
   });
 
@@ -159,20 +148,20 @@ test('updating addons', function(assert) {
   var addon = server.create('addon', {
     name: 'test-addon',
     note: '#note',
-    is_official: true,
-    is_deprecated: true
+    isOfficial: true,
+    isDeprecated: true
   });
   server.create('category', {
     name: 'Category1',
-    addon_ids: [addon.id]
+    addonIds: [addon.id]
   });
   var category2 = server.create('category', {
     name: 'Category2',
-    addon_ids: [addon.id]
+    addonIds: [addon.id]
   });
   var category3 = server.create('category', {
     name: 'Category3',
-    addon_ids: []
+    addonIds: []
   });
 
   server.put('/addons/1', function(db, request) {

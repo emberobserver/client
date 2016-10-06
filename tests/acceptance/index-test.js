@@ -1,18 +1,7 @@
-import { module, test } from 'qunit';
-import startApp from '../helpers/start-app';
-import stopApp from '../helpers/stop-app';
+import { test } from 'qunit';
+import moduleForAcceptance from 'ember-addon-review/tests/helpers/module-for-acceptance';
 
-var application;
-
-module('Acceptance: Index', {
-  beforeEach: function() {
-    application = startApp();
-  },
-
-  afterEach: function() {
-    stopApp(application);
-  }
-});
+moduleForAcceptance('Acceptance: Index');
 
 test('visiting /', function(assert) {
   server.createList('category', 7);
@@ -20,24 +9,24 @@ test('visiting /', function(assert) {
   var category = server.create('category',
     {
       name: 'Authentication',
-      addon_ids: addons.mapBy('id'),
+      addonIds: addons.mapBy('id'),
       description: 'Addons for auth'
     });
 
   server.create('category',
     {
       name: 'Simple Auth',
-      addon_ids: [addons[0].id],
+      addonIds: [addons[0].id],
       description: 'Simple Auth addons',
-      parent_id: category.id
+      parentId: category.id
     });
 
   server.create('category',
     {
       name: 'Other Auth',
-      addon_ids: [addons[1].id],
+      addonIds: [addons[1].id],
       description: 'Other Auth addons',
-      parent_id: category.id
+      parentId: category.id
     });
 
   visit('/');

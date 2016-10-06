@@ -12,7 +12,7 @@ test('not-logged-in users cannot see list of build servers', function(assert) {
 });
 
 test('index page lists all build servers', function(assert) {
-  server.createList('build_server', 15);
+  server.createList('buildServer', 15);
 
   login();
   visit('/admin/build-servers');
@@ -28,8 +28,7 @@ test('adding a new build server', function(assert) {
   server.post('/build_servers', function(db, request) {
     let requestBody = JSON.parse(request.requestBody);
     assert.equal(requestBody.build_server.name, 'new-server-name', 'makes the correct HTTP call');
-    let buildServer = server.create('build_server', requestBody.build_server);
-    return { build_server: buildServer };
+    return server.create('buildServer', requestBody.build_server);
   });
 
   login();

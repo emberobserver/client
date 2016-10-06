@@ -1,21 +1,7 @@
-import Ember from 'ember';
-import {
-  module,
-  test
-} from 'qunit';
-import startApp from 'ember-addon-review/tests/helpers/start-app';
+import { test } from 'qunit';
+import moduleForAcceptance from 'ember-addon-review/tests/helpers/module-for-acceptance';
 
-var application;
-
-module('Acceptance: Maintainers', {
-  beforeEach: function() {
-    application = startApp();
-  },
-
-  afterEach: function() {
-    Ember.run(application, 'destroy');
-  }
-});
+moduleForAcceptance('Acceptance: Maintainers');
 
 test('can view page for a valid maintainer', function(assert) {
   server.create('maintainer', 1);

@@ -1,22 +1,9 @@
 import Ember from 'ember';
-import {
-  module,
-  test
-} from 'qunit';
-import startApp from 'ember-addon-review/tests/helpers/start-app';
-import EmberVersionsResponse from 'ember-addon-review/mirage/ember-version-response';
+import { test } from 'qunit';
+import moduleForAcceptance from 'ember-addon-review/tests/helpers/module-for-acceptance';
+import EmberVersionsResponse from '../ember-version-response';
 
-var application;
-
-module('Acceptance: Addons', {
-  beforeEach: function() {
-    application = startApp();
-  },
-
-  afterEach: function() {
-    Ember.run(application, 'destroy');
-  }
-});
+moduleForAcceptance('Acceptance: Addons');
 
 test('addon not found', function(assert) {
   visit('/addons/what');
@@ -54,7 +41,7 @@ test('Does not display category list', function(assert) {
 test('displays WIP for score when addon is WIP', function(assert) {
   var addon = server.create('addon', {
     name: 'test-wip',
-    is_wip: true
+    isWip: true
   });
 
   visit(`/addons/${addon.name}`);
@@ -80,7 +67,7 @@ test('displays N/A for score when addon has no score', function(assert) {
 test('displays note', function(assert) {
   var addon = server.create('addon', {
     name: 'test-addon-with-note',
-    rendered_note: '<h2 class="test-rendered-note">RenderedNote</h2>'
+    renderedNote: '<h2 class="test-rendered-note">RenderedNote</h2>'
   });
 
   visit(`/addons/${addon.name}`);
@@ -91,18 +78,19 @@ test('displays note', function(assert) {
 });
 
 test('displays categories', function(assert) {
+  server.logging = true;
   var addon = server.create('addon', {
     name: 'test-addon-with-categories'
   });
 
   server.create('category', {
     name: 'A category for categories',
-    addon_ids: [addon.id]
+    addonIds: [addon.id]
   });
 
   server.create('category', {
     name: 'Another category for categories',
-    addon_ids: [addon.id]
+    addonIds: [addon.id]
   });
 
   visit(`/addons/${addon.name}`);
@@ -116,13 +104,13 @@ test('displays categories', function(assert) {
 test('displays github data', function(assert) {
   var addon = server.create('addon', {
     name: 'test-addon-with-github-data',
-    open_issues: 13,
+    openIssues: 13,
     forks: 94,
     stars: 37,
     contributors: [{}, {}],
-    is_top_starred: true,
-    latest_commit_date: window.moment().subtract(2, 'months').toString(),
-    first_commit_date:  window.moment().subtract(1, 'years').toString()
+    isTopStarred: true,
+    latestCommitDate: window.moment().subtract(2, 'months').toString(),
+    firstCommitDate:  window.moment().subtract(1, 'years').toString()
   });
 
   visit(`/addons/${addon.name}`);
@@ -135,21 +123,6 @@ test('displays github data', function(assert) {
     assert.containsExactly('.test-contributors', '2 Contributors');
     assert.containsExactly('.test-latest-commit time', '2 months ago');
     assert.containsExactly('.test-first-commit time', 'a year ago');
-  });
-});
-
-test('singularizes text for Github stats when value is 1', function(assert) {
-  let addon = server.create('addon', {
-    open_issues: 1,
-    forks: 1,
-    contributors: [ {} ]
-  });
-  visitAddon(addon);
-
-  andThen(function() {
-    assert.containsExactly('.test-open-issues', '1 Open Issue');
-    assert.containsExactly('.test-forks', '1 Fork');
-    assert.containsExactly('.test-contributors', '1 Contributor');
   });
 });
 
@@ -170,10 +143,10 @@ test('displays header', function(assert) {
 
   var addonWithFlags = server.create('addon', {
     name: 'test-addon-with-flags',
-    is_deprecated: true,
-    is_new_addon: true,
-    is_official: true,
-    is_cli_dependency: true
+    isDeprecated: true,
+    isNewAddon: true,
+    isOfficial: true,
+    isCliDependency: true
   });
 
   visit(`/addons/${addonWithFlags.name}`);
@@ -203,29 +176,29 @@ test('displays review', function(assert) {
   });
 
   var review = server.create('review', {
-    addon_id: addonWithReview.id,
-    has_tests: 1,
-    has_readme: 4,
-    is_more_than_empty_addon: 3,
-    is_open_source: 2,
-    has_build: 1,
+    addonId: addonWithReview.id,
+    hasTests: 1,
+    hasReadme: 4,
+    isMoreThanEmptyAddon: 3,
+    isOpenSource: 2,
+    hasBuild: 1,
     review: 'Seems ok'
   });
 
   var addonVersion = server.create('version', {
-    addon_id: addonWithReview.id,
-    review_id: review.id,
+    addonId: addonWithReview.id,
+    reviewId: review.id,
     released: window.moment().subtract(3, 'months')
   });
 
   //Newer version without review
   server.create('version', {
-    addon_id: addonWithReview.id,
-    review_id: null,
+    addonId: addonWithReview.id,
+    reviewId: null,
     released: window.moment().subtract(1, 'months')
   });
 
-  review.version_id = addonVersion.id;
+  review.update('versionId', addonVersion.id);
 
   visit(`/addons/${addonWithReview.name}`);
 
@@ -248,45 +221,46 @@ test('displays review', function(assert) {
 });
 
 test('displays addon stats', function(assert) {
+  server.logging = true;
   var maintainers = server.createList('maintainer', 3);
 
   var addon = server.create('addon', {
     name: 'test-addon',
-    maintainer_ids: maintainers.map((m) => m.id),
-    latest_version_date: window.moment().subtract(3, 'months'),
-    is_top_downloaded: true,
-    last_month_downloads: 1564,
-    demo_url: 'http://www.example.com/demo_of_addon',
-    repository_url: 'http://www.example.com/addon_repo',
+    maintainerIds: maintainers.map((m) => m.id),
+    latestVersionDate: window.moment().subtract(3, 'months'),
+    isTopDownloaded: true,
+    lastMonthDownloads: 1564,
+    demoUrl: 'http://www.example.com/demo_of_addon',
+    repositoryUrl: 'http://www.example.com/addon_repo',
     license: 'MIT'
   });
 
   server.create('version', {
     version: '1.0.1',
-    addon_id: addon.id,
-    ember_cli_version: '1.13.1',
+    addonId: addon.id,
+    emberCliVersion: '1.13.1',
     released: window.moment().subtract(3, 'months')
   });
 
   server.create('version', {
     version: '1.0.0',
-    addon_id: addon.id,
-    ember_cli_version: '1.13.0',
+    addonId: addon.id,
+    emberCliVersion: '1.13.0',
     released: window.moment().subtract(4, 'months')
   });
 
   server.get('https://api.github.com/repos/emberjs/ember.js/releases', function(/*db, request*/) {
     let version = Ember.copy(EmberVersionsResponse[0]);
     version['published_at'] = window.moment().subtract(14, 'weeks');
-    version['tag_name'] = 'Ember v15.0.0';
+    version['tag_name'] = 'v15.0.0';
     let olderVersion = Ember.copy(EmberVersionsResponse[1]);
     olderVersion['published_at'] = window.moment().subtract(5, 'months');
-    olderVersion['tag_name'] = 'Ember v14.0.0';
+    olderVersion['tag_name'] = 'v14.0.0';
 
     return [version, olderVersion];
   });
 
-  server.createList('keyword', 5, { addon_ids: [addon.id] });
+  server.createList('keyword', 5, { addonIds: [addon.id] });
 
   visit(`/addons/${addon.name}`);
 
@@ -335,22 +309,5 @@ test('displays addon stats', function(assert) {
   click('.test-addon-badge .test-show-badge-markdown');
   andThen(function() {
     assert.contains('.test-addon-badge .test-badge-markdown', '[![Ember Observer Score](https://emberobserver.com/badges/test-addon.svg)](https://emberobserver.com/addons/test-addon)');
-  });
-});
-
-test('displays readme', function(assert) {
-  var readme = server.create('readme', {
-    contents: 'fudgesicles'
-  });
-
-  var addon = server.create('addon', {
-    name: 'test-addon',
-    readme_id: readme.id
-  });
-
-  visitAddon(addon);
-
-  andThen(() => {
-    assert.contains('.test-addon-readme', readme.contents);
   });
 });

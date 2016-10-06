@@ -1,20 +1,11 @@
-import Ember from 'ember';
-import { module, test } from 'qunit';
-import startApp from 'ember-addon-review/tests/helpers/start-app';
+import { test } from 'qunit';
+import moduleForAcceptance from 'ember-addon-review/tests/helpers/module-for-acceptance';
 
-module('Acceptance | admin sections', {
-  beforeEach: function() {
-    this.application = startApp();
-  },
-
-  afterEach: function() {
-    Ember.run(this.application, 'destroy');
-  }
-});
+moduleForAcceptance('Acceptance | admin sections');
 
 test('"Addons needing categorization" section does not include WIP addons', function(assert) {
   server.createList('addon', 10);
-  server.create('addon', { is_wip: true });
+  server.create('addon', { isWip: true });
 
   login();
   visit('/admin');
@@ -32,7 +23,7 @@ test('"Addons needing categorization" section does not include WIP addons', func
 
 test('"Addons needing review" section does not include WIP addons', function(assert) {
   server.createList('addon', 10);
-  server.create('addon', { is_wip: true });
+  server.create('addon', { isWip: true });
 
   login();
   visit('/admin');
@@ -50,8 +41,8 @@ test('"Addons needing review" section does not include WIP addons', function(ass
 
 test('"Addons with new updates since last review" section does not include addons with no reviews', function(assert) {
   server.createList('addon', 5, {
-    latest_version_date: window.moment().subtract(2, 'months'),
-    latest_reviewed_version_date: window.moment().subtract(3, 'months')
+    latestVersionDate: window.moment().subtract(2, 'months'),
+    latestReviewedVersionDate: window.moment().subtract(3, 'months')
   });
   server.createList('addon', 6);
 
@@ -71,7 +62,7 @@ test('"Addons with new updates since last review" section does not include addon
 
 test('"WIP addons" section includes only WIP addons', function(assert) {
   server.createList('addon', 5);
-  server.createList('addon', 6, { is_wip: true });
+  server.createList('addon', 6, { isWip: true });
 
   login();
   visit('/admin');
