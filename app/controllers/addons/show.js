@@ -37,7 +37,6 @@ export default Ember.Controller.extend({
   }.property('model.name'),
 
   latestTestResult: Ember.computed('model.sortedVersions.@each.latestTestResult', function() {
-    debugger;
     return this.get('model.sortedVersions').filter(version => version.get('latestTestResult')).get('firstObject.latestTestResult');
   }),
   isTestResultForLatestVersion: Ember.computed('latestTestResult.version', 'model.latestVersion', function() {

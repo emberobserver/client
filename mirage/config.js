@@ -1,5 +1,4 @@
 import EmberVersionsResponse from './ember-version-response';
-import Ember from 'ember';
 export default function() {
 
   // These comments are here to help you get started. Feel free to delete them.
