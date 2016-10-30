@@ -1,4 +1,5 @@
-/*jshint node: true*/
+/*jshint node:true*/
+/* global require, module */
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 var parseFlag = require('./config/parse-flag');
 var env = EmberApp.env();
