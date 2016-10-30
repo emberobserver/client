@@ -25,6 +25,19 @@ module.exports = function() {
             "ember": "canary"
           }
         }
+      },
+      {
+        "name": "ember-source",
+        "bower": {
+          "dependencies": {
+            "ember": null
+          }
+        },
+        "npm": {
+          "devDependencies": {
+            "ember-source": "2.10.0-alpha.1"
+          }
+        }
       }
     ]
   };
