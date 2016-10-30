@@ -53,6 +53,7 @@
     "ember-multiselect-checkboxes": "0.10.0",
     "ember-resolver": "^2.0.3",
     "ember-sanitize": "2.0.0",
+    "ember-try": "ember-cli/ember-try#kg-update-removing",
     "ember-welcome-page": "^1.0.1",
     "emberx-select": "2.1.2",
     "glob": "^6.0.4",
