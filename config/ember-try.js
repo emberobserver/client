@@ -35,7 +35,7 @@ module.exports = function() {
         },
         "npm": {
           "devDependencies": {
-            "ember-source": "2.10.0-alpha.1"
+            "ember-source": "2.11.0-alpha.1"
           }
         }
       }
