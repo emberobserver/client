@@ -2,6 +2,8 @@ import Ember from 'ember';
 import { task, timeout } from 'ember-concurrency';
 import FocusableComponent from 'ember-component-focus/mixins/focusable-component';
 
+const MIN_LENGTH_SEARCH = 2;
+
 export default Ember.Component.extend(FocusableComponent, {
   store: Ember.inject.service(),
   session: Ember.inject.service(),
@@ -23,7 +25,7 @@ export default Ember.Component.extend(FocusableComponent, {
   queryIsValid: Ember.computed('query', function() {
     let emMatcher = /(^e$|^em$|^emb$|^embe$|^ember$|^ember-$)/;
     let query = this.get('query');
-    return !(Ember.isBlank(query) || query.length < 3 || emMatcher.test(query));
+    return !(Ember.isBlank(query) || query.length < MIN_LENGTH_SEARCH || emMatcher.test(query));
   }),
   search: task(function * (query) {
     this.set('query', query.trim());
