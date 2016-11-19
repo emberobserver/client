@@ -5,7 +5,6 @@ import moment from 'moment';
 moduleForAcceptance('Acceptance | build results');
 
 test('displays basic info about a build', function(assert) {
-  server.logging = true;
   let addon = server.create('addon');
   let addonVersion = server.create('version', { addonId: addon.id });
   server.create('testResult', {
