@@ -1,3 +1,17 @@
+<div>
+  {{#link-to 'admin.build-results.index' (query-params date=previousDay)}}
+    &laquo; previous day
+  {{/link-to}}
+</div>
+
+{{#if showFollowingDayLink}}
+<div>
+  {{#link-to 'admin.build-results.index' (query-params date=followingDay)}}
+    next day &raquo;
+  {{/link-to}}
+</div>
+{{/if}}
+
 <table>
   <thead>
     <tr>
