@@ -6,11 +6,16 @@ export default Ember.Controller.extend({
   buildResultSorting: [ 'testsRunAt:desc' ],
   sortedBuildResults: Ember.computed.sort('model', 'buildResultSorting'),
 
-  previousDay: Ember.computed('date', function() {
+  formattedDisplayDate: Ember.computed('date', function() {
+    return moment(this.get('date')).utc().format('YYYY-MM-DD');
+  }),
+
+  formattedPreviousDate: Ember.computed('date', function() {
     let date = this.get('date');
     return moment(date).subtract(1, 'day').format('YYYY-MM-DD');
   }),
-  followingDay: Ember.computed('date', function() {
+
+  formattedFollowingDate: Ember.computed('date', function() {
     let date = this.get('date');
     return moment(date).add(1, 'day').format('YYYY-MM-DD');
   }),

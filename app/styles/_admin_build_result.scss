@@ -3,3 +3,15 @@
     line-height: 1;
   }
 }
+
+
+.admin-build-result-nav {
+  text-align: center;
+
+  a.previous-day {
+    float: left;
+  }
+  a.next-day {
+    float: right;
+  }
+}
