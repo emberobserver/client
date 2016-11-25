@@ -1,0 +1,34 @@
+<h1 style="margin-left: 1.5rem;">Code Search</h1>
+<div class="search-wrapper">
+  <input type="search"
+         placeholder="Search for addons containing code"
+         autocomplete="off"
+         id="code-search-input"
+         spellcheck="false"
+         value={{query}}
+         oninput={{action (perform search) value="target.value"}}>
+  {{#if query}}
+    <button {{action "clearSearch"}} class="icon-close test-clear-search"></button>
+  {{/if}}
+</div>
+
+{{#if results.length}}
+  <h4 class="result-info">Addons containing "{{query}}"</h4>
+  <ul class="addon-list">
+    {{#each results as |result|}}
+      <li data-id="{{result.addon.id}}">
+        {{code-search-addon addon=result.addon}}
+          <div class="usage-count test-usage-count">
+            <a href="#">
+              <span class="icon-chevron-right"></span>
+              {{result.count}} {{pluralize result.count "usage"}}
+            </a>
+          </div>
+      </li>
+    {{/each}}
+  </ul>
+{{else if search.isRunning}}
+  {{dot-spinner}}
+{{else if hasSearchedAndNoResults}}
+  <h4 class="no-results">No addons found containing "{{query}}"</h4>
+{{/if}}

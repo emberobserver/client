@@ -58,6 +58,21 @@ export default function() {
     return EmberVersionsResponse;
   });
 
+  this.get('/search/addons', () => {
+    return {
+      results: [
+        {
+          addon: 'ember-try',
+          count: 1
+        },
+        {
+          addon: 'ember-blanket',
+          count: 3
+        }
+      ]
+    };
+  });
+
   /*
     Route shorthand cheatsheet
   */

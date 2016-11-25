@@ -1,0 +1,30 @@
+.code-search {
+  .search-wrapper {
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    padding: 1.5rem;
+  }
+
+  .icon-close {
+    position: absolute;
+    top: 50%;
+    right: 2rem;
+    margin-top: -1.5rem;
+    font-size: 2rem;
+    line-height: 1;
+    color: $light-gray;
+    background: none;
+    padding: 0;
+  }
+
+  .usage-count {
+    padding-left: 4rem;
+    margin-top: .5rem;
+    position: relative;
+  }
+
+  .no-results {
+    margin-left: 1.5rem;
+  }
+}
