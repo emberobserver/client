@@ -1,0 +1,16 @@
+<div class="usage-count">
+  <a {{action (perform toggleUsages)}} class="test-usage-count">
+    <span class={{if showUsages "icon-expand-more" "icon-chevron-right"}}></span>
+    {{count}} {{pluralize count "usage"}}
+  </a>
+  {{#if showUsages}}
+    {{#each usages as |usage|}}
+      <div class="usage test-usage">
+        <div class="filename">{{usage.filename}}:{{usage.line_number}}</div>
+        {{#each usage.lines as |line|}}
+          <pre class="line"><span class="number">{{line.number}}</span><span class="{{if (is-equal usage.line_number line.number) 'match'}}">{{line.text}}</span></pre>
+        {{/each}}
+      </div>
+    {{/each}}
+  {{/if}}
+</div>

@@ -48,3 +48,70 @@ test('searching for addons containing code', function(assert) {
     assert.notExists('.test-addon-name', 'Results are cleared');
   });
 });
+
+test('viewing addon source containing search query', function(assert) {
+  server.create('addon', { name: 'ember-try' });
+
+  let addonParam, queryParam;
+  server.get('/search/addons', () => {
+    return {
+      results: [
+        {
+          addon: 'ember-try',
+          count: 2
+        }
+      ]
+    };
+  });
+
+  server.get('/search/source', (db, request) => {
+    addonParam = request.queryParams.addon;
+    queryParam = request.queryParams.query;
+    return {
+      results: [
+        {
+          line_number: 52,
+          filename: 'app/services/fake-service.js',
+          lines: [
+            { text: "if (addonData) {", number: 51 },
+            { text: "addons.pushObject({ addon: addonData.addon });", number: 52 },
+            { text: "}", number: 53 }
+          ]
+        },
+        {
+          line_number: 21,
+          filename: 'app/components/fake-thing.js',
+          lines: [
+            { number: 20, text: '' },
+            { number: 21, text: 'store: inject.service(),' },
+            { number: 22, text: '' }
+          ]
+        }
+      ]
+    };
+  });
+
+  visit('/search');
+  fillIn('#code-search-input', 'asdf');
+  click('.test-usage-count');
+
+  andThen(function() {
+    assert.equal('ember-try', addonParam, 'Addon name is provided to request');
+    assert.equal('asdf', queryParam, 'Query is provided to request');
+
+    assert.exists('.test-usage:contains("app/services/fake-service.js:52")', 'Filename shows with line number of match');
+    assert.exists('.test-usage:contains("51if (addonData) {")', 'Source code lines show with line numbers');
+    assert.equal(find('.match').length, 2, 'Two matches are highlighted');
+
+    assert.exists('.test-usage .match:contains("addons.pushObject({ addon: addonData.addon });")', 'First match is highlighted correctly');
+    assert.exists('.test-usage .match:contains("store: inject.service(),")', 'Second match is highlighted correctly');
+
+    assert.exists('.test-usage:contains("app/components/fake-thing.js:21")', 'Shows both usages');
+  });
+
+  click('.test-usage-count');
+
+  andThen(() => {
+    assert.notExists('.test-usage', 'Usage details are hidden');
+  });
+});

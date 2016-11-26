@@ -27,4 +27,37 @@
   .no-results {
     margin-left: 1.5rem;
   }
+
+  .usage {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 8px;
+    margin-top: 20px;
+
+    .filename {
+      margin-left: 4px;
+      padding-bottom: 5px;
+      font-size: 1rem;
+    }
+
+    .line {
+      margin: 0;
+      padding: 1px 4px;
+      font-size: .9rem;
+      line-height: 1.6rem;
+      white-space: pre-wrap;
+
+      &:nth-child(even) {
+        background-color: #f7f7f7;
+      }
+
+      .match {
+        font-weight: bold;
+      }
+
+      .number {
+        padding-right: 1rem;
+      }
+    }
+  }
 }

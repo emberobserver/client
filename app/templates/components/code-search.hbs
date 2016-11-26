@@ -18,12 +18,7 @@
     {{#each results as |result|}}
       <li data-id="{{result.addon.id}}">
         {{code-search-addon addon=result.addon}}
-          <div class="usage-count test-usage-count">
-            <a href="#">
-              <span class="icon-chevron-right"></span>
-              {{result.count}} {{pluralize result.count "usage"}}
-            </a>
-          </div>
+        {{addon-source-usages addon=result.addon count=result.count query=query}}
       </li>
     {{/each}}
   </ul>

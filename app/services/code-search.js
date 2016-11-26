@@ -1,11 +1,13 @@
 import Ember from 'ember';
 
+const { inject, computed } = Ember;
+
 export default Ember.Service.extend({
-  apiAjax: Ember.inject.service(),
+  apiAjax: inject.service(),
 
-  store: Ember.inject.service(),
+  store: inject.service(),
 
-  addonData: Ember.computed(function() {
+  addonData: computed(function() {
     return this.get('store').peekAll('addon').sortBy('score').reverse().map(function(addon) {
       return {
         name: addon.get('name'),
@@ -28,6 +30,16 @@ export default Ember.Service.extend({
         }
       });
       return addons;
+    });
+  },
+
+  usages(addon, query) {
+    return this.get('apiAjax').request('/search/source', {
+      data: {
+        addon, query
+      }
+    }).then((response) => {
+      return response.results;
     });
   }
 });
