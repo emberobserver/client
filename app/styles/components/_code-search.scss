@@ -22,6 +22,10 @@
     padding-left: 4rem;
     margin-top: .5rem;
     position: relative;
+
+    a {
+      cursor: pointer;
+    }
   }
 
   .no-results {
