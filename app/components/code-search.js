@@ -18,8 +18,8 @@ export default Ember.Component.extend(FocusableComponent, {
   }),
   search: task(function * (query) {
     this.set('query', query.trim());
+    this.set('results', null);
     if (!this.get('queryIsValid')) {
-      this.set('results', null);
       return;
     }
 
