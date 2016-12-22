@@ -27,7 +27,7 @@ export default Ember.Component.extend(FocusableComponent, {
       return;
     }
 
-    yield timeout(1000);
+    yield timeout(500);
 
     let addons = yield this.get('codeSearch').addons(query);
     this.set('results', addons);
