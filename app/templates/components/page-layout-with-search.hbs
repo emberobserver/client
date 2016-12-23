@@ -17,16 +17,17 @@
         {{#if query}}
           <button {{action clearSearch}} class="icon-close test-clear-search"></button>
         {{/if}}
-        <div class="readme-toggle">
-        {{input type="checkbox"
-                class="test-search-readmes"
-                checked=searchReadmes
-                change=(action (perform toggleReadmeSearch)
-        )}} Search readmes</div>
       </div>
       {{#if session.isAuthenticated}}
         <button {{action logoutUser}} class="logout">Log out</button>
       {{/if}}
+      <div class="readme-toggle">
+        {{input type="checkbox"
+                class="test-search-readmes"
+                checked=searchReadmes
+                change=(action (perform toggleReadmeSearch))}}
+        Search readmes
+      </div>
       <h6 class="no-results {{if hasSearchedAndNoResults 'showing'}}">No results found for "{{query}}"</h6>
     </header>
     <div class="content">
