@@ -37,7 +37,7 @@ test('searching for addons containing code', function(assert) {
     assert.equal(query, 'TestEm.afterTests', 'query is passed to request');
     assert.equal(find('.test-addon-name').length, 3, 'All addons in results show');
 
-    assert.equal(find(`[data-id="${firstAddon.id}"] .test-addon-name`).text().trim(), 'ember-try', 'Addon name shows');
+    assert.contains(`[data-id="${firstAddon.id}"] .test-addon-name`, 'ember-try', 'Addon name shows');
     assert.equal(find(`[data-id="${firstAddon.id}"] .test-addon-name`).attr('href'), '/addons/ember-try', 'Addon name links to addon page');
     assert.equal(find(`[data-id="${firstAddon.id}"] .test-usage-count`).text().trim(), '1 usage', 'Addon usage count shows');
   });
