@@ -1,10 +1,12 @@
 import Ember from 'ember';
-import { task, timeout } from 'ember-concurrency';
+import { task } from 'ember-concurrency';
 import FocusableComponent from 'ember-component-focus/mixins/focusable-component';
 
 const {computed, inject} = Ember;
 
 export default Ember.Component.extend(FocusableComponent, {
+  query: '',
+
   visibleResultCount: 50,
 
   classNames: ['code-search'],
@@ -14,20 +16,20 @@ export default Ember.Component.extend(FocusableComponent, {
   codeSearch: inject.service(),
 
   hasSearchedAndNoResults: computed('queryIsValid', 'results.length', 'search.isIdle', function () {
-    return this.get('queryIsValid') && !this.get('results.length') && this.get('search.isIdle');
+    return this.get('results.length') === 0 && this.get('search.isIdle');
   }),
   queryIsValid: computed('query', function () {
     let query = this.get('query');
     return !(Ember.isBlank(query) || query.length < 3);
   }),
-  search: task(function * (query) {
-    this.set('query', query.trim());
+  search: task(function * () {
+    let query = this.get('searchInput').trim();
+    this.set('query', query);
     this.set('results', null);
+
     if (!this.get('queryIsValid')) {
       return;
     }
-
-    yield timeout(500);
 
     let addons = yield this.get('codeSearch').addons(query);
     this.set('results', addons);

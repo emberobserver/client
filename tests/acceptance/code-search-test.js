@@ -32,6 +32,7 @@ test('searching for addons containing code', function(assert) {
 
   visit('/search');
   fillIn('#code-search-input', 'TestEm.afterTests');
+  click('.test-submit-search');
 
   andThen(function() {
     assert.equal(query, 'TestEm.afterTests', 'query is passed to request');
@@ -93,6 +94,7 @@ test('viewing addon source containing search query', function(assert) {
 
   visit('/search');
   fillIn('#code-search-input', 'asdf');
+  click('.test-submit-search');
   click('.test-usage-count');
 
   andThen(function() {

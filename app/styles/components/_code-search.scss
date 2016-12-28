@@ -2,15 +2,18 @@
   .search-wrapper {
     display: inline-block;
     width: 100%;
-    position: relative;
     padding: 1.5rem;
+  }
+
+  .search-wrapper-inner {
+    position: relative;
   }
 
   .icon-close {
     position: absolute;
     top: 50%;
-    right: 2rem;
-    margin-top: -1.5rem;
+    right: 1rem;
+    margin-top: -1rem;
     font-size: 2rem;
     line-height: 1;
     color: $light-gray;
