@@ -9,7 +9,7 @@
               spellcheck="false"
               value=searchInput
       }}
-      {{#if query}}
+      {{#if codeQuery}}
         <button {{action "clearSearch"}} class="icon-close test-clear-search"></button>
       {{/if}}
     </div>
@@ -18,12 +18,12 @@
 </div>
 
 {{#if results.length}}
-  <h4 class="result-info">Found {{results.length}} addons containing "{{query}}"</h4>
+  <h4 class="result-info">Found {{results.length}} addons containing "{{codeQuery}}"</h4>
   <ul class="addon-list">
     {{#each visibleResults as |result|}}
       <li data-id="{{result.addon.id}}">
         {{addon-details addon=result.addon}}
-        {{addon-source-usages addon=result.addon count=result.count query=query}}
+        {{addon-source-usages addon=result.addon count=result.count query=codeQuery}}
       </li>
     {{/each}}
     {{#if canViewMore}}
@@ -35,5 +35,5 @@
 {{else if search.isRunning}}
   {{dot-spinner}}
 {{else if hasSearchedAndNoResults}}
-  <h4 class="no-results">No addons found containing "{{query}}"</h4>
+  <h4 class="no-results">No addons found containing "{{codeQuery}}"</h4>
 {{/if}}
