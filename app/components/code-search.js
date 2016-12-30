@@ -13,6 +13,10 @@ export default Ember.Component.extend(FocusableComponent, {
 
   codeSearch: inject.service(),
 
+  usageCounts: computed.mapBy('results', 'count'),
+
+  totalUsageCount: computed.sum('usageCounts'),
+
   init() {
     this._super(...arguments);
     this.set('searchInput', this.get('codeQuery') || '');

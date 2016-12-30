@@ -18,7 +18,7 @@
 </div>
 
 {{#if results.length}}
-  <h4 class="result-info">Found {{results.length}} addons containing "{{codeQuery}}"</h4>
+  <h4 class="result-info test-result-info">Found {{results.length}} addons containing "{{codeQuery}}" ({{totalUsageCount}} usages)</h4>
   <ul class="addon-list">
     {{#each visibleResults as |result|}}
       <li data-id="{{result.addon.id}}">
