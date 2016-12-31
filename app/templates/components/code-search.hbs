@@ -19,6 +19,13 @@
 
 {{#if results.length}}
   <h4 class="result-info test-result-info">Found {{results.length}} {{pluralize results.length 'addon'}} containing "{{codeQuery}}" ({{totalUsageCount}} {{pluralize totalUsageCount 'usage'}})</h4>
+  <div class="sort-controls">
+    Sort by:
+    <div class="button-select test-sort">
+      {{sort-option name="Name" key="name" selectedSort=sort sortBy="sortBy"}}
+      {{sort-option name="Usages" key="usages" selectedSort=sort sortBy="sortBy"}}
+    </div>
+  </div>
   <ul class="addon-list">
     {{#each visibleResults as |result|}}
       <li data-id="{{result.addon.id}}">
@@ -35,5 +42,5 @@
 {{else if search.isRunning}}
   {{dot-spinner}}
 {{else if hasSearchedAndNoResults}}
-  <h4 class="no-results">No addons found containing "{{codeQuery}}"</h4>
+  <h4 class="result-info">No addons found containing "{{codeQuery}}"</h4>
 {{/if}}

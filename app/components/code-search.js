@@ -17,6 +17,16 @@ export default Ember.Component.extend(FocusableComponent, {
 
   totalUsageCount: computed.sum('usageCounts'),
 
+  sortedResults: computed.sort('results', 'sortDefinition'),
+
+  sortDefinition: computed('sort', function() {
+    let sorts = {
+      name: ['addon.name'],
+      usages: ['count:desc', 'addon.name']
+    };
+    return sorts[this.get('sort')];
+  }),
+
   init() {
     this._super(...arguments);
     this.set('searchInput', this.get('codeQuery') || '');
@@ -43,8 +53,8 @@ export default Ember.Component.extend(FocusableComponent, {
     this.set('results', addons);
   }).restartable(),
 
-  visibleResults: computed('visibleResultCount', 'results', function () {
-    return this.get('results').slice(0, this.get('visibleResultCount'));
+  visibleResults: computed('visibleResultCount', 'sortedResults', function () {
+    return this.get('sortedResults').slice(0, this.get('visibleResultCount'));
   }),
 
   canViewMore: computed('visibleResultCount', 'results', function () {
@@ -61,6 +71,10 @@ export default Ember.Component.extend(FocusableComponent, {
     viewMore() {
       let newResultCount = this.get('visibleResultCount') + 50;
       this.set('visibleResultCount', newResultCount);
+    },
+
+    sortBy(key) {
+      this.set('sort', key);
     }
   }
 });

@@ -118,3 +118,50 @@ test('viewing addon source containing search query', function(assert) {
     assert.notExists('.test-usage', 'Usage details are hidden');
   });
 });
+
+test('sorting search results', function(assert) {
+  server.create('addon', { name: 'ember-try' });
+  server.create('addon', { name: 'ember-blanket' });
+  server.create('addon', { name: 'ember-foo' });
+
+  let query;
+
+  server.get('/search/addons', (db, request) => {
+    query = request.queryParams.query;
+    return {
+      results: [
+        {
+          addon: 'ember-try',
+          count: 1
+        },
+        {
+          addon: 'ember-blanket',
+          count: 2
+        },
+        {
+          addon: 'ember-foo',
+          count: 3
+        }
+      ]
+    };
+  });
+
+  visit('/search');
+  fillIn('#code-search-input', 'foo');
+  click('.test-submit-search');
+
+  andThen(function() {
+    assert.contains('.test-addon-name:eq(0)', 'ember-blanket', 'Default sort is by addon name');
+    assert.contains('.test-addon-name:eq(1)', 'ember-foo', 'Default sort is by addon name');
+    assert.contains('.test-addon-name:eq(2)', 'ember-try', 'Default sort is by addon name');
+  });
+
+  click('.test-sort button:contains("Usages")');
+
+  andThen(() => {
+    assert.contains('.test-addon-name:eq(0)', 'ember-foo', 'Addons are sorted by usage count');
+    assert.contains('.test-addon-name:eq(1)', 'ember-blanket', 'Addons are sorted by usage count');
+    assert.contains('.test-addon-name:eq(2)', 'ember-try', 'Addons are sorted by usage count');
+    assert.equal(currentURL(), '/search?codeQuery=foo&sort=usages', 'Sort is in query params');
+  });
+});
