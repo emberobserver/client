@@ -5,38 +5,38 @@ import moment from 'moment';
 export default Ember.Controller.extend({
   showExplanation: false,
   showBadgeText: false,
-  categories: function() {
+  categories: Ember.computed(function() {
     return this.get('store').peekAll('category').sortBy('displayName');
-  }.property(),
+  }),
 
   // BUG: See https://github.com/emberjs/data/issues/2666
   keywords: Ember.computed.filterBy('model.keywords', 'isDeleted', false),
   maintainers: Ember.computed.filterBy('model.maintainers', 'isDeleted', false),
 
-  licenseUrl: function() {
+  licenseUrl: Ember.computed('model.license', function() {
     return `https://spdx.org/licenses/${this.get('model.license')}`;
-  }.property('model.license'),
+  }),
   sortedReviews: sortBy('model.reviews', 'versionReleased:desc'),
   latestReview: Ember.computed.alias('sortedReviews.firstObject'),
-  isLatestReleaseInLast3Months: function() {
+  isLatestReleaseInLast3Months: Ember.computed('model.latestVersion.released', function() {
     if (!this.get('model.latestVersion.released')) {
       return false;
     }
     let threeMonthsAgo = moment().subtract(3, 'months');
     return moment(this.get('model.latestVersion.released')).isAfter(threeMonthsAgo);
-  }.property('model.latestVersion.released'),
-  isLatestReviewForLatestVersion: function() {
+  }),
+  isLatestReviewForLatestVersion: Ember.computed('latestReview', 'model.latestVersion.review', function() {
     return this.get('latestReview') === this.get('model.latestVersion.review');
-  }.property('latestReview', 'model.latestVersion.review'),
-  badgeText: function() {
+  }),
+  badgeText: Ember.computed('model.name', function() {
     return `[![Ember Observer Score](https://emberobserver.com/badges/${this.get('model.name')}.svg)](https://emberobserver.com/addons/${this.get('model.name')})`;
-  }.property('model.name'),
-  installCommandText: function() {
+  }),
+  installCommandText: Ember.computed('model.name', function() {
     return `ember install ${this.get('model.name')}`;
-  }.property('model.name'),
-  badgeSrc: function() {
+  }),
+  badgeSrc: Ember.computed('model.name', function() {
     return `https://emberobserver.com/badges/${this.get('model.name')}.svg`;
-  }.property('model.name'),
+  }),
 
   latestTestResult: Ember.computed('model.sortedVersions.@each.latestTestResult', function() {
     return this.get('model.sortedVersions').filter((version) => version.get('latestTestResult')).get('firstObject.latestTestResult');

@@ -7,11 +7,11 @@ export default Ember.Controller.extend({
   addonSortKey: 'score',
   sortedAddons: Ember.computed.sort('model.addons', 'addonSorting'),
 
-  hasSubcategories: function() {
+  hasSubcategories: Ember.computed('model.subcategories', function() {
     return this.get('model.subcategories.length') > 0;
-  }.property('model.subcategories'),
+  }),
 
-  addonSorting: function() {
+  addonSorting: Ember.computed('addonSortKey', function() {
     let sortKeyMapping = {
       'latestVersionDate': ['latestVersionDate:desc'],
       'name': ['name:asc'],
@@ -19,7 +19,7 @@ export default Ember.Controller.extend({
     };
     let sortKey = sortKeyMapping[this.get('addonSortKey')] || sortKeyMapping.score;
     return sortKey;
-  }.property('addonSortKey'),
+  }),
 
   actions: {
     sortBy(key) {

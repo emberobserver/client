@@ -7,7 +7,7 @@ export default Ember.Component.extend({
     3: 'N/A',
     4: 'Unknown'
   },
-  answeredQuestions: function() {
+  answeredQuestions: Ember.computed('review', function() {
     let component = this;
     let review = this.get('review');
     if (!review) {
@@ -21,5 +21,5 @@ export default Ember.Component.extend({
         answer: component.answerMap[review.get(question.fieldName)]
       });
     });
-  }.property('review')
+  })
 });

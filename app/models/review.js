@@ -22,15 +22,22 @@ export default DS.Model.extend({
   addon: belongsTo('addon', { async: false }),
   version: belongsTo('version', { async: false }),
   versionReleased: computed.alias('version.released'),
-  score: function() {
-    let s = 0;
-    /* eslint-disable */
-    if (this.get('hasTests') === 1) { s++; }
-    if (this.get('isMoreThanEmptyAddon') === 1) { s++; }
-    if (this.get('isOpenSource') === 1) { s++; }
-    if (this.get('hasBuild') === 1) { s++; }
-    if (this.get('hasReadme') === 1) { s++; }
-    /* eslint-enable */
-    return s;
-  }.property('hasTests', 'isMoreThanEmptyAddon', 'isOpenSource', 'hasBuild', 'hasReadme')
+  score: Ember.computed(
+    'hasTests',
+    'isMoreThanEmptyAddon',
+    'isOpenSource',
+    'hasBuild',
+    'hasReadme',
+    function() {
+      let s = 0;
+      /* eslint-disable */
+      if (this.get('hasTests') === 1) { s++; }
+      if (this.get('isMoreThanEmptyAddon') === 1) { s++; }
+      if (this.get('isOpenSource') === 1) { s++; }
+      if (this.get('hasBuild') === 1) { s++; }
+      if (this.get('hasReadme') === 1) { s++; }
+      /* eslint-enable */
+      return s;
+    }
+  )
 });

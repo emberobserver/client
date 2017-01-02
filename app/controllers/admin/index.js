@@ -19,27 +19,31 @@ export default Ember.Controller.extend({
     });
   }),
 
-  addonsNeedingReview: function() {
+  addonsNeedingReview: Ember.computed('nonWIPAddons.@each.reviews', function() {
     return this.get('nonWIPAddons').filter(function(addon) {
       return addon.get('reviews.length') === 0;
     }).sortBy('latestVersionDate').reverse();
-  }.property('nonWIPAddons.@each.reviews'),
-  addonsNeedingCategorization: function() {
+  }),
+  addonsNeedingCategorization: Ember.computed('nonWIPAddons.@each.categories', function() {
     return this.get('nonWIPAddons').filter(function(addon) {
       return addon.get('categories.length') === 0;
     }).sortBy('latestVersionDate').reverse();
-  }.property('nonWIPAddons.@each.categories'),
-  addonsWithNewUpdates: function() {
-    return this.get('reviewedAddons').filter(function(addon) {
-      return addon.get('latestVersionDate') > addon.get('latestReviewedVersionDate');
-    }).sortBy('latestVersionDate').reverse();
-  }.property('reviewedAddons.@each.latestVersionDate', 'reviewedAddons.@each.latestReviewedVersionDate'),
-  hiddenAddons: function() {
+  }),
+  addonsWithNewUpdates: Ember.computed(
+    'reviewedAddons.@each.latestVersionDate',
+    'reviewedAddons.@each.latestReviewedVersionDate',
+    function() {
+      return this.get('reviewedAddons').filter(function(addon) {
+        return addon.get('latestVersionDate') > addon.get('latestReviewedVersionDate');
+      }).sortBy('latestVersionDate').reverse();
+    }
+  ),
+  hiddenAddons: Ember.computed(function() {
     return this.get('store').query('addon', { hidden: true });
-  }.property(),
-  sortedHiddenAddons: function() {
+  }),
+  sortedHiddenAddons: Ember.computed('hiddenAddons.[]', function() {
     return this.get('hiddenAddons').sortBy('latestVersionDate').reverse();
-  }.property('hiddenAddons.[]'),
+  }),
 
   actions: {
     showNeedingCategories() {

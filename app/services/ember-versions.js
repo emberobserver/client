@@ -5,13 +5,13 @@ export default Ember.Service.extend({
   data: null,
   url: 'https://api.github.com/repos/emberjs/ember.js/releases?per_page=100',
   isLoaded: Ember.computed.notEmpty('data'),
-  versionData: function() {
+  versionData: Ember.computed('isLoaded', 'data', function() {
     if (!this.get('isLoaded')) {
       return [];
     }
     let data = this.get('data');
     return data.map(dataForVersion).compact();
-  }.property('isLoaded', 'data'),
+  }),
   fetch() {
     if (this.get('isLoaded')) {
       return;
