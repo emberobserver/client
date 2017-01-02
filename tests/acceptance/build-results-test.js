@@ -36,7 +36,7 @@ test('sorts results by run date', function(assert) {
     testsRunAt: moment('2016-11-19 23:59:59').utc()
   });
   addonVersion.update({
-    testResultIds: [ middleTestResult.id, earliestTestResult.id, latestTestResult.id ]
+    testResultIds: [middleTestResult.id, earliestTestResult.id, latestTestResult.id]
   });
 
   login();
@@ -62,7 +62,7 @@ test('displays appropriate status based on result', function(assert) {
     testsRunAt: moment().subtract(1, 'hour').utc()
   });
   addonVersion.update({
-    testResultIds: [ timedOutResult.id, succeededResult.id ]
+    testResultIds: [timedOutResult.id, succeededResult.id]
   });
 
   login();
@@ -76,7 +76,7 @@ test('displays appropriate status based on result', function(assert) {
 
 test('displays semver string for non-canary builds', function(assert) {
   let addon = server.create('addon');
-  let addonVersion = server.create('version', { addon_id: addon.id });
+  let addonVersion = server.create('version', { addonId: addon.id });
   server.create('testResult', {
     versionId: addonVersion.id,
     canary: false,
@@ -99,7 +99,7 @@ test('displays semver string for non-canary builds', function(assert) {
 
 test('displays appropriate indication for canary builds', function(assert) {
   let addon = server.create('addon');
-  let addonVersion = server.create('version', { addon_id: addon.id });
+  let addonVersion = server.create('version', { addonId: addon.id });
   server.create('testResult', {
     versionId: addonVersion.id,
     canary: true,

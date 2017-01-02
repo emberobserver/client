@@ -5,8 +5,8 @@ moduleForAcceptance('Acceptance: Index');
 
 test('visiting /', function(assert) {
   server.createList('category', 7);
-  var addons = server.createList('addon', 4);
-  var category = server.create('category',
+  let addons = server.createList('addon', 4);
+  let category = server.create('category',
     {
       name: 'Authentication',
       addonIds: addons.mapBy('id'),
@@ -72,8 +72,8 @@ test('including readme matches in search', function(assert) {
     assert.equal(request.queryParams.query, 'test', 'Query is sent to readme search');
     return {
       search: [
-        { addon_id: addon1.id, matches: ['testing stuff', 'more testing tips'] },
-        { addon_id: addon2.id, matches: ['the test of time'] }
+        { addon_id: addon1.id, matches: ['testing stuff', 'more testing tips'] },  // eslint-disable-line camelcase
+        { addon_id: addon2.id, matches: ['the test of time'] }                     // eslint-disable-line camelcase
       ]
     };
   });
@@ -115,7 +115,7 @@ test('including readme matches in search', function(assert) {
 });
 
 test('going to a maintainer from search results works', function(assert) {
-  server.create('maintainer', {name: 'test-master' });
+  server.create('maintainer', { name: 'test-master' });
 
   visit('/?query=test');
   click('.maintainer-results a:contains(test-master)');
@@ -126,7 +126,7 @@ test('going to a maintainer from search results works', function(assert) {
 });
 
 test('going to an addon from search results works', function(assert) {
-  server.create('addon', {name: 'ember-test', license: 'GPL' });
+  server.create('addon', { name: 'ember-test', license: 'GPL' });
 
   visit('/?query=test');
   click('.addon-list a:contains(ember-test)');
@@ -138,7 +138,7 @@ test('going to an addon from search results works', function(assert) {
 });
 
 test('going to a category from search results works', function(assert) {
-  server.create('category', {name: 'Testing' });
+  server.create('category', { name: 'Testing' });
 
   visit('/?query=test');
   click('.category-results a:contains(Testing)');
@@ -163,7 +163,7 @@ function testSearch(url, assertForContentOnUrl) {
     server.create('category', { name: 'Another thing' });
     server.create('category', { name: 'quietest' });
     server.create('category', { name: 'Testing' });
-    server.create('maintainer', {name: 'test-master' });
+    server.create('maintainer', { name: 'test-master' });
 
     visit(`${url}?query=test`);
 

@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-export function commify([ number ]) {
+export function commify([number]) {
   if (!number) {
     return '0';
   }

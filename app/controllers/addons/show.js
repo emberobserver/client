@@ -9,7 +9,7 @@ export default Ember.Controller.extend({
     return this.get('store').peekAll('category').sortBy('displayName');
   }.property(),
 
-  //BUG: See https://github.com/emberjs/data/issues/2666
+  // BUG: See https://github.com/emberjs/data/issues/2666
   keywords: Ember.computed.filterBy('model.keywords', 'isDeleted', false),
   maintainers: Ember.computed.filterBy('model.maintainers', 'isDeleted', false),
 
@@ -19,8 +19,10 @@ export default Ember.Controller.extend({
   sortedReviews: sortBy('model.reviews', 'versionReleased:desc'),
   latestReview: Ember.computed.alias('sortedReviews.firstObject'),
   isLatestReleaseInLast3Months: function() {
-    if (!this.get('model.latestVersion.released')) { return false; }
-    var threeMonthsAgo = moment().subtract(3, 'months');
+    if (!this.get('model.latestVersion.released')) {
+      return false;
+    }
+    let threeMonthsAgo = moment().subtract(3, 'months');
     return moment(this.get('model.latestVersion.released')).isAfter(threeMonthsAgo);
   }.property('model.latestVersion.released'),
   isLatestReviewForLatestVersion: function() {
@@ -37,15 +39,15 @@ export default Ember.Controller.extend({
   }.property('model.name'),
 
   latestTestResult: Ember.computed('model.sortedVersions.@each.latestTestResult', function() {
-    return this.get('model.sortedVersions').filter(version => version.get('latestTestResult')).get('firstObject.latestTestResult');
+    return this.get('model.sortedVersions').filter((version) => version.get('latestTestResult')).get('firstObject.latestTestResult');
   }),
   isTestResultForLatestVersion: Ember.computed('latestTestResult.version', 'model.latestVersion', function() {
     return this.get('latestTestResult.version.version') === this.get('model.latestVersion.version');
   }),
 
   actions: {
-    save: function() {
-      var controller = this;
+    save() {
+      let controller = this;
       this.set('isSaving', true);
       this.get('model').save().catch(function() {
         alert('Saving failed');
@@ -53,14 +55,14 @@ export default Ember.Controller.extend({
         controller.set('isSaving', false);
       });
     },
-    review: function() {
-      var newReview = this.get('store').createRecord('review');
+    review() {
+      let newReview = this.get('store').createRecord('review');
       this.set('newReview', newReview);
       this.set('isReviewing', true);
     },
-    renewLatestReview: function() {
-      var newReview = this.get('store').createRecord('review');
-      var latestReview = this.get('latestReview');
+    renewLatestReview() {
+      let newReview = this.get('store').createRecord('review');
+      let latestReview = this.get('latestReview');
 
       latestReview.questions.forEach(function(question) {
         newReview.set(question.fieldName, latestReview.get(question.fieldName));
@@ -69,8 +71,8 @@ export default Ember.Controller.extend({
 
       this.send('saveReview', newReview);
     },
-    saveReview: function(newReview) {
-      var controller = this;
+    saveReview(newReview) {
+      let controller = this;
       newReview.set('version', this.get('model.latestVersion'));
       newReview.save().catch(function() {
         alert('Saving failed');
@@ -79,10 +81,10 @@ export default Ember.Controller.extend({
         controller.set('isReviewing', false);
       });
     },
-    toggleExplainScore: function() {
+    toggleExplainScore() {
       this.toggleProperty('showExplanation');
     },
-    toggleBadgeText: function() {
+    toggleBadgeText() {
       this.toggleProperty('showBadgeText');
     }
   }

@@ -6,7 +6,7 @@ moduleForAcceptance('Acceptance | version compatibility');
 
 test('displays Ember version compatibility when an addon has it', function(assert) {
   server.logging = true;
-  let { addon } = createAddonWithVersionCompatibilities([ failedVersion('1.13.13'), '2.0.0' ]);
+  let { addon } = createAddonWithVersionCompatibilities([failedVersion('1.13.13'), '2.0.0']);
 
   visitAddon(addon);
 
@@ -18,7 +18,7 @@ test('displays Ember version compatibility when an addon has it', function(asser
 });
 
 test('sorts version compatibility entries by version number', function(assert) {
-  let { addon } = createAddonWithVersionCompatibilities([ '2.0.3', '1.13.13', '2.1.2', failedVersion('1.12.1') ]);
+  let { addon } = createAddonWithVersionCompatibilities(['2.0.3', '1.13.13', '2.1.2', failedVersion('1.12.1')]);
 
   visitAddon(addon);
   andThen(function() {
@@ -51,7 +51,7 @@ test('does not display Ember version compatibility when an addon does not have i
 });
 
 test('hides beta and canary versions from the table', function(assert) {
-  let { addon } = createAddonWithVersionCompatibilities([ failedVersion('2.3.0'), '2.4.3', '2.5.0-beta.3+7c4288b9', '2.6.0-canary+e35e8b48' ]);
+  let { addon } = createAddonWithVersionCompatibilities([failedVersion('2.3.0'), '2.4.3', '2.5.0-beta.3+7c4288b9', '2.6.0-canary+e35e8b48']);
 
   visitAddon(addon);
   andThen(function() {
@@ -62,7 +62,7 @@ test('hides beta and canary versions from the table', function(assert) {
 });
 
 test('displays semver string with compatibility when all tests passed', function(assert) {
-  let { addon } = createAddonWithVersionCompatibilities([ '2.1.0', '2.2.0', '2.3.0', '2.4.0' ]);
+  let { addon } = createAddonWithVersionCompatibilities(['2.1.0', '2.2.0', '2.3.0', '2.4.0']);
 
   visitAddon(addon);
   andThen(function() {
@@ -71,7 +71,7 @@ test('displays semver string with compatibility when all tests passed', function
 });
 
 test('displays date/time when tests were last run', function(assert) {
-  let { addon, testResult } = createAddonWithVersionCompatibilities([ '2.1.0', '2.2.0', '2.3.0', '2.4.0' ]);
+  let { addon, testResult } = createAddonWithVersionCompatibilities(['2.1.0', '2.2.0', '2.3.0', '2.4.0']);
   server.db.testResults.update(testResult.id, { testsRunAt: moment.utc().subtract(1, 'day') });
 
   visitAddon(addon);
@@ -82,7 +82,7 @@ test('displays date/time when tests were last run', function(assert) {
 
 test('displays tests results from the latest version with them, if the newest version has none', function(assert) {
   server.logging = true;
-  let { addon } = createAddonWithVersionCompatibilities([ '2.1.0', '2.2.0', '2.3.0', '2.4.0' ]);
+  let { addon } = createAddonWithVersionCompatibilities(['2.1.0', '2.2.0', '2.3.0', '2.4.0']);
   server.create('version', { addonId: addon.id });
 
   visitAddon(addon);
@@ -93,7 +93,7 @@ test('displays tests results from the latest version with them, if the newest ve
 });
 
 test('compatibility table is hidden but toggleable when all tests pass', function(assert) {
-  let { addon } = createAddonWithVersionCompatibilities([ '2.3.0', '2.4.0' ]);
+  let { addon } = createAddonWithVersionCompatibilities(['2.3.0', '2.4.0']);
   visitAddon(addon);
 
   andThen(() => assert.notExists('.test-ember-version-compatibility-list', 'version compatibility list is not displayed initially'));
@@ -106,8 +106,8 @@ test('compatibility table is hidden but toggleable when all tests pass', functio
 });
 
 test('preface text for timestamp depends on status of tests', function(assert) {
-  let { addon: addonWithAllPassing }  = createAddonWithVersionCompatibilities([ '2.3.0', '2.4.0' ]);
-  let { addon: addonWithSomePassing } = createAddonWithVersionCompatibilities([ failedVersion('2.3.0'), '2.4.0' ]);
+  let { addon: addonWithAllPassing }  = createAddonWithVersionCompatibilities(['2.3.0', '2.4.0']);
+  let { addon: addonWithSomePassing } = createAddonWithVersionCompatibilities([failedVersion('2.3.0'), '2.4.0']);
   let { addon: addonWithTestFailure } = createAddonWithTestFailure();
 
   visitAddon(addonWithAllPassing);
@@ -121,7 +121,7 @@ test('preface text for timestamp depends on status of tests', function(assert) {
 });
 
 test('sets correct CSS class based on result', function(assert) {
-  let { addon } = createAddonWithVersionCompatibilities([ failedVersion('2.3.0'), '2.4.0' ]);
+  let { addon } = createAddonWithVersionCompatibilities([failedVersion('2.3.0'), '2.4.0']);
 
   visitAddon(addon);
 
@@ -147,7 +147,7 @@ test('uses the latest build for version compatibility', function(assert) {
     testsRunAt: moment().subtract(2, 'hours').utc(),
     versionId: version.id
   });
-  server.db.versions.update(version, { testResultIds: [ middleTestResult.id, latestTestResult.id, earliestTestResult.id ] });
+  server.db.versions.update(version, { testResultIds: [middleTestResult.id, latestTestResult.id, earliestTestResult.id] });
 
   visitAddon(addon);
   andThen(function() {
@@ -186,11 +186,10 @@ function failedVersion(version) {
   return { version, compatible: false };
 }
 
-function createAddonWithVersionCompatibilities(emberVersions)
-{
+function createAddonWithVersionCompatibilities(emberVersions) {
   let addon = server.create('addon');
   let testResult = server.create('testResult');
-  let emberVersionCompatibilities = emberVersions.map(emberVersion => {
+  let emberVersionCompatibilities = emberVersions.map((emberVersion) => {
     let version = emberVersion;
     let compatible = true;
     if (typeof(emberVersion) === 'object') {
@@ -207,15 +206,14 @@ function createAddonWithVersionCompatibilities(emberVersions)
   });
 
   testResult.update({
-    emberVersionCompatibilityIds: emberVersionCompatibilities.map(x => x.id),
+    emberVersionCompatibilityIds: emberVersionCompatibilities.map((x) => x.id),
     versionId: version.id
   });
 
   return { addon, testResult, emberVersionCompatibilities, version };
 }
 
-function createAddonWithTestFailure()
-{
+function createAddonWithTestFailure() {
   let addon = server.create('addon');
   let testResult = server.create('testResult', { succeeded: false });
   let version = server.create('version', { addonId: addon.id });

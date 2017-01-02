@@ -3,8 +3,8 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
 
   actions: {
-    submitCorrection: function() {
-      var controller = this;
+    submitCorrection() {
+      let controller = this;
       Ember.$.post('/api/corrections', {
         name: this.get('name'),
         email: this.get('email'),
@@ -15,7 +15,7 @@ export default Ember.Controller.extend({
       });
     },
 
-    cancel: function() {
+    cancel() {
       this.transitionToRoute('addons.show', this.get('model'));
     }
   }

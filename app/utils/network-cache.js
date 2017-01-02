@@ -42,7 +42,7 @@ if (SHOULD_PLAYBACK) {
 }
 
 function HIT(key) {
-  console.log(`CACHE HIT: ${key}`);
+  console.log(`CACHE HIT: ${key}`); // eslint-disable-line no-console
 }
 
 function MISS(key) {
@@ -88,7 +88,7 @@ export default function ajax(url, type, options, fetch) {
     return Ember.RSVP.resolve(LOAD(key));
   } else if (SHOULD_CAPTURE) {
     let key = keyFor(url, type, options);
-    return fetch().then(data => STORE(key, data));
+    return fetch().then((data) => STORE(key, data));
   } else {
     return fetch();
   }
@@ -101,9 +101,9 @@ function keyFor(url, type, options) {
 
 function done() {
   if (SHOULD_CAPTURE) {
-    console.log(`Captured ${EXPECTED_REQUESTS} requests into localStorage`);
+    console.log(`Captured ${EXPECTED_REQUESTS} requests into localStorage`); // eslint-disable-line no-console
   } else if (SHOULD_PLAYBACK) {
-    console.log(`Played back all captured requests from localStorage`);
+    console.log('Played back all captured requests from localStorage'); // eslint-disable-line no-console
   }
 
   performance.mark('dataLoaded');
@@ -112,10 +112,10 @@ function done() {
 }
 
 function renderEnd() {
-  requestAnimationFrame(function () {
+  requestAnimationFrame(function() {
     performance.mark('beforePaint');
 
-    requestAnimationFrame(function () {
+    requestAnimationFrame(function() {
       performance.mark('afterPaint');
 
       performance.measure('assets', 'domLoading', 'beforeVendor');

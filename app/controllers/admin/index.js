@@ -42,19 +42,19 @@ export default Ember.Controller.extend({
   }.property('hiddenAddons.[]'),
 
   actions: {
-    showNeedingCategories: function() {
+    showNeedingCategories() {
       this.set('showAddonsNeedingCategorization', true);
     },
-    showNeedingReview: function() {
+    showNeedingReview() {
       this.set('showAddonsNeedingReview', true);
     },
-    showNewUpdates: function() {
+    showNewUpdates() {
       this.set('showAddonsWithNewUpdates', true);
     },
-    showHidden: function() {
+    showHidden() {
       this.set('showHiddenAddons', true);
     },
-    showWIPAddons: function() {
+    showWIPAddons() {
       this.set('showWIPAddons', true);
     }
   }

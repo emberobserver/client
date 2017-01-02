@@ -21,7 +21,7 @@ export default Ember.Component.extend(FocusableComponent, {
     let query = this.get('query');
     return !(Ember.isBlank(query) || query.length < 3 || emMatcher.test(query));
   }),
-  search: task(function * (query) {
+  search: task(function* (query) {
     this.set('query', query.trim());
     if (!this.get('queryIsValid')) {
       this.set('_results', null);
@@ -30,12 +30,12 @@ export default Ember.Component.extend(FocusableComponent, {
 
     yield timeout(250);
 
-    this.get('metrics').trackEvent({ category: 'Search', action: `Search on /`, label: this.get('query') });
+    this.get('metrics').trackEvent({ category: 'Search', action: 'Search on /', label: this.get('query') });
 
     let results = yield this.get('searchService').search(this.get('query'), { includeReadmes: this.get('searchReadmes') });
     this.set('_results', results);
   }).restartable(),
-  toggleReadmeSearch: task(function * () {
+  toggleReadmeSearch: task(function* () {
     this.toggleProperty('searchReadmes');
     yield this.get('search').perform(this.get('query'));
   }),

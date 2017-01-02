@@ -6,7 +6,7 @@ export default Ember.Component.extend({
 
   versionCompatibilitiesForReleasedVersions: Ember.computed('testResult.emberVersionCompatibilities.@each.emberVersion', function() {
     return this.get('testResult.emberVersionCompatibilities')
-      .filter(versionCompatibility => !versionCompatibility.get('emberVersion').match(/(beta|canary)/));
+      .filter((versionCompatibility) => !versionCompatibility.get('emberVersion').match(/(beta|canary)/));
   }),
 
   sortedVersionCompatibilities: Ember.computed('versionCompatibilitiesForReleasedVersions.@each.emberVersion', function() {
@@ -14,7 +14,7 @@ export default Ember.Component.extend({
   }),
 
   allTestsPassed: Ember.computed('versionCompatibilitiesForReleasedVersions.@each.compatible', function() {
-    return this.get('versionCompatibilitiesForReleasedVersions').every(versionCompatibility => versionCompatibility.get('compatible'));
+    return this.get('versionCompatibilitiesForReleasedVersions').every((versionCompatibility) => versionCompatibility.get('compatible'));
   }),
 
   compatibilitySemverString: Ember.computed('sortedVersionCompatibilities.[]', function() {
@@ -32,7 +32,7 @@ export default Ember.Component.extend({
 });
 
 function extractVersionParts(versionNumber) {
-  var matches = versionNumber.match(/^(\d+)\.(\d+)\.(\d+)/);
+  let matches = versionNumber.match(/^(\d+)\.(\d+)\.(\d+)/);
   if (matches) {
     return matches.slice(1);
   }
@@ -40,8 +40,8 @@ function extractVersionParts(versionNumber) {
 }
 
 function sortByVersion(a, b) {
-  let [ majorA, minorA, patchA ] = extractVersionParts(a.get('emberVersion'));
-  let [ majorB, minorB, patchB ] = extractVersionParts(b.get('emberVersion'));
+  let [majorA, minorA, patchA] = extractVersionParts(a.get('emberVersion'));
+  let [majorB, minorB, patchB] = extractVersionParts(b.get('emberVersion'));
 
   if (Ember.compare(majorA, majorB) !== 0) {
     return Ember.compare(majorA, majorB);

@@ -39,7 +39,7 @@ if (config.environment === 'production') {
 }
 
 if (config.environment === 'development' || config.environment === 'test') {
-  Error.stackTraceLimit=200;
+  Error.stackTraceLimit = 200;
 }
 
 export default App;

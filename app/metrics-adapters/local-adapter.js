@@ -9,18 +9,18 @@ export default BaseAdapter.extend({
   },
 
   identify(options = {}) {
-    console.log('Metrics:', 'identify', options);
+    console.log('Metrics:', 'identify', options); // eslint-disable-line no-console
   },
 
   trackEvent(options = {}) {
-    console.log('Metrics:', 'trackEvent', options);
+    console.log('Metrics:', 'trackEvent', options); // eslint-disable-line no-console
   },
 
   trackPage(options = {}) {
-    console.log('Metrics:', 'trackPage', options);
+    console.log('Metrics:', 'trackPage', options); // eslint-disable-line no-console
   },
 
   alias(options = {}) {
-    console.log('Metrics:', 'alias', options);
+    console.log('Metrics:', 'alias', options); // eslint-disable-line no-console
   }
 });

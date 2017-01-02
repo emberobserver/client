@@ -12,7 +12,7 @@ test('visiting /admin not logged in', function(assert) {
 
 test('visiting /admin', function(assert) {
   assert.expect(2);
-  var done = assert.async();
+  let done = assert.async();
 
   server.post('/authentication/login.json', function(db, request) {
     assert.equal(request.requestBody, 'email=test%40example.com&password=password123');
@@ -35,11 +35,11 @@ test('visiting /admin', function(assert) {
 test('reviewing addons', function(assert) {
   assert.expect(7);
 
-  var addon = server.create('addon', {
+  let addon = server.create('addon', {
     name: 'test-addon'
   });
 
-  var review = server.create('review', {
+  let review = server.create('review', {
     addonId: addon.id,
     hasTests: 1,
     hasReadme: 4,
@@ -55,7 +55,7 @@ test('reviewing addons', function(assert) {
     released: window.moment().subtract(3, 'months')
   });
 
-  var latestVersion = server.create('version', {
+  let latestVersion = server.create('version', {
     addonId: addon.id,
     released: window.moment().subtract(1, 'months')
   });
@@ -66,7 +66,7 @@ test('reviewing addons', function(assert) {
   });
 
   server.post('/reviews', function(db, request) {
-    var data = JSON.parse(request.requestBody).review;
+    let data = JSON.parse(request.requestBody).review;
     assert.equal(data.review, '#Some Review');
     assert.equal(data.version_id, latestVersion.id);
     assert.equal(data.has_build, 3);
@@ -75,7 +75,7 @@ test('reviewing addons', function(assert) {
     assert.equal(data.is_more_than_empty_addon, 1);
     assert.equal(data.is_open_source, 1);
     let review = server.create('review', data);
-    return { review: review };
+    return { review };
   });
 
   login();
@@ -98,11 +98,11 @@ function answerQuestion(question, answer) {
 test('renewing a review', function(assert) {
   assert.expect(7);
 
-  var addon = server.create('addon', {
+  let addon = server.create('addon', {
     name: 'test-addon'
   });
 
-  var review = server.create('review', {
+  let review = server.create('review', {
     addonId: addon.id,
     hasTests: 1,
     hasReadme: 4,
@@ -118,13 +118,13 @@ test('renewing a review', function(assert) {
     released: window.moment().subtract(3, 'months')
   });
 
-  var latestVersion = server.create('version', {
+  let latestVersion = server.create('version', {
     addonId: addon.id,
     released: window.moment().subtract(1, 'months')
   });
 
   server.post('/reviews', function(db, request) {
-    var data = JSON.parse(request.requestBody).review;
+    let data = JSON.parse(request.requestBody).review;
     assert.equal(data.version_id, latestVersion.id);
     assert.equal(data.has_tests, 1);
     assert.equal(data.has_readme, 4);
@@ -133,7 +133,7 @@ test('renewing a review', function(assert) {
     assert.equal(data.has_build, 1);
     assert.equal(data.review, 'Seems ok');
     let review = server.create('review', data);
-    return { review: review };
+    return { review };
   });
 
   login();
@@ -145,7 +145,7 @@ test('renewing a review', function(assert) {
 test('updating addons', function(assert) {
   assert.expect(32);
 
-  var addon = server.create('addon', {
+  let addon = server.create('addon', {
     name: 'test-addon',
     note: '#note',
     isOfficial: true,
@@ -155,17 +155,17 @@ test('updating addons', function(assert) {
     name: 'Category1',
     addonIds: [addon.id]
   });
-  var category2 = server.create('category', {
+  let category2 = server.create('category', {
     name: 'Category2',
     addonIds: [addon.id]
   });
-  var category3 = server.create('category', {
+  let category3 = server.create('category', {
     name: 'Category3',
     addonIds: []
   });
 
   server.put('/addons/1', function(db, request) {
-    var data = JSON.parse(request.requestBody).addon;
+    let data = JSON.parse(request.requestBody).addon;
 
     assert.equal(data.note, '#New');
     assert.equal(data.is_official, false);

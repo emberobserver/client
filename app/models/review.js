@@ -1,8 +1,8 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 
-let { attr, belongsTo } = DS;
-let { computed } = Ember;
+const { attr, belongsTo } = DS;
+const { computed } = Ember;
 
 export default DS.Model.extend({
   questions: [
@@ -23,12 +23,14 @@ export default DS.Model.extend({
   version: belongsTo('version', { async: false }),
   versionReleased: computed.alias('version.released'),
   score: function() {
-    var s = 0;
+    let s = 0;
+    /* eslint-disable */
     if (this.get('hasTests') === 1) { s++; }
     if (this.get('isMoreThanEmptyAddon') === 1) { s++; }
     if (this.get('isOpenSource') === 1) { s++; }
     if (this.get('hasBuild') === 1) { s++; }
     if (this.get('hasReadme') === 1) { s++; }
+    /* eslint-enable */
     return s;
   }.property('hasTests', 'isMoreThanEmptyAddon', 'isOpenSource', 'hasBuild', 'hasReadme')
 });

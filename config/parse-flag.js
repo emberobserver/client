@@ -1,5 +1,3 @@
-/* jshint node: true */
-
 module.exports = function parseFlag(flagName, fallback) {
   var flag = process.env[flagName];
 

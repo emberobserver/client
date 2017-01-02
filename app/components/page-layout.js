@@ -15,7 +15,7 @@ export default Ember.Component.extend({
   goSearch() {
     if (!isBlank(this.get('searchTerm'))) {
       this.get('metrics').trackEvent({ category: 'Header search', action: `Search on ${document.location.pathname}`, label: this.get('searchTerm') });
-      this.get('routing').transitionTo('index', { queryParams: { query: this.get('searchTerm') }});
+      this.get('routing').transitionTo('index', { queryParams: { query: this.get('searchTerm') } });
     }
   },
   logoutUser() {

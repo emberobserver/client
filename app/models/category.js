@@ -1,8 +1,8 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 
-let { attr, belongsTo, hasMany } = DS;
-let { computed } = Ember;
+const { attr, belongsTo, hasMany } = DS;
+const { computed } = Ember;
 
 export default DS.Model.extend({
   name: attr('string'),
@@ -16,7 +16,7 @@ export default DS.Model.extend({
   }.property('name'),
   displayName: function() {
     if (this.get('parent')) {
-      return this.get('parent.name') + ' > ' + this.get('name');
+      return `${this.get('parent.name')} > ${this.get('name')}`;
     } else {
       return this.get('name');
     }

@@ -1,4 +1,4 @@
-// jscs:disable
+/* eslint-disable */
 export default [
   {
     "url": "https://api.github.com/repos/emberjs/ember.js/releases/1805078",
@@ -1951,3 +1951,4 @@ export default [
     "body": "### Ember 1.8.0-beta.2 (September, 20, 2014)\r\n\r\n* [BUGFIX] Allow for bound property {{input}} type.\r\n* [BUGFIX] Ensure pushUnique targetQueue is cleared by flush.\r\n* [BUGFIX] instrument should still call block even without subscribers.\r\n* [BUGFIX] Remove uneeded normalization in query param controller lookup.\r\n* [BUGFIX] Do not use defineProperty on each View instance.\r\n* [PERF] Speedup `watchKey` by preventing for in related deopt.\r\n* [PERF] Change `ENV.MANDATORY_SETTER` to FEATURES so it can be compiled out of production builds.\r\n* [PERF] Object.create(null) in Ember.inspect.\r\n* [PERF] Extracts computed property set into a separate function.\r\n* [BUGFIX] Make `GUID_KEY = intern(GUID_KEY)` actually work on ES3.\r\n* [BUGFIX] Ensure nested routes can inherit model from parent."
   }
 ];
+/* eslint-enable */

@@ -2,13 +2,13 @@ import Ember from 'ember';
 import LocalStore from '../utils/local-storage';
 
 export default Ember.Service.extend({
-  open: function(email, password) {
-    var session = this;
+  open(email, password) {
+    let session = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       Ember.$.ajax({
         type: 'POST',
         url: '/api/authentication/login.json',
-        data: { email: email, password: password },
+        data: { email, password },
         dataType: 'json',
         success: Ember.run.bind(null, resolve),
         error: Ember.run.bind(null, reject)
@@ -25,17 +25,17 @@ export default Ember.Service.extend({
       });
     }).catch(function() {
       session.clearToken();
-      console.log('Failed logging in');
+      console.log('Failed logging in'); // eslint-disable-line no-console
     });
   },
-  fetch: function() {
-    var token = LocalStore.fetch('sessionToken');
+  fetch() {
+    let token = LocalStore.fetch('sessionToken');
     if (token) {
       this.set('token', token);
     }
   },
-  close: function() {
-    var session = this;
+  close() {
+    let session = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       Ember.$.ajax({
         type: 'POST',
@@ -49,19 +49,19 @@ export default Ember.Service.extend({
       session.clearToken();
     });
   },
-  clearToken: function() {
+  clearToken() {
     this.set('token', null);
     LocalStore.remove('sessionToken');
   },
   isAuthenticated: isPresent('token'),
   header: function() {
-    return { 'Authorization': 'Token token=' + this.get('token') };
+    return { 'Authorization': `Token token=${this.get('token')}` };
   }.property('token')
 });
 
 function isPresent(strProp) {
   return Ember.computed(strProp, function() {
-    var str = this.get(strProp);
-    return typeof str !== 'undefined' && !( /^\s*$/ ).test(str) && (str !== null);
+    let str = this.get(strProp);
+    return typeof str !== 'undefined' && !(/^\s*$/).test(str) && (str !== null);
   });
 }

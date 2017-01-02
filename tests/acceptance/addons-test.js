@@ -14,7 +14,7 @@ test('addon not found', function(assert) {
 });
 
 test('displays 0 for score when addon has zero score', function(assert) {
-  var addon = server.create('addon', {
+  let addon = server.create('addon', {
     name: 'test-with-zero-score',
     score: 0
   });
@@ -27,7 +27,7 @@ test('displays 0 for score when addon has zero score', function(assert) {
 });
 
 test('Does not display category list', function(assert) {
-  var addon = server.create('addon', {
+  let addon = server.create('addon', {
     name: 'test-addon'
   });
 
@@ -39,7 +39,7 @@ test('Does not display category list', function(assert) {
 });
 
 test('displays WIP for score when addon is WIP', function(assert) {
-  var addon = server.create('addon', {
+  let addon = server.create('addon', {
     name: 'test-wip',
     isWip: true
   });
@@ -52,7 +52,7 @@ test('displays WIP for score when addon is WIP', function(assert) {
 });
 
 test('displays N/A for score when addon has no score', function(assert) {
-  var addon = server.create('addon', {
+  let addon = server.create('addon', {
     name: 'test-with-na-score',
     score: null
   });
@@ -65,7 +65,7 @@ test('displays N/A for score when addon has no score', function(assert) {
 });
 
 test('displays note', function(assert) {
-  var addon = server.create('addon', {
+  let addon = server.create('addon', {
     name: 'test-addon-with-note',
     renderedNote: '<h2 class="test-rendered-note">RenderedNote</h2>'
   });
@@ -79,7 +79,7 @@ test('displays note', function(assert) {
 
 test('displays categories', function(assert) {
   server.logging = true;
-  var addon = server.create('addon', {
+  let addon = server.create('addon', {
     name: 'test-addon-with-categories'
   });
 
@@ -102,7 +102,7 @@ test('displays categories', function(assert) {
 });
 
 test('displays github data', function(assert) {
-  var addon = server.create('addon', {
+  let addon = server.create('addon', {
     name: 'test-addon-with-github-data',
     openIssues: 13,
     forks: 94,
@@ -110,7 +110,7 @@ test('displays github data', function(assert) {
     contributors: [{}, {}],
     isTopStarred: true,
     latestCommitDate: window.moment().subtract(2, 'months').toString(),
-    firstCommitDate:  window.moment().subtract(1, 'years').toString()
+    firstCommitDate: window.moment().subtract(1, 'years').toString()
   });
 
   visit(`/addons/${addon.name}`);
@@ -127,7 +127,7 @@ test('displays github data', function(assert) {
 });
 
 test('displays header', function(assert) {
-  var addon = server.create('addon', {
+  let addon = server.create('addon', {
     name: 'test-addon'
   });
 
@@ -141,7 +141,7 @@ test('displays header', function(assert) {
     assert.notExists('.test-addon-flag-cli-dependency', 'CLI Dependency flag does not display');
   });
 
-  var addonWithFlags = server.create('addon', {
+  let addonWithFlags = server.create('addon', {
     name: 'test-addon-with-flags',
     isDeprecated: true,
     isNewAddon: true,
@@ -161,7 +161,7 @@ test('displays header', function(assert) {
 });
 
 test('displays review', function(assert) {
-  var addon = server.create('addon', {
+  let addon = server.create('addon', {
     name: 'test-addon'
   });
 
@@ -171,11 +171,11 @@ test('displays review', function(assert) {
     assert.exists('.test-no-review', 'Warning about not yet reviewed appears');
   });
 
-  var addonWithReview = server.create('addon', {
+  let addonWithReview = server.create('addon', {
     name: 'test-addon-with-review'
   });
 
-  var review = server.create('review', {
+  let review = server.create('review', {
     addonId: addonWithReview.id,
     hasTests: 1,
     hasReadme: 4,
@@ -185,13 +185,13 @@ test('displays review', function(assert) {
     review: 'Seems ok'
   });
 
-  var addonVersion = server.create('version', {
+  let addonVersion = server.create('version', {
     addonId: addonWithReview.id,
     reviewId: review.id,
     released: window.moment().subtract(3, 'months')
   });
 
-  //Newer version without review
+  // Newer version without review
   server.create('version', {
     addonId: addonWithReview.id,
     reviewId: null,
@@ -222,9 +222,9 @@ test('displays review', function(assert) {
 
 test('displays addon stats', function(assert) {
   server.logging = true;
-  var maintainers = server.createList('maintainer', 3);
+  let maintainers = server.createList('maintainer', 3);
 
-  var addon = server.create('addon', {
+  let addon = server.create('addon', {
     name: 'test-addon',
     maintainerIds: maintainers.map((m) => m.id),
     latestVersionDate: window.moment().subtract(3, 'months'),
@@ -249,13 +249,13 @@ test('displays addon stats', function(assert) {
     released: window.moment().subtract(4, 'months')
   });
 
-  server.get('https://api.github.com/repos/emberjs/ember.js/releases', function(/*db, request*/) {
+  server.get('https://api.github.com/repos/emberjs/ember.js/releases', function(/* db, request*/) {
     let version = Ember.copy(EmberVersionsResponse[0]);
-    version['published_at'] = window.moment().subtract(14, 'weeks');
-    version['tag_name'] = 'v15.0.0';
+    version.published_at = window.moment().subtract(14, 'weeks');      // eslint-disable-line camelcase
+    version.tag_name = 'v15.0.0';                                      // eslint-disable-line camelcase
     let olderVersion = Ember.copy(EmberVersionsResponse[1]);
-    olderVersion['published_at'] = window.moment().subtract(5, 'months');
-    olderVersion['tag_name'] = 'v14.0.0';
+    olderVersion.published_at = window.moment().subtract(5, 'months'); // eslint-disable-line camelcase
+    olderVersion.tag_name = 'v14.0.0';                                 // eslint-disable-line camelcase
 
     return [version, olderVersion];
   });

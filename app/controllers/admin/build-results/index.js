@@ -2,8 +2,8 @@ import Ember from 'ember';
 import moment from 'moment';
 
 export default Ember.Controller.extend({
-  queryParams: [ 'date' ],
-  buildResultSorting: [ 'testsRunAt:desc' ],
+  queryParams: ['date'],
+  buildResultSorting: ['testsRunAt:desc'],
   sortedBuildResults: Ember.computed.sort('model', 'buildResultSorting'),
 
   formattedDisplayDate: Ember.computed('date', function() {

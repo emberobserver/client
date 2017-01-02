@@ -1,4 +1,3 @@
-/* jshint node: true */
 var parseFlag = require('./parse-flag');
 
 module.exports = function(environment) {

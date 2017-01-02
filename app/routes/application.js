@@ -1,19 +1,19 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  beforeModel: function() {
+  beforeModel() {
     this.get('session').fetch();
   },
   actions: {
-    login: function(email, password) {
-      var route = this;
+    login(email, password) {
+      let route = this;
       this.get('session').open(email, password).then(function() {
         route.transitionTo('admin.index');
       });
     }
   },
 
-  model: function() {
+  model() {
     return Ember.RSVP.hash({
       addons: this.get('store').findAll('addon'),
       categories: this.get('store').findAll('category'),
@@ -21,10 +21,10 @@ export default Ember.Route.extend({
     });
   },
 
-  title: function(tokens) {
-    var tokenStr = tokens.join('');
+  title(tokens) {
+    let tokenStr = tokens.join('');
     if (tokenStr) {
-      return tokenStr + ' - Ember Observer';
+      return `${tokenStr} - Ember Observer`;
     } else {
       return 'Ember Observer';
     }

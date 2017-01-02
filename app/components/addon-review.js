@@ -8,9 +8,11 @@ export default Ember.Component.extend({
     4: 'Unknown'
   },
   answeredQuestions: function() {
-    var component = this;
-    var review = this.get('review');
-    if (!review) { return; }
+    let component = this;
+    let review = this.get('review');
+    if (!review) {
+      return;
+    }
     return review.questions.filter(function(question) {
       return !Ember.isEmpty(review.get(question.fieldName));
     }).map(function(question) {

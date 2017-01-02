@@ -23,7 +23,7 @@ export default Ember.Component.extend({
     return this.get('moreThan10Versions') && !this.get('showAll');
   }.property('moreThan10Versions', 'showAll'),
   actions: {
-    showAllVersions: function() {
+    showAllVersions() {
       this.set('showAll', true);
     }
   }

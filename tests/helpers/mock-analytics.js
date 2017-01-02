@@ -1,6 +1,6 @@
 window.analytics = {
-  identify: function() {},
-  track: function() {},
-  page: function() {},
-  alias: function() {}
+  identify() {},
+  track() {},
+  page() {},
+  alias() {}
 };

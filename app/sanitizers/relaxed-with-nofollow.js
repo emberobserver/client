@@ -1,5 +1,5 @@
 /* global Sanitize */
-
+/* eslint-disable */
 export default {
   elements: [
     'a', 'b', 'blockquote', 'br', 'caption', 'cite', 'code', 'col',
@@ -34,3 +34,4 @@ export default {
     a: { rel: 'nofollow' }
   }
 };
+/* eslint-enable */

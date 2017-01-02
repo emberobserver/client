@@ -1,7 +1,7 @@
 export default {
-  setItem: function() {},
-  removeItem: function() {},
-  key: function() {},
-  getItem: function() {},
+  setItem() {},
+  removeItem() {},
+  key() {},
+  getItem() {},
   length: 0
 };

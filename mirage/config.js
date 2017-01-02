@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+
 import EmberVersionsResponse from './ember-version-response';
 export default function() {
 
@@ -52,10 +54,9 @@ export default function() {
     };
   });
 
-  this.get('https://api.github.com/repos/emberjs/ember.js/releases', function(/*db, request*/) {
+  this.get('https://api.github.com/repos/emberjs/ember.js/releases', function(/* db, request*/) {
     return EmberVersionsResponse;
   });
-
 
   /*
     Route shorthand cheatsheet
@@ -129,3 +130,5 @@ export function testConfig() {
 
 }
 */
+
+/* eslint-enable camelcase */

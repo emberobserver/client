@@ -1,13 +1,15 @@
+/* global QUnit */
+
 import Ember from 'ember';
 
 QUnit.assert.contains = function(selector, text, message) {
-  var elements = find(selector);
-  var regex = new RegExp(escapeForRegex(text) + '($|\\W)', 'gm');
-  var result = false;
+  let elements = find(selector);
+  let regex = new RegExp(`${escapeForRegex(text)}($|\\W)`, 'gm');
+  let result = false;
   message = `${(message || '')} - At least one element ${selector} containing "${text}" should exist.`;
 
   if (elements.length === 1) {
-    var resultText = Ember.$(elements).text();
+    let resultText = Ember.$(elements).text();
     result = regex.test(resultText);
     this.push(result, resultText, text, message);
   } else {
@@ -21,26 +23,28 @@ QUnit.assert.contains = function(selector, text, message) {
 };
 
 QUnit.assert.containsExactly = function(selector, text, message = '') {
-  var elements = find(selector);
-  if (elements.length !== 1) { throw new Error('One element was expected with selector ' + selector + ' but ' + elements.length + ' were found'); }
-  var result = (Ember.$(elements[0]).text().trim().replace(/\s+/gm, '') === text.trim().replace(/\s+/gm, ''));
-  message = message + ` - ${selector} should contain ${text}`;
+  let elements = find(selector);
+  if (elements.length !== 1) {
+    throw new Error(`One element was expected with selector ${selector} but ${elements.length} were found`);
+  }
+  let result = (Ember.$(elements[0]).text().trim().replace(/\s+/gm, '') === text.trim().replace(/\s+/gm, ''));
+  message = `${message} - ${selector} should contain ${text}`;
   this.push(result, Ember.$(elements[0]).text(), text, message);
 };
 
 QUnit.assert.notExists = function(selector, prependMessage = '') {
-  var elementCount = find(selector).length;
-  var result = (elementCount === 0);
-  var message = `${prependMessage} - ${selector} should not exist.`;
+  let elementCount = find(selector).length;
+  let result = (elementCount === 0);
+  let message = `${prependMessage} - ${selector} should not exist.`;
   this.push(result, `${elementCount} of ${selector}`, `0 of ${selector}`, message);
 };
 
 QUnit.assert.exists = function(selector, ...args) {
-  var expectedCount = (typeof(args[0]) === 'string') ? null : args[0];
-  var prependMessage = (typeof(args[0]) === 'string') ? args[0] : args[1];
-  var result = false;
-  var elementCount = find(selector).length;
-  var countMessage = '';
+  let expectedCount = (typeof(args[0]) === 'string') ? null : args[0];
+  let prependMessage = (typeof(args[0]) === 'string') ? args[0] : args[1];
+  let result = false;
+  let elementCount = find(selector).length;
+  let countMessage = '';
 
   if (expectedCount) {
     result = elementCount === expectedCount;
@@ -50,18 +54,18 @@ QUnit.assert.exists = function(selector, ...args) {
     countMessage = 'At least 1';
   }
 
-  var message = `${(prependMessage || '')} - ${countMessage} of ${selector} should exist.`;
+  let message = `${(prependMessage || '')} - ${countMessage} of ${selector} should exist.`;
   this.push(result, `${elementCount} of ${selector}`, `${countMessage} of ${selector}`, message);
 };
 
 QUnit.assert.notVisible = function(selector, prependMessage) {
   prependMessage = prependMessage || '';
-  var message = `${prependMessage} - ${selector} should not be visible.`;
-  var visibleElementsMatchingSelector = find(selector).filter(':visible');
-  var result = (visibleElementsMatchingSelector.length === 0);
+  let message = `${prependMessage} - ${selector} should not be visible.`;
+  let visibleElementsMatchingSelector = find(selector).filter(':visible');
+  let result = (visibleElementsMatchingSelector.length === 0);
 
   if (!result) {
-    message = message + ` but ${visibleElementsMatchingSelector.length} are`;
+    message = `${message} but ${visibleElementsMatchingSelector.length} are`;
   }
 
   this.push(result, result, true, message);
@@ -70,12 +74,12 @@ QUnit.assert.notVisible = function(selector, prependMessage) {
 QUnit.assert.visible = function(selector, count, prependMessage) {
   count = (count !== undefined) ? count : 1;
   prependMessage = prependMessage || '';
-  var message = `${prependMessage} - (${count}) ${selector} should be visible.`;
-  var visibleElementsMatchingSelector = find(selector).filter(':visible');
-  var result = (visibleElementsMatchingSelector.length === count);
+  let message = `${prependMessage} - (${count}) ${selector} should be visible.`;
+  let visibleElementsMatchingSelector = find(selector).filter(':visible');
+  let result = (visibleElementsMatchingSelector.length === count);
 
   if (!result) {
-    message = message + ` but ${visibleElementsMatchingSelector.length} are`;
+    message = `${message} but ${visibleElementsMatchingSelector.length} are`;
   }
 
   this.push(result, visibleElementsMatchingSelector.length, count, message);

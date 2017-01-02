@@ -6,7 +6,7 @@ export default Ember.Component.extend({
     return this.get('selectedSort') === this.get('key');
   }.property('selectedSort', 'key'),
   actions: {
-    sortBy: function(key) {
+    sortBy(key) {
       this.sendAction('sortBy', key);
     }
   }

@@ -10,7 +10,7 @@ export default Ember.Controller.extend({
   sortedTopLevelCategories: Ember.computed.sort('topLevelCategories', 'categorySorting'),
 
   actions: {
-    addCategory: function() {
+    addCategory() {
       let newCategory = this.get('store').createRecord('category', {
         name: this.get('newCategoryName'),
         description: this.get('newCategoryDescription'),

@@ -54,10 +54,10 @@ export default Ember.Service.extend({
   _searchReadmes(query) {
     return this.get('ajax').request('/api/search', {
       data: {
-        query: query
+        query
       }
     }).then((results) => {
-      return results['search'].map((result) => {
+      return results.search.map((result) => {
         return {
           addon: this.get('store').peekRecord('addon', result.addon_id),
           matches: result.matches
