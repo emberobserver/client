@@ -9,14 +9,10 @@ export default Ember.Component.extend(FocusableComponent, {
   routing: Ember.inject.service('-routing'),
   metrics: Ember.inject.service(),
   focusNode: '#search-input',
-  showCategories: true,
   init() {
     this._super(...arguments);
     this.get('search').perform(this.get('query'));
   },
-  categories: Ember.computed(function() {
-    return this.get('store').peekAll('category');
-  }),
   hasSearchedAndNoResults: Ember.computed('queryIsValid', 'results.length', 'search.isIdle', function() {
     return this.get('queryIsValid') && !this.get('results.length') && this.get('search.isIdle');
   }),
@@ -34,7 +30,7 @@ export default Ember.Component.extend(FocusableComponent, {
 
     yield timeout(250);
 
-    this.get('metrics').trackEvent({ category: 'Search', action: `Search on ${document.location.pathname}`, label: this.get('query') });
+    this.get('metrics').trackEvent({ category: 'Search', action: `Search on /`, label: this.get('query') });
 
     let results = yield this.get('searchService').search(this.get('query'), { includeReadmes: this.get('searchReadmes') });
     this.set('_results', results);
@@ -55,10 +51,5 @@ export default Ember.Component.extend(FocusableComponent, {
     this.set('query', '');
     this.set('_results', null);
     this.focus();
-  },
-  logoutUser() {
-    this.get('session').close().finally(() => {
-      this.get('routing').transitionTo('index');
-    });
   }
 });

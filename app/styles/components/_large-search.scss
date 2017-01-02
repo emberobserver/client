@@ -1,0 +1,114 @@
+.large-search {
+
+  .search {
+    .search-wrapper {
+      display: inline-block;
+      width: 100%;
+      position: relative;
+
+      button {
+        padding: 0;
+        background: none;
+      }
+    }
+
+    .readme-toggle {
+      color: $base-accent-color;
+      margin-top: 0.5rem;
+      margin-left: 0.25rem;
+
+      input {
+        margin-right: 0.5rem;
+      }
+
+      label {
+        cursor: pointer;
+      }
+    }
+
+    .no-results {
+      color: white;
+      margin-top: 0.5rem;
+      visibility: hidden;
+
+      &.showing {
+        visibility: visible;
+      }
+    }
+
+    input {
+      margin: 0;
+      padding-right: 3rem;
+      border: 2px solid $blue;
+    }
+
+    .icon-close {
+      position: absolute;
+      top: 50%;
+      right: 1rem;
+      margin-top: -1rem;
+      font-size: 2rem;
+      line-height: 1;
+      color: $light-gray;
+    }
+  }
+
+  .readme-list {
+    @extend .addon-list;
+  }
+
+  .result-info {
+    margin-bottom: 1rem;
+  }
+
+  .results h5 {
+    margin-bottom: 0.5rem;
+    display: inline-block;
+    font-size: 1.2rem;
+    border-bottom: 1px solid $light-gray;
+    padding-bottom: 0.2rem;
+  }
+
+  .category-results, .maintainer-results {
+
+    h5 {
+      margin-bottom: 0.5rem;
+    }
+
+    ul {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+
+      li {
+        div {
+          padding-left: 3rem;
+        }
+      }
+    }
+
+    .bullet {
+      position: absolute;
+      margin-right: 0.5rem;
+      margin-left: 0.5rem;
+      width: 1rem;
+      text-align: center;
+    }
+  }
+
+  .readme-results {
+
+    h5 {
+      margin-bottom: 0.5rem;
+    }
+
+    ul {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+  }
+
+  .text-match {
+    font-size: .95rem;
+    margin-top: 1rem;
+  }
+}

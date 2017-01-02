@@ -1,10 +1,15 @@
 .route-index {
+
+  .top-addons {
+    border-top: 1px solid $light-gray;
+    padding-top: 1.5rem;
+  }
+
   .new-addons {
     margin-top: 3rem;
   }
 
   h1 {
-    margin-left: 1.5rem;
     margin-bottom: 1rem;
   }
 

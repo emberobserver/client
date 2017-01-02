@@ -80,7 +80,7 @@
         {{/unless}}
         {{addon-review review=latestReview}}
         {{#if session.isAuthenticated}}
-          <button {{action "renewLatestReview"}} class="test-renew-latest-review">Renew Review</button>
+          <button {{action "renewLatestReview"}} class="button test-renew-latest-review">Renew Review</button>
         {{/if}}
       {{else}}
         <p class="no-review test-no-review">This addon has not yet been reviewed.</p>
@@ -92,7 +92,7 @@
         {{#if isReviewing}}
           {{addon-review-form review=newReview questions=newReview.questions save="saveReview"}}
         {{else}}
-          <button {{action "review"}} class="test-addon-review-button">Review</button>
+          <button {{action "review"}} class="button test-addon-review-button">Review</button>
         {{/if}}
       {{/if}}
     </div>

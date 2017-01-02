@@ -1,0 +1,72 @@
+<div class="large-search">
+  <div class="search">
+    <div class="search-wrapper">
+      <input type="search"
+             placeholder="Search for addons, maintainers and categories"
+             autocomplete="off"
+             id="search-input"
+             spellcheck="false"
+             value={{query}}
+                 oninput={{action (perform search) value="target.value"}}>
+      {{#if query}}
+        <button {{action clearSearch}} class="icon-close test-clear-search"></button>
+      {{/if}}
+    </div>
+    <div class="readme-toggle">
+      {{input type="checkbox"
+              class="test-search-readmes"
+              id="search-readmes"
+              checked=searchReadmes
+              change=(action (perform toggleReadmeSearch))}}
+      <label for="search-readmes">Search readmes</label>
+    </div>
+    <h6 class="no-results {{if hasSearchedAndNoResults 'showing'}}">No results found for "{{query}}"</h6>
+  </div>
+
+  {{#if results.length}}
+    <h4 class="result-info test-result-info">Results for "{{query}}"</h4>
+    {{#search-result-set results=results.readmes title="Readmes" resultClass="readme-results"}}
+      <ul class="readme-list">
+        {{#each results.readmes as |readmeMatch|}}
+          <li>
+            {{addon-details addon=readmeMatch.addon}}
+            {{#each readmeMatch.matches as |match|}}
+              <div class="test-readme-match text-match">
+                ...{{sanitize-html match "relaxed-with-nofollow"}}...
+              </div>
+            {{/each}}
+          </li>
+        {{/each}}
+      </ul>
+    {{/search-result-set}}
+    {{#search-result-set results=results.categories title="Categories" resultClass="category-results"}}
+      <ul>
+        {{#each results.categories as |category|}}
+          <li>
+            {{#link-to "categories.show" category (query-params query="")}}
+              <span class="bullet">&#9632;</span>
+              <div>{{category.name}} ({{category.addonCount}})</div>
+            {{/link-to}}
+          </li>
+        {{/each}}
+      </ul>
+    {{/search-result-set}}
+    {{#search-result-set results=results.addons title="Addons" resultClass="addon-results"}}
+      {{addon-list addons=results.addons}}
+    {{/search-result-set}}
+    {{#search-result-set results=results.maintainers title="Maintainers" resultClass="maintainer-results"}}
+      <ul>
+        {{#each results.maintainers as |maintainer|}}
+          <li>
+            {{#link-to "maintainers.show" maintainer (query-params query="")}}
+              <span class="bullet">&#9632;</span>
+              <div>{{maintainer.name}}</div>
+            {{/link-to}}
+          </li>
+        {{/each}}
+      </ul>
+    {{/search-result-set}}
+  {{else if search.isRunning}}
+    {{dot-spinner}}
+  {{/if}}
+</div>

@@ -1,6 +1,4 @@
 .about-index {
-  @include outer-padding;
-
   article {
     @include clearfix;
     text-align: left;

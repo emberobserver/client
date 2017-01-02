@@ -6,6 +6,7 @@
     border-radius: 2px;
     border-bottom: 1px dotted $light-gray;
     padding: .9rem 1.5rem;
+    padding-left: 1rem;
 
     p {
       margin: 0;
@@ -16,7 +17,7 @@
     }
 
     .desc {
-      padding-left: 4rem;
+      padding-left: 3.5rem;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;

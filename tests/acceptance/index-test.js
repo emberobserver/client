@@ -64,30 +64,6 @@ testSearch('/', function(assert) {
   assert.exists('h1:contains(Top addons)');
 });
 
-testSearch('/not-found', function(assert) {
-  assert.exists(':contains(Oops)');
-});
-
-testSearch('/model-not-found', function(assert) {
-  assert.exists(':contains(Oops)');
-});
-
-testSearch('/lists/new-addons', function(assert) {
-  assert.exists('h1:contains(New Addons)');
-});
-
-testSearch('/maintainers/test-master', function(assert) {
-  assert.exists('h1:contains(test-master)');
-});
-
-testSearch('/categories/testing', function(assert) {
-  assert.exists('h1:contains(Testing)');
-});
-
-testSearch('/addons/ember-a-thing', function(assert) {
-  assert.exists('h1:contains(ember-a-thing)');
-});
-
 test('including readme matches in search', function(assert) {
   let addon1 = server.create('addon', { name: 'ember-test-thing' });
   let addon2 = server.create('addon', { name: 'ember-different' });
@@ -108,10 +84,10 @@ test('including readme matches in search', function(assert) {
   click('.test-search-readmes');
 
   andThen(function() {
-    assert.equal(currentURL(), '/?query=test&readmes=true');
+    assert.equal(currentURL(), '/?query=test&searchReadmes=true');
     assert.contains('.test-result-info', 'Results for "test"');
-    assert.exists('.addon-list li', 1, 'Only 1 addon result');
-    assert.contains('.addon-list li', 'ember-test-thing');
+    assert.exists('.addon-results .addon-list li', 1, 'Only 1 addon result');
+    assert.contains('.addon-results .addon-list li', 'ember-test-thing');
 
     assert.exists('.readme-results li', 2, '2 matching readmes');
     assert.exists(".test-readme-match:contains('testing stuff')");
@@ -127,8 +103,8 @@ test('including readme matches in search', function(assert) {
   andThen(() => {
     assert.equal(currentURL(), '/?query=test');
     assert.contains('.test-result-info', 'Results for "test"');
-    assert.exists('.addon-list li', 1, 'Only 1 addon result');
-    assert.contains('.addon-list li', 'ember-test-thing');
+    assert.exists('.addon-results .addon-list li', 1, 'Only 1 addon result');
+    assert.contains('.addon-results .addon-list li', 'ember-test-thing');
 
     assert.notExists('.readme-results li', 'No readme results count showing');
     assert.notExists('.readme-list li', 'No readme matches showing');
@@ -194,8 +170,8 @@ function testSearch(url, assertForContentOnUrl) {
     andThen(function() {
       assert.equal(currentURL(), `${url}?query=test`);
       assert.contains('.test-result-info', 'Results for "test"');
-      assert.exists('.addon-list li', 1, 'Only 1 addon result');
-      assert.contains('.addon-list li', 'ember-test-me');
+      assert.exists('.addon-results .addon-list li', 1, 'Only 1 addon result');
+      assert.contains('.addon-results .addon-list li', 'ember-test-me');
       assert.exists('.category-results li', 2, '2 matching categories');
       assert.exists('.maintainer-results li', 1, '1 matching maintainer');
       assert.equal(find('#search-input').val(), 'test', 'Query is in text box');
@@ -206,9 +182,9 @@ function testSearch(url, assertForContentOnUrl) {
     andThen(function() {
       assert.equal(currentURL(), `${url}?query=thin`);
       assert.contains('.test-result-info', 'Results for "thin"');
-      assert.exists('.addon-list li', 2, '2 addon results');
-      assert.contains('.addon-list li', 'ember-test-me');
-      assert.contains('.addon-list li', 'ember-a-thing');
+      assert.exists('.addon-results .addon-list li', 2, '2 addon results');
+      assert.contains('.addon-results .addon-list li', 'ember-test-me');
+      assert.contains('.addon-results .addon-list li', 'ember-a-thing');
       assert.exists('.category-results li', 1, '1 matching category');
       assert.notExists('.maintainer-results', 'No matching maintainers');
       assert.equal(find('#search-input').val(), 'thin', 'Query is in text box');

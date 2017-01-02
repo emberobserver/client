@@ -3,27 +3,30 @@ fieldset {
   border: $base-border;
   margin: 0 0 ($base-spacing / 2) 0;
   padding: $base-spacing;
+
+  label {
+    font-weight: bold;
+    margin-bottom: $base-spacing / 4;
+
+    &.required:after {
+      content: "*";
+    }
+
+    abbr {
+      display: none;
+    }
+
+    display: block;
+    font-family: $form-font-family;
+    font-size: $form-font-size;
+  }
 }
 
 input,
-label,
 select {
   display: block;
   font-family: $form-font-family;
   font-size: $form-font-size;
-}
-
-label {
-  font-weight: bold;
-  margin-bottom: $base-spacing / 4;
-
-  &.required:after {
-    content: "*";
-  }
-
-  abbr {
-    display: none;
-  }
 }
 
 textarea,

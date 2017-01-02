@@ -3,9 +3,9 @@
     {{multiselect-checkboxes options=categories labelProperty="displayName" selection=model.categories}}
 
     {{#if isSaving}}
-      <input type="submit" value="Saving" disabled>
+      <input type="submit" class="button" value="Saving" disabled>
     {{else}}
-      {{input type="submit" value="Save"}}
+      {{input type="submit" class="button" value="Save"}}
     {{/if}}
   </fieldset>
 </form>

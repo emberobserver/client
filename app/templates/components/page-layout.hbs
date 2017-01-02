@@ -1,0 +1,42 @@
+<div class="page-layout {{unless showCategories 'categories-collapsed'}}">
+  <div class="main">
+    <header class="navigation">
+      {{#link-to "index" (query-params query="") class="name"}}
+        <img src="/telescope.png">
+        Ember Observer
+      {{/link-to}}
+      {{#if showHeaderSearch}}
+        <div class="search">
+          <form {{action goSearch on="submit"}}>
+            {{input value=searchTerm
+                    placeholder="Search"
+                    autocomplete="off"
+            }}
+            <input type="submit" value="Go">
+          </form>
+        </div>
+      {{/if}}
+      <nav class="links">
+        <ul>
+          <li>
+            <a href="#">Code Search</a>
+          </li>
+          <li>
+            {{#link-to "about"}}About{{/link-to}}
+          </li>
+          {{#if session.isAuthenticated}}
+            <li>
+              <button {{action logoutUser}} class="logout">Log out</button>
+            </li>
+          {{/if}}
+        </ul>
+      </nav>
+    </header>
+    <div class="content">
+      {{yield}}
+    </div>
+    {{#if showCategories}}
+      {{category-finder class="categories-list" categories=categories}}
+    {{/if}}
+  </div>
+</div>

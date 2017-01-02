@@ -1,7 +1,7 @@
 .footer {
   @include span-columns(12);
-  $footer-background: $dark-blue-gray;
-  $footer-color: white;
+  $footer-background: $medium-gray;
+  $footer-color: $light-gray;
   $footer-link-color: transparentize($footer-color, 0.6);
   $footer-disclaimer-color: transparentize($footer-color, 0.6);
 
@@ -45,7 +45,7 @@
     }
   }
 
-  li a {
+ li a {
     color: $footer-link-color;
 
     &:focus,
@@ -75,6 +75,10 @@
     margin-bottom: 1em;
     max-width: 35em;
     text-align: center;
+
+    a {
+      color: tint($footer-link-color, 70%);
+    }
   }
 
   .sponsor {

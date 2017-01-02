@@ -120,7 +120,7 @@ test('displays appropriate indication for canary builds', function(assert) {
 });
 
 test('links to previous day', function(assert) {
-  let yesterday = moment().subtract(1, 'day').utc().format('Y-M-D');
+  let yesterday = moment().subtract(1, 'day').utc().format('YYYY-MM-DD');
 
   login();
   visit('/admin/build-results');

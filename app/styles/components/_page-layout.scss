@@ -1,0 +1,217 @@
+.page-layout {
+
+  &.categories-collapsed {
+    .content {
+      @include span-columns(12);
+      padding: $default-spacing $default-spacing 0 $default-spacing;
+    }
+  }
+
+  .content {
+    @include span-columns(12);
+    min-height: 500px;
+    padding: $default-spacing $default-spacing 0 $default-spacing;
+
+    @include media($medium-screen) {
+      @include span-columns(8);
+      padding-right: 1rem;
+    }
+  }
+
+  $nav-link-color: tint($blue, 50%);
+
+  header.navigation {
+    position: relative;
+    border-radius: 2px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    padding: 1rem $default-spacing;
+    background-color: $medium-gray;
+    text-align: center;
+
+    @include media($medium-screen){
+      text-align: left;
+      display: flex;
+      align-items: center;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+    }
+
+    .name {
+      color: darken($light-gray, 10);
+      font-size: 2rem;
+      font-weight: 500;
+      line-height: 1;
+      white-space: nowrap;
+      display: block;
+      margin-bottom: 1rem;
+
+      @include media($medium-screen) {
+        margin-right: $default-spacing;
+        margin-bottom: 0;
+        display: inline-block;
+      }
+
+      img {
+        height: 2rem;
+        vertical-align: middle;
+        margin-right: 0.5rem;
+      }
+    }
+
+    .search {
+      display: block;
+      margin-bottom: 1rem;
+      min-width: 12em;
+
+      @include media($medium-screen) {
+        display: inline-block;
+        margin-bottom: 0;
+        margin-right: $default-spacing;
+      }
+
+      input[type=submit] {
+        display: none;
+      }
+
+      input[type=text] {
+        font-size: 1.25rem;
+        color: $base-background-color;
+        background-color: $medium-gray;
+        margin-bottom: 0;
+        text-align: center;
+
+        @include media($medium-screen) {
+          text-align: left;
+          border: none;
+          border-bottom: 1px solid $nav-link-color;
+          box-shadow: none;
+          border-radius: 0;
+          padding: 0 0.25rem 0 0.25rem;
+
+          &:focus,&:hover {
+            border-bottom: 1px solid $blue;
+          }
+        }
+      }
+    }
+
+    .links {
+      display: block;
+      white-space: nowrap;
+
+      @include media($medium-screen) {
+        display: inline-block;
+      }
+
+      ul {
+        display: inline-block;
+
+        li {
+          display: inline;
+          padding-right: 0.75rem;
+          padding-left: 0.75rem;
+          border-right: 1px solid $nav-link-color;
+
+          &:first-child {
+            padding-left: 0;
+          }
+
+          &:last-child {
+            padding-right: 0;
+            border-right: none;
+          }
+        }
+      }
+
+      a, button {
+        color: $nav-link-color;
+
+        &:hover, &:focus {
+          color: lighten($nav-link-color, 15);
+        }
+      }
+
+      button {
+        padding: 0;
+        background: none;
+        border: none;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .categories-list {
+    @include span-columns(12);
+    border-top: 2px solid $light-gray;
+
+    @include media($medium-screen) {
+      @include span-columns(4);
+      @include omega();
+      border-top: none;
+      border-left: $base-border;
+    }
+
+    padding: 0.25rem;
+    padding-right: $default-spacing;
+    font-size: 1.25rem;
+
+    .filter {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+
+      input {
+        font-size: 1.2rem;
+        border: $base-border;
+        box-shadow: none;
+
+        &:hover {
+          border-color: $form-border-color-hover;
+        }
+
+        &:focus {
+          border-color: $form-border-color-focus;
+          box-shadow: $form-box-shadow-focus;
+          outline: none;
+        }
+      }
+    }
+
+    #title {
+      font-size: 1.5rem;
+      padding: 1.5rem 0.75rem;
+      line-height: 1;
+    }
+
+    ul {
+      border-top: $base-border-dotted;
+
+      li {
+        padding: 0.80rem;
+        border-bottom: $base-border-dotted;
+
+        &:last-of-type {
+          border-bottom: 2px solid $blue;
+        }
+
+        &.indent {
+          padding-left: 2.25rem;
+          text-indent: -1rem;
+          line-height: 1;
+        }
+
+        &:hover {
+          background-color: #fff8e7;
+        }
+
+        a {
+          display: block;
+
+          &.active {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+}

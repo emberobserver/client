@@ -4,9 +4,9 @@
     {{textarea value=model.note rows="3" class="test-note-input"}}
 
     {{#if isSaving}}
-      <input type="submit" value="Saving" disabled>
+      <input type="submit" class="button" value="Saving" disabled>
     {{else}}
-      {{input type="submit" value="Save"}}
+      {{input type="submit" class="button" value="Save"}}
     {{/if}}
   </fieldset>
 
@@ -20,9 +20,9 @@
       <li>{{input type="checkbox" id="has-invalid-github-repo" checked=model.hasInvalidGithubRepo}} <label for="has-invalid-github-repo">Has invalid Github repo?</label></li>
     </ul>
     {{#if isSaving}}
-      <input type="submit" value="Saving" disabled>
+      <input type="submit" class="button" value="Saving" disabled>
     {{else}}
-      {{input type="submit" value="Save" class="test-save-addon-properties"}}
+      {{input type="submit" value="Save" class="button test-save-addon-properties"}}
     {{/if}}
   </fieldset>
 </form>

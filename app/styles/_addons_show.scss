@@ -1,5 +1,4 @@
 .addons-show {
-  @include outer-padding;
 
   h1 {
     margin-top: 0;
@@ -146,7 +145,7 @@
     li {
       @include clearfix();
       margin-bottom: .7em;
-      border-bottom: 1px dotted tint($blue, 50%);;
+      border-bottom: 1px dotted tint($blue, 50%);
 
       &:hover {
         color: $base-accent-color;
