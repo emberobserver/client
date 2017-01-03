@@ -8,7 +8,7 @@ module.exports = function(deployTarget) {
 
   ENV['with-rsync'] = {
     username: 'eo',
-    root: '/srv/app/ember-observer/client/www',
+    root: '/srv/app/ember-observer/client'
   };
 
   if (deployTarget === 'development') {
@@ -17,6 +17,12 @@ module.exports = function(deployTarget) {
 
   if (deployTarget === 'staging') {
     ENV.build.environment = 'production';
+  }
+
+  if (deployTarget === 'beta') {
+    ENV.build.environment = 'production';
+    ENV['with-rsync'].host = 'emberobserver.com';
+    ENV['with-rsync'].root = '/srv/app/beta.ember-observer/client';
   }
 
   if (deployTarget === 'production') {
