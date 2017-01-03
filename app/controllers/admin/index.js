@@ -10,7 +10,7 @@ export default Ember.Controller.extend({
   }),
 
   nonWIPAddons: Ember.computed('model.addons.@each.isWip', function() {
-    return this.get('model.addons').filterBy('isWip', false);
+    return (this.get('model.addons') || []).filterBy('isWip', false);
   }),
 
   reviewedAddons: Ember.computed('model.addons.@each.latestReviewedVersionDate', function() {

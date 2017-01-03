@@ -36,7 +36,7 @@ export default Model.extend({
   committedToRecently: attr('boolean'),
   isTopStarred: attr('boolean'),
   demoUrl: attr('string'),
-  categories: hasMany('category', { async: true }),
+  categories: hasMany('category', { async: false }),
   keywords: hasMany('keyword', { async: true }),
   versions: hasMany('version', { async: true }),
   maintainers: hasMany('maintainer', { async: true }),

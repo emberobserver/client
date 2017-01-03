@@ -4,18 +4,18 @@
 </p>
 
 <ul class="stats-list">
-  <li class="test-addon-latest-version"><b>{{model.latestVersion.version}}</b> from {{relative-time date=model.latestVersionDate}}</li>
-  <li class="test-addon-top-downloaded">{{#if model.isTopDownloaded}}
+  <li class="test-addon-latest-version"><b>{{addon.latestVersion.version}}</b> from {{relative-time date=addon.latestVersionDate}}</li>
+  <li class="test-addon-top-downloaded">{{#if addon.isTopDownloaded}}
     <div>
       <small>TOP 10%!</small>
-    </div>{{/if}}<b>{{commify model.lastMonthDownloads}}</b> downloads in last month
+    </div>{{/if}}<b>{{commify addon.lastMonthDownloads}}</b> downloads in last month
   </li>
-  {{#if model.demoUrl}}
-    <li class="test-addon-demo-url"><b>demo</b> {{human-url url=model.demoUrl}}</li>
+  {{#if addon.demoUrl}}
+    <li class="test-addon-demo-url"><b>demo</b> {{human-url url=addon.demoUrl}}</li>
   {{/if}}
-  <li class="test-addon-repo-url"><b>repo</b> {{human-url url=model.repositoryUrl}}</li>
-  <li class="test-addon-package-url"><b>package</b> {{human-url url=model.npmUrl}}</li>
-  <li class="test-addon-license"><b>license</b> <a href={{licenseUrl}}>{{model.license}}</a></li>
+  <li class="test-addon-repo-url"><b>repo</b> {{human-url url=addon.repositoryUrl}}</li>
+  <li class="test-addon-package-url"><b>package</b> {{human-url url=addon.npmUrl}}</li>
+  <li class="test-addon-license"><b>license</b> <a href={{licenseUrl}}>{{addon.license}}</a></li>
 </ul>
 
 {{#if latestTestResult}}
@@ -32,8 +32,8 @@
 
 <p class="keywords test-addon-keywords">
 
-  {{#each keywords as |keyword|}}
-    {{#comma-separated list=model.keywords item=keyword as |value separator|}}
+  {{#each addon.keywords as |keyword|}}
+    {{#comma-separated list=addon.keywords item=keyword as |value separator|}}
       {{value.keyword}}{{separator}}
     {{/comma-separated}}
   {{/each}}
@@ -41,22 +41,22 @@
 
 <h6>maintainers</h6>
 <p class="test-addon-maintainers">
-  {{#each maintainers as |maintainer|}}
+  {{#each addon.maintainers as |maintainer|}}
     {{#link-to "maintainers.show" maintainer}}
       {{gravatar-avatar gravatarId=maintainer.gravatar title=maintainer.name alt=maintainer.name}}
     {{/link-to}}
   {{/each}}
 </p>
 
-{{#if model.latestVersion.emberCliVersion}}
+{{#if addon.latestVersion.emberCliVersion}}
   <h6>ember-cli version</h6>
-  <p class="test-addon-ember-cli-version">{{model.latestVersion.emberCliVersion}}</p>
+  <p class="test-addon-ember-cli-version">{{addon.latestVersion.emberCliVersion}}</p>
 {{/if}}
 
-<h6 class="test-addon-version-count">versions ({{model.sortedVersions.length}})</h6>
+<h6 class="test-addon-version-count">versions ({{addon.sortedVersions.length}})</h6>
 
 <p>
-  {{addon-version-list versions=model.sortedVersions}}
+  {{addon-version-list versions=addon.sortedVersions}}
 </p>
 
 <section class="badge test-addon-badge">
@@ -70,4 +70,4 @@
   {{/if}}
 </section>
 <hr>
-{{link-to 'Suggest a correction' 'addons.correct' model class="test-addon-correction-link"}}
+{{link-to 'Suggest a correction' 'addons.correct' addon class="test-addon-correction-link"}}

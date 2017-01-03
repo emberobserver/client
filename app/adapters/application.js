@@ -1,9 +1,9 @@
 import Ember from 'ember';
-import ActiveModelAdapter from 'active-model-adapter';
+import JSONAPIAdapter from 'ember-data/adapters/json-api';
 import cachedAjax from '../utils/network-cache';
 
-export default ActiveModelAdapter.extend({
-  namespace: 'api',
+export default JSONAPIAdapter.extend({
+  namespace: 'api/v2',
   coalesceFindRequests: true,
   headers: Ember.computed('session.{isAuthenticated,header}', function() {
     if (this.get('session.isAuthenticated')) {

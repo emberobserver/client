@@ -9,33 +9,30 @@ test('visiting /', function(assert) {
   let category = server.create('category',
     {
       name: 'Authentication',
-      addonIds: addons.mapBy('id'),
-      description: 'Addons for auth'
+      description: 'Addons for auth',
+      addonCount: 4
     });
 
-  server.create('category',
+  category.update({ addonIds: addons.mapBy('id') });
+
+  let addonA = server.create('addon');
+
+  let categoryA = server.create('category',
     {
       name: 'Simple Auth',
-      addonIds: [addons[0].id],
       description: 'Simple Auth addons',
+      addonCount: 1,
       parentId: category.id
     });
 
-  server.create('category',
-    {
-      name: 'Other Auth',
-      addonIds: [addons[1].id],
-      description: 'Other Auth addons',
-      parentId: category.id
-    });
+  categoryA.update({ addonIds: [addonA.id] });
 
   visit('/');
 
   andThen(function() {
     assert.exists('.test-category', 8, 'All categories should display');
-    assert.contains('.test-category', 'Authentication (6)', 'Categories should list title and count of addons');
+    assert.contains('.test-category', 'Authentication (4)', 'Categories should list title and count of addons');
     assert.contains('.test-subcategory:eq(0)', 'Simple Auth (1)', 'Subcategories should display under category');
-    assert.contains('.test-subcategory:eq(1)', 'Other Auth (1)', 'Subcategories should display under category');
   });
 
   click('.test-category:contains(Authentication)');
@@ -55,7 +52,7 @@ test('visiting /', function(assert) {
     assert.contains('.test-category-header', 'Simple Auth', 'Header should display');
     assert.contains('.test-category-description', 'Simple Auth addons', 'Description should display');
     assert.exists('.test-addon-row', 1, 'All addons in category should display');
-    assert.contains('.test-parent-category-link', 'Authentication (6)', 'Should link to parent category');
+    assert.contains('.test-parent-category-link', 'Authentication (4)', 'Should link to parent category');
     assert.contains('.test-addon-table-count', 'Displaying 1 addon', 'Should show addon count');
   });
 });

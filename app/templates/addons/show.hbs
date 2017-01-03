@@ -1,34 +1,34 @@
 <div class="addons-show">
   <div class="addon-info">
     <section class="test-addon-header">
-      {{#if model.isDeprecated}}
+      {{#if addon.isDeprecated}}
         <label class="alert test-addon-flag-deprecation">DEPRECATED</label>
       {{/if}}
 
-      {{#if model.isNewAddon}}
+      {{#if addon.isNewAddon}}
         <small class="test-addon-flag-new">NEW!</small>
       {{/if}}
 
       <h1>
-        {{#if model.isOfficial}}
+        {{#if addon.isOfficial}}
           <span class="icon-stars official test-addon-flag-official" title="Official Ember-CLI addon"></span>
         {{/if}}
 
-        {{#if model.isCliDependency}}
+        {{#if addon.isCliDependency}}
           <span class="icon-stars dependency test-addon-flag-cli-dependency" title="Dependency of newly generated Ember-CLI applications"></span>
         {{/if}}
 
-        {{model.name}}
+        {{addon.name}}
       </h1>
 
-      <p>{{model.description}}</p>
+      <p>{{addon.description}}</p>
     </section>
-    {{#if model.note}}
-      {{addon-note content=model.renderedNote}}
+    {{#if addon.note}}
+      {{addon-note content=addon.renderedNote}}
     {{/if}}
 
-    {{#if model.ranking}}
-      <span>{{#link-to "addons.top"}}Ranks #{{model.ranking}} of the top 100 addons!{{/link-to}}</span>
+    {{#if addon.ranking}}
+      <span>{{#link-to "addons.top"}}Ranks #{{addon.ranking}} of the top 100 addons!{{/link-to}}</span>
     {{/if}}
     {{partial "addons/score-detail"}}
     {{#if session.isAuthenticated}}
@@ -38,8 +38,8 @@
     <section class="categories">
       <h4>Categories</h4>
       <p>
-        {{inline-category-list categories=model.categories}}
-        {{#unless model.categories}}
+        {{inline-category-list categories=addon.categories}}
+        {{#unless addon.categories}}
           This addon hasn't been categorized yet.
         {{/unless}}
       </p>
@@ -47,27 +47,27 @@
         {{partial "addons/categories-form"}}
       {{/if}}
     </section>
-    {{#if model.hasGithubData}}
+    {{#if addon.hasGithubData}}
       <section class="repo-info test-github-data">
         <h4>Github</h4>
 
-        {{#if model.isTopStarred}}
+        {{#if addon.isTopStarred}}
           <small>TOP 10% STARRED</small>
         {{/if}}
         <div class="stats">
           <ul>
-            <li class="test-open-issues">{{model.openIssues}}<span>{{pluralize model.openIssues 'Open Issue'}}</span></li>
-            <li class="test-forks">{{model.forks}}<span>{{pluralize model.forks 'Fork'}}</span></li>
-            <li class="test-stars">{{model.stars}}<span>Starred</span></li>
-            <li class="test-contributors">{{model.contributors.length}}<span>{{pluralize model.contributors.length 'Contributor'}}</span></li>
+            <li class="test-open-issues">{{addon.openIssues}}<span>{{pluralize addon.openIssues 'Open Issue'}}</span></li>
+            <li class="test-forks">{{addon.forks}}<span>{{pluralize addon.forks 'Fork'}}</span></li>
+            <li class="test-stars">{{addon.stars}}<span>Starred</span></li>
+            <li class="test-contributors">{{addon.contributors.length}}<span>{{pluralize addon.contributors.length 'Contributor'}}</span></li>
           </ul>
         </div>
         <div class="commit-stats">
           <strong>latest commit</strong>
-          <p class="test-latest-commit">{{relative-time date=model.latestCommitDate}}</p>
+          <p class="test-latest-commit">{{relative-time date=addon.latestCommitDate}}</p>
 
           <strong>first commit</strong>
-          <p class="test-first-commit">{{relative-time date=model.firstCommitDate}}</p>
+          <p class="test-first-commit">{{relative-time date=addon.firstCommitDate}}</p>
         </div>
       </section>
     {{/if}}
@@ -97,12 +97,12 @@
       {{/if}}
     </div>
 
-    {{#if model.readme}}
+    {{#if addon.readme}}
       <section class="readme">
         <p class="header">README.md</p>
         <p class="test-addon-readme contents">
           {{markdown-to-sanitized-html
-            markdown=model.readme.contents
+            markdown=addon.readme.contents
             tables=true
             ghCodeBlocks=true
             tasklists=true

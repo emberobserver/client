@@ -5,10 +5,12 @@ export default Ember.Controller.extend({
     addonSortKey: 'sort'
   },
   addonSortKey: 'score',
-  sortedAddons: Ember.computed.sort('model.addons', 'addonSorting'),
+  category: Ember.computed.alias('model.category'),
+  addons: Ember.computed.alias('model.addons'),
+  sortedAddons: Ember.computed.sort('addons', 'addonSorting'),
 
-  hasSubcategories: Ember.computed('model.subcategories', function() {
-    return this.get('model.subcategories.length') > 0;
+  hasSubcategories: Ember.computed('category.subcategories', function() {
+    return this.get('category.subcategories.length') > 0;
   }),
 
   addonSorting: Ember.computed('addonSortKey', function() {

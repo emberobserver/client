@@ -2,14 +2,8 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model(params) {
-    let store = this.get('store');
-    return new Ember.RSVP.Promise(function(resolve, reject) {
-      let maintainer = store.peekAll('maintainer').findBy('name', params.name);
-      if (maintainer) {
-        resolve(maintainer);
-      } else {
-        reject('not found');
-      }
+    return this.get('store').query('maintainer', { filter: { name: params.name } }).then((maintainers) => {
+      return maintainers.get('firstObject');
     });
   },
 

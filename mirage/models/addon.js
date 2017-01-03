@@ -4,5 +4,7 @@ export default Model.extend({
   readme: belongsTo(),
   reviews: hasMany(),
   versions: hasMany(),
-  keywords: hasMany()
+  keywords: hasMany(),
+  categories: hasMany(),
+  maintainers: hasMany()
 });

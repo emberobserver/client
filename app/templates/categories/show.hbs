@@ -1,16 +1,16 @@
 <div class="categories-show">
   <div class="details">
     <div class="category-details">
-      <h1 class="test-category-header">{{model.name}}</h1>
+      <h1 class="test-category-header">{{category.name}}</h1>
       <p class="description test-category-description">
-        {{model.description}}<br>
-        {{#if model.parent}}
-          Subcategory of {{#link-to 'categories.show' model.parent class="test-parent-category-link"}}{{model.parent.name}} ({{model.parent.addonCount}}){{/link-to}}
+        {{category.description}}<br>
+        {{#if category.parent}}
+          Subcategory of {{#link-to 'categories.show' category.parent class="test-parent-category-link"}}{{category.parent.name}} ({{category.parent.addonCount}}){{/link-to}}
         {{/if}}
       </p>
       {{#if hasSubcategories}}
         <h6>Subcategories</h6>
-        {{inline-category-list categories=model.subcategories showAddonCount=true showWithoutParent=true}}
+        {{inline-category-list categories=category.subcategories showAddonCount=true showWithoutParent=true}}
       {{/if}}
     </div>
     <div class="sort-controls">

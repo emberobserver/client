@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 
+import Mirage from 'ember-cli-mirage';
 import EmberVersionsResponse from './ember-version-response';
 export default function() {
 
@@ -10,43 +11,95 @@ export default function() {
 
     Note: these only affect routes defined *after* them!
   */
-  this.namespace = '/api';    // make this `api`, for example, if your API is namespaced
-  // this.timing = 400;      // delay for each request, automatically set to 0 during testing
-
-  this.get('/categories');
-
-  this.get('/addons', function(schema, request) {
-    if (request.queryParams.name) {
-      return schema.addons.where({ name: request.queryParams.name }).models[0];
-    }
-
-    let simpleAddonData = schema.db.addons.map(function(addon) {
-      return {
-        id: addon.id,
-        name: addon.name,
-        latest_version_date: addon.latestVersionDate,
-        latest_reviewed_version_date: addon.latestReviewedVersionDate,
-        description: addon.description,
-        is_deprecated: addon.isDeprecated,
-        is_official: addon.isOfficial,
-        is_cli_dependency: addon.isCliDependency,
-        is_hidden: addon.isHidden,
-        score: addon.score,
-        is_wip: addon.isWip,
-        is_fully_loaded: false
-      };
-    });
-    return { addons: simpleAddonData };
+  this.post('/api/authentication/login.json', function() {
+    return { token: 'abc123' };
   });
 
-  this.get('/maintainers');
+  this.namespace = '/api/v2';    // make this `api`, for example, if your API is namespaced
+  // this.timing = 400;      // delay for each request, automatically set to 0 during testing
+
+  this.get('/autocomplete_data', function(schema) {
+    let addonData = schema.addons.all().models.map((a) => {
+      return {
+        id: a.id,
+        name: a.name,
+        description: a.description
+      };
+    });
+    let categoryData = schema.categories.all().models.map((c) => {
+      return {
+        id: c.id,
+        name: c.name
+      };
+    });
+    let maintainerData = schema.maintainers.all().models.map((m) => {
+      return {
+        id: m.id,
+        name: m.name
+      };
+    });
+    return {
+      addons: addonData,
+      categories: categoryData,
+      maintainers: maintainerData
+    };
+  });
+
+  this.get('/categories', function(schema, request) {
+    if (request.queryParams['filter[id]']) {
+      let categories = schema.categories.find(request.queryParams['filter[id]'].split(','));
+      if (!categories.models.length) {
+        return new Mirage.Response(404);
+      } else {
+        return categories;
+      }
+    }
+
+    return schema.categories.all();
+  });
+  this.get('/categories/:id');
+
+  this.get('/addons', function(schema, request) {
+    if (request.queryParams['filter[name]']) {
+      let addons = schema.addons.where({ name: request.queryParams['filter[name]'] });
+      if (!addons.models.length) {
+        return new Mirage.Response(404);
+      } else {
+        return addons;
+      }
+    }
+
+    if (request.queryParams['filter[id]']) {
+      let addons = schema.addons.find(request.queryParams['filter[id]'].split(','));
+      if (!addons.models.length) {
+        return new Mirage.Response(404);
+      } else {
+        return addons;
+      }
+    }
+
+    return schema.addons.all();
+  });
+
+  this.get('/maintainers', function(schema, request) {
+    if (request.queryParams['filter[name]']) {
+      let maintainers = schema.maintainers.where({ name: request.queryParams['filter[name]'] });
+      if (!maintainers.models.length) {
+        return new Mirage.Response(404);
+      } else {
+        return maintainers;
+      }
+    }
+
+    return schema.maintainers.all();
+  });
+
   this.get('/keywords');
-  this.get('/versions', ['reviews', 'testResults', 'emberVersionCompatibilities', 'versions']);
+  this.get('/versions');
   this.get('/reviews');
-  this.get('/build_servers');
-  this.get('/test_results');
-  this.get('/test_results/:id');
-  this.post('/authentication/login.json');
+  this.get('/build-servers');
+  this.get('/test-results');
+  this.get('/test-results/:id');
 
   this.get('/search', () => {
     return {

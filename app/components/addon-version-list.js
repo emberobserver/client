@@ -7,7 +7,7 @@ export default Ember.Component.extend({
     if (this.get('showAll')) {
       return this.get('versions');
     }
-    return this.get('versions').slice(0, 10);
+    return (this.get('versions') || []).slice(0, 10);
   }),
   emberVersionDataAfterOldestShowingAddonVersion: Ember.computed('emberVersions.versionData', 'showingVersions.lastObject', function() {
     let oldestVersionDate = this.get('showingVersions.lastObject.released');

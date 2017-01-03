@@ -3,11 +3,19 @@
     <h5>
       <a href="#" {{action toggleResultsExpansion}}>
         <span class="{{if resultsCollapsed 'icon-chevron-right' 'icon-expand-more'}}"></span>
-        {{title}} ({{results.length}})
+        {{title}} ({{totalCount}})
       </a>
     </h5>
     {{#unless resultsCollapsed}}
       {{yield}}
+      {{#if (less-than results.length totalCount)}}
+        {{#if fetchMore.isRunning}}
+          Fetching more...
+        {{else}}
+          <button {{action (perform fetchMore)}}>Show more</button>
+        {{/if}}
+        <!--TODO: make pretty -->
+      {{/if}}
     {{/unless}}
   </div>
 {{/if}}

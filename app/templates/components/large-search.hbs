@@ -39,9 +39,9 @@
         {{/each}}
       </ul>
     {{/search-result-set}}
-    {{#search-result-set results=results.categories title="Categories" resultClass="category-results"}}
+    {{#search-result-set results=results.displayingCategories totalCount=results.totalCategoriesCount fetchMore=fetchMoreCategories title="Categories" resultClass="category-results"}}
       <ul>
-        {{#each results.categories as |category|}}
+        {{#each results.displayingCategories as |category|}}
           <li>
             {{#link-to "categories.show" category (query-params query="")}}
               <span class="bullet">&#9632;</span>
@@ -51,12 +51,12 @@
         {{/each}}
       </ul>
     {{/search-result-set}}
-    {{#search-result-set results=results.addons title="Addons" resultClass="addon-results"}}
-      {{addon-list addons=results.addons}}
+    {{#search-result-set results=results.displayingAddons totalCount=results.totalAddonsCount fetchMore=fetchMoreAddons title="Addons" resultClass="addon-results"}}
+      {{addon-list addons=results.displayingAddons}}
     {{/search-result-set}}
-    {{#search-result-set results=results.maintainers title="Maintainers" resultClass="maintainer-results"}}
+    {{#search-result-set results=results.displayingMaintainers totalCount=results.totalMaintainersCount fetchMore=fetchMoreMaintainers title="Maintainers" resultClass="maintainer-results"}}
       <ul>
-        {{#each results.maintainers as |maintainer|}}
+        {{#each results.displayingMaintainers as |maintainer|}}
           <li>
             {{#link-to "maintainers.show" maintainer (query-params query="")}}
               <span class="bullet">&#9632;</span>

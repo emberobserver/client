@@ -1,20 +1,20 @@
 <section>
   <h4>
-    {{#score-display addon=model as |val|}}
+    {{#score-display addon=addon as |val|}}
       Score <b>{{val}}</b>
     {{/score-display}}
   </h4>
   {{#if showExplanation}}
     <a href="#" {{action "toggleExplainScore"}} class="info-action">Hide This</a>
 
-    {{#unless model.score}}
+    {{#unless addon.score}}
       <p><em>N/A - This addon has not yet been reviewed, the following will contribute to its score once it has been reviewed:</em></p>
     {{/unless}}
     <ul>
       {{#if latestReview}}
         <li>{{pluralize-this latestReview.score "point"}} from review</li>
       {{/if}}
-      {{#if model.isTopDownloaded}}
+      {{#if addon.isTopDownloaded}}
         <li>1 point for having a download count in the last 30 days that is in the top 10% for all addons.</li>
       {{else}}
         <li>0 points - Download count for the last 30 days that is NOT in the top 10% for all addons.</li>
@@ -25,21 +25,21 @@
         <li>0 points - Most recent release is older than 3 months.</li>
       {{/if}}
 
-      {{#unless model.hasGithubData}}
+      {{#unless addon.hasGithubData}}
         <li>No Github info is available, so 3 of the available points could not be evaluated. Is the repo url correct in the package.json?</li>
       {{else}}
-        {{#if model.committedToRecently}}
+        {{#if addon.committedToRecently}}
           <li>1 point for more than 1 commit within the last 3 months</li>
         {{else}}
           <li>0 points - Fewer than 2 commits within the last 3 months</li>
         {{/if}}
-        {{#if model.hasMoreThan1Contributor}}
+        {{#if addon.hasMoreThan1Contributor}}
           <li>1 point for having more than 1 contributor</li>
         {{else}}
           <li>0 points - Fewer than 2 contributors</li>
         {{/if}}
 
-        {{#if model.isTopStarred}}
+        {{#if addon.isTopStarred}}
           <li>1 point for having a Github star count in the top 10% of all addons.</li>
         {{else}}
           <li>0 points - Star count on Github is NOT in the top 10% of all addons.</li>

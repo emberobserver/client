@@ -15,9 +15,7 @@ export default Ember.Route.extend({
 
   model() {
     return Ember.RSVP.hash({
-      addons: this.get('store').findAll('addon'),
-      categories: this.get('store').findAll('category'),
-      maintainers: this.get('store').findAll('maintainer')
+      categories: this.get('store').findAll('category', { include: 'subcategories' })
     });
   },
 

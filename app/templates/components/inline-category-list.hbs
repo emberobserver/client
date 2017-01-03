@@ -1,6 +1,6 @@
 {{#each categoriesSortedByAddonCount as |category|}}
   {{#comma-separated list=categoriesSortedByAddonCount item=category as |value separator|}}
-    {{#link-to "categories.show" value (query-params query="")}}
+    {{#link-to "categories.show" value.slug}}
       {{!--This is in one long line cause otherwise weird whitespace appears--}}
       {{#if showWithoutParent}}{{value.name}}{{else}}{{#if value.parent}}{{value.parent.name}} > {{/if}}{{value.name}}{{/if}}{{#if showAddonCount}} ({{value.addonCount}}){{/if}}{{separator}}
     {{/link-to}}
