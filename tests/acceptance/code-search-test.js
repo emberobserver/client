@@ -30,7 +30,7 @@ test('searching for addons containing code', function(assert) {
     };
   });
 
-  visit('/search');
+  visit('/code-search');
   fillIn('#code-search-input', 'TestEm.afterTests');
   click('.test-submit-search');
 
@@ -95,7 +95,7 @@ test('viewing addon source containing search query', function(assert) {
     };
   });
 
-  visit('/search');
+  visit('/code-search');
   fillIn('#code-search-input', 'asdf');
   click('.test-submit-search');
   click('.test-usage-count');
@@ -145,7 +145,7 @@ test('sorting search results', function(assert) {
     };
   });
 
-  visit('/search');
+  visit('/code-search');
   fillIn('#code-search-input', 'foo');
   click('.test-submit-search');
 
@@ -161,6 +161,6 @@ test('sorting search results', function(assert) {
     assert.contains('.test-addon-name:eq(0)', 'ember-foo', 'Addons are sorted by usage count');
     assert.contains('.test-addon-name:eq(1)', 'ember-blanket', 'Addons are sorted by usage count');
     assert.contains('.test-addon-name:eq(2)', 'ember-try', 'Addons are sorted by usage count');
-    assert.equal(currentURL(), '/search?codeQuery=foo&sort=usages', 'Sort is in query params');
+    assert.equal(currentURL(), '/code-search?codeQuery=foo&sort=usages', 'Sort is in query params');
   });
 });

@@ -59,7 +59,7 @@ Router.map(function() {
     this.route('show', { path: '/:name' });
   });
 
-  this.route('search');
+  this.route('code-search');
 
   this.route('login');
   this.route('admin', function() {
