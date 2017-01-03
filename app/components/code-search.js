@@ -2,7 +2,7 @@ import Ember from 'ember';
 import { task } from 'ember-concurrency';
 import FocusableComponent from 'ember-component-focus/mixins/focusable-component';
 
-const {computed, inject} = Ember;
+const { computed, inject } = Ember;
 
 export default Ember.Component.extend(FocusableComponent, {
   visibleResultCount: 50,
@@ -33,14 +33,14 @@ export default Ember.Component.extend(FocusableComponent, {
     this.get('search').perform();
   },
 
-  hasSearchedAndNoResults: computed('results.length', 'search.isIdle', function () {
+  hasSearchedAndNoResults: computed('results.length', 'search.isIdle', function() {
     return this.get('results.length') === 0 && this.get('search.isIdle');
   }),
-  queryIsValid: computed('searchInput', function () {
+  queryIsValid: computed('searchInput', function() {
     let input = this.get('searchInput');
     return !(Ember.isBlank(input) || input.length < 3);
   }),
-  search: task(function * () {
+  search: task(function* () {
     let query = this.get('searchInput').trim();
     this.set('results', null);
 
@@ -53,11 +53,11 @@ export default Ember.Component.extend(FocusableComponent, {
     this.set('results', addons);
   }).restartable(),
 
-  visibleResults: computed('visibleResultCount', 'sortedResults', function () {
+  visibleResults: computed('visibleResultCount', 'sortedResults', function() {
     return this.get('sortedResults').slice(0, this.get('visibleResultCount'));
   }),
 
-  canViewMore: computed('visibleResultCount', 'results', function () {
+  canViewMore: computed('visibleResultCount', 'results', function() {
     return this.get('visibleResultCount') < this.get('results.length');
   }),
 

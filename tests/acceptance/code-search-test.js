@@ -39,7 +39,7 @@ test('searching for addons containing code', function(assert) {
     assert.equal(find('.test-addon-name').length, 3, 'All addons in results show');
 
     assert.contains(`[data-id="${firstAddon.id}"] .test-addon-name`, 'ember-try', 'Addon name shows');
-    assert.equal(find(`[data-id="${firstAddon.id}"] .test-addon-name`).attr('href'), '/addons/ember-try', 'Addon name links to addon page');
+    assert.equal(find(`[data-id="${firstAddon.id}"] .test-addon-name`).attr('href'), '/addons/ember-try?query=', 'Addon name links to addon page');
     assert.equal(find(`[data-id="${firstAddon.id}"] .test-usage-count`).text().trim(), '1 usage', 'Addon usage count shows');
     assert.contains('.test-result-info', '6 usages');
   });
@@ -70,14 +70,15 @@ test('viewing addon source containing search query', function(assert) {
     addonParam = request.queryParams.addon;
     queryParam = request.queryParams.query;
     return {
+      /* eslint-disable camelcase */
       results: [
         {
           line_number: 52,
           filename: 'app/services/fake-service.js',
           lines: [
-            { text: "if (addonData) {", number: 51 },
-            { text: "addons.pushObject({ addon: addonData.addon });", number: 52 },
-            { text: "}", number: 53 }
+            { text: 'if (addonData) {', number: 51 },
+            { text: 'addons.pushObject({ addon: addonData.addon });', number: 52 },
+            { text: '}', number: 53 }
           ]
         },
         {
@@ -90,6 +91,7 @@ test('viewing addon source containing search query', function(assert) {
           ]
         }
       ]
+      /* eslint-disable camelcase */
     };
   });
 
@@ -124,10 +126,7 @@ test('sorting search results', function(assert) {
   server.create('addon', { name: 'ember-blanket' });
   server.create('addon', { name: 'ember-foo' });
 
-  let query;
-
-  server.get('/search/addons', (db, request) => {
-    query = request.queryParams.query;
+  server.get('/search/addons', () => {
     return {
       results: [
         {

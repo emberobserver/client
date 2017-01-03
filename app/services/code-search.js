@@ -11,7 +11,7 @@ export default Ember.Service.extend({
     return this.get('store').peekAll('addon').sortBy('score').reverse().map(function(addon) {
       return {
         name: addon.get('name'),
-        addon: addon
+        addon
       };
     });
   }),
