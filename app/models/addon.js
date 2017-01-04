@@ -24,7 +24,7 @@ export default Model.extend({
   publishedDate: attr('date'),
   score: attr('number'),
   ranking: attr('number'),
-  contributors: attr('array'),
+  githubUsers: hasMany('github-user'),
   lastMonthDownloads: attr('number'),
   isWip: attr('boolean'),
   isTopDownloaded: attr('boolean'),
@@ -40,7 +40,7 @@ export default Model.extend({
   sortedVersions: sortBy('versions', 'released:desc'),
   latestVersion: Ember.computed.alias('sortedVersions.firstObject'),
   oldestVersion: Ember.computed.alias('sortedVersions.lastObject'),
-  hasMoreThan1Contributor: Ember.computed.gt('contributors.length', 1),
+  hasMoreThan1Contributor: Ember.computed.gt('githubUsers.length', 1),
   npmUrl: Ember.computed('name', function() {
     return `https://www.npmjs.com/package/${this.get('name')}`;
   })
