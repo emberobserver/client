@@ -64,6 +64,7 @@ export default Ember.Component.extend(FocusableComponent, {
   actions: {
     clearSearch() {
       this.set('codeQuery', '');
+      this.set('searchInput', '');
       this.set('results', null);
       this.focus();
     },
