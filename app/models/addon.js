@@ -22,7 +22,6 @@ export default Model.extend({
   isCliDependency: attr('boolean'),
   isHidden: attr('boolean'),
   hasInvalidGithubRepo: attr('boolean'),
-  publishedDate: attr('date'),
   score: attr('number'),
   ranking: attr('number'),
   githubUsers: hasMany('github-user'),
