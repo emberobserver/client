@@ -5,7 +5,7 @@
       <p class="description test-category-description">
         {{category.description}}<br>
         {{#if category.parent}}
-          Subcategory of {{#link-to 'categories.show' category.parent class="test-parent-category-link"}}{{category.parent.name}} ({{category.parent.addonCount}}){{/link-to}}
+          Subcategory of {{#link-to 'categories.show' category.parent.slug class="test-parent-category-link"}}{{category.parent.name}} ({{category.parent.addonCount}}){{/link-to}}
         {{/if}}
       </p>
       {{#if hasSubcategories}}

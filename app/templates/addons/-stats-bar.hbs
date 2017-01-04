@@ -42,7 +42,7 @@
 <h6>maintainers</h6>
 <p class="test-addon-maintainers">
   {{#each addon.maintainers as |maintainer|}}
-    {{#link-to "maintainers.show" maintainer}}
+    {{#link-to "maintainers.show" maintainer.name}}
       {{gravatar-avatar gravatarId=maintainer.gravatar title=maintainer.name alt=maintainer.name}}
     {{/link-to}}
   {{/each}}
@@ -70,4 +70,4 @@
   {{/if}}
 </section>
 <hr>
-{{link-to 'Suggest a correction' 'addons.correct' addon class="test-addon-correction-link"}}
+{{link-to 'Suggest a correction' 'addons.correct' addon.name class="test-addon-correction-link"}}

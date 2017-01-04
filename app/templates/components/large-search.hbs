@@ -43,7 +43,7 @@
       <ul>
         {{#each results.displayingCategories as |category|}}
           <li>
-            {{#link-to "categories.show" category (query-params query="")}}
+            {{#link-to "categories.show" category.slug}}
               <span class="bullet">&#9632;</span>
               <div>{{category.name}} ({{category.addonCount}})</div>
             {{/link-to}}
@@ -58,7 +58,7 @@
       <ul>
         {{#each results.displayingMaintainers as |maintainer|}}
           <li>
-            {{#link-to "maintainers.show" maintainer (query-params query="")}}
+            {{#link-to "maintainers.show" maintainer.name}}
               <span class="bullet">&#9632;</span>
               <div>{{maintainer.name}}</div>
             {{/link-to}}
