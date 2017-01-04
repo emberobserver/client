@@ -47,7 +47,7 @@
         {{partial "addons/categories-form"}}
       {{/if}}
     </section>
-    {{#if addon.hasGithubData}}
+    {{#if hasGithubData}}
       <section class="repo-info test-github-data">
         <h4>Github</h4>
 
@@ -56,18 +56,18 @@
         {{/if}}
         <div class="stats">
           <ul>
-            <li class="test-open-issues">{{addon.openIssues}}<span>{{pluralize addon.openIssues 'Open Issue'}}</span></li>
-            <li class="test-forks">{{addon.forks}}<span>{{pluralize addon.forks 'Fork'}}</span></li>
-            <li class="test-stars">{{addon.stars}}<span>Starred</span></li>
+            <li class="test-open-issues">{{addon.githubStats.openIssues}}<span>{{pluralize addon.openIssues 'Open Issue'}}</span></li>
+            <li class="test-forks">{{addon.githubStats.forks}}<span>{{pluralize addon.forks 'Fork'}}</span></li>
+            <li class="test-stars">{{addon.githubStats.stars}}<span>Starred</span></li>
             <li class="test-contributors">{{addon.contributors.length}}<span>{{pluralize addon.contributors.length 'Contributor'}}</span></li>
           </ul>
         </div>
         <div class="commit-stats">
           <strong>latest commit</strong>
-          <p class="test-latest-commit">{{relative-time date=addon.latestCommitDate}}</p>
+          <p class="test-latest-commit">{{relative-time date=addon.githubStats.latestCommitDate}}</p>
 
           <strong>first commit</strong>
-          <p class="test-first-commit">{{relative-time date=addon.firstCommitDate}}</p>
+          <p class="test-first-commit">{{relative-time date=addon.githubStats.firstCommitDate}}</p>
         </div>
       </section>
     {{/if}}

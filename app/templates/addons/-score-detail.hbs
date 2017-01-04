@@ -25,10 +25,10 @@
         <li>0 points - Most recent release is older than 3 months.</li>
       {{/if}}
 
-      {{#unless addon.hasGithubData}}
+      {{#unless hasGithubData}}
         <li>No Github info is available, so 3 of the available points could not be evaluated. Is the repo url correct in the package.json?</li>
       {{else}}
-        {{#if addon.committedToRecently}}
+        {{#if addon.githubStats.committedToRecently}}
           <li>1 point for more than 1 commit within the last 3 months</li>
         {{else}}
           <li>0 points - Fewer than 2 commits within the last 3 months</li>

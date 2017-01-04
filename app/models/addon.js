@@ -23,19 +23,14 @@ export default Model.extend({
   isNewAddon: attr('boolean'),
   publishedDate: attr('date'),
   score: attr('number'),
-  openIssues: attr('number'),
   ranking: attr('number'),
-  forks: attr('number'),
   contributors: attr('array'),
-  firstCommitDate: attr('date'),
-  latestCommitDate: attr('date'),
   lastMonthDownloads: attr('number'),
-  stars: attr('number'),
   isWip: attr('boolean'),
   isTopDownloaded: attr('boolean'),
-  committedToRecently: attr('boolean'),
   isTopStarred: attr('boolean'),
   demoUrl: attr('string'),
+  githubStats: belongsTo('github-stats', { async: true }),
   categories: hasMany('category', { async: false }),
   keywords: hasMany('keyword', { async: true }),
   versions: hasMany('version', { async: true }),
@@ -46,9 +41,6 @@ export default Model.extend({
   latestVersion: Ember.computed.alias('sortedVersions.firstObject'),
   oldestVersion: Ember.computed.alias('sortedVersions.lastObject'),
   hasMoreThan1Contributor: Ember.computed.gt('contributors.length', 1),
-  hasGithubData: Ember.computed('hasInvalidGithubRepo', 'firstCommitDate', function() {
-    return !this.get('hasInvalidGithubRepo') && this.get('firstCommitDate');
-  }),
   npmUrl: Ember.computed('name', function() {
     return `https://www.npmjs.com/package/${this.get('name')}`;
   })

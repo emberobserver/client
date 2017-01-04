@@ -36,6 +36,9 @@ export default Ember.Controller.extend({
   isTestResultForLatestVersion: Ember.computed('model.latestTestResult.version', 'addon.latestVersion', function() {
     return this.get('model.latestTestResult.version.version') === this.get('addon.latestVersion.version');
   }),
+  hasGithubData: Ember.computed('addon.hasInvalidGithubRepo', 'addon.githubStats.firstCommitDate', function() {
+    return !this.get('addon.hasInvalidGithubRepo') && this.get('addon.githubStats.firstCommitDate');
+  }),
 
   actions: {
     save() {
