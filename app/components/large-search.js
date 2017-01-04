@@ -41,6 +41,12 @@ export default Ember.Component.extend(FocusableComponent, {
     this.get('_results.displayingCategories').pushObjects(moreCategories);
     this.get('_results.lastCategoryPageDisplaying', pageToFetch);
   }),
+  fetchMoreReadmes: task(function* () {
+    let pageToFetch = this.get('_results.lastReadmePageDisplaying') + 1;
+    let moreReadmes = yield this._fetchPageOfAddonResults(this.get('_results.rawResults.readmeResults'), pageToFetch);
+    this.get('_results.displayingReadmes').pushObjects(moreReadmes);
+    this.get('_results.lastReadmePageDisplaying', pageToFetch);
+  }),
   search: task(function* (query) {
     this.set('query', query.trim());
     if (!this.get('queryIsValid')) {
@@ -52,8 +58,9 @@ export default Ember.Component.extend(FocusableComponent, {
 
     this.get('metrics').trackEvent({ category: 'Search', action: 'Search on /', label: this.get('query') });
 
-    let results = yield this.get('searchService').search(this.get('query'), { includeReadmes: this.get('searchReadmes') });
+    let results = yield this.get('searchService.search').perform(this.get('query'), { includeReadmes: this.get('searchReadmes') });
     let firstPageOfResults = yield this._fetchFirstPageOfResults(results);
+
     this.set('_results', {
       displayingAddons: firstPageOfResults.addons,
       lastAddonPageDisplaying: 1,
@@ -64,6 +71,10 @@ export default Ember.Component.extend(FocusableComponent, {
       displayingMaintainers: firstPageOfResults.maintainers,
       totalMaintainersCount: results.maintainerResults.matchCount,
       lastMaintainerPageDisplaying: 1,
+      displayingReadmes: firstPageOfResults.readmes,
+      readmeMatchMap: results.readmeResults.matchMap,
+      totalReadmeCount: results.readmeResults.matchCount,
+      lastReadmePageDisplaying: 1,
       rawResults: results,
       length: results.length
     });
@@ -76,10 +87,13 @@ export default Ember.Component.extend(FocusableComponent, {
     let addonsPromise = this._fetchPageOfAddonResults(results.addonResults, 1);
     let categoriesPromise = this._fetchPageOfCategoryResults(results.categoryResults, 1);
     let maintainersPromise = this._fetchPageOfMaintainerResults(results.maintainerResults, 1);
+    let readmePromise = this._fetchPageOfAddonResults(results.readmeResults, 1);
+
     return Ember.RSVP.hash({
       addons: addonsPromise,
       categories: categoriesPromise,
-      maintainers: maintainersPromise
+      maintainers: maintainersPromise,
+      readmes: readmePromise
     });
   },
   _fetchPageOfMaintainerResults(results, page) {

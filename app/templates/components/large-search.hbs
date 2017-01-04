@@ -25,12 +25,12 @@
 
   {{#if results.length}}
     <h4 class="result-info test-result-info">Results for "{{query}}"</h4>
-    {{#search-result-set results=results.readmes title="Readmes" resultClass="readme-results"}}
+    {{#search-result-set results=results.displayingReadmes totalCount=results.totalReadmeCount fetchMore=fetchMoreReadmes title="Readmes" resultClass="readme-results"}}
       <ul class="readme-list">
-        {{#each results.readmes as |readmeMatch|}}
+        {{#each results.displayingReadmes as |addon|}}
           <li>
-            {{addon-details addon=readmeMatch.addon}}
-            {{#each readmeMatch.matches as |match|}}
+            {{addon-details addon=addon}}
+            {{#each (get _results.readmeMatchMap addon.id) as |match|}}
               <div class="test-readme-match text-match">
                 ...{{sanitize-html match "relaxed-with-nofollow"}}...
               </div>

@@ -39,41 +39,44 @@ export default Ember.Service.extend({
       matchCount: maintainerIds.length
     };
   },
-  _searchReadmes(query) {
-    return this.get('ajax').request('/api/search', {
+  _searchReadmes: task(function* (query) {
+    let results = yield this.get('ajax').request('/api/search', {
       data: {
         query
       }
-    }).then((results) => {
-      return results.search.map((result) => {
-        return {
-          addon: this.get('store').peekRecord('addon', result.addon_id),
-          matches: result.matches
-        };
-      });
     });
-  },
-  search(query, options) {
-    return this.get('_fetchAutocompleteData').perform().then((data) => {
-      let addonResults = this._searchAddons(query, data.addons);
-      let categoryResults = this._searchCategories(query, data.categories);
-      let maintainerResults = this._searchMaintainers(query, data.maintainers);
-      let readmeResults;
-      if (options.includeReadmes) {
-        readmeResults = this._searchReadmes(query);
-      }
-      let results = {
-        query,
-        addonResults,
-        maintainerResults,
-        categoryResults,
-        readmeResults,
-        length: (addonResults.matchCount + maintainerResults.matchCount + categoryResults.matchCount)
-      };
-      this.set('_latestSearchResults', results);
-      return Ember.RSVP.resolve(results);
+
+    let addonMatchMap = {};
+    results.search.forEach((result) => {
+      addonMatchMap[result.addon_id] = result.matches;
     });
-  }
+
+    return {
+      matchIds: Object.keys(addonMatchMap),
+      matchMap: addonMatchMap,
+      matchCount: results.search.length
+    }
+  }),
+  search: task(function* (query, options) {
+    let data = yield this.get('_fetchAutocompleteData').perform();
+    let addonResults = this._searchAddons(query, data.addons);
+    let categoryResults = this._searchCategories(query, data.categories);
+    let maintainerResults = this._searchMaintainers(query, data.maintainers);
+    let readmeResults = { matchIds: [], matchMap: {}, matchCount: 0 };
+    if (options.includeReadmes) {
+      readmeResults = yield this.get('_searchReadmes').perform(query);
+    }
+    let results = {
+      query,
+      addonResults,
+      maintainerResults,
+      categoryResults,
+      readmeResults,
+      length: (addonResults.matchCount + maintainerResults.matchCount + categoryResults.matchCount + readmeResults.matchCount)
+    };
+    this.set('_latestSearchResults', results);
+    return results;
+  })
 });
 
 function findMatches(query, prop, items) {
