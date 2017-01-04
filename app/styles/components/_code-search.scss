@@ -1,8 +1,30 @@
 .code-search {
+  h1 {
+    margin-bottom: .25rem;
+  }
+
   .search-wrapper {
-    display: inline-block;
-    width: 100%;
-    padding: 1.5rem;
+    input {
+      margin: 0;
+    }
+  }
+
+  .regex-toggle {
+    color: $base-accent-color;
+    margin-left: 0.25rem;
+
+    input {
+      margin-right: 0.5rem;
+    }
+
+    label {
+      cursor: pointer;
+    }
+  }
+
+  .search-actions {
+    @include clearfix;
+    padding-top: 0.5rem;
   }
 
   .search-wrapper-inner {
@@ -21,6 +43,20 @@
     padding: 0;
   }
 
+  .result-details {
+    @include clearfix;
+
+    h5 {
+      padding-top: 2.25rem;
+      float:left;
+      line-height: 2rem;
+    }
+
+    .sort-controls {
+      float: right;
+    }
+  }
+
   .usage-count {
     padding-left: 4rem;
     margin-top: .5rem;
@@ -29,10 +65,6 @@
     a {
       cursor: pointer;
     }
-  }
-
-  .sort-controls {
-    margin-left: 1.5rem;
   }
 
   .usage {
