@@ -3,6 +3,7 @@ import Model from 'ember-data/model';
 import attr from 'ember-data/attr';
 import { hasMany, belongsTo } from 'ember-data/relationships';
 import sortBy from '../utils/sort-by';
+import moment from 'moment';
 
 export default Model.extend({
   isAddon: true,
@@ -11,6 +12,7 @@ export default Model.extend({
   isFullyLoaded: attr('boolean'),
   repositoryUrl: attr('string'),
   latestVersionDate: attr('date'),
+  publishedDate: attr('date'),
   latestReviewedVersionDate: attr('date'),
   license: attr('string'),
   isDeprecated: attr('boolean'),
@@ -20,7 +22,6 @@ export default Model.extend({
   isCliDependency: attr('boolean'),
   isHidden: attr('boolean'),
   hasInvalidGithubRepo: attr('boolean'),
-  isNewAddon: attr('boolean'),
   publishedDate: attr('date'),
   score: attr('number'),
   ranking: attr('number'),
@@ -43,5 +44,8 @@ export default Model.extend({
   hasMoreThan1Contributor: Ember.computed.gt('githubUsers.length', 1),
   npmUrl: Ember.computed('name', function() {
     return `https://www.npmjs.com/package/${this.get('name')}`;
+  }),
+  isNewAddon: Ember.computed('publishedDate', function() {
+    return moment(this.get('publishedDate')).isAfter(moment().subtract(2, 'weeks'));
   })
 });
