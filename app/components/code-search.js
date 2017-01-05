@@ -40,7 +40,7 @@ export default Ember.Component.extend(FocusableComponent, {
   }),
   queryIsValid: computed('searchInput', function() {
     let input = this.get('searchInput');
-    return !(Ember.isBlank(input) || input.length < 3);
+    return !(Ember.isBlank(input) || input.length < 2);
   }),
   search: task(function* () {
     let query = this.get('searchInput').trim();
