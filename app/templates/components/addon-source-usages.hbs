@@ -4,7 +4,7 @@
     {{count}} {{pluralize count "usage"}}
   </a>
   {{#if showUsages}}
-    {{#each usages as |usage|}}
+    {{#each visibleUsages as |usage|}}
       <div class="usage test-usage">
         <div class="filename">{{usage.filename}}:{{usage.line_number}}</div>
         {{#each usage.lines as |line|}}
@@ -12,5 +12,10 @@
         {{/each}}
       </div>
     {{/each}}
+    {{#if moreUsages}}
+      <a {{action "viewMore"}} class="view-more">
+        See more usages
+      </a>
+    {{/if}}
   {{/if}}
 </div>
