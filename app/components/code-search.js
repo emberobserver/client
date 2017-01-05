@@ -5,6 +5,8 @@ import FocusableComponent from 'ember-component-focus/mixins/focusable-component
 const { computed, inject } = Ember;
 
 export default Ember.Component.extend(FocusableComponent, {
+  metrics: inject.service(),
+
   visibleResultCount: 50,
 
   classNames: ['code-search'],
@@ -47,6 +49,8 @@ export default Ember.Component.extend(FocusableComponent, {
     if (!this.get('queryIsValid')) {
       return;
     }
+
+    this.get('metrics').trackEvent({ category: 'Code Search', action: 'Search', label: query });
 
     this.set('codeQuery', query);
     let addons = yield this.get('codeSearch').addons(query);
