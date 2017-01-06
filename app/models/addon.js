@@ -9,7 +9,6 @@ export default Model.extend({
   isAddon: true,
   name: attr('string'),
   description: attr('string'),
-  isFullyLoaded: attr('boolean'),
   repositoryUrl: attr('string'),
   latestVersionDate: attr('date'),
   publishedDate: attr('date'),

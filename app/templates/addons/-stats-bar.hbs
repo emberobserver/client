@@ -18,14 +18,11 @@
   <li class="test-addon-license"><b>license</b> <a href={{licenseUrl}}>{{addon.license}}</a></li>
 </ul>
 
-{{#if latestTestResult}}
-
-  {{log 'there is a latest result'}}
+{{#if model.latestTestResult}}
   {{#unless isTestResultForLatestVersion}}
-    {{log 'result is NOT for latest version'}}
     <em class="test-ember-version-compatibility-new-version-warning"><span class="icon-new-releases"></span> New versions of this addon have been released since these tests ran.</em>
   {{/unless}}
-  {{ember-version-compatibility testResult=latestTestResult}}
+  {{ember-version-compatibility testResult=model.latestTestResult}}
 {{/if}}
 
 <h6>npm keywords</h6>

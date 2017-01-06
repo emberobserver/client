@@ -1,5 +1,7 @@
+import Ember from 'ember';
+const { inflector } = Ember.Inflector;
+
 export function initialize(/* application */) {
-  let inflector = Ember.Inflector.inflector;
   inflector.uncountable('github-stats');
 }
 

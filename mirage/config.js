@@ -78,7 +78,20 @@ export default function() {
       }
     }
 
+    if (request.queryParams['filter[inCategory]']) {
+      let category = schema.categories.find(request.queryParams['filter[inCategory]']);
+      return category.addons;
+    }
+
     return schema.addons.all();
+  });
+
+  this.get('/addons/:id/github-stats', function(schema, request) {
+    return schema.githubStats.where({ addonId: request.params.id });
+  });
+
+  this.get('/addons/:id/github-users', function(schema, request) {
+    return schema.addons.find(request.params.id).githubUsers;
   });
 
   this.get('/maintainers', function(schema, request) {
@@ -98,7 +111,21 @@ export default function() {
   this.get('/versions');
   this.get('/reviews');
   this.get('/build-servers');
-  this.get('/test-results');
+  this.get('/test-results', function(schema, request) {
+    if (request.queryParams['filter[addonName]']) {
+      let addons = schema.addons.where({ name: request.queryParams['filter[addonName]'] });
+      let [addon] = addons.models;
+      if (!addon) {
+        return { data: [] };
+      }
+      let [version] = schema.versions.where({ addonId: addon.id }).models;
+      if (!version) {
+        return { data: [] };
+      }
+      return schema.testResults.where({ versionId: version.id });
+    }
+
+  });
   this.get('/test-results/:id');
 
   this.get('/search', () => {

@@ -21,7 +21,7 @@ export default Ember.Route.extend(scrollFix, {
     return model.addon.get('name');
   },
 
-  afterModel(model) {
+  afterModel() {
     this.get('emberVersions').fetch();
   },
   emberVersions: Ember.inject.service(),

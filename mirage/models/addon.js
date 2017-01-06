@@ -6,5 +6,6 @@ export default Model.extend({
   versions: hasMany(),
   keywords: hasMany(),
   categories: hasMany(),
-  maintainers: hasMany()
+  maintainers: hasMany(),
+  githubUsers: hasMany()
 });

@@ -1,8 +1,6 @@
 import DS from 'ember-data';
-import Ember from 'ember';
 
-const { attr, belongsTo, hasMany } = DS;
-const { computed } = Ember;
+const { attr, belongsTo } = DS;
 
 export default DS.Model.extend({
   version: attr('string'),

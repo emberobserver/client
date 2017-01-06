@@ -40,7 +40,7 @@ export default Ember.Service.extend({
     };
   },
   _searchReadmes: task(function* (query) {
-    let results = yield this.get('ajax').request('/api/search', {
+    let results = yield this.get('ajax').request('/api/v2/search', {
       data: {
         query
       }
@@ -55,7 +55,7 @@ export default Ember.Service.extend({
       matchIds: Object.keys(addonMatchMap),
       matchMap: addonMatchMap,
       matchCount: results.search.length
-    }
+    };
   }),
   search: task(function* (query, options) {
     let data = yield this.get('_fetchAutocompleteData').perform();

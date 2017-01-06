@@ -2,6 +2,7 @@ import Ember from 'ember';
 import { test } from 'qunit';
 import moduleForAcceptance from 'ember-addon-review/tests/helpers/module-for-acceptance';
 import EmberVersionsResponse from '../ember-version-response';
+import moment from 'moment';
 
 moduleForAcceptance('Acceptance: Addons');
 
@@ -100,15 +101,20 @@ test('displays categories', function(assert) {
 });
 
 test('displays github data', function(assert) {
+  let users = server.createList('github-users', 2);
   let addon = server.create('addon', {
     name: 'test-addon-with-github-data',
+    isTopStarred: true,
+    githubUsers: users
+  });
+
+  server.create('github-stats', {
     openIssues: 13,
     forks: 94,
     stars: 37,
-    contributors: [{}, {}],
-    isTopStarred: true,
     latestCommitDate: window.moment().subtract(2, 'months').toString(),
-    firstCommitDate: window.moment().subtract(1, 'years').toString()
+    firstCommitDate: window.moment().subtract(1, 'years').toString(),
+    addon
   });
 
   visit(`/addons/${addon.name}`);
@@ -142,9 +148,9 @@ test('displays header', function(assert) {
   let addonWithFlags = server.create('addon', {
     name: 'test-addon-with-flags',
     isDeprecated: true,
-    isNewAddon: true,
     isOfficial: true,
-    isCliDependency: true
+    isCliDependency: true,
+    publishedDate: moment().subtract(1, 'week').toString()
   });
 
   visit(`/addons/${addonWithFlags.name}`);
