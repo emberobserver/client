@@ -1,0 +1,53 @@
+<h1>Code Search</h1>
+<div class="search-wrapper">
+  <form {{action (perform search) on="submit"}}>
+    <div class="search-wrapper-inner">
+      {{input type="search"
+              placeholder="Search for addons containing code"
+              autocomplete="off"
+              id="code-search-input"
+              spellcheck="false"
+              value=searchInput
+      }}
+      {{#if codeQuery}}
+        <button type="button" {{action "clearSearch"}} class="icon-close test-clear-search"></button>
+      {{/if}}
+    </div>
+    <div class="search-actions">
+      <button type="submit" class="test-submit-search button" style="float: right;">Search</button>
+    </div>
+  </form>
+</div>
+
+{{#if results.length}}
+  <div class="result-details">
+    <h4>Results for "{{codeQuery}}"</h4>
+    <h5 class="test-result-info">
+      Showing {{results.length}} {{pluralize results.length 'addon'}} ({{totalUsageCount}} {{pluralize totalUsageCount 'usage'}})
+    </h5>
+    <div class="sort-controls">
+      Sort by:
+      <div class="button-select test-sort">
+        {{sort-option name="Name" key="name" selectedSort=sort sortBy="sortBy"}}
+        {{sort-option name="Usages" key="usages" selectedSort=sort sortBy="sortBy"}}
+      </div>
+    </div>
+  </div>
+  <ul class="addon-list">
+    {{#each visibleResults as |result|}}
+      <li data-id="{{result.addon.id}}">
+        {{addon-details addon=result.addon}}
+        {{addon-source-usages addon=result.addon count=result.count query=codeQuery}}
+      </li>
+    {{/each}}
+    {{#if canViewMore}}
+      <a {{action "viewMore"}} class="view-more">
+        <li>See more results</li>
+      </a>
+    {{/if}}
+  </ul>
+{{else if search.isRunning}}
+  {{dot-spinner}}
+{{else if hasSearchedAndNoResults}}
+  <h4 class="result-info">No addons found containing "{{codeQuery}}"</h4>
+{{/if}}
