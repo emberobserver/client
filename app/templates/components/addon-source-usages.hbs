@@ -1,21 +1,27 @@
 <div class="usage-count">
-  <a {{action (perform toggleUsages)}} class="test-usage-count">
+  <a {{action "toggleUsages"}} class="test-usage-count">
     <span class={{if showUsages "icon-expand-more" "icon-chevron-right"}}></span>
     {{count}} {{pluralize count "usage"}}
   </a>
   {{#if showUsages}}
-    {{#each visibleUsages as |usage|}}
-      <div class="usage test-usage">
-        <div class="filename">{{usage.filename}}:{{usage.line_number}}</div>
-        {{#each usage.lines as |line|}}
-          <pre class="line"><span class="number">{{pad-line-number line.number usage.lines}}</span><span class="{{if (is-equal usage.line_number line.number) 'match'}}">{{line.text}}</span></pre>
-        {{/each}}
+    {{#if usages}}
+      {{#each visibleUsages as |usage|}}
+        <div class="usage test-usage">
+          <div class="filename">{{usage.filename}}:{{usage.line_number}}</div>
+          {{#each usage.lines as |line|}}
+            <pre class="line"><span class="number">{{pad-line-number line.number usage.lines}}</span><span class="{{if (is-equal usage.line_number line.number) 'match'}}">{{line.text}}</span></pre>
+          {{/each}}
+        </div>
+      {{/each}}
+      {{#if moreUsages}}
+        <a {{action "viewMore"}} class="view-more">
+          See more usages
+        </a>
+      {{/if}}
+    {{else if fetchUsages.isRunning}}
+      <div class="usage">
+        {{dot-spinner}}
       </div>
-    {{/each}}
-    {{#if moreUsages}}
-      <a {{action "viewMore"}} class="view-more">
-        See more usages
-      </a>
     {{/if}}
   {{/if}}
 </div>

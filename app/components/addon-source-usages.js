@@ -20,15 +20,19 @@ export default Ember.Component.extend({
     return this.get('visibleUsageCount') < this.get('usages.length');
   }),
 
-  toggleUsages: task(function* () {
-    if (this.get('usages') === null) {
-      let usages = yield this.get('codeSearch').usages(this.get('addon.name'), this.get('query'));
-      this.set('usages', usages);
-    }
-    this.toggleProperty('showUsages');
-  }).restartable(),
+  fetchUsages: task(function* () {
+    let usages = yield this.get('codeSearch').usages(this.get('addon.name'), this.get('query'));
+    this.set('usages', usages);
+  }).drop(),
 
   actions: {
+    toggleUsages() {
+      this.toggleProperty('showUsages');
+      if (this.get('showUsages') && this.get('usages') === null) {
+        this.get('fetchUsages').perform();
+      }
+    },
+
     viewMore() {
       let newUsageCount = this.get('visibleUsageCount') + 25;
       this.set('visibleUsageCount', newUsageCount);
