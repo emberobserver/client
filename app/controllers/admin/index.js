@@ -1,9 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  categorySorting: ['position:desc'],
-  unsortedTopLevelCategories: Ember.computed.filterBy('model.categories', 'parent', null),
-  topLevelCategories: Ember.computed.sort('unsortedTopLevelCategories', 'categorySorting'),
 
   workInProgressAddons: Ember.computed('model.addons.@each.isWip', function() {
     return this.get('model.addons').filterBy('isWip', true).sortBy('latestVersionDate').reverse();

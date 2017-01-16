@@ -15,7 +15,7 @@
         <label for="position">
           Position:
         </label>
-        {{category-position-dropdown name="position" position=categoryPosition categories=sortedSiblingCategories}}
+        {{category-position-dropdown name="position" position=categoryPosition updatePosition=(action (mut categoryPosition)) categories=sortedSiblingCategories}}
       {{else}}
         {{input type="hidden" id="position" value=categoryPosition}}
       {{/if}}

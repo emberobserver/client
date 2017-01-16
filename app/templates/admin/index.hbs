@@ -1,8 +1,11 @@
 <div class="admin-index">
   <h1>Admin</h1>
 
-  <h2>Categories ({{model.categories.length}})</h2>
-  {{category-list categories=topLevelCategories showAddCategory=true}}
+  <nav>
+    <ul>
+      <li>{{#link-to "admin.categories.index"}}Categories{{/link-to}}</li>
+    </ul>
+  </nav>
 
   <section class="test-addons-needing-categorization">
     <h2>Addons needing categorization ({{addonsNeedingCategorization.length}} / {{model.addons.length}})</h2>

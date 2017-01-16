@@ -2,14 +2,14 @@
 <ul>
   {{#each sortedTopLevelCategories as |category|}}
     <li title="{{category.description}}">
-      {{#link-to "categories.show" category.slug class="test-category"}}
+      {{#link-to categoryLinkRoute category.slug class="test-category"}}
         {{category.name}} ({{category.addonCount}})
       {{/link-to}}
     </li>
     {{#if category.subcategories}}
       {{#each category.subcategories as |subcategory|}}
         <li class="indent" title="{{subcategory.description}}">
-          {{#link-to "categories.show" subcategory.slug class="test-subcategory"}}
+          {{#link-to categoryLinkRoute subcategory.slug class="test-subcategory"}}
             <span class="bullet">&#9632;</span>
             {{subcategory.name}} ({{subcategory.addonCount}})
           {{/link-to}}

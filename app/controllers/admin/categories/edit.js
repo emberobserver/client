@@ -37,8 +37,7 @@ export default Ember.Controller.extend({
         parent: this.get('category')
       });
       newCategory.save().then(() => {
-        this.transitionToRoute('admin');
-        location.reload();
+        this.transitionToRoute('admin.categories.index');
       }).catch((message) => {
         newCategory.deleteRecord();
         alert(message);
@@ -55,7 +54,7 @@ export default Ember.Controller.extend({
         return;
       }
 
-      if (parentId !== category.get('parent.id')) {
+      if (parentId != category.get('parent.id')) {
         // when changing a category's parent, always put it at the end of the list
         position = -1;
       }
@@ -75,8 +74,7 @@ export default Ember.Controller.extend({
         category.set('parent', parentCategory);
         return category.save();
       }).then(() => {
-        this.transitionToRoute('admin');
-        location.reload();
+        this.transitionToRoute('admin.categories.index');
       }).catch((message) => {
         category.rollbackAttributes();
         alert(message);

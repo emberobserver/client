@@ -13,8 +13,8 @@
     <label for="position">
       Position:
     </label>
-    {{category-position-dropdown name="position" position=newCategoryPosition categories=sortedTopLevelCategories}}
+    {{category-position-dropdown name="position" position=newCategoryPosition updatePosition=(action (mut newCategoryPosition)) categories=sortedTopLevelCategories}}
     <br>
-    <input type="submit" value="Add category">
+    <input type="submit" class="button" value="Add category">
   </fieldset>
 </form>

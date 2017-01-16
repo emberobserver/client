@@ -17,8 +17,7 @@ export default Ember.Controller.extend({
         position: this.get('newCategoryPosition')
       });
       newCategory.save().then(() => {
-        this.transitionToRoute('admin');
-        location.reload();
+        this.transitionToRoute('admin.categories.index');
       }).catch((message) => {
         newCategory.deleteRecord();
         alert(message);

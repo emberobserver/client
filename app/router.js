@@ -64,6 +64,7 @@ Router.map(function() {
   this.route('login');
   this.route('admin', function() {
     this.route('categories', function() {
+      this.route('index', { path: '/' });
       this.route('new');
       this.route('edit', { path: '/:slug' });
     });

@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  categories: [],
+  categories: null,
   position: -1
 });
