@@ -62,6 +62,11 @@ Router.map(function() {
 
   this.route('code-search');
 
+  this.route('canary-test-results', function() {
+    this.route('date', { path: '/:date' });
+    this.route('detail', { path: '/:id/detail' });
+  });
+
   this.route('login');
   this.route('admin', function() {
     this.route('categories', function() {

@@ -1,0 +1,16 @@
+.test-result {
+  &.passed {
+    background-color: green;
+    color: white;
+  }
+
+  &.failed {
+    background-color: red;
+    color: white;
+  }
+
+  &.error {
+    background-color: gray;
+    color: white;
+  }
+}
