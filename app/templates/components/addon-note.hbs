@@ -1,2 +1,8 @@
 <legend>Note</legend>
-{{{content}}}
+{{markdown-to-sanitized-html
+    markdown=content
+    tables=true
+    ghCodeBlocks=true
+    tasklists=true
+    simplifiedAutoLink=true
+}}

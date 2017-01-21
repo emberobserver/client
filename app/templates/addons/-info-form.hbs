@@ -1,7 +1,7 @@
 <form {{action "save" on="submit"}} class="test-addon-info-form">
   <fieldset>
     <label>Note</label>
-    {{textarea value=model.note rows="3" class="test-note-input"}}
+    {{textarea value=addon.note rows="3" class="test-note-input"}}
 
     {{#if isSaving}}
       <input type="submit" class="button" value="Saving" disabled>
@@ -12,12 +12,12 @@
 
   <fieldset>
     <ul class="test-addon-property-list">
-      <li>{{input type="checkbox" id="official" checked=model.isOfficial}} <label for="official">Is Official?</label></li>
-      <li>{{input type="checkbox" id="deprecated" checked=model.isDeprecated}} <label for="deprecated">Is Deprecated?</label></li>
-      <li>{{input type="checkbox" id="cli-dependency" checked=model.isCliDependency}} <label for="cli-dependency">Is CLI Dependency?</label></li>
-      <li>{{input type="checkbox" id="wip" checked=model.isWip}} <label for="wip">Is WIP?</label></li>
-      <li>{{input type="checkbox" id="hide" checked=model.isHidden}} <label for="hide">Hide?</label></li>
-      <li>{{input type="checkbox" id="has-invalid-github-repo" checked=model.hasInvalidGithubRepo}} <label for="has-invalid-github-repo">Has invalid Github repo?</label></li>
+      <li>{{input type="checkbox" id="official" checked=addon.isOfficial}} <label for="official">Is Official?</label></li>
+      <li>{{input type="checkbox" id="deprecated" checked=addon.isDeprecated}} <label for="deprecated">Is Deprecated?</label></li>
+      <li>{{input type="checkbox" id="cli-dependency" checked=addon.isCliDependency}} <label for="cli-dependency">Is CLI Dependency?</label></li>
+      <li>{{input type="checkbox" id="wip" checked=addon.isWip}} <label for="wip">Is WIP?</label></li>
+      <li>{{input type="checkbox" id="hide" checked=addon.isHidden}} <label for="hide">Hide?</label></li>
+      <li>{{input type="checkbox" id="has-invalid-github-repo" checked=addon.hasInvalidGithubRepo}} <label for="has-invalid-github-repo">Has invalid Github repo?</label></li>
     </ul>
     {{#if isSaving}}
       <input type="submit" class="button" value="Saving" disabled>

@@ -9,7 +9,6 @@ export default Mirage.Factory.extend({
   license: 'MIT',
   isDeprecated: false,
   note: '#Test',
-  renderedNote: '<h1>Test</h1>',
   isOfficial: false,
   isCliDependency: false,
   isHidden: false,

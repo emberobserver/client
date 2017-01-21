@@ -19,7 +19,6 @@ export default DS.Model.extend({
   isMoreThanEmptyAddon: attr('number'),
   isOpenSource: attr('number'),
   hasBuild: attr('number'),
-  addon: belongsTo('addon'),
   version: belongsTo('version'),
   versionReleased: computed.alias('version.released'),
   score: Ember.computed(

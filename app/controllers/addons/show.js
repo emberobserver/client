@@ -14,6 +14,7 @@ export default Ember.Controller.extend({
   }),
   sortedReviews: sortBy('addon.reviews', 'versionReleased:desc'),
   latestReview: Ember.computed.alias('sortedReviews.firstObject'),
+
   isLatestReleaseInLast3Months: Ember.computed('addon.latestVersion.released', function() {
     if (!this.get('addon.latestVersion.released')) {
       return false;
@@ -21,8 +22,8 @@ export default Ember.Controller.extend({
     let threeMonthsAgo = moment().subtract(3, 'months');
     return moment(this.get('addon.latestVersion.released')).isAfter(threeMonthsAgo);
   }),
-  isLatestReviewForLatestVersion: Ember.computed('latestReview', 'addon.latestVersion.review', function() {
-    return this.get('latestReview') === this.get('addon.latestVersion.review');
+  isLatestReviewForLatestVersion: Ember.computed('latestReview.version.version', 'addon.latestVersion.version', function() {
+    return this.get('latestReview.version.version') === this.get('addon.latestVersion.version');
   }),
   badgeText: Ember.computed('addon.name', function() {
     return `[![Ember Observer Score](https://emberobserver.com/badges/${this.get('addon.name')}.svg)](https://emberobserver.com/addons/${this.get('addon.name')})`;
@@ -69,7 +70,12 @@ export default Ember.Controller.extend({
     saveReview(newReview) {
       let controller = this;
       newReview.set('version', this.get('addon.latestVersion'));
-      newReview.save().catch(function() {
+      newReview.save()
+      .then(function() {
+        // TODO: Fix this once 'latestReview' is put on addon
+        return controller.get('addon').hasMany('reviews').reload();
+      }).catch(function(e) {
+        console.error(e);
         alert('Saving failed');
       }).finally(function() {
         controller.set('newReview', null);
