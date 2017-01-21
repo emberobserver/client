@@ -75,6 +75,10 @@ Router.map(function() {
 
     this.route('addon-lists', function() {
       this.route('addons-needing-categorization');
+      this.route('addons-needing-review');
+      this.route('addons-needing-rereview');
+      this.route('addons-hidden');
+      this.route('addons-wip');
     });
   });
 

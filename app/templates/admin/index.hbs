@@ -5,49 +5,10 @@
     <ul>
       <li>{{#link-to "admin.categories.index"}}Categories{{/link-to}}</li>
       <li>{{#link-to "admin.addon-lists.addons-needing-categorization"}}Addons needing categorization{{/link-to}}</li>
+      <li>{{#link-to "admin.addon-lists.addons-needing-review"}}Addons needing review{{/link-to}}</li>
+      <li>{{#link-to "admin.addon-lists.addons-needing-rereview"}}Addons with new updates since their last review{{/link-to}}</li>
+      <li>{{#link-to "admin.addon-lists.addons-wip"}}WIP Addons{{/link-to}}</li>
+      <li>{{#link-to "admin.addon-lists.addons-hidden"}}Hidden Addons{{/link-to}}</li>
     </ul>
   </nav>
-
-  <section class="test-addons-needing-categorization">
-    <h2>Addons needing categorization ({{addonsNeedingCategorization.length}} / {{model.addons.length}})</h2>
-    {{#if showAddonsNeedingCategorization}}
-      {{addon-list addons=addonsNeedingCategorization}}
-    {{else}}
-      <a href="#" {{action "showNeedingCategories"}}>Show</a>
-    {{/if}}
-  </section>
-
-  <section class="test-addons-needing-review">
-    <h2>Addons needing review ({{addonsNeedingReview.length}} / {{model.addons.length}})</h2>
-    {{#if showAddonsNeedingReview}}
-      {{addon-list addons=addonsNeedingReview}}
-    {{else}}
-      <a href="#" {{action "showNeedingReview"}}>Show</a>
-    {{/if}}
-  </section>
-
-  <section class="test-addons-with-new-updates">
-    <h2>Addons with new updates since last review ({{addonsWithNewUpdates.length}} / {{model.addons.length}})</h2>
-    {{#if showAddonsWithNewUpdates}}
-      {{addon-list addons=addonsWithNewUpdates}}
-    {{else}}
-      <a href="#" {{action "showNewUpdates"}}>Show</a>
-    {{/if}}
-  </section>
-
-  <h2>Hidden Addons</h2>
-  {{#if showHiddenAddons}}
-    {{addon-list addons=sortedHiddenAddons}}
-  {{else}}
-    <a href="#" {{action "showHidden"}}>Show</a>
-  {{/if}}
-
-  <section class="test-wip-addons">
-    <h2>WIP addons ({{workInProgressAddons.length}} / {{model.addons.length}})</h2>
-    {{#if showWIPAddons}}
-      {{addon-list addons=workInProgressAddons}}
-    {{else}}
-      <a href="#" {{action "showWIPAddons"}}>Show</a>
-    {{/if}}
-  </section>
 </div>
