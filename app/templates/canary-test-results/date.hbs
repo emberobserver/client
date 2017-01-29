@@ -2,7 +2,8 @@
   <thead>
     <tr>
       <th>Addon</th>
-      <th>Version</th>
+      <th>Addon Version</th>
+      <th>Ember Version</th>
       <th>Result</th>
       <th>Details</th>
     </tr>
@@ -17,6 +18,9 @@
       </td>
       <td>
         {{testResult.version.version}}
+      </td>
+      <td>
+        {{testResult.emberVersionCompatibilities.firstObject.emberVersion}}
       </td>
       <td class="test-result {{test-result-status-class testResult}}">
         {{test-result-status testResult}}
