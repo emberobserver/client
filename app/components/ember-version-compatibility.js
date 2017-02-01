@@ -18,8 +18,8 @@ export default Ember.Component.extend({
   }),
 
   compatibilitySemverString: Ember.computed('sortedVersionCompatibilities.[]', function() {
-    let earliestVersion = this.get('sortedVersionCompatibilities.firstObject.emberVersion');
-    let latestVersion = this.get('sortedVersionCompatibilities.lastObject.emberVersion');
+    let earliestVersion = this.get('sortedVersionCompatibilities.lastObject.emberVersion');
+    let latestVersion = this.get('sortedVersionCompatibilities.firstObject.emberVersion');
 
     return `>=${earliestVersion} <=${latestVersion}`;
   }),
