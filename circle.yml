@@ -1,5 +1,15 @@
+machine:
+  environment:
+    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
+
 dependencies:
+  override:
+    - yarn
   pre:
     - sudo apt-get update; sudo apt-get install -y --only-upgrade google-chrome-stable
-  post:
-    - bower install
+  cache_directories:
+    - ~/.cache/yarn
+
+test:
+  override:
+    - yarn test
