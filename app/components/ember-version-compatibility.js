@@ -34,7 +34,7 @@ export default Ember.Component.extend({
 function extractVersionParts(versionNumber) {
   let matches = versionNumber.match(/^(\d+)\.(\d+)\.(\d+)/);
   if (matches) {
-    return matches.slice(1);
+    return matches.slice(1).map((x) => parseInt(x, 10));
   }
   return null;
 }

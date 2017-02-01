@@ -18,14 +18,15 @@ test('displays Ember version compatibility when an addon has it', function(asser
 });
 
 test('sorts version compatibility entries by version number', function(assert) {
-  let { addon } = createAddonWithVersionCompatibilities(['2.0.3', '1.13.13', '2.1.2', failedVersion('1.12.1')]);
+  let { addon } = createAddonWithVersionCompatibilities(['2.0.3', '1.13.13', '2.10.0', '2.2.2', failedVersion('1.12.1')]);
 
   visitAddon(addon);
   andThen(function() {
     assert.containsExactly('.test-ember-version-compatibility-ember-version:eq(0)', '1.12.1');
     assert.containsExactly('.test-ember-version-compatibility-ember-version:eq(1)', '1.13.13');
     assert.containsExactly('.test-ember-version-compatibility-ember-version:eq(2)', '2.0.3');
-    assert.containsExactly('.test-ember-version-compatibility-ember-version:eq(3)', '2.1.2');
+    assert.containsExactly('.test-ember-version-compatibility-ember-version:eq(3)', '2.2.2');
+    assert.containsExactly('.test-ember-version-compatibility-ember-version:eq(4)', '2.10.0');
   });
 });
 
