@@ -43,11 +43,11 @@ function sortByVersion(a, b) {
   let [majorA, minorA, patchA] = extractVersionParts(a.get('emberVersion'));
   let [majorB, minorB, patchB] = extractVersionParts(b.get('emberVersion'));
 
-  if (Ember.compare(majorA, majorB) !== 0) {
-    return Ember.compare(majorA, majorB);
+  if (Ember.compare(majorB, majorA) !== 0) {
+    return Ember.compare(majorB, majorA);
   }
-  if (Ember.compare(minorA, minorB) !== 0) {
-    return Ember.compare(minorA, minorB);
+  if (Ember.compare(minorB, minorA) !== 0) {
+    return Ember.compare(minorB, minorA);
   }
-  return Ember.compare(patchA, patchB);
+  return Ember.compare(patchB, patchA);
 }

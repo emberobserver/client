@@ -22,11 +22,11 @@ test('sorts version compatibility entries by version number', function(assert) {
 
   visitAddon(addon);
   andThen(function() {
-    assert.containsExactly('.test-ember-version-compatibility-ember-version:eq(0)', '1.12.1');
-    assert.containsExactly('.test-ember-version-compatibility-ember-version:eq(1)', '1.13.13');
+    assert.containsExactly('.test-ember-version-compatibility-ember-version:eq(0)', '2.10.0');
+    assert.containsExactly('.test-ember-version-compatibility-ember-version:eq(1)', '2.2.2');
     assert.containsExactly('.test-ember-version-compatibility-ember-version:eq(2)', '2.0.3');
-    assert.containsExactly('.test-ember-version-compatibility-ember-version:eq(3)', '2.2.2');
-    assert.containsExactly('.test-ember-version-compatibility-ember-version:eq(4)', '2.10.0');
+    assert.containsExactly('.test-ember-version-compatibility-ember-version:eq(3)', '1.13.13');
+    assert.containsExactly('.test-ember-version-compatibility-ember-version:eq(4)', '1.12.1');
   });
 });
 
