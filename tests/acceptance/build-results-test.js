@@ -120,13 +120,11 @@ test('displays appropriate indication for canary builds', function(assert) {
 });
 
 test('links to previous day', function(assert) {
-  let yesterday = moment().utc().subtract(1, 'day').format('YYYY-MM-DD');
-
   login();
-  visit('/admin/build-results');
+  visit('/admin/build-results?date=2017-02-01');
 
   andThen(function() {
-    assert.exists(`a[href="/admin/build-results?date=${yesterday}"]`, 'has a link to the results for the previous day');
+    assert.exists('a[href="/admin/build-results?date=2017-01-31"]', 'has a link to the results for the previous day');
   });
 });
 
