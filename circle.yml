@@ -6,7 +6,8 @@ dependencies:
   override:
     - yarn
   pre:
-    - sudo apt-get update; sudo apt-get install -y --only-upgrade google-chrome-stable
+    - curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    - sudo dpkg -i google-chrome.deb
   post:
     - bower install
   cache_directories:
