@@ -5,7 +5,6 @@ import moment from 'moment';
 moduleForAcceptance('Acceptance | version compatibility');
 
 test('displays Ember version compatibility when an addon has it', function(assert) {
-  server.logging = true;
   let { addon } = createAddonWithVersionCompatibilities([failedVersion('1.13.13'), '2.0.0']);
 
   visitAddon(addon);
@@ -82,7 +81,6 @@ test('displays date/time when tests were last run', function(assert) {
 });
 
 test('displays tests results from the latest version with them, if the newest version has none', function(assert) {
-  server.logging = true;
   let { addon } = createAddonWithVersionCompatibilities(['2.1.0', '2.2.0', '2.3.0', '2.4.0']);
   server.create('version', { addonId: addon.id });
 

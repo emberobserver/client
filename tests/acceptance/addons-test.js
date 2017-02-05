@@ -78,7 +78,6 @@ test('displays note', function(assert) {
 });
 
 test('displays categories', function(assert) {
-  server.logging = true;
   let addon = server.create('addon', {
     name: 'test-addon-with-categories'
   });
@@ -221,7 +220,6 @@ test('displays review', function(assert) {
 });
 
 test('displays addon stats', function(assert) {
-  server.logging = true;
   let maintainers = server.createList('maintainer', 3);
 
   let addon = server.create('addon', {
