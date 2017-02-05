@@ -14,6 +14,14 @@
       {{/if}}
     </div>
     <div class="search-actions">
+      {{input type="checkbox"
+        id="regex-toggle"
+        class="test-regex-search"
+        checked=regex}}
+      <label for="regex-toggle">Regex search</label>
+      {{#if regex}}
+        <a href="https://github.com/google/re2/wiki/Syntax" class="regex-help test-regex-help" target="_blank">(re2 syntax)</a>
+      {{/if}}
       <button type="submit" class="test-submit-search button" style="float: right;">Search</button>
     </div>
   </form>
@@ -21,7 +29,7 @@
 
 {{#if results.length}}
   <div class="result-details">
-    <h4>Results for "{{codeQuery}}"</h4>
+    <h4 class="test-last-search">Results for {{quotedLastSearch}}</h4>
     <h5 class="test-result-info">
       Showing {{results.length}} {{pluralize results.length 'addon'}} ({{totalUsageCount}} {{pluralize totalUsageCount 'usage'}})
     </h5>
@@ -37,7 +45,7 @@
     {{#each visibleResults as |result|}}
       <li data-id="{{result.addon.id}}">
         {{addon-details addon=result.addon}}
-        {{addon-source-usages addon=result.addon count=result.count query=codeQuery}}
+        {{addon-source-usages addon=result.addon count=result.count query=codeQuery regex=regex}}
       </li>
     {{/each}}
     {{#if canViewMore}}
@@ -49,5 +57,5 @@
 {{else if search.isRunning}}
   {{dot-spinner}}
 {{else if hasSearchedAndNoResults}}
-  <h4 class="result-info">No addons found containing "{{codeQuery}}"</h4>
+  <h4 class="result-info">No addons found containing {{quotedLastSearch}}</h4>
 {{/if}}
