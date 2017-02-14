@@ -53,7 +53,8 @@ export default Ember.Component.extend(FocusableComponent, {
     this.get('metrics').trackEvent({ category: 'Code Search', action: 'Search', label: query });
 
     this.set('codeQuery', query);
-    let addons = yield this.get('codeSearch').addons(query);
+    let addons = yield this.get('codeSearch').addons(query, this.get('regex'));
+    this.set('quotedLastSearch', quoteSearchTerm(query, this.get('regex')));
     this.set('results', addons);
   }).restartable(),
 
@@ -83,3 +84,8 @@ export default Ember.Component.extend(FocusableComponent, {
     }
   }
 });
+
+function quoteSearchTerm(searchTerm, isRegex) {
+  let character = isRegex ? '/' : '"';
+  return `${character}${searchTerm}${character}`;
+}

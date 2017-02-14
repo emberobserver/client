@@ -10,6 +10,8 @@ export default Ember.Component.extend({
 
   usages: null,
 
+  regex: false,
+
   codeSearch: Ember.inject.service(),
 
   visibleUsages: computed('visibleUsageCount', 'usages', function() {
@@ -21,7 +23,7 @@ export default Ember.Component.extend({
   }),
 
   fetchUsages: task(function* () {
-    let usages = yield this.get('codeSearch').usages(this.get('addon.name'), this.get('query'));
+    let usages = yield this.get('codeSearch').usages(this.get('addon.name'), this.get('query'), this.get('regex'));
     this.set('usages', usages);
   }).drop(),
 

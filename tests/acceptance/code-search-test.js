@@ -104,6 +104,8 @@ test('viewing addon source containing search query', function(assert) {
     assert.equal('ember-try', addonParam, 'Addon name is provided to request');
     assert.equal('asdf', queryParam, 'Query is provided to request');
 
+    assert.equal(find('.test-last-search').text(), 'Results for "asdf"', 'Last search shows');
+
     assert.exists('.test-usage:contains("app/services/fake-service.js:52")', 'Filename shows with line number of match');
     assert.exists('.test-usage:contains("51if (addonData) {")', 'Source code lines show with line numbers');
     assert.equal(find('.match').length, 2, 'Two matches are highlighted');
@@ -162,5 +164,72 @@ test('sorting search results', function(assert) {
     assert.contains('.test-addon-name:eq(1)', 'ember-blanket', 'Addons are sorted by usage count');
     assert.contains('.test-addon-name:eq(2)', 'ember-try', 'Addons are sorted by usage count');
     assert.equal(currentURL(), '/code-search?codeQuery=foo&sort=usages', 'Sort is in query params');
+  });
+});
+
+test('searching with a regex', function(assert) {
+  server.create('addon', { name: 'ember-try' });
+
+  let addonRegexParam, usageRegexParam;
+  server.get('/search/addons', (db, request) => {
+    addonRegexParam = request.queryParams.regex;
+    return {
+      results: [
+        {
+          addon: 'ember-try',
+          count: 2
+        }
+      ]
+    };
+  });
+
+  server.get('/search/source', (db, request) => {
+    usageRegexParam = request.queryParams.regex;
+    return {
+      /* eslint-disable camelcase */
+      results: [
+        {
+          line_number: 52,
+          filename: 'app/services/fake-service.js',
+          lines: [
+            { text: 'if (addonData) {', number: 51 },
+            { text: 'addons.pushObject({ addon: addonData.addon });', number: 52 },
+            { text: '}', number: 53 }
+          ]
+        }
+      ]
+      /* eslint-disable camelcase */
+    };
+  });
+
+  visit('/code-search?codeQuery=foo&regex=true');
+
+  andThen(function() {
+    assert.equal('true', addonRegexParam, 'Regex param from queryParams is included in initial addon request and is true');
+    assert.exists('.test-regex-search:checked', 'Regex checkbox is checked');
+    assert.equal(find('.test-last-search').text(), 'Results for /foo/', 'Last search shows as a regex');
+    assert.equal(find('.test-regex-help').attr('href'), 'https://github.com/google/re2/wiki/Syntax', 'Regex syntax link shows');
+  });
+
+  click('.test-usage-count');
+  andThen(() => {
+    assert.equal('true', usageRegexParam, 'Regex param is included in usage request and is true');
+  });
+
+  click('.test-regex-search');
+
+  andThen(() => {
+    assert.equal(find('.test-last-search').text(), 'Results for /foo/', 'Last search still shows as a regex');
+  });
+
+  click('.test-submit-search');
+  andThen(() => {
+    assert.equal('false', addonRegexParam, 'Regex param is included in addon request and is false');
+    assert.notExists('.test-regex-help', 'Regex syntax link does not show when regex is deselected');
+  });
+
+  click('.test-usage-count');
+  andThen(() => {
+    assert.equal('false', usageRegexParam, 'Regex param is included in usage request and is false');
   });
 });

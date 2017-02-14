@@ -16,10 +16,10 @@ export default Ember.Service.extend({
     });
   }),
 
-  addons(query) {
+  addons(query, regex) {
     return this.get('apiAjax').request('/search/addons', {
       data: {
-        query
+        query, regex
       }
     }).then((response) => {
       let addons = [];
@@ -33,10 +33,10 @@ export default Ember.Service.extend({
     });
   },
 
-  usages(addon, query) {
+  usages(addon, query, regex) {
     return this.get('apiAjax').request('/search/source', {
       data: {
-        addon, query
+        addon, query, regex
       }
     }).then((response) => {
       return response.results;

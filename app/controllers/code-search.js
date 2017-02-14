@@ -1,7 +1,8 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  queryParams: ['codeQuery', 'sort'],
+  queryParams: ['codeQuery', 'sort', 'regex'],
   codeQuery: '',
-  sort: 'name'
+  sort: 'name',
+  regex: false
 });
