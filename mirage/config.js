@@ -61,7 +61,15 @@ export default function() {
 
   this.get('/addons', function(schema, request) {
     if (request.queryParams['filter[name]']) {
-      let addons = schema.addons.where({ name: request.queryParams['filter[name]'] });
+      let addonsIds = request.queryParams['filter[name]'].split(',').map((name) => {
+        let addon = schema.addons.where({ name });
+        if (addon.models.length) {
+          return addon.models[0].id;
+        }
+      });
+
+      let addons = schema.addons.find(addonsIds.compact());
+
       if (!addons.models.length) {
         return new Mirage.Response(404);
       } else {

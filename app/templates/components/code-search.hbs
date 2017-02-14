@@ -36,20 +36,20 @@
     <div class="sort-controls">
       Sort by:
       <div class="button-select test-sort">
-        {{sort-option name="Name" key="name" selectedSort=sort sortBy="sortBy"}}
-        {{sort-option name="Usages" key="usages" selectedSort=sort sortBy="sortBy"}}
+        {{sort-option name="Name" key="name" selectedSort=sort sortBy=(perform sortBy)}}
+        {{sort-option name="Usages" key="usages" selectedSort=sort sortBy=(perform sortBy)}}
       </div>
     </div>
   </div>
   <ul class="addon-list">
-    {{#each visibleResults as |result|}}
+    {{#each results.displayingResults as |result|}}
       <li data-id="{{result.addon.id}}">
         {{addon-details addon=result.addon}}
         {{addon-source-usages addon=result.addon count=result.count query=codeQuery regex=regex}}
       </li>
     {{/each}}
     {{#if canViewMore}}
-      <a {{action "viewMore"}} class="view-more">
+      <a {{action (perform viewMore)}} class="view-more">
         <li>See more results</li>
       </a>
     {{/if}}

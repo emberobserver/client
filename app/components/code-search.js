@@ -4,10 +4,15 @@ import FocusableComponent from 'ember-component-focus/mixins/focusable-component
 
 const { computed, inject } = Ember;
 
+const PageSize = 50;
+
 export default Ember.Component.extend(FocusableComponent, {
   metrics: inject.service(),
 
-  visibleResultCount: 50,
+  store: inject.service(),
+
+  codeQuery: null,
+  sort: null,
 
   classNames: ['code-search'],
 
@@ -15,19 +20,9 @@ export default Ember.Component.extend(FocusableComponent, {
 
   codeSearch: inject.service(),
 
-  usageCounts: computed.mapBy('results', 'count'),
+  usageCounts: computed.mapBy('results.rawResults', 'count'),
 
   totalUsageCount: computed.sum('usageCounts'),
-
-  sortedResults: computed.sort('results', 'sortDefinition'),
-
-  sortDefinition: computed('sort', function() {
-    let sorts = {
-      name: ['addon.name'],
-      usages: ['count:desc', 'addon.name']
-    };
-    return sorts[this.get('sort')];
-  }),
 
   init() {
     this._super(...arguments);
@@ -53,17 +48,53 @@ export default Ember.Component.extend(FocusableComponent, {
     this.get('metrics').trackEvent({ category: 'Code Search', action: 'Search', label: query });
 
     this.set('codeQuery', query);
-    let addons = yield this.get('codeSearch').addons(query, this.get('regex'));
+    let results = yield this.get('codeSearch').addons(query, this.get('regex'));
     this.set('quotedLastSearch', quoteSearchTerm(query, this.get('regex')));
-    this.set('results', addons);
+
+    let firstPageOfResults = yield this._fetchPageOfAddonResults(results, 1, this.get('sort'));
+    this.set('results',
+      {
+        displayingResults: firstPageOfResults,
+        lastResultPageDisplaying: 1,
+        rawResults: results,
+        length: results.length
+      });
   }).restartable(),
 
-  visibleResults: computed('visibleResultCount', 'sortedResults', function() {
-    return this.get('sortedResults').slice(0, this.get('visibleResultCount'));
+  _fetchPageOfAddonResults(results, page, sort) {
+    if (!results || !results.length) {
+      return Ember.RSVP.resolve(null);
+    }
+
+    let sortedResults = sortResults(results, sort);
+    let pageOfResults = sortedResults.slice((page - 1) * PageSize, page * PageSize);
+    let names = pageOfResults.mapBy('addonName');
+    return this.get('store').query('addon', { filter: { name: names.join(',') }, include: 'categories' }).then((addons) => {
+      return pageOfResults.map((result) => {
+        return {
+          addon: addons.findBy('name', result.addonName),
+          count: result.count
+        }
+      });
+    });
+  },
+
+  canViewMore: computed('results.displayingResults', function() {
+    return this.get('results.displayingResults.length') < this.get('results.length');
   }),
 
-  canViewMore: computed('visibleResultCount', 'results', function() {
-    return this.get('visibleResultCount') < this.get('results.length');
+  viewMore: task(function* () {
+    let pageToFetch = this.get('results.lastResultPageDisplaying') + 1;
+    let moreAddons = yield this._fetchPageOfAddonResults(this.get('results.rawResults'), pageToFetch, this.get('sort'));
+    this.get('results.displayingResults').pushObjects(moreAddons);
+    this.get('results.lastResultPageDisplaying', pageToFetch);
+  }),
+
+  sortBy: task(function* (key) {
+    this.set('sort', key);
+    let sortedAddons = yield this._fetchPageOfAddonResults(this.get('results.rawResults'), 1, key);
+    this.set('results.displayingResults', sortedAddons);
+    this.get('results.lastResultPageDisplaying', 1);
   }),
 
   actions: {
@@ -72,18 +103,19 @@ export default Ember.Component.extend(FocusableComponent, {
       this.set('searchInput', '');
       this.set('results', null);
       this.focus();
-    },
-
-    viewMore() {
-      let newResultCount = this.get('visibleResultCount') + 50;
-      this.set('visibleResultCount', newResultCount);
-    },
-
-    sortBy(key) {
-      this.set('sort', key);
     }
   }
 });
+
+function sortResults(results, sort) {
+  if (sort === "usages") {
+    return results.sortBy('count').reverse();
+  }
+
+  if (sort === "name") {
+    return results.sortBy('addonName');
+  }
+}
 
 function quoteSearchTerm(searchTerm, isRegex) {
   let character = isRegex ? '/' : '"';
