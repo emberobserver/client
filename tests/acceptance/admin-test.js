@@ -5,6 +5,7 @@ moduleForAcceptance('Acceptance: admin');
 
 test('visiting /admin not logged in', function(assert) {
   visit('/admin');
+
   andThen(function() {
     assert.equal(currentURL(), '/', 'redirects to index');
   });
@@ -65,19 +66,6 @@ test('reviewing addons', function(assert) {
     addonIds: [addon.id]
   });
 
-  server.post('/reviews', function(db, request) {
-    let data = JSON.parse(request.requestBody).review;
-    assert.equal(data.review, '#Some Review');
-    assert.equal(data.version_id, latestVersion.id);
-    assert.equal(data.has_build, 3);
-    assert.equal(data.has_readme, 1);
-    assert.equal(data.has_tests, 2);
-    assert.equal(data.is_more_than_empty_addon, 1);
-    assert.equal(data.is_open_source, 1);
-    let review = server.create('review', data);
-    return { review };
-  });
-
   login();
 
   visit(`/addons/${addon.name}`);
@@ -89,6 +77,17 @@ test('reviewing addons', function(assert) {
   answerQuestion('Does the addon have a build?', 'N/A');
   fillIn('.test-addon-review-notes', '#Some Review');
   click('.test-addon-review-save');
+
+  andThen(function() {
+    let newReview = server.schema.reviews.all().models[server.schema.reviews.all().models.length - 1];
+    assert.equal(newReview.version.id, latestVersion.id);
+    assert.equal(newReview.hasTests, 2);
+    assert.equal(newReview.hasReadme, 1);
+    assert.equal(newReview.isMoreThanEmptyAddon, 1);
+    assert.equal(newReview.isOpenSource, 1);
+    assert.equal(newReview.hasBuild, 3);
+    assert.equal(newReview.review, '#Some Review');
+  });
 });
 
 function answerQuestion(question, answer) {
@@ -123,27 +122,37 @@ test('renewing a review', function(assert) {
     released: window.moment().subtract(1, 'months')
   });
 
-  server.post('/reviews', function(db, request) {
-    let data = JSON.parse(request.requestBody).review;
-    assert.equal(data.version_id, latestVersion.id);
-    assert.equal(data.has_tests, 1);
-    assert.equal(data.has_readme, 4);
-    assert.equal(data.is_more_than_empty_addon, 3);
-    assert.equal(data.is_open_source, 2);
-    assert.equal(data.has_build, 1);
-    assert.equal(data.review, 'Seems ok');
-    let review = server.create('review', data);
-    return { review };
-  });
-
   login();
 
   visit(`/addons/${addon.name}`);
   click('.test-renew-latest-review');
+
+  andThen(function() {
+    let newReview = server.schema.reviews.all().models[server.schema.reviews.all().models.length - 1];
+    assert.equal(newReview.version.id, latestVersion.id);
+    assert.equal(newReview.hasTests, 1);
+    assert.equal(newReview.hasReadme, 4);
+    assert.equal(newReview.isMoreThanEmptyAddon, 3);
+    assert.equal(newReview.isOpenSource, 2);
+    assert.equal(newReview.hasBuild, 1);
+    assert.equal(newReview.review, 'Seems ok');
+  });
 });
 
 test('updating addons', function(assert) {
-  assert.expect(32);
+  assert.expect(31);
+
+  let category1 = server.create('category', {
+    name: 'Category1'
+  });
+
+  let category2 = server.create('category', {
+    name: 'Category2'
+  });
+
+  server.create('category', {
+    name: 'Category3'
+  });
 
   let addon = server.create('addon', {
     name: 'test-addon',
@@ -151,33 +160,8 @@ test('updating addons', function(assert) {
     isOfficial: true,
     isDeprecated: true
   });
-  server.create('category', {
-    name: 'Category1',
-    addonIds: [addon.id]
-  });
-  let category2 = server.create('category', {
-    name: 'Category2',
-    addonIds: [addon.id]
-  });
-  let category3 = server.create('category', {
-    name: 'Category3',
-    addonIds: []
-  });
 
-  server.put('/addons/1', function(db, request) {
-    let data = JSON.parse(request.requestBody).addon;
-
-    assert.equal(data.note, '#New');
-    assert.equal(data.is_official, false);
-    assert.equal(data.is_deprecated, true);
-    assert.equal(data.is_cli_dependency, false);
-    assert.equal(data.is_wip, true);
-    assert.equal(data.is_hidden, false);
-    assert.equal(data.has_invalid_github_repo, false);
-    assert.equal(data.categories.length, 2);
-    assert.ok(data.categories.indexOf(category2.id.toString()) >= 0);
-    assert.ok(data.categories.indexOf(category3.id.toString()) >= 0);
-  });
+  addon.update({ categoryIds: [category1.id, category2.id] });
 
   login();
 
@@ -220,6 +204,20 @@ test('updating addons', function(assert) {
   });
 
   click('.test-save-addon-properties');
+
+  andThen(function() {
+    addon.reload();
+
+    assert.equal(addon.note, '#New');
+    assert.equal(addon.isOfficial, false);
+    assert.equal(addon.isDeprecated, true);
+    assert.equal(addon.isCliDependency, false);
+    assert.equal(addon.isWip, true);
+    assert.equal(addon.isHidden, false);
+    assert.equal(addon.hasInvalidGithubRepo, false);
+    assert.equal(addon.categories.models.length, 2);
+    assert.deepEqual(addon.categories.models.mapBy('name'), ['Category2', 'Category3']);
+  });
 });
 
 function login() {

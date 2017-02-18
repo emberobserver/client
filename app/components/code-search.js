@@ -74,7 +74,7 @@ export default Ember.Component.extend(FocusableComponent, {
         return {
           addon: addons.findBy('name', result.addonName),
           count: result.count
-        }
+        };
       });
     });
   },
@@ -108,11 +108,11 @@ export default Ember.Component.extend(FocusableComponent, {
 });
 
 function sortResults(results, sort) {
-  if (sort === "usages") {
+  if (sort === 'usages') {
     return results.sortBy('count').reverse();
   }
 
-  if (sort === "name") {
+  if (sort === 'name') {
     return results.sortBy('addonName');
   }
 }

@@ -7,7 +7,7 @@ export default Ember.Service.extend({
     return new Ember.RSVP.Promise(function(resolve, reject) {
       Ember.$.ajax({
         type: 'POST',
-        url: '/api/authentication/login.json',
+        url: '/api/v2/authentication/login.json',
         data: { email, password },
         dataType: 'json',
         success: Ember.run.bind(null, resolve),

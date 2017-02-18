@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { inject, computed } = Ember;
+const { inject } = Ember;
 
 export default Ember.Service.extend({
   apiAjax: inject.service(),

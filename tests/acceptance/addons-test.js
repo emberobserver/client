@@ -68,13 +68,13 @@ test('displays N/A for score when addon has no score', function(assert) {
 test('displays note', function(assert) {
   let addon = server.create('addon', {
     name: 'test-addon-with-note',
-    renderedNote: '<h2 class="test-rendered-note">RenderedNote</h2>'
+    not: '#MdNote'
   });
 
   visit(`/addons/${addon.name}`);
 
   andThen(function() {
-    assert.exists('.test-addon-note h2.test-rendered-note', 'Rendered note is rendered');
+    assert.exists('.test-addon-note h1', 'Note is rendered');
   });
 });
 
@@ -88,9 +88,10 @@ test('displays categories', function(assert) {
   });
 
   let addon = server.create('addon', {
-    name: 'test-addon-with-categories',
-    categoryIds: [categoryA.id, categoryB.id]
+    name: 'test-addon-with-categories'
   });
+
+  addon.update({ categoryIds: [categoryA.id, categoryB.id] });
 
   visit(`/addons/${addon.name}`);
 
@@ -114,7 +115,7 @@ test('displays github data', function(assert) {
     stars: 37,
     latestCommitDate: window.moment().subtract(2, 'months').toString(),
     firstCommitDate: window.moment().subtract(1, 'years').toString(),
-    addon
+    addonId: addon.id
   });
 
   visit(`/addons/${addon.name}`);

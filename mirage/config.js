@@ -11,12 +11,12 @@ export default function() {
 
     Note: these only affect routes defined *after* them!
   */
-  this.post('/api/authentication/login.json', function() {
-    return { token: 'abc123' };
-  });
-
   this.namespace = '/api/v2';    // make this `api`, for example, if your API is namespaced
   // this.timing = 400;      // delay for each request, automatically set to 0 during testing
+
+  this.post('/authentication/login.json', function() {
+    return { token: 'abc123' };
+  });
 
   this.get('/autocomplete_data', function(schema) {
     let addonData = schema.addons.all().models.map((a) => {
@@ -95,7 +95,11 @@ export default function() {
   });
 
   this.get('/addons/:id/github-stats', function(schema, request) {
-    return schema.githubStats.where({ addonId: request.params.id });
+    let stats = schema.githubStats.where({ addonId: +request.params.id });
+    if (stats && stats.models.length) {
+      return stats.models[0];
+    }
+    return { data: null };
   });
 
   this.get('/addons/:id/github-users', function(schema, request) {
@@ -118,6 +122,7 @@ export default function() {
   this.get('/keywords');
   this.get('/versions');
   this.get('/reviews');
+  this.get('/reviews/:id');
   this.get('/build-servers');
   this.get('/test-results', function(schema, request) {
     if (request.queryParams['filter[addonName]']) {
@@ -146,7 +151,7 @@ export default function() {
     return EmberVersionsResponse;
   });
 
-  this.get('/search/addons', () => {
+  this.get('/search/addons', function() {
     return {
       results: [
         {
@@ -159,6 +164,16 @@ export default function() {
         }
       ]
     };
+  });
+
+  this.post('/reviews');
+  this.patch('/addons/:id', function(schema, request) {
+    let addon = schema.addons.find(+request.params.id);
+    addon.update(this.normalizedRequestAttrs());
+    let categories = schema.categories.find(JSON.parse(request.requestBody).data.relationships.categories.data.mapBy('id'));
+    addon.categoryIds = categories.models.mapBy('id');
+    addon.save();
+    return addon;
   });
 
   /*

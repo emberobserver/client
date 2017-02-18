@@ -10,7 +10,7 @@ export default DS.Model.extend({
   position: attr('number'),
   addonCount: attr('number'),
   addons: hasMany('addon'),
-  parent: belongsTo('category', { async: false }),
+  parent: belongsTo('category', { async: false, inverse: 'subcategories' }),
   subcategories: hasMany('category', { inverse: 'parent', async: false }),
   slug: Ember.computed('name', function() {
     return this.get('name').dasherize();

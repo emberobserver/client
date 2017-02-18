@@ -75,7 +75,9 @@ export default Ember.Controller.extend({
         // TODO: Fix this once 'latestReview' is put on addon
         return controller.get('addon').hasMany('reviews').reload();
       }).catch(function(e) {
+        /* eslint-disable no-console */
         console.error(e);
+        /* eslint-enable no-console */
         alert('Saving failed');
       }).finally(function() {
         controller.set('newReview', null);
