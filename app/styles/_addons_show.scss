@@ -83,6 +83,7 @@
 
   .addon-info {
     @include span-columns(12);
+    margin-bottom: 2rem;
 
     @include media($medium-screen) {
       @include span-columns(7);
@@ -91,6 +92,7 @@
 
   .addon-stats {
     @include span-columns(12);
+    margin-bottom: 2rem;
 
     @include media($medium-screen) {
       @include span-columns(4);

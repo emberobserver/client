@@ -7,15 +7,16 @@
       </a>
     </h5>
     {{#unless resultsCollapsed}}
-      {{yield}}
-      {{#if (less-than results.length totalCount)}}
-        {{#if fetchMore.isRunning}}
-          Fetching more...
-        {{else}}
-          <button {{action (perform fetchMore)}}>Show more</button>
+      <div class="results-content">
+        {{yield}}
+        {{#if (less-than results.length totalCount)}}
+          {{#if fetchMore.isRunning}}
+            <button class="button more-results">Fetching more...</button>
+          {{else}}
+            <button {{action (perform fetchMore)}} class="button more-results">Show more</button>
+          {{/if}}
         {{/if}}
-        <!--TODO: make pretty -->
-      {{/if}}
+      </div>
     {{/unless}}
   </div>
 {{/if}}

@@ -27,25 +27,25 @@ export default Ember.Component.extend(FocusableComponent, {
     let pageToFetch = this.get('_results.lastAddonPageDisplaying') + 1;
     let moreAddons = yield this._fetchPageOfAddonResults(this.get('_results.rawResults.addonResults'), pageToFetch);
     this.get('_results.displayingAddons').pushObjects(moreAddons);
-    this.get('_results.lastAddonPageDisplaying', pageToFetch);
+    this.set('_results.lastAddonPageDisplaying', pageToFetch);
   }),
   fetchMoreMaintainers: task(function* () {
     let pageToFetch = this.get('_results.lastMaintainerPageDisplaying') + 1;
     let moreMaintainers = yield this._fetchPageOfMaintainerResults(this.get('_results.rawResults.maintainerResults'), pageToFetch);
     this.get('_results.displayingMaintainers').pushObjects(moreMaintainers);
-    this.get('_results.lastMaintainerPageDisplaying', pageToFetch);
+    this.set('_results.lastMaintainerPageDisplaying', pageToFetch);
   }),
   fetchMoreCategories: task(function* () {
     let pageToFetch = this.get('_results.lastCategoryPageDisplaying') + 1;
     let moreCategories = yield this._fetchPageOfCategoryResults(this.get('_results.rawResults.categoryResults'), pageToFetch);
     this.get('_results.displayingCategories').pushObjects(moreCategories);
-    this.get('_results.lastCategoryPageDisplaying', pageToFetch);
+    this.set('_results.lastCategoryPageDisplaying', pageToFetch);
   }),
   fetchMoreReadmes: task(function* () {
     let pageToFetch = this.get('_results.lastReadmePageDisplaying') + 1;
     let moreReadmes = yield this._fetchPageOfAddonResults(this.get('_results.rawResults.readmeResults'), pageToFetch);
     this.get('_results.displayingReadmes').pushObjects(moreReadmes);
-    this.get('_results.lastReadmePageDisplaying', pageToFetch);
+    this.set('_results.lastReadmePageDisplaying', pageToFetch);
   }),
   search: task(function* (query) {
     this.set('query', query.trim());

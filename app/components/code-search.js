@@ -87,14 +87,14 @@ export default Ember.Component.extend(FocusableComponent, {
     let pageToFetch = this.get('results.lastResultPageDisplaying') + 1;
     let moreAddons = yield this._fetchPageOfAddonResults(this.get('results.rawResults'), pageToFetch, this.get('sort'));
     this.get('results.displayingResults').pushObjects(moreAddons);
-    this.get('results.lastResultPageDisplaying', pageToFetch);
+    this.set('results.lastResultPageDisplaying', pageToFetch);
   }),
 
   sortBy: task(function* (key) {
     this.set('sort', key);
     let sortedAddons = yield this._fetchPageOfAddonResults(this.get('results.rawResults'), 1, key);
     this.set('results.displayingResults', sortedAddons);
-    this.get('results.lastResultPageDisplaying', 1);
+    this.set('results.lastResultPageDisplaying', 1);
   }),
 
   actions: {
