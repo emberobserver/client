@@ -25,10 +25,10 @@ test('index page lists all build servers', function(assert) {
 test('adding a new build server', function(assert) {
   assert.expect(2);
 
-  server.post('/build_servers', function(db, request) {
+  server.post('/build-servers', function(schema, request) {
     let requestBody = JSON.parse(request.requestBody);
-    assert.equal(requestBody.build_server.name, 'new-server-name', 'makes the correct HTTP call');
-    return server.create('buildServer', requestBody.build_server);
+    assert.equal(requestBody.data.attributes.name, 'new-server-name', 'makes the correct HTTP call');
+    return server.create('buildServer', this.normalizedRequestAttrs());
   });
 
   login();

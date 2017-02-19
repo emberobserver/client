@@ -137,7 +137,7 @@ export default function() {
       }
       return schema.testResults.where({ versionId: version.id });
     }
-
+    return schema.testResults.all();
   });
   this.get('/test-results/:id');
 

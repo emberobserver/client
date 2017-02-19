@@ -10,6 +10,11 @@ export default Ember.Route.extend({
     if (!params.date) {
       params.date = moment().format('YYYY-MM-DD');
     }
-    return this.store.query('test-result', params);
+    return this.store.query('test-result', {
+      filter: {
+        date: params.date
+      },
+      include: 'version,version.addon'
+    });
   }
 });

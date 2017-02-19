@@ -10,6 +10,6 @@ export default DS.Model.extend({
   semverString: DS.attr('string'),
 
   version: DS.belongsTo('version'),
-  emberVersionCompatibilities: DS.hasMany('emberVersionCompatibility', { async: false }),
+  emberVersionCompatibilities: DS.hasMany('emberVersionCompatibility'),
   testsRunAt: Ember.computed.alias('createdAt')
 });
