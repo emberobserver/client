@@ -2,7 +2,6 @@ import Ember from 'ember';
 import DS from 'ember-data';
 
 const { attr, belongsTo, hasMany } = DS;
-const { computed } = Ember;
 
 export default DS.Model.extend({
   name: attr('string'),
@@ -22,10 +21,9 @@ export default DS.Model.extend({
       return this.get('name');
     }
   }),
-  directAddonCount: computed.alias('addons.length')
-  // addonCount: Ember.computed('addons.length', 'subcategories.@each.directAddonCount', function() {
-  //   return this.get('subcategories').mapBy('directAddonCount').reduce(function(categoryA, categoryB) {
-  //     return categoryA + categoryB;
-  //   }, this.get('addons.length'));
-  // })
+  totalAddonCount: Ember.computed('subcategories.@each.addonCount', function() {
+    return this.get('subcategories').mapBy('addonCount').reduce(function(categoryA, categoryB) {
+      return categoryA + categoryB;
+    }, this.get('addonCount'));
+  })
 });

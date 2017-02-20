@@ -2,7 +2,7 @@
   {{#comma-separated list=categoriesSortedByAddonCount item=category as |value separator|}}
     {{#link-to "categories.show" value.slug}}
       {{!--This is in one long line cause otherwise weird whitespace appears--}}
-      {{#if showWithoutParent}}{{value.name}}{{else}}{{#if value.parent}}{{value.parent.name}} > {{/if}}{{value.name}}{{/if}}{{#if showAddonCount}} ({{value.addonCount}}){{/if}}{{separator}}
+      {{#if showWithoutParent}}{{value.name}}{{else}}{{#if value.parent}}{{value.parent.name}} > {{/if}}{{value.name}}{{/if}}{{#if showAddonCount}} ({{value.totalAddonCount}}){{/if}}{{separator}}
     {{/link-to}}
   {{/comma-separated}}
 {{/each}}

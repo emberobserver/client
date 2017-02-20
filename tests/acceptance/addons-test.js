@@ -68,13 +68,13 @@ test('displays N/A for score when addon has no score', function(assert) {
 test('displays note', function(assert) {
   let addon = server.create('addon', {
     name: 'test-addon-with-note',
-    not: '#MdNote'
+    note: '#MdNote'
   });
 
   visit(`/addons/${addon.name}`);
 
   andThen(function() {
-    assert.exists('.test-addon-note h1', 'Note is rendered');
+    assert.contains('.test-addon-note h1', 'MdNote', 'Note is rendered');
   });
 });
 

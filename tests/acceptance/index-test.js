@@ -31,7 +31,7 @@ test('visiting /', function(assert) {
 
   andThen(function() {
     assert.exists('.test-category', 8, 'All categories should display');
-    assert.contains('.test-category', 'Authentication (4)', 'Categories should list title and count of addons');
+    assert.contains('.test-category', 'Authentication (5)', 'Categories should list title and count of addons');
     assert.contains('.test-subcategory:eq(0)', 'Simple Auth (1)', 'Subcategories should display under category');
   });
 
@@ -52,7 +52,7 @@ test('visiting /', function(assert) {
     assert.contains('.test-category-header', 'Simple Auth', 'Header should display');
     assert.contains('.test-category-description', 'Simple Auth addons', 'Description should display');
     assert.exists('.test-addon-row', 1, 'All addons in category should display');
-    assert.contains('.test-parent-category-link', 'Authentication (4)', 'Should link to parent category');
+    assert.contains('.test-parent-category-link', 'Authentication (5)', 'Should link to parent category');
     assert.contains('.test-addon-table-count', 'Displaying 1 addon', 'Should show addon count');
   });
 });

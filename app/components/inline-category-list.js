@@ -4,6 +4,6 @@ export default Ember.Component.extend({
   tagName: 'span',
   classNames: ['category-list', 'test-category-list'],
 
-  categorySorting: ['addonCount:desc'],
+  categorySorting: ['totalAddonCount:desc'],
   categoriesSortedByAddonCount: Ember.computed.sort('categories', 'categorySorting')
 });
