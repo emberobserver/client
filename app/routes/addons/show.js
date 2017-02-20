@@ -18,7 +18,7 @@ export default Ember.Route.extend(scrollFix, {
     };
 
     if (this.get('session.isAuthenticated')) {
-      data.categories = this.get('store').findAll('category', { include: 'subcategories' })
+      data.categories = this.get('store').findAll('category', { include: 'subcategories' });
     }
 
     return Ember.RSVP.hash(data);
