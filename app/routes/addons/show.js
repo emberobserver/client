@@ -2,6 +2,7 @@ import Ember from 'ember';
 import scrollFix from '../../mixins/scroll-fix';
 
 export default Ember.Route.extend(scrollFix, {
+  session: Ember.inject.service(),
   model(params) {
     let addon = this.get('store').query('addon', { filter: { name: params.name }, include: 'versions,maintainers,keywords,reviews,reviews.version,categories', page: { limit: 1 } }, { reload: true }).then((addons) => {
       return addons.get('firstObject');
@@ -11,10 +12,16 @@ export default Ember.Route.extend(scrollFix, {
       return results.get('firstObject');
     });
 
-    return Ember.RSVP.hash({
+    let data = {
       addon,
       latestTestResult
-    });
+    };
+
+    if (this.get('session.isAuthenticated')) {
+      data.categories = this.get('store').findAll('category', { include: 'subcategories' })
+    }
+
+    return Ember.RSVP.hash(data);
   },
 
   titleToken(model) {

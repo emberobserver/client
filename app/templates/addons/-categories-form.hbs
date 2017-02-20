@@ -1,6 +1,6 @@
 <form {{action "save" on="submit"}} class="test-categories-form">
   <fieldset>
-    {{multiselect-checkboxes options=categories labelProperty="displayName" selection=addon.categories}}
+    {{multiselect-checkboxes options=model.categories labelProperty="displayName" selection=addon.categories}}
 
     {{#if isSaving}}
       <input type="submit" class="button" value="Saving" disabled>

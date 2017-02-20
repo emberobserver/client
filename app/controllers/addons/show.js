@@ -6,9 +6,6 @@ export default Ember.Controller.extend({
   addon: Ember.computed.alias('model.addon'),
   showExplanation: false,
   showBadgeText: false,
-  categories: Ember.computed(function() {
-    return this.get('store').peekAll('category').sortBy('displayName');
-  }),
   licenseUrl: Ember.computed('addon.license', function() {
     return `https://spdx.org/licenses/${this.get('addon.license')}`;
   }),

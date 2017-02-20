@@ -10,7 +10,12 @@ export default JSONAPIAdapter.extend({
       return this.get('session.header');
     }
   }),
-
+  shouldBackgroundReloadRecord() {
+    return false;
+  },
+  shouldBackgroundReloadAll() {
+    return false;
+  },
   ajax(url, type, options) {
     return cachedAjax(url, type, options, () => this._super(url, type, options));
   }
