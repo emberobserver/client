@@ -11,14 +11,14 @@ QUnit.assert.contains = function(selector, text, message) {
   if (elements.length === 1) {
     let resultText = Ember.$(elements).text();
     result = regex.test(resultText);
-    this.push(result, resultText, text, message);
+    this.pushResult({ result, actual: resultText, expected: text, message });
   } else {
     elements.each(function() {
       if (regex.test(Ember.$(this).text())) {
         result = true;
       }
     });
-    this.push(result, result, true, message);
+    this.pushResult({ result, actual: result, expected: true, message });
   }
 };
 
@@ -29,14 +29,14 @@ QUnit.assert.containsExactly = function(selector, text, message = '') {
   }
   let result = (Ember.$(elements[0]).text().trim().replace(/\s+/gm, '') === text.trim().replace(/\s+/gm, ''));
   message = `${message} - ${selector} should contain ${text}`;
-  this.push(result, Ember.$(elements[0]).text(), text, message);
+  this.pushResult({ result, actual: Ember.$(elements[0]).text(), expected: text, message });
 };
 
 QUnit.assert.notExists = function(selector, prependMessage = '') {
   let elementCount = find(selector).length;
   let result = (elementCount === 0);
   let message = `${prependMessage} - ${selector} should not exist.`;
-  this.push(result, `${elementCount} of ${selector}`, `0 of ${selector}`, message);
+  this.pushResult({ result, actual: `${elementCount} of ${selector}`, expected: `0 of ${selector}`, message });
 };
 
 QUnit.assert.exists = function(selector, ...args) {
@@ -55,7 +55,7 @@ QUnit.assert.exists = function(selector, ...args) {
   }
 
   let message = `${(prependMessage || '')} - ${countMessage} of ${selector} should exist.`;
-  this.push(result, `${elementCount} of ${selector}`, `${countMessage} of ${selector}`, message);
+  this.pushResult({ result, actual: `${elementCount} of ${selector}`, expected: `${countMessage} of ${selector}`, message });
 };
 
 QUnit.assert.notVisible = function(selector, prependMessage) {
@@ -68,7 +68,7 @@ QUnit.assert.notVisible = function(selector, prependMessage) {
     message = `${message} but ${visibleElementsMatchingSelector.length} are`;
   }
 
-  this.push(result, result, true, message);
+  this.push({ result, actual: result, expected: true, message });
 };
 
 QUnit.assert.visible = function(selector, count, prependMessage) {
@@ -82,7 +82,7 @@ QUnit.assert.visible = function(selector, count, prependMessage) {
     message = `${message} but ${visibleElementsMatchingSelector.length} are`;
   }
 
-  this.push(result, visibleElementsMatchingSelector.length, count, message);
+  this.pushResult({ result, actual: visibleElementsMatchingSelector.length, expected: count, message });
 };
 
 function escapeForRegex(str) {
