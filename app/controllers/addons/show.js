@@ -11,7 +11,9 @@ export default Ember.Controller.extend({
   }),
   sortedReviews: sortBy('addon.reviews', 'versionReleased:desc'),
   latestReview: Ember.computed.alias('sortedReviews.firstObject'),
-
+  sortedCategories: Ember.computed('model.categories', function() {
+    return this.get('model.categories').sortBy('displayName');
+  }),
   isLatestReleaseInLast3Months: Ember.computed('addon.latestVersion.released', function() {
     if (!this.get('addon.latestVersion.released')) {
       return false;
