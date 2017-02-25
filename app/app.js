@@ -43,7 +43,9 @@ if (config.environment === 'development' || config.environment === 'test') {
 
   let originalWarn = Ember.warn;
   Ember.warn = function(message) {
-    if(/You've included a link but no primary data/.test(message)){ return; }
+    if (/You've included a link but no primary data/.test(message)) {
+      return;
+    }
     originalWarn(...arguments);
   };
 }

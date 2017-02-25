@@ -14,6 +14,7 @@ module.exports = {
   rules: {
     'ember-suave/no-direct-property-access': 'off',
     'ember-suave/require-access-in-comments': 'off',
+    'ember-suave/require-const-for-ember-properties': 'off',
     'new-cap': 'off'
   }
 };
