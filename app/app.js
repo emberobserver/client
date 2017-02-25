@@ -40,6 +40,12 @@ if (config.environment === 'production') {
 
 if (config.environment === 'development' || config.environment === 'test') {
   Error.stackTraceLimit = 200;
+
+  let originalWarn = Ember.warn;
+  Ember.warn = function(message) {
+    if(/You've included a link but no primary data/.test(message)){ return; }
+    originalWarn(...arguments);
+  };
 }
 
 export default App;
