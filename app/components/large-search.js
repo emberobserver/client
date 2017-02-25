@@ -1,10 +1,9 @@
 import Ember from 'ember';
 import { task, timeout } from 'ember-concurrency';
-import FocusableComponent from 'ember-component-focus/mixins/focusable-component';
 
 const PageSize = 10;
 
-export default Ember.Component.extend(FocusableComponent, {
+export default Ember.Component.extend({
   store: Ember.inject.service(),
   session: Ember.inject.service(),
   searchService: Ember.inject.service('search'),
@@ -123,11 +122,14 @@ export default Ember.Component.extend(FocusableComponent, {
     }
     return null;
   }),
+  focus() {
+    this.$(this.get('focusNode')).focus();
+  },
   clearSearch() {
     this.get('metrics').trackEvent({ category: 'Clear Search', action: `Clear on ${document.location.pathname}` });
 
     this.set('query', '');
     this.set('_results', null);
-    this.focus();
+    Ember.run.scheduleOnce('afterRender', this, 'focus');
   }
 });
