@@ -1,6 +1,7 @@
 {{#if review}}
-  <p class="review-date">Reviewed on {{moment-format review.createdAt "MMMM Do YYYY"}} for
-    version {{review.version.version}}</p>
+  <p class="review-date">
+    Reviewed on {{moment-format review.createdAt "MMMM Do YYYY"}} for version {{review.version.version}}
+  </p>
   <ol class="questions">
     {{#each answeredQuestions as |question|}}
       <li class="test-review-question">

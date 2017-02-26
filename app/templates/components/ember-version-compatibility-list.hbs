@@ -8,16 +8,16 @@
     </thead>
     <tbody>
       {{#each versionCompatibilities as |versionCompatibility|}}
-      <tr class="test-ember-version-compatibility-item">
-        <td class="test-ember-version-compatibility-ember-version">{{versionCompatibility.emberVersion}}</td>
-        <td class="test-ember-version-compatibility-test-result">
-          {{#if versionCompatibility.compatible}}
-            <span class="result-passed">yes</span>
-          {{else}}
-            <span class="result-failed">no</span>
-          {{/if}}
-        </td>
-      </tr>
+        <tr class="test-ember-version-compatibility-item">
+          <td class="test-ember-version-compatibility-ember-version">{{versionCompatibility.emberVersion}}</td>
+          <td class="test-ember-version-compatibility-test-result">
+            {{#if versionCompatibility.compatible}}
+              <span class="result-passed">yes</span>
+            {{else}}
+              <span class="result-failed">no</span>
+            {{/if}}
+          </td>
+        </tr>
       {{/each}}
     </tbody>
   </table>

@@ -4,23 +4,39 @@
 </p>
 
 <ul class="stats-list">
-  <li class="test-addon-latest-version"><b>{{addon.latestVersion.version}}</b> from {{relative-time date=addon.latestVersionDate}}</li>
-  <li class="test-addon-top-downloaded">{{#if addon.isTopDownloaded}}
-    <div>
-      <small>TOP 10%!</small>
-    </div>{{/if}}<b>{{commify addon.lastMonthDownloads}}</b> downloads in last month
+  <li class="test-addon-latest-version">
+    <b>{{addon.latestVersion.version}}</b> from {{relative-time date=addon.latestVersionDate}}
+  </li>
+  <li class="test-addon-top-downloaded">
+    {{#if addon.isTopDownloaded}}
+      <div>
+        <small>TOP 10%!</small>
+      </div>
+    {{/if}}
+    <b>{{commify addon.lastMonthDownloads}}</b> downloads in last month
   </li>
   {{#if addon.demoUrl}}
-    <li class="test-addon-demo-url"><b>demo</b> {{human-url url=addon.demoUrl}}</li>
+    <li class="test-addon-demo-url">
+      <b>demo</b> {{human-url url=addon.demoUrl}}
+    </li>
   {{/if}}
-  <li class="test-addon-repo-url"><b>repo</b> {{human-url url=addon.repositoryUrl}}</li>
-  <li class="test-addon-package-url"><b>package</b> {{human-url url=addon.npmUrl}}</li>
-  <li class="test-addon-license"><b>license</b> <a href={{licenseUrl}}>{{addon.license}}</a></li>
+  <li class="test-addon-repo-url">
+    <b>repo</b> {{human-url url=addon.repositoryUrl}}
+  </li>
+  <li class="test-addon-package-url">
+    <b>package</b> {{human-url url=addon.npmUrl}}
+  </li>
+  <li class="test-addon-license">
+    <b>license</b> <a href={{licenseUrl}}>{{addon.license}}</a>
+  </li>
 </ul>
 
 {{#if model.latestTestResult}}
   {{#unless isTestResultForLatestVersion}}
-    <em class="test-ember-version-compatibility-new-version-warning"><span class="icon-new-releases"></span> New versions of this addon have been released since these tests ran.</em>
+    <em class="test-ember-version-compatibility-new-version-warning">
+      <span class="icon-new-releases"></span> New
+      versions of this addon have been released since these tests ran.
+    </em>
   {{/unless}}
   {{ember-version-compatibility testResult=model.latestTestResult}}
 {{/if}}
@@ -57,8 +73,8 @@
 </p>
 
 <section class="badge test-addon-badge">
-  <img src={{badgeSrc}}>
-  <span class="icon-content-paste copy-to-clipboard test-show-badge-markdown" title="Show badge markdown to copy" {{action "toggleBadgeText"}}></span>
+  <img alt="Addon Badge" src={{badgeSrc}}>
+  <a href="#" class="icon-content-paste copy-to-clipboard test-show-badge-markdown" title="Show badge markdown to copy" {{action "toggleBadgeText"}}></a>
   {{#if showBadgeText}}
     <hr>
     <code class="test-badge-markdown">

@@ -20,7 +20,7 @@
         checked=regex}}
       <label for="regex-toggle">Regex search</label>
       {{#if regex}}
-        <a href="https://github.com/google/re2/wiki/Syntax" class="regex-help test-regex-help" target="_blank">(re2 syntax)</a>
+        <a href="https://github.com/google/re2/wiki/Syntax" class="regex-help test-regex-help" rel="noopener" target="_blank">(re2 syntax)</a>
       {{/if}}
       <button type="submit" class="test-submit-search button" style="float: right;">Search</button>
     </div>
@@ -49,7 +49,7 @@
       </li>
     {{/each}}
     {{#if canViewMore}}
-      <a {{action (perform viewMore)}} class="view-more">
+      <a href="#" {{action (perform viewMore)}} class="view-more">
         <li>See more results</li>
       </a>
     {{/if}}
