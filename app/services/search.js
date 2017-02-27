@@ -57,6 +57,19 @@ export default Ember.Service.extend({
       matchCount: results.search.length
     };
   }),
+  searchAddonNames: task(function* (query) {
+    let data = yield this.get('_fetchAutocompleteData').perform();
+    let trimmed = query.trim();
+    let addonResultsMatchingOnName = findMatches(trimmed, 'name', data.addons);
+    let exactMatch = addonResultsMatchingOnName.findBy('name', trimmed);
+    let results = [];
+    if (exactMatch) {
+      results.push(exactMatch.name);
+      addonResultsMatchingOnName.removeObject(exactMatch);
+    }
+    results.pushObjects(addonResultsMatchingOnName.mapBy('name'));
+    return results;
+  }),
   search: task(function* (query, options) {
     let data = yield this.get('_fetchAutocompleteData').perform();
     let addonResults = this._searchAddons(query, data.addons);

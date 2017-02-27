@@ -6,14 +6,19 @@
         Ember Observer
       {{/link-to}}
       {{#if showHeaderSearch}}
-        <div class="search">
-          <form {{action goSearch on="submit"}}>
-            {{input value=searchTerm
-                    placeholder="Search"
-                    autocomplete="off"
-            }}
-            <input type="submit" value="Go">
-          </form>
+        <div class="search with-default-styling">
+          {{#power-select-typeahead
+              search=(action searchForAddons)
+              selected=selectedAddon
+              placeholder="Search"
+              noMatchesMessage="No matching addon names, try another search!"
+              onchange=(action goToAddon) as |addonName options|}}
+            {{#if addonName.isFullSearchLink}}
+              {{#link-to "index" (query-params query=options.searchText) class="jump-to-full-search"}}Jump to full search...{{/link-to}}
+            {{else}}
+              {{#link-to "addons.show" addonName}}{{addonName}}{{/link-to}}
+            {{/if}}
+          {{/power-select-typeahead}}
         </div>
       {{/if}}
       <nav class="links">

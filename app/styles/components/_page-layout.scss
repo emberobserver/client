@@ -71,19 +71,20 @@
         display: none;
       }
 
-      input[type=text] {
+      input[type=search] {
         font-size: 1.25rem;
         color: $base-background-color;
         background-color: $medium-gray;
         margin-bottom: 0;
         text-align: center;
+        padding: 0.5em;
+        border-radius: 0;
 
         @include media($medium-screen) {
           text-align: left;
           border: none;
           border-bottom: 1px solid $nav-link-color;
           box-shadow: none;
-          border-radius: 0;
           padding: 0 0.25rem 0 0.25rem;
 
           &:focus,&:hover {

@@ -49,3 +49,34 @@
   color: $light-gray;
   font-size: .75em;
 }
+
+$ember-power-select-number-of-visible-options: 10;
+$ember-power-select-highlighted-background: $light-gray;
+@import "ember-power-select";
+@import 'ember-power-select-typeahead';
+
+.ember-power-select-option {
+  padding: ($base-spacing / 4) ($base-spacing / 4);
+  font-size: 1.25rem;
+}
+
+.ember-power-select-trigger {
+  $trigger-padding: 0.5rem;
+  $trigger-font-size: 1.25rem;
+  padding: $trigger-padding;
+  font-size: $trigger-font-size;
+  $height-with-padding: ($base-line-height * $trigger-font-size) + (2 * $trigger-padding);
+  line-height: $height-with-padding;
+  min-height: $height-with-padding;
+}
+
+.jump-to-full-search {
+  font-style: italic;
+  font-weight: bold;
+  color: black;
+  text-decoration: underline;
+
+  &:hover {
+    color: $dark-gray;
+  }
+}
