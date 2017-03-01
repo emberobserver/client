@@ -60,15 +60,8 @@ export default Ember.Service.extend({
   searchAddonNames: task(function* (query) {
     let data = yield this.get('_fetchAutocompleteData').perform();
     let trimmed = query.trim();
-    let addonResultsMatchingOnName = findMatches(trimmed, 'name', data.addons);
-    let exactMatch = addonResultsMatchingOnName.findBy('name', trimmed);
-    let results = [];
-    if (exactMatch) {
-      results.push(exactMatch.name);
-      addonResultsMatchingOnName.removeObject(exactMatch);
-    }
-    results.pushObjects(addonResultsMatchingOnName.mapBy('name'));
-    return results;
+    let addonResultsMatchingOnName = findMatchesSortedForTopBar(trimmed, 'name', data.addons);
+    return addonResultsMatchingOnName.mapBy('name');
   }),
   search: task(function* (query, options) {
     let data = yield this.get('_fetchAutocompleteData').perform();
@@ -99,6 +92,38 @@ function findMatches(query, prop, items) {
     return matcher.test(item[prop]);
   });
   return results;
+}
+
+function findMatchesSortedForTopBar(query, prop, items) {
+  query = escapeForRegex(query);
+  let matcher = new RegExp(query, 'i');
+
+  let matches = items.map(function(item) {
+    let match = matcher.exec(item[prop]);
+    if (match) {
+      return { item, match };
+    }
+    return null;
+  }).compact();
+
+  let sortByMatchIndexThenAddonName = function(a, b) {
+    if (a.match.index < b.match.index) {
+      return -1;
+    }
+    if (a.match.index > b.match.index) {
+      return 1;
+    }
+    // match indexes are equal, so sort by addon name
+    if (a.match.input < b.match.input) {
+      return -1;
+    }
+    if (a.match.input > b.match.input) {
+      return 1;
+    }
+    return 0;
+  };
+
+  return matches.sort(sortByMatchIndexThenAddonName).mapBy('item');
 }
 
 function escapeForRegex(str) {
