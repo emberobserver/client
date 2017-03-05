@@ -14,7 +14,13 @@
               noMatchesMessage="No matching addon names, try another search!"
               onchange=(action goToAddon) as |addonName options|}}
             {{#if addonName.isFullSearchLink}}
-              {{#link-to "index" (query-params query=options.searchText) class="jump-to-full-search"}}Jump to full search...{{/link-to}}
+              {{#link-to "index" (query-params query=options.searchText) class="jump-to-full-search"}}
+                {{#if addonName.noResults}}
+                  No matching addons (by name). Try a full search &raquo;
+                {{else}}
+                  Perform full search &raquo;
+                {{/if}}
+              {{/link-to}}
             {{else}}
               {{#link-to "addons.show" addonName}}{{addonName}}{{/link-to}}
             {{/if}}

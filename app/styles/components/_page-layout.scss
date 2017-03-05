@@ -59,12 +59,13 @@
     .search {
       display: block;
       margin-bottom: 1rem;
-      min-width: 12em;
 
       @include media($medium-screen) {
         display: inline-block;
         margin-bottom: 0;
         margin-right: $default-spacing;
+        width: 100%;
+        max-width: 20em;
       }
 
       input[type=submit] {
