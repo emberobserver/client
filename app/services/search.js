@@ -60,7 +60,7 @@ export default Ember.Service.extend({
   searchAddonNames: task(function* (query) {
     let data = yield this.get('_fetchAutocompleteData').perform();
     let trimmed = query.trim();
-    let addonResultsMatchingOnName = findMatchesSortedForTopBar(trimmed, 'name', data.addons);
+    let addonResultsMatchingOnName = findAddonNameMatches(trimmed, data.addons);
     return addonResultsMatchingOnName.mapBy('name');
   }),
   search: task(function* (query, options) {
@@ -94,12 +94,13 @@ function findMatches(query, prop, items) {
   return results;
 }
 
-function findMatchesSortedForTopBar(query, prop, items) {
-  query = escapeForRegex(query);
+function findAddonNameMatches(searchTerm, addons) {
+  let query = escapeForRegex(stripEmberPrefixes(searchTerm));
   let matcher = new RegExp(query, 'i');
 
-  let matches = items.map(function(item) {
-    let match = matcher.exec(item[prop]);
+  let matches = addons.map(function(item) {
+    let trimmedName = stripEmberPrefixes(item.name);
+    let match = matcher.exec(trimmedName);
     if (match) {
       return { item, match };
     }
@@ -113,11 +114,19 @@ function findMatchesSortedForTopBar(query, prop, items) {
     if (a.match.index > b.match.index) {
       return 1;
     }
-    // match indexes are equal, so sort by addon name
-    if (a.match.input < b.match.input) {
+
+    if (a.item.score > b.item.score) {
       return -1;
     }
-    if (a.match.input > b.match.input) {
+    if (a.item.score < b.item.score) {
+      return 1;
+    }
+
+    // match indexes are equal, scores are equal, so sort by addon name
+    if (a.item.name < b.item.name) {
+      return -1;
+    }
+    if (a.item.name > b.item.name) {
       return 1;
     }
     return 0;
@@ -126,6 +135,9 @@ function findMatchesSortedForTopBar(query, prop, items) {
   return matches.sort(sortByMatchIndexThenAddonName).mapBy('item');
 }
 
+function stripEmberPrefixes(str) {
+  return str.replace('ember-cli-', '').replace('ember-', '');
+}
 function escapeForRegex(str) {
   return str.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, '\\$&');
 }
