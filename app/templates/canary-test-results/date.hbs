@@ -10,27 +10,27 @@
   </thead>
   <tbody>
     {{#each model.testResults as |testResult|}}
-    <tr>
-      <td>
-        {{#link-to 'addons.show' testResult.version.addon.name}}
-          {{testResult.version.addon.name}}
-        {{/link-to}}
-      </td>
-      <td>
-        {{testResult.version.version}}
-      </td>
-      <td>
-        {{testResult.emberVersionCompatibilities.firstObject.emberVersion}}
-      </td>
-      <td class="test-result {{test-result-status-class testResult}}">
-        {{test-result-status testResult}}
-      </td>
-      <td>
-        {{#link-to 'canary-test-results.detail' testResult.id}}
-          View
-        {{/link-to}}
-      </td>
-    </tr>
+      <tr>
+        <td>
+          {{#link-to 'addons.show' testResult.version.addon.name}}
+            {{testResult.version.addon.name}}
+          {{/link-to}}
+        </td>
+        <td>
+          {{testResult.version.version}}
+        </td>
+        <td>
+          {{testResult.emberVersionCompatibilities.firstObject.emberVersion}}
+        </td>
+        <td class="test-result {{test-result-status-class testResult}}">
+          {{test-result-status testResult}}
+        </td>
+        <td>
+          {{#link-to 'canary-test-results.detail' testResult.id}}
+            View
+          {{/link-to}}
+        </td>
+      </tr>
     {{/each}}
   </tbody>
 </table>
