@@ -4,6 +4,7 @@ module.exports = {
   },
   globals: {
     server: true,
-    visitAddon: true
+    visitAddon: true,
+    selectChoose: true
   }
 };

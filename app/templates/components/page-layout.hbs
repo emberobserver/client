@@ -6,15 +6,16 @@
         Ember Observer
       {{/link-to}}
       {{#if showHeaderSearch}}
-        <div class="search with-default-styling">
+        <div class="search with-default-styling test-header-search">
           {{#power-select-typeahead
               search=(action searchForAddons)
               selected=selectedAddon
               placeholder="Search"
+              dropdownClass="test-header-search-dropdown"
               noMatchesMessage="No matching addon names, try another search!"
               onchange=(action goToAddon) as |addonName options|}}
             {{#if addonName.isFullSearchLink}}
-              {{#link-to "index" (query-params query=options.searchText) class="jump-to-full-search"}}
+              {{#link-to "index" (query-params query=options.searchText) class="jump-to-full-search test-search-result-jump-to-full-search-link"}}
                 {{#if addonName.noResults}}
                   No matching addons (by name). Try a full search &raquo;
                 {{else}}
@@ -22,7 +23,7 @@
                 {{/if}}
               {{/link-to}}
             {{else}}
-              {{#link-to "addons.show" addonName}}{{addonName}}{{/link-to}}
+              {{#link-to "addons.show" addonName class="test-search-result-addon-link"}}{{addonName}}{{/link-to}}
             {{/if}}
           {{/power-select-typeahead}}
         </div>

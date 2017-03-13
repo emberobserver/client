@@ -85,6 +85,11 @@ QUnit.assert.visible = function(selector, count, prependMessage) {
   this.pushResult({ result, actual: visibleElementsMatchingSelector.length, expected: count, message });
 };
 
+QUnit.assert.typeaheadSuggestionsAre = function(selector, suggestions, message) {
+  let actualSuggestions = find(`${selector} .ember-power-select-option`).toArray().map((option) => Ember.$(option).text().trim());
+  this.deepEqual(actualSuggestions, suggestions, message || 'Typeahead suggestions should match exactly');
+};
+
 function escapeForRegex(str) {
   return str.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, '\\$&');
 }
