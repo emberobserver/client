@@ -26,6 +26,9 @@
               {{#link-to "addons.show" addonName class="test-search-result-addon-link"}}{{addonName}}{{/link-to}}
             {{/if}}
           {{/power-select-typeahead}}
+          {{#if searchForAddons.isRunning}}
+            <span class="circle-spinner icon-spinner"></span>
+          {{/if}}
         </div>
       {{/if}}
       <nav class="links">

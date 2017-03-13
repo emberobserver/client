@@ -59,6 +59,7 @@
     .search {
       display: block;
       margin-bottom: 1rem;
+      position: relative;
 
       @include media($medium-screen) {
         display: inline-block;
@@ -92,6 +93,31 @@
             border-bottom: 1px solid $blue;
           }
         }
+      }
+
+      @keyframes anim-rotate {
+        0% {
+          transform: rotate(0);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .circle-spinner {
+        position: absolute;
+        top: 0;
+        right: 0.5rem;
+      }
+
+      .circle-spinner {
+        display: inline-block;
+        font-size: 1rem;
+        line-height: 1;
+        margin: .75rem;
+        animation: anim-rotate 1s infinite steps(8);
+        color: #fff;
+        text-shadow: 0 0 .25em rgba(255,255,255, .3);
       }
     }
 
