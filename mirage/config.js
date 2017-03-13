@@ -23,7 +23,8 @@ export default function() {
       return {
         id: a.id,
         name: a.name,
-        description: a.description
+        description: a.description,
+        score: a.score
       };
     });
     let categoryData = schema.categories.all().models.map((c) => {

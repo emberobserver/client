@@ -107,7 +107,7 @@ function findAddonNameMatches(searchTerm, addons) {
     return null;
   }).compact();
 
-  let sortByMatchIndexThenAddonName = function(a, b) {
+  let sortByMatchIndexThenScoreThenAddonName = function(a, b) {
     if (a.match.index < b.match.index) {
       return -1;
     }
@@ -132,7 +132,7 @@ function findAddonNameMatches(searchTerm, addons) {
     return 0;
   };
 
-  return matches.sort(sortByMatchIndexThenAddonName).mapBy('item');
+  return matches.sort(sortByMatchIndexThenScoreThenAddonName).mapBy('item');
 }
 
 function stripEmberPrefixes(str) {
