@@ -1,9 +1,47 @@
 import Ember from 'ember';
 import { task } from 'ember-concurrency';
 
-const { computed, inject } = Ember;
+const {
+  computed,
+  inject,
+  getOwner
+} = Ember;
 
 const PageSize = 50;
+
+const Results = Ember.Object.extend({
+
+  init() {
+    this._super(...arguments);
+    this.set('lastResultPageDisplaying', 1);
+  },
+
+  displayingResults: null,
+
+  length: computed.readOnly('rawResults.length'),
+
+  usageCounts: computed.mapBy('rawResults', 'count'),
+
+  totalUsageCount: computed.sum('usageCounts'),
+
+  nextPageToDisplay: computed('lastResultPageDisplaying', function() {
+    return this.get('lastResultPageDisplaying') + 1;
+  }),
+
+  hasMoreToView: computed('length', 'displayingResults.length', function() {
+    return this.get('displayingResults.length') < this.get('length');
+  }),
+
+  pageAdded(moreAddons) {
+    this.get('displayingResults').pushObjects(moreAddons);
+    this.set('lastResultPageDisplaying', this.get('nextPageToDisplay'));
+  },
+
+  addonOrderChanged(sortedAddons) {
+    this.set('displayingResults', sortedAddons);
+    this.set('lastResultPageDisplaying', 1);
+  }
+});
 
 export default Ember.Component.extend({
   metrics: inject.service(),
@@ -11,7 +49,10 @@ export default Ember.Component.extend({
   store: inject.service(),
 
   codeQuery: null,
+
   sort: null,
+
+  results: null,
 
   classNames: ['code-search'],
 
@@ -19,9 +60,7 @@ export default Ember.Component.extend({
 
   codeSearch: inject.service(),
 
-  usageCounts: computed.mapBy('results.rawResults', 'count'),
-
-  totalUsageCount: computed.sum('usageCounts'),
+  totalUsageCount: computed.readOnly('results.totalUsageCount'),
 
   init() {
     this._super(...arguments);
@@ -51,13 +90,11 @@ export default Ember.Component.extend({
     this.set('quotedLastSearch', quoteSearchTerm(query, this.get('regex')));
 
     let firstPageOfResults = yield this._fetchPageOfAddonResults(results, 1, this.get('sort'));
-    this.set('results',
-      {
-        displayingResults: firstPageOfResults,
-        lastResultPageDisplaying: 1,
-        rawResults: results,
-        length: results.length
-      });
+    let resultsObject = Results.create(getOwner(this).ownerInjection(), {
+      rawResults: results,
+      displayingResults: firstPageOfResults
+    });
+    this.set('results', resultsObject);
   }).restartable(),
 
   _fetchPageOfAddonResults(results, page, sort) {
@@ -78,22 +115,18 @@ export default Ember.Component.extend({
     });
   },
 
-  canViewMore: computed('results.displayingResults', function() {
-    return this.get('results.displayingResults.length') < this.get('results.length');
-  }),
+  canViewMore: computed.readOnly('results.hasMoreToView'),
 
   viewMore: task(function* () {
-    let pageToFetch = this.get('results.lastResultPageDisplaying') + 1;
+    let pageToFetch = this.get('results.nextPageToDisplay');
     let moreAddons = yield this._fetchPageOfAddonResults(this.get('results.rawResults'), pageToFetch, this.get('sort'));
-    this.get('results.displayingResults').pushObjects(moreAddons);
-    this.set('results.lastResultPageDisplaying', pageToFetch);
+    this.get('results').pageAdded(moreAddons);
   }),
 
   sortBy: task(function* (key) {
     this.set('sort', key);
     let sortedAddons = yield this._fetchPageOfAddonResults(this.get('results.rawResults'), 1, key);
-    this.set('results.displayingResults', sortedAddons);
-    this.set('results.lastResultPageDisplaying', 1);
+    this.get('results').addonOrderChanged(sortedAddons);
   }),
 
   focus() {
