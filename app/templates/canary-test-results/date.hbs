@@ -23,7 +23,7 @@
           {{testResult.emberVersionCompatibilities.firstObject.emberVersion}}
         </td>
         <td class="test-result {{test-result-status-class testResult}}">
-          {{test-result-status testResult}}
+          {{test-result-status testResult=testResult}}
         </td>
         <td>
           {{#link-to 'canary-test-results.detail' testResult.id}}
