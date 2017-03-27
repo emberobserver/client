@@ -21,7 +21,15 @@
     </li>
   {{/if}}
   <li class="test-addon-repo-url">
-    <b>repo</b> {{human-url url=addon.repositoryUrl}}
+    <b>repo</b>
+    {{#if addon.hasInvalidGithubRepo}}
+      <div>
+        Unavailable
+        <span class="icon-help test-addon-flag-invalid-repo" title="This addon has an incorrect repo url in it's package.json: {{addon.repositoryUrl}}"></span>
+      </div>
+    {{else}}
+      {{human-url url=addon.repositoryUrl}}
+    {{/if}}
   </li>
   <li class="test-addon-package-url">
     <b>package</b> {{human-url url=addon.npmUrl}}
