@@ -315,3 +315,22 @@ test('displays addon stats', function(assert) {
     assert.contains('.test-addon-badge .test-badge-markdown', '[![Ember Observer Score](https://emberobserver.com/badges/test-addon.svg)](https://emberobserver.com/addons/test-addon)');
   });
 });
+
+test('addon has an invalid github repo', function(assert) {
+  let addon = server.create('addon', {
+    name: 'test-addon',
+    hasInvalidGithubRepo: true
+  });
+
+  visit(`/addons/${addon.name}`);
+
+  andThen(function() {
+    let readMe = find('.readme');
+
+    assert.equal(
+      readMe.length,
+      0,
+      'does not display readme'
+    );
+  });
+});
