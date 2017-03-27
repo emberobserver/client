@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import { task } from 'ember-concurrency';
-import CodeSearchResults from 'ember-addon-review/models/code-search-results';
+import CodeSearchResults from 'ember-addon-review/utils/code-search-results';
 
 const {
   computed,
