@@ -12,6 +12,6 @@ module.exports = function(app) {
   app.use(proxyPath, function(req, res, next){
     // include root path in proxied request
     req.url = proxyPath + '/' + req.url;
-    proxy.web(req, res, { target: 'http://localhost:3000' });
+    proxy.web(req, res, { target: 'https://emberobserver.com' });
   });
 };
