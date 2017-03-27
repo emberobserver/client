@@ -98,18 +98,20 @@
     </div>
 
     {{#if addon.readme}}
-      <section class="readme">
-        <p class="header">README.md</p>
-        <p class="test-addon-readme contents">
-          {{markdown-to-sanitized-html
-            markdown=addon.readme.contents
-            tables=true
-            ghCodeBlocks=true
-            tasklists=true
-            simplifiedAutoLink=true
-          }}
-        </p>
-      </section>
+      {{#unless addon.hasInvalidGithubRepo}}
+        <section class="readme">
+          <p class="header">README.md</p>
+          <p class="test-addon-readme contents">
+            {{markdown-to-sanitized-html
+              markdown=addon.readme.contents
+              tables=true
+              ghCodeBlocks=true
+              tasklists=true
+              simplifiedAutoLink=true
+            }}
+          </p>
+        </section>
+      {{/unless}}
     {{/if}}
   </div>
 
