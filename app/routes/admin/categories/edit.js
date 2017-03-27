@@ -1,7 +1,6 @@
 import Ember from 'ember';
-import scrollFix from '../../../mixins/scroll-fix';
 
-export default Ember.Route.extend(scrollFix, {
+export default Ember.Route.extend({
   model(params) {
     let categories = this.modelFor('admin.categories');
     return Ember.RSVP.hash({

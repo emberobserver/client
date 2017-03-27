@@ -1,7 +1,6 @@
 import Ember from 'ember';
-import scrollFix from '../../mixins/scroll-fix';
 
-export default Ember.Route.extend(scrollFix, {
+export default Ember.Route.extend({
   session: Ember.inject.service(),
   model(params) {
     let addon = this.get('store').query('addon', { filter: { name: params.name }, include: 'versions,maintainers,keywords,reviews,reviews.version,categories', page: { limit: 1 } }, { reload: true }).then((addons) => {
