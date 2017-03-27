@@ -325,12 +325,8 @@ test('addon has an invalid github repo', function(assert) {
   visit(`/addons/${addon.name}`);
 
   andThen(function() {
-    let readMe = find('.readme');
-
-    assert.equal(
-      readMe.length,
-      0,
-      'does not display readme'
-    );
+    assert.exists('.test-addon-flag-invalid-repo', 'displays invalid repo message');
+    assert.notExists('.test-addon-repo-url a', 'does not display repo url');
+    assert.notExists('.readme', 'does not display readme');
   });
 });
