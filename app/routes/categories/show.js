@@ -1,7 +1,6 @@
 import Ember from 'ember';
-import scrollFix from '../../mixins/scroll-fix';
 
-export default Ember.Route.extend(scrollFix, {
+export default Ember.Route.extend({
   model(params) {
     return this.modelFor('application').categories.then(() => {
       let category = this.get('store').peekAll('category').findBy('slug', params.slug);
