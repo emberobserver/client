@@ -1,3 +1,17 @@
+<section class="admin-build-result-nav">
+  {{#link-to 'canary-test-results.date' formattedPreviousDate class='previous-day'}}
+    &laquo; previous day
+  {{/link-to}}
+
+  Canary test results for {{formattedDisplayDate}}
+
+  {{#if showFollowingDayLink}}
+    {{#link-to 'canary-test-results.date' formattedFollowingDate class='next-day'}}
+      next day &raquo;
+    {{/link-to}}
+  {{/if}}
+</section>
+
 {{canary-test-result-summary testResults=model.testResults}}
 
 <table>
