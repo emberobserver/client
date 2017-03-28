@@ -1,16 +1,40 @@
 .test-result {
+  color: white;
+
   &.passed {
-    background-color: green;
-    color: white;
+    background-color: #02a502;
   }
 
   &.failed {
-    background-color: red;
-    color: white;
+    background-color: #e61313;
   }
 
   &.error {
-    background-color: gray;
-    color: white;
+    background-color: #9e9e9e;
+  }
+}
+
+.canary-test-result {
+  .test-result-status {
+    .status-detail {
+      display: block;
+    }
+  }
+
+  td {
+    padding: 0.75em;
+  }
+}
+
+.test-result-detail {
+  .test-result-status {
+    .status-detail {
+      &::before {
+        content: '('
+      }
+      &::after {
+        content: ')'
+      }
+    }
   }
 }

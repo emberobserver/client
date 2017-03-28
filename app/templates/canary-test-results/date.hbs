@@ -10,7 +10,7 @@
   </thead>
   <tbody>
     {{#each model.testResults as |testResult|}}
-      <tr>
+      <tr class="canary-test-result">
         <td>
           {{#link-to 'addons.show' testResult.version.addon.name}}
             {{testResult.version.addon.name}}
