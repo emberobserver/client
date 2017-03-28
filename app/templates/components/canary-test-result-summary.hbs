@@ -1,0 +1,50 @@
+<table class="test-result-summary-table">
+  <thead>
+    <tr>
+      <th>
+        Status
+      </th>
+      <th>
+        Number of builds
+      </th>
+      <th>
+        Percent of builds
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="test-result passed">
+        Passed
+      </td>
+      <td>
+        {{numberOfPassedBuilds}}
+      </td>
+      <td>
+        {{percentOfPassedBuilds}}%
+      </td>
+    </tr>
+    <tr>
+      <td class="test-result failed">
+        Failed
+      </td>
+      <td>
+        {{numberOfFailedBuilds}}
+      </td>
+      <td>
+        {{percentOfFailedBuilds}}%
+      </td>
+    </tr>
+    <tr>
+      <td class="test-result error">
+        Error
+      </td>
+      <td>
+        {{numberOfErrorBuilds}}
+      </td>
+      <td>
+        {{percentOfErrorBuilds}}%
+      </td>
+    </tr>
+  </tbody>
+</table>
