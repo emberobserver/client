@@ -1,5 +1,6 @@
 import { test } from 'qunit';
 import moduleForAcceptance from 'ember-addon-review/tests/helpers/module-for-acceptance';
+import login from 'ember-addon-review/tests/helpers/login';
 
 moduleForAcceptance('Acceptance | managing build servers');
 
@@ -41,15 +42,3 @@ test('adding a new build server', function(assert) {
     assert.exists('.test-build-server-row:contains(new-server-name)', 'displays a row for the newly-created build server');
   });
 });
-
-function login() {
-  server.post('/authentication/login.json', function() {
-    return {
-      token: 'abc123'
-    };
-  });
-  visit('/login');
-  fillIn('.test-email', 'test@example.com');
-  fillIn('.test-password', 'password123');
-  click('.test-log-in');
-}

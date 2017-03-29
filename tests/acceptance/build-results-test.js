@@ -1,6 +1,7 @@
 import { test } from 'qunit';
 import moduleForAcceptance from 'ember-addon-review/tests/helpers/module-for-acceptance';
 import moment from 'moment';
+import login from 'ember-addon-review/tests/helpers/login';
 
 moduleForAcceptance('Acceptance | build results');
 
@@ -257,15 +258,3 @@ test('detail page does not have a "retry" button for successful builds', functio
     assert.notExists('.test-retry-build', 'no "retry" button should be displayed');
   });
 });
-
-function login() {
-  server.post('/authentication/login.json', function() {
-    return {
-      token: 'abc123'
-    };
-  });
-  visit('/login');
-  fillIn('.test-email', 'test@example.com');
-  fillIn('.test-password', 'password123');
-  click('.test-log-in');
-}
