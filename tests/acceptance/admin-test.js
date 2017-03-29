@@ -69,7 +69,7 @@ test('reviewing addons', function(assert) {
 
   login();
 
-  visit(`/addons/${addon.name}`);
+  visitAddon(addon);
   click('.test-addon-review-button');
   answerQuestion('Is the source accessible?', 'Yes');
   answerQuestion('Is it more than an empty addon?', 'Yes');
@@ -125,7 +125,7 @@ test('renewing a review', function(assert) {
 
   login();
 
-  visit(`/addons/${addon.name}`);
+  visitAddon(addon);
   click('.test-renew-latest-review');
 
   andThen(function() {
@@ -166,7 +166,7 @@ test('updating addons', function(assert) {
 
   login();
 
-  visit(`/addons/${addon.name}`);
+  visitAddon(addon);
 
   andThen(function() {
     assert.exists('.test-addon-info-form');

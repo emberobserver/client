@@ -10,7 +10,7 @@ test('Header search returns addons to select', function(assert) {
 
   server.create('addon', { name: 'addon-test' });
 
-  visit(`/addons/${addon.name}`);
+  visitAddon(addon);
 
   fillIn('.test-header-search input', 'test');
 
@@ -24,7 +24,7 @@ test('Header search has option to full search', function(assert) {
     name: 'test-addon'
   });
 
-  visit(`/addons/${addon.name}`);
+  visitAddon(addon);
 
   fillIn('.test-header-search input', 'test');
 
@@ -42,7 +42,7 @@ test('Selecting addon result navigates to that addon', function(assert) {
 
   server.create('addon', { name: 'addon-test' });
 
-  visit(`/addons/${addon.name}`);
+  visitAddon(addon);
 
   fillIn('.test-header-search input', 'test');
 
@@ -58,7 +58,7 @@ test('Perform full search is still an option when no matching results', function
     name: 'test-addon'
   });
 
-  visit(`/addons/${addon.name}`);
+  visitAddon(addon);
 
   fillIn('.test-header-search input', 'foo');
 
@@ -78,7 +78,7 @@ test('Max five addon results display', function(assert) {
   server.create('addon', { name: 'test-things' });
   server.create('addon', { name: 'test-others' });
 
-  visit(`/addons/${addon.name}`);
+  visitAddon(addon);
 
   fillIn('.test-header-search input', 'test');
 
@@ -103,7 +103,7 @@ test('Each option is also a link to where it would go', function(assert) {
 
   server.create('addon', { name: 'addon-test' });
 
-  visit(`/addons/${addon.name}`);
+  visitAddon(addon);
 
   fillIn('.test-header-search input', 'test');
 
@@ -132,7 +132,7 @@ test('Addon results sort by match, then score, then name', function(assert) {
   server.create('addon', { name: 'ember-power-select', score: 10 });
   server.create('addon', { name: 'ember-cli-power-select', score: 8 });
 
-  visit(`/addons/${addon.name}`);
+  visitAddon(addon);
 
   fillIn('.test-header-search input', 'pow');
 

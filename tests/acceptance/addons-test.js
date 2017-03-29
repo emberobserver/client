@@ -20,7 +20,7 @@ test('displays 0 for score when addon has zero score', function(assert) {
     score: 0
   });
 
-  visit(`/addons/${addon.name}`);
+  visitAddon(addon);
 
   andThen(function() {
     assert.contains('.score', 'Score 0', 'Displays 0 for score when addon has a score of zero');
@@ -32,7 +32,7 @@ test('Does not display category list', function(assert) {
     name: 'test-addon'
   });
 
-  visit(`/addons/${addon.name}`);
+  visitAddon(addon);
 
   andThen(function() {
     assert.notExists('.categories-list');
@@ -45,7 +45,7 @@ test('displays WIP for score when addon is WIP', function(assert) {
     isWip: true
   });
 
-  visit(`/addons/${addon.name}`);
+  visitAddon(addon);
 
   andThen(function() {
     assert.contains('.score', 'WIP', 'Displays WIP for score');
@@ -58,7 +58,7 @@ test('displays N/A for score when addon has no score', function(assert) {
     score: null
   });
 
-  visit(`/addons/${addon.name}`);
+  visitAddon(addon);
 
   andThen(function() {
     assert.contains('.score', 'N/A', 'Displays N/A for score when addon has no score');
@@ -71,7 +71,7 @@ test('displays note', function(assert) {
     note: '#MdNote'
   });
 
-  visit(`/addons/${addon.name}`);
+  visitAddon(addon);
 
   andThen(function() {
     assert.contains('.test-addon-note h1', 'MdNote', 'Note is rendered');
@@ -93,7 +93,7 @@ test('displays categories', function(assert) {
 
   addon.update({ categoryIds: [categoryA.id, categoryB.id] });
 
-  visit(`/addons/${addon.name}`);
+  visitAddon(addon);
 
   andThen(function() {
     assert.contains('.test-category-list', 'A category for categories');
@@ -118,7 +118,7 @@ test('displays github data', function(assert) {
     addonId: addon.id
   });
 
-  visit(`/addons/${addon.name}`);
+  visitAddon(addon);
 
   andThen(function() {
     assert.contains('.test-github-data', 'TOP 10% STARRED');
@@ -136,7 +136,7 @@ test('displays header', function(assert) {
     name: 'test-addon'
   });
 
-  visit(`/addons/${addon.name}`);
+  visitAddon(addon);
 
   andThen(function() {
     assert.contains('.test-addon-header', 'test-addon', 'Header displays addon name');
@@ -154,7 +154,7 @@ test('displays header', function(assert) {
     publishedDate: moment().subtract(1, 'week').toString()
   });
 
-  visit(`/addons/${addonWithFlags.name}`);
+  visitAddon(addonWithFlags);
 
   andThen(function() {
     assert.contains('.test-addon-header', 'test-addon', 'Header displays addon name');
@@ -170,7 +170,7 @@ test('displays review', function(assert) {
     name: 'test-addon'
   });
 
-  visit(`/addons/${addon.name}`);
+  visitAddon(addon);
 
   andThen(function() {
     assert.exists('.test-no-review', 'Warning about not yet reviewed appears');
@@ -205,7 +205,7 @@ test('displays review', function(assert) {
 
   review.update('versionId', addonVersion.id);
 
-  visit(`/addons/${addonWithReview.name}`);
+  visitAddon(addonWithReview);
 
   andThen(function() {
     assert.contains('.test-review-question:eq(0)', 'Is the source accessible?');
@@ -266,7 +266,7 @@ test('displays addon stats', function(assert) {
     return [version, olderVersion];
   });
 
-  visit(`/addons/${addon.name}`);
+  visitAddon(addon);
 
   andThen(function() {
     assert.contains('.test-addon-install-command', 'ember install test-addon');
@@ -322,7 +322,7 @@ test('addon has an invalid github repo', function(assert) {
     hasInvalidGithubRepo: true
   });
 
-  visit(`/addons/${addon.name}`);
+  visitAddon(addon);
 
   andThen(function() {
     assert.exists('.test-addon-flag-invalid-repo', 'displays invalid repo message');
