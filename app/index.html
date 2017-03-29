@@ -9,7 +9,7 @@
     {{content-for "head"}}
 
     <link rel="stylesheet" href="{{rootURL}}assets/vendor.css">
-    <link rel="stylesheet" href="{{rootURL}}assets/ember-addon-review.css">
+    <link rel="stylesheet" href="{{rootURL}}assets/ember-observer.css">
     <link rel="search" type="application/opensearchdescription+xml" title="Ember Observer" href="/opensearch.xml" />
 
     {{content-for "snippets/perf-utils"}}
@@ -30,7 +30,7 @@
         console.profile("initialRender");
       }
     </script>
-    <script src="{{rootURL}}assets/ember-addon-review.js"></script>
+    <script src="{{rootURL}}assets/ember-observer.js"></script>
     <script>performance.mark("afterApp");</script>
 
     {{content-for "body-footer"}}

@@ -2,7 +2,7 @@ var parseFlag = require('./parse-flag');
 
 module.exports = function(environment) {
   var ENV = {
-    modulePrefix: 'ember-addon-review',
+    modulePrefix: 'ember-observer',
     environment: environment,
     rootURL: '/',
     locationType: 'router-scroll',

@@ -1,7 +1,7 @@
 {
-  "name": "ember-addon-review",
+  "name": "ember-observer",
   "version": "0.0.0",
-  "description": "Small description for ember-addon-review goes here",
+  "description": "Small description for ember-observer goes here",
   "license": "MIT",
   "author": "",
   "directories": {

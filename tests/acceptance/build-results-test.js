@@ -1,7 +1,7 @@
 import { test } from 'qunit';
-import moduleForAcceptance from 'ember-addon-review/tests/helpers/module-for-acceptance';
+import moduleForAcceptance from 'ember-observer/tests/helpers/module-for-acceptance';
 import moment from 'moment';
-import login from 'ember-addon-review/tests/helpers/login';
+import login from 'ember-observer/tests/helpers/login';
 
 moduleForAcceptance('Acceptance | build results');
 
