@@ -1,13 +1,14 @@
 import Ember from 'ember';
+import computedPercent from 'ember-addon-review/utils/computed-percent';
 
-function computedDivide(a, b) {
-  return Ember.computed(a, b, function() {
-    let bVal = this.get(b);
-    if (!bVal) {
+function computedFormattedPercent(percentPropertyName) {
+  return Ember.computed(percentPropertyName, function() {
+    let value = this.get(percentPropertyName);
+    if (!value) {
       return '--';
     }
-    let result = (this.get(a) / bVal) * 100;
-    return result.toFixed(2);
+    value = value.toFixed(2);
+    return `${value}%`;
   });
 }
 
@@ -27,7 +28,11 @@ export default Ember.Component.extend({
   numberOfPassedBuilds: Ember.computed.readOnly('passedBuilds.length'),
   numberOfBuilds: Ember.computed.readOnly('testResults.length'),
 
-  percentOfErrorBuilds: computedDivide('numberOfErrorBuilds', 'numberOfBuilds'),
-  percentOfFailedBuilds: computedDivide('numberOfFailedBuilds', 'numberOfBuilds'),
-  percentOfPassedBuilds: computedDivide('numberOfPassedBuilds', 'numberOfBuilds')
+  percentOfErrorBuilds: computedPercent('numberOfErrorBuilds', 'numberOfBuilds'),
+  percentOfFailedBuilds: computedPercent('numberOfFailedBuilds', 'numberOfBuilds'),
+  percentOfPassedBuilds: computedPercent('numberOfPassedBuilds', 'numberOfBuilds'),
+
+  formattedPercentOfErrorBuilds: computedFormattedPercent('percentOfErrorBuilds'),
+  formattedPercentOfFailedBuilds: computedFormattedPercent('percentOfFailedBuilds'),
+  formattedPercentOfPassedBuilds: computedFormattedPercent('percentOfPassedBuilds')
 });
