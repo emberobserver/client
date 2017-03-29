@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import { test } from 'qunit';
-import moduleForAcceptance from 'ember-addon-review/tests/helpers/module-for-acceptance';
+import moduleForAcceptance from 'ember-observer/tests/helpers/module-for-acceptance';
 import EmberVersionsResponse from '../ember-version-response';
 import moment from 'moment';
 

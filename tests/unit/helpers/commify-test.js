@@ -1,4 +1,4 @@
-import { commify } from 'ember-addon-review/helpers/commify';
+import { commify } from 'ember-observer/helpers/commify';
 import { module, test } from 'qunit';
 
 module('Unit | Helper | commify');

@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import { padLineNumber } from 'ember-addon-review/helpers/pad-line-number';
+import { padLineNumber } from 'ember-observer/helpers/pad-line-number';
 
 module('Unit | Helper | pad line number');
 

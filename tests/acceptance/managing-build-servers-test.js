@@ -1,6 +1,6 @@
 import { test } from 'qunit';
-import moduleForAcceptance from 'ember-addon-review/tests/helpers/module-for-acceptance';
-import login from 'ember-addon-review/tests/helpers/login';
+import moduleForAcceptance from 'ember-observer/tests/helpers/module-for-acceptance';
+import login from 'ember-observer/tests/helpers/login';
 
 moduleForAcceptance('Acceptance | managing build servers');
 
