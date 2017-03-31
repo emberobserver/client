@@ -65,6 +65,17 @@
     }
   }
 
+  .filter-controls {
+    margin-bottom: 1rem;
+
+    input {
+      border: 1px solid $base-accent-color;
+      line-height: $base-line-height;
+      height: 36px;
+      width: 200px;
+    }
+  }
+
   .usage-count {
     padding-left: 4rem;
     margin-top: .5rem;

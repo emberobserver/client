@@ -7,6 +7,7 @@ module.exports = function(environment) {
     rootURL: '/',
     locationType: 'router-scroll',
     historySupportMiddleware: true,
+    pageSize: 50,
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -51,6 +52,8 @@ module.exports = function(environment) {
   if (environment === 'test') {
     // Testem prefers this...
     ENV.locationType = 'none';
+
+    ENV.pageSize = 3;
 
     // keep test console output quieter
     ENV.APP.LOG_ACTIVE_GENERATION = false;

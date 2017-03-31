@@ -1,14 +1,14 @@
 import Ember from 'ember';
 import { task } from 'ember-concurrency';
+import config from 'ember-addon-review/config/environment';
 
 const {
   computed,
   inject,
   isEmpty,
-  Object
+  Object,
+  set
 } = Ember;
-
-const PageSize = 50;
 
 export default Object.extend({
 
@@ -16,19 +16,21 @@ export default Object.extend({
 
   init() {
     this._super(...arguments);
-    this._doInitialSort();
     this.set('displayingResults', []);
     this.set('lastResultPageDisplaying', 0);
+    this._sortAndFilterRawResults();
   },
 
-  _doInitialSort() {
-    let sort = this.get('initialSort');
-    if (isEmpty(sort)) {
-      this.set('sortedResults', this.get('rawResults'));
-    } else {
-      this.sortResults(sort);
+  _sortAndFilterRawResults() {
+    let sortKey = this.get('sortKey');
+    if (isEmpty(sortKey)) {
+      this.set('sortKey', 'name');
     }
+    let sortedResults = sortResults(this.get('rawResults'), sortKey);
+    this.set('sortedFilteredResults', sortedResults);
   },
+
+  isUpdating: computed.or('sort.isRunning', 'filter.isRunning', 'clearFilter.isRunning'),
 
   length: computed.readOnly('rawResults.length'),
 
@@ -36,12 +38,18 @@ export default Object.extend({
 
   totalUsageCount: computed.sum('usageCounts'),
 
+  filteredLength: computed.readOnly('sortedFilteredResults.length'),
+
+  filteredUsageCounts: computed.mapBy('sortedFilteredResults', 'count'),
+
+  filteredTotalUsageCount: computed.sum('filteredUsageCounts'),
+
   nextPageToDisplay: computed('lastResultPageDisplaying', function() {
     return this.get('lastResultPageDisplaying') + 1;
   }),
 
-  hasMoreToView: computed('length', 'displayingResults.length', function() {
-    return this.get('displayingResults.length') < this.get('length');
+  hasMoreToView: computed('sortedFilteredResults.length', 'displayingResults.length', function() {
+    return this.get('displayingResults.length') < this.get('sortedFilteredResults.length');
   }),
 
   fetchNextPage: task(function* () {
@@ -50,7 +58,7 @@ export default Object.extend({
     }
 
     let nextPage = this.get('nextPageToDisplay');
-    let nextPageOfResults = pageOfResults(this.get('sortedResults'), nextPage);
+    let nextPageOfResults = pageOfResults(this.get('sortedFilteredResults'), nextPage);
     yield this._fetchAddonsAndAssignToResults(nextPageOfResults);
 
     this.get('displayingResults').pushObjects(nextPageOfResults);
@@ -62,8 +70,14 @@ export default Object.extend({
       return;
     }
 
-    this.sortResults(key);
-    let firstPageOfResults = pageOfResults(this.get('sortedResults'), 1);
+    this.set('sortKey', key);
+    let sortedResults = sortResults(this.get('sortedFilteredResults'), key);
+    this.set('sortedFilteredResults', sortedResults);
+    yield this.get('resetToFirstPageOfResults').perform();
+  }),
+
+  resetToFirstPageOfResults: task(function* () {
+    let firstPageOfResults = pageOfResults(this.get('sortedFilteredResults'), 1);
     yield this._fetchAddonsAndAssignToResults(firstPageOfResults);
 
     this.set('displayingResults', firstPageOfResults);
@@ -75,22 +89,59 @@ export default Object.extend({
 
     return this.get('store').query('addon', { filter: { name: names.join(',') }, include: 'categories' }).then((addons) => {
       pageOfResults.forEach((result) => {
-        Ember.set(result, 'addon', addons.findBy('name', result.addonName));
+        set(result, 'addon', addons.findBy('name', result.addonName));
       });
     });
   },
 
-  sortResults(sort) {
-    if (sort === 'usages') {
-      this.set('sortedResults', this.get('rawResults').sortBy('count').reverse());
+  filter: task(function* (filterTerm) {
+    if (isEmpty(filterTerm)) {
+      return;
     }
+    this.set('filterTerm', filterTerm);
+    let filteredResults = filterByFilePath(this.get('rawResults'), filterTerm);
+    let sortedFilteredResults = sortResults(filteredResults, this.get('sortKey'));
+    this.set('sortedFilteredResults', sortedFilteredResults);
+    yield this.get('resetToFirstPageOfResults').perform();
+  }),
 
-    if (sort === 'name') {
-      this.set('sortedResults', this.get('rawResults').sortBy('addonName'));
-    }
-  }
+  clearFilter: task(function* () {
+    this.set('filterTerm', null);
+
+    let sortedResults = sortResults(this.get('rawResults'), this.get('sortKey'));
+    this.set('sortedFilteredResults', sortedResults);
+    yield this.get('resetToFirstPageOfResults').perform();
+  })
 });
 
+function sortResults(results, sortKey) {
+  if (sortKey === 'usages') {
+    return results.sortBy('count').reverse();
+  }
+
+  if (sortKey === 'name') {
+    return results.sortBy('addonName');
+  }
+}
+
+function filterByFilePath(results, filterTerm) {
+  let filteredList = [];
+  results.forEach((result) => {
+    let filteredFiles = result.files.filter((filePath) => {
+      return filePath.includes(filterTerm);
+    });
+    if (filteredFiles.length > 0) {
+      filteredList.push({
+        addonName: result.addonName,
+        addon: results.addon,
+        files: filteredFiles,
+        count: filteredFiles.length
+      });
+    }
+  });
+  return filteredList;
+}
+
 function pageOfResults(results, page) {
-  return results.slice((page - 1) * PageSize, page * PageSize);
+  return results.slice((page - 1) * config.pageSize, page * config.pageSize);
 }

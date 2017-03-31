@@ -41,17 +41,34 @@
       </div>
     </div>
   </div>
+  <div class="filter-controls">
+    Filter by file path:
+    {{input value=(readonly fileFilter) change=(action (mut fileFilter) value="target.value") class="test-file-filter-input" enter=(perform applyFileFilter)}}
+    {{#if fileFilter}}
+      <button type="button" {{action (perform clearFileFilter)}} class="test-clear-file-filter">Clear</button>
+    {{/if}}
+    <button {{action (perform applyFileFilter)}} class="test-apply-file-filter">Apply</button>
+  </div>
+  {{#if fileFilter}}
+    <div class="test-filtered-result-info">
+      Showing {{results.filteredLength}} {{pluralize results.filteredLength 'addon'}} ({{results.filteredTotalUsageCount}} {{pluralize results.filteredTotalUsageCount 'usage'}})
+    </div>
+  {{/if}}
   <ul class="addon-list">
-    {{#each results.displayingResults as |result|}}
-      <li data-id="{{result.addon.id}}">
-        {{addon-details addon=result.addon}}
-        {{addon-source-usages addon=result.addon count=result.count query=codeQuery regex=regex}}
-      </li>
-    {{/each}}
-    {{#if canViewMore}}
-      <a href="#" {{action (perform viewMore)}} class="view-more">
-        <li>See more results</li>
-      </a>
+    {{#if results.isUpdating}}
+      {{dot-spinner}}
+    {{else}}
+      {{#each results.displayingResults as |result|}}
+        <li data-id="{{result.addon.id}}">
+          {{addon-details addon=result.addon}}
+          {{addon-source-usages addon=result.addon count=result.count query=codeQuery regex=regex}}
+        </li>
+      {{/each}}
+      {{#if canViewMore}}
+        <a href="#" {{action (perform viewMore)}} class="view-more test-view-more">
+          <li>See more results</li>
+        </a>
+      {{/if}}
     {{/if}}
   </ul>
 {{else if search.isRunning}}

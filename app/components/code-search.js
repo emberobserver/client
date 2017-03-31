@@ -15,6 +15,8 @@ export default Ember.Component.extend({
 
   sort: null,
 
+  fileFilter: null,
+
   results: null,
 
   classNames: ['code-search'],
@@ -53,7 +55,7 @@ export default Ember.Component.extend({
     this.set('quotedLastSearch', quoteSearchTerm(query, this.get('regex')));
 
     let resultsObject = CodeSearchResults.create(getOwner(this).ownerInjection(), {
-      rawResults: results, initialSort: this.get('sort')
+      rawResults: results, sortKey: this.get('sort')
     });
     yield resultsObject.get('fetchNextPage').perform();
     this.set('results', resultsObject);
@@ -68,6 +70,16 @@ export default Ember.Component.extend({
   sortBy: task(function* (key) {
     yield this.get('results.sort').perform(key);
     this.set('sort', key);
+  }),
+
+  applyFileFilter: task(function* () {
+    let fileFilter = this.get('fileFilter');
+    yield this.get('results.filter').perform(fileFilter);
+  }),
+
+  clearFileFilter: task(function* () {
+    this.set('fileFilter', null);
+    yield this.get('results.clearFilter').perform();
   }),
 
   focus() {
