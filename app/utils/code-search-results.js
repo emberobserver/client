@@ -6,6 +6,7 @@ const {
   computed,
   inject,
   isEmpty,
+  isPresent,
   Object,
   set
 } = Ember;
@@ -23,11 +24,18 @@ export default Object.extend({
 
   _sortAndFilterRawResults() {
     let sortKey = this.get('sortKey');
-    if (isEmpty(sortKey)) {
+    let fileFilter = this.get('fileFilter');
+    let results = this.get('rawResults');
+
+    if (isPresent(fileFilter)) {
+      results = filterByFilePath(results, fileFilter);
+    }
+    if (isPresent(sortKey)) {
+      results = sortResults(results, sortKey);
+    } else {
       this.set('sortKey', 'name');
     }
-    let sortedResults = sortResults(this.get('rawResults'), sortKey);
-    this.set('sortedFilteredResults', sortedResults);
+    this.set('sortedFilteredResults', results);
   },
 
   isUpdating: computed.or('sort.isRunning', 'filter.isRunning', 'clearFilter.isRunning'),

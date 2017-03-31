@@ -399,3 +399,41 @@ test('filtering works with sorting and pagination', function(assert) {
     assert.contains('.test-addon-name:eq(0)', 'ember-blanket', 'Addons are sorted by usage count');
   });
 });
+
+test('searching when file filter is set in query param', function(assert) {
+  server.create('addon', { name: 'ember-try' });
+  server.create('addon', { name: 'ember-blanket' });
+  server.create('addon', { name: 'ember-foo' });
+
+  server.get('/search/addons', () => {
+    return {
+      results: [
+        {
+          addon: 'ember-try',
+          count: 1,
+          files: ['app/controllers/index.js']
+        },
+        {
+          addon: 'ember-blanket',
+          count: 2,
+          files: ['app/components/blanket.js', 'app/templates/components/blanket.hbs']
+        },
+        {
+          addon: 'ember-foo',
+          count: 1,
+          files: ['app/controllers/foo.js']
+        }
+      ]
+    };
+  });
+
+  visit('/code-search?fileFilter=index');
+  fillIn('#code-search-input', 'foo');
+  click('.test-submit-search');
+
+  andThen(function() {
+    assert.contains('.test-addon-name:eq(0)', 'ember-try', 'Addon with match is showing');
+    assert.equal(find('.test-addon-name').length, 1, 'Only shows addon with filtered match');
+    assert.equal(find('.test-file-filter-input').val(), 'index', 'File filter input contains filter term');
+  });
+});
