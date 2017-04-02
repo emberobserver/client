@@ -38,7 +38,7 @@ export default Object.extend({
     this.set('sortedFilteredResults', results);
   },
 
-  isUpdating: computed.or('sort.isRunning', 'filter.isRunning', 'clearFilter.isRunning'),
+  isUpdating: computed.or('filter.isRunning', 'clearFilter.isRunning'),
 
   length: computed.readOnly('rawResults.length'),
 
