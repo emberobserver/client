@@ -61,7 +61,13 @@
       {{#each results.displayingResults as |result|}}
         <li data-id="{{result.addon.id}}">
           {{addon-details addon=result.addon}}
-          {{addon-source-usages addon=result.addon count=result.count query=codeQuery regex=regex}}
+          {{addon-source-usages
+            addon=result.addon
+            count=result.count
+            query=codeQuery
+            regex=regex
+            fileFilter=fileFilter
+          }}
         </li>
       {{/each}}
       {{#if canViewMore}}

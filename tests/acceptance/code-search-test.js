@@ -323,6 +323,76 @@ test('filtering search results by file path', function(assert) {
   });
 });
 
+test('filtering addon source by file path', function(assert) {
+  server.create('addon', { name: 'no-match' });
+  let addonWithFilteredFiles = server.create('addon', { name: 'has-match' });
+
+  let filterTerm = 'index';
+
+  server.get('/search/addons', () => {
+    return {
+      results: [
+        {
+          addon: 'no-match',
+          count: 2,
+          files: ['app/components/no-match.js', 'app/templates/components/no-match.hbs']
+        },
+        {
+          addon: 'has-match',
+          count: 2,
+          files: ['app/controllers/index.js', 'app/services/no-match.js']
+        }
+      ]
+    };
+  });
+
+  server.get('/search/source', () => {
+    return {
+      /* eslint-disable camelcase */
+      results: [
+        {
+          line_number: 52,
+          filename: 'app/controllers/index.js',
+          lines: [
+            { text: 'if (addonData) {', number: 51 }
+          ]
+        },
+        {
+          line_number: 21,
+          filename: 'app/services/no-match.js',
+          lines: [
+            { number: 20, text: '' }
+          ]
+        }
+      ]
+      /* eslint-disable camelcase */
+    };
+  });
+
+  visit('/code-search');
+  fillIn('#code-search-input', 'whatever');
+  click('.test-submit-search');
+
+  fillIn('.test-file-filter-input', filterTerm);
+  click('.test-apply-file-filter');
+
+  click(`[data-id="${addonWithFilteredFiles.id}"] .test-usage-count`);
+
+  andThen(function() {
+    assert.equal(find('.test-usage').length, 1, 'filtered down to 1 usage');
+    assert.notExists('.test-usage:contains("app/services/no-match.js")', 'filtered out file does not show');
+    assert.exists('.test-usage:contains("app/controllers/index.js")', 'file with matching name shows');
+  });
+
+  click('.test-clear-file-filter');
+  click(`[data-id="${addonWithFilteredFiles.id}"] .test-usage-count`);
+
+  andThen(function() {
+    assert.equal(find('.test-usage').length, 2, 'all usages show');
+    assert.exists('.test-usage:contains("app/services/no-match.js")', 'previously filtered out file now shows');
+  });
+});
+
 test('filtering works with sorting and pagination', function(assert) {
   server.create('addon', { name: 'ember-try' });
   server.create('addon', { name: 'ember-blanket' });
