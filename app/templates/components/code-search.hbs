@@ -31,7 +31,7 @@
   <div class="result-details">
     <h4 class="test-last-search">Results for {{quotedLastSearch}}</h4>
     <h5 class="test-result-info">
-      Showing {{results.length}} {{pluralize results.length 'addon'}} ({{totalUsageCount}} {{pluralize totalUsageCount 'usage'}})
+      Showing {{pluralize-this results.length 'addon'}} ({{pluralize-this totalUsageCount 'usage'}})
     </h5>
     <div class="sort-controls">
       Sort by:
@@ -51,7 +51,7 @@
   </div>
   {{#if fileFilter}}
     <div class="test-filtered-result-info">
-      Showing {{results.filteredLength}} {{pluralize results.filteredLength 'addon'}} ({{results.filteredTotalUsageCount}} {{pluralize results.filteredTotalUsageCount 'usage'}})
+      Showing {{pluralize-this results.filteredLength 'addon'}} ({{pluralize-this results.filteredTotalUsageCount 'usage'}})
     </div>
   {{/if}}
   <ul class="addon-list">
