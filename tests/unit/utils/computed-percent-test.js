@@ -1,4 +1,4 @@
-import computedPercent from 'ember-addon-review/utils/computed-percent';
+import computedPercent from 'ember-observer/utils/computed-percent';
 import { module, test } from 'qunit';
 import Ember from 'ember';
 
