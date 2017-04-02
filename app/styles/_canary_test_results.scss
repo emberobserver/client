@@ -1,0 +1,57 @@
+.test-result-summary-table {
+  margin-left: auto;
+  margin-right: auto;
+  width: auto;
+
+  td {
+    padding: 0.75em;
+  }
+
+  th:first-child {
+    width: 15em;
+  }
+  th:not(:first-child) {
+    width: 6em;
+  }
+}
+
+.test-result {
+  color: white;
+
+  &.passed {
+    background-color: #02a502;
+  }
+
+  &.failed {
+    background-color: #e61313;
+  }
+
+  &.error {
+    background-color: #9e9e9e;
+  }
+}
+
+.canary-test-result {
+  .test-result-status {
+    .status-detail {
+      display: block;
+    }
+  }
+
+  td {
+    padding: 0.75em;
+  }
+}
+
+.test-result-detail {
+  .test-result-status {
+    .status-detail {
+      &::before {
+        content: '('
+      }
+      &::after {
+        content: ')'
+      }
+    }
+  }
+}

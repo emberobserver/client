@@ -1,0 +1,17 @@
+<div class="test-result-detail">
+  <h1>
+    {{addon.name}} {{addonVersion.version}}
+    against {{canary-version testResult}}
+  </h1>
+
+  <div>
+    Status: {{test-result-status testResult=testResult}}
+  </div>
+
+  <div>
+    Tests run at: <span class="test-run-date">{{moment-format testResult.testsRunAt 'YYYY-MM-DD HH:mm'}}</span>
+  </div>
+
+  <h2>Output</h2>
+  <pre class="test-output">{{testResult.output}}</pre>
+</div>
