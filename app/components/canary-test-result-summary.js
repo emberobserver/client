@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import computedPercent from 'ember-addon-review/utils/computed-percent';
+import computedPercent from 'ember-observer/utils/computed-percent';
 
 function computedFormattedPercent(percentPropertyName) {
   return Ember.computed(percentPropertyName, function() {
