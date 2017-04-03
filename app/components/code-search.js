@@ -55,7 +55,7 @@ export default Ember.Component.extend({
     this.set('quotedLastSearch', quoteSearchTerm(query, this.get('regex')));
 
     let resultsObject = CodeSearchResults.create(getOwner(this).ownerInjection(), {
-      rawResults: results, sortKey: this.get('sort'), fileFilter: this.get('fileFilter')
+      rawResults: results, sortKey: this.get('sort'), filterTerm: this.get('fileFilter')
     });
     yield resultsObject.get('fetchNextPage').perform();
     this.set('results', resultsObject);

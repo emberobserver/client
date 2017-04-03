@@ -24,11 +24,11 @@ export default Object.extend({
 
   _sortAndFilterRawResults() {
     let sortKey = this.get('sortKey');
-    let fileFilter = this.get('fileFilter');
+    let filterTerm = this.get('filterTerm');
     let results = this.get('rawResults');
 
-    if (isPresent(fileFilter)) {
-      results = filterByFilePath(results, fileFilter);
+    if (this.get('isFilterApplied')) {
+      results = filterByFilePath(results, filterTerm);
     }
     if (isPresent(sortKey)) {
       results = sortResults(results, sortKey);
@@ -39,6 +39,10 @@ export default Object.extend({
   },
 
   isUpdating: computed.or('filter.isRunning', 'clearFilter.isRunning'),
+
+  isFilterApplied: computed('filterTerm', function() {
+    return isPresent(this.get('filterTerm'));
+  }),
 
   length: computed.readOnly('rawResults.length'),
 

@@ -307,6 +307,13 @@ test('filtering search results by file path', function(assert) {
   });
 
   fillIn('.test-file-filter-input', filterTerm);
+  triggerEvent('.test-file-filter-input', 'blur');
+
+  andThen(function() {
+    assert.notExists('.test-filtered-result-info', 'filtered result info does not show before filter is applied');
+    assert.notExists('.test-clear-file-filter', 'clear icon does not show before filter is applied');
+  });
+
   click('.test-apply-file-filter');
 
   andThen(function() {

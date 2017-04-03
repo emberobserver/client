@@ -44,12 +44,12 @@
   <div class="filter-controls">
     Filter by file path:
     {{input value=(readonly fileFilter) change=(action (mut fileFilter) value="target.value") class="test-file-filter-input" enter=(perform applyFileFilter)}}
-    {{#if fileFilter}}
+    {{#if results.isFilterApplied}}
       <button type="button" {{action (perform clearFileFilter)}} class="test-clear-file-filter">Clear</button>
     {{/if}}
     <button {{action (perform applyFileFilter)}} class="test-apply-file-filter">Apply</button>
   </div>
-  {{#if fileFilter}}
+  {{#if results.isFilterApplied}}
     <div class="test-filtered-result-info">
       Showing {{pluralize-this results.filteredLength 'addon'}} ({{pluralize-this results.filteredTotalUsageCount 'usage'}})
     </div>
