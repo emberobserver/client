@@ -307,14 +307,6 @@ test('filtering search results by file path', function(assert) {
   });
 
   fillIn('.test-file-filter-input', filterTerm);
-  triggerEvent('.test-file-filter-input', 'blur');
-
-  andThen(function() {
-    assert.notExists('.test-filtered-result-info', 'filtered result info does not show before filter is applied');
-    assert.notExists('.test-clear-file-filter', 'clear icon does not show before filter is applied');
-  });
-
-  click('.test-apply-file-filter');
 
   andThen(function() {
     assert.equal(find('.test-addon-name').length, 2, 'shows only matching addons after filtering');
@@ -381,7 +373,6 @@ test('filtering addon source by file path', function(assert) {
   click('.test-submit-search');
 
   fillIn('.test-file-filter-input', filterTerm);
-  click('.test-apply-file-filter');
 
   click(`[data-id="${addonWithFilteredFiles.id}"] .test-usage-count`);
 
@@ -453,7 +444,6 @@ test('filtering works with sorting and pagination', function(assert) {
   click('.test-sort button:contains("Usages")');
 
   fillIn('.test-file-filter-input', filterTerm);
-  click('.test-apply-file-filter');
 
   andThen(function() {
     assert.equal(find('.test-addon-name').length, 3, 'shows one page worth of addons after filtering');

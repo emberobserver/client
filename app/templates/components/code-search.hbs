@@ -31,8 +31,19 @@
   <div class="result-details">
     <h4 class="test-last-search">Results for {{quotedLastSearch}}</h4>
     <h5 class="test-result-info">
-      Showing {{pluralize-this results.length 'addon'}} ({{pluralize-this totalUsageCount 'usage'}})
+      Found {{pluralize-this results.length 'addon'}} ({{pluralize-this totalUsageCount 'usage'}})
     </h5>
+  </div>
+  <div class="result-controls">
+    <div class="filter-controls">
+      Filter by file path:
+      <div class="filter-input">
+        {{input value=(readonly fileFilter) input=(action (perform applyFileFilter) value="target.value") class="test-file-filter-input"}}
+        {{#if results.isFilterApplied}}
+          <button type="button" {{action (perform clearFileFilter)}} class="icon-close test-clear-file-filter"></button>
+        {{/if}}
+      </div>
+    </div>
     <div class="sort-controls">
       Sort by:
       <div class="button-select test-sort">
@@ -40,14 +51,6 @@
         {{sort-option name="Usages" key="usages" selectedSort=sort sortBy=(perform sortBy)}}
       </div>
     </div>
-  </div>
-  <div class="filter-controls">
-    Filter by file path:
-    {{input value=(readonly fileFilter) change=(action (mut fileFilter) value="target.value") class="test-file-filter-input" enter=(perform applyFileFilter)}}
-    {{#if results.isFilterApplied}}
-      <button type="button" {{action (perform clearFileFilter)}} class="test-clear-file-filter">Clear</button>
-    {{/if}}
-    <button {{action (perform applyFileFilter)}} class="test-apply-file-filter">Apply</button>
   </div>
   {{#if results.isFilterApplied}}
     <div class="test-filtered-result-info">

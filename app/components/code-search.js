@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { task } from 'ember-concurrency';
+import { task, timeout } from 'ember-concurrency';
 import CodeSearchResults from 'ember-addon-review/utils/code-search-results';
 
 const {
@@ -72,10 +72,12 @@ export default Ember.Component.extend({
     this.set('sort', key);
   }),
 
-  applyFileFilter: task(function* () {
-    let fileFilter = this.get('fileFilter');
+  applyFileFilter: task(function* (fileFilter) {
+    yield timeout(500);
+
+    this.set('fileFilter', fileFilter);
     yield this.get('results.filter').perform(fileFilter);
-  }),
+  }).restartable(),
 
   clearFileFilter: task(function* () {
     this.set('fileFilter', null);
