@@ -138,9 +138,10 @@ function sortResults(results, sortKey) {
 
 function filterByFilePath(results, filterTerm) {
   let filteredList = [];
+  let filterRegex = new RegExp(filterTerm);
   results.forEach((result) => {
     let filteredFiles = result.files.filter((filePath) => {
-      return filePath.includes(filterTerm);
+      return filePath.match(filterRegex);
     });
     if (filteredFiles.length > 0) {
       filteredList.push({

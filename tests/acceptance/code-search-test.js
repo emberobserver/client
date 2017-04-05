@@ -320,6 +320,15 @@ test('filtering search results by file path', function(assert) {
     assert.equal(find('.test-addon-name').length, 3, 'shows all addons after clearing filter');
     assert.notExists('.test-filtered-result-info', 'filtered results are gone after clearing filter');
   });
+
+  let regexFilterTerm = 'components.*js';
+  fillIn('.test-file-filter-input', regexFilterTerm);
+
+  andThen(function() {
+    assert.equal(find('.test-addon-name').length, 1, 'shows only matching addons after filtering');
+    assert.contains('.test-filtered-result-info', '1 addon', 'filtered result count is correct after regex search');
+    assert.contains('.test-filtered-result-info', '1 usage', 'filtered usage count is correct after regex search');
+  });
 });
 
 test('filtering addon source by file path', function(assert) {

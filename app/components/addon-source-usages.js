@@ -52,7 +52,8 @@ function filterByFilePath(usages, filterTerm) {
   if (isEmpty(filterTerm)) {
     return usages;
   }
+  let filterRegex = new RegExp(filterTerm);
   return usages.filter((usage) => {
-    return usage.filename.includes(filterTerm);
+    return usage.filename.match(filterRegex);
   });
 }

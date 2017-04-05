@@ -53,7 +53,7 @@
     </div>
     {{#if showFilteredUsages}}
       <h5 class="filtered-results test-filtered-result-info">
-        Showing {{pluralize-this results.filteredLength 'addon'}} ({{pluralize-this results.filteredTotalUsageCount 'usage'}}) with filenames containing "{{fileFilter}}"
+        Showing {{pluralize-this results.filteredLength 'addon'}} ({{pluralize-this results.filteredTotalUsageCount 'usage'}}) with file paths matching /{{fileFilter}}/
       </h5>
     {{/if}}
   </div>
