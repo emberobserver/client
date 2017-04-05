@@ -25,6 +25,10 @@ export default Ember.Component.extend({
 
   codeSearch: inject.service(),
 
+  showFilteredUsages: computed('results.isFilterApplied', 'results.isUpdating', function() {
+    return this.get('results.isFilterApplied') && !this.get('results.isUpdating');
+  }),
+
   totalUsageCount: computed.readOnly('results.totalUsageCount'),
 
   init() {
