@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import { task } from 'ember-concurrency';
-import config from 'ember-addon-review/config/environment';
+import config from 'ember-observer/config/environment';
 
 const {
   computed,

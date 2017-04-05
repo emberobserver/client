@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import { task, timeout } from 'ember-concurrency';
-import CodeSearchResults from 'ember-addon-review/utils/code-search-results';
+import CodeSearchResults from 'ember-observer/utils/code-search-results';
 
 const {
   computed,
