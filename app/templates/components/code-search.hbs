@@ -38,7 +38,10 @@
     <div class="filter-controls">
       Filter by file path:
       <div class="filter-input">
-        {{input value=(readonly fileFilter) input=(action (perform applyFileFilter) value="target.value") class="test-file-filter-input"}}
+        <input type="text"
+               value={{fileFilter}}
+               oninput={{action (perform applyFileFilter) value="target.value"}}
+               class="test-file-filter-input">
         {{#if results.isFilterApplied}}
           <button type="button" {{action (perform clearFileFilter)}} class="icon-close test-clear-file-filter"></button>
         {{/if}}
