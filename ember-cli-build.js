@@ -9,6 +9,7 @@ module.exports = function(defaults) {
     inlineContent: {},
     minifyJS: {},
     minifyCSS: {},
+    fingerprint: {},
     sourcemaps: {
       extensions: ['js']
     }
@@ -33,6 +34,8 @@ module.exports = function(defaults) {
   options.minifyCSS.enabled = parseFlag('MINIFY_CSS', env === 'production');
 
   options.sourcemaps.enabled = parseFlag('SOURCEMAPS', env !== 'production');
+
+  options.fingerprint.enabled = parseFlag('FINGERPRINT', env === 'production');
 
   var app = new EmberApp(defaults, options);
 
