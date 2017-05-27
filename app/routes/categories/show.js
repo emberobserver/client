@@ -1,5 +1,7 @@
 import Ember from 'ember';
 
+import measure from '../../utils/measure';
+
 export default Ember.Route.extend({
   model(params) {
     return this.modelFor('application').categories.then(() => {
@@ -11,6 +13,8 @@ export default Ember.Route.extend({
       });
     });
   },
+
+  afterModel: measure,
 
   titleToken(model) {
     return model.category.get('name');
