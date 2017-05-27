@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import JSONAPIAdapter from 'ember-data/adapters/json-api';
-import cachedAjax from '../utils/network-cache';
 
 export default JSONAPIAdapter.extend({
   namespace: 'api/v2',
@@ -15,8 +14,5 @@ export default JSONAPIAdapter.extend({
   },
   shouldBackgroundReloadAll() {
     return false;
-  },
-  ajax(url, type, options) {
-    return cachedAjax(url, type, options, () => this._super(url, type, options));
   }
 });
