@@ -5,7 +5,7 @@
 
 <ul class="stats-list">
   <li class="test-addon-latest-version">
-    <b>{{addon.latestVersion.version}}</b> from {{relative-time date=addon.latestVersionDate}}
+    <b>{{latestVersion.version}}</b> from {{relative-time date=addon.latestVersionDate}}
   </li>
   <li class="test-addon-top-downloaded">
     {{#if addon.isTopDownloaded}}
@@ -69,15 +69,15 @@
   {{/each}}
 </p>
 
-{{#if addon.latestVersion.emberCliVersion}}
+{{#if latestVersion.emberCliVersion}}
   <h6>ember-cli version</h6>
-  <p class="test-addon-ember-cli-version">{{addon.latestVersion.emberCliVersion}}</p>
+  <p class="test-addon-ember-cli-version">{{latestVersion.emberCliVersion}}</p>
 {{/if}}
 
-<h6 class="test-addon-version-count">versions ({{addon.sortedVersions.length}})</h6>
+<h6 class="test-addon-version-count">versions ({{sortedAddonVersions.length}})</h6>
 
 <p>
-  {{addon-version-list versions=addon.sortedVersions}}
+  {{addon-version-list versions=sortedAddonVersions}}
 </p>
 
 <section class="badge test-addon-badge">

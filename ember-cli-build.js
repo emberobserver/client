@@ -1,11 +1,12 @@
-/*jshint node:true*/
-/* global require, module */
-var EmberApp = require('ember-cli/lib/broccoli/ember-app');
-var parseFlag = require('./config/parse-flag');
-var env = EmberApp.env();
+/* eslint-env node */
+'use strict';
+
+const EmberApp = require('ember-cli/lib/broccoli/ember-app');
+const parseFlag = require('./config/parse-flag');
+const env = EmberApp.env();
 
 module.exports = function(defaults) {
-  var options = {
+  let options = {
     inlineContent: {},
     minifyJS: {},
     minifyCSS: {},
@@ -37,7 +38,7 @@ module.exports = function(defaults) {
 
   options.fingerprint.enabled = parseFlag('FINGERPRINT', env === 'production');
 
-  var app = new EmberApp(defaults, options);
+  let app = new EmberApp(defaults, options);
 
   // Use `app.import` to add additional libraries to the generated
   // output files.

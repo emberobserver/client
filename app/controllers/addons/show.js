@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import sortBy from '../../utils/sort-by';
 import moment from 'moment';
 
 export default Ember.Controller.extend({
@@ -9,20 +8,26 @@ export default Ember.Controller.extend({
   licenseUrl: Ember.computed('addon.license', function() {
     return `https://spdx.org/licenses/${this.get('addon.license')}`;
   }),
-  sortedReviews: sortBy('addon.reviews', 'versionReleased:desc'),
+  sortedReviews: Ember.computed('addon.reviews', function() {
+    return this.get('addon.reviews').sortBy('versionReleased').reverse();
+  }),
   latestReview: Ember.computed.alias('sortedReviews.firstObject'),
   sortedCategories: Ember.computed('model.categories', function() {
     return this.get('model.categories').sortBy('displayName');
   }),
-  isLatestReleaseInLast3Months: Ember.computed('addon.latestVersion.released', function() {
-    if (!this.get('addon.latestVersion.released')) {
+  sortedAddonVersions: Ember.computed('addon.versions', function() {
+    return this.get('addon.versions').sortBy('released').reverse();
+  }),
+  latestVersion: Ember.computed.readOnly('sortedAddonVersions.firstObject'),
+  isLatestReleaseInLast3Months: Ember.computed('latestVersion.released', function() {
+    if (!this.get('latestVersion.released')) {
       return false;
     }
     let threeMonthsAgo = moment().subtract(3, 'months');
-    return moment(this.get('addon.latestVersion.released')).isAfter(threeMonthsAgo);
+    return moment(this.get('latestVersion.released')).isAfter(threeMonthsAgo);
   }),
-  isLatestReviewForLatestVersion: Ember.computed('latestReview.version.version', 'addon.latestVersion.version', function() {
-    return this.get('latestReview.version.version') === this.get('addon.latestVersion.version');
+  isLatestReviewForLatestVersion: Ember.computed('latestReview.version.version', 'latestVersion.version', function() {
+    return this.get('latestReview.version.version') === this.get('latestVersion.version');
   }),
   badgeText: Ember.computed('addon.name', function() {
     return `[![Ember Observer Score](https://emberobserver.com/badges/${this.get('addon.name')}.svg)](https://emberobserver.com/addons/${this.get('addon.name')})`;
@@ -33,8 +38,8 @@ export default Ember.Controller.extend({
   badgeSrc: Ember.computed('addon.name', function() {
     return `https://emberobserver.com/badges/${this.get('addon.name')}.svg`;
   }),
-  isTestResultForLatestVersion: Ember.computed('model.latestTestResult.version', 'addon.latestVersion', function() {
-    return this.get('model.latestTestResult.version.version') === this.get('addon.latestVersion.version');
+  isTestResultForLatestVersion: Ember.computed('model.latestTestResult.version', 'latestVersion', function() {
+    return this.get('model.latestTestResult.version.version') === this.get('latestVersion.version');
   }),
   hasGithubData: Ember.computed('addon.hasInvalidGithubRepo', 'addon.githubStats.firstCommitDate', function() {
     return !this.get('addon.hasInvalidGithubRepo') && this.get('addon.githubStats.firstCommitDate');
@@ -68,7 +73,7 @@ export default Ember.Controller.extend({
     },
     saveReview(newReview) {
       let controller = this;
-      newReview.set('version', this.get('addon.latestVersion'));
+      newReview.set('version', this.get('latestVersion'));
       newReview.save()
       .then(function() {
         // TODO: Fix this once 'latestReview' is put on addon

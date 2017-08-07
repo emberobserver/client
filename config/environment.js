@@ -1,9 +1,12 @@
-var parseFlag = require('./parse-flag');
+/* eslint-env node */
+'use strict';
+
+const parseFlag = require('./parse-flag');
 
 module.exports = function(environment) {
-  var ENV = {
+  let ENV = {
     modulePrefix: 'ember-observer',
-    environment: environment,
+    environment,
     rootURL: '/',
     locationType: 'router-scroll',
     historySupportMiddleware: true,

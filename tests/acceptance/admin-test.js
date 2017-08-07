@@ -130,7 +130,7 @@ test('renewing a review', function(assert) {
 
   andThen(function() {
     let newReview = server.schema.reviews.all().models[server.schema.reviews.all().models.length - 1];
-    assert.equal(newReview.version.id, latestVersion.id);
+    assert.equal(newReview.version.id, latestVersion.id, 'Review should be for the latest version');
     assert.equal(newReview.hasTests, 1);
     assert.equal(newReview.hasReadme, 4);
     assert.equal(newReview.isMoreThanEmptyAddon, 3);
