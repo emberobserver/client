@@ -3,13 +3,13 @@
     {{yield "WIP"}}
   </span>
 {{else}}
-  {{#unless hasNumericScore}}
-    <span class="score">
-      {{yield "N/A"}}
-    </span>
-  {{else}}
+  {{#if hasNumericScore}}
     <span class="score" data-score="{{addon.score}}">
       {{yield addon.score}}
     </span>
-  {{/unless}}
+  {{else}}
+    <span class="score">
+      {{yield "N/A"}}
+    </span>
+  {{/if}}
 {{/if}}
