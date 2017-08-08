@@ -2152,6 +2152,12 @@ ember-ajax@^3.0.0:
   dependencies:
     ember-cli-babel "^6.0.0"
 
+ember-app-scheduler@0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/ember-app-scheduler/-/ember-app-scheduler-0.0.5.tgz#d9228207e169c60d1d6546943e51fcd6a1554b90"
+  dependencies:
+    ember-cli-babel "^5.1.7"
+
 ember-basic-dropdown@^0.24.0:
   version "0.24.5"
   resolved "https://registry.yarnpkg.com/ember-basic-dropdown/-/ember-basic-dropdown-0.24.5.tgz#3dc1c704749889f9caa8d6a8e19dd98c3c059928"
@@ -2781,7 +2787,7 @@ ember-factory-for-polyfill@^1.1.0:
   dependencies:
     ember-cli-version-checker "^1.2.0"
 
-ember-getowner-polyfill@^1.0.0, ember-getowner-polyfill@^1.1.0, ember-getowner-polyfill@^1.2.2:
+ember-getowner-polyfill@^1.1.0, ember-getowner-polyfill@^1.2.2, ember-getowner-polyfill@^1.2.3:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/ember-getowner-polyfill/-/ember-getowner-polyfill-1.2.5.tgz#ceff8a09897d0d7e05c821bb71666a95eb26dc92"
   dependencies:
@@ -2789,7 +2795,7 @@ ember-getowner-polyfill@^1.0.0, ember-getowner-polyfill@^1.1.0, ember-getowner-p
     ember-cli-version-checker "^1.2.0"
     ember-factory-for-polyfill "^1.1.0"
 
-ember-getowner-polyfill@^2.0.1:
+ember-getowner-polyfill@^2.0.0, ember-getowner-polyfill@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/ember-getowner-polyfill/-/ember-getowner-polyfill-2.0.1.tgz#9bfe2b4d527ed174e76fef2c8f30937d77cb66fb"
   dependencies:
@@ -2843,14 +2849,14 @@ ember-maybe-import-regenerator@^0.1.4, ember-maybe-import-regenerator@^0.1.5:
     ember-cli-babel "^6.0.0-beta.4"
     regenerator-runtime "^0.9.5"
 
-ember-metrics@0.8.1:
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/ember-metrics/-/ember-metrics-0.8.1.tgz#f571bc884c101880cf5ab857ef11048fcb284e35"
+ember-metrics@^0.12.1:
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/ember-metrics/-/ember-metrics-0.12.1.tgz#8659343bf7b8bda403e70d482ff59cc9714d89f6"
   dependencies:
     broccoli-funnel "^1.0.1"
-    ember-cli-babel "^5.1.6"
-    ember-getowner-polyfill "^1.0.0"
-    ember-runtime-enumerable-includes-polyfill "^1.0.1"
+    ember-cli-babel "^6.1.0"
+    ember-getowner-polyfill "^2.0.0"
+    ember-runtime-enumerable-includes-polyfill "^2.0.0"
 
 ember-moment@^7.4.1:
   version "7.4.1"
@@ -2860,11 +2866,11 @@ ember-moment@^7.4.1:
     ember-getowner-polyfill "^2.0.1"
     ember-macro-helpers "^0.15.1"
 
-ember-multiselect-checkboxes@0.10.2:
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/ember-multiselect-checkboxes/-/ember-multiselect-checkboxes-0.10.2.tgz#1d84f218e1d5c0eda9b210662de42d62b5a26db2"
+ember-multiselect-checkboxes@^0.10.3:
+  version "0.10.3"
+  resolved "https://registry.yarnpkg.com/ember-multiselect-checkboxes/-/ember-multiselect-checkboxes-0.10.3.tgz#4f994b29383c1e8e65ccf67ec57ddff1be526369"
   dependencies:
-    ember-cli-babel "^5.1.6"
+    ember-cli-babel "^5.1.7"
     ember-runtime-enumerable-includes-polyfill "^1.0.1"
 
 ember-native-dom-helpers@^0.2.0:
@@ -2944,12 +2950,13 @@ ember-router-generator@^1.0.0:
   dependencies:
     recast "^0.11.3"
 
-ember-router-scroll@0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/ember-router-scroll/-/ember-router-scroll-0.1.1.tgz#c5a75d5072f32aa5aec278c4716e766fbe117761"
+ember-router-scroll@~0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/ember-router-scroll/-/ember-router-scroll-0.3.0.tgz#5f9b426c8ecd65619459d8cf377bdef0d46c70f4"
   dependencies:
-    ember-cli-babel "^5.1.6"
-    ember-getowner-polyfill "^1.2.2"
+    ember-app-scheduler "0.0.5"
+    ember-cli-babel "^6.6.0"
+    ember-getowner-polyfill "^1.2.3"
 
 ember-runtime-enumerable-includes-polyfill@^1.0.1:
   version "1.0.4"
@@ -3065,13 +3072,13 @@ ember-wormhole@^0.5.1:
     ember-cli-babel "^6.0.0"
     ember-cli-htmlbars "^1.1.1"
 
-emberx-select@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/emberx-select/-/emberx-select-3.0.0.tgz#472e56ae75a928b759a30c55d0c5e88d7b639004"
+emberx-select@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/emberx-select/-/emberx-select-3.1.0.tgz#5e00335f20fea76ea88fbfaa3c62491d761d6f8e"
   dependencies:
-    ember-cli-babel "^5.1.7"
-    ember-cli-htmlbars "^1.0.10"
-    ember-cli-version-checker "^1.1.6"
+    ember-cli-babel "^6.6.0"
+    ember-cli-htmlbars "^2.0.1"
+    ember-cli-version-checker "^1.2.0"
 
 encodeurl@~1.0.1:
   version "1.0.1"
