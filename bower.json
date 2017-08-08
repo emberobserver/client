@@ -1,7 +1,6 @@
 {
   "name": "ember-observer",
   "dependencies": {
-    "showdown": "^1.6.4",
     "sanitize.js": "^1.0.0"
   },
   "devDependencies": {
