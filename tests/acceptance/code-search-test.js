@@ -114,6 +114,11 @@ test('viewing addon source containing search query', function(assert) {
     assert.exists('.test-usage .match:contains("store: inject.service(),")', 'Second match is highlighted correctly');
 
     assert.exists('.test-usage:contains("app/components/fake-thing.js:21")', 'Shows both usages');
+
+    assert.equal(
+      find('.test-usage:contains("fake-service") a').attr('href'),
+      'https://github.com/kategengler/ember-feature-flags/tree/master/app/services/fake-service.js#L52',
+      'Link to the matched source code line');
   });
 
   click('.test-usage-count');
