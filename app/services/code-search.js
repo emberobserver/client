@@ -14,7 +14,7 @@ export default Ember.Service.extend({
       }
     }).then((response) => {
       return response.results.map((item) => {
-        return { addonName: item.addon, count: item.count };
+        return { addonName: item.addon, count: item.count, files: item.files };
       });
     });
   },

@@ -1,17 +1,23 @@
 import Ember from 'ember';
-import { task } from 'ember-concurrency';
+import { task, timeout } from 'ember-concurrency';
+import CodeSearchResults from 'ember-observer/utils/code-search-results';
 
-const { computed, inject } = Ember;
-
-const PageSize = 50;
+const {
+  computed,
+  inject,
+  getOwner
+} = Ember;
 
 export default Ember.Component.extend({
   metrics: inject.service(),
 
-  store: inject.service(),
-
   codeQuery: null,
+
   sort: null,
+
+  fileFilter: null,
+
+  results: null,
 
   classNames: ['code-search'],
 
@@ -19,9 +25,11 @@ export default Ember.Component.extend({
 
   codeSearch: inject.service(),
 
-  usageCounts: computed.mapBy('results.rawResults', 'count'),
+  showFilteredUsages: computed('results.isFilterApplied', 'results.isUpdating', function() {
+    return this.get('results.isFilterApplied') && !this.get('results.isUpdating');
+  }),
 
-  totalUsageCount: computed.sum('usageCounts'),
+  totalUsageCount: computed.readOnly('results.totalUsageCount'),
 
   init() {
     this._super(...arguments);
@@ -50,50 +58,34 @@ export default Ember.Component.extend({
     let results = yield this.get('codeSearch').addons(query, this.get('regex'));
     this.set('quotedLastSearch', quoteSearchTerm(query, this.get('regex')));
 
-    let firstPageOfResults = yield this._fetchPageOfAddonResults(results, 1, this.get('sort'));
-    this.set('results',
-      {
-        displayingResults: firstPageOfResults,
-        lastResultPageDisplaying: 1,
-        rawResults: results,
-        length: results.length
-      });
+    let resultsObject = CodeSearchResults.create(getOwner(this).ownerInjection(), {
+      rawResults: results, sortKey: this.get('sort'), filterTerm: this.get('fileFilter')
+    });
+    yield resultsObject.get('fetchNextPage').perform();
+    this.set('results', resultsObject);
   }).restartable(),
 
-  _fetchPageOfAddonResults(results, page, sort) {
-    if (!results || !results.length) {
-      return Ember.RSVP.resolve(null);
-    }
-
-    let sortedResults = sortResults(results, sort);
-    let pageOfResults = sortedResults.slice((page - 1) * PageSize, page * PageSize);
-    let names = pageOfResults.mapBy('addonName');
-    return this.get('store').query('addon', { filter: { name: names.join(',') }, include: 'categories' }).then((addons) => {
-      return pageOfResults.map((result) => {
-        return {
-          addon: addons.findBy('name', result.addonName),
-          count: result.count
-        };
-      });
-    });
-  },
-
-  canViewMore: computed('results.displayingResults', function() {
-    return this.get('results.displayingResults.length') < this.get('results.length');
-  }),
+  canViewMore: computed.readOnly('results.hasMoreToView'),
 
   viewMore: task(function* () {
-    let pageToFetch = this.get('results.lastResultPageDisplaying') + 1;
-    let moreAddons = yield this._fetchPageOfAddonResults(this.get('results.rawResults'), pageToFetch, this.get('sort'));
-    this.get('results.displayingResults').pushObjects(moreAddons);
-    this.set('results.lastResultPageDisplaying', pageToFetch);
+    yield this.get('results.fetchNextPage').perform();
   }),
 
   sortBy: task(function* (key) {
+    yield this.get('results.sort').perform(key);
     this.set('sort', key);
-    let sortedAddons = yield this._fetchPageOfAddonResults(this.get('results.rawResults'), 1, key);
-    this.set('results.displayingResults', sortedAddons);
-    this.set('results.lastResultPageDisplaying', 1);
+  }),
+
+  applyFileFilter: task(function* (fileFilter) {
+    yield timeout(500);
+
+    this.set('fileFilter', fileFilter);
+    yield this.get('results.filter').perform(fileFilter);
+  }).restartable(),
+
+  clearFileFilter: task(function* () {
+    this.set('fileFilter', null);
+    yield this.get('results.clearFilter').perform();
   }),
 
   focus() {
@@ -109,16 +101,6 @@ export default Ember.Component.extend({
     }
   }
 });
-
-function sortResults(results, sort) {
-  if (sort === 'usages') {
-    return results.sortBy('count').reverse();
-  }
-
-  if (sort === 'name') {
-    return results.sortBy('addonName');
-  }
-}
 
 function quoteSearchTerm(searchTerm, isRegex) {
   let character = isRegex ? '/' : '"';
