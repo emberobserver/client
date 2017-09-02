@@ -273,3 +273,38 @@ test('searching when sort is set in query param', function(assert) {
     assert.contains('.test-addon-name:eq(2)', 'ember-try', 'Addons are sorted by usages');
   });
 });
+
+test('viewing more results', function(assert) {
+  let addons = server.createList('addon', 51);
+
+  server.get('/search/addons', () => {
+    return {
+      results: searchResults(addons)
+    };
+  });
+
+  visit('/code-search');
+  fillIn('#code-search-input', 'TestEm.afterTests');
+  click('.test-submit-search');
+
+  andThen(function() {
+    assert.equal(50, find('.test-addon-name').length, 'First 50 results show');
+    assert.equal(1, find('.test-view-more').length, 'View more link shows');
+  });
+
+  click('.test-view-more');
+
+  andThen(function() {
+    assert.equal(51, find('.test-addon-name').length, 'All 51 results show');
+    assert.equal(0, find('.test-view-more').length, 'View more link does not show');
+  });
+});
+
+function searchResults(addons) {
+  return addons.map((addon) => {
+    return {
+      addon: addon.name,
+      count: 1
+    };
+  });
+}

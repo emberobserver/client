@@ -78,7 +78,7 @@ export default Ember.Component.extend({
     });
   },
 
-  canViewMore: computed('results.displayingResults', function() {
+  canViewMore: computed('results.displayingResults.length', 'results.length', function() {
     return this.get('results.displayingResults.length') < this.get('results.length');
   }),
 
