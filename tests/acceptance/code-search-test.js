@@ -238,3 +238,38 @@ test('searching with a regex', function(assert) {
     assert.equal('false', usageRegexParam, 'Regex param is included in usage request and is false');
   });
 });
+
+test('searching when sort is set in query param', function(assert) {
+  server.create('addon', { name: 'ember-try' });
+  server.create('addon', { name: 'ember-blanket' });
+  server.create('addon', { name: 'ember-foo' });
+
+  server.get('/search/addons', () => {
+    return {
+      results: [
+        {
+          addon: 'ember-try',
+          count: 1
+        },
+        {
+          addon: 'ember-blanket',
+          count: 2
+        },
+        {
+          addon: 'ember-foo',
+          count: 3
+        }
+      ]
+    };
+  });
+
+  visit('/code-search?sort=usages');
+  fillIn('#code-search-input', 'foo');
+  click('.test-submit-search');
+
+  andThen(function() {
+    assert.contains('.test-addon-name:eq(0)', 'ember-foo', 'Addons are sorted by usages');
+    assert.contains('.test-addon-name:eq(1)', 'ember-blanket', 'Addons are sorted by usages');
+    assert.contains('.test-addon-name:eq(2)', 'ember-try', 'Addons are sorted by usages');
+  });
+});
