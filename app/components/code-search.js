@@ -1,9 +1,10 @@
 import Ember from 'ember';
-import { task } from 'ember-concurrency';
+import { task, timeout } from 'ember-concurrency';
+import config from 'ember-observer/config/environment';
 
-const { computed, inject } = Ember;
+const { computed, inject, isEmpty } = Ember;
 
-const PageSize = 50;
+const PageSize = config.codeSearchPageSize;
 
 export default Ember.Component.extend({
   metrics: inject.service(),
@@ -11,7 +12,10 @@ export default Ember.Component.extend({
   store: inject.service(),
 
   codeQuery: null,
+
   sort: null,
+
+  fileFilter: null,
 
   classNames: ['code-search'],
 
@@ -19,9 +23,11 @@ export default Ember.Component.extend({
 
   codeSearch: inject.service(),
 
-  usageCounts: computed.mapBy('results.rawResults', 'count'),
+  usageCounts: computed.mapBy('results.filteredResults', 'count'),
 
   totalUsageCount: computed.sum('usageCounts'),
+
+  isFilterApplied: computed.notEmpty('fileFilter'),
 
   init() {
     this._super(...arguments);
@@ -50,15 +56,40 @@ export default Ember.Component.extend({
     let results = yield this.get('codeSearch').addons(query, this.get('regex'));
     this.set('quotedLastSearch', quoteSearchTerm(query, this.get('regex')));
 
-    let firstPageOfResults = yield this._fetchPageOfAddonResults(results, 1, this.get('sort'));
+    let filteredResults = filterByFilePath(results, this.get('fileFilter'));
+
+    let firstPageOfResults = yield this._fetchPageOfAddonResults(filteredResults, 1, this.get('sort'));
     this.set('results',
       {
         displayingResults: firstPageOfResults,
         lastResultPageDisplaying: 1,
         rawResults: results,
-        length: results.length
+        length: results.length,
+        filteredResults: filteredResults,
+        filteredResultLength: filteredResults.length
       });
   }).restartable(),
+
+  applyFileFilter: task(function*(fileFilter) {
+    yield timeout(500);
+
+    this.set('fileFilter', fileFilter);
+    let filteredResults = filterByFilePath((this.get('results.rawResults')), fileFilter);
+    let firstPageOfFilteredResults = yield this._fetchPageOfAddonResults(filteredResults, 1, this.get('sort'));
+    this.set('results.displayingResults', firstPageOfFilteredResults);
+    this.set('results.lastResultPageDisplaying', 1);
+    this.set('results.filteredResults', filteredResults);
+    this.set('results.filteredResultLength', filteredResults.length);
+  }).restartable(),
+
+  clearFileFilter: task(function*() {
+    this.set('fileFilter', null);
+    let firstPageOfResults = yield this._fetchPageOfAddonResults(this.get('results.rawResults'), 1, this.get('sort'));
+    this.set('results.displayingResults', firstPageOfResults);
+    this.set('results.lastResultPageDisplaying', 1);
+    this.set('results.filteredResults', this.get('results.rawResults'));
+    this.set('results.filteredResultLength', this.get('results.length'));
+  }),
 
   _fetchPageOfAddonResults(results, page, sort) {
     if (!results || !results.length) {
@@ -72,26 +103,27 @@ export default Ember.Component.extend({
       return pageOfResults.map((result) => {
         return {
           addon: addons.findBy('name', result.addonName),
-          count: result.count
+          count: result.count,
+          files: result.files
         };
       });
     });
   },
 
-  canViewMore: computed('results.displayingResults.length', 'results.length', function() {
-    return this.get('results.displayingResults.length') < this.get('results.length');
+  canViewMore: computed('results.displayingResults.length', 'results.filteredResultLength', function() {
+    return this.get('results.displayingResults.length') < this.get('results.filteredResultLength');
   }),
 
   viewMore: task(function* () {
     let pageToFetch = this.get('results.lastResultPageDisplaying') + 1;
-    let moreAddons = yield this._fetchPageOfAddonResults(this.get('results.rawResults'), pageToFetch, this.get('sort'));
+    let moreAddons = yield this._fetchPageOfAddonResults(this.get('results.filteredResults'), pageToFetch, this.get('sort'));
     this.get('results.displayingResults').pushObjects(moreAddons);
     this.set('results.lastResultPageDisplaying', pageToFetch);
   }),
 
   sortBy: task(function* (key) {
     this.set('sort', key);
-    let sortedAddons = yield this._fetchPageOfAddonResults(this.get('results.rawResults'), 1, key);
+    let sortedAddons = yield this._fetchPageOfAddonResults(this.get('results.filteredResults'), 1, key);
     this.set('results.displayingResults', sortedAddons);
     this.set('results.lastResultPageDisplaying', 1);
   }),
@@ -123,4 +155,26 @@ function sortResults(results, sort) {
 function quoteSearchTerm(searchTerm, isRegex) {
   let character = isRegex ? '/' : '"';
   return `${character}${searchTerm}${character}`;
+}
+
+function filterByFilePath(results, filterTerm) {
+  if (isEmpty(filterTerm)) {
+    return results;
+  }
+
+  let filteredList = [];
+  let filterRegex = new RegExp(filterTerm);
+  results.forEach((result) => {
+    let filteredFiles = result.files.filter((filePath) => {
+      return filePath.match(filterRegex);
+    });
+    if (filteredFiles.length > 0) {
+      filteredList.push({
+        addonName: result.addonName,
+        files: filteredFiles,
+        count: filteredFiles.length
+      });
+    }
+  });
+  return filteredList;
 }

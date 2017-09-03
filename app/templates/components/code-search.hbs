@@ -31,8 +31,25 @@
   <div class="result-details">
     <h4 class="test-last-search">Results for {{quotedLastSearch}}</h4>
     <h5 class="test-result-info">
-      Found {{pluralize-this results.length 'addon'}} ({{pluralize-this totalUsageCount 'usage'}})
+      Found {{pluralize-this results.filteredResultLength 'addon'}} ({{pluralize-this totalUsageCount 'usage'}})
+      {{#if isFilterApplied}}
+        in files matching /{{fileFilter}}/
+      {{/if}}
     </h5>
+  </div>
+  <div class="result-controls">
+    <div class="filter-controls">
+      Filter by file path:
+      <div class="filter-input">
+        <input type="text"
+               value={{fileFilter}}
+                 oninput={{action (perform applyFileFilter) value="target.value"}}
+               class="test-file-filter-input">
+        {{#if isFilterApplied}}
+          <button type="button" {{action (perform clearFileFilter)}} class="icon-close test-clear-file-filter"></button>
+        {{/if}}
+      </div>
+    </div>
     <div class="sort-controls">
       Sort by:
       <div class="button-select test-sort">
@@ -45,7 +62,13 @@
     {{#each results.displayingResults as |result|}}
       <li data-id="{{result.addon.id}}">
         {{addon-details addon=result.addon}}
-        {{addon-source-usages addon=result.addon count=result.count query=codeQuery regex=regex}}
+        {{addon-source-usages
+          addon=result.addon
+          count=result.count
+          query=codeQuery
+          regex=regex
+          fileFilter=fileFilter
+        }}
       </li>
     {{/each}}
     {{#if canViewMore}}

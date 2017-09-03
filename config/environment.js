@@ -10,6 +10,7 @@ module.exports = function(environment) {
     rootURL: '/',
     locationType: 'router-scroll',
     historySupportMiddleware: true,
+    codeSearchPageSize: 50,
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -60,6 +61,7 @@ module.exports = function(environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
     ENV.APP.rootElement = '#ember-testing';
+    ENV.codeSearchPageSize = 3;
   }
 
   if (environment === 'production') {
