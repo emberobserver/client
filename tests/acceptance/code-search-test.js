@@ -275,7 +275,7 @@ test('searching when sort is set in query param', function(assert) {
 });
 
 test('viewing more results', function(assert) {
-  let addons = server.createList('addon', 51);
+  let addons = server.createList('addon', 4);
 
   server.get('/search/addons', () => {
     return {
@@ -288,15 +288,242 @@ test('viewing more results', function(assert) {
   click('.test-submit-search');
 
   andThen(function() {
-    assert.equal(50, find('.test-addon-name').length, 'First 50 results show');
+    assert.equal(3, find('.test-addon-name').length, 'First 50 results show');
     assert.equal(1, find('.test-view-more').length, 'View more link shows');
   });
 
   click('.test-view-more');
 
   andThen(function() {
-    assert.equal(51, find('.test-addon-name').length, 'All 51 results show');
+    assert.equal(4, find('.test-addon-name').length, 'All 51 results show');
     assert.equal(0, find('.test-view-more').length, 'View more link does not show');
+  });
+});
+
+test('filtering search results by file path', function(assert) {
+  server.create('addon', { name: 'ember-try' });
+  server.create('addon', { name: 'ember-blanket' });
+  server.create('addon', { name: 'ember-foo' });
+
+  let filterTerm = 'index';
+
+  server.get('/search/addons', () => {
+    return {
+      results: [
+        {
+          addon: 'ember-try',
+          count: 1,
+          files: ['app/controllers/index.js']
+        },
+        {
+          addon: 'ember-blanket',
+          count: 2,
+          files: ['app/components/blanket.js', 'app/templates/components/blanket.hbs']
+        },
+        {
+          addon: 'ember-foo',
+          count: 3,
+          files: ['app/controllers/index.js', 'app/controllers/index.js', 'app/services/current-foo.js']
+        }
+      ]
+    };
+  });
+
+  visit('/code-search');
+  fillIn('#code-search-input', 'whatever');
+  click('.test-submit-search');
+
+  andThen(function() {
+    assert.equal(find('.test-addon-name').length, 3, 'shows all addons before filtering');
+  });
+
+  fillIn('.test-file-filter-input', filterTerm);
+
+  andThen(function() {
+    assert.equal(find('.test-addon-name').length, 2, 'shows only matching addons after filtering');
+    assert.contains('.test-result-info', '2 addons', 'filtered result count shows when filter is applied');
+    assert.contains('.test-result-info', '3 usages', 'filtered usage count shows when filter is applied');
+  });
+
+  click('.test-clear-file-filter');
+
+  andThen(function() {
+    assert.equal(find('.test-addon-name').length, 3, 'shows all addons after clearing filter');
+  });
+
+  let regexFilterTerm = 'components.*js';
+  fillIn('.test-file-filter-input', regexFilterTerm);
+
+  andThen(function() {
+    assert.equal(find('.test-addon-name').length, 1, 'shows only matching addons after filtering');
+    assert.contains('.test-result-info', '1 addon', 'filtered result count is correct after regex search');
+    assert.contains('.test-result-info', '1 usage', 'filtered usage count is correct after regex search');
+  });
+});
+
+test('filtering addon source by file path', function(assert) {
+  server.create('addon', { name: 'no-match' });
+  let addonWithFilteredFiles = server.create('addon', { name: 'has-match' });
+
+  let filterTerm = 'index';
+
+  server.get('/search/addons', () => {
+    return {
+      results: [
+        {
+          addon: 'no-match',
+          count: 2,
+          files: ['app/components/no-match.js', 'app/templates/components/no-match.hbs']
+        },
+        {
+          addon: 'has-match',
+          count: 2,
+          files: ['app/controllers/index.js', 'app/services/no-match.js']
+        }
+      ]
+    };
+  });
+
+  server.get('/search/source', () => {
+    return {
+      /* eslint-disable camelcase */
+      results: [
+        {
+          line_number: 52,
+          filename: 'app/controllers/index.js',
+          lines: [
+            { text: 'if (addonData) {', number: 51 }
+          ]
+        },
+        {
+          line_number: 21,
+          filename: 'app/services/no-match.js',
+          lines: [
+            { number: 20, text: '' }
+          ]
+        }
+      ]
+      /* eslint-disable camelcase */
+    };
+  });
+
+  visit('/code-search');
+  fillIn('#code-search-input', 'whatever');
+  click('.test-submit-search');
+
+  fillIn('.test-file-filter-input', filterTerm);
+
+  click(`[data-id="${addonWithFilteredFiles.id}"] .test-usage-count`);
+
+  andThen(function() {
+    assert.equal(find('.test-usage').length, 1, 'filtered down to 1 usage');
+    assert.notExists('.test-usage:contains("app/services/no-match.js")', 'filtered out file does not show');
+    assert.exists('.test-usage:contains("app/controllers/index.js")', 'file with matching name shows');
+  });
+
+  click('.test-clear-file-filter');
+  click(`[data-id="${addonWithFilteredFiles.id}"] .test-usage-count`);
+
+  andThen(function() {
+    assert.equal(find('.test-usage').length, 2, 'all usages show');
+    assert.exists('.test-usage:contains("app/services/no-match.js")', 'previously filtered out file now shows');
+  });
+});
+
+test('filtering works with sorting and pagination', function(assert) {
+  server.create('addon', { name: 'ember-try' });
+  server.create('addon', { name: 'ember-blanket' });
+  server.create('addon', { name: 'ember-foo' });
+  server.create('addon', { name: 'ember-cli-thing' });
+  server.create('addon', { name: 'ember-cli-other-thing' });
+  server.create('addon', { name: 'ember-cli-matches' });
+
+  let filterTerm = 'index';
+
+  server.get('/search/addons', () => {
+    return {
+      results: [
+        {
+          addon: 'ember-try',
+          count: 1,
+          files: ['app/controllers/index.js']
+        },
+        {
+          addon: 'ember-blanket',
+          count: 5,
+          files: ['app/components/blanket.js',
+            'app/templates/components/blanket.hbs',
+            'app/templates/blanket.hbs',
+            'blah.js',
+            'thing.js']
+        },
+        {
+          addon: 'ember-foo',
+          count: 3,
+          files: ['app/controllers/index.js',
+            'app/controllers/index.js',
+            'app/services/current-foo.js']
+        },
+        {
+          addon: 'ember-cli-thing',
+          count: 6,
+          files: ['app/controllers/index.js',
+            'app/controllers/index.js',
+            'app/services/current-foo.js',
+            'app/templates/maybe.hbs',
+            'app/templates/maybe.hbs',
+            'app/templates/maybe.hbs']
+        },
+        {
+          addon: 'ember-cli-other-thing',
+          count: 1,
+          files: ['app/services/current-thing.js']
+        },
+        {
+          addon: 'ember-cli-matches',
+          count: 1,
+          files: ['app/controllers/index.js']
+        }
+      ]
+    };
+  });
+
+  visit('/code-search');
+  fillIn('#code-search-input', 'whatever');
+  click('.test-submit-search');
+  click('.test-sort button:contains("Usages")');
+  fillIn('.test-file-filter-input', filterTerm);
+
+  andThen(function() {
+    assert.equal(find('.test-addon-name').length, 3, 'shows one page worth of addons after filtering');
+    assert.contains('.test-result-info', '4 addons', 'filtered addon count shows when filter is applied');
+    assert.contains('.test-result-info', '6 usages', 'filtered usage count shows when filter is applied');
+    assert.contains('.test-addon-name:eq(0)', 'ember-cli-thing', 'addons are sorted by usage count');
+  });
+
+  click('.test-view-more');
+
+  andThen(function() {
+    assert.equal(find('.test-addon-name').length, 4, 'adds additional addons that meet filter criteria');
+  });
+
+  click('.test-sort button:contains("Name")');
+
+  andThen(function() {
+    assert.equal(find('.test-addon-name').length, 3, 'resets to first page after sorting');
+    assert.contains('.test-result-info', '4 addons', 'filtered addon count still shows after sorting');
+    assert.contains('.test-result-info', '6 usages', 'filtered usage count still shows after sorting');
+    assert.contains('.test-addon-name:eq(0)', 'ember-cli-matches', 'addons are sorted by name');
+  });
+
+  click('.test-view-more');
+  click('.test-clear-file-filter');
+
+  andThen(function() {
+    assert.equal(find('.test-addon-name').length, 3, 'shows first page of addons after clearing filter');
+    assert.contains('.test-result-info', '6 addons', 'un-filtered addon count shows');
+    assert.contains('.test-result-info', '17 usages', 'un-filtered usage count shows');
+    assert.contains('.test-addon-name:eq(0)', 'ember-blanket', 'addons are sorted by name');
   });
 });
 

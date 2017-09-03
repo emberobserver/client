@@ -54,14 +54,56 @@
   .result-details {
     @include clearfix;
 
+    h4 {
+      margin: .5rem 0;
+    }
+
     h5 {
-      padding-top: 2.25rem;
-      float:left;
+      padding-top: .5rem;
       line-height: 2rem;
     }
 
+  }
+
+  .result-controls {
+    padding: 0 .25rem;
+    border: 1px solid $light-gray;
+    border-width: 0 0 1px 0;
+    margin-top: 1rem;
+    @include clearfix();
+
     .sort-controls {
       float: right;
+      margin-right: .26rem;
+      margin-bottom: 1.5rem;
+
+      .button-option {
+        margin-bottom: 0;
+      }
+    }
+
+    .filter-controls {
+      float: left;
+      margin-bottom: 1.5rem;
+
+      .filter-input {
+        position: relative;
+        width: 300px;
+
+        input {
+          border: 1px solid $base-accent-color;
+          height: 36px;
+          width: 100%;
+          padding: .5rem;
+        }
+
+        .icon-close {
+          right: .4rem;
+          color: $base-accent-color;
+          font-size: 1.25rem;
+          margin-top: -.7rem;
+        }
+      }
     }
   }
 

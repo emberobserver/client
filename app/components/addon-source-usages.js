@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import { task } from 'ember-concurrency';
 
-const { computed } = Ember;
+const { computed, inject, isEmpty } = Ember;
 
 export default Ember.Component.extend({
   visibleUsageCount: 25,
@@ -12,7 +12,9 @@ export default Ember.Component.extend({
 
   regex: false,
 
-  codeSearch: Ember.inject.service(),
+  fileFilter: null,
+
+  codeSearch: inject.service(),
 
   visibleUsages: computed('visibleUsageCount', 'usages', function() {
     return this.get('usages').slice(0, this.get('visibleUsageCount'));
@@ -24,7 +26,7 @@ export default Ember.Component.extend({
 
   fetchUsages: task(function* () {
     let usages = yield this.get('codeSearch').usages(this.get('addon.name'), this.get('query'), this.get('regex'));
-    this.set('usages', usages);
+    this.set('usages', filterByFilePath(usages, this.get('fileFilter')));
   }).drop(),
 
   actions: {
@@ -41,3 +43,13 @@ export default Ember.Component.extend({
     }
   }
 });
+
+function filterByFilePath(usages, filterTerm) {
+  if (isEmpty(filterTerm)) {
+    return usages;
+  }
+  let filterRegex = new RegExp(filterTerm);
+  return usages.filter((usage) => {
+    return usage.filename.match(filterRegex);
+  });
+}
