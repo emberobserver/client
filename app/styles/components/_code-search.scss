@@ -67,6 +67,7 @@
 
   .result-controls {
     padding: 0 .25rem;
+    height: 100px;
     border: 1px solid $light-gray;
     border-width: 0 0 1px 0;
     margin-top: 1rem;
@@ -103,6 +104,11 @@
           font-size: 1.25rem;
           margin-top: -.7rem;
         }
+      }
+
+      .filter-results {
+        display: inline-block;
+        padding-top: 2px;
       }
     }
   }

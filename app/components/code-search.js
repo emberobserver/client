@@ -23,11 +23,19 @@ export default Ember.Component.extend({
 
   codeSearch: inject.service(),
 
-  usageCounts: computed.mapBy('results.filteredResults', 'count'),
+  usageCounts: computed.mapBy('results.rawResults', 'count'),
+
+  filteredUsageCounts: computed.mapBy('results.filteredResults', 'count'),
 
   totalUsageCount: computed.sum('usageCounts'),
 
+  totalFilteredUsageCount: computed.sum('filteredUsageCounts'),
+
   isFilterApplied: computed.notEmpty('fileFilter'),
+
+  showFilteredUsages: computed('isFilterApplied', 'isUpdatingFilter', function() {
+    return this.get('isFilterApplied') && !this.get('isUpdatingFilter');
+  }),
 
   init() {
     this._super(...arguments);
@@ -131,6 +139,10 @@ export default Ember.Component.extend({
   focus() {
     this.$(this.get('focusNode')).focus();
   },
+
+  isUpdatingResults: computed.or('applyFileFilter.isRunning', 'clearFileFilter.isRunning', 'sortBy.isRunning'),
+
+  isUpdatingFilter: computed.or('applyFileFilter.isRunning', 'clearFileFilter.isRunning'),
 
   actions: {
     clearSearch() {
