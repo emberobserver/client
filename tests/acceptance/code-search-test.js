@@ -341,8 +341,10 @@ test('filtering search results by file path', function(assert) {
 
   andThen(function() {
     assert.equal(find('.test-addon-name').length, 2, 'shows only matching addons after filtering');
-    assert.contains('.test-result-info', '2 addons', 'filtered result count shows when filter is applied');
-    assert.contains('.test-result-info', '3 usages', 'filtered usage count shows when filter is applied');
+    assert.contains('.test-result-info', '3 addons', 'full result count shows when filter is applied');
+    assert.contains('.test-result-info', '6 usages', 'full usage count shows when filter is applied');
+    assert.contains('.test-filtered-result-info', '2 addons', 'filtered result count shows when filter is applied');
+    assert.contains('.test-filtered-result-info', '3 usages', 'filtered usage count shows when filter is applied');
   });
 
   click('.test-clear-file-filter');
@@ -356,8 +358,8 @@ test('filtering search results by file path', function(assert) {
 
   andThen(function() {
     assert.equal(find('.test-addon-name').length, 1, 'shows only matching addons after filtering');
-    assert.contains('.test-result-info', '1 addon', 'filtered result count is correct after regex search');
-    assert.contains('.test-result-info', '1 usage', 'filtered usage count is correct after regex search');
+    assert.contains('.test-filtered-result-info', '1 addon', 'filtered result count is correct after regex search');
+    assert.contains('.test-filtered-result-info', '1 usage', 'filtered usage count is correct after regex search');
   });
 });
 
@@ -496,8 +498,8 @@ test('filtering works with sorting and pagination', function(assert) {
 
   andThen(function() {
     assert.equal(find('.test-addon-name').length, 3, 'shows one page worth of addons after filtering');
-    assert.contains('.test-result-info', '4 addons', 'filtered addon count shows when filter is applied');
-    assert.contains('.test-result-info', '6 usages', 'filtered usage count shows when filter is applied');
+    assert.contains('.test-filtered-result-info', '4 addons', 'filtered addon count shows when filter is applied');
+    assert.contains('.test-filtered-result-info', '6 usages', 'filtered usage count shows when filter is applied');
     assert.contains('.test-addon-name:eq(0)', 'ember-cli-thing', 'addons are sorted by usage count');
   });
 
@@ -511,8 +513,8 @@ test('filtering works with sorting and pagination', function(assert) {
 
   andThen(function() {
     assert.equal(find('.test-addon-name').length, 3, 'resets to first page after sorting');
-    assert.contains('.test-result-info', '4 addons', 'filtered addon count still shows after sorting');
-    assert.contains('.test-result-info', '6 usages', 'filtered usage count still shows after sorting');
+    assert.contains('.test-filtered-result-info', '4 addons', 'filtered addon count still shows after sorting');
+    assert.contains('.test-filtered-result-info', '6 usages', 'filtered usage count still shows after sorting');
     assert.contains('.test-addon-name:eq(0)', 'ember-cli-matches', 'addons are sorted by name');
   });
 
@@ -521,8 +523,8 @@ test('filtering works with sorting and pagination', function(assert) {
 
   andThen(function() {
     assert.equal(find('.test-addon-name').length, 3, 'shows first page of addons after clearing filter');
-    assert.contains('.test-result-info', '6 addons', 'un-filtered addon count shows');
-    assert.contains('.test-result-info', '17 usages', 'un-filtered usage count shows');
+    assert.notExists('.test-filtered-result-info', 'filtered result counts are gone after clearing');
+    assert.exists('.test-result-info', 'total result counts are still showing');
     assert.contains('.test-addon-name:eq(0)', 'ember-blanket', 'addons are sorted by name');
   });
 });

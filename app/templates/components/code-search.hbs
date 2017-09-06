@@ -31,10 +31,7 @@
   <div class="result-details">
     <h4 class="test-last-search">Results for {{quotedLastSearch}}</h4>
     <h5 class="test-result-info">
-      Found {{pluralize-this results.filteredResultLength 'addon'}} ({{pluralize-this totalUsageCount 'usage'}})
-      {{#if isFilterApplied}}
-        in files matching /{{fileFilter}}/
-      {{/if}}
+      Found {{pluralize-this results.length 'addon'}} ({{pluralize-this totalUsageCount 'usage'}})
     </h5>
   </div>
   <div class="result-controls">
@@ -45,10 +42,15 @@
                value={{fileFilter}}
                  oninput={{action (perform applyFileFilter) value="target.value"}}
                class="test-file-filter-input">
-        {{#if isFilterApplied}}
+        {{#if showFilteredUsages}}
           <button type="button" {{action (perform clearFileFilter)}} class="icon-close test-clear-file-filter"></button>
         {{/if}}
       </div>
+      {{#if showFilteredUsages}}
+        <span class="filter-results test-filtered-result-info">
+          Filtered to {{pluralize-this results.filteredResultLength 'addon'}} ({{pluralize-this totalFilteredUsageCount 'usage'}})
+        </span>
+      {{/if}}
     </div>
     <div class="sort-controls">
       Sort by:
@@ -59,22 +61,26 @@
     </div>
   </div>
   <ul class="addon-list">
-    {{#each results.displayingResults as |result|}}
-      <li data-id="{{result.addon.id}}">
-        {{addon-details addon=result.addon}}
-        {{addon-source-usages
-          addon=result.addon
-          count=result.count
-          query=codeQuery
-          regex=regex
-          fileFilter=fileFilter
-        }}
-      </li>
-    {{/each}}
-    {{#if canViewMore}}
-      <a href="#" {{action (perform viewMore)}} class="view-more test-view-more">
-        <li>See more results</li>
-      </a>
+    {{#if isUpdatingResults}}
+      {{dot-spinner}}
+    {{else}}
+      {{#each results.displayingResults as |result|}}
+        <li data-id="{{result.addon.id}}">
+          {{addon-details addon=result.addon}}
+          {{addon-source-usages
+            addon=result.addon
+            count=result.count
+            query=codeQuery
+            regex=regex
+            fileFilter=fileFilter
+          }}
+        </li>
+      {{/each}}
+      {{#if canViewMore}}
+        <a href="#" {{action (perform viewMore)}} class="view-more test-view-more">
+          <li>See more results</li>
+        </a>
+      {{/if}}
     {{/if}}
   </ul>
 {{else if search.isRunning}}
