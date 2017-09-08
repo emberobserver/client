@@ -529,6 +529,54 @@ test('filtering works with sorting and pagination', function(assert) {
   });
 });
 
+test('when file filter regex is invalid', function(assert) {
+  server.create('addon', { name: 'ember-try' });
+  server.create('addon', { name: 'ember-blanket' });
+  server.create('addon', { name: 'ember-foo' });
+
+  let invalidFilter = '(index';
+
+  server.get('/search/addons', () => {
+    return {
+      results: [
+        {
+          addon: 'ember-try',
+          count: 1,
+          files: ['app/controllers/index.js']
+        },
+        {
+          addon: 'ember-blanket',
+          count: 2,
+          files: ['app/components/blanket.js', 'app/templates/components/blanket.hbs']
+        },
+        {
+          addon: 'ember-foo',
+          count: 3,
+          files: ['app/controllers/index.js', 'app/controllers/index.js', 'app/services/current-foo.js']
+        }
+      ]
+    };
+  });
+
+  visit('/code-search');
+  fillIn('#code-search-input', 'whatever');
+  click('.test-submit-search');
+
+  andThen(function() {
+    assert.equal(find('.test-addon-name').length, 3, 'shows all addons before filtering');
+  });
+
+  fillIn('.test-file-filter-input', invalidFilter);
+
+  andThen(function() {
+    assert.equal(find('.test-addon-name').length, 0, 'no addons show after filtering');
+    assert.contains('.test-result-info', '3 addons', 'full result count still shows');
+    assert.contains('.test-result-info', '6 usages', 'full usage count still shows');
+    assert.contains('.test-filtered-result-info', '0 addons', 'filtered result count is 0');
+    assert.contains('.test-filtered-result-info', '0 usages', 'filtered usage count is 0');
+  });
+});
+
 function searchResults(addons) {
   return addons.map((addon) => {
     return {
