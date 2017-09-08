@@ -48,7 +48,12 @@ function filterByFilePath(usages, filterTerm) {
   if (isEmpty(filterTerm)) {
     return usages;
   }
-  let filterRegex = new RegExp(filterTerm);
+  let filterRegex;
+  try {
+    filterRegex = new RegExp(filterTerm);
+  } catch(e) {
+    return [];
+  }
   return usages.filter((usage) => {
     return usage.filename.match(filterRegex);
   });

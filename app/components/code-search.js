@@ -175,7 +175,12 @@ function filterByFilePath(results, filterTerm) {
   }
 
   let filteredList = [];
-  let filterRegex = new RegExp(filterTerm);
+  let filterRegex;
+  try {
+    filterRegex = new RegExp(filterTerm);
+  } catch(e) {
+    return [];
+  }
   results.forEach((result) => {
     let filteredFiles = result.files.filter((filePath) => {
       return filePath.match(filterRegex);
