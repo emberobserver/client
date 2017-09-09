@@ -55,11 +55,10 @@
     @include clearfix;
 
     h4 {
-      margin: .5rem 0;
+      margin: .25rem 0;
     }
 
     h5 {
-      padding-top: .5rem;
       line-height: 2rem;
     }
 
@@ -67,16 +66,16 @@
 
   .result-controls {
     padding: 0 .25rem;
-    height: 100px;
     border: 1px solid $light-gray;
     border-width: 0 0 1px 0;
     margin-top: 1rem;
+    padding-bottom: 1rem;
     @include clearfix();
 
     .sort-controls {
-      float: right;
-      margin-right: .26rem;
-      margin-bottom: 1.5rem;
+      @include span-columns(6);
+      text-align: right;
+      margin-bottom: .5rem;
 
       .button-option {
         margin-bottom: 0;
@@ -84,12 +83,17 @@
     }
 
     .filter-controls {
-      float: left;
-      margin-bottom: 1.5rem;
+      @include span-columns(6);
+      margin-bottom: .5rem;
+      height: 80px;
 
       .filter-input {
+        @include media($medium-screen) {
+          width: 300px;
+        }
+
+        width: 144px;
         position: relative;
-        width: 300px;
 
         input {
           border: 1px solid $base-accent-color;
@@ -108,7 +112,8 @@
 
       .filter-results {
         display: inline-block;
-        padding-top: 2px;
+        padding-top: 10px;
+        white-space: nowrap;
       }
     }
   }
@@ -166,5 +171,9 @@
     font-weight: 700;
     cursor: pointer;
     text-decoration: underline;
+  }
+
+  .addon-list {
+    @include clearfix;
   }
 }
