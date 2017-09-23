@@ -41,7 +41,7 @@ test('searching for addons containing code', function(assert) {
     assert.contains(`[data-id="${firstAddon.id}"] .test-addon-name`, 'ember-try', 'Addon name shows');
     assert.equal(find(`[data-id="${firstAddon.id}"] .test-addon-name`).attr('href'), '/addons/ember-try', 'Addon name links to addon page');
     assert.equal(find(`[data-id="${firstAddon.id}"] .test-usage-count`).text().trim(), '1 usage', 'Addon usage count shows');
-    assert.contains('.test-result-info', '6 usages');
+    assert.contains('.test-result-info', '6 usages', 'Total usage count shows');
   });
 
   click('.test-clear-search');
@@ -288,14 +288,14 @@ test('viewing more results', function(assert) {
   click('.test-submit-search');
 
   andThen(function() {
-    assert.equal(3, find('.test-addon-name').length, 'First 50 results show');
+    assert.equal(3, find('.test-addon-name').length, 'First 3 results show');
     assert.equal(1, find('.test-view-more').length, 'View more link shows');
   });
 
   click('.test-view-more');
 
   andThen(function() {
-    assert.equal(4, find('.test-addon-name').length, 'All 51 results show');
+    assert.equal(4, find('.test-addon-name').length, 'All 4 results show');
     assert.equal(0, find('.test-view-more').length, 'View more link does not show');
   });
 });
