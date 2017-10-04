@@ -68,5 +68,7 @@
     {{/search-result-set}}
   {{else if search.isRunning}}
     {{dot-spinner}}
+  {{else}}
+    <h4 class="result-info test-result-info">No results for "{{query}}"</h4>
   {{/if}}
 </div>
