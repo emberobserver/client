@@ -139,5 +139,5 @@ function stripEmberPrefixes(str) {
   return str.replace('ember-cli-', '').replace('ember-', '');
 }
 function escapeForRegex(str) {
-  return str.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, '\\$&');
+  return str.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 }

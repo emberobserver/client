@@ -91,5 +91,5 @@ QUnit.assert.typeaheadSuggestionsAre = function(selector, suggestions, message) 
 };
 
 function escapeForRegex(str) {
-  return str.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, '\\$&');
+  return str.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 }
