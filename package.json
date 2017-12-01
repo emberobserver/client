@@ -56,7 +56,7 @@
     "ember-power-select": "^1.9.3",
     "ember-power-select-typeahead": "^0.5.8",
     "ember-resolver": "^4.0.0",
-    "ember-router-scroll": "~0.3.0",
+    "ember-router-scroll": "^0.4.0",
     "ember-sanitize": "^2.0.2",
     "ember-source": "~2.17.0",
     "emberx-select": "^3.1.0",
