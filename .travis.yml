@@ -24,10 +24,8 @@ before_install:
   - bower install
   - yarn install
 
-before_script:
-  - ember browserstack:connect
-
 script:
+  - ember browserstack:connect
   - ember test
   
 after_script:
