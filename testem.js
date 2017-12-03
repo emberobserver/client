@@ -5,7 +5,7 @@ module.exports = {
   parallel: 4,
   "launchers": {
     "bs_ie": {
-      command: "node_modules/.bin/browserstack-launch --os Windows --osv 10 --b ie --bv 11.0",
+      command: "node_modules/.bin/browserstack-launch --os Windows --osv 10 --b ie --bv 11.0 -u <url>",
       "protocol": "browser"
     },
     "bs_edge": {
