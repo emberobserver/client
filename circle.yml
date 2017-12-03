@@ -20,6 +20,7 @@ test:
   pre:
     - ember browserstack:connect
   override:
-    - COVERAGE=true yarn test
+    - ember test --testem-debug=testem.log
   post:
+    - cat testem.log
     - ember browserstack:disconnect
