@@ -27,5 +27,8 @@ before_install:
 before_script:
   - ember browserstack:connect
 
+script:
+  - ember test
+  
 after_script:
   - ember browserstack:connect
