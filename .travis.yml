@@ -26,6 +26,7 @@ before_install:
 
 script:
   - ember browserstack:connect
+  - node_modules/.bin/browserstack-launch --os Windows --osv 10 --b ie --bv 11.0 -u https://localhost:4200
   - ember test
   
 after_script:
