@@ -20,3 +20,9 @@ env:
 
 before_install:
   - npm config set spin false
+
+before_script:
+  - ember browserstack:connect
+
+after_script:
+  - ember browserstack:connect
