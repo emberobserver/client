@@ -26,7 +26,8 @@ before_install:
 
 script:
   - ember browserstack:connect
-  - ember test
+  - ember test --testem-debug testem.log
   
 after_script:
-  - ember browserstack:connect
+  - ember browserstack:disconnect
+  - cat testem.log
