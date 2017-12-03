@@ -17,7 +17,9 @@ dependencies:
     - ~/.cache/yarn
 
 test:
+  pre:
+    - ember browserstack:connect
   override:
     - COVERAGE=true yarn test
   post:
-    - bash <(curl -s https://codecov.io/bash)
+    - ember browserstack:disconnect
