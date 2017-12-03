@@ -3,7 +3,6 @@ module.exports = {
   test_page: 'tests/index.html?hidepassed',
   disable_watching: true,
   parallel: 4,
-  "browser_start_timeout" : 600,
   "launchers": {
     "bs_ie": {
       command: "node_modules/.bin/browserstack-launch --os Windows --osv 10 --b ie --bv 11.0 -u <url>",
@@ -18,7 +17,6 @@ module.exports = {
     "bs_edge",
   ],
   "launch_in_ci": [
-    "bs_edge",
-    "bs_ie"
+    "bs_edge"
   ]
 };
