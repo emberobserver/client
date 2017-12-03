@@ -4,11 +4,11 @@ module.exports = {
   disable_watching: true,
   "launchers": {
     "bs_ie": {
-      command: "node_modules/.bin/browserstack-launch --os Windows --osv 10 --b ie --bv 11.0 -t 600 -u <url>",
+      command: "node_modules/.bin/browserstack-launch --os Windows --osv 10 --b ie --bv 11.0 -t 90 -u <url>",
       "protocol": "browser"
     },
     "bs_edge": {
-      command: "node_modules/.bin/browserstack-launch --os Windows --osv 10 --b edge --bv 16.0 -t 600 --u <url>",
+      command: "node_modules/.bin/browserstack-launch --os Windows --osv 10 --b edge --bv 16.0 -t 90 --u <url>",
       "protocol": "browser"
     }
   },
