@@ -2315,9 +2315,9 @@ ember-cli-broccoli-sane-watcher@^2.0.4:
     rsvp "^3.0.18"
     sane "^1.1.1"
 
-ember-cli-browserstack@^0.0.1:
+ember-cli-browserstack@kategengler/ember-cli-browserstack:
   version "0.0.1"
-  resolved "https://registry.yarnpkg.com/ember-cli-browserstack/-/ember-cli-browserstack-0.0.1.tgz#12103ea2ba599eac062c7b9b90d1d5e66aa90b60"
+  resolved "https://codeload.github.com/kategengler/ember-cli-browserstack/tar.gz/55a60665ceadc7e7effa9df3f03f700c70d64bf5"
   dependencies:
     browserstack "^1.5.0"
     browserstack-local "^1.3.0"
