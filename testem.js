@@ -17,6 +17,7 @@ module.exports = {
     "bs_edge",
   ],
   "launch_in_ci": [
-    "bs_edge"
+    "bs_edge",
+    "bs_ie"
   ]
 };
