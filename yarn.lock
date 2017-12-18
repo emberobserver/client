@@ -6439,6 +6439,12 @@ temp@0.8.3:
     os-tmpdir "^1.0.0"
     rimraf "~2.2.6"
 
+testem-failure-dot-reporter@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/testem-failure-dot-reporter/-/testem-failure-dot-reporter-1.0.3.tgz#1f1656f60cd3bafb32b70cef87c6707b182a08cf"
+  dependencies:
+    colors "^1.1.2"
+
 testem@^1.18.0:
   version "1.18.4"
   resolved "https://registry.yarnpkg.com/testem/-/testem-1.18.4.tgz#e45fed922bec2f54a616c43f11922598ac97eb41"
