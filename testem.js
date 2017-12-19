@@ -9,7 +9,7 @@ module.exports = {
     },
     "bs_edge": {
       command: "node_modules/.bin/browserstack-launch",
-      args: "--os Windows --osv 10 --b edge --bv 16.0 -t 600 --u".split(" "),
+      args: ["--os", "Windows", "--osv", "10", "--b", "edge", "--bv", "16.0", "-t", "600", "--u"],
       "protocol": "browser"
     },
     "bs_chrome": {
