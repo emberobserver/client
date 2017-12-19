@@ -1,9 +1,6 @@
 /* eslint-env node */
-var FailureDotReporter = require('testem-failure-dot-reporter');
-var reporter = new FailureDotReporter();
 module.exports = {
   test_page: 'tests/index.html?hidepassed',
-  reporter: reporter,
   disable_watching: true,
   "launchers": {
     "bs_ie": {
@@ -15,7 +12,8 @@ module.exports = {
       "protocol": "browser"
     },
     "bs_chrome": {
-      command: 'node_modules/.bin/browserstack-launch --os Windows --osv 10 --b chrome --bv 58.0 -t 600 --u "<url>"', // Always quotes around url
+      exe: "node_modules/.bin/browserstack-launch --os Windows --osv 10 --b chrome --bv 58.0 -t 600 --u <url>",
+      args: ["--os", "Windows", "--osv", "10", "--b", "chrome", "--bv", "58.0", "-t", "600", "--u"],
       "protocol": "browser"
     }
   },
