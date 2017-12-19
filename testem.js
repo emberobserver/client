@@ -12,7 +12,7 @@ module.exports = {
       "protocol": "browser"
     },
     "bs_chrome": {
-      exe: "node_modules/.bin/browserstack-launch --os Windows --osv 10 --b chrome --bv 58.0 -t 600 --u <url>",
+      exe: "node_modules/.bin/browserstack-launch",
       args: ["--os", "Windows", "--osv", "10", "--b", "chrome", "--bv", "58.0", "-t", "600", "--u"],
       "protocol": "browser"
     }
