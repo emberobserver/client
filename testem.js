@@ -2,6 +2,7 @@
 module.exports = {
   test_page: 'tests/index.html?hidepassed',
   parallel: 2,
+  browser_start_timeout: 600,
   disable_watching: true,
   "launchers": {
     "bs_ie": {
