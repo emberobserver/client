@@ -26,7 +26,7 @@ module.exports = {
   test_page: "dist/tests/index.html?hidepassed&hideskipped&timeout=60000",
   timeout: 540,
   reporter: FailureOnlyReporter,
-  browser_start_timeout: 400,
+  browser_start_timeout: 600,
   parallel: 4,
   disable_watching: true,
   launchers: {
