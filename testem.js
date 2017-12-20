@@ -8,13 +8,13 @@ module.exports = {
       "protocol": "browser"
     },
     "bs_edge": {
-      command: "node_modules/.bin/browserstack-launch",
+      exe: "node_modules/.bin/browserstack-launch",
       args: ["--os", "Windows", "--osv", "10", "--b", "edge", "--bv", "16.0", "-t", "600", "--u"],
       "protocol": "browser"
     },
     "bs_chrome": {
       exe: "node_modules/.bin/browserstack-launch",
-      args: ["--os", "Windows", "--osv", "10", "--b", "chrome", "--bv", "58.0", "-t", "600", "--u"],
+      args: ["--os", "Windows", "--osv", "10", "--b", "chrome", "--bv", "latest", "-t", "600", "--u"],
       "protocol": "browser"
     }
   },
