@@ -3,6 +3,8 @@
 
 This is the frontend code for the [Ember Observer](http://emberobserver.com/) website.
 
+test
+
 To work on this app, change the proxy to https://www.emberobserver.com
 
 ## Prerequisites
