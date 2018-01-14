@@ -3,11 +3,6 @@ import moment from 'moment';
 
 export default Ember.Controller.extend({
   addon: Ember.computed.alias('model.addon'),
-  showExplanation: false,
-  showBadgeText: false,
-  licenseUrl: Ember.computed('addon.license', function() {
-    return `https://spdx.org/licenses/${this.get('addon.license')}`;
-  }),
   sortedReviews: Ember.computed('addon.reviews', function() {
     return this.get('addon.reviews').sortBy('versionReleased').reverse();
   }),
@@ -28,15 +23,6 @@ export default Ember.Controller.extend({
   }),
   isLatestReviewForLatestVersion: Ember.computed('latestReview.version.version', 'latestVersion.version', function() {
     return this.get('latestReview.version.version') === this.get('latestVersion.version');
-  }),
-  badgeText: Ember.computed('addon.name', function() {
-    return `[![Ember Observer Score](https://emberobserver.com/badges/${this.get('addon.name')}.svg)](https://emberobserver.com/addons/${this.get('addon.name')})`;
-  }),
-  installCommandText: Ember.computed('addon.name', function() {
-    return `ember install ${this.get('addon.name')}`;
-  }),
-  badgeSrc: Ember.computed('addon.name', function() {
-    return `https://emberobserver.com/badges/${this.get('addon.name')}.svg`;
   }),
   isTestResultForLatestVersion: Ember.computed('model.latestTestResult.version', 'latestVersion', function() {
     return this.get('model.latestTestResult.version.version') === this.get('latestVersion.version');
@@ -87,12 +73,6 @@ export default Ember.Controller.extend({
         controller.set('newReview', null);
         controller.set('isReviewing', false);
       });
-    },
-    toggleExplainScore() {
-      this.toggleProperty('showExplanation');
-    },
-    toggleBadgeText() {
-      this.toggleProperty('showBadgeText');
     }
   }
 
