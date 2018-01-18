@@ -17,7 +17,10 @@ dependencies:
     - ~/.cache/yarn
 
 test:
+  pre: 
+    - node_modules/.bin/ember browserstack:connect
   override:
     - COVERAGE=true yarn test
   post:
     - bash <(curl -s https://codecov.io/bash)
+    - node_modules/.bin/ember browserstack:disconnect
