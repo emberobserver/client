@@ -21,7 +21,7 @@ env:
 before_install:
   - npm config set spin false
   - yarn install
-  - bower install
+  - node_modules/.bin/bower install
 
 script:
   - ember browserstack:connect
