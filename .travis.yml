@@ -20,3 +20,11 @@ env:
 
 before_install:
   - npm config set spin false
+  - yarn install
+
+script:
+  - ember browserstack:connect
+  - ember test
+
+after_script:
+  - ember browserstack:disconnect
