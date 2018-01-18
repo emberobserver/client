@@ -30,9 +30,17 @@
     {{#if addon.ranking}}
       <span>{{#link-to "addons.top"}}Ranks #{{addon.ranking}} of the top 100 addons!{{/link-to}}</span>
     {{/if}}
-    {{score-detail addon=addon}}
+    {{score-detail
+      addon=addon
+      latestReview=latestReview
+      hasGithubData=hasGithubData
+      isSaving=isSaving
+      isLatestReleaseInLast3Months=isLatestReleaseInLast3Months}}
     {{#if session.isAuthenticated}}
-      {{info-form addon=addon save=(action "save")}}
+      {{info-form
+        addon=addon
+        isSaving=isSaving
+        save=(action "save")}}
     {{/if}}
 
     <section class="categories">
@@ -123,6 +131,7 @@
       addon=addon
       latestVersion=latestVersion
       testResult=model.latestTestResult
+      isTestResultForLatestVersion=isTestResultForLatestVersion
       sortedAddonVersions=sortedAddonVersions}}
   </div>
 </div>

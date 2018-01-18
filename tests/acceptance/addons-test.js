@@ -120,6 +120,8 @@ test('displays github data', function(assert) {
 
   visitAddon(addon);
 
+  click('.info-action');
+
   andThen(function() {
     assert.contains('.test-github-data', 'TOP 10% STARRED');
     assert.containsExactly('.test-open-issues', '13 Open Issues');
@@ -128,6 +130,7 @@ test('displays github data', function(assert) {
     assert.containsExactly('.test-contributors', '2 Contributors');
     assert.containsExactly('.test-latest-commit time', '2 months ago');
     assert.containsExactly('.test-first-commit time', 'a year ago');
+    assert.exists('.test-has-github-data', 'Displays score detail Github data');
   });
 });
 
@@ -207,6 +210,8 @@ test('displays review', function(assert) {
 
   visitAddon(addonWithReview);
 
+  click('.info-action');
+
   andThen(function() {
     assert.contains('.test-review-question:eq(0)', 'Is the source accessible?');
     assert.contains('.test-review-question:eq(0)', 'No');
@@ -222,6 +227,9 @@ test('displays review', function(assert) {
     assert.contains('.test-review-notes', 'Seems ok');
 
     assert.contains('.test-review-new-version-warning', 'New versions of this addon have been released since this review was undertaken.');
+
+    assert.contains('.test-latest-review-score', '2 points from review', 'Displays latest review score');
+    assert.contains('.test-release-published-in-last-three-months', '1 point for having published a release within the last 3 months', 'Displays latest review score');
   });
 });
 

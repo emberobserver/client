@@ -39,6 +39,7 @@ test("displays appropriate text when an addon's test result indicated a failure"
   andThen(function() {
     assert.exists('.test-ember-version-compatibility-section', 'displays the version compatibility section');
     assert.exists('.test-ember-version-compatibility-unknown', 'displays a message');
+    assert.notExists('.test-ember-version-compatibility-new-version-warning', '"New version" warning does not display');
   });
 });
 
