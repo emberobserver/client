@@ -48,6 +48,7 @@
     "ember-concurrency": "^0.8.12",
     "ember-data": "~2.13.0",
     "ember-export-application-global": "^2.0.0",
+    "ember-feature-flags": "^4.1.0",
     "ember-load-initializers": "^1.0.0",
     "ember-metrics": "^0.12.1",
     "ember-moment": "^7.5.0",

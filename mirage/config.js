@@ -148,6 +148,10 @@ export default function() {
     };
   });
 
+  this.get('/ember-versions', function(schema) {
+    return schema.emberVersions.first();
+  });
+
   this.get('https://api.github.com/repos/emberjs/ember.js/releases', function(/* db, request*/) {
     return EmberVersionsResponse;
   });

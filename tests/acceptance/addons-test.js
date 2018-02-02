@@ -3,6 +3,7 @@ import { test } from 'qunit';
 import moduleForAcceptance from 'ember-observer/tests/helpers/module-for-acceptance';
 import EmberVersionsResponse from '../ember-version-response';
 import moment from 'moment';
+import 'ember-feature-flags/test-support/helpers/with-feature';
 
 moduleForAcceptance('Acceptance: Addons');
 
@@ -230,6 +231,98 @@ test('displays review', function(assert) {
 
     assert.contains('.test-latest-review-score', '2 points from review', 'Displays latest review score');
     assert.contains('.test-release-published-in-last-three-months', '1 point for having published a release within the last 3 months', 'Displays latest review score');
+  });
+});
+
+test('displays addon stats with new EmberVersions model', function(assert) {
+  withFeature('ember-versions-model');
+  let maintainers = server.createList('maintainer', 3);
+
+  let keywords = server.createList('keyword', 5);
+  let addon = server.create('addon', {
+    name: 'test-addon',
+    maintainerIds: maintainers.map((m) => m.id),
+    latestVersionDate: window.moment().subtract(3, 'months'),
+    isTopDownloaded: true,
+    lastMonthDownloads: 1564,
+    demoUrl: 'http://www.example.com/demo_of_addon',
+    repositoryUrl: 'http://www.example.com/addon_repo',
+    license: 'MIT',
+    keywords
+  });
+
+  server.create('version', {
+    version: '1.0.1',
+    addonId: addon.id,
+    emberCliVersion: '1.13.1',
+    released: window.moment().subtract(3, 'months')
+  });
+
+  server.create('version', {
+    version: '1.0.0',
+    addonId: addon.id,
+    emberCliVersion: '1.13.0',
+    released: window.moment().subtract(4, 'months')
+  });
+
+  let version = Ember.copy(EmberVersionsResponse[0]);
+  version.published_at = window.moment().subtract(14, 'weeks');      // eslint-disable-line camelcase
+  version.tag_name = 'v15.0.0';                                      // eslint-disable-line camelcase
+  let olderVersion = Ember.copy(EmberVersionsResponse[1]);
+  olderVersion.published_at = window.moment().subtract(5, 'months'); // eslint-disable-line camelcase
+  olderVersion.tag_name = 'v14.0.0';                                 // eslint-disable-line camelcase
+
+  let emberVersionsData = [version, olderVersion];
+
+  server.create('ember-versions', { githubResponse: emberVersionsData });
+
+  visitAddon(addon);
+
+  andThen(function() {
+    assert.contains('.test-addon-install-command', 'ember install test-addon');
+
+    assert.contains('.test-addon-latest-version', '1.0.1 from 3 months ago');
+
+    assert.contains('.test-addon-top-downloaded', 'TOP 10%');
+    assert.contains('.test-addon-top-downloaded', '1,564 downloads in last month');
+
+    assert.exists('.test-addon-demo-url a[href="http://www.example.com/demo_of_addon"]');
+    assert.contains('.test-addon-demo-url b', 'example.com');
+    assert.contains('.test-addon-demo-url', '/demo_of_addon');
+
+    assert.exists('.test-addon-repo-url a[href="http://www.example.com/addon_repo"]');
+    assert.contains('.test-addon-repo-url b', 'example.com');
+    assert.contains('.test-addon-repo-url', '/addon_repo');
+
+    assert.exists('.test-addon-package-url a[href="https://www.npmjs.com/package/test-addon"]');
+    assert.contains('.test-addon-package-url b', 'npmjs.com');
+    assert.contains('.test-addon-package-url', '/package/test-addon');
+
+    assert.contains('.test-addon-license a[href="https://spdx.org/licenses/MIT"]', 'MIT');
+
+    assert.containsExactly('.test-addon-keywords', 'keyword-0, keyword-1, keyword-2, keyword-3, keyword-4');
+
+    assert.exists('.test-addon-maintainers a', 3, 'maintainers should display');
+    assert.exists('.test-addon-maintainers a[href*="/maintainers/maintainer-0"]', 'maintainers should have link to them');
+    assert.exists('.test-addon-maintainers img[src="https://secure.gravatar.com/avatar/412412d3d6d6fc8809f9121216dd0?d=identicon"]', 'maintainers should have gravatar');
+    assert.exists('.test-addon-maintainers img[title="maintainer-0"][alt="maintainer-0"]', 'Title and source of gravatar are set');
+
+    assert.contains('.test-addon-ember-cli-version', '1.13.1');
+
+    assert.contains('.test-addon-version-count', 'versions (2)');
+    assert.exists('.test-addon-versions li', 3, 'Only 3 list items should be under versions, 2 for versions, 1 for ember verions after publishing of addon');
+    assert.contains('.test-addon-versions li:eq(0)', '1.0.1');
+    assert.contains('.test-addon-versions li:eq(1)', 'Ember v15.0.0');
+    assert.contains('.test-addon-versions li:eq(2)', '1.0.0');
+
+    assert.exists('.test-addon-badge img[src="https://emberobserver.com/badges/test-addon.svg"]');
+    assert.exists('.test-addon-badge .test-show-badge-markdown.icon-content-paste', 'Show badge markdown to copy');
+    assert.contains('.test-addon-correction-link[href*="/addons/test-addon/correct"]', 'Suggest a correction');
+  });
+
+  click('.test-addon-badge .test-show-badge-markdown');
+  andThen(function() {
+    assert.contains('.test-addon-badge .test-badge-markdown', '[![Ember Observer Score](https://emberobserver.com/badges/test-addon.svg)](https://emberobserver.com/addons/test-addon)');
   });
 });
 
