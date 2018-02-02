@@ -3,7 +3,7 @@ import { moduleFor, test } from 'ember-qunit';
 
 moduleFor('service:ember-versions', 'Unit | Service | ember versions', {
   // Specify the other units that are required for this test.
-  needs: ['service:ajax']
+  needs: ['service:ajax', 'service:features']
 });
 
 test('versionData returns empty array if data is empty', function(assert) {
