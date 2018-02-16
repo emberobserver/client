@@ -1,26 +1,31 @@
-import Ember from 'ember';
+import { scheduleOnce } from '@ember/runloop';
+import { hash, resolve } from 'rsvp';
+import { isBlank } from '@ember/utils';
+import { computed } from '@ember/object';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 import { task, timeout } from 'ember-concurrency';
 
 const PageSize = 10;
 
-export default Ember.Component.extend({
-  store: Ember.inject.service(),
-  session: Ember.inject.service(),
-  searchService: Ember.inject.service('search'),
-  routing: Ember.inject.service('-routing'),
-  metrics: Ember.inject.service(),
+export default Component.extend({
+  store: service(),
+  session: service(),
+  searchService: service('search'),
+  routing: service('-routing'),
+  metrics: service(),
   focusNode: '#search-input',
   init() {
     this._super(...arguments);
     this.get('search').perform(this.get('query'));
   },
-  hasSearchedAndNoResults: Ember.computed('queryIsValid', 'results.length', 'search.isIdle', function() {
+  hasSearchedAndNoResults: computed('queryIsValid', 'results.length', 'search.isIdle', function() {
     return this.get('queryIsValid') && !this.get('results.length') && this.get('search.isIdle');
   }),
-  queryIsValid: Ember.computed('query', function() {
+  queryIsValid: computed('query', function() {
     let emMatcher = /(^e$|^em$|^emb$|^embe$|^ember$|^ember-$)/;
     let query = this.get('query');
-    return !(Ember.isBlank(query) || query.length < 3 || emMatcher.test(query));
+    return !(isBlank(query) || query.length < 3 || emMatcher.test(query));
   }),
   fetchMoreAddons: task(function* () {
     let pageToFetch = this.get('_results.lastAddonPageDisplaying') + 1;
@@ -88,7 +93,7 @@ export default Ember.Component.extend({
     let maintainersPromise = this._fetchPageOfMaintainerResults(results.maintainerResults, 1);
     let readmePromise = this._fetchPageOfAddonResults(results.readmeResults, 1);
 
-    return Ember.RSVP.hash({
+    return hash({
       addons: addonsPromise,
       categories: categoriesPromise,
       maintainers: maintainersPromise,
@@ -97,26 +102,26 @@ export default Ember.Component.extend({
   },
   _fetchPageOfMaintainerResults(results, page) {
     if (!results || !results.matchCount) {
-      return Ember.RSVP.resolve(null);
+      return resolve(null);
     }
     let ids = results.matchIds.slice((page - 1) * PageSize, page * PageSize);
     return this.get('store').query('maintainer', { filter: { id: ids.join(',') }, sort: 'name' }).then((maintainers) => maintainers.toArray());
   },
   _fetchPageOfCategoryResults(results, page) {
     if (!results || !results.matchCount) {
-      return Ember.RSVP.resolve(null);
+      return resolve(null);
     }
     let ids = results.matchIds.slice((page - 1) * PageSize, page * PageSize);
     return this.get('store').query('category', { filter: { id: ids.join(',') }, sort: 'name' }).then((categories) => categories.toArray());
   },
   _fetchPageOfAddonResults(results, page) {
     if (!results || !results.matchCount) {
-      return Ember.RSVP.resolve(null);
+      return resolve(null);
     }
     let ids = results.matchIds.slice((page - 1) * PageSize, page * PageSize);
     return this.get('store').query('addon', { filter: { id: ids.join(',') }, sort: '-score', include: 'categories' }).then((addons) => addons.toArray());
   },
-  results: Ember.computed('query', '_results', function() {
+  results: computed('query', '_results', function() {
     if (this.get('queryIsValid')) {
       return this.get('_results');
     }
@@ -130,6 +135,6 @@ export default Ember.Component.extend({
 
     this.set('query', '');
     this.set('_results', null);
-    Ember.run.scheduleOnce('afterRender', this, 'focus');
+    scheduleOnce('afterRender', this, 'focus');
   }
 });

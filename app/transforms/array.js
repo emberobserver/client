@@ -1,9 +1,9 @@
+import { typeOf } from '@ember/utils';
 import DS from 'ember-data';
-import Ember from 'ember';
 
 export default DS.Transform.extend({
   deserialize(serialized) {
-    let type = Ember.typeOf(serialized);
+    let type = typeOf(serialized);
     if (type === 'array') {
       return serialized;
     } else {

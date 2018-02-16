@@ -1,8 +1,8 @@
-import Ember from 'ember';
+import { alias } from '@ember/object/computed';
+import { computed } from '@ember/object';
 import DS from 'ember-data';
 
 const { attr, belongsTo } = DS;
-const { computed } = Ember;
 
 export default DS.Model.extend({
   questions: [
@@ -20,8 +20,8 @@ export default DS.Model.extend({
   isOpenSource: attr('number'),
   hasBuild: attr('number'),
   version: belongsTo('version'),
-  versionReleased: computed.alias('version.released'),
-  score: Ember.computed(
+  versionReleased: alias('version.released'),
+  score: computed(
     'hasTests',
     'isMoreThanEmptyAddon',
     'isOpenSource',

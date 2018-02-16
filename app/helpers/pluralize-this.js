@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { helper } from '@ember/component/helper';
 
 export function pluralizeThis([count, singular, plural]/* , hash*/) {
   let pluralized = plural || `${singular}s`;
@@ -8,4 +8,4 @@ export function pluralizeThis([count, singular, plural]/* , hash*/) {
   return `${count} ${pluralized}`;
 }
 
-export default Ember.Helper.helper(pluralizeThis);
+export default helper(pluralizeThis);

@@ -1,8 +1,9 @@
-import Ember from 'ember';
+import { hash } from 'rsvp';
+import Route from '@ember/routing/route';
 
-export default Ember.Route.extend({
+export default Route.extend({
   model(params) {
-    return Ember.RSVP.hash({
+    return hash({
       date: params.date,
       testResults: this.store.query('test-result', {
         fields: {

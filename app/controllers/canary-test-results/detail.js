@@ -1,7 +1,8 @@
-import Ember from 'ember';
+import { alias } from '@ember/object/computed';
+import Controller from '@ember/controller';
 
-export default Ember.Controller.extend({
-  testResult: Ember.computed.alias('model'),
-  addonVersion: Ember.computed.alias('testResult.version'),
-  addon: Ember.computed.alias('addonVersion.addon')
+export default Controller.extend({
+  testResult: alias('model'),
+  addonVersion: alias('testResult.version'),
+  addon: alias('addonVersion.addon')
 });

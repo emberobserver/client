@@ -1,11 +1,9 @@
-import Ember from 'ember';
+import Service, { inject as service } from '@ember/service';
 
-const { inject } = Ember;
+export default Service.extend({
+  apiAjax: service(),
 
-export default Ember.Service.extend({
-  apiAjax: inject.service(),
-
-  store: inject.service(),
+  store: service(),
 
   addons(query, regex) {
     return this.get('apiAjax').request('/search/addons', {

@@ -1,19 +1,21 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import { alias, sort } from '@ember/object/computed';
+import Controller from '@ember/controller';
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   queryParams: {
     addonSortKey: 'sort'
   },
   addonSortKey: 'score',
-  category: Ember.computed.alias('model.category'),
-  addons: Ember.computed.alias('model.addons'),
-  sortedAddons: Ember.computed.sort('addons', 'addonSorting'),
+  category: alias('model.category'),
+  addons: alias('model.addons'),
+  sortedAddons: sort('addons', 'addonSorting'),
 
-  hasSubcategories: Ember.computed('category.subcategories', function() {
+  hasSubcategories: computed('category.subcategories', function() {
     return this.get('category.subcategories.length') > 0;
   }),
 
-  addonSorting: Ember.computed('addonSortKey', function() {
+  addonSorting: computed('addonSortKey', function() {
     let sortKeyMapping = {
       'latestVersionDate': ['latestVersionDate:desc'],
       'name': ['name:asc'],

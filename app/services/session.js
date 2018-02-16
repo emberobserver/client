@@ -1,20 +1,24 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import { bind } from '@ember/runloop';
+import $ from 'jquery';
+import { Promise as EmberPromise } from 'rsvp';
+import Service from '@ember/service';
 import LocalStore from '../utils/local-storage';
 
-export default Ember.Service.extend({
+export default Service.extend({
   open(email, password) {
     let session = this;
-    return new Ember.RSVP.Promise(function(resolve, reject) {
-      Ember.$.ajax({
+    return new EmberPromise(function(resolve, reject) {
+      $.ajax({
         type: 'POST',
         url: '/api/v2/authentication/login.json',
         data: { email, password },
         dataType: 'json',
-        success: Ember.run.bind(null, resolve),
-        error: Ember.run.bind(null, reject)
+        success: bind(null, resolve),
+        error: bind(null, reject)
       });
     }).then(function(response) {
-      return new Ember.RSVP.Promise(function(resolve, reject) {
+      return new EmberPromise(function(resolve, reject) {
         if (response.token) {
           session.set('token', response.token);
           LocalStore.save('sessionToken', response.token);
@@ -36,14 +40,14 @@ export default Ember.Service.extend({
   },
   close() {
     let session = this;
-    return new Ember.RSVP.Promise(function(resolve, reject) {
-      Ember.$.ajax({
+    return new EmberPromise(function(resolve, reject) {
+      $.ajax({
         type: 'POST',
         url: '/api/authentication/logout.json',
         dataType: 'json',
         headers: session.get('header'),
-        success: Ember.run.bind(null, resolve),
-        error: Ember.run.bind(null, reject)
+        success: bind(null, resolve),
+        error: bind(null, reject)
       });
     }).finally(function() {
       session.clearToken();
@@ -54,13 +58,13 @@ export default Ember.Service.extend({
     LocalStore.remove('sessionToken');
   },
   isAuthenticated: isPresent('token'),
-  header: Ember.computed('token', function() {
+  header: computed('token', function() {
     return { 'Authorization': `Token token=${this.get('token')}` };
   })
 });
 
 function isPresent(strProp) {
-  return Ember.computed(strProp, function() {
+  return computed(strProp, function() {
     let str = this.get(strProp);
     return typeof str !== 'undefined' && !(/^\s*$/).test(str) && (str !== null);
   });

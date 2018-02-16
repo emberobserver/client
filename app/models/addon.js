@@ -1,4 +1,5 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import { gt } from '@ember/object/computed';
 import Model from 'ember-data/model';
 import attr from 'ember-data/attr';
 import { hasMany, belongsTo } from 'ember-data/relationships';
@@ -34,11 +35,11 @@ export default Model.extend({
   maintainers: hasMany('maintainer', { async: true }),
   reviews: hasMany('review', { async: true }),
   readme: belongsTo('readme', { async: true }),
-  hasMoreThan1Contributor: Ember.computed.gt('githubUsers.length', 1),
-  npmUrl: Ember.computed('name', function() {
+  hasMoreThan1Contributor: gt('githubUsers.length', 1),
+  npmUrl: computed('name', function() {
     return `https://www.npmjs.com/package/${this.get('name')}`;
   }),
-  isNewAddon: Ember.computed('publishedDate', function() {
+  isNewAddon: computed('publishedDate', function() {
     return moment(this.get('publishedDate')).isAfter(moment().subtract(2, 'weeks'));
   })
 });

@@ -1,5 +1,5 @@
+import { alias } from '@ember/object/computed';
 import DS from 'ember-data';
-import Ember from 'ember';
 
 export default DS.Model.extend({
   succeeded: DS.attr('boolean'),
@@ -11,5 +11,5 @@ export default DS.Model.extend({
 
   version: DS.belongsTo('version'),
   emberVersionCompatibilities: DS.hasMany('emberVersionCompatibility'),
-  testsRunAt: Ember.computed.alias('createdAt')
+  testsRunAt: alias('createdAt')
 });

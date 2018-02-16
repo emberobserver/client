@@ -1,33 +1,35 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import { alias, readOnly } from '@ember/object/computed';
+import Controller from '@ember/controller';
 import moment from 'moment';
 
-export default Ember.Controller.extend({
-  addon: Ember.computed.alias('model.addon'),
-  sortedReviews: Ember.computed('addon.reviews', function() {
+export default Controller.extend({
+  addon: alias('model.addon'),
+  sortedReviews: computed('addon.reviews', function() {
     return this.get('addon.reviews').sortBy('versionReleased').reverse();
   }),
-  latestReview: Ember.computed.alias('sortedReviews.firstObject'),
-  sortedCategories: Ember.computed('model.categories', function() {
+  latestReview: alias('sortedReviews.firstObject'),
+  sortedCategories: computed('model.categories', function() {
     return this.get('model.categories').sortBy('displayName');
   }),
-  sortedAddonVersions: Ember.computed('addon.versions', function() {
+  sortedAddonVersions: computed('addon.versions', function() {
     return this.get('addon.versions').sortBy('released').reverse();
   }),
-  latestVersion: Ember.computed.readOnly('sortedAddonVersions.firstObject'),
-  isLatestReleaseInLast3Months: Ember.computed('latestVersion.released', function() {
+  latestVersion: readOnly('sortedAddonVersions.firstObject'),
+  isLatestReleaseInLast3Months: computed('latestVersion.released', function() {
     if (!this.get('latestVersion.released')) {
       return false;
     }
     let threeMonthsAgo = moment().subtract(3, 'months');
     return moment(this.get('latestVersion.released')).isAfter(threeMonthsAgo);
   }),
-  isLatestReviewForLatestVersion: Ember.computed('latestReview.version.version', 'latestVersion.version', function() {
+  isLatestReviewForLatestVersion: computed('latestReview.version.version', 'latestVersion.version', function() {
     return this.get('latestReview.version.version') === this.get('latestVersion.version');
   }),
-  isTestResultForLatestVersion: Ember.computed('model.latestTestResult.version', 'latestVersion', function() {
+  isTestResultForLatestVersion: computed('model.latestTestResult.version', 'latestVersion', function() {
     return this.get('model.latestTestResult.version.version') === this.get('latestVersion.version');
   }),
-  hasGithubData: Ember.computed('addon.hasInvalidGithubRepo', 'addon.githubStats.firstCommitDate', function() {
+  hasGithubData: computed('addon.hasInvalidGithubRepo', 'addon.githubStats.firstCommitDate', function() {
     return !this.get('addon.hasInvalidGithubRepo') && this.get('addon.githubStats.firstCommitDate');
   }),
 

@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import { helper } from '@ember/component/helper';
 
-export default Ember.Helper.helper(function testResultStatusClass([testResult]) {
+export default helper(function testResultStatusClass([testResult]) {
   if (testResult.get('succeeded')) {
     if (testResult.get('emberVersionCompatibilities.firstObject.compatible')) {
       return 'passed';

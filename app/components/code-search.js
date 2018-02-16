@@ -1,15 +1,19 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import { mapBy, sum, notEmpty, or } from '@ember/object/computed';
+import { scheduleOnce } from '@ember/runloop';
+import { resolve } from 'rsvp';
+import Component from '@ember/component';
+import { computed } from '@ember/object';
+import { isEmpty, isBlank } from '@ember/utils';
 import { task, timeout } from 'ember-concurrency';
 import config from 'ember-observer/config/environment';
 
-const { computed, inject, isEmpty } = Ember;
-
 const PageSize = config.codeSearchPageSize;
 
-export default Ember.Component.extend({
-  metrics: inject.service(),
+export default Component.extend({
+  metrics: service(),
 
-  store: inject.service(),
+  store: service(),
 
   codeQuery: null,
 
@@ -21,17 +25,17 @@ export default Ember.Component.extend({
 
   focusNode: '#code-search-input',
 
-  codeSearch: inject.service(),
+  codeSearch: service(),
 
-  usageCounts: computed.mapBy('results.rawResults', 'count'),
+  usageCounts: mapBy('results.rawResults', 'count'),
 
-  filteredUsageCounts: computed.mapBy('results.filteredResults', 'count'),
+  filteredUsageCounts: mapBy('results.filteredResults', 'count'),
 
-  totalUsageCount: computed.sum('usageCounts'),
+  totalUsageCount: sum('usageCounts'),
 
-  totalFilteredUsageCount: computed.sum('filteredUsageCounts'),
+  totalFilteredUsageCount: sum('filteredUsageCounts'),
 
-  isFilterApplied: computed.notEmpty('fileFilter'),
+  isFilterApplied: notEmpty('fileFilter'),
 
   showFilteredUsages: computed('isFilterApplied', 'isUpdatingFilter', function() {
     return this.get('isFilterApplied') && !this.get('isUpdatingFilter');
@@ -48,7 +52,7 @@ export default Ember.Component.extend({
   }),
   queryIsValid: computed('searchInput', function() {
     let input = this.get('searchInput');
-    return !(Ember.isBlank(input) || input.length < 2);
+    return !(isBlank(input) || input.length < 2);
   }),
   search: task(function* () {
     let query = this.get('searchInput').trim();
@@ -101,7 +105,7 @@ export default Ember.Component.extend({
 
   _fetchPageOfAddonResults(results, page, sort) {
     if (!results || !results.length) {
-      return Ember.RSVP.resolve(null);
+      return resolve(null);
     }
 
     let sortedResults = sortResults(results, sort);
@@ -140,16 +144,16 @@ export default Ember.Component.extend({
     this.$(this.get('focusNode')).focus();
   },
 
-  isUpdatingResults: computed.or('applyFileFilter.isRunning', 'clearFileFilter.isRunning', 'sortBy.isRunning'),
+  isUpdatingResults: or('applyFileFilter.isRunning', 'clearFileFilter.isRunning', 'sortBy.isRunning'),
 
-  isUpdatingFilter: computed.or('applyFileFilter.isRunning', 'clearFileFilter.isRunning'),
+  isUpdatingFilter: or('applyFileFilter.isRunning', 'clearFileFilter.isRunning'),
 
   actions: {
     clearSearch() {
       this.set('codeQuery', '');
       this.set('searchInput', '');
       this.set('results', null);
-      Ember.run.scheduleOnce('afterRender', this, 'focus');
+      scheduleOnce('afterRender', this, 'focus');
     }
   }
 });

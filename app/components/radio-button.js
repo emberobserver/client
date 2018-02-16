@@ -1,8 +1,9 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
   tagName: 'span',
-  isSelected: Ember.computed('selected', 'option', function() {
+  isSelected: computed('selected', 'option', function() {
     let selected = this.get('selected');
     let opt = this.get('option');
     if (!selected) {

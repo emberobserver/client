@@ -1,7 +1,7 @@
-import Ember from 'ember';
+import Route from '@ember/routing/route';
 import measure from '../../utils/measure';
 
-export default Ember.Route.extend({
+export default Route.extend({
   model() {
     return this.get('store').query('addon', { page: { limit: 100 }, filter: { top: true }, sort: 'ranking', include: 'categories' });
   },

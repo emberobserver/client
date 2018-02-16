@@ -1,9 +1,10 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
+import { computed } from '@ember/object';
+import { isEmpty } from '@ember/utils';
 import { task } from 'ember-concurrency';
 
-const { computed, inject, isEmpty } = Ember;
-
-export default Ember.Component.extend({
+export default Component.extend({
   visibleUsageCount: 25,
 
   showUsages: false,
@@ -14,7 +15,7 @@ export default Ember.Component.extend({
 
   fileFilter: null,
 
-  codeSearch: inject.service(),
+  codeSearch: service(),
 
   visibleUsages: computed('visibleUsageCount', 'usages', function() {
     return this.get('usages').slice(0, this.get('visibleUsageCount'));

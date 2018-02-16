@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { helper } from '@ember/component/helper';
 import { padEnd } from 'ember-pad/utils/pad';
 
 export function padLineNumber(params/* , hash*/) {
@@ -8,4 +8,4 @@ export function padLineNumber(params/* , hash*/) {
   return padEnd(numberToPad.toString(), maxLineNumber.toString().length, ' ');
 }
 
-export default Ember.Helper.helper(padLineNumber);
+export default helper(padLineNumber);

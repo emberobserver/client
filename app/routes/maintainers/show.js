@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Route from '@ember/routing/route';
 
-export default Ember.Route.extend({
+export default Route.extend({
   model(params) {
     return this.get('store').query('maintainer', { filter: { name: params.name } }).then((maintainers) => {
       return maintainers.get('firstObject');

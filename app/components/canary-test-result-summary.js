@@ -1,8 +1,10 @@
-import Ember from 'ember';
+import { filter, readOnly } from '@ember/object/computed';
+import Component from '@ember/component';
+import { computed } from '@ember/object';
 import computedPercent from 'ember-observer/utils/computed-percent';
 
 function computedFormattedPercent(percentPropertyName) {
-  return Ember.computed(percentPropertyName, function() {
+  return computed(percentPropertyName, function() {
     let value = this.get(percentPropertyName);
     if (!value) {
       return '--';
@@ -12,21 +14,21 @@ function computedFormattedPercent(percentPropertyName) {
   });
 }
 
-export default Ember.Component.extend({
-  errorBuilds: Ember.computed.filter('testResults', (testResult) => {
+export default Component.extend({
+  errorBuilds: filter('testResults', (testResult) => {
     return !testResult.get('succeeded');
   }),
-  failedBuilds: Ember.computed.filter('testResults', (testResult) => {
+  failedBuilds: filter('testResults', (testResult) => {
     return testResult.get('succeeded') && !testResult.get('emberVersionCompatibilities.firstObject.compatible');
   }),
-  passedBuilds: Ember.computed.filter('testResults', (testResult) => {
+  passedBuilds: filter('testResults', (testResult) => {
     return testResult.get('succeeded') && testResult.get('emberVersionCompatibilities.firstObject.compatible');
   }),
 
-  numberOfErrorBuilds: Ember.computed.readOnly('errorBuilds.length'),
-  numberOfFailedBuilds: Ember.computed.readOnly('failedBuilds.length'),
-  numberOfPassedBuilds: Ember.computed.readOnly('passedBuilds.length'),
-  numberOfBuilds: Ember.computed.readOnly('testResults.length'),
+  numberOfErrorBuilds: readOnly('errorBuilds.length'),
+  numberOfFailedBuilds: readOnly('failedBuilds.length'),
+  numberOfPassedBuilds: readOnly('passedBuilds.length'),
+  numberOfBuilds: readOnly('testResults.length'),
 
   percentOfErrorBuilds: computedPercent('numberOfErrorBuilds', 'numberOfBuilds'),
   percentOfFailedBuilds: computedPercent('numberOfFailedBuilds', 'numberOfBuilds'),

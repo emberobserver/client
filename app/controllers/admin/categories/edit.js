@@ -1,28 +1,38 @@
-import Ember from 'ember';
+import { Promise as EmberPromise } from 'rsvp';
+import {
+  alias,
+  oneWay,
+  sort,
+  filter,
+  gt,
+  empty,
+  filterBy
+} from '@ember/object/computed';
+import Controller from '@ember/controller';
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   categoryNameSorting: ['name:asc'],
   categoryPositionSorting: ['position:asc'],
 
-  categories: Ember.computed.alias('model.categories'),
-  category: Ember.computed.alias('model.category'),
+  categories: alias('model.categories'),
+  category: alias('model.category'),
 
-  categoryDescription: Ember.computed.oneWay('category.description'),
-  categoryName: Ember.computed.oneWay('category.name'),
-  categoryParent: Ember.computed.oneWay('category.parent.id'),
-  categoryPosition: Ember.computed.oneWay('category.position'),
+  categoryDescription: oneWay('category.description'),
+  categoryName: oneWay('category.name'),
+  categoryParent: oneWay('category.parent.id'),
+  categoryPosition: oneWay('category.position'),
 
-  subcategories: Ember.computed.sort('category.subcategories', 'categoryPositionSorting'),
-  siblingCategories: Ember.computed.filter('categories', function(item) {
+  subcategories: sort('category.subcategories', 'categoryPositionSorting'),
+  siblingCategories: filter('categories', function(item) {
     return item.get('parent.id') === this.get('category.parent.id');
   }),
-  sortedSiblingCategories: Ember.computed.sort('siblingCategories', 'categoryPositionSorting'),
-  hasSiblingCategories: Ember.computed.gt('siblingCategories.length', 1),
+  sortedSiblingCategories: sort('siblingCategories', 'categoryPositionSorting'),
+  hasSiblingCategories: gt('siblingCategories.length', 1),
 
-  isTopLevelCategory: Ember.computed.empty('category.parent'),
+  isTopLevelCategory: empty('category.parent'),
 
-  topLevelCategories: Ember.computed.filterBy('categories', 'parent', null),
-  alphabeticTopLevelCategories: Ember.computed.sort('topLevelCategories', 'categoryNameSorting'),
+  topLevelCategories: filterBy('categories', 'parent', null),
+  alphabeticTopLevelCategories: sort('topLevelCategories', 'categoryNameSorting'),
 
   newCategoryName: '',
   newCategoryDescription: '',
@@ -67,7 +77,7 @@ export default Ember.Controller.extend({
       if (parentId) {
         findPromise = this.get('store').find('category', parentId);
       } else {
-        findPromise = new Ember.RSVP.Promise((resolve) => resolve(null));
+        findPromise = new EmberPromise((resolve) => resolve(null));
       }
 
       findPromise.then(function(parentCategory) {

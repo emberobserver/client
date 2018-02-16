@@ -1,11 +1,12 @@
-import Ember from 'ember';
+import $ from 'jquery';
+import Controller from '@ember/controller';
 
-export default Ember.Controller.extend({
+export default Controller.extend({
 
   actions: {
     submitCorrection() {
       let controller = this;
-      Ember.$.post('/api/v2/corrections', {
+      $.post('/api/v2/corrections', {
         name: this.get('name'),
         email: this.get('email'),
         addon: this.get('model.name'),

@@ -1,6 +1,6 @@
 /* global QUnit */
 
-import Ember from 'ember';
+import $ from 'jquery';
 
 QUnit.assert.contains = function(selector, text, message) {
   let elements = find(selector);
@@ -9,12 +9,12 @@ QUnit.assert.contains = function(selector, text, message) {
   message = `${(message || '')} - At least one element ${selector} containing "${text}" should exist.`;
 
   if (elements.length === 1) {
-    let resultText = Ember.$(elements).text();
+    let resultText = $(elements).text();
     result = regex.test(resultText);
     this.pushResult({ result, actual: resultText, expected: text, message });
   } else {
     elements.each(function() {
-      if (regex.test(Ember.$(this).text())) {
+      if (regex.test($(this).text())) {
         result = true;
       }
     });
@@ -27,9 +27,9 @@ QUnit.assert.containsExactly = function(selector, text, message = '') {
   if (elements.length !== 1) {
     throw new Error(`One element was expected with selector ${selector} but ${elements.length} were found`);
   }
-  let result = (Ember.$(elements[0]).text().trim().replace(/\s+/gm, '') === text.trim().replace(/\s+/gm, ''));
+  let result = ($(elements[0]).text().trim().replace(/\s+/gm, '') === text.trim().replace(/\s+/gm, ''));
   message = `${message} - ${selector} should contain ${text}`;
-  this.pushResult({ result, actual: Ember.$(elements[0]).text(), expected: text, message });
+  this.pushResult({ result, actual: $(elements[0]).text(), expected: text, message });
 };
 
 QUnit.assert.notExists = function(selector, prependMessage = '') {
@@ -86,7 +86,7 @@ QUnit.assert.visible = function(selector, count, prependMessage) {
 };
 
 QUnit.assert.typeaheadSuggestionsAre = function(selector, suggestions, message) {
-  let actualSuggestions = find(`${selector} .ember-power-select-option`).toArray().map((option) => Ember.$(option).text().trim());
+  let actualSuggestions = find(`${selector} .ember-power-select-option`).toArray().map((option) => $(option).text().trim());
   this.deepEqual(actualSuggestions, suggestions, message || 'Typeahead suggestions should match exactly');
 };
 

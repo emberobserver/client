@@ -1,23 +1,25 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import { alias } from '@ember/object/computed';
+import Controller from '@ember/controller';
 import moment from 'moment';
 
-export default Ember.Controller.extend({
-  date: Ember.computed.alias('model.date'),
+export default Controller.extend({
+  date: alias('model.date'),
 
-  formattedDisplayDate: Ember.computed('date', function() {
+  formattedDisplayDate: computed('date', function() {
     return moment(this.get('date')).utc().format('YYYY-MM-DD');
   }),
 
-  formattedPreviousDate: Ember.computed('date', function() {
+  formattedPreviousDate: computed('date', function() {
     let date = this.get('date');
     return moment(date).subtract(1, 'day').format('YYYY-MM-DD');
   }),
 
-  formattedFollowingDate: Ember.computed('date', function() {
+  formattedFollowingDate: computed('date', function() {
     let date = this.get('date');
     return moment(date).add(1, 'day').format('YYYY-MM-DD');
   }),
-  showFollowingDayLink: Ember.computed('date', function() {
+  showFollowingDayLink: computed('date', function() {
     let dateFromParam = moment(this.get('date'));
     let currentDate = moment();
     return !dateFromParam.isSame(currentDate, 'day');
