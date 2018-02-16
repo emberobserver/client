@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import { helper } from '@ember/component/helper';
 
-export default Ember.Helper.helper(function canaryVersion([testResult]) {
+export default helper(function canaryVersion([testResult]) {
   let version = testResult.get('emberVersionCompatibilities.firstObject.emberVersion');
   if (!version) {
     return 'an unknown version';

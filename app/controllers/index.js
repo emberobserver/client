@@ -1,5 +1,5 @@
-import Ember from 'ember';
+import Controller from '@ember/controller';
 import ControllerWithSearch from '../mixins/controller-with-search';
 
-export default Ember.Controller.extend(ControllerWithSearch, {
+export default Controller.extend(ControllerWithSearch, {
 });

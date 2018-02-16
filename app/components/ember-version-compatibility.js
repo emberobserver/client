@@ -1,23 +1,25 @@
-import Ember from 'ember';
+import { compare } from '@ember/utils';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
   tagName: '',
   showTable: false,
 
-  versionCompatibilitiesForReleasedVersions: Ember.computed('testResult.emberVersionCompatibilities.@each.emberVersion', function() {
+  versionCompatibilitiesForReleasedVersions: computed('testResult.emberVersionCompatibilities.@each.emberVersion', function() {
     return this.get('testResult.emberVersionCompatibilities')
       .filter((versionCompatibility) => !versionCompatibility.get('emberVersion').match(/(beta|canary)/));
   }),
 
-  sortedVersionCompatibilities: Ember.computed('versionCompatibilitiesForReleasedVersions.@each.emberVersion', function() {
+  sortedVersionCompatibilities: computed('versionCompatibilitiesForReleasedVersions.@each.emberVersion', function() {
     return this.get('versionCompatibilitiesForReleasedVersions').toArray().sort(sortByVersion);
   }),
 
-  allTestsPassed: Ember.computed('versionCompatibilitiesForReleasedVersions.@each.compatible', function() {
+  allTestsPassed: computed('versionCompatibilitiesForReleasedVersions.@each.compatible', function() {
     return this.get('versionCompatibilitiesForReleasedVersions').every((versionCompatibility) => versionCompatibility.get('compatible'));
   }),
 
-  compatibilitySemverString: Ember.computed('sortedVersionCompatibilities.[]', function() {
+  compatibilitySemverString: computed('sortedVersionCompatibilities.[]', function() {
     let earliestVersion = this.get('sortedVersionCompatibilities.lastObject.emberVersion');
     let latestVersion = this.get('sortedVersionCompatibilities.firstObject.emberVersion');
 
@@ -43,11 +45,11 @@ function sortByVersion(a, b) {
   let [majorA, minorA, patchA] = extractVersionParts(a.get('emberVersion'));
   let [majorB, minorB, patchB] = extractVersionParts(b.get('emberVersion'));
 
-  if (Ember.compare(majorB, majorA) !== 0) {
-    return Ember.compare(majorB, majorA);
+  if (compare(majorB, majorA) !== 0) {
+    return compare(majorB, majorA);
   }
-  if (Ember.compare(minorB, minorA) !== 0) {
-    return Ember.compare(minorB, minorA);
+  if (compare(minorB, minorA) !== 0) {
+    return compare(minorB, minorA);
   }
-  return Ember.compare(patchB, patchA);
+  return compare(patchB, patchA);
 }

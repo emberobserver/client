@@ -1,7 +1,9 @@
-import Ember from 'ember';
+import { hash } from 'rsvp';
+import { inject as service } from '@ember/service';
+import Route from '@ember/routing/route';
 
-export default Ember.Route.extend({
-  session: Ember.inject.service(),
+export default Route.extend({
+  session: service(),
   model(params) {
     let addon = this.get('store').query('addon', { filter: { name: params.name }, include: 'versions,maintainers,keywords,reviews,reviews.version,categories', page: { limit: 1 } }, { reload: true }).then((addons) => {
       return addons.get('firstObject');
@@ -20,7 +22,7 @@ export default Ember.Route.extend({
       data.categories = this.get('store').findAll('category', { include: 'subcategories' });
     }
 
-    return Ember.RSVP.hash(data);
+    return hash(data);
   },
 
   titleToken(model) {
@@ -30,7 +32,7 @@ export default Ember.Route.extend({
   afterModel() {
     this.get('emberVersions').fetch();
   },
-  emberVersions: Ember.inject.service(),
+  emberVersions: service(),
   actions: {
     error() {
       this.replaceWith('model-not-found');

@@ -1,9 +1,10 @@
-import Ember from 'ember';
+import { hash } from 'rsvp';
+import Route from '@ember/routing/route';
 
-export default Ember.Route.extend({
+export default Route.extend({
   model(params) {
     let categories = this.modelFor('admin.categories');
-    return Ember.RSVP.hash({
+    return hash({
       categories,
       category: this.get('store').peekAll('category').findBy('slug', params.slug)
     });

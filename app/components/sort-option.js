@@ -1,8 +1,9 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
   tagName: '',
-  isSelected: Ember.computed('selectedSort', 'key', function() {
+  isSelected: computed('selectedSort', 'key', function() {
     return this.get('selectedSort') === this.get('key');
   }),
   actions: {

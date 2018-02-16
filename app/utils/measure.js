@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { schedule } from '@ember/runloop';
 
 function shouldMeasure() {
   let { search } = location;
@@ -11,7 +11,7 @@ function shouldMeasure() {
 */
 export default function measure() {
   performance.mark('dataLoaded');
-  Ember.run.schedule('afterRender', renderEnd);
+  schedule('afterRender', renderEnd);
 }
 
 /*

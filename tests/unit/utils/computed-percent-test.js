@@ -1,11 +1,11 @@
+import EmberObject from '@ember/object';
 import computedPercent from 'ember-observer/utils/computed-percent';
 import { module, test } from 'qunit';
-import Ember from 'ember';
 
 module('Unit | Utils | computedPercent');
 
 function subject(dividend, divisor) {
-  let ObjUnderTest = Ember.Object.extend({
+  let ObjUnderTest = EmberObject.extend({
     divided: computedPercent('dividend', 'divisor')
   });
   let instance = ObjUnderTest.create({

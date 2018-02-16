@@ -1,11 +1,12 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
   tagName: 'time',
   attributeBindings: ['isoDate:datetime', 'isoDate:title'],
 
   date: null,
-  isoDate: Ember.computed('date', function() {
+  isoDate: computed('date', function() {
     let date = this.get('date');
     return date ? date.toISOString() : null;
   })

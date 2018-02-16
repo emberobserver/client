@@ -1,5 +1,5 @@
-import Ember from 'ember';
+import { registerAsyncHelper } from '@ember/test';
 
-export default Ember.Test.registerAsyncHelper('visitAddon', function(_, addon) {
+export default registerAsyncHelper('visitAddon', function(_, addon) {
   visit(`/addons/${addon.name}`);
 });

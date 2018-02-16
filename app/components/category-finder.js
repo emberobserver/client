@@ -1,8 +1,9 @@
-import Ember from 'ember';
+import { filterBy, sort } from '@ember/object/computed';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
   categorySorting: ['position:asc'],
   categoryLinkRoute: 'categories.show',
-  topLevelCategories: Ember.computed.filterBy('categories', 'parent', null),
-  sortedTopLevelCategories: Ember.computed.sort('topLevelCategories', 'categorySorting')
+  topLevelCategories: filterBy('categories', 'parent', null),
+  sortedTopLevelCategories: sort('topLevelCategories', 'categorySorting')
 });

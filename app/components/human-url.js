@@ -1,7 +1,9 @@
-import Ember from 'ember';
+import { alias } from '@ember/object/computed';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
-  parsed: Ember.computed('url', function() {
+export default Component.extend({
+  parsed: computed('url', function() {
     if (this.get('url')) {
       let a = document.createElement('a');
 
@@ -13,8 +15,8 @@ export default Ember.Component.extend({
       return { host, pathname };
     }
   }),
-  domain: Ember.computed('parsed.host', function() {
+  domain: computed('parsed.host', function() {
     return this.getWithDefault('parsed.host', '').replace(/^(www.)?/, '');
   }),
-  pathname: Ember.computed.alias('parsed.pathname')
+  pathname: alias('parsed.pathname')
 });

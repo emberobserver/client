@@ -1,8 +1,8 @@
-import Ember from 'ember';
+import Service, { inject as service } from '@ember/service';
 import { task } from 'ember-concurrency';
 
-export default Ember.Service.extend({
-  ajax: Ember.inject.service(),
+export default Service.extend({
+  ajax: service(),
   _autocompleteData: null,
   _latestSearchResults: null,
   _fetchAutocompleteData: task(function* () {

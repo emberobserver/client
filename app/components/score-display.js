@@ -1,9 +1,10 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
   tagName: '',
 
-  hasNumericScore: Ember.computed('addon.score', function() {
+  hasNumericScore: computed('addon.score', function() {
     let score = this.get('addon.score');
     return typeof(score) === 'number';
   })

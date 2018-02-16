@@ -1,10 +1,10 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
 import JSONAPIAdapter from 'ember-data/adapters/json-api';
 
 export default JSONAPIAdapter.extend({
   namespace: 'api/v2',
   coalesceFindRequests: true,
-  headers: Ember.computed('session.{isAuthenticated,header}', function() {
+  headers: computed('session.{isAuthenticated,header}', function() {
     if (this.get('session.isAuthenticated')) {
       return this.get('session.header');
     }

@@ -1,17 +1,19 @@
-import Ember from 'ember';
+import { resolve } from 'rsvp';
+import { computed } from '@ember/object';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
+import { isBlank } from '@ember/utils';
 import { task, timeout } from 'ember-concurrency';
 
-const { isBlank } = Ember;
-
-export default Ember.Component.extend({
+export default Component.extend({
   showHeaderSearch: true,
   searchTerm: null,
-  store: Ember.inject.service(),
-  session: Ember.inject.service(),
-  routing: Ember.inject.service(),
-  metrics: Ember.inject.service(),
-  searchService: Ember.inject.service('search'),
-  categories: Ember.computed(function() {
+  store: service(),
+  session: service(),
+  routing: service(),
+  metrics: service(),
+  searchService: service('search'),
+  categories: computed(function() {
     return this.get('store').peekAll('category');
   }),
   goSearch(term) {
@@ -22,7 +24,7 @@ export default Ember.Component.extend({
   },
   searchForAddons: task(function* (term) {
     if (term.length === 0) {
-      return Ember.RSVP.resolve([]);
+      return resolve([]);
     }
 
     yield timeout(250);

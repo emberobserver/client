@@ -1,4 +1,6 @@
-import Ember from 'ember';
+import { get } from '@ember/object';
+import { scheduleOnce } from '@ember/runloop';
+import { inject as service } from '@ember/service';
 import EmberRouter from '@ember/routing/router';
 import config from './config/environment';
 import RouterScroll from 'ember-router-scroll';
@@ -6,7 +8,7 @@ import RouterScroll from 'ember-router-scroll';
 const Router = EmberRouter.extend(RouterScroll, {
   location: config.locationType,
   rootURL: config.rootURL,
-  metrics: Ember.inject.service(),
+  metrics: service(),
 
   willTransition() {
     this._super(...arguments);
@@ -22,7 +24,7 @@ const Router = EmberRouter.extend(RouterScroll, {
   previousPage: null,
 
   _trackPage() {
-    Ember.run.scheduleOnce('afterRender', this, () => {
+    scheduleOnce('afterRender', this, () => {
       let page = document.location.pathname;
       let title = this.getWithDefault('currentRouteName', 'unknown');
       let previousPage = this.get('previousPage');
@@ -34,7 +36,7 @@ const Router = EmberRouter.extend(RouterScroll, {
 
       if (page !== previousPage) {
         this.set('previousPage', page);
-        Ember.get(this, 'metrics').trackPage({ page, title });
+        get(this, 'metrics').trackPage({ page, title });
       }
     });
   }

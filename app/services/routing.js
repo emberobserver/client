@@ -1,6 +1,5 @@
-import Ember from 'ember';
-
-const { getOwner, Service } = Ember;
+import { getOwner } from '@ember/application';
+import Service from '@ember/service';
 
 export default Service.extend({
   transitionTo() {

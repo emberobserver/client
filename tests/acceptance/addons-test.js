@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { copy } from '@ember/object/internals';
 import { test } from 'qunit';
 import moduleForAcceptance from 'ember-observer/tests/helpers/module-for-acceptance';
 import EmberVersionsResponse from '../ember-version-response';
@@ -265,10 +265,10 @@ test('displays addon stats with new EmberVersions model', function(assert) {
     released: window.moment().subtract(4, 'months')
   });
 
-  let version = Ember.copy(EmberVersionsResponse[0]);
+  let version = copy(EmberVersionsResponse[0]);
   version.published_at = window.moment().subtract(14, 'weeks');      // eslint-disable-line camelcase
   version.tag_name = 'v15.0.0';                                      // eslint-disable-line camelcase
-  let olderVersion = Ember.copy(EmberVersionsResponse[1]);
+  let olderVersion = copy(EmberVersionsResponse[1]);
   olderVersion.published_at = window.moment().subtract(5, 'months'); // eslint-disable-line camelcase
   olderVersion.tag_name = 'v14.0.0';                                 // eslint-disable-line camelcase
 
@@ -357,10 +357,10 @@ test('displays addon stats', function(assert) {
   });
 
   server.get('https://api.github.com/repos/emberjs/ember.js/releases', function(/* db, request*/) {
-    let version = Ember.copy(EmberVersionsResponse[0]);
+    let version = copy(EmberVersionsResponse[0]);
     version.published_at = window.moment().subtract(14, 'weeks');      // eslint-disable-line camelcase
     version.tag_name = 'v15.0.0';                                      // eslint-disable-line camelcase
-    let olderVersion = Ember.copy(EmberVersionsResponse[1]);
+    let olderVersion = copy(EmberVersionsResponse[1]);
     olderVersion.published_at = window.moment().subtract(5, 'months'); // eslint-disable-line camelcase
     olderVersion.tag_name = 'v14.0.0';                                 // eslint-disable-line camelcase
 

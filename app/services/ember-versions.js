@@ -1,13 +1,15 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import { notEmpty } from '@ember/object/computed';
+import Service, { inject as service } from '@ember/service';
 
-export default Ember.Service.extend({
-  ajax: Ember.inject.service(),
-  features: Ember.inject.service(),
-  store: Ember.inject.service(),
+export default Service.extend({
+  ajax: service(),
+  features: service(),
+  store: service(),
   data: null,
   url: 'https://api.github.com/repos/emberjs/ember.js/releases?per_page=100',
-  isLoaded: Ember.computed.notEmpty('data'),
-  versionData: Ember.computed('isLoaded', 'data', function() {
+  isLoaded: notEmpty('data'),
+  versionData: computed('isLoaded', 'data', function() {
     if (!this.get('isLoaded')) {
       return [];
     }

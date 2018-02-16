@@ -1,8 +1,9 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
   classNames: ['test-result-status'],
-  statusText: Ember.computed('testResult.succeeded', 'testResult.emberVersionCompatibilities.firstObject.compatible', function() {
+  statusText: computed('testResult.succeeded', 'testResult.emberVersionCompatibilities.firstObject.compatible', function() {
     if (this.get('testResult.succeeded')) {
       if (this.get('testResult.emberVersionCompatibilities.firstObject.compatible')) {
         return 'Passed';
@@ -14,7 +15,7 @@ export default Ember.Component.extend({
     }
   }),
 
-  statusDetail: Ember.computed('testResult.succeeded', 'testResult.statusMessage', function() {
+  statusDetail: computed('testResult.succeeded', 'testResult.statusMessage', function() {
     if (!this.get('testResult.succeeded')) {
       return this.get('testResult.statusMessage') || 'unknown';
     }

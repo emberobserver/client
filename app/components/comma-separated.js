@@ -1,8 +1,9 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
   tagName: 'span',
-  separator: Ember.computed('list.lastObject', 'item', function() {
+  separator: computed('list.lastObject', 'item', function() {
     if (this.get('list.lastObject') === this.get('item')) {
       return '';
     } else {

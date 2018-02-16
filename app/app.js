@@ -1,3 +1,5 @@
+import { on } from 'rsvp';
+import { warn as originalWarn } from '@ember/debug';
 import Ember from 'ember';
 import Application from '@ember/application';
 import Resolver from './resolver';
@@ -24,7 +26,7 @@ if (config.environment === 'production') {
 
   };
 
-  Ember.RSVP.on('error', function(error) {
+  on('error', function(error) {
 
     if (window.trackJs) {
       window.trackJs.track(error);
@@ -38,8 +40,7 @@ if (config.environment === 'production') {
 if (config.environment === 'development' || config.environment === 'test') {
   Error.stackTraceLimit = 200;
 
-  let originalWarn = Ember.warn;
-  Ember.warn = function(message) {
+  originalWarn = function(message) {
     if (/You've included a link but no primary data/.test(message)) {
       return;
     }

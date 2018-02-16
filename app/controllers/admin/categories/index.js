@@ -1,7 +1,8 @@
-import Ember from 'ember';
+import { filterBy, sort } from '@ember/object/computed';
+import Controller from '@ember/controller';
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   categorySorting: ['position:desc'],
-  unsortedTopLevelCategories: Ember.computed.filterBy('model', 'parent', null),
-  topLevelCategories: Ember.computed.sort('unsortedTopLevelCategories', 'categorySorting')
+  unsortedTopLevelCategories: filterBy('model', 'parent', null),
+  topLevelCategories: sort('unsortedTopLevelCategories', 'categorySorting')
 });
