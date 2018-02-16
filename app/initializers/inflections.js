@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import Inflector from 'ember-inflector';
 
 export function initialize(/* application */) {

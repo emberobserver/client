@@ -15,6 +15,10 @@ module.exports = {
     browser: true
   },
   rules: {
+    // TODO: Enable and correct violations
+    'ember/avoid-leaking-state-in-ember-objects': 'off',
+    'ember/closure-actions': 'off',
+    'ember/use-brace-expansion': 'off'
   },
   overrides: [
     // node files
@@ -41,6 +45,12 @@ module.exports = {
       excludedFiles: ['tests/dummy/**/*.js'],
       env: {
         embertest: true
+      },
+      globals: {
+        server: true,
+        visitAddon: true,
+        selectChoose: true,
+        withFeature: false
       }
     }
   ]

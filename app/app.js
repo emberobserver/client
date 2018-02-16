@@ -1,5 +1,5 @@
 import { on } from 'rsvp';
-import { warn as originalWarn } from '@ember/debug';
+//import { warn as originalWarn } from '@ember/debug';
 import Ember from 'ember';
 import Application from '@ember/application';
 import Resolver from './resolver';
@@ -40,12 +40,12 @@ if (config.environment === 'production') {
 if (config.environment === 'development' || config.environment === 'test') {
   Error.stackTraceLimit = 200;
 
-  originalWarn = function(message) {
-    if (/You've included a link but no primary data/.test(message)) {
-      return;
-    }
-    originalWarn(...arguments);
-  };
+  // originalWarn = function(message) {
+  //   if (/You've included a link but no primary data/.test(message)) {
+  //     return;
+  //   }
+  //   originalWarn(...arguments);
+  // };
 }
 
 export default App;
