@@ -27,6 +27,10 @@ module.exports = function(environment) {
     }
   };
 
+  ENV['ember-cli-mirage'] = {
+    discoverEmberDataModels: false
+  };
+
   if (parseFlag('COLLECT_METRICS', true)) {
     ENV.metricsAdapters = [
       {
