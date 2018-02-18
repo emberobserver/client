@@ -1,14 +1,15 @@
-import { click, fillIn, find, currentURL, currentPath, visit } from '@ember/test-helpers';
+import { click, fillIn, find, findAll, currentURL, currentRouteName, visit } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
+import findByText from '../helpers/find-by-text';
 
 module('Acceptance: Index', function(hooks) {
   setupEmberObserverTest(hooks);
 
   test('visiting /', async function(assert) {
-    server.createList('category', 7);
-    let addons = server.createList('addon', 4);
-    let category = server.create('category',
+    this.server.createList('category', 7);
+    let addons = this.server.createList('addon', 4);
+    let category = this.server.create('category',
       {
         name: 'Authentication',
         description: 'Addons for auth',
@@ -17,9 +18,9 @@ module('Acceptance: Index', function(hooks) {
 
     category.update({ addonIds: addons.mapBy('id') });
 
-    let addonA = server.create('addon');
+    let addonA = this.server.create('addon');
 
-    let categoryA = server.create('category',
+    let categoryA = this.server.create('category',
       {
         name: 'Simple Auth',
         description: 'Simple Auth addons',
@@ -31,37 +32,40 @@ module('Acceptance: Index', function(hooks) {
 
     await visit('/');
 
-    assert.exists('.test-category', 8, 'All categories should display');
-    assert.contains('.test-category', 'Authentication (5)', 'Categories should list title and count of addons');
-    assert.contains('.test-subcategory:eq(0)', 'Simple Auth (1)', 'Subcategories should display under category');
+    assert.dom('.test-category').exists({ count: 8 }, 'All categories should display');
+    assert.ok(findByText('.test-category', 'Authentication (5)'), 'Categories should list title and count of addons');
+    let firstSubcategory = findAll('.test-subcategory')[0];
+    assert.dom(firstSubcategory).containsText('Simple Auth (1)', 'Subcategories should display under category');
 
-    await click('.test-category:contains(Authentication)');
+    let authenticationCategory = findByText('.test-category', 'Authentication');
+    await click(authenticationCategory);
 
     assert.equal(currentURL(), '/categories/authentication', 'URL should use category name token');
-    assert.contains('.test-category-header', 'Authentication', 'Header should display');
-    assert.contains('.test-category-description', 'Addons for auth', 'Description should display');
-    assert.exists('.test-addon-row', 4, 'All addons in category should display');
-    assert.contains('.test-addon-table-count', 'Displaying 4 addons', 'Should show addon count');
+    assert.dom('.test-category-header').hasText('Authentication', 'Header should display');
+    assert.dom('.test-category-description').containsText('Addons for auth', 'Description should display');
+    assert.dom('.test-addon-row').exists({ count: 4 }, 'All addons in category should display');
+    assert.dom('.test-addon-table-count').hasText('Displaying 4 addons', 'Should show addon count');
 
-    await click("a:contains('Simple Auth (1)')");
+    let simpleAuth = findByText('a', 'Simple Auth (1)');
+    await click(simpleAuth);
 
     assert.equal(currentURL(), '/categories/simple-auth', 'URL should use category name token');
-    assert.contains('.test-category-header', 'Simple Auth', 'Header should display');
-    assert.contains('.test-category-description', 'Simple Auth addons', 'Description should display');
-    assert.exists('.test-addon-row', 1, 'All addons in category should display');
-    assert.contains('.test-parent-category-link', 'Authentication (5)', 'Should link to parent category');
-    assert.contains('.test-addon-table-count', 'Displaying 1 addon', 'Should show addon count');
+    assert.dom('.test-category-header').containsText('Simple Auth', 'Header should display');
+    assert.dom('.test-category-description').containsText('Simple Auth addons', 'Description should display');
+    assert.dom('.test-addon-row').exists('All addons in category should display');
+    assert.dom('.test-parent-category-link').hasText('Authentication (5)', 'Should link to parent category');
+    assert.dom('.test-addon-table-count').hasText('Displaying 1 addon', 'Should show addon count');
   });
 
   testSearch('/', function(assert) {
-    assert.exists('h1:contains(Top addons)');
+    assert.ok(findByText('h1', 'Top addons'));
   });
 
   test('including readme matches in search', async function(assert) {
-    let addon1 = server.create('addon', { name: 'ember-test-thing' });
-    let addon2 = server.create('addon', { name: 'ember-different' });
+    let addon1 = this.server.create('addon', { name: 'ember-test-thing' });
+    let addon2 = this.server.create('addon', { name: 'ember-different' });
 
-    server.get('/search', (db, request) => {
+    this.server.get('/search', (db, request) => {
       assert.equal(request.queryParams.query, 'test', 'Query is sent to readme search');
       return {
         search: [
@@ -77,99 +81,106 @@ module('Acceptance: Index', function(hooks) {
     await click('.test-search-readmes');
 
     assert.equal(currentURL(), '/?query=test&searchReadmes=true');
-    assert.contains('.test-result-info', 'Results for "test"');
-    assert.exists('.addon-results .addon-list li', 1, 'Only 1 addon result');
-    assert.contains('.addon-results .addon-list li', 'ember-test-thing');
+    assert.dom('.test-result-info').hasText('Results for "test"');
+    assert.dom('.addon-results .addon-list li').exists('Only 1 addon result');
+    assert.dom('.addon-results .addon-list li').containsText('ember-test-thing');
 
-    assert.exists('.readme-results li', 2, '2 matching readmes');
-    assert.exists(".test-readme-match:contains('testing stuff')");
-    assert.exists(".test-readme-match:contains('more testing tips')");
-    assert.exists(".test-readme-match:contains('the test of time')");
+    assert.dom('.readme-results li').exists({ count: 2 }, '2 matching readmes');
+    assert.ok(findByText('.test-readme-match', 'testing stuff'));
+    assert.ok(findByText('.test-readme-match', 'more testing tips'));
+    assert.ok(findByText('.test-readme-match', 'the test of time'));
 
-    assert.equal(find('#search-input').value, 'test', 'Query is in text box');
-    assert.exists('.test-search-readmes:checked', 'Include readmes is checked');
+    assert.dom('#search-input').hasValue('test', 'Query is in text box');
+    assert.equal(find('.test-search-readmes').checked, true, 'Include readmes is checked');
 
     await click('.test-search-readmes');
 
     assert.equal(currentURL(), '/?query=test');
-    assert.contains('.test-result-info', 'Results for "test"');
-    assert.exists('.addon-results .addon-list li', 1, 'Only 1 addon result');
-    assert.contains('.addon-results .addon-list li', 'ember-test-thing');
+    assert.dom('.test-result-info').hasText('Results for "test"');
+    assert.dom('.addon-results .addon-list li').exists('Only 1 addon result');
+    assert.dom('.addon-results .addon-list li').containsText('ember-test-thing');
 
-    assert.notExists('.readme-results li', 'No readme results count showing');
-    assert.notExists('.readme-list li', 'No readme matches showing');
+    assert.dom('.readme-results li').doesNotExist('No readme results count showing');
+    assert.dom('.readme-list li').doesNotExist('No readme matches showing');
 
-    assert.equal(find('#search-input').value, 'test', 'Query is still in text box');
-    assert.exists('.test-search-readmes:not(:checked)', 'Include readmes is not checked');
+    assert.dom('#search-input').hasValue('test', 'Query is still in text box');
+    assert.equal(find('.test-search-readmes').checked, false, 'Include readmes is not checked');
   });
 
   test('going to a maintainer from search results works', async function(assert) {
-    server.create('maintainer', { name: 'test-master' });
+    this.server.create('maintainer', { name: 'test-master' });
 
     await visit('/?query=test');
-    await click('.maintainer-results a:contains(test-master)');
 
-    assert.exists('h1:contains(test-master)');
+    let maintainer = findByText('.maintainer-results a', 'test-master');
+    await click(maintainer);
+
+    assert.ok(findByText('h1', 'test-master'));
   });
 
   test('going to an addon from search results works', async function(assert) {
-    server.create('addon', { name: 'ember-test', license: 'GPL' });
+    this.server.create('addon', { name: 'ember-test', license: 'GPL' });
 
     await visit('/?query=test');
-    await click('.addon-list a:contains(ember-test)');
 
-    assert.exists('h1:contains(ember-test)');
-    assert.contains('.test-addon-license', 'GPL');
+    let addon = findByText('.addon-list a', 'ember-test');
+    await click(addon);
+
+    assert.ok(findByText('h1', 'ember-test'));
+    assert.dom('.test-addon-license').containsText('GPL');
   });
 
   test('going to a category from search results works', async function(assert) {
-    server.create('category', { name: 'Testing' });
+    this.server.create('category', { name: 'Testing' });
 
     await visit('/?query=test');
-    await click('.category-results a:contains(Testing)');
 
-    assert.exists('h1:contains(Testing)');
+    let result = findByText('.category-results a', 'Testing');
+    await click(result);
+
+    assert.ok(findByText('h1', 'Testing'));
   });
 
   test('Unknown routes are handled', async function(assert) {
     await visit('/bullshit');
 
-    assert.equal(currentPath(), 'not-found');
+    assert.equal(currentRouteName(), 'not-found');
   });
 
   function testSearch(url, assertForContentOnUrl) {
     test(`visiting ${url} with a query`, async function(assert) {
-      server.create('addon', { name: 'ember-a-thing' });
-      server.create('addon', { name: 'ember-test-me', description: 'A thin addon' });
-      server.create('category', { name: 'Another thing' });
-      server.create('category', { name: 'quietest' });
-      server.create('category', { name: 'Testing' });
-      server.create('maintainer', { name: 'test-master' });
+      this.server.create('addon', { name: 'ember-a-thing' });
+      this.server.create('addon', { name: 'ember-test-me', description: 'A thin addon' });
+      this.server.create('category', { name: 'Another thing' });
+      this.server.create('category', { name: 'quietest' });
+      this.server.create('category', { name: 'Testing' });
+      this.server.create('maintainer', { name: 'test-master' });
 
       await visit(`${url}?query=test`);
 
       assert.equal(currentURL(), `${url}?query=test`);
-      assert.contains('.test-result-info', 'Results for "test"');
-      assert.exists('.addon-results .addon-list li', 1, 'Only 1 addon result');
-      assert.contains('.addon-results .addon-list li', 'ember-test-me');
-      assert.exists('.category-results li', 2, '2 matching categories');
-      assert.exists('.maintainer-results li', 1, '1 matching maintainer');
-      assert.equal(find('#search-input').value, 'test', 'Query is in text box');
+      assert.dom('.test-result-info').hasText('Results for "test"');
+      assert.dom('.addon-results .addon-list li').exists({ count: 1 }, 'Only 1 addon result');
+      assert.dom('.addon-results .addon-list li').containsText('ember-test-me');
+      assert.dom('.category-results li').exists({ count: 2 }, '2 matching categories');
+      assert.dom('.maintainer-results li').exists('1 matching maintainer');
+      assert.dom('#search-input').hasValue('test', 'Query is in text box');
 
       await fillIn('#search-input', 'thin ');
 
       assert.equal(currentURL(), `${url}?query=thin`);
-      assert.contains('.test-result-info', 'Results for "thin"');
-      assert.exists('.addon-results .addon-list li', 2, '2 addon results');
-      assert.contains('.addon-results .addon-list li', 'ember-test-me');
-      assert.contains('.addon-results .addon-list li', 'ember-a-thing');
-      assert.exists('.category-results li', 1, '1 matching category');
-      assert.notExists('.maintainer-results', 'No matching maintainers');
-      assert.equal(find('#search-input').value, 'thin', 'Query is in text box');
+      assert.dom('.test-result-info').hasText('Results for "thin"');
+      assert.dom('.addon-results .addon-list li').exists({ count: 2 }, '2 addon results');
+      let results = findAll('.addon-results .addon-list li');
+      assert.dom(results[1]).containsText('ember-test-me');
+      assert.dom(results[0]).containsText('ember-a-thing');
+      assert.dom('.category-results li').exists('1 matching category');
+      assert.dom('.maintainer-results').doesNotExist('No matching maintainers');
+      assert.dom('#search-input').hasValue('thin', 'Query is in text box');
 
       await click('.test-clear-search');
 
-      assert.equal(find('#search-input').value, '', 'Query is now empty');
+      assert.dom('#search-input').hasValue('', 'Query is now empty');
       assert.equal(currentURL(), url);
       assertForContentOnUrl(assert);
     });
