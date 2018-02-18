@@ -1,20 +1,19 @@
-import { test } from 'qunit';
-import moduleForAcceptance from 'ember-observer/tests/helpers/module-for-acceptance';
+import { currentURL, currentPath, visit } from '@ember/test-helpers';
+import { module, test } from 'qunit';
+import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
 
-moduleForAcceptance('Acceptance | scroll reset after route transition');
+module('Acceptance | scroll reset after route transition', function(hooks) {
+  setupEmberObserverTest(hooks);
 
-test('reset scroll after transition to a route', function(assert) {
-  server.create('maintainer', 1);
-  visit('/');
-  andThen(function() {
+  test('reset scroll after transition to a route', async function(assert) {
+    server.create('maintainer', 1);
+    await visit('/');
     assert.equal(currentURL(), '/');
     assert.equal(window.scrollY, 0);
     // move scroll down
     window.scrollTo(40, 80);
-    visit('/maintainers/maintainer-0');
-    andThen(function() {
-      assert.equal(window.scrollY, 0);
-      assert.equal(currentPath(), 'maintainers.show');
-    });
+    await visit('/maintainers/maintainer-0');
+    assert.equal(window.scrollY, 0);
+    assert.equal(currentPath(), 'maintainers.show');
   });
 });
