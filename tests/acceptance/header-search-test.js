@@ -1,17 +1,19 @@
 import { click, fillIn, currentURL } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
+import { selectChoose } from 'ember-power-select/test-support/helpers';
 import visitAddon from '../helpers/visit-addon';
+import findByText from '../helpers/find-by-text';
 
 module('Acceptance | header search', function(hooks) {
   setupEmberObserverTest(hooks);
 
   test('Header search returns addons to select', async function(assert) {
-    let addon = server.create('addon', {
+    let addon = this.server.create('addon', {
       name: 'test-addon'
     });
 
-    server.create('addon', { name: 'addon-test' });
+    this.server.create('addon', { name: 'addon-test' });
 
     await visitAddon(addon);
 
@@ -21,7 +23,7 @@ module('Acceptance | header search', function(hooks) {
   });
 
   test('Header search has option to full search', async function(assert) {
-    let addon = server.create('addon', {
+    let addon = this.server.create('addon', {
       name: 'test-addon'
     });
 
@@ -29,29 +31,29 @@ module('Acceptance | header search', function(hooks) {
 
     await fillIn('.test-header-search input', 'test');
 
-    selectChoose('.test-header-search', 'Perform full search');
+    await selectChoose('.test-header-search', 'Perform full search');
 
     assert.equal(currentURL(), '/?query=test', 'Perform full search takes to index with correct query');
   });
 
   test('Selecting addon result navigates to that addon', async function(assert) {
-    let addon = server.create('addon', {
+    let addon = this.server.create('addon', {
       name: 'test-addon'
     });
 
-    server.create('addon', { name: 'addon-test' });
+    this.server.create('addon', { name: 'addon-test' });
 
     await visitAddon(addon);
 
     await fillIn('.test-header-search input', 'test');
 
-    selectChoose('.test-header-search', 'test-addon');
+    await selectChoose('.test-header-search', 'test-addon');
 
     assert.equal(currentURL(), '/addons/test-addon', 'Selecting an addon navigates to that addon');
   });
 
   test('Perform full search is still an option when no matching results', async function(assert) {
-    let addon = server.create('addon', {
+    let addon = this.server.create('addon', {
       name: 'test-addon'
     });
 
@@ -63,15 +65,15 @@ module('Acceptance | header search', function(hooks) {
   });
 
   test('Max five addon results display', async function(assert) {
-    let addon = server.create('addon', {
+    let addon = this.server.create('addon', {
       name: 'test-addon'
     });
 
-    server.create('addon', { name: 'test-foo' });
-    server.create('addon', { name: 'test-blah' });
-    server.create('addon', { name: 'test-damn' });
-    server.create('addon', { name: 'test-things' });
-    server.create('addon', { name: 'test-others' });
+    this.server.create('addon', { name: 'test-foo' });
+    this.server.create('addon', { name: 'test-blah' });
+    this.server.create('addon', { name: 'test-damn' });
+    this.server.create('addon', { name: 'test-things' });
+    this.server.create('addon', { name: 'test-others' });
 
     await visitAddon(addon);
 
@@ -90,17 +92,17 @@ module('Acceptance | header search', function(hooks) {
   });
 
   test('Each option is also a link to where it would go', async function(assert) {
-    let addon = server.create('addon', {
+    let addon = this.server.create('addon', {
       name: 'test-addon'
     });
 
-    server.create('addon', { name: 'addon-test' });
+    this.server.create('addon', { name: 'addon-test' });
 
     await visitAddon(addon);
 
     await fillIn('.test-header-search input', 'test');
 
-    await click('.test-search-result-addon-link:contains(addon-test)');
+    await click(findByText('.test-search-result-addon-link', 'addon-test'));
 
     assert.equal(currentURL(), '/addons/addon-test', 'Link goes to the selected addon');
 
@@ -112,14 +114,14 @@ module('Acceptance | header search', function(hooks) {
   });
 
   test('Addon results sort by match, then score, then name', async function(assert) {
-    let addon = server.create('addon', {
+    let addon = this.server.create('addon', {
       name: 'test-addon'
     });
 
-    server.create('addon', { name: 'power-select-xyz', score: 4 });
-    server.create('addon', { name: 'power-select-foo', score: 4 });
-    server.create('addon', { name: 'ember-power-select', score: 10 });
-    server.create('addon', { name: 'ember-cli-power-select', score: 8 });
+    this.server.create('addon', { name: 'power-select-xyz', score: 4 });
+    this.server.create('addon', { name: 'power-select-foo', score: 4 });
+    this.server.create('addon', { name: 'ember-power-select', score: 10 });
+    this.server.create('addon', { name: 'ember-cli-power-select', score: 8 });
 
     await visitAddon(addon);
 

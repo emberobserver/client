@@ -2,6 +2,7 @@ import { click, fillIn, find, currentURL, visit } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import $ from 'jquery';
 import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
+import findByText from '../helpers/find-by-text';
 import visitAddon from '../helpers/visit-addon';
 import login from 'ember-observer/tests/helpers/login';
 
@@ -18,7 +19,7 @@ module('Acceptance: admin', function(hooks) {
     assert.expect(2);
     let done = assert.async();
 
-    server.post('/authentication/login.json', function(db, request) {
+    this.server.post('/authentication/login.json', function(db, request) {
       assert.equal(request.requestBody, 'email=test%40example.com&password=password123');
       done();
       return {
@@ -37,11 +38,11 @@ module('Acceptance: admin', function(hooks) {
   test('reviewing addons', async function(assert) {
     assert.expect(7);
 
-    let addon = server.create('addon', {
+    let addon = this.server.create('addon', {
       name: 'test-addon'
     });
 
-    let review = server.create('review', {
+    let review = this.server.create('review', {
       addonId: addon.id,
       hasTests: 1,
       hasReadme: 4,
@@ -51,18 +52,18 @@ module('Acceptance: admin', function(hooks) {
       review: 'Seems ok'
     });
 
-    server.create('version', {
+    this.server.create('version', {
       addonId: addon.id,
       reviewId: review.id,
       released: window.moment().subtract(3, 'months')
     });
 
-    let latestVersion = server.create('version', {
+    let latestVersion = this.server.create('version', {
       addonId: addon.id,
       released: window.moment().subtract(1, 'months')
     });
 
-    server.create('category', {
+    this.server.create('category', {
       name: 'Category1',
       addonIds: [addon.id]
     });
@@ -79,7 +80,7 @@ module('Acceptance: admin', function(hooks) {
     await fillIn('.test-addon-review-notes', '#Some Review');
     await click('.test-addon-review-save');
 
-    let newReview = server.schema.reviews.all().models[server.schema.reviews.all().models.length - 1];
+    let newReview = this.server.schema.reviews.all().models[this.server.schema.reviews.all().models.length - 1];
     assert.equal(newReview.version.id, latestVersion.id);
     assert.equal(newReview.hasTests, 2);
     assert.equal(newReview.hasReadme, 1);
@@ -96,11 +97,11 @@ module('Acceptance: admin', function(hooks) {
   test('renewing a review', async function(assert) {
     assert.expect(7);
 
-    let addon = server.create('addon', {
+    let addon = this.server.create('addon', {
       name: 'test-addon'
     });
 
-    let review = server.create('review', {
+    let review = this.server.create('review', {
       addonId: addon.id,
       hasTests: 1,
       hasReadme: 4,
@@ -110,13 +111,13 @@ module('Acceptance: admin', function(hooks) {
       review: 'Seems ok'
     });
 
-    server.create('version', {
+    this.server.create('version', {
       addonId: addon.id,
       reviewId: review.id,
       released: window.moment().subtract(3, 'months')
     });
 
-    let latestVersion = server.create('version', {
+    let latestVersion = this.server.create('version', {
       addonId: addon.id,
       released: window.moment().subtract(1, 'months')
     });
@@ -126,7 +127,7 @@ module('Acceptance: admin', function(hooks) {
     await visitAddon(addon);
     await click('.test-renew-latest-review');
 
-    let newReview = server.schema.reviews.all().models[server.schema.reviews.all().models.length - 1];
+    let newReview = this.server.schema.reviews.all().models[this.server.schema.reviews.all().models.length - 1];
     assert.equal(newReview.version.id, latestVersion.id, 'Review should be for the latest version');
     assert.equal(newReview.hasTests, 1);
     assert.equal(newReview.hasReadme, 4);
@@ -137,21 +138,21 @@ module('Acceptance: admin', function(hooks) {
   });
 
   test('updating addons', async function(assert) {
-    assert.expect(31);
+    assert.expect(30);
 
-    let category1 = server.create('category', {
+    let category1 = this.server.create('category', {
       name: 'Category1'
     });
 
-    let category2 = server.create('category', {
+    let category2 = this.server.create('category', {
       name: 'Category2'
     });
 
-    server.create('category', {
+    this.server.create('category', {
       name: 'Category3'
     });
 
-    let addon = server.create('addon', {
+    let addon = this.server.create('addon', {
       name: 'test-addon',
       note: '#note',
       isOfficial: true,
@@ -164,38 +165,38 @@ module('Acceptance: admin', function(hooks) {
 
     await visitAddon(addon);
 
-    assert.exists('.test-addon-info-form');
-    assert.equal(find('.test-note-input').value, '#note', 'Should be prepopulated with existing note');
-    assert.exists('.test-addon-property-list #official:checked');
-    assert.exists('.test-addon-property-list #deprecated:checked');
-    assert.notExists('.test-addon-property-list #cli-dependency:checked');
-    assert.notExists('.test-addon-property-list #wip:checked');
-    assert.notExists('.test-addon-property-list #hide:checked');
-    assert.notExists('.test-addon-property-list #has-invalid-github-repo:checked');
+    assert.dom('.test-addon-info-form').exists();
+    assert.dom('.test-note-input').hasValue('#note', 'Should be prepopulated with existing note');
+    assert.equal(find('.test-addon-property-list #official').checked, true, 'official should be checked');
+    assert.equal(find('.test-addon-property-list #deprecated').checked, true, 'deprecated should be checked');
+    assert.equal(find('.test-addon-property-list #cli-dependency').checked, false, 'cli-dependency should NOT be checked');
+    assert.equal(find('.test-addon-property-list #wip').checked, false, 'wip should NOT be checked');
+    assert.equal(find('.test-addon-property-list #hide').checked, false, 'hide should NOT be checked');
+    assert.equal(find('.test-addon-property-list #has-invalid-github-repo').checked, false, 'has-invalid-github-repo should NOT be checked');
 
-    assert.exists('.test-categories-form');
-    assert.exists('.test-categories-form label:contains(Category1) input:checked');
-    assert.exists('.test-categories-form label:contains(Category2) input:checked');
-    assert.notExists('.test-categories-form label:contains(Category3) input:checked');
-
+    assert.equal(findByText('.test-categories-form label', 'Category1').querySelector('input').checked, true, 'Category 1 is checked');
+    assert.equal(findByText('.test-categories-form label', 'Category2').querySelector('input').checked, true, 'Category 2 is checked');
+    assert.equal(findByText('.test-categories-form label', 'Category3').querySelector('input').checked, false, 'Category 3 is NOT checked');
+    
     await fillIn('.test-note-input', '#New');
     await click('input#official');
     await click('input#wip');
-    await click('label:contains(Category1) input');
-    await click('label:contains(Category3) input');
+    
+    await click(findByText('label', 'Category1').querySelector('input'));
+    await click(findByText('label', 'Category3').querySelector('input'));
 
-    assert.equal(find('.test-note-input').value, '#New', 'Should be updated with new note');
-    assert.notExists('.test-addon-property-list #official:checked');
-    assert.exists('.test-addon-property-list #deprecated:checked');
-    assert.notExists('.test-addon-property-list #cli-dependency:checked');
-    assert.exists('.test-addon-property-list #wip:checked');
-    assert.notExists('.test-addon-property-list #hide:checked');
-    assert.notExists('.test-addon-property-list #has-invalid-github-repo:checked');
+    assert.dom('.test-note-input').hasValue('#New', 'Should be updated with new note');
+    assert.equal(find('.test-addon-property-list #official').checked, false, 'official should NOT be checked');
+    assert.equal(find('.test-addon-property-list #deprecated').checked, true, 'deprecated should be checked');
+    assert.equal(find('.test-addon-property-list #cli-dependency').checked, false, 'cli-dependency should NOT be checked');
+    assert.equal(find('.test-addon-property-list #wip').checked, true, 'wip should be checked');
+    assert.equal(find('.test-addon-property-list #hide').checked, false, 'hide should NOT be checked');
+    assert.equal(find('.test-addon-property-list #has-invalid-github-repo').checked, false, 'has-invalid-github-repo should NOT be checked');
 
-    assert.notExists('.test-categories-form label:contains(Category1) input:checked');
-    assert.exists('.test-categories-form label:contains(Category2) input:checked');
-    assert.exists('.test-categories-form label:contains(Category3) input:checked');
-
+    assert.equal(findByText('.test-categories-form label', 'Category1').querySelector('input').checked, false, 'Category 1 is NOT checked');
+    assert.equal(findByText('.test-categories-form label', 'Category2').querySelector('input').checked, true, 'Category 2 is checked');
+    assert.equal(findByText('.test-categories-form label', 'Category3').querySelector('input').checked, true, 'Category 3 is checked');
+    
     await click('.test-save-addon-properties');
 
     addon.reload();
@@ -211,3 +212,4 @@ module('Acceptance: admin', function(hooks) {
     assert.deepEqual(addon.categories.models.mapBy('name'), ['Category2', 'Category3']);
   });
 });
+
