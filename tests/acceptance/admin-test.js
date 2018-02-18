@@ -1,85 +1,84 @@
-import { test } from 'qunit';
-import moduleForAcceptance from 'ember-observer/tests/helpers/module-for-acceptance';
+import { click, fillIn, find, currentURL, visit } from '@ember/test-helpers';
+import { module, test } from 'qunit';
+import $ from 'jquery';
+import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
+import visitAddon from '../helpers/visit-addon';
 import login from 'ember-observer/tests/helpers/login';
 
-moduleForAcceptance('Acceptance: admin');
+module('Acceptance: admin', function(hooks) {
+  setupEmberObserverTest(hooks);
 
-test('visiting /admin not logged in', function(assert) {
-  visit('/admin');
+  test('visiting /admin not logged in', async function(assert) {
+    await visit('/admin');
 
-  andThen(function() {
     assert.equal(currentURL(), '/', 'redirects to index');
   });
-});
 
-test('visiting /admin', function(assert) {
-  assert.expect(2);
-  let done = assert.async();
+  test('visiting /admin', async function(assert) {
+    assert.expect(2);
+    let done = assert.async();
 
-  server.post('/authentication/login.json', function(db, request) {
-    assert.equal(request.requestBody, 'email=test%40example.com&password=password123');
-    done();
-    return {
-      token: 'abc123'
-    };
-  });
+    server.post('/authentication/login.json', function(db, request) {
+      assert.equal(request.requestBody, 'email=test%40example.com&password=password123');
+      done();
+      return {
+        token: 'abc123'
+      };
+    });
 
-  visit('/login');
-  fillIn('.test-email', 'test@example.com');
-  fillIn('.test-password', 'password123');
-  click('.test-log-in');
-  visit('/admin');
-  andThen(function() {
+    await visit('/login');
+    await fillIn('.test-email', 'test@example.com');
+    await fillIn('.test-password', 'password123');
+    await click('.test-log-in');
+    await visit('/admin');
     assert.equal(currentURL(), '/admin', 'Does not redirect');
   });
-});
 
-test('reviewing addons', function(assert) {
-  assert.expect(7);
+  test('reviewing addons', async function(assert) {
+    assert.expect(7);
 
-  let addon = server.create('addon', {
-    name: 'test-addon'
-  });
+    let addon = server.create('addon', {
+      name: 'test-addon'
+    });
 
-  let review = server.create('review', {
-    addonId: addon.id,
-    hasTests: 1,
-    hasReadme: 4,
-    isMoreThanEmptyAddon: 3,
-    isOpenSource: 2,
-    hasBuild: 1,
-    review: 'Seems ok'
-  });
+    let review = server.create('review', {
+      addonId: addon.id,
+      hasTests: 1,
+      hasReadme: 4,
+      isMoreThanEmptyAddon: 3,
+      isOpenSource: 2,
+      hasBuild: 1,
+      review: 'Seems ok'
+    });
 
-  server.create('version', {
-    addonId: addon.id,
-    reviewId: review.id,
-    released: window.moment().subtract(3, 'months')
-  });
+    server.create('version', {
+      addonId: addon.id,
+      reviewId: review.id,
+      released: window.moment().subtract(3, 'months')
+    });
 
-  let latestVersion = server.create('version', {
-    addonId: addon.id,
-    released: window.moment().subtract(1, 'months')
-  });
+    let latestVersion = server.create('version', {
+      addonId: addon.id,
+      released: window.moment().subtract(1, 'months')
+    });
 
-  server.create('category', {
-    name: 'Category1',
-    addonIds: [addon.id]
-  });
+    server.create('category', {
+      name: 'Category1',
+      addonIds: [addon.id]
+    });
 
-  login();
+    await login();
 
-  visitAddon(addon);
-  click('.test-addon-review-button');
-  answerQuestion('Is the source accessible?', 'Yes');
-  answerQuestion('Is it more than an empty addon?', 'Yes');
-  answerQuestion('Are there meaningful tests?', 'No');
-  answerQuestion('Is the README filled out?', 'Yes');
-  answerQuestion('Does the addon have a build?', 'N/A');
-  fillIn('.test-addon-review-notes', '#Some Review');
-  click('.test-addon-review-save');
+    await visitAddon(addon);
+    await click('.test-addon-review-button');
+    answerQuestion('Is the source accessible?', 'Yes');
+    answerQuestion('Is it more than an empty addon?', 'Yes');
+    answerQuestion('Are there meaningful tests?', 'No');
+    answerQuestion('Is the README filled out?', 'Yes');
+    answerQuestion('Does the addon have a build?', 'N/A');
+    await fillIn('.test-addon-review-notes', '#Some Review');
+    await click('.test-addon-review-save');
 
-  andThen(function() {
     let newReview = server.schema.reviews.all().models[server.schema.reviews.all().models.length - 1];
     assert.equal(newReview.version.id, latestVersion.id);
     assert.equal(newReview.hasTests, 2);
@@ -89,46 +88,44 @@ test('reviewing addons', function(assert) {
     assert.equal(newReview.hasBuild, 3);
     assert.equal(newReview.review, '#Some Review');
   });
-});
 
-function answerQuestion(question, answer) {
-  click(`li .question:contains("${question}") ~ .test-question-buttons button:contains(${answer})`);
-}
+  async function answerQuestion(question, answer) {
+    await click($(`li .question:contains("${question}") ~ .test-question-buttons button:contains(${answer})`)[0]);
+  }
 
-test('renewing a review', function(assert) {
-  assert.expect(7);
+  test('renewing a review', async function(assert) {
+    assert.expect(7);
 
-  let addon = server.create('addon', {
-    name: 'test-addon'
-  });
+    let addon = server.create('addon', {
+      name: 'test-addon'
+    });
 
-  let review = server.create('review', {
-    addonId: addon.id,
-    hasTests: 1,
-    hasReadme: 4,
-    isMoreThanEmptyAddon: 3,
-    isOpenSource: 2,
-    hasBuild: 1,
-    review: 'Seems ok'
-  });
+    let review = server.create('review', {
+      addonId: addon.id,
+      hasTests: 1,
+      hasReadme: 4,
+      isMoreThanEmptyAddon: 3,
+      isOpenSource: 2,
+      hasBuild: 1,
+      review: 'Seems ok'
+    });
 
-  server.create('version', {
-    addonId: addon.id,
-    reviewId: review.id,
-    released: window.moment().subtract(3, 'months')
-  });
+    server.create('version', {
+      addonId: addon.id,
+      reviewId: review.id,
+      released: window.moment().subtract(3, 'months')
+    });
 
-  let latestVersion = server.create('version', {
-    addonId: addon.id,
-    released: window.moment().subtract(1, 'months')
-  });
+    let latestVersion = server.create('version', {
+      addonId: addon.id,
+      released: window.moment().subtract(1, 'months')
+    });
 
-  login();
+    await login();
 
-  visitAddon(addon);
-  click('.test-renew-latest-review');
+    await visitAddon(addon);
+    await click('.test-renew-latest-review');
 
-  andThen(function() {
     let newReview = server.schema.reviews.all().models[server.schema.reviews.all().models.length - 1];
     assert.equal(newReview.version.id, latestVersion.id, 'Review should be for the latest version');
     assert.equal(newReview.hasTests, 1);
@@ -138,39 +135,37 @@ test('renewing a review', function(assert) {
     assert.equal(newReview.hasBuild, 1);
     assert.equal(newReview.review, 'Seems ok');
   });
-});
 
-test('updating addons', function(assert) {
-  assert.expect(31);
+  test('updating addons', async function(assert) {
+    assert.expect(31);
 
-  let category1 = server.create('category', {
-    name: 'Category1'
-  });
+    let category1 = server.create('category', {
+      name: 'Category1'
+    });
 
-  let category2 = server.create('category', {
-    name: 'Category2'
-  });
+    let category2 = server.create('category', {
+      name: 'Category2'
+    });
 
-  server.create('category', {
-    name: 'Category3'
-  });
+    server.create('category', {
+      name: 'Category3'
+    });
 
-  let addon = server.create('addon', {
-    name: 'test-addon',
-    note: '#note',
-    isOfficial: true,
-    isDeprecated: true
-  });
+    let addon = server.create('addon', {
+      name: 'test-addon',
+      note: '#note',
+      isOfficial: true,
+      isDeprecated: true
+    });
 
-  addon.update({ categoryIds: [category1.id, category2.id] });
+    addon.update({ categoryIds: [category1.id, category2.id] });
 
-  login();
+    await login();
 
-  visitAddon(addon);
+    await visitAddon(addon);
 
-  andThen(function() {
     assert.exists('.test-addon-info-form');
-    assert.equal(find('.test-note-input').val(), '#note', 'Should be prepopulated with existing note');
+    assert.equal(find('.test-note-input').value, '#note', 'Should be prepopulated with existing note');
     assert.exists('.test-addon-property-list #official:checked');
     assert.exists('.test-addon-property-list #deprecated:checked');
     assert.notExists('.test-addon-property-list #cli-dependency:checked');
@@ -182,16 +177,14 @@ test('updating addons', function(assert) {
     assert.exists('.test-categories-form label:contains(Category1) input:checked');
     assert.exists('.test-categories-form label:contains(Category2) input:checked');
     assert.notExists('.test-categories-form label:contains(Category3) input:checked');
-  });
 
-  fillIn('.test-note-input', '#New');
-  click('input#official');
-  click('input#wip');
-  click('label:contains(Category1) input');
-  click('label:contains(Category3) input');
+    await fillIn('.test-note-input', '#New');
+    await click('input#official');
+    await click('input#wip');
+    await click('label:contains(Category1) input');
+    await click('label:contains(Category3) input');
 
-  andThen(function() {
-    assert.equal(find('.test-note-input').val(), '#New', 'Should be updated with new note');
+    assert.equal(find('.test-note-input').value, '#New', 'Should be updated with new note');
     assert.notExists('.test-addon-property-list #official:checked');
     assert.exists('.test-addon-property-list #deprecated:checked');
     assert.notExists('.test-addon-property-list #cli-dependency:checked');
@@ -202,11 +195,9 @@ test('updating addons', function(assert) {
     assert.notExists('.test-categories-form label:contains(Category1) input:checked');
     assert.exists('.test-categories-form label:contains(Category2) input:checked');
     assert.exists('.test-categories-form label:contains(Category3) input:checked');
-  });
 
-  click('.test-save-addon-properties');
+    await click('.test-save-addon-properties');
 
-  andThen(function() {
     addon.reload();
 
     assert.equal(addon.note, '#New');

@@ -1,5 +1,5 @@
-import { registerAsyncHelper } from '@ember/test';
+import { visit } from '@ember/test-helpers';
 
-export default registerAsyncHelper('visitAddon', function(_, addon) {
-  visit(`/addons/${addon.name}`);
-});
+export default async function visitAddon(addon) {
+  return visit(`/addons/${addon.name}`);
+}
