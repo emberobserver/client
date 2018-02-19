@@ -1,6 +1,7 @@
-import { click, fillIn, findAll, currentURL, visit } from '@ember/test-helpers';
+import { pauseTest, click, fillIn, findAll, currentURL, visit } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
+import { enableFeature } from 'ember-feature-flags/test-support';
 import findByText from '../helpers/find-by-text';
 
 module('Acceptance | code search', function(hooks) {
@@ -125,6 +126,7 @@ module('Acceptance | code search', function(hooks) {
   });
 
   test('sorting search results', async function(assert) {
+    enableFeature(this.owner, 'code-search-score-sorting');
     server.create('addon', { name: 'ember-try' });
     server.create('addon', { name: 'ember-blanket' });
     server.create('addon', { name: 'ember-foo' });
@@ -134,15 +136,18 @@ module('Acceptance | code search', function(hooks) {
         results: [
           {
             addon: 'ember-try',
-            count: 1
+            count: 1,
+            score: 3
           },
           {
             addon: 'ember-blanket',
-            count: 2
+            count: 2,
+            score: 2
           },
           {
             addon: 'ember-foo',
-            count: 3
+            count: 3,
+            score: 1
           }
         ]
       };
@@ -164,6 +169,14 @@ module('Acceptance | code search', function(hooks) {
     assert.dom(resortedAddonNames[1]).containsText('ember-blanket', 'Addons are sorted by usage count');
     assert.dom(resortedAddonNames[2]).containsText('ember-try', 'Addons are sorted by usage count');
     assert.equal(currentURL(), '/code-search?codeQuery=foo&sort=usages', 'Sort is in query params');
+
+    await click(findByText('.test-sort button','Score'));
+
+    let scoreSortedAddonNames = findAll('.test-addon-name');
+    assert.dom(scoreSortedAddonNames[0]).containsText('ember-try', 'Addons are sorted by score count');
+    assert.dom(scoreSortedAddonNames[1]).containsText('ember-blanket', 'Addons are sorted by score count');
+    assert.dom(scoreSortedAddonNames[2]).containsText('ember-foo', 'Addons are sorted by score count');
+    assert.equal(currentURL(), '/code-search?codeQuery=foo&sort=score', 'Sort is in query params');
   });
 
   test('searching with a regex', async function(assert) {
