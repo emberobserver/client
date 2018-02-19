@@ -18,7 +18,7 @@ module('Acceptance: Addons', function(hooks) {
   });
 
   test('displays 0 for score when addon has zero score', async function(assert) {
-    let addon = this.server.create('addon', {
+    let addon = server.create('addon', {
       name: 'test-with-zero-score',
       score: 0
     });
@@ -29,7 +29,7 @@ module('Acceptance: Addons', function(hooks) {
   });
 
   test('Does not display category list', async function(assert) {
-    let addon = this.server.create('addon', {
+    let addon = server.create('addon', {
       name: 'test-addon'
     });
 
@@ -39,7 +39,7 @@ module('Acceptance: Addons', function(hooks) {
   });
 
   test('displays WIP for score when addon is WIP', async function(assert) {
-    let addon = this.server.create('addon', {
+    let addon = server.create('addon', {
       name: 'test-wip',
       isWip: true
     });
@@ -50,7 +50,7 @@ module('Acceptance: Addons', function(hooks) {
   });
 
   test('displays N/A for score when addon has no score', async function(assert) {
-    let addon = this.server.create('addon', {
+    let addon = server.create('addon', {
       name: 'test-with-na-score',
       score: null
     });
@@ -61,7 +61,7 @@ module('Acceptance: Addons', function(hooks) {
   });
 
   test('displays note', async function(assert) {
-    let addon = this.server.create('addon', {
+    let addon = server.create('addon', {
       name: 'test-addon-with-note',
       note: '#MdNote'
     });
@@ -72,15 +72,15 @@ module('Acceptance: Addons', function(hooks) {
   });
 
   test('displays categories', async function(assert) {
-    let categoryA = this.server.create('category', {
+    let categoryA = server.create('category', {
       name: 'A category for categories'
     });
 
-    let categoryB = this.server.create('category', {
+    let categoryB = server.create('category', {
       name: 'Another category for categories'
     });
 
-    let addon = this.server.create('addon', {
+    let addon = server.create('addon', {
       name: 'test-addon-with-categories'
     });
 
@@ -93,14 +93,14 @@ module('Acceptance: Addons', function(hooks) {
   });
 
   test('displays github data', async function(assert) {
-    let users = this.server.createList('github-users', 2);
-    let addon = this.server.create('addon', {
+    let users = server.createList('github-users', 2);
+    let addon = server.create('addon', {
       name: 'test-addon-with-github-data',
       isTopStarred: true,
       githubUsers: users
     });
 
-    this.server.create('github-stats', {
+    server.create('github-stats', {
       openIssues: 13,
       forks: 94,
       stars: 37,
@@ -128,7 +128,7 @@ module('Acceptance: Addons', function(hooks) {
   });
 
   test('displays header', async function(assert) {
-    let addon = this.server.create('addon', {
+    let addon = server.create('addon', {
       name: 'test-addon'
     });
 
@@ -140,7 +140,7 @@ module('Acceptance: Addons', function(hooks) {
     assert.dom('.test-addon-flag-official').doesNotExist('Official flag does not display');
     assert.dom('.test-addon-flag-cli-dependency').doesNotExist('CLI Dependency flag does not display');
 
-    let addonWithFlags = this.server.create('addon', {
+    let addonWithFlags = server.create('addon', {
       name: 'test-addon-with-flags',
       isDeprecated: true,
       isOfficial: true,
@@ -158,7 +158,7 @@ module('Acceptance: Addons', function(hooks) {
   });
 
   test('displays review', async function(assert) {
-    let addon = this.server.create('addon', {
+    let addon = server.create('addon', {
       name: 'test-addon'
     });
 
@@ -166,11 +166,11 @@ module('Acceptance: Addons', function(hooks) {
 
     assert.dom('.test-no-review').exists('Warning about not yet reviewed appears');
 
-    let addonWithReview = this.server.create('addon', {
+    let addonWithReview = server.create('addon', {
       name: 'test-addon-with-review'
     });
 
-    let review = this.server.create('review', {
+    let review = server.create('review', {
       addonId: addonWithReview.id,
       hasTests: 1,
       hasReadme: 4,
@@ -180,14 +180,14 @@ module('Acceptance: Addons', function(hooks) {
       review: 'Seems ok'
     });
 
-    let addonVersion = this.server.create('version', {
+    let addonVersion = server.create('version', {
       addon: addonWithReview,
       review,
       released: window.moment().subtract(3, 'months')
     });
 
     // Newer version without review
-    this.server.create('version', {
+    server.create('version', {
       addon: addonWithReview,
       review: null,
       released: window.moment().subtract(1, 'months')
@@ -214,10 +214,10 @@ module('Acceptance: Addons', function(hooks) {
 
   test('displays addon stats with new EmberVersions model', async function(assert) {
     enableFeature(this.owner, 'ember-versions-model');
-    let maintainers = this.server.createList('maintainer', 3);
+    let maintainers = server.createList('maintainer', 3);
 
-    let keywords = this.server.createList('keyword', 5);
-    let addon = this.server.create('addon', {
+    let keywords = server.createList('keyword', 5);
+    let addon = server.create('addon', {
       name: 'test-addon',
       maintainerIds: maintainers.map((m) => m.id),
       latestVersionDate: window.moment().subtract(3, 'months'),
@@ -229,14 +229,14 @@ module('Acceptance: Addons', function(hooks) {
       keywords
     });
 
-    this.server.create('version', {
+    server.create('version', {
       version: '1.0.1',
       addonId: addon.id,
       emberCliVersion: '1.13.1',
       released: window.moment().subtract(3, 'months')
     });
 
-    this.server.create('version', {
+    server.create('version', {
       version: '1.0.0',
       addonId: addon.id,
       emberCliVersion: '1.13.0',
@@ -252,7 +252,7 @@ module('Acceptance: Addons', function(hooks) {
 
     let emberVersionsData = [version, olderVersion];
 
-    this.server.create('ember-versions', { githubResponse: emberVersionsData });
+    server.create('ember-versions', { githubResponse: emberVersionsData });
 
     await visitAddon(addon);
 
@@ -299,10 +299,10 @@ module('Acceptance: Addons', function(hooks) {
   });
 
   test('displays addon stats', async function(assert) {
-    let maintainers = this.server.createList('maintainer', 3);
+    let maintainers = server.createList('maintainer', 3);
 
-    let keywords = this.server.createList('keyword', 5);
-    let addon = this.server.create('addon', {
+    let keywords = server.createList('keyword', 5);
+    let addon = server.create('addon', {
       name: 'test-addon',
       maintainerIds: maintainers.map((m) => m.id),
       latestVersionDate: window.moment().subtract(3, 'months'),
@@ -314,21 +314,21 @@ module('Acceptance: Addons', function(hooks) {
       keywords
     });
 
-    this.server.create('version', {
+    server.create('version', {
       version: '1.0.1',
       addonId: addon.id,
       emberCliVersion: '1.13.1',
       released: window.moment().subtract(3, 'months')
     });
 
-    this.server.create('version', {
+    server.create('version', {
       version: '1.0.0',
       addonId: addon.id,
       emberCliVersion: '1.13.0',
       released: window.moment().subtract(4, 'months')
     });
 
-    this.server.get('https://api.github.com/repos/emberjs/ember.js/releases', function(/* db, request*/) {
+    server.get('https://api.github.com/repos/emberjs/ember.js/releases', function(/* db, request*/) {
       let version = copy(EmberVersionsResponse[0]);
       version.published_at = window.moment().subtract(14, 'weeks');      // eslint-disable-line camelcase
       version.tag_name = 'v15.0.0';                                      // eslint-disable-line camelcase
@@ -383,7 +383,7 @@ module('Acceptance: Addons', function(hooks) {
   });
 
   test('addon has an invalid github repo', async function(assert) {
-    let addon = this.server.create('addon', {
+    let addon = server.create('addon', {
       name: 'test-addon',
       hasInvalidGithubRepo: true
     });

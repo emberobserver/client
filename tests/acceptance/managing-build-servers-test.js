@@ -14,7 +14,7 @@ module('Acceptance | managing build servers', function(hooks) {
   });
 
   test('index page lists all build servers', async function(assert) {
-    this.server.createList('buildServer', 15);
+    server.createList('buildServer', 15);
 
     await login();
     await visit('/admin/build-servers');
@@ -25,10 +25,10 @@ module('Acceptance | managing build servers', function(hooks) {
   test('adding a new build server', async function(assert) {
     assert.expect(2);
 
-    this.server.post('/build-servers', function(schema, request) {
+    server.post('/build-servers', function(schema, request) {
       let requestBody = JSON.parse(request.requestBody);
       assert.equal(requestBody.data.attributes.name, 'new-server-name', 'makes the correct HTTP call');
-      return this.server.create('buildServer', this.normalizedRequestAttrs());
+      return server.create('buildServer', this.normalizedRequestAttrs());
     });
 
     await login();

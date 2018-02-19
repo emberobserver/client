@@ -31,9 +31,9 @@ module('Acceptance | version compatibility', function(hooks) {
   });
 
   test("displays appropriate text when an addon's test result indicated a failure", async function(assert) {
-    let addon = this.server.create('addon');
-    let testResult = this.server.create('testResult', { succeeded: false });
-    let version = this.server.create('version', { addonId: addon.id });
+    let addon = server.create('addon');
+    let testResult = server.create('testResult', { succeeded: false });
+    let version = server.create('version', { addonId: addon.id });
     testResult.update({ versionId: version.id });
 
     await visitAddon(addon);
@@ -43,8 +43,8 @@ module('Acceptance | version compatibility', function(hooks) {
   });
 
   test('does not display Ember version compatibility when an addon does not have it', async function(assert) {
-    let addon = this.server.create('addon');
-    this.server.create('version', { addonId: addon.id });
+    let addon = server.create('addon');
+    server.create('version', { addonId: addon.id });
 
     await visitAddon(addon);
     assert.dom('.test-ember-version-compatibility-section').doesNotExist();
@@ -68,7 +68,7 @@ module('Acceptance | version compatibility', function(hooks) {
 
   test('displays date/time when tests were last run', async function(assert) {
     let { addon, testResult } = createAddonWithVersionCompatibilities(['2.1.0', '2.2.0', '2.3.0', '2.4.0']);
-    this.server.db.testResults.update(testResult.id, { createdAt: moment.utc().subtract(1, 'day') });
+    server.db.testResults.update(testResult.id, { createdAt: moment.utc().subtract(1, 'day') });
 
     await visitAddon(addon);
     assert.dom('.test-ember-version-compatibility-timestamp').containsText('a day ago');
@@ -76,7 +76,7 @@ module('Acceptance | version compatibility', function(hooks) {
 
   test('displays tests results from the latest version with them, if the newest version has none', async function(assert) {
     let { addon } = createAddonWithVersionCompatibilities(['2.1.0', '2.2.0', '2.3.0', '2.4.0']);
-    this.server.create('version', { addonId: addon.id });
+    server.create('version', { addonId: addon.id });
 
     await visitAddon(addon);
     assert.dom('.test-ember-version-compatibility-section').exists('version compatibility list displays');
@@ -123,42 +123,42 @@ module('Acceptance | version compatibility', function(hooks) {
   });
 
   test('uses the latest build for version compatibility', async function(assert) {
-    let addon = this.server.create('addon');
-    let version = this.server.create('version', { addonId: addon.id });
-    let middleTestResult = this.server.create('testResult', {
+    let addon = server.create('addon');
+    let version = server.create('version', { addonId: addon.id });
+    let middleTestResult = server.create('testResult', {
       createdAt: moment().subtract(1, 'hour').utc()
     });
-    let latestTestResult = this.server.create('testResult', {
+    let latestTestResult = server.create('testResult', {
       succeeded: false,
       createdAt: moment().subtract(30, 'minutes').utc(),
       versionId: version.id
     });
-    let earliestTestResult = this.server.create('testResult', {
+    let earliestTestResult = server.create('testResult', {
       succeeded: true,
       createdAt: moment().subtract(2, 'hours').utc(),
       versionId: version.id
     });
-    this.server.db.versions.update(version, { testResultIds: [middleTestResult.id, latestTestResult.id, earliestTestResult.id] });
+    server.db.versions.update(version, { testResultIds: [middleTestResult.id, latestTestResult.id, earliestTestResult.id] });
 
     await visitAddon(addon);
     assert.dom('.test-ember-version-compatibility-unknown').exists();
   });
 
   test('excludes canary-only builds for version compatiblity purposes', async function(assert) {
-    let addon = this.server.create('addon');
-    let version = this.server.create('version', { addonId: addon.id });
-    let testResults = this.server.createList('testResult', 5, {
+    let addon = server.create('addon');
+    let version = server.create('version', { addonId: addon.id });
+    let testResults = server.createList('testResult', 5, {
       canary: true,
       succeeded: true,
       createdAt: (i) => moment().subtract(i + 1, 'hours').utc(),
       versonId: version.id
     });
-    testResults.push(this.server.create('testResult', {
+    testResults.push(server.create('testResult', {
       succeeded: false,
       createdAt: moment().subtract(6, 'hours').utc(),
       versionId: version.id
     }));
-    testResults.concat(this.server.createList('testResult', 5, {
+    testResults.concat(server.createList('testResult', 5, {
       canary: true,
       succeeded: true,
       createdAt: (i) => moment().subtract(7 + i, 'hours').utc(),
@@ -174,8 +174,8 @@ module('Acceptance | version compatibility', function(hooks) {
   }
 
   function createAddonWithVersionCompatibilities(emberVersions) {
-    let addon = this.server.create('addon');
-    let testResult = this.server.create('testResult');
+    let addon = server.create('addon');
+    let testResult = server.create('testResult');
     let emberVersionCompatibilities = emberVersions.map((emberVersion) => {
       let version = emberVersion;
       let compatible = true;
@@ -183,12 +183,12 @@ module('Acceptance | version compatibility', function(hooks) {
         version = emberVersion.version;
         compatible = emberVersion.hasOwnProperty('compatible') ? emberVersion.compatible : true;
       }
-      return this.server.create('emberVersionCompatibility', { emberVersion: version, compatible });
+      return server.create('emberVersionCompatibility', { emberVersion: version, compatible });
     });
 
-    this.server.create('testResult', { id: 42 });
+    server.create('testResult', { id: 42 });
 
-    let version = this.server.create('version', {
+    let version = server.create('version', {
       addonId: addon.id
     });
 
@@ -201,9 +201,9 @@ module('Acceptance | version compatibility', function(hooks) {
   }
 
   function createAddonWithTestFailure() {
-    let addon = this.server.create('addon');
-    let testResult = this.server.create('testResult', { succeeded: false });
-    let version = this.server.create('version', { addonId: addon.id });
+    let addon = server.create('addon');
+    let testResult = server.create('testResult', { succeeded: false });
+    let version = server.create('version', { addonId: addon.id });
     testResult.update('versionId', version.id);
 
     return { addon, version, testResult };

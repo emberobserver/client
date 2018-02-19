@@ -6,7 +6,7 @@ module('Acceptance | scroll reset after route transition', function(hooks) {
   setupEmberObserverTest(hooks);
 
   test('reset scroll after transition to a route', async function(assert) {
-    this.server.create('maintainer', 1);
+    server.create('maintainer', 1);
     await visit('/');
     assert.equal(currentURL(), '/');
     assert.equal(window.scrollY, 0);

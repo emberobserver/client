@@ -6,7 +6,7 @@ module('Acceptance: Maintainers', function(hooks) {
   setupEmberObserverTest(hooks);
 
   test('can view page for a valid maintainer', async function(assert) {
-    this.server.create('maintainer', 1);
+    server.create('maintainer', 1);
 
     await visit('/maintainers/maintainer-0');
 
