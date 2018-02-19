@@ -7,13 +7,13 @@ module('Acceptance | code search', function(hooks) {
   setupEmberObserverTest(hooks);
 
   test('searching for addons containing code', async function(assert) {
-    let firstAddon = this.server.create('addon', { name: 'ember-try' });
-    this.server.create('addon', { name: 'ember-blanket' });
-    this.server.create('addon', { name: 'ember-foo' });
+    let firstAddon = server.create('addon', { name: 'ember-try' });
+    server.create('addon', { name: 'ember-blanket' });
+    server.create('addon', { name: 'ember-foo' });
 
     let query;
 
-    this.server.get('/search/addons', (db, request) => {
+    server.get('/search/addons', (db, request) => {
       query = request.queryParams.query;
       return {
         results: [
@@ -51,10 +51,10 @@ module('Acceptance | code search', function(hooks) {
   });
 
   test('viewing addon source containing search query', async function(assert) {
-    this.server.create('addon', { name: 'ember-try' });
+    server.create('addon', { name: 'ember-try' });
 
     let addonParam, queryParam;
-    this.server.get('/search/addons', () => {
+    server.get('/search/addons', () => {
       return {
         results: [
           {
@@ -65,7 +65,7 @@ module('Acceptance | code search', function(hooks) {
       };
     });
 
-    this.server.get('/search/source', (db, request) => {
+    server.get('/search/source', (db, request) => {
       addonParam = request.queryParams.addon;
       queryParam = request.queryParams.query;
       return {
@@ -125,11 +125,11 @@ module('Acceptance | code search', function(hooks) {
   });
 
   test('sorting search results', async function(assert) {
-    this.server.create('addon', { name: 'ember-try' });
-    this.server.create('addon', { name: 'ember-blanket' });
-    this.server.create('addon', { name: 'ember-foo' });
+    server.create('addon', { name: 'ember-try' });
+    server.create('addon', { name: 'ember-blanket' });
+    server.create('addon', { name: 'ember-foo' });
 
-    this.server.get('/search/addons', () => {
+    server.get('/search/addons', () => {
       return {
         results: [
           {
@@ -167,10 +167,10 @@ module('Acceptance | code search', function(hooks) {
   });
 
   test('searching with a regex', async function(assert) {
-    this.server.create('addon', { name: 'ember-try' });
+    server.create('addon', { name: 'ember-try' });
 
     let addonRegexParam, usageRegexParam;
-    this.server.get('/search/addons', (db, request) => {
+    server.get('/search/addons', (db, request) => {
       addonRegexParam = request.queryParams.regex;
       return {
         results: [
@@ -182,7 +182,7 @@ module('Acceptance | code search', function(hooks) {
       };
     });
 
-    this.server.get('/search/source', (db, request) => {
+    server.get('/search/source', (db, request) => {
       usageRegexParam = request.queryParams.regex;
       return {
         /* eslint-disable camelcase */
@@ -224,11 +224,11 @@ module('Acceptance | code search', function(hooks) {
   });
 
   test('searching when sort is set in query param', async function(assert) {
-    this.server.create('addon', { name: 'ember-try' });
-    this.server.create('addon', { name: 'ember-blanket' });
-    this.server.create('addon', { name: 'ember-foo' });
+    server.create('addon', { name: 'ember-try' });
+    server.create('addon', { name: 'ember-blanket' });
+    server.create('addon', { name: 'ember-foo' });
 
-    this.server.get('/search/addons', () => {
+    server.get('/search/addons', () => {
       return {
         results: [
           {
@@ -258,9 +258,9 @@ module('Acceptance | code search', function(hooks) {
   });
 
   test('viewing more results', async function(assert) {
-    let addons = this.server.createList('addon', 4);
+    let addons = server.createList('addon', 4);
 
-    this.server.get('/search/addons', () => {
+    server.get('/search/addons', () => {
       return {
         results: searchResults(addons)
       };
@@ -280,13 +280,13 @@ module('Acceptance | code search', function(hooks) {
   });
 
   test('filtering search results by file path', async function(assert) {
-    this.server.create('addon', { name: 'ember-try' });
-    this.server.create('addon', { name: 'ember-blanket' });
-    this.server.create('addon', { name: 'ember-foo' });
+    server.create('addon', { name: 'ember-try' });
+    server.create('addon', { name: 'ember-blanket' });
+    server.create('addon', { name: 'ember-foo' });
 
     let filterTerm = 'index';
 
-    this.server.get('/search/addons', () => {
+    server.get('/search/addons', () => {
       return {
         results: [
           {
@@ -335,12 +335,12 @@ module('Acceptance | code search', function(hooks) {
   });
 
   test('filtering addon source by file path', async function(assert) {
-    this.server.create('addon', { name: 'no-match' });
-    let addonWithFilteredFiles = this.server.create('addon', { name: 'has-match' });
+    server.create('addon', { name: 'no-match' });
+    let addonWithFilteredFiles = server.create('addon', { name: 'has-match' });
 
     let filterTerm = 'index';
 
-    this.server.get('/search/addons', () => {
+    server.get('/search/addons', () => {
       return {
         results: [
           {
@@ -357,7 +357,7 @@ module('Acceptance | code search', function(hooks) {
       };
     });
 
-    this.server.get('/search/source', () => {
+    server.get('/search/source', () => {
       return {
         /* eslint-disable camelcase */
         results: [
@@ -401,16 +401,16 @@ module('Acceptance | code search', function(hooks) {
   });
 
   test('filtering works with sorting and pagination', async function(assert) {
-    this.server.create('addon', { name: 'ember-try' });
-    this.server.create('addon', { name: 'ember-blanket' });
-    this.server.create('addon', { name: 'ember-foo' });
-    this.server.create('addon', { name: 'ember-cli-thing' });
-    this.server.create('addon', { name: 'ember-cli-other-thing' });
-    this.server.create('addon', { name: 'ember-cli-matches' });
+    server.create('addon', { name: 'ember-try' });
+    server.create('addon', { name: 'ember-blanket' });
+    server.create('addon', { name: 'ember-foo' });
+    server.create('addon', { name: 'ember-cli-thing' });
+    server.create('addon', { name: 'ember-cli-other-thing' });
+    server.create('addon', { name: 'ember-cli-matches' });
 
     let filterTerm = 'index';
 
-    this.server.get('/search/addons', () => {
+    server.get('/search/addons', () => {
       return {
         results: [
           {
@@ -494,13 +494,13 @@ module('Acceptance | code search', function(hooks) {
   });
 
   test('when file filter regex is invalid', async function(assert) {
-    this.server.create('addon', { name: 'ember-try' });
-    this.server.create('addon', { name: 'ember-blanket' });
-    this.server.create('addon', { name: 'ember-foo' });
+    server.create('addon', { name: 'ember-try' });
+    server.create('addon', { name: 'ember-blanket' });
+    server.create('addon', { name: 'ember-foo' });
 
     let invalidFilter = '(index';
 
-    this.server.get('/search/addons', () => {
+    server.get('/search/addons', () => {
       return {
         results: [
           {

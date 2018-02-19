@@ -7,9 +7,9 @@ module('Acceptance: Index', function(hooks) {
   setupEmberObserverTest(hooks);
 
   test('visiting /', async function(assert) {
-    this.server.createList('category', 7);
-    let addons = this.server.createList('addon', 4);
-    let category = this.server.create('category',
+    server.createList('category', 7);
+    let addons = server.createList('addon', 4);
+    let category = server.create('category',
       {
         name: 'Authentication',
         description: 'Addons for auth',
@@ -18,9 +18,9 @@ module('Acceptance: Index', function(hooks) {
 
     category.update({ addonIds: addons.mapBy('id') });
 
-    let addonA = this.server.create('addon');
+    let addonA = server.create('addon');
 
-    let categoryA = this.server.create('category',
+    let categoryA = server.create('category',
       {
         name: 'Simple Auth',
         description: 'Simple Auth addons',
@@ -62,10 +62,10 @@ module('Acceptance: Index', function(hooks) {
   });
 
   test('including readme matches in search', async function(assert) {
-    let addon1 = this.server.create('addon', { name: 'ember-test-thing' });
-    let addon2 = this.server.create('addon', { name: 'ember-different' });
+    let addon1 = server.create('addon', { name: 'ember-test-thing' });
+    let addon2 = server.create('addon', { name: 'ember-different' });
 
-    this.server.get('/search', (db, request) => {
+    server.get('/search', (db, request) => {
       assert.equal(request.queryParams.query, 'test', 'Query is sent to readme search');
       return {
         search: [
@@ -108,7 +108,7 @@ module('Acceptance: Index', function(hooks) {
   });
 
   test('going to a maintainer from search results works', async function(assert) {
-    this.server.create('maintainer', { name: 'test-master' });
+    server.create('maintainer', { name: 'test-master' });
 
     await visit('/?query=test');
 
@@ -119,7 +119,7 @@ module('Acceptance: Index', function(hooks) {
   });
 
   test('going to an addon from search results works', async function(assert) {
-    this.server.create('addon', { name: 'ember-test', license: 'GPL' });
+    server.create('addon', { name: 'ember-test', license: 'GPL' });
 
     await visit('/?query=test');
 
@@ -131,7 +131,7 @@ module('Acceptance: Index', function(hooks) {
   });
 
   test('going to a category from search results works', async function(assert) {
-    this.server.create('category', { name: 'Testing' });
+    server.create('category', { name: 'Testing' });
 
     await visit('/?query=test');
 
@@ -149,12 +149,12 @@ module('Acceptance: Index', function(hooks) {
 
   function testSearch(url, assertForContentOnUrl) {
     test(`visiting ${url} with a query`, async function(assert) {
-      this.server.create('addon', { name: 'ember-a-thing' });
-      this.server.create('addon', { name: 'ember-test-me', description: 'A thin addon' });
-      this.server.create('category', { name: 'Another thing' });
-      this.server.create('category', { name: 'quietest' });
-      this.server.create('category', { name: 'Testing' });
-      this.server.create('maintainer', { name: 'test-master' });
+      server.create('addon', { name: 'ember-a-thing' });
+      server.create('addon', { name: 'ember-test-me', description: 'A thin addon' });
+      server.create('category', { name: 'Another thing' });
+      server.create('category', { name: 'quietest' });
+      server.create('category', { name: 'Testing' });
+      server.create('maintainer', { name: 'test-master' });
 
       await visit(`${url}?query=test`);
 

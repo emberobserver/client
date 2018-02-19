@@ -9,11 +9,11 @@ export function setupEmberObserverTest(hooks) {
   };
 
   hooks.beforeEach(function() {
-    this.server = startMirage();
+    window.server = startMirage();
   });
 
   hooks.afterEach(function() {
-    this.server.shutdown();
+    window.server.shutdown();
   });
   
   setupApplicationTest(hooks);

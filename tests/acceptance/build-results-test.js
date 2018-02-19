@@ -9,9 +9,9 @@ module('Acceptance | build results', function(hooks) {
   setupEmberObserverTest(hooks);
 
   test('displays basic info about a build', async function(assert) {
-    let addon = this.server.create('addon');
-    let addonVersion = this.server.create('version', { addonId: addon.id });
-    this.server.create('testResult', {
+    let addon = server.create('addon');
+    let addonVersion = server.create('version', { addonId: addon.id });
+    server.create('testResult', {
       versionId: addonVersion.id,
       createdAt: moment('2016-08-07 16:30').utc()
     });
@@ -27,15 +27,15 @@ module('Acceptance | build results', function(hooks) {
   });
 
   test('sorts results by run date', async function(assert) {
-    let addon = this.server.create('addon');
-    let addonVersion = this.server.create('version', { addonId: addon.id });
-    let middleTestResult = this.server.create('testResult', {
+    let addon = server.create('addon');
+    let addonVersion = server.create('version', { addonId: addon.id });
+    let middleTestResult = server.create('testResult', {
       createdAt: moment('2016-11-19 12:00:00').utc()
     });
-    let earliestTestResult = this.server.create('testResult', {
+    let earliestTestResult = server.create('testResult', {
       createdAt: moment('2016-11-19 00:00:01').utc()
     });
-    let latestTestResult = this.server.create('testResult', {
+    let latestTestResult = server.create('testResult', {
       createdAt: moment('2016-11-19 23:59:59').utc()
     });
     addonVersion.update({
@@ -53,14 +53,14 @@ module('Acceptance | build results', function(hooks) {
   });
 
   test('displays appropriate status based on result', async function(assert) {
-    let addon = this.server.create('addon');
-    let addonVersion = this.server.create('version', { addonId: addon.id });
-    let timedOutResult = this.server.create('testResult', {
+    let addon = server.create('addon');
+    let addonVersion = server.create('version', { addonId: addon.id });
+    let timedOutResult = server.create('testResult', {
       succeeded: false,
       statusMessage: 'timed out',
       createdAt: moment().subtract(30, 'minutes').utc()
     });
-    let succeededResult = this.server.create('testResult', {
+    let succeededResult = server.create('testResult', {
       succeeded: true,
       createdAt: moment().subtract(1, 'hour').utc()
     });
@@ -77,9 +77,9 @@ module('Acceptance | build results', function(hooks) {
   });
 
   test('displays semver string for non-canary builds', async function(assert) {
-    let addon = this.server.create('addon');
-    let addonVersion = this.server.create('version', { addonId: addon.id });
-    this.server.create('testResult', {
+    let addon = server.create('addon');
+    let addonVersion = server.create('version', { addonId: addon.id });
+    server.create('testResult', {
       versionId: addonVersion.id,
       canary: false,
       semverString: '>= 2.0.0',
@@ -97,9 +97,9 @@ module('Acceptance | build results', function(hooks) {
   });
 
   test('displays appropriate indication for canary builds', async function(assert) {
-    let addon = this.server.create('addon');
-    let addonVersion = this.server.create('version', { addonId: addon.id });
-    this.server.create('testResult', {
+    let addon = server.create('addon');
+    let addonVersion = server.create('version', { addonId: addon.id });
+    server.create('testResult', {
       versionId: addonVersion.id,
       canary: true,
       createdAt: moment('2016-08-07 16:30').utc()
@@ -138,8 +138,8 @@ module('Acceptance | build results', function(hooks) {
   });
 
   test('links to detail for individual builds', async function(assert) {
-    let version = this.server.create('version');
-    let testResult = this.server.create('testResult', { versionId: version.id });
+    let version = server.create('version');
+    let testResult = server.create('testResult', { versionId: version.id });
 
     await login();
     await visit('/admin/build-results');
@@ -149,16 +149,16 @@ module('Acceptance | build results', function(hooks) {
   });
 
   test('detail page shows data for a build', async function(assert) {
-    let addon = this.server.create('addon');
-    let version = this.server.create('version', {
+    let addon = server.create('addon');
+    let version = server.create('version', {
       addonId: addon.id
     });
-    let testResult = this.server.create('testResult', {
+    let testResult = server.create('testResult', {
       versionId: version.id,
       output: 'this is the output',
       createdAt: moment('2016-08-01 12:34:56').utc()
     });
-    this.server.db.versions.update(version, { testResultId: testResult.id });
+    server.db.versions.update(version, { testResultId: testResult.id });
 
     await login();
     await visit(`/admin/build-results/${testResult.id}`);
@@ -170,12 +170,12 @@ module('Acceptance | build results', function(hooks) {
   });
 
   test('detail page shows "succeeded" for status when build succeeded', async function(assert) {
-    let version = this.server.create('version');
-    let testResult = this.server.create('testResult', {
+    let version = server.create('version');
+    let testResult = server.create('testResult', {
       versionId: version.id,
       succeeded: true
     });
-    this.server.db.versions.update(version, { testResultId: testResult.id });
+    server.db.versions.update(version, { testResultId: testResult.id });
 
     await login();
     await visit(`/admin/build-results/${testResult.id}`);
@@ -184,13 +184,13 @@ module('Acceptance | build results', function(hooks) {
   });
 
   test('detail page shows status message when build did not succeeded', async function(assert) {
-    let version = this.server.create('version');
-    let testResult = this.server.create('testResult', {
+    let version = server.create('version');
+    let testResult = server.create('testResult', {
       versionId: version.id,
       succeeded: false,
       statusMessage: 'this is the status'
     });
-    this.server.db.versions.update(version, { testResultId: testResult.id });
+    server.db.versions.update(version, { testResultId: testResult.id });
 
     await login();
     await visit(`/admin/build-results/${testResult.id}`);
@@ -201,15 +201,15 @@ module('Acceptance | build results', function(hooks) {
   test('detail page has a "retry" button for failed builds', async function(assert) {
     assert.expect(2);
 
-    let version = this.server.create('version');
-    let testResult = this.server.create('testResult', {
+    let version = server.create('version');
+    let testResult = server.create('testResult', {
       versionId: version.id,
       succeeded: false,
       statusMessage: 'failed'
     });
-    this.server.db.versions.update(version, { testResultId: testResult.id });
+    server.db.versions.update(version, { testResultId: testResult.id });
 
-    this.server.post('/test_results/:id/retry', function() {
+    server.post('/test_results/:id/retry', function() {
       assert.ok(true, 'makes retry request');
     });
 
@@ -222,12 +222,12 @@ module('Acceptance | build results', function(hooks) {
   });
 
   test('detail page does not have a "retry" button for successful builds', async function(assert) {
-    let version = this.server.create('version');
-    let testResult = this.server.create('testResult', {
+    let version = server.create('version');
+    let testResult = server.create('testResult', {
       versionId: version.id,
       succeeded: true
     });
-    this.server.db.versions.update(version, { testResultId: testResult.id });
+    server.db.versions.update(version, { testResultId: testResult.id });
 
     await login();
     await visit(`/admin/build-results/${testResult.id}`);

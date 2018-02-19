@@ -19,7 +19,7 @@ module('Acceptance: admin', function(hooks) {
     assert.expect(2);
     let done = assert.async();
 
-    this.server.post('/authentication/login.json', function(db, request) {
+    server.post('/authentication/login.json', function(db, request) {
       assert.equal(request.requestBody, 'email=test%40example.com&password=password123');
       done();
       return {
@@ -38,11 +38,11 @@ module('Acceptance: admin', function(hooks) {
   test('reviewing addons', async function(assert) {
     assert.expect(7);
 
-    let addon = this.server.create('addon', {
+    let addon = server.create('addon', {
       name: 'test-addon'
     });
 
-    let review = this.server.create('review', {
+    let review = server.create('review', {
       addonId: addon.id,
       hasTests: 1,
       hasReadme: 4,
@@ -52,18 +52,18 @@ module('Acceptance: admin', function(hooks) {
       review: 'Seems ok'
     });
 
-    this.server.create('version', {
+    server.create('version', {
       addonId: addon.id,
       reviewId: review.id,
       released: window.moment().subtract(3, 'months')
     });
 
-    let latestVersion = this.server.create('version', {
+    let latestVersion = server.create('version', {
       addonId: addon.id,
       released: window.moment().subtract(1, 'months')
     });
 
-    this.server.create('category', {
+    server.create('category', {
       name: 'Category1',
       addonIds: [addon.id]
     });
@@ -80,7 +80,7 @@ module('Acceptance: admin', function(hooks) {
     await fillIn('.test-addon-review-notes', '#Some Review');
     await click('.test-addon-review-save');
 
-    let newReview = this.server.schema.reviews.all().models[this.server.schema.reviews.all().models.length - 1];
+    let newReview = server.schema.reviews.all().models[server.schema.reviews.all().models.length - 1];
     assert.equal(newReview.version.id, latestVersion.id);
     assert.equal(newReview.hasTests, 2);
     assert.equal(newReview.hasReadme, 1);
@@ -97,11 +97,11 @@ module('Acceptance: admin', function(hooks) {
   test('renewing a review', async function(assert) {
     assert.expect(7);
 
-    let addon = this.server.create('addon', {
+    let addon = server.create('addon', {
       name: 'test-addon'
     });
 
-    let review = this.server.create('review', {
+    let review = server.create('review', {
       addonId: addon.id,
       hasTests: 1,
       hasReadme: 4,
@@ -111,13 +111,13 @@ module('Acceptance: admin', function(hooks) {
       review: 'Seems ok'
     });
 
-    this.server.create('version', {
+    server.create('version', {
       addonId: addon.id,
       reviewId: review.id,
       released: window.moment().subtract(3, 'months')
     });
 
-    let latestVersion = this.server.create('version', {
+    let latestVersion = server.create('version', {
       addonId: addon.id,
       released: window.moment().subtract(1, 'months')
     });
@@ -127,7 +127,7 @@ module('Acceptance: admin', function(hooks) {
     await visitAddon(addon);
     await click('.test-renew-latest-review');
 
-    let newReview = this.server.schema.reviews.all().models[this.server.schema.reviews.all().models.length - 1];
+    let newReview = server.schema.reviews.all().models[server.schema.reviews.all().models.length - 1];
     assert.equal(newReview.version.id, latestVersion.id, 'Review should be for the latest version');
     assert.equal(newReview.hasTests, 1);
     assert.equal(newReview.hasReadme, 4);
@@ -140,19 +140,19 @@ module('Acceptance: admin', function(hooks) {
   test('updating addons', async function(assert) {
     assert.expect(30);
 
-    let category1 = this.server.create('category', {
+    let category1 = server.create('category', {
       name: 'Category1'
     });
 
-    let category2 = this.server.create('category', {
+    let category2 = server.create('category', {
       name: 'Category2'
     });
 
-    this.server.create('category', {
+    server.create('category', {
       name: 'Category3'
     });
 
-    let addon = this.server.create('addon', {
+    let addon = server.create('addon', {
       name: 'test-addon',
       note: '#note',
       isOfficial: true,
