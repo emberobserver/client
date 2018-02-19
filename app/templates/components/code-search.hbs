@@ -57,6 +57,9 @@
       <div class="button-select test-sort">
         {{sort-option name="Name" key="name" selectedSort=sort sortBy=(perform sortBy)}}
         {{sort-option name="Usages" key="usages" selectedSort=sort sortBy=(perform sortBy)}}
+        {{#if features.codeSearchScoreSorting}}
+          {{sort-option name="Score" key="score" selectedSort=sort sortBy=(perform sortBy)}}
+        {{/if}}
       </div>
     </div>
   </div>

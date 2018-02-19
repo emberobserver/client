@@ -15,6 +15,8 @@ export default Component.extend({
 
   store: service(),
 
+  features: service(),
+
   codeQuery: null,
 
   sort: null,
@@ -116,6 +118,7 @@ export default Component.extend({
         return {
           addon: addons.findBy('name', result.addonName),
           count: result.count,
+          score: result.score,
           files: result.files
         };
       });
@@ -159,6 +162,10 @@ export default Component.extend({
 });
 
 function sortResults(results, sort) {
+  if (sort === 'score') {
+    return results.sortBy('score').reverse();
+  }
+
   if (sort === 'usages') {
     return results.sortBy('count').reverse();
   }
