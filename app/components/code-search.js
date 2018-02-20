@@ -171,6 +171,10 @@ function sortResults(results, sort) {
     return results.sortBy('addon.score').reverse();
   }
 
+  if (sort === 'updated') {
+    return results.sortBy('addon.latestVersionDate').reverse();
+  }
+
   if (sort === 'usages') {
     return results.sortBy('count').reverse();
   }
