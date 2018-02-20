@@ -110,18 +110,23 @@ export default Component.extend({
       return resolve(null);
     }
 
-    let sortedResults = sortResults(results, sort);
-    let pageOfResults = sortedResults.slice((page - 1) * PageSize, page * PageSize);
-    let names = pageOfResults.mapBy('addonName');
-    return this.get('store').query('addon', { filter: { name: names.join(',') }, include: 'categories' }).then((addons) => {
-      return pageOfResults.map((result) => {
+    let names = results.mapBy('addonName');
+
+    return this.get('store').query('addon', {
+      filter: { name: names.join(',') },
+      include: 'categories'
+    }).then((addons) => {
+      let mappedResults = results.map((result) => {
         return {
           addon: addons.findBy('name', result.addonName),
           count: result.count,
-          score: result.score,
           files: result.files
         };
       });
+
+      let sortedResults = sortResults(mappedResults, sort);
+      let pageOfResults = sortedResults.slice((page - 1) * PageSize, page * PageSize);
+      return pageOfResults;
     });
   },
 
@@ -163,7 +168,7 @@ export default Component.extend({
 
 function sortResults(results, sort) {
   if (sort === 'score') {
-    return results.sortBy('score').reverse();
+    return results.sortBy('addon.score').reverse();
   }
 
   if (sort === 'usages') {
@@ -171,7 +176,7 @@ function sortResults(results, sort) {
   }
 
   if (sort === 'name') {
-    return results.sortBy('addonName');
+    return results.sortBy('addon.name');
   }
 }
 

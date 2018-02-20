@@ -127,27 +127,24 @@ module('Acceptance | code search', function(hooks) {
 
   test('sorting search results', async function(assert) {
     enableFeature(this.owner, 'code-search-score-sorting');
-    server.create('addon', { name: 'ember-try' });
-    server.create('addon', { name: 'ember-blanket' });
-    server.create('addon', { name: 'ember-foo' });
+    server.create('addon', { name: 'ember-try', score: 3 });
+    server.create('addon', { name: 'ember-blanket', score: 2 });
+    server.create('addon', { name: 'ember-foo', score: 1 });
 
     server.get('/search/addons', () => {
       return {
         results: [
           {
             addon: 'ember-try',
-            count: 1,
-            score: 3
+            count: 1
           },
           {
             addon: 'ember-blanket',
-            count: 2,
-            score: 2
+            count: 2
           },
           {
             addon: 'ember-foo',
-            count: 3,
-            score: 1
+            count: 3
           }
         ]
       };
