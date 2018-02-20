@@ -12,7 +12,7 @@ export default Service.extend({
       }
     }).then((response) => {
       return response.results.map((item) => {
-        return { addonName: item.addon, count: item.count, files: item.files, score: item.score };
+        return { addonName: item.addon, count: item.count, files: item.files };
       });
     });
   },
