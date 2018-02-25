@@ -15,8 +15,6 @@ export default Component.extend({
 
   store: service(),
 
-  features: service(),
-
   codeQuery: null,
 
   sort: null,
@@ -110,23 +108,17 @@ export default Component.extend({
       return resolve(null);
     }
 
-    let names = results.mapBy('addonName');
-
-    return this.get('store').query('addon', {
-      filter: { name: names.join(',') },
-      include: 'categories'
-    }).then((addons) => {
-      let mappedResults = results.map((result) => {
+    let sortedResults = sortResults(results, sort);
+    let pageOfResults = sortedResults.slice((page - 1) * PageSize, page * PageSize);
+    let names = pageOfResults.mapBy('addonName');
+    return this.get('store').query('addon', { filter: { name: names.join(',') }, include: 'categories' }).then((addons) => {
+      return pageOfResults.map((result) => {
         return {
           addon: addons.findBy('name', result.addonName),
           count: result.count,
           files: result.files
         };
       });
-
-      let sortedResults = sortResults(mappedResults, sort);
-      let pageOfResults = sortedResults.slice((page - 1) * PageSize, page * PageSize);
-      return pageOfResults;
     });
   },
 
@@ -167,20 +159,12 @@ export default Component.extend({
 });
 
 function sortResults(results, sort) {
-  if (sort === 'score') {
-    return results.sortBy('addon.score').reverse();
-  }
-
-  if (sort === 'updated') {
-    return results.sortBy('addon.latestVersionDate').reverse();
-  }
-
   if (sort === 'usages') {
     return results.sortBy('count').reverse();
   }
 
   if (sort === 'name') {
-    return results.sortBy('addon.name');
+    return results.sortBy('addonName');
   }
 }
 
