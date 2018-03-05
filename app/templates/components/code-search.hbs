@@ -10,7 +10,7 @@
               value=searchInput
       }}
       {{#if codeQuery}}
-        <button type="button" {{action "clearSearch"}} class="icon-close test-clear-search"></button>
+        <button type="button" {{action clearSearch}} class="icon-close test-clear-search"></button>
       {{/if}}
     </div>
     <div class="search-actions">
@@ -22,41 +22,51 @@
       {{#if regex}}
         <a href="https://github.com/google/re2/wiki/Syntax" class="regex-help test-regex-help" rel="noopener" target="_blank">(re2 syntax)</a>
       {{/if}}
-      <button type="submit" class="test-submit-search button" style="float: right;">Search</button>
     </div>
+    <button type="submit" class="test-submit-search button">Search</button>
   </form>
 </div>
 
 {{#if results.length}}
   <div class="result-details">
-    <h4 class="test-last-search">Results for {{quotedLastSearch}}</h4>
-    <h5 class="test-result-info">
-      Found {{pluralize-this results.length 'addon'}} ({{pluralize-this totalUsageCount 'usage'}})
+    <h5 class="test-last-search test-result-info">
+      Results for {{quotedLastSearch}} &mdash; Found {{pluralize-this results.length 'addon'}} ({{pluralize-this totalUsageCount 'usage'}})
     </h5>
   </div>
   <div class="result-controls">
     <div class="filter-controls">
-      Filter by file path:
+      <h6>Filter by file path</h6>
       <div class="filter-input">
         <input type="text"
                value={{fileFilter}}
                  oninput={{action (perform applyFileFilter) value="target.value"}}
                class="test-file-filter-input">
-        {{#if showFilteredUsages}}
+        {{#if isFilterApplied}}
           <button type="button" {{action clearFileFilter}} class="icon-close test-clear-file-filter"></button>
         {{/if}}
       </div>
-      {{#if showFilteredUsages}}
+      {{#if isDisplayingFilteredResults}}
         <span class="filter-results test-filtered-result-info">
           Filtered to {{pluralize-this filteredResults.length 'addon'}} ({{pluralize-this totalFilteredUsageCount 'usage'}})
         </span>
       {{/if}}
     </div>
     <div class="sort-controls">
-      Sort by:
       <div class="button-select test-sort">
-        {{sort-option name="Name" key="name" selectedSort=sort sortBy=(action sortBy)}}
-        {{sort-option name="Usages" key="usages" selectedSort=sort sortBy=(action sortBy)}}
+        {{#sort-order-option
+           key="name"
+           selectedSort=sort
+           sortAscending=sortAscending
+           sortBy=(action sortBy)}}
+          Name
+        {{/sort-order-option}}
+        {{#sort-order-option
+          key="usages"
+          selectedSort=sort
+          sortAscending=sortAscending
+          sortBy=(action sortBy)}}
+          Usages
+        {{/sort-order-option}}
       </div>
     </div>
   </div>

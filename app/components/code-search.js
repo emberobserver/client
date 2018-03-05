@@ -1,5 +1,5 @@
 import { inject as service } from '@ember/service';
-import { mapBy, sum, notEmpty, or } from '@ember/object/computed';
+import { mapBy, sum, notEmpty, readOnly } from '@ember/object/computed';
 import { scheduleOnce } from '@ember/runloop';
 import Component from '@ember/component';
 import { computed } from '@ember/object';
@@ -16,6 +16,7 @@ export default Component.extend({
 
   codeQuery: null,
   sort: null,
+  sortAscending: null,
   fileFilter: null,
   quotedLastSearch: null,
   page: 1,
@@ -28,7 +29,7 @@ export default Component.extend({
   filteredUsageCounts: mapBy('filteredResults', 'count'),
   totalFilteredUsageCount: sum('filteredUsageCounts'),
   isFilterApplied: notEmpty('fileFilter'),
-  showFilteredUsages: computed('isFilterApplied', 'isUpdatingFilter', function() {
+  isDisplayingFilteredResults: computed('isFilterApplied', 'isUpdatingFilter', function() {
     return this.get('isFilterApplied') && !this.get('isUpdatingFilter');
   }),
 
@@ -55,8 +56,8 @@ export default Component.extend({
       return this.get('results');
     }
   }),
-  sortedFilteredResults: computed('filteredResults', 'sort', function() {
-    return sortResults(this.get('filteredResults'), this.get('sort'));
+  sortedFilteredResults: computed('filteredResults', 'sort', 'sortAscending', function() {
+    return sortResults(this.get('filteredResults'), this.get('sort'), this.get('sortAscending'));
   }),
   displayingResults: computed('sortedFilteredResults', 'page', function() {
     return this._getResultsUpToPage(this.get('sortedFilteredResults'), this.get('page'));
@@ -109,7 +110,10 @@ export default Component.extend({
   },
 
   sortBy(key) {
-    this.set('page', 1);
+    let oldKey = this.get('sort');
+    if (oldKey === key) {
+      this.set('sortAscending', !this.get('sortAscending'));
+    }
     this.set('sort', key);
   },
 
@@ -117,29 +121,35 @@ export default Component.extend({
     this.$(this.get('focusNode')).focus();
   },
 
-  isUpdatingResults: or('applyFileFilter.isRunning'),
+  isUpdatingResults: readOnly('applyFileFilter.isRunning'),
 
-  isUpdatingFilter: or('applyFileFilter.isRunning'),
+  isUpdatingFilter: readOnly('applyFileFilter.isRunning'),
 
-  actions: {
-    clearSearch() {
-      this.set('codeQuery', '');
-      this.set('searchInput', '');
-      this.set('results', null);
-      this.set('page', 1);
-      scheduleOnce('afterRender', this, 'focus');
-    }
+  clearSearch() {
+    this.set('codeQuery', '');
+    this.set('searchInput', '');
+    this.set('results', null);
+    this.set('page', 1);
+    scheduleOnce('afterRender', this, 'focus');
   }
 });
 
-function sortResults(results, sort) {
+function sortResults(results, sort, sortAscending) {
+  let sorted;
+
   if (sort === 'usages') {
-    return results.sortBy('count').reverse();
+    sorted = results.sortBy('count');
   }
 
   if (sort === 'name') {
-    return results.sortBy('addon.name');
+    sorted = results.sortBy('addon.name');
   }
+
+  if (!sortAscending) {
+    sorted = sorted.reverse();
+  }
+
+  return sorted;
 }
 
 function quoteSearchTerm(searchTerm, isRegex) {

@@ -6,53 +6,82 @@
   }
 
   .search-wrapper {
+
     input {
       margin: 0;
     }
-  }
 
-  .regex-toggle {
-    color: $base-accent-color;
-    margin-left: 0.25rem;
+    form {
 
-    input {
-      margin-right: 0.5rem;
+      @include media($medium-screen) {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .search-wrapper-inner {
+        width: 100%;
+
+        @include media($medium-screen) {
+          flex: 1;
+          flex-basis: 80%;
+          order: 1;
+        }
+
+        position: relative;
+
+        .icon-close {
+          position: absolute;
+          top: 50%;
+          right: 1rem;
+          margin-top: -1rem;
+          font-size: 2rem;
+          line-height: 1;
+          color: $light-gray;
+          background: none;
+          padding: 0;
+        }
+      }
+
+      button[type=submit] {
+        min-width: 100%;
+
+        @include media($medium-screen) {
+          min-width: 18%;
+          margin-left: 2%;
+          order: 2;
+        }
+      }
+
+      .search-actions {
+        width: 100%;
+        padding: 1rem 0;
+        margin-left: 0.25rem;
+
+        @include media($medium-screen) {
+          order: 3;
+          width: auto;
+          padding: 0.5rem 0;
+        }
+
+        input {
+          margin-right: 0.25rem;
+        }
+
+        label {
+          cursor: pointer;
+        }
+
+        .regex-help {
+          border-bottom: 1px dashed #999;
+          font-size: 90%;
+          margin-left: .5rem;
+        }
+      }
     }
-
-    label {
-      cursor: pointer;
-    }
-  }
-
-  .search-actions {
-    @include clearfix;
-    padding: 0.5rem 0;
-
-    .regex-help {
-      border-bottom:1px dashed #999;
-      font-size: 90%;
-      margin-left: .5rem;
-    }
-  }
-
-  .search-wrapper-inner {
-    position: relative;
-  }
-
-  .icon-close {
-    position: absolute;
-    top: 50%;
-    right: 1rem;
-    margin-top: -1rem;
-    font-size: 2rem;
-    line-height: 1;
-    color: $light-gray;
-    background: none;
-    padding: 0;
   }
 
   .result-details {
-    @include clearfix;
+    margin-top: 1rem;
 
     h4 {
       margin: .25rem 0;
@@ -66,53 +95,53 @@
 
   .result-controls {
     padding: 0 .25rem;
-    border: 1px solid $light-gray;
-    border-width: 0 0 1px 0;
+    border-bottom: 1px solid $light-gray;
     margin-top: 1rem;
     padding-bottom: 1rem;
-    @include clearfix();
 
     .sort-controls {
-      @include span-columns(6);
-      text-align: right;
-      margin-bottom: .5rem;
-
       .button-option {
         margin-bottom: 0;
       }
     }
 
     .filter-controls {
-      @include span-columns(6);
       margin-bottom: .5rem;
-      height: 80px;
+      min-height: 90px;
 
       .filter-input {
-        @include media($medium-screen) {
-          width: 300px;
-        }
-
-        width: 144px;
+        width: 75%;
         position: relative;
+
+        @include media($medium-screen) {
+          width: 25%;
+        }
 
         input {
           border: 1px solid $base-accent-color;
           height: 36px;
+          font-size: 1.25rem;
           width: 100%;
           padding: .5rem;
         }
 
         .icon-close {
-          right: .4rem;
           color: $base-accent-color;
+          position: absolute;
+          top: 50%;
+          right: 0.5rem;
+          margin-top: -0.625rem;
           font-size: 1.25rem;
-          margin-top: -.7rem;
+          line-height: 1;
+          background: none;
+          padding: 0;
         }
       }
 
       .filter-results {
         display: inline-block;
-        padding-top: 10px;
+        padding-top: 0.2rem;
+        font-style: italic;
         white-space: nowrap;
       }
     }
@@ -171,9 +200,5 @@
     font-weight: 700;
     cursor: pointer;
     text-decoration: underline;
-  }
-
-  .addon-list {
-    @include clearfix;
   }
 }

@@ -1,0 +1,10 @@
+<button class="button-option {{if (is-equal selectedSort key) "selected"}}" {{action sortBy key}}>
+  {{yield}}
+  {{#if (is-equal selectedSort key)}}
+    {{#if sortAscending}}
+      <span class="icon-expand-less"></span>
+    {{else}}
+      <span class="icon-expand-more"></span>
+    {{/if}}
+  {{/if}}
+</button>
