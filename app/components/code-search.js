@@ -145,6 +145,14 @@ function sortResults(results, sort, sortAscending) {
     sorted = results.sortBy('addon.name');
   }
 
+  if (sort === 'score') {
+    sorted = results.sortBy('addon.score');
+  }
+
+  if (sort === 'updated') {
+    sorted = results.sortBy('addon.latestVersionDate');
+  }
+
   if (!sortAscending) {
     sorted = sorted.reverse();
   }

@@ -67,6 +67,20 @@
           sortBy=(action sortBy)}}
           Usages
         {{/sort-order-option}}
+        {{#sort-order-option
+          key="score"
+          selectedSort=sort
+          sortAscending=sortAscending
+          sortBy=(action sortBy)}}
+          Score
+        {{/sort-order-option}}
+        {{#sort-order-option
+          key="updated"
+          selectedSort=sort
+          sortAscending=sortAscending
+          sortBy=(action sortBy)}}
+          Updated
+        {{/sort-order-option}}
       </div>
     </div>
   </div>
