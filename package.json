@@ -59,7 +59,7 @@
     "ember-power-select": "^1.10.4",
     "ember-power-select-typeahead": "^0.6.1",
     "ember-resolver": "^4.5.0",
-    "ember-router-scroll": "^0.5.0",
+    "ember-router-scroll": "kategengler/ember-router-scroll#after-paint-fix",
     "ember-sanitize": "^2.0.2",
     "ember-source": "~3.0.0",
     "emberx-select": "^3.1.1",

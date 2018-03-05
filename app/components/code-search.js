@@ -1,7 +1,6 @@
 import { inject as service } from '@ember/service';
 import { mapBy, sum, notEmpty, or } from '@ember/object/computed';
 import { scheduleOnce } from '@ember/runloop';
-import { resolve } from 'rsvp';
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { isEmpty, isBlank } from '@ember/utils';
@@ -12,31 +11,23 @@ const PageSize = config.codeSearchPageSize;
 
 export default Component.extend({
   metrics: service(),
-
   store: service(),
-
-  codeQuery: null,
-
-  sort: null,
-
-  fileFilter: null,
-
-  classNames: ['code-search'],
-
-  focusNode: '#code-search-input',
-
   codeSearch: service(),
 
-  usageCounts: mapBy('results.rawResults', 'count'),
+  codeQuery: null,
+  sort: null,
+  fileFilter: null,
+  quotedLastSearch: null,
+  page: 1,
 
-  filteredUsageCounts: mapBy('results.filteredResults', 'count'),
+  classNames: ['code-search'],
+  focusNode: '#code-search-input',
 
+  usageCounts: mapBy('results', 'count'),
   totalUsageCount: sum('usageCounts'),
-
+  filteredUsageCounts: mapBy('filteredResults', 'count'),
   totalFilteredUsageCount: sum('filteredUsageCounts'),
-
   isFilterApplied: notEmpty('fileFilter'),
-
   showFilteredUsages: computed('isFilterApplied', 'isUpdatingFilter', function() {
     return this.get('isFilterApplied') && !this.get('isUpdatingFilter');
   }),
@@ -54,9 +45,26 @@ export default Component.extend({
     let input = this.get('searchInput');
     return !(isBlank(input) || input.length < 2);
   }),
+  cleanedSearchInput: computed('searchInput', function() {
+    return this.get('searchInput').trim();
+  }),
+  filteredResults: computed('results', 'fileFilter', function() {
+    if (this.get('fileFilter')) {
+      return filterByFilePath(this.get('results'), this.get('fileFilter'));
+    } else {
+      return this.get('results');
+    }
+  }),
+  sortedFilteredResults: computed('filteredResults', 'sort', function() {
+    return sortResults(this.get('filteredResults'), this.get('sort'));
+  }),
+  displayingResults: computed('sortedFilteredResults', 'page', function() {
+    return this._getResultsUpToPage(this.get('sortedFilteredResults'), this.get('page'));
+  }),
   search: task(function* () {
-    let query = this.get('searchInput').trim();
+    let query = this.get('cleanedSearchInput');
     this.set('results', null);
+    this.set('page', 1);
 
     if (!this.get('queryIsValid')) {
       return;
@@ -65,94 +73,60 @@ export default Component.extend({
     this.get('metrics').trackEvent({ category: 'Code Search', action: 'Search', label: query });
 
     this.set('codeQuery', query);
-    let results = yield this.get('codeSearch').addons(query, this.get('regex'));
+    let results = yield this.get('codeSearch.addons').perform(query, this.get('regex'));
     this.set('quotedLastSearch', quoteSearchTerm(query, this.get('regex')));
 
-    let filteredResults = filterByFilePath(results, this.get('fileFilter'));
-
-    let firstPageOfResults = yield this._fetchPageOfAddonResults(filteredResults, 1, this.get('sort'));
-    this.set('results',
-      {
-        displayingResults: firstPageOfResults,
-        lastResultPageDisplaying: 1,
-        rawResults: results,
-        length: results.length,
-        filteredResults: filteredResults,
-        filteredResultLength: filteredResults.length
-      });
+    this.set('results', results);
   }).restartable(),
 
   applyFileFilter: task(function*(fileFilter) {
-    yield timeout(500);
+    yield timeout(250);
 
-    this.set('fileFilter', fileFilter);
-    let filteredResults = filterByFilePath((this.get('results.rawResults')), fileFilter);
-    let firstPageOfFilteredResults = yield this._fetchPageOfAddonResults(filteredResults, 1, this.get('sort'));
-    this.set('results.displayingResults', firstPageOfFilteredResults);
-    this.set('results.lastResultPageDisplaying', 1);
-    this.set('results.filteredResults', filteredResults);
-    this.set('results.filteredResultLength', filteredResults.length);
+    if (!isEmpty(fileFilter)) {
+      this.set('fileFilter', fileFilter);
+    }
   }).restartable(),
 
-  clearFileFilter: task(function*() {
+  clearFileFilter() {
+    this.set('page', 1);
     this.set('fileFilter', null);
-    let firstPageOfResults = yield this._fetchPageOfAddonResults(this.get('results.rawResults'), 1, this.get('sort'));
-    this.set('results.displayingResults', firstPageOfResults);
-    this.set('results.lastResultPageDisplaying', 1);
-    this.set('results.filteredResults', this.get('results.rawResults'));
-    this.set('results.filteredResultLength', this.get('results.length'));
-  }),
-
-  _fetchPageOfAddonResults(results, page, sort) {
-    if (!results || !results.length) {
-      return resolve(null);
-    }
-
-    let sortedResults = sortResults(results, sort);
-    let pageOfResults = sortedResults.slice((page - 1) * PageSize, page * PageSize);
-    let names = pageOfResults.mapBy('addonName');
-    return this.get('store').query('addon', { filter: { name: names.join(',') }, include: 'categories' }).then((addons) => {
-      return pageOfResults.map((result) => {
-        return {
-          addon: addons.findBy('name', result.addonName),
-          count: result.count,
-          files: result.files
-        };
-      });
-    });
   },
 
-  canViewMore: computed('results.displayingResults.length', 'results.filteredResultLength', function() {
-    return this.get('results.displayingResults.length') < this.get('results.filteredResultLength');
+  _getResultsUpToPage(results, page) {
+    if (!results || !results.length) {
+      return null;
+    }
+
+    return results.slice(0, page * PageSize);
+  },
+
+  canViewMore: computed('displayingResults.length', 'filteredResults.length', function() {
+    return this.get('displayingResults.length') < this.get('filteredResults.length');
   }),
 
-  viewMore: task(function* () {
-    let pageToFetch = this.get('results.lastResultPageDisplaying') + 1;
-    let moreAddons = yield this._fetchPageOfAddonResults(this.get('results.filteredResults'), pageToFetch, this.get('sort'));
-    this.get('results.displayingResults').pushObjects(moreAddons);
-    this.set('results.lastResultPageDisplaying', pageToFetch);
-  }),
+  viewMore() {
+    this.set('page', this.get('page') + 1);
+  },
 
-  sortBy: task(function* (key) {
+  sortBy(key) {
+    this.set('page', 1);
     this.set('sort', key);
-    let sortedAddons = yield this._fetchPageOfAddonResults(this.get('results.filteredResults'), 1, key);
-    this.set('results.displayingResults', sortedAddons);
-    this.set('results.lastResultPageDisplaying', 1);
-  }),
+  },
 
   focus() {
     this.$(this.get('focusNode')).focus();
   },
 
-  isUpdatingResults: or('applyFileFilter.isRunning', 'clearFileFilter.isRunning', 'sortBy.isRunning'),
+  isUpdatingResults: or('applyFileFilter.isRunning'),
 
-  isUpdatingFilter: or('applyFileFilter.isRunning', 'clearFileFilter.isRunning'),
+  isUpdatingFilter: or('applyFileFilter.isRunning'),
 
   actions: {
     clearSearch() {
       this.set('codeQuery', '');
       this.set('searchInput', '');
       this.set('results', null);
+      this.set('page', 1);
       scheduleOnce('afterRender', this, 'focus');
     }
   }
@@ -164,7 +138,7 @@ function sortResults(results, sort) {
   }
 
   if (sort === 'name') {
-    return results.sortBy('addonName');
+    return results.sortBy('addon.name');
   }
 }
 
@@ -191,7 +165,7 @@ function filterByFilePath(results, filterTerm) {
     });
     if (filteredFiles.length > 0) {
       filteredList.push({
-        addonName: result.addonName,
+        addon: result.addon,
         files: filteredFiles,
         count: filteredFiles.length
       });

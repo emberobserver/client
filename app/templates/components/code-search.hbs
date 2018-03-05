@@ -43,20 +43,20 @@
                  oninput={{action (perform applyFileFilter) value="target.value"}}
                class="test-file-filter-input">
         {{#if showFilteredUsages}}
-          <button type="button" {{action (perform clearFileFilter)}} class="icon-close test-clear-file-filter"></button>
+          <button type="button" {{action clearFileFilter}} class="icon-close test-clear-file-filter"></button>
         {{/if}}
       </div>
       {{#if showFilteredUsages}}
         <span class="filter-results test-filtered-result-info">
-          Filtered to {{pluralize-this results.filteredResultLength 'addon'}} ({{pluralize-this totalFilteredUsageCount 'usage'}})
+          Filtered to {{pluralize-this filteredResults.length 'addon'}} ({{pluralize-this totalFilteredUsageCount 'usage'}})
         </span>
       {{/if}}
     </div>
     <div class="sort-controls">
       Sort by:
       <div class="button-select test-sort">
-        {{sort-option name="Name" key="name" selectedSort=sort sortBy=(perform sortBy)}}
-        {{sort-option name="Usages" key="usages" selectedSort=sort sortBy=(perform sortBy)}}
+        {{sort-option name="Name" key="name" selectedSort=sort sortBy=(action sortBy)}}
+        {{sort-option name="Usages" key="usages" selectedSort=sort sortBy=(action sortBy)}}
       </div>
     </div>
   </div>
@@ -64,7 +64,7 @@
     {{#if isUpdatingResults}}
       {{dot-spinner}}
     {{else}}
-      {{#each results.displayingResults as |result|}}
+      {{#each displayingResults as |result|}}
         <li data-id="{{result.addon.id}}">
           {{addon-details addon=result.addon}}
           {{addon-source-usages
@@ -77,7 +77,7 @@
         </li>
       {{/each}}
       {{#if canViewMore}}
-        <a href="#" {{action (perform viewMore)}} class="view-more test-view-more">
+        <a href="#" {{action viewMore}} class="view-more test-view-more">
           <li>See more results</li>
         </a>
       {{/if}}

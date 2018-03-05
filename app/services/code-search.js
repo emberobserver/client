@@ -1,29 +1,42 @@
 import Service, { inject as service } from '@ember/service';
+import { task } from 'ember-concurrency';
+import config from 'ember-observer/config/environment';
+const PageSize = config.codeSearchPageSize;
 
 export default Service.extend({
   apiAjax: service(),
 
   store: service(),
 
-  addons(query, regex) {
-    return this.get('apiAjax').request('/search/addons', {
+  addons: task(function* (query, regex) {
+    let addons;
+    
+    let { results } = yield this.get('apiAjax').request('/search/addons', {
       data: {
         query, regex
       }
-    }).then((response) => {
-      return response.results.map((item) => {
-        return { addonName: item.addon, count: item.count, files: item.files };
-      });
     });
-  },
+    
+    if (results.length < (4 * PageSize)) {
+      let namesParam = results.map((r) => r.addon).join(',');
+      addons = yield this.get('store').query('addon', { filter: { name: namesParam }, include: 'categories' })
+    } else {
+      addons = yield this.get('store').query('addon', { filter: { codeSearch: true }, page: { limit: 10000 } });
+    }
+    return results.map((result) => {
+      let addon = addons.find((a) => a.get('name') === result.addon);
+      if (addon) {
+        return { addon, count: result.count, files: result.files };
+      }
+    }).compact();
+  }),
 
-  usages(addon, query, regex) {
-    return this.get('apiAjax').request('/search/source', {
+  usages: task(function* (addon, query, regex) {
+    let response = yield this.get('apiAjax').request('/search/source', {
       data: {
         addon, query, regex
       }
-    }).then((response) => {
-      return response.results;
     });
-  }
+    return response.results;
+  })
 });

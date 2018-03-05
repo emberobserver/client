@@ -2340,11 +2340,11 @@ ember-ajax@^3.0.0:
   dependencies:
     ember-cli-babel "^6.0.0"
 
-ember-app-scheduler@^0.2.0:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/ember-app-scheduler/-/ember-app-scheduler-0.2.1.tgz#4af70ce7b4d5792a96eff46c0c2f4a737ec3ad63"
+ember-app-scheduler@kyleshay/ember-app-scheduler#64a0c91d8866b356439bb2d3068029ac59490090:
+  version "0.0.6"
+  resolved "https://codeload.github.com/kyleshay/ember-app-scheduler/tar.gz/64a0c91d8866b356439bb2d3068029ac59490090"
   dependencies:
-    ember-cli-babel "^6.3.0"
+    ember-cli-babel "^5.1.7"
 
 ember-basic-dropdown@^0.34.0:
   version "0.34.0"
@@ -3108,11 +3108,11 @@ ember-router-generator@^1.2.3:
   dependencies:
     recast "^0.11.3"
 
-ember-router-scroll@^0.5.0:
+ember-router-scroll@kategengler/ember-router-scroll#after-paint-fix:
   version "0.5.0"
-  resolved "https://registry.yarnpkg.com/ember-router-scroll/-/ember-router-scroll-0.5.0.tgz#fae739634d9d8171a7805c83b063b862c7a30ff9"
+  resolved "https://codeload.github.com/kategengler/ember-router-scroll/tar.gz/778f31173036ac62df2d4fbbe5d7aad9c19cbfdf"
   dependencies:
-    ember-app-scheduler "^0.2.0"
+    ember-app-scheduler kyleshay/ember-app-scheduler#64a0c91d8866b356439bb2d3068029ac59490090
     ember-cli-babel "^6.6.0"
     ember-getowner-polyfill "^2.0.1"
 
