@@ -111,9 +111,10 @@ export default Component.extend({
 
   sortBy(key) {
     let oldKey = this.get('sort');
-    if (oldKey === key) {
+    if (oldKey === key || this.get('sortAscending') !== defaultSortAscendingFor(key)) {
       this.set('sortAscending', !this.get('sortAscending'));
     }
+
     this.set('sort', key);
   },
 
@@ -190,4 +191,11 @@ function filterByFilePath(results, filterTerm) {
     }
   });
   return filteredList;
+}
+
+function defaultSortAscendingFor(key) {
+  if (key === 'name') {
+    return true;
+  }
+  return false;
 }

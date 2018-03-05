@@ -178,32 +178,22 @@ module('Acceptance | code search', function(hooks) {
     await click(usageSortButton);
 
     let resortedAddonNames = findAll('.test-addon-name');
-    assert.dom(resortedAddonNames[0]).containsText('ember-try', 'Addons are sorted ascending by usage count');
-    assert.dom(resortedAddonNames[1]).containsText('ember-blanket', 'Addons are sorted ascending by usage count');
-    assert.dom(resortedAddonNames[2]).containsText('ember-foo', 'Addons are sorted ascending by usage count');
-    assert.equal(currentURL(), '/code-search?codeQuery=foo&sort=usages', 'Sort is in query params');
-    assert.dom(usageSortButton).hasClass('selected');
-    assert.ok(usageSortButton.querySelector('.icon-expand-less'));
-
-    await click(usageSortButton);
-
-    resortedAddonNames = findAll('.test-addon-name');
-    assert.dom(resortedAddonNames[0]).containsText('ember-foo', 'Addons are sorted descending by usage count');
+    assert.dom(resortedAddonNames[0]).containsText('ember-foo', 'Addons are sorted descending by default for switch to usage count sort');
     assert.dom(resortedAddonNames[1]).containsText('ember-blanket', 'Addons are sorted descending by usage count');
     assert.dom(resortedAddonNames[2]).containsText('ember-try', 'Addons are sorted descending by usage count');
     assert.equal(currentURL(), '/code-search?codeQuery=foo&sort=usages&sortAscending=false', 'Sort and sort direction is in query params');
     assert.dom(usageSortButton).hasClass('selected');
     assert.ok(usageSortButton.querySelector('.icon-expand-more'));
 
-    await click(nameSortButton);
+    await click(usageSortButton);
 
     resortedAddonNames = findAll('.test-addon-name');
-    assert.dom(resortedAddonNames[0]).containsText('ember-try', 'Addons sorted descending addon name');
-    assert.dom(resortedAddonNames[1]).containsText('ember-foo', 'Addons sorted descending addon name');
-    assert.dom(resortedAddonNames[2]).containsText('ember-blanket', 'Addons sorted descending addon name');
-    assert.equal(currentURL(), '/code-search?codeQuery=foo&sortAscending=false', 'Sort direction is in query params');
-    assert.dom(nameSortButton).hasClass('selected');
-    assert.ok(nameSortButton.querySelector('.icon-expand-more'));
+    assert.dom(resortedAddonNames[0]).containsText('ember-try', 'Addons are sorted ascending by usage count when direction toggled');
+    assert.dom(resortedAddonNames[1]).containsText('ember-blanket', 'Addons are sorted ascending by usage count');
+    assert.dom(resortedAddonNames[2]).containsText('ember-foo', 'Addons are sorted ascending by usage count');
+    assert.equal(currentURL(), '/code-search?codeQuery=foo&sort=usages', 'Sort is in query params');
+    assert.dom(usageSortButton).hasClass('selected');
+    assert.ok(usageSortButton.querySelector('.icon-expand-less'));
 
     await click(nameSortButton);
 
@@ -215,21 +205,31 @@ module('Acceptance | code search', function(hooks) {
     assert.dom(nameSortButton).hasClass('selected');
     assert.ok(nameSortButton.querySelector('.icon-expand-less'));
 
+    await click(nameSortButton);
+
+    resortedAddonNames = findAll('.test-addon-name');
+    assert.dom(resortedAddonNames[0]).containsText('ember-try', 'Addons sorted descending addon name');
+    assert.dom(resortedAddonNames[1]).containsText('ember-foo', 'Addons sorted descending addon name');
+    assert.dom(resortedAddonNames[2]).containsText('ember-blanket', 'Addons sorted descending addon name');
+    assert.equal(currentURL(), '/code-search?codeQuery=foo&sortAscending=false', 'Sort direction is in query params');
+    assert.dom(nameSortButton).hasClass('selected');
+    assert.ok(nameSortButton.querySelector('.icon-expand-more'));
+
     await click(findByText('.test-sort button','Score'));
 
     let scoreSortedAddonNames = findAll('.test-addon-name');
-    assert.dom(scoreSortedAddonNames[0]).containsText('ember-foo', 'Addons are sorted by score');
+    assert.dom(scoreSortedAddonNames[0]).containsText('ember-try', 'Addons are sorted by descending score by default');
     assert.dom(scoreSortedAddonNames[1]).containsText('ember-blanket', 'Addons are sorted by score');
-    assert.dom(scoreSortedAddonNames[2]).containsText('ember-try', 'Addons are sorted by score');
-    assert.equal(currentURL(), '/code-search?codeQuery=foo&sort=score', 'Sort is in query params');
+    assert.dom(scoreSortedAddonNames[2]).containsText('ember-foo', 'Addons are sorted by score');
+    assert.equal(currentURL(), '/code-search?codeQuery=foo&sort=score&sortAscending=false', 'Sort is in query params');
 
     await click(findByText('.test-sort button','Updated'));
 
     let latestVersionDateSortedNames = findAll('.test-addon-name');
-    assert.dom(latestVersionDateSortedNames[0]).containsText('ember-blanket', 'Addons are sorted by latest version date');
+    assert.dom(latestVersionDateSortedNames[0]).containsText('ember-foo', 'Addons are sorted by descending latest version date by default');
     assert.dom(latestVersionDateSortedNames[1]).containsText('ember-try', 'Addons are sorted by latest version date');
-    assert.dom(latestVersionDateSortedNames[2]).containsText('ember-foo', 'Addons are sorted by latest version date');
-    assert.equal(currentURL(), '/code-search?codeQuery=foo&sort=updated', 'Sort is in query params');
+    assert.dom(latestVersionDateSortedNames[2]).containsText('ember-blanket', 'Addons are sorted by latest version date');
+    assert.equal(currentURL(), '/code-search?codeQuery=foo&sort=updated&sortAscending=false', 'Sort is in query params');
   });
 
   test('searching with a regex', async function(assert) {
@@ -528,7 +528,6 @@ module('Acceptance | code search', function(hooks) {
     await fillIn('#code-search-input', 'whatever');
     await click('.test-submit-search');
     await click(findByText('.test-sort button', 'Usages'));
-    await click(findByText('.test-sort button', 'Usages')); // Toggle to descending sort
     await fillIn('.test-file-filter-input', filterTerm);
 
     assert.dom('.test-addon-name').exists({ count: 3 }, 'shows one page worth of addons after filtering');
@@ -542,7 +541,6 @@ module('Acceptance | code search', function(hooks) {
     assert.dom('.test-addon-name').exists({ count: 4 }, 'adds additional addons that meet filter criteria');
 
     await click(findByText('.test-sort button', 'Name'));
-    await click(findByText('.test-sort button', 'Name')); // Toggle to ascending sort
 
     assert.dom('.test-filtered-result-info').containsText('4 addons', 'filtered addon count shows after sorting');
     assert.dom('.test-filtered-result-info').containsText('6 usages', 'filtered usage count shows after sorting');
