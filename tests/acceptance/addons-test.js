@@ -290,7 +290,7 @@ module('Acceptance: Addons', function(hooks) {
     assert.dom(versionListItems[1]).containsText('Ember v15.0.0');
     assert.dom(versionListItems[2]).containsText('1.0.0');
 
-    assert.dom('.test-addon-badge img[src="https://emberobserver.com/badges/test-addon.svg"]').exists();
+    assert.dom('.test-addon-badge img[src="/badges/test-addon.svg"]').exists();
     assert.dom('.test-addon-badge .test-show-badge-markdown.icon-content-paste').exists('Show badge markdown to copy');
     assert.dom('.test-addon-correction-link[href*="/addons/test-addon/correct"]').exists('Suggest a correction');
 
@@ -374,12 +374,25 @@ module('Acceptance: Addons', function(hooks) {
     assert.dom(versionListItems[1]).containsText('Ember v15.0.0');
     assert.dom(versionListItems[2]).containsText('1.0.0');
 
-    assert.dom('.test-addon-badge img[src="https://emberobserver.com/badges/test-addon.svg"]').exists();
+    assert.dom('.test-addon-badge img[src="/badges/test-addon.svg"]').exists();
     assert.dom('.test-addon-badge .test-show-badge-markdown.icon-content-paste').exists('Show badge markdown to copy');
     assert.dom('.test-addon-correction-link[href*="/addons/test-addon/correct"]').exists('Suggest a correction');
 
     await click('.test-addon-badge .test-show-badge-markdown');
     assert.dom('.test-addon-badge .test-badge-markdown').hasText('[![Ember Observer Score](https://emberobserver.com/badges/test-addon.svg)](https://emberobserver.com/addons/test-addon)');
+  });
+
+  test('displays badge for scoped addon', async function(assert) {
+    let addon = server.create('addon', {
+      name: '@foo-bar/test-addon'
+    });
+
+    await visitAddon(addon);
+
+    assert.dom('.test-addon-badge img[src="/badges/-foo-bar-test-addon.svg"]').exists();
+
+    await click('.test-addon-badge .test-show-badge-markdown');
+    assert.dom('.test-addon-badge .test-badge-markdown').hasText('[![Ember Observer Score](https://emberobserver.com/badges/-foo-bar-test-addon.svg)](https://emberobserver.com/addons/@foo-bar%2Ftest-addon)');
   });
 
   test('addon has an invalid github repo', async function(assert) {

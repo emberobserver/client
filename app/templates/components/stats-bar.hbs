@@ -81,12 +81,12 @@
 </p>
 
 <section class="badge test-addon-badge">
-  <img alt="Addon Badge" src={{badgeSrc}}>
+  <img alt="Addon Badge" src={{badge-path addon.name}}>
   <a href="#" class="icon-content-paste copy-to-clipboard test-show-badge-markdown" title="Show badge markdown to copy" {{action "toggleBadgeText"}}></a>
   {{#if showBadgeText}}
     <hr>
     <code class="test-badge-markdown">
-      {{badgeText}}
+      [![Ember Observer Score](https://emberobserver.com{{badge-path addon.name}})](https://emberobserver.com/addons/{{addon.escapedName}})
     </code>
   {{/if}}
 </section>
