@@ -5,11 +5,12 @@ import Route from '@ember/routing/route';
 export default Route.extend({
   session: service(),
   model(params) {
-    let addon = this.get('store').query('addon', { filter: { name: params.name }, include: 'versions,maintainers,keywords,reviews,reviews.version,categories', page: { limit: 1 } }, { reload: true }).then((addons) => {
+    let name = params.name.replace(/%2F/i, '/');
+    let addon = this.get('store').query('addon', { filter: { name }, include: 'versions,maintainers,keywords,reviews,reviews.version,categories', page: { limit: 1 } }, { reload: true }).then((addons) => {
       return addons.get('firstObject');
     });
 
-    let latestTestResult = this.get('store').query('test-result', { filter: { canary: false, addonName: params.name }, sort: '-createdAt', page: { limit: 1 }, include: 'ember-version-compatibilities' }).then((results) => {
+    let latestTestResult = this.get('store').query('test-result', { filter: { canary: false, addonName: name }, sort: '-createdAt', page: { limit: 1 }, include: 'ember-version-compatibilities' }).then((results) => {
       return results.get('firstObject');
     });
 
