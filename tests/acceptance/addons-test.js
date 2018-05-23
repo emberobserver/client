@@ -417,7 +417,7 @@ module('Acceptance: Addons', function(hooks) {
       assert.dom('.test-addon-badge img[src="/badges/-foo-bar-test-addon.svg"]').exists();
 
       await click('.test-addon-badge .test-show-badge-markdown');
-      assert.dom('.test-addon-badge .test-badge-markdown').hasText('[![Ember Observer Score](https://emberobserver.com/badges/-foo-bar-test-addon.svg)](https://emberobserver.com/addons/@foo-bar%2Ftest-addon)');
+      assert.dom('.test-addon-badge .test-badge-markdown').hasText('[![Ember Observer Score](https://emberobserver.com/badges/-foo-bar-test-addon.svg)](https://emberobserver.com/addons/@foo-bar/test-addon)');
     });
 
   });
