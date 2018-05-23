@@ -1,4 +1,4 @@
-import { click, currentURL, visit, findAll } from '@ember/test-helpers';
+import { click, currentRouteName, currentURL, visit, findAll } from '@ember/test-helpers';
 import { copy } from '@ember/object/internals';
 import { module, test } from 'qunit';
 import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
@@ -6,7 +6,6 @@ import visitAddon from '../helpers/visit-addon';
 import { enableFeature } from 'ember-feature-flags/test-support';
 import EmberVersionsResponse from '../ember-version-response';
 import moment from 'moment';
-import 'ember-feature-flags/test-support/helpers/with-feature';
 
 module('Acceptance: Addons', function(hooks) {
   setupEmberObserverTest(hooks);
@@ -382,19 +381,6 @@ module('Acceptance: Addons', function(hooks) {
     assert.dom('.test-addon-badge .test-badge-markdown').hasText('[![Ember Observer Score](https://emberobserver.com/badges/test-addon.svg)](https://emberobserver.com/addons/test-addon)');
   });
 
-  test('displays badge for scoped addon', async function(assert) {
-    let addon = server.create('addon', {
-      name: '@foo-bar/test-addon'
-    });
-
-    await visitAddon(addon);
-
-    assert.dom('.test-addon-badge img[src="/badges/-foo-bar-test-addon.svg"]').exists();
-
-    await click('.test-addon-badge .test-show-badge-markdown');
-    assert.dom('.test-addon-badge .test-badge-markdown').hasText('[![Ember Observer Score](https://emberobserver.com/badges/-foo-bar-test-addon.svg)](https://emberobserver.com/addons/@foo-bar%2Ftest-addon)');
-  });
-
   test('addon has an invalid github repo', async function(assert) {
     let addon = server.create('addon', {
       name: 'test-addon',
@@ -406,5 +392,33 @@ module('Acceptance: Addons', function(hooks) {
     assert.dom('.test-addon-flag-invalid-repo').exists('displays invalid repo message');
     assert.dom('.test-addon-repo-url a').doesNotExist('does not display repo url');
     assert.dom('.readme').doesNotExist('does not display readme');
+  });
+
+  module('Scoped addons', function(hooks) {
+    hooks.beforeEach(function() {
+      this.addon = server.create('addon', {
+        name: '@foo-bar/test-addon'
+      });
+    });
+
+    test('can view a scoped addon with a / in the URL', async function(assert) {
+      await visit('/addons/@foo-bar/test-addon');
+      assert.equal(currentRouteName(), 'addons.show');
+    });
+
+    test('can view a scoped addon with / encoded in the URL', async function(assert) {
+      await visit('/addons/@foo-bar%2Ftest-addon');
+      assert.equal(currentRouteName(), 'addons.show');
+    });
+
+    test('displays badge for scoped addon', async function(assert) {
+      await visitAddon(this.addon);
+
+      assert.dom('.test-addon-badge img[src="/badges/-foo-bar-test-addon.svg"]').exists();
+
+      await click('.test-addon-badge .test-show-badge-markdown');
+      assert.dom('.test-addon-badge .test-badge-markdown').hasText('[![Ember Observer Score](https://emberobserver.com/badges/-foo-bar-test-addon.svg)](https://emberobserver.com/addons/@foo-bar%2Ftest-addon)');
+    });
+
   });
 });
