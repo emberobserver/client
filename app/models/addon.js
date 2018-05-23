@@ -39,9 +39,6 @@ export default Model.extend({
   npmUrl: computed('name', function() {
     return `https://www.npmjs.com/package/${this.get('name')}`;
   }),
-  escapedName: computed('name', function() {
-    return this.get('name').replace('/', '%2F');
-  }),
   isNewAddon: computed('publishedDate', function() {
     return moment(this.get('publishedDate')).isAfter(moment().subtract(2, 'weeks'));
   })
