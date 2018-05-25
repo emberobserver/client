@@ -10,21 +10,21 @@ export default Service.extend({
 
   addons: task(function* (query, regex) {
     let addons;
-    
+
     let { results } = yield this.get('apiAjax').request('/search/addons', {
       data: {
         query, regex
       }
     });
-    
+
     if (results.length < (4 * PageSize)) {
-      let namesParam = results.map((r) => r.addon).join(',');
-      addons = yield this.get('store').query('addon', { filter: { name: namesParam }, include: 'categories' })
+      let idsParam = results.map((r) => r.addon).join(',');
+      addons = yield this.get('store').query('addon', { filter: { id: idsParam }, include: 'categories' })
     } else {
       addons = yield this.get('store').query('addon', { filter: { codeSearch: true }, page: { limit: 10000 } });
     }
     return results.map((result) => {
-      let addon = addons.find((a) => a.get('name') === result.addon);
+      let addon = addons.find((a) => a.get('id') === result.addon);
       if (addon) {
         return { addon, count: result.count, files: result.files };
       }

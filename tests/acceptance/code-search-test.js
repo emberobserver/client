@@ -8,8 +8,8 @@ module('Acceptance | code search', function(hooks) {
 
   test('searching for addons containing code', async function(assert) {
     let firstAddon = server.create('addon', { name: 'ember-try' });
-    server.create('addon', { name: 'ember-blanket' });
-    server.create('addon', { name: 'ember-foo' });
+    let secondAddon = server.create('addon', { name: 'ember-blanket' });
+    let thirdAddon = server.create('addon', { name: 'ember-foo' });
 
     let query;
 
@@ -18,15 +18,15 @@ module('Acceptance | code search', function(hooks) {
       return {
         results: [
           {
-            addon: 'ember-try',
+            addon: firstAddon.id,
             count: 1
           },
           {
-            addon: 'ember-blanket',
+            addon: secondAddon.id,
             count: 3
           },
           {
-            addon: 'ember-foo',
+            addon: thirdAddon.id,
             count: 2
           }
         ]
@@ -51,14 +51,14 @@ module('Acceptance | code search', function(hooks) {
   });
 
   test('viewing addon source containing search query', async function(assert) {
-    server.create('addon', { name: 'ember-try' });
+    let addon = server.create('addon', { name: 'ember-try' });
 
     let addonParam, queryParam;
     server.get('/search/addons', () => {
       return {
         results: [
           {
-            addon: 'ember-try',
+            addon: addon.id,
             count: 2
           }
         ]
@@ -125,17 +125,17 @@ module('Acceptance | code search', function(hooks) {
   });
 
   test('sorting search results', async function(assert) {
-    server.create('addon', {
+    let addonA = server.create('addon', {
       name: 'ember-try',
       score: 3,
       latestVersionDate: window.moment().subtract(2, 'days')
     });
-    server.create('addon', {
+    let addonB = server.create('addon', {
       name: 'ember-blanket',
       score: 2,
       latestVersionDate: window.moment().subtract(3, 'days')
     });
-    server.create('addon', {
+    let addonC = server.create('addon', {
       name: 'ember-foo',
       score: 1,
       latestVersionDate: window.moment().subtract(1, 'days')
@@ -145,15 +145,15 @@ module('Acceptance | code search', function(hooks) {
       return {
         results: [
           {
-            addon: 'ember-try',
+            addon: addonA.id,
             count: 1
           },
           {
-            addon: 'ember-blanket',
+            addon: addonB.id,
             count: 2
           },
           {
-            addon: 'ember-foo',
+            addon: addonC.id,
             count: 3
           }
         ]
@@ -233,7 +233,7 @@ module('Acceptance | code search', function(hooks) {
   });
 
   test('searching with a regex', async function(assert) {
-    server.create('addon', { name: 'ember-try' });
+    let addon = server.create('addon', { name: 'ember-try' });
 
     let addonRegexParam, usageRegexParam;
     server.get('/search/addons', (db, request) => {
@@ -241,7 +241,7 @@ module('Acceptance | code search', function(hooks) {
       return {
         results: [
           {
-            addon: 'ember-try',
+            addon: addon.id,
             count: 2
           }
         ]
@@ -290,23 +290,23 @@ module('Acceptance | code search', function(hooks) {
   });
 
   test('searching when sort is set in query param', async function(assert) {
-    server.create('addon', { name: 'ember-try' });
-    server.create('addon', { name: 'ember-blanket' });
-    server.create('addon', { name: 'ember-foo' });
+    let addonA = server.create('addon', { name: 'ember-try' });
+    let addonB = server.create('addon', { name: 'ember-blanket' });
+    let addonC = server.create('addon', { name: 'ember-foo' });
 
     server.get('/search/addons', () => {
       return {
         results: [
           {
-            addon: 'ember-try',
+            addon: addonA.id,
             count: 1
           },
           {
-            addon: 'ember-blanket',
+            addon: addonB.id,
             count: 2
           },
           {
-            addon: 'ember-foo',
+            addon: addonC.id,
             count: 3
           }
         ]
@@ -346,9 +346,9 @@ module('Acceptance | code search', function(hooks) {
   });
 
   test('filtering search results by file path', async function(assert) {
-    server.create('addon', { name: 'ember-try' });
-    server.create('addon', { name: 'ember-blanket' });
-    server.create('addon', { name: 'ember-foo' });
+    let addonA = server.create('addon', { name: 'ember-try' });
+    let addonB = server.create('addon', { name: 'ember-blanket' });
+    let addonC = server.create('addon', { name: 'ember-foo' });
 
     let filterTerm = 'index';
 
@@ -356,17 +356,17 @@ module('Acceptance | code search', function(hooks) {
       return {
         results: [
           {
-            addon: 'ember-try',
+            addon: addonA.id,
             count: 1,
             files: ['app/controllers/index.js']
           },
           {
-            addon: 'ember-blanket',
+            addon: addonB.id,
             count: 2,
             files: ['app/components/blanket.js', 'app/templates/components/blanket.hbs']
           },
           {
-            addon: 'ember-foo',
+            addon: addonC.id,
             count: 3,
             files: ['app/controllers/index.js', 'app/controllers/index.js', 'app/services/current-foo.js']
           }
@@ -401,7 +401,7 @@ module('Acceptance | code search', function(hooks) {
   });
 
   test('filtering addon source by file path', async function(assert) {
-    server.create('addon', { name: 'no-match' });
+    let noMatchAddon = server.create('addon', { name: 'no-match' });
     let addonWithFilteredFiles = server.create('addon', { name: 'has-match' });
 
     let filterTerm = 'index';
@@ -410,12 +410,12 @@ module('Acceptance | code search', function(hooks) {
       return {
         results: [
           {
-            addon: 'no-match',
+            addon: noMatchAddon.id,
             count: 2,
             files: ['app/components/no-match.js', 'app/templates/components/no-match.hbs']
           },
           {
-            addon: 'has-match',
+            addon: addonWithFilteredFiles.id,
             count: 2,
             files: ['app/controllers/index.js', 'app/services/no-match.js']
           }
@@ -467,12 +467,12 @@ module('Acceptance | code search', function(hooks) {
   });
 
   test('filtering works with sorting and pagination', async function(assert) {
-    server.create('addon', { name: 'ember-try' });
-    server.create('addon', { name: 'ember-blanket' });
-    server.create('addon', { name: 'ember-foo' });
-    server.create('addon', { name: 'ember-cli-thing' });
-    server.create('addon', { name: 'ember-cli-other-thing' });
-    server.create('addon', { name: 'ember-cli-matches' });
+    let addonA = server.create('addon', { name: 'ember-try' });
+    let addonB = server.create('addon', { name: 'ember-blanket' });
+    let addonC = server.create('addon', { name: 'ember-foo' });
+    let addonD = server.create('addon', { name: 'ember-cli-thing' });
+    let addonE = server.create('addon', { name: 'ember-cli-other-thing' });
+    let addonF = server.create('addon', { name: 'ember-cli-matches' });
 
     let filterTerm = 'index';
 
@@ -480,12 +480,12 @@ module('Acceptance | code search', function(hooks) {
       return {
         results: [
           {
-            addon: 'ember-try',
+            addon: addonA.id,
             count: 1,
             files: ['app/controllers/index.js']
           },
           {
-            addon: 'ember-blanket',
+            addon: addonB.id,
             count: 5,
             files: ['app/components/blanket.js',
               'app/templates/components/blanket.hbs',
@@ -494,14 +494,14 @@ module('Acceptance | code search', function(hooks) {
               'thing.js']
           },
           {
-            addon: 'ember-foo',
+            addon: addonC.id,
             count: 3,
             files: ['app/controllers/index.js',
               'app/controllers/index.js',
               'app/services/current-foo.js']
           },
           {
-            addon: 'ember-cli-thing',
+            addon: addonD.id,
             count: 6,
             files: ['app/controllers/index.js',
               'app/controllers/index.js',
@@ -511,12 +511,12 @@ module('Acceptance | code search', function(hooks) {
               'app/templates/maybe.hbs']
           },
           {
-            addon: 'ember-cli-other-thing',
+            addon: addonE.id,
             count: 1,
             files: ['app/services/current-thing.js']
           },
           {
-            addon: 'ember-cli-matches',
+            addon: addonF.id,
             count: 1,
             files: ['app/controllers/index.js']
           }
@@ -558,9 +558,9 @@ module('Acceptance | code search', function(hooks) {
   });
 
   test('when file filter regex is invalid', async function(assert) {
-    server.create('addon', { name: 'ember-try' });
-    server.create('addon', { name: 'ember-blanket' });
-    server.create('addon', { name: 'ember-foo' });
+    let addonA = server.create('addon', { name: 'ember-try' });
+    let addonB = server.create('addon', { name: 'ember-blanket' });
+    let addonC = server.create('addon', { name: 'ember-foo' });
 
     let invalidFilter = '(index';
 
@@ -568,17 +568,17 @@ module('Acceptance | code search', function(hooks) {
       return {
         results: [
           {
-            addon: 'ember-try',
+            addon: addonA.id,
             count: 1,
             files: ['app/controllers/index.js']
           },
           {
-            addon: 'ember-blanket',
+            addon: addonB.id,
             count: 2,
             files: ['app/components/blanket.js', 'app/templates/components/blanket.hbs']
           },
           {
-            addon: 'ember-foo',
+            addon: addonC.id,
             count: 3,
             files: ['app/controllers/index.js', 'app/controllers/index.js', 'app/services/current-foo.js']
           }
@@ -604,7 +604,7 @@ module('Acceptance | code search', function(hooks) {
   function searchResults(addons) {
     return addons.map((addon) => {
       return {
-        addon: addon.name,
+        addon: addon.id,
         count: 1
       };
     });
