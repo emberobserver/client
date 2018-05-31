@@ -99,7 +99,7 @@ module('Acceptance | code search', function(hooks) {
     await click('.test-submit-search');
     await click('.test-usage-count');
 
-    assert.equal('ember-try', addonParam, 'Addon name is provided to request');
+    assert.equal(addon.id, addonParam, 'Addon name is provided to request');
     assert.equal('asdf', queryParam, 'Query is provided to request');
 
     assert.dom('.test-last-search').hasText('Results for "asdf" — Found 1 addon (2 usages)', 'Last search shows');

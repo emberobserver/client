@@ -26,7 +26,7 @@ export default Component.extend({
   }),
 
   fetchUsages: task(function* () {
-    let usages = yield this.get('codeSearch.usages').perform(this.get('addon.name'), this.get('query'), this.get('regex'));
+    let usages = yield this.get('codeSearch.usages').perform(this.get('addon.id'), this.get('query'), this.get('regex'));
     this.set('usages', filterByFilePath(usages, this.get('fileFilter')));
   }).drop(),
 
