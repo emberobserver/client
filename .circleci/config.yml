@@ -1,0 +1,20 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/emberobserver/client
+    docker:
+      - image: circleci/node:9-browsers
+    steps:
+      - checkout
+      - run: sudo npm install -g bower
+      - restore_cache:
+          key: v1-yarn-{{ checksum "yarn.lock" }}
+      - run: yarn
+      - save_cache:
+          key: v1-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+            - ~/.cache/yarn
+      - run: bower install
+      - run: COVERAGE=true yarn test
+      - run: bash <(curl -s https://codecov.io/bash)
