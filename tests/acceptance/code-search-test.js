@@ -601,6 +601,49 @@ module('Acceptance | code search', function(hooks) {
     assert.dom('.test-filtered-result-info').containsText('0 usages', 'filtered usage count is 0');
   });
 
+  test('fixes links to code when repo URL ends with .git', async function(assert) {
+    let addon = server.create('addon', {
+      name: 'ember-try',
+      repositoryUrl: 'https://github.com/ember-cli/ember-try.git'
+    });
+
+    server.get('/search/addons', () => {
+      return {
+        results: [
+          {
+            addon: addon.id,
+            count: 1
+          }
+        ]
+      };
+    });
+
+    server.get('/search/source', () => {
+      return {
+        /* eslint-disable camelcase */
+        results: [
+          {
+            line_number: 52,
+            filename: 'app/services/fake-service.js',
+            lines: [
+              { text: 'if (addonData) {', number: 51 },
+              { text: 'addons.pushObject({ addon: addonData.addon });', number: 52 },
+              { text: '}', number: 53 }
+            ]
+          }
+        ]
+        /* eslint-disable camelcase */
+      };
+    });
+
+    await visit('/code-search');
+    await fillIn('#code-search-input', 'TestEm.afterTests');
+    await click('.test-submit-search');
+    await click('.test-usage-count');
+
+    assert.dom('.filename').hasAttribute('href', 'https://github.com/ember-cli/ember-try/tree/master/app/services/fake-service.js#L52');
+  });
+
   function searchResults(addons) {
     return addons.map((addon) => {
       return {
