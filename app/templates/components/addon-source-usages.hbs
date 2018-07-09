@@ -7,7 +7,7 @@
     {{#if usages}}
       {{#each visibleUsages as |usage|}}
         <div class="usage test-usage">
-          <a class="filename" href="{{addon.repositoryUrl}}/tree/master/{{usage.filename}}#L{{usage.line_number}}">
+          <a class="filename" href="{{clean-repo-url addon.repositoryUrl}}/tree/master/{{usage.filename}}#L{{usage.line_number}}">
             {{usage.filename}}:{{usage.line_number}}
           </a>
           {{#each usage.lines as |line|}}
