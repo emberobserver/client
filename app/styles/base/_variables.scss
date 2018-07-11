@@ -76,3 +76,82 @@ $form-box-shadow: inset 0 1px 3px rgba(black,0.06);
 $form-box-shadow-focus: $form-box-shadow, 0 0 5px rgba(darken($form-border-color-focus, 5), 0.7);
 $form-font-size: 1.5em;
 $form-font-family: $base-font-family;
+
+@mixin readme-styles {
+  border: 1px solid #d8d8d8;
+  border-radius: 3px 3px 0 0;
+  h2, h3, h4, h5 {
+    margin: 24px 0 16px 0;
+    font-weight: bold;
+  }
+  h1, h2 {
+    border-bottom: 1px solid #eee;
+    padding-bottom: .3em;
+  }
+  h1 {
+    font-size: 2rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+  h3 {
+    font-size: 1.25rem;
+  }
+  h4 {
+    font-size: 1rem;
+  }
+  h5 {
+    font-size: .9rem;
+  }
+  code {
+    background-color: #f7f7f7;
+    padding: .3rem;
+    font-size: 90%;
+  }
+  pre {
+    background-color: #f7f7f7;
+    padding: 16px;
+    overflow: auto;
+    border-radius: 3px;
+    line-height: 1.25rem;
+    code {
+      padding: 0;
+    }
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 6px 13px;
+  }
+  ul, ol {
+    padding-left: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  ul {
+    list-style-type: disc;
+    ul {
+      list-style-type: circle;
+      ul {
+        list-style-type: square;
+      }
+    }
+  }
+  ol {
+    list-style-type: decimal;
+  }
+  .task-list-item input {
+    margin-left: -1.2em !important;
+  }
+  .header {
+    border-bottom: 1px solid #d8d8d8;
+    background-color: #f5f5f5;
+    font-weight: bold;
+    padding: .5rem .75rem;
+    margin-bottom: 0;
+  }
+
+  .contents {
+    padding: 2rem;
+    margin-bottom: 0;
+  }
+}

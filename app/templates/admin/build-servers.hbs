@@ -1,26 +1,28 @@
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Token</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each model as |buildServer|}}
-      <tr class="test-build-server-row">
-        <td>{{buildServer.name}}</td>
-        <td>{{buildServer.token}}</td>
+{{#page-layout showCategories=false}}
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Token</th>
       </tr>
-    {{/each}}
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      {{#each model as |buildServer|}}
+        <tr class="test-build-server-row">
+          <td>{{buildServer.name}}</td>
+          <td>{{buildServer.token}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
 
-<form {{action 'addBuildServer' on='submit'}}>
-  <fieldset>
-    <label for='name'>
-      Name:
-    </label>
-    {{input type='text' value=newBuildServerName id='name' class='test-new-build-server-name'}}
-    <input type='submit' value='Add' class='test-add-new-build-server'>
-  </fieldset>
-</form>
+  <form {{action 'addBuildServer' on='submit'}}>
+    <fieldset>
+      <label for='name'>
+        Name:
+      </label>
+      {{input type='text' value=newBuildServerName id='name' class='test-new-build-server-name'}}
+      <input type='submit' value='Add' class='test-add-new-build-server'>
+    </fieldset>
+  </form>
+{{/page-layout}}
