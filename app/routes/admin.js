@@ -5,5 +5,8 @@ export default Route.extend({
     if (!this.get('session.isAuthenticated')) {
       this.transitionTo('index');
     }
-  }
+  },
+  titleToken() {
+    return 'Admin';
+  },
 });

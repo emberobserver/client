@@ -1,0 +1,123 @@
+<h2>
+  {{#link-to "addons.show" addon.name class="test-addon-link"}}
+    {{addon.name}}
+    {{#if addon.isOfficial}}
+      <span class="icon-stars official test-official-icon" title="Official Ember-CLI addon"></span>
+    {{/if}}
+    {{#if addon.isCliDependency}}
+      <span class="icon-stars dependency test-cli-dep-icon" title="Dependency of newly generated Ember-CLI applications"></span>
+    {{/if}}
+  {{/link-to}}
+</h2>
+<p class="test-description">{{addon.description}}</p>
+<p class="last-updated test-last-updated">Last updated {{relative-time date=addon.latestVersionDate}}</p>
+
+<section>
+  {{#score-display addon=addon as |val|}}
+    Score <b class="test-score">{{val}}</b>
+  {{/score-display}}
+</section>
+
+<section>
+  <label>Repo URL</label>
+  {{#if addon.repositoryUrl}}
+    <a href="{{addon.repositoryUrl}}" target="repo" class="test-repo-url">{{addon.repositoryUrl}}</a>
+  {{/if}}
+  {{toggle-switch
+    label=(if addon.hasInvalidGithubRepo "Has invalid Repo URL" "Has valid Repo URL")
+    isChecked=(not addon.hasInvalidGithubRepo)
+    onToggle=(action updateInvalidRepoFlag)
+    name="repo"
+    class="test-toggle-repo-validity"
+  }}
+</section>
+
+<section class="toggles">
+  {{toggle-switch
+    label=(if addon.isWip "Is a WIP" "Not a WIP")
+    isChecked=(not addon.isWip)
+    onToggle=(action updateIsWipFlag)
+    name="wip"
+    class="test-toggle-is-wip"
+  }}
+  {{toggle-switch
+    label=(if addon.isDeprecated "Deprecated" "Active")
+    isChecked=(not addon.isDeprecated)
+    onToggle=(action updateIsDeprecatedFlag)
+    name="deprecated"
+    class="test-toggle-is-deprecated"
+  }}
+  {{toggle-switch
+    label=(if addon.isHidden "Hidden" "Visible")
+    isChecked=(not addon.isHidden)
+    onToggle=(action updateIsHiddenFlag)
+    class="hidden-toggle test-toggle-is-hidden"
+    name="hidden"
+  }}
+  {{toggle-switch
+    label="Is Official?"
+    isChecked=addon.isOfficial
+    onToggle=(action (mut addon.isOfficial))
+    name="official"
+    class="test-toggle-is-official"
+  }}
+  {{toggle-switch
+    label="Is CLI Dependency?"
+    isChecked=addon.isCliDependency
+    onToggle=(action (mut addon.isCliDependency))
+    name="cli-dep"
+    class="test-toggle-is-cli-dep"
+  }}
+</section>
+
+<section class="with-default-styling">
+  <label>Note</label>
+  {{textarea value=addon.note rows="3" class="note-input test-note-input"}}
+</section>
+
+<section>
+  {{#if saveAddon.isRunning}}
+    <button class="button" disabled>Saving...</button>
+  {{else}}
+    <button class="button" {{action (perform saveAddon)}} class="test-save-addon">Save</button>
+  {{/if}}
+</section>
+
+<section>
+  {{category-chooser categories=categories addon=addon onchange=(action (mut addon.categories))}}
+</section>
+
+<section class="latest-review">
+  {{#if latestReview}}
+    {{#unless isLatestReviewForLatestVersion}}
+      <em class="test-review-new-version-warning"><span class="icon-new-releases"></span> New versions of this addon have been released since this review was undertaken.</em>
+    {{/unless}}
+    {{addon-review review=latestReview}}
+    <button {{action (perform renewLatestReview)}} class="button test-renew-latest-review">Renew Review</button>
+  {{else}}
+    <p class="no-review test-no-review">This addon has not yet been reviewed.</p>
+  {{/if}}
+</section>
+
+<section class="with-default-styling">
+  {{admin-addon-review-form addon=addon}}
+</section>
+
+<section>
+  {{#if addon.readme}}
+    {{#unless addon.hasInvalidGithubRepo}}
+      <section class="readme">
+        <p class="header">README.md</p>
+        <p class="test-addon-readme contents">
+          {{markdown-to-sanitized-html
+            markdown=addon.readme.contents
+            tables=true
+            ghCodeBlocks=true
+            tasklists=true
+            simplifiedAutoLink=true
+          }}
+        </p>
+      </section>
+    {{/unless}}
+  {{/if}}
+</section>

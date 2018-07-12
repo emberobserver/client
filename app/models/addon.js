@@ -29,6 +29,7 @@ export default Model.extend({
   isTopStarred: attr('boolean'),
   demoUrl: attr('string'),
   githubStats: belongsTo('github-stats', { async: true }),
+  latestAddonVersion: belongsTo('version', { async: true }),
   categories: hasMany('category', { async: false }),
   keywords: hasMany('keyword', { async: true }),
   versions: hasMany('version', { async: true }),

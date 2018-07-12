@@ -16,6 +16,7 @@
 @import "components/large-search";
 @import "components/code-search";
 @import "components/spinner";
+@import "components/toggle-switch";
 @import "maintainers_show";
 @import "not_found";
 @import "button_select";
@@ -26,6 +27,7 @@
 @import "components/page-layout";
 @import "loading";
 @import "canary_test_results";
+@import "admin_review";
 
 ::-ms-clear {
   display: none;

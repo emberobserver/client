@@ -5,7 +5,7 @@
       {{#each questions as |question|}}
         <li>
           <div class="question">{{question.text}}</div>
-          {{radio-button-set selectOption="selectOption" valueField=question.fieldName options=questionOptions class="question-radio-buttons test-question-buttons"}}
+          {{radio-button-set selectOption=(action "selectOption") valueField=question.fieldName options=questionOptions class="question-radio-buttons test-question-buttons"}}
         </li>
       {{/each}}
     </ol>

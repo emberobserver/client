@@ -1,3 +1,3 @@
 {{#each options as |option|}}
-  {{radio-button action="select" option=option selected=selected}}
+  {{radio-button onSelect=(action select) option=option selected=selected}}
 {{/each}}

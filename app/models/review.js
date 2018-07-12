@@ -4,14 +4,16 @@ import DS from 'ember-data';
 
 const { attr, belongsTo } = DS;
 
+export const questions = [
+  { text: 'Is the source accessible?', fieldName: 'isOpenSource' },
+  { text: 'Is it more than an empty addon?', fieldName: 'isMoreThanEmptyAddon' },
+  { text: 'Are there meaningful tests?', fieldName: 'hasTests' },
+  { text: 'Is the README filled out?', fieldName: 'hasReadme' },
+  { text: 'Does the addon have a build?', fieldName: 'hasBuild' }
+];
+
 export default DS.Model.extend({
-  questions: [
-    { text: 'Is the source accessible?', fieldName: 'isOpenSource' },
-    { text: 'Is it more than an empty addon?', fieldName: 'isMoreThanEmptyAddon' },
-    { text: 'Are there meaningful tests?', fieldName: 'hasTests' },
-    { text: 'Is the README filled out?', fieldName: 'hasReadme' },
-    { text: 'Does the addon have a build?', fieldName: 'hasBuild' }
-  ],
+  questions,
   review: attr('string'),
   createdAt: attr('date'),
   hasTests: attr('number'),

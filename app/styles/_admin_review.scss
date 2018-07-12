@@ -1,0 +1,186 @@
+$ember-power-select-multiple-selection-background-color: $light-gray;
+$ember-power-select-multiple-option-border-color: $dark-blue-gray;
+$ember-power-select-multiple-option-padding: 4px $base-spacing/2;
+$ember-power-select-highlighted-color: $medium-gray;
+$ember-power-select-selected-background: $blue;
+$ember-power-select-multiple-selection-color: $medium-gray;
+
+.route-admin-review {
+  display: flex;
+
+  .review-index {
+    padding: $base-spacing;
+    flex-basis: 35%;
+    height: 100vh;
+    overflow: auto;
+    min-width: 15em;
+
+    .review-addon-list {
+      a:hover, a.active {
+        li {
+          background-color: $light-gray;
+        }
+      }
+
+      a.active {
+        font-weight: bold;
+      }
+
+      li {
+        padding: $base-spacing/2 10px;
+
+        .score {
+          margin-right: $base-spacing/2;
+        }
+
+        .review-addon-list-name {
+          vertical-align: middle;
+        }
+
+        .notice {
+          font-size: smaller;
+          color: $light-gray;
+        }
+      }
+    }
+  }
+
+  .addon-container {
+    border-left: $base-border;
+    padding: $base-spacing;
+    flex: 1;
+
+    section {
+      margin-top: $base-spacing;
+
+      label {
+        font-weight: bold;
+      }
+
+      .component-toggle-switch {
+        margin-top: $base-spacing/2;
+      }
+
+      .hidden-toggle {
+
+        input[type=checkbox] {
+          background-color: $dark-coral;
+
+          &:checked {
+            background-color: $base-accent-color;
+          }
+        }
+      }
+    }
+
+    .toggles {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      max-height: 10em;
+
+      .component-toggle-switch {
+        margin-right: $base-spacing/2;
+        width: 15em;
+      }
+    }
+
+    .note-input {
+      display: block;
+      font-size: 1rem;
+    }
+
+    .last-updated {
+      font-size: smaller;
+    }
+
+    .readme {
+      @include readme-styles();
+    }
+
+    .review-form {
+
+      li {
+        margin-bottom: 1em;
+      }
+
+      .question {
+        margin-bottom: 1em;
+      }
+
+      ul {
+        margin-bottom: 2em;
+      }
+
+      button {
+        display: inline-block;
+        line-height: $base-line-height;
+        margin-bottom: 0.3em;
+        margin-right: 0.5em;
+        outline: none;
+        padding: 0.3em 1em;
+        width: 100%;
+        color: $base-accent-color;
+        background-color: white;
+        border: 1px solid $base-accent-color;
+        font-weight: 300;
+
+        &:hover, &.selected {
+          background-color: $base-accent-color;
+          color: white !important;
+        }
+
+        @include media($medium-screen) {
+          margin-bottom: 0;
+          width: auto;
+        }
+      }
+    }
+
+    .latest-review {
+      .review-date {
+        font-size: .8em;
+        color: #999;
+      }
+
+      ol {
+        margin-top: 1em;
+      }
+
+      .no-review {
+        margin-top: .5em;
+        font-size: 1.1em;
+      }
+
+      h6 {
+        margin-bottom: 1em;
+      }
+
+      .questions {
+        li {
+          @include clearfix();
+          margin-bottom: .7em;
+          border-bottom: 1px dotted tint($blue, 50%);
+
+          &:hover {
+            color: $base-accent-color;
+          }
+        }
+
+        .question {
+          float: left;
+        }
+
+        .answer {
+          float: right;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+
+.category-chooser-description {
+  font-size: smaller;
+  color: $medium-gray;
+}

@@ -1,0 +1,33 @@
+<div class="route-admin-review">
+  <div class="review-index">
+    <header>
+      <h1>Review addons</h1>
+    </header>
+    <ul class="review-addon-list">
+      {{#each model as |addon|}}
+        {{#link-to "admin.review.addon" addon.name}}
+          <li>
+            {{#if addon.isDeprecated}}
+              <span class="score deprecated">x</span>
+            {{else if addon.isWip}}
+              <span class="score wip">WIP</span>
+            {{else if addon.score}}
+              <span class="score" data-score="{{addon.score}}">{{addon.score}}</span>
+            {{else}}
+              <span class="score">?</span>
+            {{/if}}
+            <span class="review-addon-list-name">
+              {{addon.name}}
+              {{#if addon.isDeprecated}}
+                <span class="notice">(Deprecated)</span>
+              {{/if}}
+            </span>
+          </li>
+        {{/link-to}}
+      {{/each}}
+    </ul>
+  </div>
+  <div class="addon-container">
+    {{outlet}}
+  </div>
+</div>

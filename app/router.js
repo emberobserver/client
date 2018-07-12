@@ -89,6 +89,10 @@ Router.map(function() {
       this.route('addons-hidden');
       this.route('addons-wip');
     });
+
+    this.route('review', function() {
+      this.route('addon', { path: '/*name' });
+    });
   });
 
   this.route('about');

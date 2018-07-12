@@ -1,0 +1,11 @@
+<div class="test-category-chooser">
+  {{#power-select-multiple
+    options=sortedCategories
+    selected=addon.categories
+    searchField="displayName"
+    dropdownClass="test-category-chooser-dropdown"
+    placeholder="Select categories"
+    onchange=onchange as |category option|}}
+    {{category.displayName}} {{#if (not (includes option.selected category))}}{{#if category.description}}&middot; <span class="category-chooser-description">{{category.description}}</span>{{/if}}{{/if}}
+  {{/power-select-multiple}}
+</div>

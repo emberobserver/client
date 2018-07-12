@@ -72,11 +72,11 @@ module('Acceptance: admin', function(hooks) {
 
     await visitAddon(addon);
     await click('.test-addon-review-button');
-    answerQuestion('Is the source accessible?', 'Yes');
-    answerQuestion('Is it more than an empty addon?', 'Yes');
-    answerQuestion('Are there meaningful tests?', 'No');
-    answerQuestion('Is the README filled out?', 'Yes');
-    answerQuestion('Does the addon have a build?', 'N/A');
+    await answerQuestion('Is the source accessible?', 'Yes');
+    await answerQuestion('Is it more than an empty addon?', 'Yes');
+    await answerQuestion('Are there meaningful tests?', 'No');
+    await answerQuestion('Is the README filled out?', 'Yes');
+    await answerQuestion('Does the addon have a build?', 'N/A');
     await fillIn('.test-addon-review-notes', '#Some Review');
     await click('.test-addon-review-save');
 
@@ -177,11 +177,11 @@ module('Acceptance: admin', function(hooks) {
     assert.equal(findByText('.test-categories-form label', 'Category1').querySelector('input').checked, true, 'Category 1 is checked');
     assert.equal(findByText('.test-categories-form label', 'Category2').querySelector('input').checked, true, 'Category 2 is checked');
     assert.equal(findByText('.test-categories-form label', 'Category3').querySelector('input').checked, false, 'Category 3 is NOT checked');
-    
+
     await fillIn('.test-note-input', '#New');
     await click('input#official');
     await click('input#wip');
-    
+
     await click(findByText('label', 'Category1').querySelector('input'));
     await click(findByText('label', 'Category3').querySelector('input'));
 
@@ -196,7 +196,7 @@ module('Acceptance: admin', function(hooks) {
     assert.equal(findByText('.test-categories-form label', 'Category1').querySelector('input').checked, false, 'Category 1 is NOT checked');
     assert.equal(findByText('.test-categories-form label', 'Category2').querySelector('input').checked, true, 'Category 2 is checked');
     assert.equal(findByText('.test-categories-form label', 'Category3').querySelector('input').checked, true, 'Category 3 is checked');
-    
+
     await click('.test-save-addon-properties');
 
     addon.reload();

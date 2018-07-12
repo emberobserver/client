@@ -10,10 +10,5 @@ export default Component.extend({
       return false;
     }
     return opt.value === selected.value;
-  }),
-  actions: {
-    select(option) {
-      this.sendAction('action', option);
-    }
-  }
+  })
 });

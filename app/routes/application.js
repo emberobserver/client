@@ -20,7 +20,7 @@ export default Route.extend({
   },
 
   title(tokens) {
-    let tokenStr = tokens.join('');
+    let tokenStr = tokens.join(' | ');
     if (tokenStr) {
       return `${tokenStr} - Ember Observer`;
     } else {

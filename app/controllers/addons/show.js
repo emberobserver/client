@@ -6,14 +6,14 @@ import moment from 'moment';
 export default Controller.extend({
   addon: alias('model.addon'),
   sortedReviews: computed('addon.reviews', function() {
-    return this.get('addon.reviews').sortBy('versionReleased').reverse();
+    return (this.get('addon.reviews') || []).sortBy('versionReleased').reverse();
   }),
   latestReview: alias('sortedReviews.firstObject'),
   sortedCategories: computed('model.categories', function() {
-    return this.get('model.categories').sortBy('displayName');
+    return (this.get('model.categories') || []).sortBy('displayName');
   }),
   sortedAddonVersions: computed('addon.versions', function() {
-    return this.get('addon.versions').sortBy('released').reverse();
+    return (this.get('addon.versions') || []).sortBy('released').reverse();
   }),
   latestVersion: readOnly('sortedAddonVersions.firstObject'),
   isLatestReleaseInLast3Months: computed('latestVersion.released', function() {
