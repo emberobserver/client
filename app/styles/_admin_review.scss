@@ -9,11 +9,17 @@ $ember-power-select-multiple-selection-color: $medium-gray;
   display: flex;
 
   .review-index {
+    display: none;
+
+    @include media($medium-screen) {
+      display: block;
+    }
+
     padding: $base-spacing;
-    flex-basis: 35%;
+    max-width: 35%;
     height: 100vh;
     overflow: auto;
-    min-width: 15em;
+    min-width: 25em;
 
     .review-addon-list {
       a:hover, a.active {
@@ -49,6 +55,10 @@ $ember-power-select-multiple-selection-color: $medium-gray;
     border-left: $base-border;
     padding: $base-spacing;
     flex: 1;
+
+    @include media($medium-screen) {
+      max-width: 64%;
+    }
 
     section {
       margin-top: $base-spacing;
@@ -92,6 +102,25 @@ $ember-power-select-multiple-selection-color: $medium-gray;
 
     .last-updated {
       font-size: smaller;
+    }
+
+    .nav-previous-next {
+      display: flex;
+      justify-content: space-between;
+
+      .previous {
+        text-align: left;
+      }
+
+      .next {
+        text-align: right;
+      }
+
+      @include media($medium-screen) {
+        .nav-detail {
+          display: none;
+        }
+      }
     }
 
     .readme {
