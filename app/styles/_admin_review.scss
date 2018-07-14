@@ -132,6 +132,7 @@ $ember-power-select-multiple-selection-color: $medium-gray;
     }
 
     .readme {
+      max-width: calc(100vw - #{2 * $base-spacing});
       @include readme-styles();
     }
 
