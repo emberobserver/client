@@ -1,5 +1,5 @@
 <nav class="nav-previous-next">
-  {{#with (hash previous=(previous-item model.list model.addon) next=(next-item model.list model.addon)) as |nav|}}
+  {{#with (hash previous=(previous-item model.list.addons model.addon) next=(next-item model.list.addons model.addon)) as |nav|}}
     {{#if nav.previous}}
       {{#link-to "admin.review.addon" nav.previous.name class="previous"}}&laquo; Previous <span class="nav-detail">({{nav.previous.name}})</span>{{/link-to}}
     {{else}}

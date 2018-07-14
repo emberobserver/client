@@ -58,6 +58,17 @@ module('Acceptance | admin review addon', function(hooks) {
     assert.equal(document.title, 'Admin | Review | fake-addon - Ember Observer');
   });
 
+  test('Displays hidden addons', async function(assert) {
+    let addon = server.create('addon', {
+      name: 'fake-addon',
+      isHidden: true
+    });
+
+    await visitAddon(addon);
+
+    assert.onCorrectAddonPage(addon);
+  });
+
   test('Displays basic info about addon', async function(assert) {
     let addon = server.create('addon', {
       name: 'fake-addon',
@@ -491,10 +502,80 @@ module('Acceptance | admin review addon', function(hooks) {
     assert.equal(actualMessage, 'Failed to create review');
   });
 
+  module('lists', function() {
+    test('Visiting addon without a list param does not show index', async function(assert) {
+      let addon = server.create('addon', {
+        name: 'fake-addon'
+      });
+
+      await visitAddon(addon);
+
+      assert.onCorrectAddonPage(addon);
+      assert.dom('.test-review-index').isNotVisible();
+    });
+
+    test('Visiting with just a list selects first addon', async function(assert) {
+      server.create('addon', {
+        name: 'fake-addon-a'
+      });
+
+      let hiddenAddon = server.create('addon', {
+        name: 'fake-addon-b',
+        isHidden: true,
+        latestVersionDate: moment().subtract(1, 'day').toISOString()
+      });
+
+      server.create('addon', {
+        name: 'fake-addon-c'
+      });
+
+      server.create('addon', {
+        name: 'fake-addon-d',
+        isHidden: true,
+        latestVersionDate: moment().subtract(4, 'days').toISOString()
+      });
+
+      await visitList('hidden');
+
+      assert.dom('.test-review-index').isVisible();
+      assert.onCorrectAddonPage(hiddenAddon);
+
+      let items = findAll('.test-review-list-item');
+      assert.dom(items[0]).includesText('fake-addon-b');
+      assert.dom(items[1]).includesText('fake-addon-d');
+      assert.equal(items.length, 2, 'Only two items display');
+    });
+
+    test('Displays different list of addons', async function(assert) {
+      server.createList('addon', 5, { isHidden: true });
+
+      await visitList('hidden');
+
+      let expectedOptions = [
+        'Hidden Addons',
+        'Addons needing categorization',
+        'Addons needing re-review',
+        'Addons needing review',
+        'Addons marked WIP'
+      ];
+
+      await assert.powerSelectOptionsAre('.test-list-select', '.test-list-select-dropdown', expectedOptions);
+
+      assert.dom('.test-addon-count', '5 matching addons');
+
+      await selectChoose('.test-list-select', 'Addons needing re-review');
+
+      assert.dom('.test-addon-count', '0 matching addons');
+    });
+  });
 });
 
-async function visitAddon(addon) {
-  await visit(`/admin/review/${addon.name}`);
+async function visitAddon(addon, queryString = '') {
+  await visit(`/admin/review/${addon.name}${queryString}`);
+}
+
+async function visitList(listName) {
+  await visit(`/admin/review?list=${listName}`);
 }
 
 function assertToggleState(assert, selector, options = { checked: false, text: '' }) {

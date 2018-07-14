@@ -1,31 +1,47 @@
-<div class="route-admin-review">
-  <div class="review-index">
-    <header>
-      <h1>Review addons</h1>
+<div class="route-admin-review {{if list 'with-index'}}">
+  <div class="review-index test-review-index">
+    <header class="list-header">
+      <h1 class="test-list-select">
+        {{#power-select
+          options=possibleLists
+          selected=selectedList
+          searchField="title"
+          dropdownClass="test-list-select-dropdown"
+          onchange=(action selectList) as |option|}}
+          {{option.title}}
+        {{/power-select}}
+      </h1>
+      {{#if adminLists.find.isRunning}}
+        {{dot-spinner}}
+      {{else}}
+        <div class="addon-count note test-addon-count">{{model.addons.length}} matching addons</div>
+      {{/if}}
     </header>
-    <ul class="review-addon-list">
-      {{#each model as |addon|}}
-        {{#link-to "admin.review.addon" addon.name}}
-          <li>
-            {{#if addon.isDeprecated}}
-              <span class="score deprecated">x</span>
-            {{else if addon.isWip}}
-              <span class="score wip">WIP</span>
-            {{else if addon.score}}
-              <span class="score" data-score="{{addon.score}}">{{addon.score}}</span>
-            {{else}}
-              <span class="score">?</span>
-            {{/if}}
-            <span class="review-addon-list-name">
-              {{addon.name}}
+    {{#if adminLists.find.isIdle}}
+      <ul class="review-addon-list">
+        {{#each model.addons as |addon|}}
+          {{#link-to "admin.review.addon" addon.name}}
+            <li class="test-review-list-item">
               {{#if addon.isDeprecated}}
-                <span class="notice">(Deprecated)</span>
+                <span class="score deprecated">x</span>
+              {{else if addon.isWip}}
+                <span class="score wip">WIP</span>
+              {{else if addon.score}}
+                <span class="score" data-score="{{addon.score}}">{{addon.score}}</span>
+              {{else}}
+                <span class="score">?</span>
               {{/if}}
-            </span>
-          </li>
-        {{/link-to}}
-      {{/each}}
-    </ul>
+              <span class="review-addon-list-name">
+                {{addon.name}}
+                {{#if addon.isDeprecated}}
+                  <span class="notice">(Deprecated)</span>
+                {{/if}}
+              </span>
+            </li>
+          {{/link-to}}
+        {{/each}}
+      </ul>
+    {{/if}}
   </div>
   <div class="addon-container">
     {{outlet}}

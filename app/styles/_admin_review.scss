@@ -11,15 +11,21 @@ $ember-power-select-multiple-selection-color: $medium-gray;
   .review-index {
     display: none;
 
-    @include media($medium-screen) {
-      display: block;
-    }
-
     padding: $base-spacing;
     max-width: 35%;
     height: 100vh;
     overflow: auto;
     min-width: 25em;
+
+    .list-header {
+      border-bottom: 1px solid $light-gray;
+    }
+
+    .addon-count {
+      margin-top: 1em;
+      margin-bottom: 0.5em;
+      margin-left: $base-spacing/2;
+    }
 
     .review-addon-list {
       a:hover, a.active {
@@ -56,10 +62,6 @@ $ember-power-select-multiple-selection-color: $medium-gray;
     padding: $base-spacing;
     flex: 1;
 
-    @include media($medium-screen) {
-      max-width: 64%;
-    }
-
     section {
       margin-top: 1em;
 
@@ -80,12 +82,6 @@ $ember-power-select-multiple-selection-color: $medium-gray;
             background-color: $base-accent-color;
           }
         }
-      }
-
-      .note {
-        font-size: smaller;
-        font-style: italic;
-        margin-top: 0.5em;
       }
     }
 
@@ -216,9 +212,32 @@ $ember-power-select-multiple-selection-color: $medium-gray;
       }
     }
   }
+
+  &.with-index {
+    .review-index {
+      @include media($medium-screen) {
+        display: block;
+      }
+    }
+
+    .addon-container {
+      @include media($medium-screen) {
+        max-width: 64%;
+      }
+    }
+  }
+
+  .note {
+    font-size: smaller;
+    font-style: italic;
+    margin-top: 0.5em;
+  }
 }
 
 .category-chooser-description {
   font-size: smaller;
   color: $medium-gray;
 }
+
+
+// Choose lists (Invalid Repo, Hidden, Needs categorization, needs review, needs re-review)

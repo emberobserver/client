@@ -92,6 +92,14 @@ export default function() {
       return category.addons;
     }
 
+    if (request.queryParams['filter[needsReReview]']) {
+      return schema.addons.where({ reviews: [] });
+    }
+
+    if (request.queryParams['filter[hidden]']) {
+      return schema.addons.where({ isHidden: true });
+    }
+
     return schema.addons.all();
   });
 
