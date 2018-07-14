@@ -61,7 +61,7 @@ $ember-power-select-multiple-selection-color: $medium-gray;
     }
 
     section {
-      margin-top: $base-spacing;
+      margin-top: 1em;
 
       label {
         font-weight: bold;
@@ -80,6 +80,12 @@ $ember-power-select-multiple-selection-color: $medium-gray;
             background-color: $base-accent-color;
           }
         }
+      }
+
+      .note {
+        font-size: smaller;
+        font-style: italic;
+        margin-top: 0.5em;
       }
     }
 
@@ -100,13 +106,15 @@ $ember-power-select-multiple-selection-color: $medium-gray;
       font-size: 1rem;
     }
 
-    .last-updated {
+    .addon-info {
       font-size: smaller;
     }
 
     .nav-previous-next {
       display: flex;
       justify-content: space-between;
+
+      margin-bottom: 1em;
 
       .previous {
         text-align: left;

@@ -1,6 +1,6 @@
-import Mirage from 'ember-cli-mirage';
+import { Factory, faker } from 'ember-cli-mirage';
 
-export default Mirage.Factory.extend({
+export default Factory.extend({
   name: (i) => `ember-${i}`,
   description: (i) => `An addon that provides stuff ${i}`,
   repositoryUrl: 'https://github.com/kategengler/ember-feature-flags',
@@ -20,5 +20,8 @@ export default Mirage.Factory.extend({
   isTopDownloaded: false,
   isTopStarred: false,
   demoUrl: null,
-  publishedDate: null
+  publishedDate: null,
+  updatedAt() {
+    return faker.date.recent();
+  }
 });

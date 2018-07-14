@@ -28,6 +28,7 @@ export default Model.extend({
   isTopDownloaded: attr('boolean'),
   isTopStarred: attr('boolean'),
   demoUrl: attr('string'),
+  updatedAt: attr('date'),
   githubStats: belongsTo('github-stats', { async: true }),
   latestAddonVersion: belongsTo('version', { async: true }),
   categories: hasMany('category', { async: false }),

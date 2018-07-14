@@ -21,6 +21,7 @@ export default DS.JSONAPISerializer.extend({
     maintainers: { serialize: false },
     readme: { serialize: false },
     reviews: { serialize: false },
-    latestAddonVersion: { serialize: false }
+    latestAddonVersion: { serialize: false },
+    updatedAt: { serialize: false }
   }
 });

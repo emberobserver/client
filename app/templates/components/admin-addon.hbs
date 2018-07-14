@@ -9,8 +9,35 @@
     {{/if}}
   {{/link-to}}
 </h2>
-<p class="test-description">{{addon.description}}</p>
-<p class="last-updated test-last-updated">Last updated {{relative-time date=addon.latestVersionDate}}</p>
+
+<section class="addon-info">
+  <div class="test-last-updated">
+    <b>{{addon.latestAddonVersion.version}}</b> from {{relative-time date=addon.latestVersionDate}}
+  </div>
+  <div class="test-description"><b>description</b> {{addon.description}}</div>
+  {{#if addon.demoUrl}}
+    <div class="test-addon-demo-url">
+      <b>demo</b> <a href="{{addon.demoUrl}}">{{addon.demoUrl}}</a>
+    </div>
+  {{/if}}
+  <div class="test-addon-package-url">
+    <b>package</b> <a href="{{addon.npmUrl}}">{{addon.npmUrl}}</a>
+  </div>
+  <div class="test-addon-license">
+    <b>license</b> {{addon.license}}
+  </div>
+  <div>
+    <b>npm keywords</b>
+    {{#each addon.keywords as |keyword|}}
+      {{#comma-separated list=addon.keywords item=keyword as |value separator|}}
+        {{value.keyword}}{{separator}}
+      {{/comma-separated}}
+    {{/each}}
+  </div>
+  {{#if addon.ranking}}
+    <span>{{#link-to "addons.top"}}Ranks #{{addon.ranking}} of the top 100 addons!{{/link-to}}</span>
+  {{/if}}
+</section>
 
 <section>
   {{#score-display addon=addon as |val|}}
@@ -76,15 +103,16 @@
 </section>
 
 <section>
+  {{category-chooser categories=categories addon=addon onchange=(action (mut addon.categories))}}
+</section>
+
+<section>
   {{#if saveAddon.isRunning}}
     <button class="button" disabled>Saving...</button>
   {{else}}
     <button class="button" {{action (perform saveAddon)}} class="test-save-addon">Save</button>
   {{/if}}
-</section>
-
-<section>
-  {{category-chooser categories=categories addon=addon onchange=(action (mut addon.categories))}}
+  <div class="note">Last saved {{moment-from-now addon.updatedAt}} ({{moment-format addon.lastUpdated "MMMM DD, YYYY h:mm:ss"}})</div>
 </section>
 
 <section class="latest-review">

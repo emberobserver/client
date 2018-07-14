@@ -65,13 +65,23 @@ module('Acceptance | admin review addon', function(hooks) {
       latestVersionDate: moment().subtract(1, 'day').toISOString(),
       score: 5,
       repositoryUrl: 'http://example.com/fake-addon',
+      demoUrl: 'http://example.org/demo',
     });
+
+    let newestAddonVersion = server.create('version', {
+      addon,
+      version: '1.1.3',
+    });
+
+    addon.update('latestAddonVersionId', newestAddonVersion.id);
 
     await visitAddon(addon);
 
     assert.dom('.test-addon-link').includesText('fake-addon');
-    assert.dom('.test-description').hasText('Foo bar baz');
-    assert.dom('.test-last-updated').hasText('Last updated a day ago');
+    assert.dom('.test-description').includesText('Foo bar baz');
+    assert.dom('.test-last-updated').hasText('1.1.3 from a day ago');
+    assert.dom('.test-addon-demo-url').includesText('http://example.org/demo');
+    assert.dom('.test-addon-package-url').includesText('https://www.npmjs.com/package/fake-addon');
     assert.dom('.test-score').hasText('5');
     assert.dom('.test-repo-url').hasText('http://example.com/fake-addon');
     assert.dom('.test-repo-url').hasAttribute('href', 'http://example.com/fake-addon');
