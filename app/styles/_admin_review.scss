@@ -168,7 +168,7 @@ $ember-power-select-multiple-selection-color: $medium-gray;
           color: white !important;
         }
 
-        @include media($medium-screen) {
+        @include media($small-screen) {
           margin-bottom: 0;
           width: auto;
         }
