@@ -21,7 +21,7 @@ if (config.environment === 'production') {
       window.trackJs.track(error);
     }
 
-    console.error(error);
+    console.error(error); // eslint-disable-line no-console
 
   };
 
@@ -31,7 +31,7 @@ if (config.environment === 'production') {
       window.trackJs.track(error);
     }
 
-    console.error(error);
+    console.error(error); // eslint-disable-line no-console
 
   });
 }

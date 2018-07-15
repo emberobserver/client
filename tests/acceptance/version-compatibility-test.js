@@ -37,6 +37,7 @@ module('Acceptance | version compatibility', function(hooks) {
     testResult.update({ versionId: version.id });
 
     await visitAddon(addon);
+
     assert.dom('.test-ember-version-compatibility-section').exists('displays the version compatibility section');
     assert.dom('.test-ember-version-compatibility-unknown').exists('displays a message');
     assert.dom('.test-ember-version-compatibility-new-version-warning').doesNotExist('"New version" warning does not display');

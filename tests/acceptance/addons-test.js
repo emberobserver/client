@@ -212,7 +212,7 @@ module('Acceptance: Addons', function(hooks) {
   });
 
   test('displays addon stats with new EmberVersions model', async function(assert) {
-    enableFeature(this.owner, 'ember-versions-model');
+    enableFeature('ember-versions-model');
     let maintainers = server.createList('maintainer', 3);
 
     let keywords = server.createList('keyword', 5);
