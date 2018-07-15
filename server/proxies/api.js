@@ -6,12 +6,12 @@ module.exports = function(app) {
   var proxy = require('http-proxy').createProxyServer({secure: false});
 
   proxy.on('error', function(err, req) {
-    console.error(err, req.url);
+    console.error(err, req.url); // eslint-disable-line no-console
   });
 
-  app.use(proxyPath, function(req, res, next){
+  app.use(proxyPath, function(req, res){
     // include root path in proxied request
     req.url = proxyPath + '/' + req.url;
-    proxy.web(req, res, { target: 'https://emberobserver.com' });
+    proxy.web(req, res, { target: 'http://localhost:5000' });
   });
 };

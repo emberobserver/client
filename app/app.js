@@ -21,7 +21,7 @@ if (config.environment === 'production') {
       window.trackJs.track(error);
     }
 
-    Ember.Logger.assert(false, error);
+    console.error(error);
 
   };
 
@@ -31,7 +31,7 @@ if (config.environment === 'production') {
       window.trackJs.track(error);
     }
 
-    Ember.Logger.assert(false, error);
+    console.error(error);
 
   });
 }

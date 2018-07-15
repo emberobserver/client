@@ -8,12 +8,12 @@
       {{#if showHeaderSearch}}
         <div class="search with-default-styling test-header-search">
           {{#power-select-typeahead
-              search=(action searchForAddons)
+              search=(action (perform searchForAddons))
               selected=selectedAddon
               placeholder="Search"
               dropdownClass="test-header-search-dropdown"
               noMatchesMessage="No matching addon names, try another search!"
-              onchange=(action goToAddon) as |addonName options|}}
+              onchange=(action (perform goToAddon)) as |addonName options|}}
             {{#if addonName.isFullSearchLink}}
               {{#link-to "index" (query-params query=options.searchText) class="jump-to-full-search test-search-result-jump-to-full-search-link"}}
                 {{#if addonName.noResults}}
