@@ -10,7 +10,7 @@ export default Route.extend({
       return addons.get('firstObject');
     });
 
-    let latestTestResult = this.get('store').query('test-result', { filter: { canary: false, addonName: name }, sort: '-createdAt', page: { limit: 1 }, include: 'ember-version-compatibilities' }).then((results) => {
+    let latestTestResult = this.get('store').query('test-result', { filter: { canary: false, addonName: name }, sort: '-createdAt', page: { limit: 1 }, include: 'ember-version-compatibilities,version' }).then((results) => {
       return results.get('firstObject');
     });
 
