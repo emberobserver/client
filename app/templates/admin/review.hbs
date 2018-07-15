@@ -14,12 +14,12 @@
       {{#if adminLists.find.isRunning}}
         {{dot-spinner}}
       {{else}}
-        <div class="addon-count note test-addon-count">{{model.addons.length}} matching addons</div>
+        <div class="addon-count note test-addon-count">{{addons.length}} matching addons</div>
       {{/if}}
     </header>
     {{#if adminLists.find.isIdle}}
       <ul class="review-addon-list">
-        {{#each model.addons as |addon|}}
+        {{#each addons as |addon|}}
           {{#link-to "admin.review.addon" addon.name}}
             <li class="test-review-list-item">
               {{#if addon.isDeprecated}}

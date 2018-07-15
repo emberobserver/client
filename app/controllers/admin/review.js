@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
-import { oneWay } from '@ember/object/computed';
+import { oneWay, readOnly } from '@ember/object/computed';
 import { inject } from '@ember/service';
 import { lists } from 'ember-observer/services/admin-lists';
 
@@ -13,6 +13,7 @@ export default Controller.extend({
   list: null,
   adminLists: inject(),
   router: inject(),
+  addons: readOnly('adminLists.find.lastSuccessful.value.addons'),
   possibleLists,
   selectedListKey: oneWay('model.key'),
   selectedList: computed('selectedListKey', function() {
