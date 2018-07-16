@@ -5,6 +5,5 @@ window.deprecationWorkflow.config = {
     { handler: "silence", matchId: "ember-inflector.globals" }, // ember-data
     { handler: "silence", matchId: "ember-routing.route-router" }, // ember-cli-document-title
     { handler: "silence", matchId: "ember-console.deprecate-logger" }, // ember-moment
-    { handler: "silence", matchId: "ember-getowner-polyfill.import" } // ember-sanitize
   ]
 };

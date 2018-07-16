@@ -32,7 +32,7 @@
             {{addon-details addon=addon}}
             {{#each (get _results.readmeMatchMap addon.id) as |match|}}
               <div class="test-readme-match text-match">
-                ...{{sanitize-html match "relaxed-with-nofollow"}}...
+                ...{{dom-purify match use-profiles=(hash html=true) hook='target-blank'}}...
               </div>
             {{/each}}
           </li>

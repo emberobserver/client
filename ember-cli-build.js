@@ -52,5 +52,11 @@ module.exports = function(defaults) {
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
 
+  app.import('node_modules/dompurify/dist/purify.js', {
+    using: [
+      { transformation: 'amd', as: 'dom-purify' }
+    ]
+  });
+
   return app.toTree();
 };

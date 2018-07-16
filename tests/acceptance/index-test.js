@@ -107,6 +107,25 @@ module('Acceptance: Index', function(hooks) {
     assert.equal(find('.test-search-readmes').checked, false, 'Include readmes is not checked');
   });
 
+  test('readme matches are sanitized', async function(assert) {
+    let addon = server.create('addon', { name: 'ember-different' });
+
+    server.get('/search', () => {
+      return {
+        search: [
+          { addon_id: addon.id, matches: ['<style> a { color: "green"; }</style>'] }  // eslint-disable-line camelcase
+        ]
+      };
+    });
+
+    await visit('/');
+
+    await fillIn('#search-input', 'test');
+    await click('.test-search-readmes');
+
+    assert.dom('.test-readme-match style').doesNotExist('<style> tag is stripped');
+  });
+
   test('going to a maintainer from search results works', async function(assert) {
     server.create('maintainer', { name: 'test-master' });
 
