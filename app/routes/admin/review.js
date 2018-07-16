@@ -13,9 +13,16 @@ export default Route.extend({
       return this.get('adminLists.find').perform(list);
     }
   },
-  afterModel(model, transition) {
-    if (transition.targetName === 'admin.review.index' && model.addons.get('length')) {
-      return this.transitionTo('admin.review.addon', model.addons.get('firstObject.name'));
+  redirect(model, transition) {
+    if (transition.targetName === 'admin.review.index') {
+      if (model && model.addons.get('length')) {
+        return this.replaceWith('admin.review.addon', model.addons.get('firstObject.name'));
+      }
+
+      if (!transition.queryParams.list) {
+        transition.abort();
+        return this.replaceWith('admin.review.index', { queryParams: { list: 'needing-review' } });
+      }
     }
   },
   titleToken() {

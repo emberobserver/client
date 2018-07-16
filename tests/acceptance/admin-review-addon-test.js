@@ -503,6 +503,17 @@ module('Acceptance | admin review addon', function(hooks) {
   });
 
   module('lists', function() {
+    test('Visiting list without a list param defaults to needing-review', async function(assert) {
+      let addon = server.create('addon', {
+        name: 'fake-addon'
+      });
+
+      await visit('/admin/review');
+
+      assert.onCorrectAddonPage(addon);
+      assert.dom('.test-review-list-item').exists({ count: 1 }, 'Displays list of addons');
+    });
+
     test('Visiting addon without a list param does not show index', async function(assert) {
       let addon = server.create('addon', {
         name: 'fake-addon'
