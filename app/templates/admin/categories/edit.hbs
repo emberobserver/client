@@ -39,7 +39,7 @@
     {{#if subcategories}}
       <ol>
         {{#each subcategories as |category|}}
-          <li>{{link-to category.name 'admin.categories.edit' category.slug}}</li>
+          <li>{{#link-to 'admin.categories.edit' category.slug}}{{category.name}}{{/link-to}}</li>
         {{/each}}
       </ol>
     {{else}}

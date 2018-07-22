@@ -110,7 +110,7 @@
   {{#if saveAddon.isRunning}}
     <button class="button" disabled>Saving...</button>
   {{else}}
-    <button class="button" {{action (perform saveAddon)}} class="test-save-addon">Save</button>
+    <button class="button test-save-addon" {{action (perform saveAddon)}}>Save</button>
   {{/if}}
   <div class="note">Last saved {{moment-from-now addon.updatedAt}} ({{moment-format addon.lastUpdated "MMMM DD, YYYY h:mm:ss"}})</div>
 </section>

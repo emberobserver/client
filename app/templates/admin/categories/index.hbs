@@ -1,6 +1,6 @@
 <h1>Admin</h1>
 <fieldset>
-  {{link-to 'Add category' 'admin.categories.new'}}
+  {{#link-to 'admin.categories.new'}}Add category{{/link-to}}
 </fieldset>
 
 {{category-finder class="categories-list" categoryLinkRoute="admin.categories.edit" categories=model}}
