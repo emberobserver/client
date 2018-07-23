@@ -1,8 +1,5 @@
 {
   "name": "ember-observer",
-  "dependencies": {
-    "sanitize.js": "^1.0.0"
-  },
   "devDependencies": {
     "bourbon": "4.2.3",
     "neat": "~1.7.1"
