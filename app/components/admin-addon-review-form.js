@@ -7,14 +7,8 @@ export default Component.extend({
   addon: null,
   reviewProperties: null,
   questions,
-  questionOptions: [
-    { label: 'Yes', value: 1 },
-    { label: 'No', value: 2 },
-    { label: 'N/A', value: 3 },
-    { label: 'Unknown', value: 4 }
-  ],
   store: inject(),
-  init() {
+  didReceiveAttrs() {
     this._super(...arguments);
     this.set('reviewProperties', {});
   },

@@ -3,9 +3,24 @@
   <fieldset>
     <ol>
       {{#each questions as |question|}}
-        <li>
+        <li class="test-review-question">
           <div class="question">{{question.text}}</div>
-          {{radio-button-set selectOption=(action selectOption) valueField=question.fieldName options=questionOptions class="question-radio-buttons test-question-buttons"}}
+          {{#exclusive-button-group
+            selectedValue=(get reviewProperties question.fieldName)
+            updateSelectedValue=(action selectOption question.fieldName) as |btn|}}
+            {{component btn
+                        value=1
+                        label="Yes"}}
+            {{component btn
+                        value=2
+                        label="No"}}
+            {{component btn
+                        value=3
+                        label="N/A"}}
+            {{component btn
+                        value=4
+                        label="Unknown"}}
+          {{/exclusive-button-group}}
         </li>
       {{/each}}
     </ol>

@@ -7,11 +7,11 @@ import {
   findAll,
 } from '@ember/test-helpers';
 import Mirage from 'ember-cli-mirage';
-import $ from 'jquery';
 import { selectChoose } from 'ember-power-select/test-support/helpers';
 import moment from 'moment';
 import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
 import login from 'ember-observer/tests/helpers/login';
+import findByText from '../helpers/find-by-text';
 
 let windowAlert;
 
@@ -603,5 +603,7 @@ async function toggle(selector) {
 }
 
 async function answerQuestion(question, answer) {
-  await click($(`li .question:contains("${question}") ~ .test-question-buttons button:contains(${answer})`)[0]); // eslint-disable-line ember/no-global-jquery
+  let questionEl = await findByText('.test-review-question', question);
+  let answerButton = await findByText(Array.from(questionEl.querySelectorAll('button')), answer);
+  await click(answerButton);
 }
