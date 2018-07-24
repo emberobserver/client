@@ -255,7 +255,6 @@
   }
 
   .readme {
-    @include span-columns(12);
     @include readme-styles();
   }
 }
