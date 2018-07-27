@@ -1,65 +1,13 @@
 .footer {
-  @include span-columns(12);
   $footer-background: $medium-gray;
   $footer-color: $light-gray;
   $footer-link-color: transparentize($footer-color, 0.6);
   $footer-disclaimer-color: transparentize($footer-color, 0.6);
 
   background: $footer-background;
+  float: left;
   padding: ($base-spacing * 2) 3em;
   width: 100%;
-
-  .footer-logo {
-    margin-bottom: 2em;
-    text-align: center;
-
-    img {
-      height: 3em;
-    }
-  }
-
-  .footer-links {
-    @include clearfix;
-    margin-bottom: $base-spacing;
-
-    @include media($medium-screen) {
-      @include shift(3);
-    }
-  }
-
-  ul {
-    margin-bottom: $base-spacing * 2;
-
-    @include media($medium-screen) {
-      @include span-columns(3);
-      @include omega(3n);
-      @include clearfix;
-    }
-  }
-
-  li {
-    text-align: center;
-
-    @include media($medium-screen) {
-      text-align: left;
-    }
-  }
-
- li a {
-    color: $footer-link-color;
-
-    &:focus,
-    &:hover {
-      color: transparentize($footer-color, 0);
-    }
-  }
-
-  li h3 {
-    color: $footer-color;
-    font-size: 1em;
-    font-weight: 800;
-    margin-bottom: 0.4em;
-  }
 
   hr {
     border: 1px solid transparentize($footer-disclaimer-color, 0.3);
