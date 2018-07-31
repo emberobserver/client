@@ -98,7 +98,7 @@
       {{/if}}
     </section>
 
-    <div class="new-review">
+    <div>
       {{#if session.isAuthenticated}}
         {{#if isReviewing}}
           {{addon-review-form review=newReview questions=newReview.questions save="saveReview"}}
