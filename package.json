@@ -18,6 +18,8 @@
     "test": "ember test"
   },
   "devDependencies": {
+    "bourbon": "4.2.3",
+    "bourbon-neat": "1.7.1",
     "broccoli-asset-rev": "^2.7.0",
     "dompurify": "^1.0.8",
     "ember-ajax": "3.1.0",
