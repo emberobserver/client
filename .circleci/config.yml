@@ -6,7 +6,6 @@ jobs:
       - image: circleci/node:10-browsers
     steps:
       - checkout
-      - run: sudo npm install -g bower
       - restore_cache:
           key: v1-yarn-{{ checksum "yarn.lock" }}
       - run: yarn
@@ -15,6 +14,5 @@ jobs:
           paths:
             - node_modules
             - ~/.cache/yarn
-      - run: bower install
       - run: COVERAGE=true yarn test
       - run: bash <(curl -s https://codecov.io/bash)

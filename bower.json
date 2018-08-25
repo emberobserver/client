@@ -1,7 +1,0 @@
-{
-  "name": "ember-observer",
-  "devDependencies": {
-    "bourbon": "4.2.3",
-    "neat": "~1.7.1"
-  }
-}
