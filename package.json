@@ -64,6 +64,7 @@
     "ember-resolver": "^4.5.0",
     "ember-router-scroll": "^1.0.0",
     "ember-source": "~3.2.0",
+    "ember-source-channel-url": "^1.0.1",
     "emberx-select": "^3.1.1",
     "eslint-plugin-ember": "^5.0.0",
     "glob": "^7.1.1",
