@@ -9,13 +9,13 @@
         <small class="test-addon-flag-new">NEW!</small>
       {{/if}}
 
-      <h1>
+      <h1 class="d-flex align-items-center">
         {{#if addon.isOfficial}}
-          <span class="icon-stars official test-addon-flag-official" title="Official Ember-CLI addon"></span>
+          {{mdi-icon "star-circle" size=36 class="fill-hay mr-2" title="Official Ember-CLI addon"}}
         {{/if}}
 
         {{#if addon.isCliDependency}}
-          <span class="icon-stars dependency test-addon-flag-cli-dependency" title="Dependency of newly generated Ember-CLI applications"></span>
+          {{mdi-icon "star-circle" size=36 class="mr-2" title="Dependency of newly generated Ember-CLI applications"}}
         {{/if}}
 
         {{addon.name}}

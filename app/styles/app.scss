@@ -1,6 +1,7 @@
 @import "normalize";
 @import "bower_components/bourbon/app/assets/stylesheets/_bourbon";
 @import "bower_components/neat/app/assets/stylesheets/_neat";
+@import "ember-mdi";
 @import "base/base";
 @import "font-icons";
 @import "markdown";
@@ -84,3 +85,33 @@ $ember-power-select-highlighted-background: $light-gray;
     color: $dark-gray;
   }
 }
+
+// Helpers
+.fill-hay {
+  fill: $hay;
+}
+
+.d-flex {
+  display: flex !important;
+}
+
+.d-inline-flex {
+  display: flex !important;
+}
+
+.align-items-center {
+  align-items: center !important;
+}
+
+.mr-1 {
+  margin-right: map-get($spacers, 1) !important;
+}
+
+.mr-2 {
+  margin-right: map-get($spacers, 2) !important;
+}
+
+.mr-3 {
+  margin-right: map-get($spacers, 3) !important;
+}
+

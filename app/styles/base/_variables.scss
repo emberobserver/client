@@ -24,6 +24,15 @@ $base-border-radius: 3px;
 $base-spacing: $base-line-height * 1em;
 $default-spacing: 2rem;
 $base-z-index: 0;
+$spacer: $default-spacing / 2;
+$spacers: (
+  0: 0,
+  1: ($spacer * .25),
+  2: ($spacer * .5),
+  3: $spacer,
+  4: ($spacer * 1.5),
+  5: ($spacer * 3)
+);
 
 // Colors
 $blue: #2F7498;

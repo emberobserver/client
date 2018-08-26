@@ -1,5 +1,6 @@
 'use strict';
 
+const broccoliAssetRevDefaults = require('broccoli-asset-rev/lib/default-options');
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const parseFlag = require('./config/parse-flag');
 const env = EmberApp.env();
@@ -9,9 +10,14 @@ module.exports = function(defaults) {
     inlineContent: {},
     minifyJS: {},
     minifyCSS: {},
-    fingerprint: {},
+    fingerprint: {
+      extensions: broccoliAssetRevDefaults.extensions.concat(['svg'])
+    },
     sourcemaps: {
       extensions: ['js']
+    },
+    'ember-mdi': {
+      icons: ['star-circle']
     }
   };
 

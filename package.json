@@ -18,6 +18,7 @@
     "test": "ember test"
   },
   "devDependencies": {
+    "@mdi/svg": "2.6.95",
     "broccoli-asset-rev": "^2.7.0",
     "dompurify": "^1.0.5",
     "ember-ajax": "^3.0.0",
@@ -54,6 +55,7 @@
     "ember-feature-flags": "^5.0.0",
     "ember-load-initializers": "^1.1.0",
     "ember-maybe-import-regenerator": "^0.1.6",
+    "ember-mdi": "^0.4.8",
     "ember-metrics": "^0.12.1",
     "ember-moment": "^7.6.0",
     "ember-multiselect-checkboxes": "^0.11.1",
