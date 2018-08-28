@@ -104,20 +104,11 @@
         }
       }
 
-      .circle-spinner {
+      .mdi-icon-loading {
         position: absolute;
-        top: 0;
-        right: 0.5rem;
-      }
-
-      .circle-spinner {
-        display: inline-block;
-        font-size: 1rem;
-        line-height: 1;
-        margin: .75rem;
-        animation: anim-rotate 1s infinite steps(8);
-        color: #fff;
-        text-shadow: 0 0 .25em rgba(255,255,255, .3);
+        margin-top: -10px;
+        top: 50%;
+        right: 1.25rem;
       }
     }
 

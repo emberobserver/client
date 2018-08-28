@@ -17,7 +17,7 @@ module.exports = function(defaults) {
       extensions: ['js']
     },
     'ember-mdi': {
-      icons: ['star-circle']
+      icons: ['star-circle', 'loading']
     }
   };
 
