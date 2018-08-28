@@ -11,11 +11,11 @@
 
       <h1 class="d-flex align-items-center">
         {{#if addon.isOfficial}}
-          {{mdi-icon "star-circle" size=36 class="fill-hay mr-2" title="Official Ember-CLI addon"}}
+          {{mdi-icon "star-circle" size=36 class="fill-hay mr-2 test-addon-flag-official" title="Official Ember-CLI addon"}}
         {{/if}}
 
         {{#if addon.isCliDependency}}
-          {{mdi-icon "star-circle" size=36 class="mr-2" title="Dependency of newly generated Ember-CLI applications"}}
+          {{mdi-icon "star-circle" size=36 class="mr-2 test-addon-flag-cli-dependency" title="Dependency of newly generated Ember-CLI applications"}}
         {{/if}}
 
         {{addon.name}}
