@@ -119,3 +119,15 @@ $ember-power-select-highlighted-background: $light-gray;
   margin-right: map-get($spacers, 3) !important;
 }
 
+.ml-1 {
+  margin-left: map-get($spacers, 1) !important;
+}
+
+.ml-2 {
+  margin-left: map-get($spacers, 2) !important;
+}
+
+.ml-3 {
+  margin-left: map-get($spacers, 3) !important;
+}
+

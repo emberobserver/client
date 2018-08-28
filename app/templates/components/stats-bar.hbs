@@ -23,9 +23,9 @@
   <li class="test-addon-repo-url">
     <b>repo</b>
     {{#if addon.hasInvalidGithubRepo}}
-      <div>
+      <div class="d-flex align-items-center">
         Unavailable
-        <span class="icon-help test-addon-flag-invalid-repo" title="This addon has an incorrect repo URL in its package.json: {{addon.repositoryUrl}}"></span>
+        <span class="d-inline-flex ml-1" title="This addon has an incorrect repo URL in its package.json: {{addon.repositoryUrl}}">{{mdi-icon "help-circle" size=16 class="test-addon-flag-invalid-repo"}}</span>
       </div>
     {{else}}
       {{human-url url=addon.repositoryUrl}}
