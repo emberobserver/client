@@ -2,18 +2,25 @@
 
   &.categories-collapsed {
     .content {
-      @include span-columns(12);
+      float: left;
+      display: block;
+      margin-right: 0;
+      width: 100%;
+
       padding: $default-spacing $default-spacing 0 $default-spacing;
     }
   }
 
   .content {
-    @include span-columns(12);
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 100%;
     min-height: 500px;
     padding: $default-spacing $default-spacing 0 $default-spacing;
 
     @include media($medium-screen) {
-      @include span-columns(8);
+      width: 65.88078%;
       padding-right: 1rem;
     }
   }
@@ -167,12 +174,14 @@
   }
 
   .categories-list {
-    @include span-columns(12);
+    float: left;
+    display: block;
+    width: 100%;
+    margin-right: 0;
     border-top: 2px solid $light-gray;
 
     @include media($medium-screen) {
-      @include span-columns(4);
-      @include omega();
+      width: 31.76157%;
       border-top: none;
       border-left: $base-border;
     }
