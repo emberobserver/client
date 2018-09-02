@@ -78,11 +78,14 @@
   }
 
   .addon-info {
-    @include span-columns(12);
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 100%;
     margin-bottom: 2rem;
 
     @include media($medium-screen) {
-      @include span-columns(7);
+      width: 57.35098%;
     }
   }
 
