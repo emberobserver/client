@@ -90,13 +90,15 @@
   }
 
   .addon-stats {
-    @include span-columns(12);
+    float: left;
+    display: block;
+    width: 100%;
+    margin-right: 0;
     margin-bottom: 2rem;
 
     @include media($medium-screen) {
-      @include span-columns(4);
-      @include shift(1);
-      @include omega();
+      width: 31.76157%;
+      margin-left: 8.5298%;
 
       .single-column-header {
         display: none;
