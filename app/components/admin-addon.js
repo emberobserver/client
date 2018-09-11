@@ -1,20 +1,13 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
-import { computed } from '@ember/object';
-import { alias } from '@ember/object/computed';
-import { task } from 'ember-concurrency';
+import { task, timeout } from 'ember-concurrency';
+import { questions } from '../models/review';
 
 export default Component.extend({
   tagName: '',
   store: service(),
   addon: null,
-  sortedReviews: computed('addon.reviews.[]', function() {
-    return (this.get('addon.reviews') || []).sortBy('versionReleased').reverse();
-  }),
-  latestReview: alias('sortedReviews.firstObject'),
-  isLatestReviewForLatestVersion: computed('latestReview.version.id', 'addon.latestAddonVersion.id', function() {
-    return this.get('latestReview.version.id') === this.get('addon.latestAddonVersion.id');
-  }),
+  recentlyRenewed: false,
   updateInvalidRepoFlag(value) {
     this.set('addon.hasInvalidGithubRepo', !value);
   },
@@ -36,9 +29,9 @@ export default Component.extend({
   }).drop(),
   renewLatestReview: task(function* () {
     let newReview = this.get('store').createRecord('review');
-    let latestReview = this.get('latestReview');
+    let latestReview = this.get('addon.latestReview');
 
-    latestReview.questions.forEach(function(question) {
+    questions.forEach(function(question) {
       newReview.set(question.fieldName, latestReview.get(question.fieldName));
     });
     newReview.set('review', latestReview.get('review'));
@@ -46,9 +39,17 @@ export default Component.extend({
 
     try {
       yield newReview.save();
+      this.addon.set('latestReview', newReview);
+      yield this.addon.save();
+      this.completeRenew.perform();
     } catch(e) {
       console.error(e); // eslint-disable-line no-console
       window.alert('Failed to renew review');
     }
+  }).drop(),
+  completeRenew: task(function* () {
+    this.set('recentlyRenewed', true);
+    yield timeout(2000);
+    this.set('recentlyRenewed', false);
   }).drop(),
 });

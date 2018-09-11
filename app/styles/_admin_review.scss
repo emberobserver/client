@@ -172,6 +172,8 @@ $ember-power-select-multiple-selection-color: $medium-gray;
     }
 
     .latest-review {
+      @include box();
+
       .review-date {
         font-size: .8em;
         color: #999;

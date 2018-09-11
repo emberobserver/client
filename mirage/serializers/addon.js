@@ -28,5 +28,11 @@ function setRelationshipLinks(object) {
         related: `/api/v2/addons/${object.id}/github-users`
       }
     };
+
+    object.relationships['latest-review'] = {
+      links: {
+        related: `/api/v2/addons/${object.id}/latest-review`
+      }
+    };
   }
 }

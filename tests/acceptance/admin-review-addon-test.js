@@ -268,6 +268,9 @@ module('Acceptance | admin review addon', function(hooks) {
       review: 'Seems ok'
     });
 
+    addonWithReview.latestReview = review;
+    addonWithReview.save();
+
     let addonVersion = server.create('version', {
       addon: addonWithReview,
       review,
@@ -338,6 +341,9 @@ module('Acceptance | admin review addon', function(hooks) {
       review: 'Seems ok'
     });
 
+    addon.latestReview = review;
+    addon.save();
+
     let addonVersion = server.create('version', {
       addon: addon,
       review,
@@ -401,6 +407,9 @@ module('Acceptance | admin review addon', function(hooks) {
       review: 'Seems ok'
     });
 
+    addon.latestReview = review;
+    addon.save();
+
     let addonVersion = server.create('version', {
       addon: addon,
       review,
@@ -463,6 +472,14 @@ module('Acceptance | admin review addon', function(hooks) {
     assert.equal(newReview.isOpenSource, 1);
     assert.equal(newReview.hasBuild, 3);
     assert.equal(newReview.review, '#Some Review');
+
+    let questions = findAll('.test-review-question');
+    assert.dom(questions[0]).hasText('Is the source accessible? Yes');
+    assert.dom(questions[1]).hasText('Is it more than an empty addon? Yes');
+    assert.dom(questions[2]).hasText('Are there meaningful tests? No');
+    assert.dom(questions[3]).hasText('Is the README filled out? Yes');
+    assert.dom(questions[4]).hasText('Does the addon have a build? N/A');
+    assert.dom('.test-review-notes').hasText('Some Review');
   });
 
   test('When creating a new review fails', async function(assert) {

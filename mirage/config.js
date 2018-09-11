@@ -93,7 +93,7 @@ export default function() {
     }
 
     if (request.queryParams['filter[needsReReview]']) {
-      return schema.addons.where({ reviews: [] });
+      return schema.addons.where({ latestReview: null });
     }
 
     if (request.queryParams['filter[hidden]']) {
@@ -101,6 +101,14 @@ export default function() {
     }
 
     return schema.addons.all();
+  });
+
+  this.get('/addons/:id/latest-review', function(schema, request) {
+    let addon = schema.addons.find(+request.params.id);
+    if (addon.latestReview) {
+      return addon.latestReview;
+    }
+    return { data: null };
   });
 
   this.get('/addons/:id/github-stats', function(schema, request) {

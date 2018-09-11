@@ -34,14 +34,7 @@
       addon=addon
       latestReview=latestReview
       hasGithubData=hasGithubData
-      isSaving=isSaving
       isLatestReleaseInLast3Months=isLatestReleaseInLast3Months}}
-    {{#if session.isAuthenticated}}
-      {{info-form
-        addon=addon
-        isSaving=isSaving
-        save=(action "save")}}
-    {{/if}}
 
     <section class="categories">
       <h4>Categories</h4>
@@ -51,12 +44,6 @@
           This addon hasn't been categorized yet.
         {{/unless}}
       </p>
-      {{#if session.isAuthenticated}}
-        {{categories-form
-          addon=addon
-          sortedCategories=sortedCategories
-          save=(action "save")}}
-      {{/if}}
     </section>
     {{#if hasGithubData}}
       <section class="repo-info test-github-data">
@@ -90,23 +77,10 @@
           <em class="test-review-new-version-warning"><span class="icon-new-releases"></span> New versions of this addon have been released since this review was undertaken.</em>
         {{/unless}}
         {{addon-review review=latestReview}}
-        {{#if session.isAuthenticated}}
-          <button {{action "renewLatestReview"}} class="button test-renew-latest-review">Renew Review</button>
-        {{/if}}
       {{else}}
         <p class="no-review test-no-review">This addon has not yet been reviewed.</p>
       {{/if}}
     </section>
-
-    <div>
-      {{#if session.isAuthenticated}}
-        {{#if isReviewing}}
-          {{addon-review-form review=newReview questions=newReview.questions save="saveReview"}}
-        {{else}}
-          <button {{action "review"}} class="button test-addon-review-button">Review</button>
-        {{/if}}
-      {{/if}}
-    </div>
 
     {{#if addon.readme}}
       {{#unless addon.hasInvalidGithubRepo}}

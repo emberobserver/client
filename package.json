@@ -56,7 +56,6 @@
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-metrics": "^0.12.1",
     "ember-moment": "^7.6.0",
-    "ember-multiselect-checkboxes": "^0.11.1",
     "ember-pad": "1.2.3",
     "ember-power-select": "^2.0.4",
     "ember-power-select-typeahead": "^0.7.1",

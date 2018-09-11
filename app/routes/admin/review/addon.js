@@ -6,7 +6,7 @@ export default Route.extend({
     let name = params.name.replace(/%2F/i, '/');
     let list = this.modelFor('admin.review');
 
-    let addon = this.get('store').query('addon', { filter: { name, hidden: [true, false] }, include: 'latest-addon-version,versions,maintainers,keywords,reviews,reviews.version,categories', page: { limit: 1 } }, { reload: true }).then((addons) => {
+    let addon = this.get('store').query('addon', { filter: { name, hidden: [true, false] }, include: 'latest-addon-version,versions,maintainers,keywords,latest-review,latest-review.version,categories', page: { limit: 1 } }, { reload: true }).then((addons) => {
       return addons.get('firstObject');
     });
 

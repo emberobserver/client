@@ -116,19 +116,29 @@
 </section>
 
 <section class="latest-review">
-  {{#if latestReview}}
-    {{#unless isLatestReviewForLatestVersion}}
-      <em class="test-review-new-version-warning"><span class="icon-new-releases"></span> New versions of this addon have been released since this review was undertaken.</em>
-    {{/unless}}
-    {{addon-review review=latestReview}}
-    <button {{action (perform renewLatestReview)}} class="button test-renew-latest-review">Renew Review</button>
-  {{else}}
-    <p class="no-review test-no-review">This addon has not yet been reviewed.</p>
-  {{/if}}
-</section>
-
-<section class="with-default-styling">
-  {{admin-addon-review-form addon=addon}}
+  <h5 class="header">Latest Review</h5>
+  <div class="contents">
+    {{#if addon.latestReview}}
+      {{#if (not-eq addon.latestReview.version.version addon.latestAddonVersion.version)}}
+        <em class="test-review-new-version-warning"><span class="icon-new-releases"></span> New versions of this addon have been released since this review was undertaken.</em>
+      {{/if}}
+      {{addon-review review=addon.latestReview}}
+      {{#if renewLatestReview.isIdle}}
+        <button {{action (perform renewLatestReview)}} class="button test-renew-latest-review">Renew Review</button>
+      {{else}}
+        <button disabled class="button">Saving...</button>
+      {{/if}}
+      {{#if recentlyRenewed}}
+        <b>Saved!</b>
+      {{/if}}
+    {{else}}
+      <p class="no-review test-no-review">This addon has not yet been reviewed.</p>
+    {{/if}}
+    <hr>
+    <section class="with-default-styling">
+      {{admin-addon-review-form addon=addon}}
+    </section>
+  </div>
 </section>
 
 <section>

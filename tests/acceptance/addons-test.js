@@ -179,6 +179,9 @@ module('Acceptance: Addons', function(hooks) {
       review: 'Seems ok'
     });
 
+    addonWithReview.latestReview = review;
+    addonWithReview.save();
+
     let addonVersion = server.create('version', {
       addon: addonWithReview,
       review,

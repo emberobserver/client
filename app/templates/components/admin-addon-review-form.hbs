@@ -1,37 +1,40 @@
-<h4>Review this addon</h4>
+<h5>Review this addon</h5>
 <form {{action (perform saveReview) on="submit"}} class="review-form">
-  <fieldset>
-    <ol>
-      {{#each questions as |question|}}
-        <li class="test-review-question">
-          <div class="question">{{question.text}}</div>
-          {{#exclusive-button-group
-            selectedValue=(get reviewProperties question.fieldName)
-            updateSelectedValue=(action selectOption question.fieldName) as |btn|}}
-            {{component btn
-                        value=1
-                        label="Yes"}}
-            {{component btn
-                        value=2
-                        label="No"}}
-            {{component btn
-                        value=3
-                        label="N/A"}}
-            {{component btn
-                        value=4
-                        label="Unknown"}}
-          {{/exclusive-button-group}}
-        </li>
-      {{/each}}
-    </ol>
-    {{textarea value=reviewText class="test-addon-review-notes"}}
-    {{#if saveReview.isIdle}}
-      <input type="submit" class="button test-addon-review-save" value="Create Review">
-    {{else}}
-      <input type="submit" class="button" value="Saving..." disabled>
-    {{/if}}
-  </fieldset>
+  <ol>
+    {{#each questions as |question|}}
+      <li class="test-review-question">
+        <div class="question">{{question.text}}</div>
+        {{#exclusive-button-group
+          selectedValue=(get reviewProperties question.fieldName)
+          updateSelectedValue=(action selectOption question.fieldName) as |btn|}}
+          {{component btn
+                      value=1
+                      label="Yes"}}
+          {{component btn
+                      value=2
+                      label="No"}}
+          {{component btn
+                      value=3
+                      label="N/A"}}
+          {{component btn
+                      value=4
+                      label="Unknown"}}
+        {{/exclusive-button-group}}
+      </li>
+    {{/each}}
+  </ol>
+  {{textarea value=reviewText class="test-addon-review-notes"}}
+  {{#if reviewText}}
+    <fieldset>
+      {{markdown-to-html markdown=reviewText}}
+    </fieldset>
+  {{/if}}
+  {{#if saveReview.isIdle}}
+    <input type="submit" class="button test-addon-review-save" value="Create Review">
+  {{else}}
+    <input type="submit" class="button" value="Saving..." disabled>
+  {{/if}}
+  {{#if recentlySaved}}
+    <b>Saved!</b>
+  {{/if}}
 </form>
-{{#if review.review}}
-  {{markdown-to-html markdown=review.review}}
-{{/if}}

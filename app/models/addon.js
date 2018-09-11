@@ -31,11 +31,11 @@ export default Model.extend({
   updatedAt: attr('date'),
   githubStats: belongsTo('github-stats', { async: true }),
   latestAddonVersion: belongsTo('version', { async: true }),
+  latestReview: belongsTo('review', { async: true }),
   categories: hasMany('category', { async: false }),
   keywords: hasMany('keyword', { async: true }),
   versions: hasMany('version', { async: true }),
   maintainers: hasMany('maintainer', { async: true }),
-  reviews: hasMany('review', { async: true }),
   readme: belongsTo('readme', { async: true }),
   hasMoreThan1Contributor: gt('githubUsers.length', 1),
   npmUrl: computed('name', function() {
