@@ -112,7 +112,7 @@
   {{else}}
     <button class="button test-save-addon" {{action (perform saveAddon)}}>Save</button>
   {{/if}}
-  <div class="note">Last saved {{moment-from-now addon.updatedAt}} ({{moment-format addon.lastUpdated "MMMM DD, YYYY h:mm:ss"}})</div>
+  <div class="note">Last saved {{moment-from-now addon.updatedAt allowEmpty=true}} ({{moment-format addon.lastUpdated "MMMM DD, YYYY h:mm:ss" allowEmpty=true}})</div>
 </section>
 
 <section class="latest-review">
