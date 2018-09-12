@@ -15,7 +15,7 @@ export default Route.extend({
 
   model() {
     return {
-      categories: this.get('store').findAll('category', { include: 'subcategories' })
+      categories: this.get('store').findAll('category', { include: 'subcategories,parent' })
     };
   },
 

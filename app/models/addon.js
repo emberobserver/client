@@ -32,7 +32,7 @@ export default Model.extend({
   githubStats: belongsTo('github-stats', { async: true }),
   latestAddonVersion: belongsTo('version', { async: true }),
   latestReview: belongsTo('review', { async: true }),
-  categories: hasMany('category', { async: false }),
+  categories: hasMany('category', { async: true }),
   keywords: hasMany('keyword', { async: true }),
   versions: hasMany('version', { async: true }),
   maintainers: hasMany('maintainer', { async: true }),

@@ -13,7 +13,7 @@ export default Route.extend({
     let data = {
       addon,
       list,
-      categories: this.get('store').findAll('category', { include: 'subcategories' })
+      categories: this.get('store').findAll('category', { include: 'subcategories,parent' })
     };
 
     return hash(data);

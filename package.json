@@ -49,7 +49,7 @@
     "ember-cli-test-loader": "^2.2.0",
     "ember-cli-uglify": "^2.0.0",
     "ember-concurrency": "^0.8.14",
-    "ember-data": "~2.13.0",
+    "ember-data": "~3.4.0",
     "ember-export-application-global": "^2.0.0",
     "ember-feature-flags": "^5.0.0",
     "ember-load-initializers": "^1.1.0",
