@@ -6,16 +6,13 @@ $ember-power-select-selected-background: $blue;
 $ember-power-select-multiple-selection-color: $medium-gray;
 
 .route-admin-review {
-  display: flex;
-
   .review-index {
     display: none;
 
+    position: fixed;
     padding: $base-spacing;
-    max-width: 35%;
-    height: 100vh;
+    height: 100%;
     overflow: auto;
-    min-width: 25em;
 
     .list-header {
       border-bottom: 1px solid $light-gray;
@@ -60,53 +57,151 @@ $ember-power-select-multiple-selection-color: $medium-gray;
   .addon-container {
     border-left: $base-border;
     padding: $base-spacing;
-    flex: 1;
 
-    section {
-      margin-top: 1em;
+    .addon-area {
+      margin-top: $base-spacing;
 
-      label {
-        font-weight: bold;
+      section {
+        margin-top: 1em;
+
+        label {
+          font-weight: bold;
+        }
+
+        .component-toggle-switch {
+          margin-top: $base-spacing/2;
+        }
+
+        .hidden-toggle {
+
+          input[type=checkbox] {
+            background-color: $dark-coral;
+
+            &:checked {
+              background-color: $base-accent-color;
+            }
+          }
+        }
       }
 
-      .component-toggle-switch {
-        margin-top: $base-spacing/2;
+      .toggles {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        max-height: 10em;
+
+        .component-toggle-switch {
+          margin-right: $base-spacing/2;
+          width: 15em;
+        }
       }
 
-      .hidden-toggle {
+      .note-input {
+        display: block;
+        font-size: 1rem;
+      }
 
-        input[type=checkbox] {
-          background-color: $dark-coral;
+      .addon-info {
+        font-size: smaller;
+      }
 
-          &:checked {
+      .readme {
+        max-width: calc(100vw - #{2 * $base-spacing});
+        @include readme-styles();
+      }
+
+      .review-form {
+
+        li {
+          margin-bottom: 1em;
+        }
+
+        .question {
+          margin-bottom: 1em;
+        }
+
+        ul {
+          margin-bottom: 2em;
+        }
+
+        button {
+          display: inline-block;
+          line-height: $base-line-height;
+          margin-bottom: 0.3em;
+          margin-right: 0.5em;
+          outline: none;
+          padding: 0.3em 1em;
+          width: 100%;
+          color: $base-accent-color;
+          background-color: white;
+          border: 1px solid $base-accent-color;
+          font-weight: 300;
+
+          &:hover, &.selected {
             background-color: $base-accent-color;
+            color: white !important;
+          }
+
+          @include media($small-screen) {
+            margin-bottom: 0;
+            width: auto;
+          }
+        }
+      }
+
+      .latest-review {
+        @include box();
+
+        .review-date {
+          font-size: .8em;
+          color: #999;
+        }
+
+        ol {
+          margin-top: 1em;
+        }
+
+        .no-review {
+          margin-top: .5em;
+          font-size: 1.1em;
+        }
+
+        h6 {
+          margin-bottom: 1em;
+        }
+
+        .questions {
+          li {
+            @include clearfix();
+            margin-bottom: .7em;
+            border-bottom: 1px dotted tint($blue, 50%);
+
+            &:hover {
+              color: $base-accent-color;
+            }
+          }
+
+          .question {
+            float: left;
+          }
+
+          .answer {
+            float: right;
+            font-weight: bold;
           }
         }
       }
     }
 
-    .toggles {
-      display: flex;
-      flex-wrap: wrap;
-      flex-direction: column;
-      max-height: 10em;
-
-      .component-toggle-switch {
-        margin-right: $base-spacing/2;
-        width: 15em;
-      }
-    }
-
-    .note-input {
-      display: block;
-      font-size: 1rem;
-    }
-
-    .addon-info {
-      font-size: smaller;
-    }
-
     .nav-previous-next {
+      position: fixed;
+      width: calc(100% - 33%);
+      padding: $base-spacing/2 $base-spacing;
+      left: 33%;
+      top: 0;
+      z-index: 3;
+      background-color: $base-background-color;
+
       display: flex;
       justify-content: space-between;
 
@@ -126,105 +221,20 @@ $ember-power-select-multiple-selection-color: $medium-gray;
         }
       }
     }
-
-    .readme {
-      max-width: calc(100vw - #{2 * $base-spacing});
-      @include readme-styles();
-    }
-
-    .review-form {
-
-      li {
-        margin-bottom: 1em;
-      }
-
-      .question {
-        margin-bottom: 1em;
-      }
-
-      ul {
-        margin-bottom: 2em;
-      }
-
-      button {
-        display: inline-block;
-        line-height: $base-line-height;
-        margin-bottom: 0.3em;
-        margin-right: 0.5em;
-        outline: none;
-        padding: 0.3em 1em;
-        width: 100%;
-        color: $base-accent-color;
-        background-color: white;
-        border: 1px solid $base-accent-color;
-        font-weight: 300;
-
-        &:hover, &.selected {
-          background-color: $base-accent-color;
-          color: white !important;
-        }
-
-        @include media($small-screen) {
-          margin-bottom: 0;
-          width: auto;
-        }
-      }
-    }
-
-    .latest-review {
-      @include box();
-
-      .review-date {
-        font-size: .8em;
-        color: #999;
-      }
-
-      ol {
-        margin-top: 1em;
-      }
-
-      .no-review {
-        margin-top: .5em;
-        font-size: 1.1em;
-      }
-
-      h6 {
-        margin-bottom: 1em;
-      }
-
-      .questions {
-        li {
-          @include clearfix();
-          margin-bottom: .7em;
-          border-bottom: 1px dotted tint($blue, 50%);
-
-          &:hover {
-            color: $base-accent-color;
-          }
-        }
-
-        .question {
-          float: left;
-        }
-
-        .answer {
-          float: right;
-          font-weight: bold;
-        }
-      }
-    }
   }
 
   &.with-index {
     .review-index {
       @include media($medium-screen) {
         display: block;
+        width: 33%;
       }
     }
 
     .addon-container {
       @include media($medium-screen) {
-        max-width: 64%;
+        margin-left: 33%;
+        max-width: 66%;
       }
     }
   }
@@ -240,6 +250,3 @@ $ember-power-select-multiple-selection-color: $medium-gray;
   font-size: smaller;
   color: $medium-gray;
 }
-
-
-// Choose lists (Invalid Repo, Hidden, Needs categorization, needs review, needs re-review)
