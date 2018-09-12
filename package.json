@@ -60,7 +60,7 @@
     "ember-power-select": "^2.0.6",
     "ember-power-select-typeahead": "^0.7.1",
     "ember-resolver": "^4.5.0",
-    "ember-router-scroll": "^0.7.1",
+    "ember-router-scroll": "^1.0.0",
     "ember-source": "~3.2.0",
     "emberx-select": "^3.1.1",
     "eslint-plugin-ember": "^5.0.0",
