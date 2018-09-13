@@ -173,8 +173,6 @@ module('Acceptance: Addons', function(hooks) {
       addonId: addonWithReview.id,
       hasTests: 1,
       hasReadme: 4,
-      isMoreThanEmptyAddon: 3,
-      isOpenSource: 2,
       hasBuild: 1,
       review: 'Seems ok'
     });
@@ -202,15 +200,13 @@ module('Acceptance: Addons', function(hooks) {
     await click('.info-action');
 
     let questions = findAll('.test-review-question');
-    assert.dom(questions[0]).hasText('Is the source accessible? No');
-    assert.dom(questions[1]).hasText('Is it more than an empty addon? N/A');
-    assert.dom(questions[2]).hasText('Are there meaningful tests? Yes');
-    assert.dom(questions[3]).hasText('Is the README filled out? Unknown');
-    assert.dom(questions[4]).hasText('Does the addon have a build? Yes');
+    assert.dom(questions[0]).hasText('Are there meaningful tests? Yes');
+    assert.dom(questions[1]).hasText('Is the README filled out? Unknown');
+    assert.dom(questions[2]).hasText('Does the addon have a build? Yes');
 
     assert.dom('.test-review-notes').hasText('Seems ok');
     assert.dom('.test-review-new-version-warning').hasText('New versions of this addon have been released since this review was undertaken.');
-    assert.dom('.test-latest-review-score').hasText('2 points from review', 'Displays latest review score');
+    assert.dom('.test-latest-review-score').hasText('4 points from review', 'Displays latest review score');
     assert.dom('.test-release-published-in-last-three-months').hasText('1 point for having published a release within the last 3 months', 'Displays latest review score');
   });
 

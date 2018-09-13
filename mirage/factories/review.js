@@ -5,7 +5,5 @@ export default Mirage.Factory.extend({
   createdAt: () => new Date(),
   hasTests: 1,
   hasReadme: 1,
-  isMoreThanEmptyAddon: 1,
-  isOpenSource: 1,
   hasBuild: 1
 });

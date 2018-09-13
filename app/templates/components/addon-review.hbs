@@ -1,6 +1,6 @@
 {{#if review}}
   <p class="review-date">
-    Reviewed on {{moment-format review.createdAt "MMMM Do YYYY" allowEmpty=true}} for version {{review.version.version}}
+    Manually reviewed on {{moment-format review.createdAt "MMMM Do YYYY" allowEmpty=true}} for version {{review.version.version}}
   </p>
   <ol class="questions">
     {{#each answeredQuestions as |question|}}
