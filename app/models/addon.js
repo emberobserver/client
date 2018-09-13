@@ -12,7 +12,6 @@ export default Model.extend({
   repositoryUrl: attr('string'),
   latestVersionDate: attr('date'),
   publishedDate: attr('date'),
-  // latestReviewedVersionDate: attr('date'),
   license: attr('string'),
   isDeprecated: attr('boolean'),
   note: attr('string'),

@@ -9,7 +9,7 @@ export default Controller.extend({
   sortedAddonVersions: computed('addon.versions', function() {
     return (this.get('addon.versions') || []).sortBy('released').reverse();
   }),
-  latestVersion: readOnly('sortedAddonVersions.firstObject'),
+  latestVersion: readOnly('addon.latestAddonVersion'),
   isLatestReleaseInLast3Months: computed('latestVersion.released', function() {
     if (!this.get('latestVersion.released')) {
       return false;

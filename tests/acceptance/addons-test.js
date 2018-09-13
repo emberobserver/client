@@ -187,13 +187,14 @@ module('Acceptance: Addons', function(hooks) {
     });
 
     // Newer version without review
-    server.create('version', {
+    let newerVersion = server.create('version', {
       addon: addonWithReview,
       review: null,
       released: window.moment().subtract(1, 'months')
     });
 
     review.update('versionId', addonVersion.id);
+    addonWithReview.update('latestAddonVersionId', newerVersion.id);
 
     await visitAddon(addonWithReview);
 
@@ -227,12 +228,14 @@ module('Acceptance: Addons', function(hooks) {
       keywords
     });
 
-    server.create('version', {
+    let newestVersion = server.create('version', {
       version: '1.0.1',
       addonId: addon.id,
       emberCliVersion: '1.13.1',
       released: window.moment().subtract(3, 'months')
     });
+
+    addon.update('latestAddonVersion', newestVersion);
 
     server.create('version', {
       version: '1.0.0',
@@ -300,6 +303,7 @@ module('Acceptance: Addons', function(hooks) {
     let maintainers = server.createList('maintainer', 3);
 
     let keywords = server.createList('keyword', 5);
+
     let addon = server.create('addon', {
       name: 'test-addon',
       maintainerIds: maintainers.map((m) => m.id),
@@ -312,12 +316,14 @@ module('Acceptance: Addons', function(hooks) {
       keywords
     });
 
-    server.create('version', {
+    let version = server.create('version', {
       version: '1.0.1',
       addonId: addon.id,
       emberCliVersion: '1.13.1',
       released: window.moment().subtract(3, 'months')
     });
+
+    addon.update('latestAddonVersion', version);
 
     server.create('version', {
       version: '1.0.0',

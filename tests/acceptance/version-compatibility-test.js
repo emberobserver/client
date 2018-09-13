@@ -33,6 +33,7 @@ module('Acceptance | version compatibility', function(hooks) {
   test("displays appropriate text when an addon's test result indicated a failure", async function(assert) {
     let addon = server.create('addon');
     let version = server.create('version', { addonId: addon.id });
+    addon.update('latestAddonVersion', version);
     server.create('testResult', {
       succeeded: false,
       versionId: version.id
