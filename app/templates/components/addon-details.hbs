@@ -22,10 +22,10 @@
       {{/if}}
     </span>
     {{#if addon.isOfficial}}
-      <span class="icon-stars official" title="Official Ember-CLI addon"></span>
+      {{official-icon}}
     {{/if}}
     {{#if addon.isCliDependency}}
-      <span class="icon-stars dependency" title="Dependency of newly generated Ember-CLI applications"></span>
+      {{dependency-icon}}
     {{/if}}
     <small>- {{addon.description}}</small>
   {{/link-to}}

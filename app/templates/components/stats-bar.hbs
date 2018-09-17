@@ -25,7 +25,7 @@
     {{#if addon.hasInvalidGithubRepo}}
       <div>
         Unavailable
-        <span class="icon-help test-addon-flag-invalid-repo" title="This addon has an incorrect repo URL in its package.json: {{addon.repositoryUrl}}"></span>
+        {{svg-icon "help" class="test-addon-flag-invalid-repo" title=(concat "This addon has an incorrect repo URL in its package.json: " addon.repositoryUrl)}}
       </div>
     {{else}}
       {{human-url url=addon.repositoryUrl}}
@@ -42,7 +42,7 @@
 {{#if testResult}}
   {{#unless isTestResultForLatestVersion}}
     <em class="test-ember-version-compatibility-new-version-warning">
-      <span class="icon-new-releases"></span> New
+      {{svg-icon "new-releases"}} New
       versions of this addon have been released since these tests ran.
     </em>
   {{/unless}}
@@ -82,7 +82,7 @@
 
 <section class="badge test-addon-badge">
   <img alt="Addon Badge" src={{badge-path addon.name}}>
-  <a href="#" class="icon-content-paste copy-to-clipboard test-show-badge-markdown" title="Show badge markdown to copy" {{action "toggleBadgeText"}}></a>
+  <a href="#" class="copy-to-clipboard test-show-badge-markdown" title="Show badge markdown to copy" {{action "toggleBadgeText"}}>{{svg-icon "content-paste"}}</a>
   {{#if showBadgeText}}
     <hr>
     <code class="test-badge-markdown">

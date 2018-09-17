@@ -2,7 +2,11 @@
   <div class="results {{resultClass}}">
     <h5>
       <a href="#" {{action toggleResultsExpansion}}>
-        <span class="{{if resultsCollapsed 'icon-chevron-right' 'icon-expand-more'}}"></span>
+        {{#if resultsCollapsed}}
+          {{svg-icon "chevron-right"}}
+        {{else}}
+          {{svg-icon "expand-more"}}
+        {{/if}}
         {{title}} ({{totalCount}})
       </a>
     </h5>

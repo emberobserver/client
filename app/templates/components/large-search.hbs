@@ -9,7 +9,9 @@
              value={{query}}
                  oninput={{action (perform search) value="target.value"}}>
       {{#if query}}
-        <button {{action clearSearch}} class="icon-close test-clear-search"></button>
+        <button {{action clearSearch}} class="close-button test-clear-search">
+          {{svg-icon "close"}}
+        </button>
       {{/if}}
     </div>
     <div class="readme-toggle">

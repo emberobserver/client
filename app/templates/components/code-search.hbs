@@ -10,7 +10,7 @@
               value=searchInput
       }}
       {{#if codeQuery}}
-        <button type="button" {{action clearSearch}} class="icon-close test-clear-search"></button>
+        <button type="button" {{action clearSearch}} class="close-button test-clear-search">{{svg-icon "close"}}</button>
       {{/if}}
     </div>
     <div class="search-actions">
@@ -42,7 +42,7 @@
                  oninput={{action (perform applyFileFilter) value="target.value"}}
                class="test-file-filter-input">
         {{#if isFilterApplied}}
-          <button type="button" {{action clearFileFilter}} class="icon-close test-clear-file-filter"></button>
+          <button type="button" {{action clearFileFilter}} class="close-button test-clear-file-filter">{{svg-icon "close" alignBaseline=false}}</button>
         {{/if}}
       </div>
       {{#if isDisplayingFilteredResults}}

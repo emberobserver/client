@@ -292,7 +292,7 @@ module('Acceptance: Addons', function(hooks) {
     assert.dom(versionListItems[2]).containsText('1.0.0');
 
     assert.dom('.test-addon-badge img[src="/badges/test-addon.svg"]').exists();
-    assert.dom('.test-addon-badge .test-show-badge-markdown.icon-content-paste').exists('Show badge markdown to copy');
+    assert.dom('.test-addon-badge .test-show-badge-markdown .icon-content-paste').exists('Show badge markdown to copy');
     assert.dom('.test-addon-correction-link[href*="/addons/test-addon/correct"]').exists('Suggest a correction');
 
     await click('.test-addon-badge .test-show-badge-markdown');
@@ -379,7 +379,7 @@ module('Acceptance: Addons', function(hooks) {
     assert.dom(versionListItems[2]).containsText('1.0.0');
 
     assert.dom('.test-addon-badge img[src="/badges/test-addon.svg"]').exists();
-    assert.dom('.test-addon-badge .test-show-badge-markdown.icon-content-paste').exists('Show badge markdown to copy');
+    assert.dom('.test-addon-badge .test-show-badge-markdown .icon-content-paste').exists('Show badge markdown to copy');
     assert.dom('.test-addon-correction-link[href*="/addons/test-addon/correct"]').exists('Suggest a correction');
 
     await click('.test-addon-badge .test-show-badge-markdown');

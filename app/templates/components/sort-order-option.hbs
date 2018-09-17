@@ -2,9 +2,9 @@
   {{yield}}
   {{#if (is-equal selectedSort key)}}
     {{#if sortAscending}}
-      <span class="icon-expand-less"></span>
+      {{svg-icon "expand-less"}}
     {{else}}
-      <span class="icon-expand-more"></span>
+      {{svg-icon "expand-more"}}
     {{/if}}
   {{/if}}
 </button>

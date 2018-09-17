@@ -29,7 +29,7 @@
 
         position: relative;
 
-        .icon-close {
+        .close-button {
           position: absolute;
           top: 50%;
           right: 1rem;
@@ -125,7 +125,7 @@
           padding: .5rem;
         }
 
-        .icon-close {
+        .close-button {
           color: $base-accent-color;
           position: absolute;
           top: 50%;
