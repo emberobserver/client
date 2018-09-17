@@ -39,16 +39,16 @@ export default Service.extend({
     }
   }),
   addonsNeedingCategorization() {
-    return this.get('store').query('addon', { filter: { isWip: false, notCategorized: true }, sort: '-latestVersionDate' });
+    return this.get('store').query('addon', { filter: { isWip: false, notCategorized: true, hasRepoUrl: true }, sort: '-latestVersionDate' });
   },
   hiddenAddons() {
     return this.get('store').query('addon', { filter: { hidden: true }, sort: '-latestVersionDate' });
   },
   addonsNeedingReReview() {
-    return this.get('store').query('addon', { filter: { needsReReview: true }, sort: '-latestVersionDate' });
+    return this.get('store').query('addon', { filter: { needsReReview: true, hasRepoUrl: true }, sort: '-latestVersionDate' });
   },
   addonsNeedingReview() {
-    return this.get('store').query('addon', { filter: { notReviewed: true, isWip: false }, sort: '-latestVersionDate' });
+    return this.get('store').query('addon', { filter: { notReviewed: true, isWip: false, hasRepoUrl: true }, sort: '-latestVersionDate' });
   },
   addonsWip() {
     return this.get('store').query('addon', { filter: { isWip: true }, sort: '-latestVersionDate' });
