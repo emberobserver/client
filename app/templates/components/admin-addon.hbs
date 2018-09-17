@@ -50,13 +50,11 @@
   {{#if addon.repositoryUrl}}
     <a href="{{addon.repositoryUrl}}" target="repo" class="test-repo-url">{{addon.repositoryUrl}}</a>
   {{else}}
-    Missing
+   <em>Missing</em>
   {{/if}}
-  <div>
-    <a href="https://www.google.com/search?q=%22{{addon.name}}%22" target="_blank" rel="noopener" title="Search Google">Search Google</a>
-    |
-    <a href="https://github.com/search?q=%22{{addon.name}}%22" target="_blank" rel="noopener" title="Search GitHub">Search GitHub</a>
-  </div>
+  <a href="https://www.google.com/search?q=%22{{addon.name}}%22" target="_blank" rel="noopener" title="Search Google">&nbsp;{{svg-icon "google"}}</a>
+  |
+  <a href="https://github.com/search?q=%22{{addon.name}}%22" target="_blank" rel="noopener" title="Search GitHub">{{svg-icon "github"}}</a>
   {{toggle-switch
     label=(if addon.hasInvalidGithubRepo "Has invalid Repo URL" "Has valid Repo URL")
     isChecked=(not addon.hasInvalidGithubRepo)
