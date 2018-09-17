@@ -567,7 +567,8 @@ module('Acceptance | admin review addon', function(hooks) {
         'Addons needing categorization',
         'Addons needing re-review',
         'Addons needing review',
-        'Addons marked WIP'
+        'Addons marked WIP',
+        'Addons without a repo url set',
       ];
 
       await assert.powerSelectOptionsAre('.test-list-select', '.test-list-select-dropdown', expectedOptions);
