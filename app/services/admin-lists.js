@@ -21,6 +21,10 @@ export const lists = {
   'wip': {
     method: 'addonsWip',
     title: 'Addons marked WIP'
+  },
+  'missing-repo-url': {
+    method: 'missingRepoUrl',
+    title: 'Addons without a repo url set'
   }
 };
 export default Service.extend({
@@ -48,5 +52,8 @@ export default Service.extend({
   },
   addonsWip() {
     return this.get('store').query('addon', { filter: { isWip: true }, sort: '-latestVersionDate' });
+  },
+  missingRepoUrl() {
+    return this.get('store').query('addon', { filter: { missingRepoUrl: true }, sort: '-latestVersionDate' });
   }
 });
