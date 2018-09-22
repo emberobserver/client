@@ -57,6 +57,7 @@ Router.map(function() {
     this.route('top-addons');
     this.route('new-addons');
     this.route('recently-scored-addons');
+    this.route('invalid-repo-url');
   });
 
   this.route('maintainers', function() {
