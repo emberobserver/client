@@ -175,7 +175,10 @@ module('Acceptance | code search', function(hooks) {
     assert.dom(nameSortButton).hasClass('selected');
     assert.ok(nameSortButton.querySelector('.icon-expand-less'));
 
+    window.scrollTo(0, 10);
     await click(usageSortButton);
+
+    assert.notEqual(window.pageYOffset, 0, 'Page remains scrolled (not at top)');
 
     let resortedAddonNames = findAll('.test-addon-name');
     assert.dom(resortedAddonNames[0]).containsText('ember-foo', 'Addons are sorted descending by default for switch to usage count sort');
@@ -380,7 +383,10 @@ module('Acceptance | code search', function(hooks) {
 
     assert.dom('.test-addon-name').exists({ count: 3 }, 'shows all addons before filtering');
 
+    window.scrollTo(0, 10);
     await fillIn('.test-file-filter-input', filterTerm);
+
+    assert.notEqual(window.pageYOffset, 0, 'Page remains scrolled (not at top)');
 
     assert.dom('.test-addon-name').exists({ count: 2 }, 'shows only matching addons after filtering');
     assert.dom('.test-result-info').containsText('3 addons', 'full result count shows when filter is applied');
