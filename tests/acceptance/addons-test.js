@@ -398,6 +398,83 @@ module('Acceptance: Addons', function(hooks) {
     assert.dom('.readme').doesNotExist('does not display readme');
   });
 
+  test('displays addon dependencies', async (assert) => {
+    let addon = server.create('addon');
+    let latestVersion = server.create('version', {
+      addon
+    });
+
+    addon.latestAddonVersion = latestVersion;
+    addon.save();
+
+    let dependency = server.create('addon-dependency', {
+      dependentVersion: latestVersion,
+      dependencyType: 'dependencies'
+    });
+
+    let devDependency = server.create('addon-dependency', {
+      dependentVersion: latestVersion,
+      dependencyType: 'devDependencies'
+    });
+
+    await visitAddon(addon);
+
+    assert.dom('.test-dependencies .test-dependency-name').hasText(dependency.package);
+    assert.dom('.test-dev-dependencies .test-dependency-name').hasText(devDependency.package);
+  });
+
+  test('hides some dependencies if there are over a certain amount', async function(assert) {
+    let addon = server.create('addon');
+    let latestVersion = server.create('version', {
+      addon
+    });
+
+    addon.latestAddonVersion = latestVersion;
+    addon.save();
+
+    server.createList('addon-dependency', 10, {
+      dependentVersion: latestVersion,
+      dependencyType: 'dependencies'
+    });
+
+    server.createList('addon-dependency', 11, {
+      dependentVersion: latestVersion,
+      dependencyType: 'devDependencies'
+    });
+
+    await visitAddon(addon);
+
+    let dependencyPackages = findAll('.test-dependencies .test-dependency-name');
+    assert.equal(8, dependencyPackages.length, 'Shows truncated list of dependencies');
+
+    let devDependencyPackages = findAll('.test-dev-dependencies .test-dependency-name');
+    assert.equal(8, devDependencyPackages.length, 'Shows list of dev dependencies');
+
+    await click('.test-show-all-dependencies');
+
+    dependencyPackages = findAll('.test-dependencies .test-dependency-name');
+    assert.equal(10, dependencyPackages.length, 'Shows full list of dependencies');
+
+    devDependencyPackages = findAll('.test-dev-dependencies .test-dependency-name');
+    assert.equal(11, devDependencyPackages.length, 'Shows full list of dependencies');
+  });
+
+  test('when there are no addon dependencies', async (assert) => {
+    let addon = server.create('addon');
+    let latestVersion = server.create('version', {
+      addon
+    });
+
+    addon.latestAddonVersion = latestVersion;
+    addon.save();
+
+    await visitAddon(addon);
+
+    assert.dom('.test-no-addons-message').exists();
+    assert.dom('.test-dependencies').doesNotExist();
+    assert.dom('.test-dev-dependencies').doesNotExist();
+  });
+
   module('Scoped addons', function(hooks) {
     hooks.beforeEach(function() {
       this.addon = server.create('addon', {

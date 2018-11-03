@@ -197,6 +197,8 @@ export default function() {
     return addon;
   });
 
+  this.get('/addon-dependencies');
+
   /*
     Route shorthand cheatsheet
   */
