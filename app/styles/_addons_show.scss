@@ -77,6 +77,17 @@
     }
   }
 
+  .addon-dependencies {
+    .description {
+      &.no-addons {
+        margin-top: .5rem;
+        margin-bottom: 4rem;
+      }
+      margin-top: .25em;
+      font-style: italic;
+    }
+  }
+
   .addon-info {
     @include span-columns(12);
     margin-bottom: 2rem;

@@ -2,6 +2,7 @@ import { computed } from '@ember/object';
 import { alias, readOnly } from '@ember/object/computed';
 import Controller from '@ember/controller';
 import moment from 'moment';
+import { isEmpty } from '@ember/utils';
 
 export default Controller.extend({
   addon: alias('model.addon'),
@@ -10,6 +11,11 @@ export default Controller.extend({
     return (this.get('addon.versions') || []).sortBy('released').reverse();
   }),
   latestVersion: readOnly('addon.latestAddonVersion'),
+  dependencies: readOnly('model.dependencies'),
+  devDependencies: readOnly('model.devDependencies'),
+  addonHasDependencies: computed('dependencies', 'devDependencies', function() {
+    return !isEmpty(this.dependencies) || !isEmpty(this.devDependencies);
+  }),
   isLatestReleaseInLast3Months: computed('latestVersion.released', function() {
     if (!this.get('latestVersion.released')) {
       return false;

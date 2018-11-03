@@ -30,8 +30,16 @@ export default Route.extend({
     return model.addon.get('name');
   },
 
-  afterModel() {
+  afterModel(model) {
     this.get('emberVersions').fetch();
+
+    let addonVersionId = model.addon.get('latestAddonVersion.id');
+    this.get('store')
+      .query('addon-dependency', { filter: { addonVersionId }, sort: 'package' })
+      .then((results) => {
+        this.controller.set('model.dependencies',  results.filter((dep) => dep.isDependency));
+        this.controller.set('model.devDependencies',  results.filter((dep) => dep.isDevDependency));
+    });
   },
   emberVersions: service(),
   actions: {
