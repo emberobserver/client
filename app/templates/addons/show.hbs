@@ -84,12 +84,7 @@
 
     <section class="addon-dependencies">
       <h4>Dependencies</h4>
-      {{#if addonHasDependencies}}
-        <p class="description">Version {{latestVersion.version}} of this addon depends on the following addons:</p>
-        {{dependency-table dependencies=dependencies devDependencies=devDependencies}}
-      {{else}}
-        <p class="no-addons description test-no-addons-message">Version {{latestVersion.version}} of this addon does not depend on any other addons.</p>
-      {{/if}}
+      {{dependency-table addonVersion=latestVersion}}
     </section>
 
     {{#if addon.readme}}
