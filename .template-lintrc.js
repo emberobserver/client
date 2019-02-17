@@ -13,6 +13,6 @@ module.exports = {
     'no-outlet-outside-routes': true,
     'no-trailing-spaces': true,
     'no-partial': true,
-    // 'quotes': 'double',
+    'quotes': false,
   }
 };

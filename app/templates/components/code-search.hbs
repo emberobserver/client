@@ -89,7 +89,7 @@
       {{dot-spinner}}
     {{else}}
       {{#each displayingResults as |result|}}
-        <li data-id="{{result.addon.id}}">
+        <li data-id={{result.addon.id}}>
           {{addon-details addon=result.addon}}
           {{addon-source-usages
             addon=result.addon

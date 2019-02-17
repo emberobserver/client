@@ -27,7 +27,7 @@
               {{else if addon.isWip}}
                 <span class="score wip">WIP</span>
               {{else if addon.score}}
-                <span class="score" data-score="{{addon.score}}">{{addon.score}}</span>
+                <span class="score" data-score={{addon.score}}>{{addon.score}}</span>
               {{else}}
                 <span class="score">?</span>
               {{/if}}
