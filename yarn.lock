@@ -4412,7 +4412,7 @@ ember-compatibility-helpers@^1.1.1, ember-compatibility-helpers@^1.1.2:
     ember-cli-version-checker "^2.1.1"
     semver "^5.4.1"
 
-ember-concurrency@^0.8.20, ember-concurrency@^0.8.26:
+ember-concurrency@^0.8.26, ember-concurrency@^0.8.27:
   version "0.8.27"
   resolved "https://registry.yarnpkg.com/ember-concurrency/-/ember-concurrency-0.8.27.tgz#6dd1b9928cf5d13d5ae9c8cd3d5869f6ff81a9a9"
   integrity sha512-2IujJ0Y79a+sHvEOPhUtZ7Ga8HDrwjbQqO7aZ88b0KCsXPro7birQFB508njQSQ0mxrsR9qzDv/KS5V67Cy5dA==
@@ -4561,7 +4561,7 @@ ember-pad@1.2.3:
   dependencies:
     ember-cli-babel "^6.6.0"
 
-ember-power-select-typeahead@^0.7.1:
+ember-power-select-typeahead@^0.7.3:
   version "0.7.3"
   resolved "https://registry.yarnpkg.com/ember-power-select-typeahead/-/ember-power-select-typeahead-0.7.3.tgz#30f7922b520a7e8ab1a0094b413235f7c09feae6"
   integrity sha512-9G8gdwIZroH7ohQ6qEYhFobFnhvqy4w8mlO6jkKHkWjv/kz4JvR6FayPxrih4Awo8zvomXmibI/1WWC99KlNPg==
@@ -4570,7 +4570,7 @@ ember-power-select-typeahead@^0.7.1:
     ember-cli-htmlbars "^2.0.1"
     ember-power-select "^2.0.0-beta.5"
 
-ember-power-select@^2.0.0-beta.5, ember-power-select@^2.0.6:
+ember-power-select@^2.0.0-beta.5, ember-power-select@^2.2.1:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/ember-power-select/-/ember-power-select-2.2.2.tgz#38ae6f0422f281baa41515074b6d7840be7f28c0"
   integrity sha512-NBW6kwkTD8rbBxENWE82p5VH20wTAAgkrjEyPzCFJt+xY2O/HmRxCa7OdU3JqPXO3cU4ZsOkfgnaAvudg+ukOA==
