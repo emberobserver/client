@@ -57,7 +57,7 @@
     "ember-feature-flags": "^5.0.0",
     "ember-load-initializers": "^1.1.0",
     "ember-maybe-import-regenerator": "^0.1.6",
-    "ember-metrics": "^0.12.1",
+    "ember-metrics": "^0.13.0",
     "ember-moment": "^7.6.0",
     "ember-pad": "1.2.3",
     "ember-power-select": "^2.2.1",
