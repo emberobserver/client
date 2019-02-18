@@ -5,6 +5,8 @@ import { task } from 'ember-concurrency';
 import { isEmpty } from '@ember/utils';
 
 export default Component.extend({
+  classNames: ['addon-dependency-table'],
+
   limit: 8,
 
   showingAllDependencies: false,
@@ -35,7 +37,7 @@ export default Component.extend({
     if (!this.dependencyCount || !this.devDependencyCount) {
       return false;
     }
-    return this.dependencyCount > this.limit || this.devDependencies.length > this.limit;
+    return this.dependencyCount > this.limit || this.devDependencyCount > this.limit;
   }),
 
   hiddenDependencyCount: computed('dependencyCount', 'showingAllDependencies', function() {
