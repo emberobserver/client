@@ -25,7 +25,7 @@
     "bourbon-neat": "1.7.1",
     "broccoli-asset-rev": "^2.7.0",
     "dompurify": "^1.0.8",
-    "ember-ajax": "3.1.0",
+    "ember-ajax": "^3.1.0",
     "ember-cli": "~3.7.1",
     "ember-cli-app-version": "^3.2.0",
     "ember-cli-babel": "^7.1.2",
