@@ -4620,13 +4620,13 @@ ember-router-generator@^1.2.3:
   dependencies:
     recast "^0.11.3"
 
-ember-router-scroll@^1.0.0:
+ember-router-scroll@dollarshaveclub/ember-router-scroll#4452258:
   version "1.0.2"
-  resolved "https://registry.yarnpkg.com/ember-router-scroll/-/ember-router-scroll-1.0.2.tgz#2c0f25c8b800f65fb5eff56e1603e9bd3b3bf9b8"
-  integrity sha512-v/+wvb+Pwc4AtdTjFkDzAMU7WhVhrG83m/89rK/J/m9tQENYzsWoSa4+04WfRJj5ivWSaA/iWNkSfvseTp84Zg==
+  resolved "https://codeload.github.com/dollarshaveclub/ember-router-scroll/tar.gz/44522585b6a81a32f5e157bf5c572fd4f621f15d"
   dependencies:
     ember-app-scheduler "^1.0.5"
     ember-cli-babel "^7.1.2"
+    ember-compatibility-helpers "^1.1.2"
     ember-getowner-polyfill "^2.2.0"
 
 ember-runtime-enumerable-includes-polyfill@^2.0.0:

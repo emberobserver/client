@@ -64,7 +64,7 @@
     "ember-power-select-typeahead": "^0.7.3",
     "ember-qunit": "^3.4.1",
     "ember-resolver": "^5.0.1",
-    "ember-router-scroll": "^1.0.0",
+    "ember-router-scroll": "dollarshaveclub/ember-router-scroll#4452258",
     "ember-source": "~3.7.0",
     "ember-source-channel-url": "^1.0.1",
     "emberx-select": "^3.1.1",
