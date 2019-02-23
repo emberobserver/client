@@ -1,5 +1,4 @@
 import { click, currentRouteName, currentURL, visit, findAll } from '@ember/test-helpers';
-import { copy } from '@ember/object/internals';
 import { module, test } from 'qunit';
 import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
 import visitAddon from '../helpers/visit-addon';
@@ -244,10 +243,10 @@ module('Acceptance: Addons', function(hooks) {
       released: window.moment().subtract(4, 'months')
     });
 
-    let version = copy(EmberVersionsResponse[0]);
+    let version = Object.assign({}, EmberVersionsResponse[0]);
     version.published_at = window.moment().subtract(14, 'weeks');      // eslint-disable-line camelcase
     version.tag_name = 'v15.0.0';                                      // eslint-disable-line camelcase
-    let olderVersion = copy(EmberVersionsResponse[1]);
+    let olderVersion = Object.assign({}, EmberVersionsResponse[1]);
     olderVersion.published_at = window.moment().subtract(5, 'months'); // eslint-disable-line camelcase
     olderVersion.tag_name = 'v14.0.0';                                 // eslint-disable-line camelcase
 
@@ -333,10 +332,10 @@ module('Acceptance: Addons', function(hooks) {
     });
 
     server.get('https://api.github.com/repos/emberjs/ember.js/releases', function(/* db, request*/) {
-      let version = copy(EmberVersionsResponse[0]);
+      let version = Object.assign({}, EmberVersionsResponse[0]);
       version.published_at = window.moment().subtract(14, 'weeks');      // eslint-disable-line camelcase
       version.tag_name = 'v15.0.0';                                      // eslint-disable-line camelcase
-      let olderVersion = copy(EmberVersionsResponse[1]);
+      let olderVersion = Object.assign({}, EmberVersionsResponse[1]);
       olderVersion.published_at = window.moment().subtract(5, 'months'); // eslint-disable-line camelcase
       olderVersion.tag_name = 'v14.0.0';                                 // eslint-disable-line camelcase
 
