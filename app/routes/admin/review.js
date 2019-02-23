@@ -19,7 +19,7 @@ export default Route.extend({
         return this.replaceWith('admin.review.addon', model.addons.get('firstObject.name'));
       }
 
-      if (!transition.queryParams.list) {
+      if (!transition.to.queryParams.list) {
         transition.abort();
         return this.replaceWith('admin.review.index', { queryParams: { list: 'needing-review' } });
       }
