@@ -14,5 +14,6 @@ module.exports = {
     'no-trailing-spaces': true,
     'no-partial': true,
     'quotes': false,
+    'table-groups': false
   }
 };
