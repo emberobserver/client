@@ -17,11 +17,11 @@
   <div class="test-description"><b>description</b> {{addon.description}}</div>
   {{#if addon.demoUrl}}
     <div class="test-addon-demo-url">
-      <b>demo</b> <a href="{{addon.demoUrl}}">{{addon.demoUrl}}</a>
+      <b>demo</b> <a href={{addon.demoUrl}}>{{addon.demoUrl}}</a>
     </div>
   {{/if}}
   <div class="test-addon-package-url">
-    <b>package</b> <a href="{{addon.npmUrl}}">{{addon.npmUrl}}</a>
+    <b>package</b> <a href={{addon.npmUrl}}>{{addon.npmUrl}}</a>
   </div>
   <div class="test-addon-license">
     <b>license</b> {{addon.license}}
@@ -48,7 +48,7 @@
 <section>
   <label>Repo URL</label>
   {{#if addon.repositoryUrl}}
-    <a href="{{addon.repositoryUrl}}" target="repo" class="test-repo-url">{{addon.repositoryUrl}}</a>
+    <a href={{addon.repositoryUrl}} target="repo" class="test-repo-url">{{addon.repositoryUrl}}</a>
   {{else}}
     <em>Missing</em>
   {{/if}}

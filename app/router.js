@@ -10,15 +10,19 @@ const Router = EmberRouter.extend(RouterScroll, {
   rootURL: config.rootURL,
   metrics: service(),
 
-  willTransition() {
+  init() {
     this._super(...arguments);
-    performance.mark('willTransition');
+    this.on('routeDidChange', () => this._routeDidChange());
+    this.on('routeWillChange', () => this._routeWillChange());
   },
 
-  didTransition() {
-    this._super(...arguments);
+  _routeDidChange() {
     this._trackPage();
-    performance.mark('didTransition');
+    performance.mark('routeDidChange');
+  },
+
+  _routeWillChange() {
+    performance.mark('routeWillChange');
   },
 
   previousPage: null,

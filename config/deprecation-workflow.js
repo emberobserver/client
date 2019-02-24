@@ -1,7 +1,6 @@
 window.deprecationWorkflow = window.deprecationWorkflow || {};
 window.deprecationWorkflow.config = {
   workflow: [
-    { handler: "silence", matchId: "ember-routing.route-router" }, // ember-cli-document-title
-    { handler: "silence", matchId: "ember-console.deprecate-logger" }, // ember-moment
+    { handler: "silence", matchId: "ember-polyfills.deprecate-merge" }, // ember-data, sigh (https://github.com/emberjs/data/pull/5812)
   ]
 };

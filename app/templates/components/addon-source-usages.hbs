@@ -15,7 +15,7 @@
             {{usage.filename}}:{{usage.line_number}}
           </a>
           {{#each usage.lines as |line|}}
-            <pre class="line"><span class="number">{{pad-line-number line.number usage.lines}}</span><span class="{{if (is-equal usage.line_number line.number) 'match'}}">{{line.text}}</span></pre>
+            <pre class="line"><span class="number">{{pad-line-number line.number usage.lines}}</span><span class={{if (is-equal usage.line_number line.number) 'match'}}>{{line.text}}</span></pre>
           {{/each}}
         </div>
       {{/each}}
