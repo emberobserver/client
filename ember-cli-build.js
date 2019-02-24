@@ -3,13 +3,16 @@
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const parseFlag = require('./config/parse-flag');
 const env = EmberApp.env();
+const broccoliAssetRevDefaults = require('broccoli-asset-rev/lib/default-options');
 
 module.exports = function(defaults) {
   let options = {
     inlineContent: {},
     minifyJS: {},
     minifyCSS: {},
-    fingerprint: {},
+    fingerprint: {
+      extensions: broccoliAssetRevDefaults.extensions.concat(['svg'])
+    },
     sourcemaps: {
       extensions: ['js']
     }
