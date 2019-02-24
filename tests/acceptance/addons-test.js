@@ -91,7 +91,7 @@ module('Acceptance: Addons', function(hooks) {
   });
 
   test('displays github data', async function(assert) {
-    let users = server.createList('github-users', 2);
+    let users = server.createList('github-user', 2);
     let addon = server.create('addon', {
       name: 'test-addon-with-github-data',
       isTopStarred: true,
@@ -252,7 +252,7 @@ module('Acceptance: Addons', function(hooks) {
 
     let emberVersionsData = [version, olderVersion];
 
-    server.create('ember-versions', { githubResponse: emberVersionsData });
+    server.create('ember-version', { githubResponse: emberVersionsData });
 
     await visitAddon(addon);
 
