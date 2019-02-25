@@ -16,7 +16,8 @@ export default Route.extend({
 
     let data = {
       addon,
-      latestTestResult
+      latestTestResult,
+      emberVersions: this.store.query('ember-version', { filter: { releases: true, majorAndMinor: true }})
     };
 
     if (this.get('session.isAuthenticated')) {
@@ -30,10 +31,6 @@ export default Route.extend({
     return model.addon.get('name');
   },
 
-  afterModel() {
-    this.get('emberVersions').fetch();
-  },
-  emberVersions: service(),
   actions: {
     error() {
       this.replaceWith('model-not-found');

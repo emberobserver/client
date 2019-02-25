@@ -3,7 +3,6 @@ import { module, test } from 'qunit';
 import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
 import visitAddon from '../helpers/visit-addon';
 import { enableFeature } from 'ember-feature-flags/test-support';
-import EmberVersionsResponse from '../ember-version-response';
 import moment from 'moment';
 
 module('Acceptance: Addons', function(hooks) {
@@ -210,94 +209,6 @@ module('Acceptance: Addons', function(hooks) {
     assert.dom('.test-release-published-in-last-three-months').hasText('1 point for having published a release within the last 3 months', 'Displays latest review score');
   });
 
-  test('displays addon stats with new EmberVersions model', async function(assert) {
-    enableFeature('ember-versions-model');
-    let maintainers = server.createList('maintainer', 3);
-
-    let keywords = server.createList('keyword', 5);
-    let addon = server.create('addon', {
-      name: 'test-addon',
-      maintainerIds: maintainers.map((m) => m.id),
-      latestVersionDate: window.moment().subtract(3, 'months'),
-      isTopDownloaded: true,
-      lastMonthDownloads: 1564,
-      demoUrl: 'http://www.example.com/demo_of_addon',
-      repositoryUrl: 'http://www.example.com/addon_repo',
-      license: 'MIT',
-      keywords
-    });
-
-    let newestVersion = server.create('version', {
-      version: '1.0.1',
-      addonId: addon.id,
-      emberCliVersion: '1.13.1',
-      released: window.moment().subtract(3, 'months')
-    });
-
-    addon.update('latestAddonVersion', newestVersion);
-
-    server.create('version', {
-      version: '1.0.0',
-      addonId: addon.id,
-      emberCliVersion: '1.13.0',
-      released: window.moment().subtract(4, 'months')
-    });
-
-    let version = Object.assign({}, EmberVersionsResponse[0]);
-    version.published_at = window.moment().subtract(14, 'weeks');      // eslint-disable-line camelcase
-    version.tag_name = 'v15.0.0';                                      // eslint-disable-line camelcase
-    let olderVersion = Object.assign({}, EmberVersionsResponse[1]);
-    olderVersion.published_at = window.moment().subtract(5, 'months'); // eslint-disable-line camelcase
-    olderVersion.tag_name = 'v14.0.0';                                 // eslint-disable-line camelcase
-
-    let emberVersionsData = [version, olderVersion];
-
-    server.create('ember-version', { githubResponse: emberVersionsData });
-
-    await visitAddon(addon);
-
-    assert.dom('.test-addon-install-command').hasText('ember install test-addon');
-
-    assert.dom('.test-addon-latest-version').hasText('1.0.1 from 3 months ago');
-
-    assert.dom('.test-addon-top-downloaded').containsText('TOP 10%');
-    assert.dom('.test-addon-top-downloaded').containsText('1,564 downloads in last month');
-
-    assert.dom('.test-addon-demo-url a[href="http://www.example.com/demo_of_addon"]').exists();
-    assert.dom('.test-addon-demo-url').containsText('example.com/demo_of_addon');
-
-    assert.dom('.test-addon-repo-url a[href="http://www.example.com/addon_repo"]').exists();
-    assert.dom('.test-addon-repo-url').containsText('example.com/addon_repo');
-
-    assert.dom('.test-addon-package-url a[href="https://www.npmjs.com/package/test-addon"]').exists();
-    assert.dom('.test-addon-package-url').containsText('npmjs.com/package/test-addon');
-
-    assert.dom('.test-addon-license a[href="https://spdx.org/licenses/MIT"]').hasText('MIT');
-
-    assert.dom('.test-addon-keywords').hasText('keyword-0, keyword-1, keyword-2, keyword-3, keyword-4');
-
-    assert.dom('.test-addon-maintainers a').exists({ count: 3 }, 'maintainers should display');
-    assert.dom('.test-addon-maintainers a[href*="/maintainers/maintainer-0"]').exists('maintainers should have link to them');
-    assert.dom('.test-addon-maintainers img[src="https://secure.gravatar.com/avatar/412412d3d6d6fc8809f9121216dd0?d=identicon"]').exists('maintainers should have gravatar');
-    assert.dom('.test-addon-maintainers img[title="maintainer-0"][alt="maintainer-0"]').exists('Title and source of gravatar are set');
-
-    assert.dom('.test-addon-ember-cli-version').hasText('1.13.1');
-
-    assert.dom('.test-addon-version-count').hasText('versions (2)');
-    assert.dom('.test-addon-versions li').exists({ count: 3 }, 'Only 3 list items should be under versions, 2 for versions, 1 for ember verions after publishing of addon');
-    let versionListItems = findAll('.test-addon-versions li');
-    assert.dom(versionListItems[0]).containsText('1.0.1');
-    assert.dom(versionListItems[1]).containsText('Ember v15.0.0');
-    assert.dom(versionListItems[2]).containsText('1.0.0');
-
-    assert.dom('.test-addon-badge img[src="/badges/test-addon.svg"]').exists();
-    assert.dom('.test-addon-badge .test-show-badge-markdown .icon-content-paste').exists('Show badge markdown to copy');
-    assert.dom('.test-addon-correction-link[href*="/addons/test-addon/correct"]').exists('Suggest a correction');
-
-    await click('.test-addon-badge .test-show-badge-markdown');
-    assert.dom('.test-addon-badge .test-badge-markdown').hasText('[![Ember Observer Score](https://emberobserver.com/badges/test-addon.svg)](https://emberobserver.com/addons/test-addon)');
-  });
-
   test('displays addon stats', async function(assert) {
     let maintainers = server.createList('maintainer', 3);
 
@@ -331,15 +242,13 @@ module('Acceptance: Addons', function(hooks) {
       released: window.moment().subtract(4, 'months')
     });
 
-    server.get('https://api.github.com/repos/emberjs/ember.js/releases', function(/* db, request*/) {
-      let version = Object.assign({}, EmberVersionsResponse[0]);
-      version.published_at = window.moment().subtract(14, 'weeks');      // eslint-disable-line camelcase
-      version.tag_name = 'v15.0.0';                                      // eslint-disable-line camelcase
-      let olderVersion = Object.assign({}, EmberVersionsResponse[1]);
-      olderVersion.published_at = window.moment().subtract(5, 'months'); // eslint-disable-line camelcase
-      olderVersion.tag_name = 'v14.0.0';                                 // eslint-disable-line camelcase
-
-      return [version, olderVersion];
+    server.create('ember-version', {
+      version: 'v15.0.0',
+      released: moment().subtract(14, 'weeks')
+    });
+    server.create('ember-version', {
+      version: 'v14.0.0',
+      released: moment().subtract(5, 'months')
     });
 
     await visitAddon(addon);
@@ -371,7 +280,7 @@ module('Acceptance: Addons', function(hooks) {
     assert.dom('.test-addon-ember-cli-version').hasText('1.13.1');
 
     assert.dom('.test-addon-version-count').hasText('versions (2)');
-    assert.dom('.test-addon-versions li').exists({ count: 3 }, 'Only 3 list items should be under versions, 2 for versions, 1 for ember verions after publishing of addon');
+    assert.dom('.test-addon-versions li').exists({ count: 3 }, 'Only 3 list items should be under versions, 2 for versions, 1 for ember versions after publishing of addon');
     let versionListItems = findAll('.test-addon-versions li');
     assert.dom(versionListItems[0]).containsText('1.0.1');
     assert.dom(versionListItems[1]).containsText('Ember v15.0.0');

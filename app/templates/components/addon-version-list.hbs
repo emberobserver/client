@@ -1,11 +1,7 @@
 <ul class="versions test-addon-versions">
-  {{#each combinedVersions as |version|}}
+  {{#each versionsWithComponent as |version|}}
     <li>
-      {{#if version.isEmber}}
-        {{ember-version-item version=version}}
-      {{else}}
-        {{addon-version-item version=version}}
-      {{/if}}
+      {{component version.component version=version.version}}
     </li>
   {{/each}}
   {{#if thereAreHiddenVersions}}
