@@ -2,8 +2,10 @@ import { computed } from '@ember/object';
 import { alias, readOnly } from '@ember/object/computed';
 import Controller from '@ember/controller';
 import moment from 'moment';
+import { inject as service } from '@ember/service';
 
 export default Controller.extend({
+  features: service(),
   addon: alias('model.addon'),
   latestReview: alias('addon.latestReview'),
   sortedAddonVersions: computed('addon.versions', function() {
