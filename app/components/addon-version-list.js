@@ -20,9 +20,9 @@ export default Component.extend({
     return this.get('emberVersions.versions').filter(version => version.released > oldestVersionDate);
   }),
 
-  versionsWithComponent: computed('emberVersionDataAfterOldestShowingAddonVersion.[]', 'showingVersions.[]', function() {
-    let versions = this.emberVersionDataAfterOldestShowingAddonVersion.map(version => ({ component: 'ember-version-item', version }));
-    versions = versions.concat(this.showingVersions.map(version => ({ component: 'addon-version-item', version })));
+  versionsWithMeta: computed('emberVersionDataAfterOldestShowingAddonVersion.[]', 'showingVersions.[]', function() {
+    let versions = this.emberVersionDataAfterOldestShowingAddonVersion.map(version => ({ isEmber: true, version }));
+    versions = versions.concat(this.showingVersions.map(version => ({ isAddon: true, version })));
     return versions.sortBy('version.released').reverse();
   }),
 
