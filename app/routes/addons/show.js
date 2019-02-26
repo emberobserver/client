@@ -3,7 +3,9 @@ import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
 
 export default Route.extend({
+  emberVersions: service(),
   session: service(),
+
   model(params) {
     let name = params.name.replace(/%2F/i, '/');
     let addon = this.get('store').query('addon', { filter: { name }, include: 'versions,maintainers,keywords,latest-review,latest-review.version,latest-addon-version,categories', page: { limit: 1 } }, { reload: true }).then((addons) => {
@@ -16,8 +18,7 @@ export default Route.extend({
 
     let data = {
       addon,
-      latestTestResult,
-      emberVersions: this.store.query('ember-version', { filter: { releases: true, majorAndMinor: true }})
+      latestTestResult
     };
 
     if (this.get('session.isAuthenticated')) {
@@ -25,6 +26,10 @@ export default Route.extend({
     }
 
     return hash(data);
+  },
+
+  afterModel() {
+    this.emberVersions.fetch();
   },
 
   titleToken(model) {
