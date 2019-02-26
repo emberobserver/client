@@ -399,6 +399,8 @@ module('Acceptance: Addons', function(hooks) {
   });
 
   test('displays addon dependencies', async (assert) => {
+    enableFeature('show-dependencies');
+
     let addon = server.create('addon');
     let latestVersion = server.create('version', {
       addon
@@ -424,6 +426,8 @@ module('Acceptance: Addons', function(hooks) {
   });
 
   test('hides some dependencies if there are over a certain amount', async function(assert) {
+    enableFeature('show-dependencies');
+
     let addon = server.create('addon');
     let latestVersion = server.create('version', {
       addon
@@ -460,6 +464,8 @@ module('Acceptance: Addons', function(hooks) {
   });
 
   test('when there are no addon dependencies', async (assert) => {
+    enableFeature('show-dependencies');
+
     let addon = server.create('addon');
     let latestVersion = server.create('version', {
       addon
