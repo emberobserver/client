@@ -7,7 +7,7 @@ export default Service.extend({
 
   fetch() {
     this.store.query('ember-version', {
-      filter: { releases: true, majorAndMinor: true }
+      filter: { release: true, majorAndMinor: true }
     }).then((emberVersions) => {
       this.set('versions', emberVersions);
     });

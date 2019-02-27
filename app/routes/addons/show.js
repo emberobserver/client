@@ -3,7 +3,6 @@ import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
 
 export default Route.extend({
-  emberVersions: service(),
   session: service(),
 
   model(params) {
@@ -28,14 +27,14 @@ export default Route.extend({
     return hash(data);
   },
 
-  afterModel() {
-    this.emberVersions.fetch();
-  },
-
   titleToken(model) {
     return model.addon.get('name');
   },
 
+  afterModel() {
+    this.emberVersions.fetch();
+  },
+  emberVersions: service(),
   actions: {
     error() {
       this.replaceWith('model-not-found');

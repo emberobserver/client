@@ -1,20 +1,17 @@
 import { gt } from '@ember/object/computed';
 import { computed } from '@ember/object';
-import Component from '@ember/component';
 import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 
 export default Component.extend({
   showAll: false,
-
   emberVersions: service(),
-
   showingVersions: computed('versions', 'showAll', function() {
     if (this.get('showAll')) {
       return this.get('versions');
     }
     return (this.get('versions') || []).slice(0, 10);
   }),
-
   emberVersionDataAfterOldestShowingAddonVersion: computed('emberVersions.versions.[]', 'showingVersions.lastObject', function() {
     let oldestVersionDate = this.get('showingVersions.lastObject.released');
     return this.get('emberVersions.versions').filter(version => version.released > oldestVersionDate);
