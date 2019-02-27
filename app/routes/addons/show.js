@@ -4,6 +4,7 @@ import Route from '@ember/routing/route';
 
 export default Route.extend({
   session: service(),
+
   model(params) {
     let name = params.name.replace(/%2F/i, '/');
     let addon = this.get('store').query('addon', { filter: { name }, include: 'versions,maintainers,keywords,latest-review,latest-review.version,latest-addon-version,categories', page: { limit: 1 } }, { reload: true }).then((addons) => {
@@ -31,7 +32,7 @@ export default Route.extend({
   },
 
   afterModel() {
-    this.get('emberVersions').fetch();
+    this.emberVersions.fetch();
   },
   emberVersions: service(),
   actions: {

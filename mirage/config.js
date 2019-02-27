@@ -1,7 +1,6 @@
 /* eslint-disable camelcase */
 
 import Mirage from 'ember-cli-mirage';
-import EmberVersionsResponse from './ember-version-response';
 export default function() {
 
   // These comments are here to help you get started. Feel free to delete them.
@@ -164,13 +163,7 @@ export default function() {
     };
   });
 
-  this.get('/ember-versions', function(schema) {
-    return schema.emberVersions.first();
-  });
-
-  this.get('https://api.github.com/repos/emberjs/ember.js/releases', function(/* db, request*/) {
-    return EmberVersionsResponse;
-  });
+  this.get('/ember-versions');
 
   this.get('/search/addons', function() {
     return {

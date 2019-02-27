@@ -12,19 +12,17 @@ export default Component.extend({
     }
     return (this.get('versions') || []).slice(0, 10);
   }),
-  emberVersionDataAfterOldestShowingAddonVersion: computed('emberVersions.versionData', 'showingVersions.lastObject', function() {
+  emberVersionDataAfterOldestShowingAddonVersion: computed('emberVersions.versions.[]', 'showingVersions.lastObject', function() {
     let oldestVersionDate = this.get('showingVersions.lastObject.released');
-    return this.get('emberVersions.versionData').filter(function(version) {
-      return version.released > oldestVersionDate;
-    });
+    return this.get('emberVersions.versions').filter(version => version.released > oldestVersionDate);
   }),
-  combinedVersions: computed(
-    'emberVersionDataAfterOldestShowingAddonVersion',
-    'showingVersions',
-    function() {
-      return (this.get('emberVersionDataAfterOldestShowingAddonVersion') || []).concat(this.get('showingVersions')).sortBy('released').reverse();
-    }
-  ),
+
+  versionsWithMeta: computed('emberVersionDataAfterOldestShowingAddonVersion.[]', 'showingVersions.[]', function() {
+    let versions = this.emberVersionDataAfterOldestShowingAddonVersion.map(version => ({ isEmber: true, version }));
+    versions = versions.concat(this.showingVersions.map(version => ({ isAddon: true, version })));
+    return versions.sortBy('version.released').reverse();
+  }),
+
   moreThan10Versions: gt('versions.length', 10),
   thereAreHiddenVersions: computed('moreThan10Versions', 'showAll', function() {
     return this.get('moreThan10Versions') && !this.get('showAll');

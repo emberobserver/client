@@ -1,5 +1,6 @@
 import DS from 'ember-data';
 
 export default DS.Model.extend({
-  githubResponse: DS.attr()
+  version: DS.attr('string'),
+  released: DS.attr('date')
 });
