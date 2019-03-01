@@ -1,15 +1,17 @@
 import { click, currentRouteName, currentURL, visit, findAll } from '@ember/test-helpers';
-import { module, test } from 'qunit';
-import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
-import visitAddon from '../helpers/visit-addon';
 import { enableFeature } from 'ember-feature-flags/test-support';
+import { module, test } from 'qunit';
+import { percySnapshot } from 'ember-percy';
+import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
 import moment from 'moment';
+import visitAddon from '../helpers/visit-addon';
 
 module('Acceptance: Addons', function(hooks) {
   setupEmberObserverTest(hooks);
 
   test('addon not found', async function(assert) {
     await visit('/addons/what');
+    await percySnapshot('addon not found');
     assert.equal(currentURL(), '/model-not-found');
     assert.dom('.test-not-found').hasText("Oops! We can't find what you were looking for. Try searching above?");
   });
