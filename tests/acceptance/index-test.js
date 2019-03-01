@@ -1,5 +1,6 @@
 import { click, fillIn, find, findAll, currentURL, currentRouteName, visit } from '@ember/test-helpers';
 import { module, test } from 'qunit';
+import { percySnapshot } from 'ember-percy';
 import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
 import findByText from '../helpers/find-by-text';
 
@@ -32,6 +33,8 @@ module('Acceptance: Index', function(hooks) {
 
     await visit('/');
 
+    await percySnapshot('/index');
+
     assert.dom('.test-category').exists({ count: 8 }, 'All categories should display');
     assert.ok(findByText('.test-category', 'Authentication (5)'), 'Categories should list title and count of addons');
     let firstSubcategory = findAll('.test-subcategory')[0];
@@ -48,6 +51,8 @@ module('Acceptance: Index', function(hooks) {
 
     let simpleAuth = findByText('a', 'Simple Auth (1)');
     await click(simpleAuth);
+
+    await percySnapshot('/categories/show');
 
     assert.equal(currentURL(), '/categories/simple-auth', 'URL should use category name token');
     assert.dom('.test-category-header').containsText('Simple Auth', 'Header should display');

@@ -1,5 +1,6 @@
 import { currentRouteName, visit } from '@ember/test-helpers';
 import { module, test } from 'qunit';
+import { percySnapshot } from 'ember-percy';
 import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
 
 module('Acceptance: Maintainers', function(hooks) {
@@ -9,6 +10,8 @@ module('Acceptance: Maintainers', function(hooks) {
     server.create('maintainer', 1);
 
     await visit('/maintainers/maintainer-0');
+
+    await percySnapshot('/maintainers/show');
 
     assert.equal(currentRouteName(), 'maintainers.show');
   });

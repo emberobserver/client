@@ -11,7 +11,9 @@ module('Acceptance: Addons', function(hooks) {
 
   test('addon not found', async function(assert) {
     await visit('/addons/what');
-    await percySnapshot('addon not found');
+
+    await percySnapshot('/model-not-found');
+
     assert.equal(currentURL(), '/model-not-found');
     assert.dom('.test-not-found').hasText("Oops! We can't find what you were looking for. Try searching above?");
   });
@@ -401,6 +403,9 @@ module('Acceptance: Addons', function(hooks) {
 
     test('can view a scoped addon with a / in the URL', async function(assert) {
       await visit('/addons/@foo-bar/test-addon');
+
+      await percySnapshot('/addons/show');
+
       assert.equal(currentRouteName(), 'addons.show');
     });
 

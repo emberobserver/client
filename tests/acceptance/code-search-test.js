@@ -1,5 +1,6 @@
 import { click, fillIn, findAll, currentURL, visit } from '@ember/test-helpers';
 import { module, test } from 'qunit';
+import { percySnapshot } from 'ember-percy';
 import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
 import findByText from '../helpers/find-by-text';
 
@@ -176,6 +177,8 @@ module('Acceptance | code search', function(hooks) {
     assert.ok(nameSortButton.querySelector('.icon-expand-less'));
 
     await click(usageSortButton);
+
+    await percySnapshot('/code-search');
 
     let resortedAddonNames = findAll('.test-addon-name');
     assert.dom(resortedAddonNames[0]).containsText('ember-foo', 'Addons are sorted descending by default for switch to usage count sort');
