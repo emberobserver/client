@@ -1,8 +1,9 @@
 import { click, fillIn, currentURL, visit } from '@ember/test-helpers';
 import { module, test } from 'qunit';
+import { percySnapshot } from 'ember-percy';
 import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
-import login from '../helpers/login';
 import findByText from '../helpers/find-by-text'
+import login from '../helpers/login';
 
 module('Acceptance | managing build servers', function(hooks) {
   setupEmberObserverTest(hooks);
@@ -18,6 +19,8 @@ module('Acceptance | managing build servers', function(hooks) {
 
     await login();
     await visit('/admin/build-servers');
+
+    await percySnapshot('/admin/build-servers');
 
     assert.dom('.test-build-server-row').exists({ count: 15 });
   });

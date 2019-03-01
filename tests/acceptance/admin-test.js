@@ -1,5 +1,6 @@
 import { click, fillIn, currentURL, visit } from '@ember/test-helpers';
 import { module, test } from 'qunit';
+import { percySnapshot } from 'ember-percy';
 import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
 
 module('Acceptance: admin', function(hooks) {
@@ -24,10 +25,16 @@ module('Acceptance: admin', function(hooks) {
     });
 
     await visit('/login');
+
+    await percySnapshot('/login');
+
     await fillIn('.test-email', 'test@example.com');
     await fillIn('.test-password', 'password123');
     await click('.test-log-in');
     await visit('/admin');
+
+    await percySnapshot('/admin/index');
+
     assert.equal(currentURL(), '/admin', 'Does not redirect');
   });
 });
