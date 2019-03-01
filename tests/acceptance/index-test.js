@@ -168,6 +168,8 @@ module('Acceptance: Index', function(hooks) {
   test('Unknown routes are handled', async function(assert) {
     await visit('/bullshit');
 
+    await percySnapshot('not-found');
+
     assert.equal(currentRouteName(), 'not-found');
   });
 
