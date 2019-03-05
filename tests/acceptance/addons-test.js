@@ -296,7 +296,6 @@ module('Acceptance: Addons', function(hooks) {
 
     assert.dom('.test-addon-badge img[src="/badges/test-addon.svg"]').exists();
     assert.dom('.test-addon-badge .test-show-badge-markdown .icon-content-paste').exists('Show badge markdown to copy');
-    assert.dom('.test-addon-correction-link[href*="/addons/test-addon/correct"]').exists('Suggest a correction');
 
     await click('.test-addon-badge .test-show-badge-markdown');
     assert.dom('.test-addon-badge .test-badge-markdown').hasText('[![Ember Observer Score](https://emberobserver.com/badges/test-addon.svg)](https://emberobserver.com/addons/test-addon)');
@@ -397,6 +396,21 @@ module('Acceptance: Addons', function(hooks) {
     assert.dom('.test-dependencies').doesNotExist();
     assert.dom('.test-dev-dependencies').doesNotExist();
   });
+
+  test('has a link for users to provide suggestions', async function(assert) {
+    let addon = server.create('addon', {
+      name: 'test-addon',
+    });
+
+    await visitAddon(addon);
+
+    await click('.test-addon-correction-link');
+
+    await percySnapshot('/addons/correct');
+
+    assert.equal(currentURL(), '/addons/test-addon/correct', 'suggest a correction link works');
+  });
+
 
   module('Scoped addons', function(hooks) {
     hooks.beforeEach(function() {
