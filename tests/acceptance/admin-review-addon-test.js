@@ -1,17 +1,18 @@
-import { module, test } from 'qunit';
 import {
-  visit,
-  currentURL,
   click,
+  currentURL,
   fillIn,
   findAll,
+  visit,
 } from '@ember/test-helpers';
-import Mirage from 'ember-cli-mirage';
+import { module, test } from 'qunit';
+import { percySnapshot } from 'ember-percy';
 import { selectChoose } from 'ember-power-select/test-support/helpers';
-import moment from 'moment';
 import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
-import login from 'ember-observer/tests/helpers/login';
 import findByText from '../helpers/find-by-text';
+import login from 'ember-observer/tests/helpers/login';
+import Mirage from 'ember-cli-mirage';
+import moment from 'moment';
 
 let windowAlert;
 
