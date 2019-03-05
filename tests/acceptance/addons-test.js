@@ -411,7 +411,6 @@ module('Acceptance: Addons', function(hooks) {
     assert.equal(currentURL(), '/addons/test-addon/correct', 'suggest a correction link works');
   });
 
-
   module('Scoped addons', function(hooks) {
     hooks.beforeEach(function() {
       this.addon = server.create('addon', {
