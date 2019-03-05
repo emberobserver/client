@@ -88,6 +88,8 @@ module('Acceptance | admin review addon', function(hooks) {
 
     await visitAddon(addon);
 
+    await percySnapshot('/admin/review/addon');
+
     assert.dom('.test-addon-link').includesText('fake-addon');
     assert.dom('.test-description').includesText('Foo bar baz');
     assert.dom('.test-last-updated').hasText('1.1.3 from a day ago');
