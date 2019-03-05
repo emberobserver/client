@@ -114,6 +114,8 @@ module('Acceptance: Addons', function(hooks) {
 
     await click('.info-action');
 
+    await percySnapshot('/addons/show | with github data');
+
     assert.dom('.test-github-data').containsText('TOP 10% STARRED');
     assert.dom('.test-open-issues').containsText('13');
     assert.dom('.test-open-issues').containsText('Open Issues');
@@ -201,6 +203,8 @@ module('Acceptance: Addons', function(hooks) {
     await visitAddon(addonWithReview);
 
     await click('.info-action');
+
+    await percySnapshot('/addons/show | with review');
 
     let questions = findAll('.test-review-question');
     assert.dom(questions[0]).hasText('Are there meaningful tests? Yes');
@@ -404,13 +408,12 @@ module('Acceptance: Addons', function(hooks) {
     test('can view a scoped addon with a / in the URL', async function(assert) {
       await visit('/addons/@foo-bar/test-addon');
 
-      await percySnapshot('/addons/show');
-
       assert.equal(currentRouteName(), 'addons.show');
     });
 
     test('can view a scoped addon with / encoded in the URL', async function(assert) {
       await visit('/addons/@foo-bar%2Ftest-addon');
+
       assert.equal(currentRouteName(), 'addons.show');
     });
 
