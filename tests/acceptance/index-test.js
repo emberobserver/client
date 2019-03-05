@@ -173,6 +173,19 @@ module('Acceptance: Index', function(hooks) {
     assert.equal(currentRouteName(), 'not-found');
   });
 
+  test('provides a link to the top addons', async function(assert) {
+    server.create('addon', { name: 'ember-a-thing' });
+    server.create('addon', { name: 'ember-test-me', description: 'A thin addon' });
+
+    await visit(`/?query=test`);
+
+    await click(findByText('.top-addons a', 'See all top 100 addons'));
+
+    await percySnapshot('/lists/top-addons');
+
+    assert.equal(currentURL(), '/lists/top-addons', 'link to top addons works');
+  });
+
   function testSearch(url, assertForContentOnUrl) {
     test(`visiting ${url} with a query`, async function(assert) {
       server.create('addon', { name: 'ember-a-thing' });
