@@ -27,7 +27,7 @@ module.exports = function(environment) {
     },
 
     featureFlags: {
-      'show-dependencies': false
+      'show-dependencies': true
     }
   };
 
