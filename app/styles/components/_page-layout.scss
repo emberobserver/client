@@ -10,7 +10,7 @@
     min-height: 500px;
     padding: $default-spacing $default-spacing 0 $default-spacing;
 
-    @media(min-width: 800px) {
+    @media(min-width: $medium-screen) {
       padding-right: 1rem;
     }
   }
@@ -23,7 +23,7 @@
     background-color: $medium-gray;
     text-align: center;
 
-    @media(min-width: 800px){
+    @media(min-width: $medium-screen){
       text-align: left;
       display: flex;
       align-items: center;
@@ -40,7 +40,7 @@
       display: block;
       margin-bottom: 1rem;
 
-      @media(min-width: 800px) {
+      @media(min-width: $medium-screen) {
         margin-right: $default-spacing;
         margin-bottom: 0;
         display: inline-block;
@@ -58,7 +58,7 @@
       margin-bottom: 1rem;
       position: relative;
 
-      @media(min-width: 800px) {
+      @media(min-width: $medium-screen) {
         display: inline-block;
         margin-bottom: 0;
         margin-right: $default-spacing;
@@ -79,7 +79,7 @@
         padding: 0.5em;
         border-radius: 0;
 
-        @media(min-width: 800px) {
+        @media(min-width: $medium-screen) {
           text-align: left;
           border: none;
           border-bottom: 1px solid $nav-link-color;
@@ -122,7 +122,7 @@
       display: block;
       white-space: nowrap;
 
-      @media(min-width: 800px) {
+      @media(min-width: $medium-screen) {
         display: inline-block;
       }
 
@@ -166,7 +166,7 @@
   .categories-list {
     border-top: 2px solid $light-gray;
 
-    @media(min-width: 800px) {
+    @media(min-width: $medium-screen) {
       border-top: none;
       border-left: $base-border;
     }

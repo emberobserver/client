@@ -215,7 +215,7 @@ $ember-power-select-multiple-selection-color: $medium-gray;
         text-align: right;
       }
 
-      @media(min-width: 800px) {
+      @media(min-width: $medium-screen) {
         .nav-detail {
           display: none;
         }
@@ -225,14 +225,14 @@ $ember-power-select-multiple-selection-color: $medium-gray;
 
   &.with-index {
     .review-index {
-      @media(min-width: 800px) {
+      @media(min-width: $medium-screen) {
         display: block;
         width: 33%;
       }
     }
 
     .addon-container {
-      @media(min-width: 800px) {
+      @media(min-width: $medium-screen) {
         margin-left: 33%;
         max-width: 66%;
       }

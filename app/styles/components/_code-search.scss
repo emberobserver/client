@@ -13,7 +13,7 @@
 
     form {
 
-      @media(min-width: 800px) {
+      @media(min-width: $medium-screen) {
         display: flex;
         flex-wrap: wrap;
       }
@@ -21,7 +21,7 @@
       .search-wrapper-inner {
         width: 100%;
 
-        @media(min-width: 800px) {
+        @media(min-width: $medium-screen) {
           flex: 1;
           flex-basis: 80%;
           order: 1;
@@ -45,7 +45,7 @@
       button[type=submit] {
         min-width: 100%;
 
-        @media(min-width: 800px) {
+        @media(min-width: $medium-screen) {
           min-width: 18%;
           margin-left: 2%;
           order: 2;
@@ -57,7 +57,7 @@
         padding: 1rem 0;
         margin-left: 0.25rem;
 
-        @media(min-width: 800px) {
+        @media(min-width: $medium-screen) {
           order: 3;
           width: auto;
           padding: 0.5rem 0;
@@ -113,7 +113,7 @@
         width: 75%;
         position: relative;
 
-        @media(min-width: 800px) {
+        @media(min-width: $medium-screen) {
           width: 25%;
         }
 

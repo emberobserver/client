@@ -80,14 +80,14 @@
   .addon-info {
     margin-bottom: 2rem;
 
-    @media(min-width: 800px) {
+    @media(min-width: $medium-screen) {
     }
   }
 
   .addon-stats {
     margin-bottom: 2rem;
 
-    @media(min-width: 800px) {
+    @media(min-width: $medium-screen) {
       .single-column-header {
         display: none;
       }
