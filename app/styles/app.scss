@@ -1,6 +1,5 @@
 @import "normalize";
 @import "node_modules/bourbon/app/assets/stylesheets/_bourbon";
-@import "node_modules/bourbon-neat/app/assets/stylesheets/_neat";
 @import "base/base";
 @import "font-icons";
 @import "markdown";
@@ -35,7 +34,6 @@
 }
 
 .container {
-  @include outer-container;
 }
 
 .alert {

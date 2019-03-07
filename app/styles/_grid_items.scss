@@ -7,11 +7,11 @@
 $grid-item-big-columns: 12;
 
 @mixin grid-item-big {
-  @include media($large-screen) {
+  @media(min-width: $large-screen) {
     @include grid-item-columns($grid-item-big-columns);
   }
   p {
-    @include media($medium-screen) {
+    @media(min-width: 800px) {
       max-width: 60%;
     }
   }
@@ -39,7 +39,7 @@ $grid-item-big-columns: 12;
     padding: 2em;
     width: 100%;
 
-    @include media($large-screen) {
+    @media(min-width: $large-screen) {
       @include grid-item-columns($grid-item-columns);
 
       height: 14em;
@@ -66,7 +66,7 @@ $grid-item-big-columns: 12;
   .grid-item p {
     color: transparentize($grid-item-color, 0.4);
 
-    @include media($medium-screen) {
+    @media(min-width: 800px) {
       max-width: 70%;
     }
   }

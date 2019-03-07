@@ -54,7 +54,7 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 * [ember.js](http://emberjs.com/)
 * [ember-cli](http://www.ember-cli.com/)
-* [Bourbon](http://bourbon.io/) / [Neat](http://neat.bourbon.io/) / [Bitters](http://bitters.bourbon.io/) / [Refills](http://refills.bourbon.io/)
+* [Bourbon](http://bourbon.io/) / [Bitters](http://bitters.bourbon.io/) / [Refills](http://refills.bourbon.io/)
 
 # Process when new Ember-CLI version is released
 

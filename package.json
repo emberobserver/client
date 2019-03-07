@@ -22,7 +22,6 @@
     "@ember/jquery": "^0.5.2",
     "@ember/optional-features": "^0.6.3",
     "bourbon": "4.2.3",
-    "bourbon-neat": "1.7.1",
     "broccoli-asset-rev": "^2.7.0",
     "dompurify": "^1.0.8",
     "ember-ajax": "^4.0.1",

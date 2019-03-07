@@ -38,7 +38,7 @@
   .sort-controls {
     float: left;
 
-    @include media($medium-screen) {
+    @media(min-width: 800px) {
       float: right;
     }
   }

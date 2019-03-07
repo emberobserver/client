@@ -142,7 +142,7 @@ $ember-power-select-multiple-selection-color: $medium-gray;
             color: white !important;
           }
 
-          @include media($small-screen) {
+          @media(min-width: $small-screen) {
             margin-bottom: 0;
             width: auto;
           }
@@ -215,7 +215,7 @@ $ember-power-select-multiple-selection-color: $medium-gray;
         text-align: right;
       }
 
-      @include media($medium-screen) {
+      @media(min-width: 800px) {
         .nav-detail {
           display: none;
         }
@@ -225,14 +225,14 @@ $ember-power-select-multiple-selection-color: $medium-gray;
 
   &.with-index {
     .review-index {
-      @include media($medium-screen) {
+      @media(min-width: 800px) {
         display: block;
         width: 33%;
       }
     }
 
     .addon-container {
-      @include media($medium-screen) {
+      @media(min-width: 800px) {
         margin-left: 33%;
         max-width: 66%;
       }
