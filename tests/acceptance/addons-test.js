@@ -21,6 +21,7 @@ module('Acceptance: Addons', function(hooks) {
   test('displays 0 for score when addon has zero score', async function(assert) {
     let addon = server.create('addon', {
       name: 'test-with-zero-score',
+      hasBeenReviewed: true,
       score: 0
     });
 
@@ -50,7 +51,7 @@ module('Acceptance: Addons', function(hooks) {
     assert.dom('.score').containsText('WIP', 'Displays WIP for score');
   });
 
-  test('displays N/A for score when addon has no score', async function(assert) {
+  test('displays ? for score when addon has no score', async function(assert) {
     let addon = server.create('addon', {
       name: 'test-with-na-score',
       score: null
@@ -58,7 +59,7 @@ module('Acceptance: Addons', function(hooks) {
 
     await visitAddon(addon);
 
-    assert.dom('.score').containsText('N/A', 'Displays N/A for score when addon has no score');
+    assert.dom('.score').containsText('?', 'Displays ? for score when addon has no score');
   });
 
   test('displays note', async function(assert) {
@@ -91,6 +92,69 @@ module('Acceptance: Addons', function(hooks) {
 
     assert.dom('.test-category-list').containsText('A category for categories');
     assert.dom('.test-category-list').containsText('Another category for categories');
+  });
+
+  test('displays n/a warning for score info on addon that has not been reviewed', async function(assert) {
+    let addon = server.create('addon', {
+      name: 'test-addon-not-reviewed',
+      hasBeenReviewed: false,
+    });
+
+    await visitAddon(addon);
+
+    await click('.test-show-score-explanation');
+
+    assert.dom('.test-not-reviewed-warning').containsText('N/A - This addon has not yet been reviewed.');
+  });
+
+  test('displays score calculation', async function(assert) {
+    let addon = server.create('addon', {
+      name: 'test-addon-with-score-calc',
+      hasBeenReviewed: true,
+    });
+
+    server.create('score-calculation', {
+      addon,
+      info: {
+        checks: [
+          {
+            explanation: 'The addon only uses sustainably-sourced coffee',
+            contribution: .233,
+            maxContribution: .3333,
+          },
+          {
+            explanation: 'Mines bitcoin',
+            contribution: 0.1,
+            maxContribution: .3333,
+          },
+          {
+            explanation: 'Makes breakfast for me',
+            contribution: .333,
+            maxContribution: .3333,
+          }
+        ]
+      }
+    });
+
+    await visitAddon(addon);
+
+    await click('.test-show-score-explanation');
+
+    let checks = document.querySelectorAll('.test-score-component');
+    assert.dom(checks[0]).containsText('The addon only uses sustainably-sourced coffee');
+    assert.dom('.test-value', checks[0]).containsText('0.7');
+    assert.dom('.test-value', checks[0]).hasClass('yellow', 'Has class to indicate mediocre check passing percentage');
+    assert.dom('.test-max-contribution', checks[0]).containsText('3.33', 'Displays max contribution in the scale of the score');
+
+    assert.dom(checks[1]).containsText('Mines bitcoin');
+    assert.dom('.test-value', checks[1]).containsText('0.3');
+    assert.dom('.test-value', checks[1]).hasClass('red', 'Has class to indicate poor check passing percentage');
+    assert.dom('.test-max-contribution', checks[1]).containsText('3.33', 'Displays max contribution in the scale of the score');
+
+    assert.dom(checks[2]).containsText('Makes breakfast for me');
+    assert.dom('.test-value', checks[2]).containsText('1');
+    assert.dom('.test-value', checks[2]).hasClass('green', 'Has class to indicate perfect check passing percentage');
+    assert.dom('.test-max-contribution', checks[2]).containsText('3.33', 'Displays max contribution in the scale of the score');
   });
 
   test('displays github data', async function(assert) {
@@ -127,7 +191,6 @@ module('Acceptance: Addons', function(hooks) {
     assert.dom('.test-contributors').containsText('Contributors');
     assert.dom('.test-latest-commit time').hasText('2 months ago');
     assert.dom('.test-first-commit time').hasText('a year ago');
-    assert.dom('.test-has-github-data').exists('Displays score detail Github data');
   });
 
   test('displays header', async function(assert) {
@@ -213,8 +276,6 @@ module('Acceptance: Addons', function(hooks) {
 
     assert.dom('.test-review-notes').hasText('Seems ok');
     assert.dom('.test-review-new-version-warning').hasText('New versions of this addon have been released since this review was undertaken.');
-    assert.dom('.test-latest-review-score').hasText('4 points from review', 'Displays latest review score');
-    assert.dom('.test-release-published-in-last-three-months').hasText('1 point for having published a release within the last 3 months', 'Displays latest review score');
   });
 
   test('displays addon stats', async function(assert) {

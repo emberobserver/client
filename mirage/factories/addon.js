@@ -27,5 +27,8 @@ export default Factory.extend({
   overrideRepositoryUrl: null,
   updatedAt() {
     return faker.date.recent();
+  },
+  hasBeenReviewed() {
+    return !!this.latestReview;
   }
 });

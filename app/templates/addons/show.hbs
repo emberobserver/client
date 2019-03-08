@@ -30,12 +30,7 @@
     {{#if addon.ranking}}
       <span>{{#link-to "addons.top"}}Ranks #{{addon.ranking}} of the top 100 addons!{{/link-to}}</span>
     {{/if}}
-    {{score-detail
-      addon=addon
-      latestReview=latestReview
-      hasGithubData=hasGithubData
-      isLatestReleaseInLast3Months=isLatestReleaseInLast3Months}}
-
+    {{score-detail addon=addon}}
     <section class="categories">
       <h4>Categories</h4>
       <p>

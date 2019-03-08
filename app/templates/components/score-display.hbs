@@ -1,15 +1,19 @@
-{{#if addon.isWip}}
-  <span class="score">
+{{#if addon.isDeprecated}}
+  <span class="score deprecated">
+    {{yield "x"}}
+  </span>
+{{else if addon.isWip}}
+  <span class="score wip">
     {{yield "WIP"}}
   </span>
 {{else}}
-  {{#if hasNumericScore}}
-    <span class="score" data-score={{addon.score}}>
+  {{#if hasBeenReviewedAndScored}}
+    <span class="score" data-score={{to-fixed addon.score 0}}>
       {{yield addon.score}}
     </span>
   {{else}}
     <span class="score">
-      {{yield "N/A"}}
+      {{yield "?"}}
     </span>
   {{/if}}
 {{/if}}

@@ -192,6 +192,15 @@ export default function() {
 
   this.get('/addon-dependencies');
 
+  this.get('/score-calculations', function(schema, { queryParams }) {
+    let addonFilter = queryParams['filter[addonId]'];
+    if (addonFilter && queryParams['filter[latest]']) {
+      return schema.scoreCalculations.where({ addonId: +addonFilter });
+    }
+
+    return schema.scoreCalculations.all();
+  });
+
   /*
     Route shorthand cheatsheet
   */

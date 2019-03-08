@@ -22,15 +22,9 @@
         {{#each addons as |addon|}}
           {{#link-to "admin.review.addon" addon.name}}
             <li class="test-review-list-item">
-              {{#if addon.isDeprecated}}
-                <span class="score deprecated">x</span>
-              {{else if addon.isWip}}
-                <span class="score wip">WIP</span>
-              {{else if addon.score}}
-                <span class="score" data-score={{addon.score}}>{{addon.score}}</span>
-              {{else}}
-                <span class="score">?</span>
-              {{/if}}
+              {{#score-display addon=addon as |score|}}
+                {{score}}
+              {{/score-display}}
               <span class="review-addon-list-name">
                 {{addon.name}}
                 {{#if addon.isDeprecated}}
