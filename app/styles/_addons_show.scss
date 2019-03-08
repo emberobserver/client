@@ -195,6 +195,41 @@
     }
   }
 
+  .score-detail {
+    .score-component {
+      margin-bottom: $base-spacing/2;
+
+      .score-component-numbers {
+        font-family: monospace;
+        font-weight: bold;
+        margin-left: $base-spacing/2;
+
+        .score-component-value {
+          display: inline-block;
+          min-width: 3em;
+          font-weight: bold;
+          text-align: right;
+          margin-right: $base-spacing/2;
+
+          &.red {
+            color: $low-color;
+          }
+
+          &.yellow {
+            color: $medium-color;
+          }
+
+          &.green {
+            color: $high-color;
+          }
+        }
+      }
+
+      .score-component-description {
+      }
+    }
+  }
+
   .copy-to-clipboard {
     cursor: pointer;
     padding: 0;

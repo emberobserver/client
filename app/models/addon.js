@@ -32,6 +32,7 @@ export default Model.extend({
   extendsEmber: attr('boolean'),
   extendsEmberCli: attr('boolean'),
   isMonorepo: attr('boolean'),
+  hasBeenReviewed: attr('boolean'),
   githubStats: belongsTo('github-stats', { async: true }),
   latestAddonVersion: belongsTo('version', { async: true }),
   latestReview: belongsTo('review', { async: true }),

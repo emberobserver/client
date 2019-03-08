@@ -76,6 +76,7 @@ module('Acceptance | admin review addon', function(hooks) {
       description: 'Foo bar baz',
       latestVersionDate: moment().subtract(1, 'day').toISOString(),
       score: 5,
+      hasBeenReviewed: true,
       repositoryUrl: 'http://example.com/fake-addon',
       demoUrl: 'http://example.org/demo',
     });

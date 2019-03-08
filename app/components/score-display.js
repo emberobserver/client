@@ -4,8 +4,8 @@ import Component from '@ember/component';
 export default Component.extend({
   tagName: '',
 
-  hasNumericScore: computed('addon.score', function() {
+  hasBeenReviewedAndScored: computed('addon.{score,hasBeenReviewed}', function() {
     let score = this.get('addon.score');
-    return typeof(score) === 'number';
+    return typeof(score) === 'number' && this.get('addon.hasBeenReviewed');
   })
 });

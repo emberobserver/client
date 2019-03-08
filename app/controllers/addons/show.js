@@ -1,7 +1,6 @@
 import { computed } from '@ember/object';
 import { alias, readOnly } from '@ember/object/computed';
 import Controller from '@ember/controller';
-import moment from 'moment';
 import { inject as service } from '@ember/service';
 
 export default Controller.extend({
@@ -12,13 +11,6 @@ export default Controller.extend({
     return (this.get('addon.versions') || []).sortBy('released').reverse();
   }),
   latestVersion: readOnly('addon.latestAddonVersion'),
-  isLatestReleaseInLast3Months: computed('latestVersion.released', function() {
-    if (!this.get('latestVersion.released')) {
-      return false;
-    }
-    let threeMonthsAgo = moment().subtract(3, 'months');
-    return moment(this.get('latestVersion.released')).isAfter(threeMonthsAgo);
-  }),
   isLatestReviewForLatestVersion: computed('latestReview.version.version', 'latestVersion.version', function() {
     return this.get('latestReview.version.version') === this.get('latestVersion.version');
   }),
