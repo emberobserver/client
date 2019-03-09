@@ -21,6 +21,9 @@ export default Factory.extend({
   isTopStarred: false,
   demoUrl: null,
   publishedDate: null,
+  extendsEmber: null,
+  extendsEmberCli: null,
+  overrideRepositoryUrl: null,
   updatedAt() {
     return faker.date.recent();
   }
