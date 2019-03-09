@@ -178,6 +178,14 @@ module('Acceptance | admin review addon', function(hooks) {
 
     assertToggleState(assert, '.test-toggle-is-cli-dep', { checked: false, text: 'Is CLI Dependency?' });
 
+    await toggle('.test-toggle-extends-ember');
+
+    assertToggleState(assert, '.test-toggle-extends-ember', { checked: true, text: 'Extends Ember?' });
+
+    await toggle('.test-toggle-extends-ember-cli');
+
+    assertToggleState(assert, '.test-toggle-extends-ember-cli', { checked: true, text: 'Extends Ember CLI?' });
+
     await click('.test-save-addon');
 
     addon.reload();
@@ -188,6 +196,8 @@ module('Acceptance | admin review addon', function(hooks) {
     assert.equal(addon.isHidden, false, 'Toggle isHidden saves');
     assert.equal(addon.isOfficial, false, 'Toggle isOfficial saves');
     assert.equal(addon.isCliDependency, false, 'Toggle isCliDependency saves');
+    assert.equal(addon.extendsEmber, true, 'Toggle extendsEmber saves');
+    assert.equal(addon.extendsEmberCli, true, 'Toggle extendsEmberCli saves');
   });
 
   test('Addon note', async function(assert) {
@@ -206,6 +216,24 @@ module('Acceptance | admin review addon', function(hooks) {
 
     addon.reload();
     assert.equal(addon.note, 'Air and water', 'Note is updated');
+  });
+
+  test('Override repository URL', async function(assert) {
+    let addon = server.create('addon', {
+      name: 'fake-addon',
+      overrideRepositoryUrl: 'http://example.com',
+    });
+
+    await visitAddon(addon);
+
+    assert.onCorrectAddonPage(addon);
+    assert.dom('.test-override-repo-url-input').hasValue('http://example.com');
+
+    await fillIn('.test-override-repo-url-input', 'http://example.org');
+    await click('.test-save-addon');
+
+    addon.reload();
+    assert.equal(addon.overrideRepositoryUrl, 'http://example.org', 'Override repo url is updated');
   });
 
   test('Editing categories', async function(assert) {

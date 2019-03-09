@@ -100,6 +100,25 @@
     name="cli-dep"
     class="test-toggle-is-cli-dep"
   }}
+  {{toggle-switch
+    label="Extends Ember?"
+    isChecked=addon.extendsEmber
+    onToggle=(action (mut addon.extendsEmber))
+    name="extends-ember"
+    class="test-toggle-extends-ember"
+  }}
+  {{toggle-switch
+    label="Extends Ember CLI?"
+    isChecked=addon.extendsEmberCli
+    onToggle=(action (mut addon.extendsEmberCli))
+    name="extends-ember-cli"
+    class="test-toggle-extends-ember-cli"
+  }}
+</section>
+
+<section class="with-default-styling">
+  <label>Override Repo URL</label>
+  {{input value=addon.overrideRepositoryUrl class="test-override-repo-url-input"}}
 </section>
 
 <section class="with-default-styling">
