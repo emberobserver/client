@@ -12,16 +12,16 @@ const Router = EmberRouter.extend(RouterScroll, {
 
   init() {
     this._super(...arguments);
-    this.on('routeDidChange', () => this._routeDidChange());
-    this.on('routeWillChange', () => this._routeWillChange());
+    this.on('routeDidChange', () => this.routeDidChange());
+    this.on('routeWillChange', () => this.routeWillChange());
   },
 
-  _routeDidChange() {
+  routeDidChange() {
     this._trackPage();
     performance.mark('routeDidChange');
   },
 
-  _routeWillChange() {
+  routeWillChange() {
     performance.mark('routeWillChange');
   },
 
