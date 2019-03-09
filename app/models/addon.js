@@ -31,6 +31,7 @@ export default Model.extend({
   overrideRepositoryUrl: attr('string'),
   extendsEmber: attr('boolean'),
   extendsEmberCli: attr('boolean'),
+  isMonorepo: attr('boolean'),
   githubStats: belongsTo('github-stats', { async: true }),
   latestAddonVersion: belongsTo('version', { async: true }),
   latestReview: belongsTo('review', { async: true }),

@@ -186,6 +186,10 @@ module('Acceptance | admin review addon', function(hooks) {
 
     assertToggleState(assert, '.test-toggle-extends-ember-cli', { checked: true, text: 'Extends Ember CLI?' });
 
+    await toggle('.test-toggle-is-monorepo');
+
+    assertToggleState(assert, '.test-toggle-is-monorepo', { checked: true, text: 'Is Monorepo?' });
+
     await click('.test-save-addon');
 
     addon.reload();
@@ -198,6 +202,7 @@ module('Acceptance | admin review addon', function(hooks) {
     assert.equal(addon.isCliDependency, false, 'Toggle isCliDependency saves');
     assert.equal(addon.extendsEmber, true, 'Toggle extendsEmber saves');
     assert.equal(addon.extendsEmberCli, true, 'Toggle extendsEmberCli saves');
+    assert.equal(addon.isMonorepo, true, 'Toggle isMonorepo saves');
   });
 
   test('Addon note', async function(assert) {

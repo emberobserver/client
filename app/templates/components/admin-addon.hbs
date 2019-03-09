@@ -114,6 +114,13 @@
     name="extends-ember-cli"
     class="test-toggle-extends-ember-cli"
   }}
+  {{toggle-switch
+    label="Is Monorepo?"
+    isChecked=addon.isMonorepo
+    onToggle=(action (mut addon.isMonorepo))
+    name="is-monorepo"
+    class="test-toggle-is-monorepo"
+  }}
 </section>
 
 <section class="with-default-styling">

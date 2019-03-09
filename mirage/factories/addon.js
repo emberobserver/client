@@ -23,6 +23,7 @@ export default Factory.extend({
   publishedDate: null,
   extendsEmber: null,
   extendsEmberCli: null,
+  isMonorepo: null,
   overrideRepositoryUrl: null,
   updatedAt() {
     return faker.date.recent();
