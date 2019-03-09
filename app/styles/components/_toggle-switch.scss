@@ -28,9 +28,11 @@
   label {
     margin-left: $base-spacing/2;
     display: block;
+    cursor: pointer;
   }
 
   input[type=checkbox] {
+    cursor: pointer;
     position: relative;
     display: inline-block;
     -webkit-appearance: none;
