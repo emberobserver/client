@@ -25,6 +25,10 @@ export const lists = {
   'missing-repo-url': {
     method: 'missingRepoUrl',
     title: 'Addons without a repo url set'
+  },
+  'invalid-repo-url': {
+    method: 'invalidRepoUrl',
+    title: 'Addons marked as invalid repo url'
   }
 };
 export default Service.extend({
@@ -55,5 +59,8 @@ export default Service.extend({
   },
   missingRepoUrl() {
     return this.get('store').query('addon', { filter: { missingRepoUrl: true }, sort: '-latestVersionDate' });
+  },
+  invalidRepoUrl() {
+    return this.get('store').query('addon', { filter: { invalidRepoUrl: true }, sort: '-latestVersionDate' });
   }
 });
