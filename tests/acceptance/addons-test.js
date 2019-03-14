@@ -27,7 +27,7 @@ module('Acceptance: Addons', function(hooks) {
 
     await visitAddon(addon);
 
-    assert.dom('.score').hasText('Score 0', 'Displays 0 for score when addon has a score of zero');
+    assert.dom('.score').hasText('Score 0.0', 'Displays 0 for score when addon has a score of zero');
   });
 
   test('Does not display category list', async function(assert) {

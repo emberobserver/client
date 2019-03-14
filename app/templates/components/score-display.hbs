@@ -9,7 +9,11 @@
 {{else}}
   {{#if hasBeenReviewedAndScored}}
     <span class="score" data-score={{to-fixed addon.score 0}}>
-      {{yield (to-fixed addon.score 1)}}
+      {{#if (is-equal addon.score 10) }}
+        {{yield (to-fixed addon.score 0)}}
+      {{else}}
+        {{yield (to-fixed addon.score 1)}}
+      {{/if}}
     </span>
   {{else}}
     <span class="score">

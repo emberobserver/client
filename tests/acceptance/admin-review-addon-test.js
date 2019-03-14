@@ -97,7 +97,7 @@ module('Acceptance | admin review addon', function(hooks) {
     assert.dom('.test-last-updated').hasText('1.1.3 from a day ago');
     assert.dom('.test-addon-demo-url').includesText('http://example.org/demo');
     assert.dom('.test-addon-package-url').includesText('https://www.npmjs.com/package/fake-addon');
-    assert.dom('.test-score').hasText('5');
+    assert.dom('.test-score').hasText('5.0');
     assert.dom('.test-repo-url').hasText('http://example.com/fake-addon');
     assert.dom('.test-repo-url').hasAttribute('href', 'http://example.com/fake-addon');
     assert.dom('.test-repo-url').hasAttribute('target', 'repo', 'Has fixed target to facilitate multi-window workflow');
