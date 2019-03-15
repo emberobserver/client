@@ -21,9 +21,4 @@ export default Route.extend({
   titleToken(model) {
     return model.addon.get('name');
   },
-  actions: {
-    error() {
-      this.replaceWith('model-not-found');
-    }
-  }
 });

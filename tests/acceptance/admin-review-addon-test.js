@@ -45,7 +45,7 @@ module('Acceptance | admin review addon', function(hooks) {
 
   test('addon not found', async function(assert) {
     await visit('/admin/review/what');
-    assert.equal(currentURL(), '/model-not-found');
+    assert.equal(currentURL(), '/admin/review/what', 'preserves URL');
     assert.dom('.test-not-found').hasText("Oops! We can't find what you were looking for. Try searching above?");
   });
 
