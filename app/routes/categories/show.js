@@ -20,10 +20,4 @@ export default Route.extend({
   titleToken(model) {
     return model.category.get('name');
   },
-
-  actions: {
-    error() {
-      this.replaceWith('model-not-found');
-    }
-  }
 });
