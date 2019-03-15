@@ -102,7 +102,6 @@ Router.map(function() {
 
   this.route('about');
 
-  this.route('model-not-found');
   this.route('not-found', { path: '/*path' });
 });
 
