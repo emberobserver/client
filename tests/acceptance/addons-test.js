@@ -9,11 +9,11 @@ module('Acceptance: Addons', function(hooks) {
   setupEmberObserverTest(hooks);
 
   test('addon not found', async function(assert) {
-    await visit('/addons/what');
+    await visit('/addons/ember-nonexistent-addon');
 
-    await percySnapshot('/model-not-found');
+    await percySnapshot('/addons/ember-nonexistent-addon');
 
-    assert.equal(currentURL(), '/model-not-found');
+    assert.equal(currentURL(), '/addons/ember-nonexistent-addon');
     assert.dom('.test-not-found').hasText("Oops! We can't find what you were looking for. Try searching above?");
   });
 

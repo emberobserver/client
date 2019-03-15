@@ -35,9 +35,4 @@ export default Route.extend({
     this.emberVersions.fetch();
   },
   emberVersions: service(),
-  actions: {
-    error() {
-      this.replaceWith('model-not-found');
-    }
-  }
 });
