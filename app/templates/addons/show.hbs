@@ -77,12 +77,10 @@
       {{/if}}
     </section>
 
-    {{#if features.showDependencies}}
-      <section class="addon-dependencies">
-        <h4>Dependencies</h4>
-        {{dependency-table addonVersion=latestVersion}}
-      </section>
-    {{/if}}
+    <section class="addon-dependencies">
+      <h4>Dependencies</h4>
+      {{dependency-table addonVersion=latestVersion}}
+    </section>
 
     {{#if addon.readme}}
       {{#unless addon.hasInvalidGithubRepo}}

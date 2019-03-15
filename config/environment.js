@@ -27,7 +27,6 @@ module.exports = function(environment) {
     },
 
     featureFlags: {
-      'show-dependencies': true
     }
   };
 
@@ -57,7 +56,6 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
-    ENV.featureFlags['show-dependencies'] = true;
   }
 
   if (environment === 'test') {

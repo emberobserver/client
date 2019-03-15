@@ -1,5 +1,4 @@
 import { click, currentRouteName, currentURL, visit, findAll } from '@ember/test-helpers';
-import { enableFeature } from 'ember-feature-flags/test-support';
 import { module, test } from 'qunit';
 import { percySnapshot } from 'ember-percy';
 import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
@@ -376,8 +375,6 @@ module('Acceptance: Addons', function(hooks) {
   });
 
   test('displays addon dependencies', async (assert) => {
-    enableFeature('show-dependencies');
-
     let addon = server.create('addon');
     let latestVersion = server.create('version', {
       addon
@@ -403,8 +400,6 @@ module('Acceptance: Addons', function(hooks) {
   });
 
   test('hides some dependencies if there are over a certain amount', async function(assert) {
-    enableFeature('show-dependencies');
-
     let addon = server.create('addon');
     let latestVersion = server.create('version', {
       addon
@@ -441,8 +436,6 @@ module('Acceptance: Addons', function(hooks) {
   });
 
   test('when there are no addon dependencies', async (assert) => {
-    enableFeature('show-dependencies');
-
     let addon = server.create('addon');
     let latestVersion = server.create('version', {
       addon
