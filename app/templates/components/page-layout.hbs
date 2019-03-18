@@ -1,52 +1,52 @@
 <div class="page-layout {{unless showCategories 'categories-collapsed'}}">
+  <header class="navigation">
+    {{#link-to "index" (query-params query="") class="name"}}
+      <img alt="telescope" src="/telescope.svg">
+      Ember Observer
+    {{/link-to}}
+    {{#if showHeaderSearch}}
+      <div class="search with-default-styling test-header-search">
+        {{#power-select-typeahead
+            search=(action (perform searchForAddons))
+            selected=selectedAddon
+            placeholder="Search"
+            dropdownClass="test-header-search-dropdown"
+            noMatchesMessage="No matching addon names, try another search!"
+            onchange=(action (perform goToAddon)) as |addonName options|}}
+          {{#if addonName.isFullSearchLink}}
+            {{#link-to "index" (query-params query=options.searchText) class="jump-to-full-search test-search-result-jump-to-full-search-link"}}
+              {{#if addonName.noResults}}
+                No matching addons (by name). Try a full search &raquo;
+              {{else}}
+                Perform full search &raquo;
+              {{/if}}
+            {{/link-to}}
+          {{else}}
+            {{#link-to "addons.show" addonName class="test-search-result-addon-link"}}{{addonName}}{{/link-to}}
+          {{/if}}
+        {{/power-select-typeahead}}
+        {{#if searchForAddons.isRunning}}
+          {{svg-icon "spinner" class="circle-spinner"}}
+        {{/if}}
+      </div>
+    {{/if}}
+    <nav class="links">
+      <ul>
+        <li>
+          {{#link-to "code-search"}}Code Search{{/link-to}}
+        </li>
+        <li>
+          {{#link-to "about"}}About{{/link-to}}
+        </li>
+        {{#if session.isAuthenticated}}
+          <li>
+            <button {{action logoutUser}} class="logout">Log out</button>
+          </li>
+        {{/if}}
+      </ul>
+    </nav>
+  </header>
   <div class="main">
-    <header class="navigation">
-      {{#link-to "index" (query-params query="") class="name"}}
-        <img alt="telescope" src="/telescope.svg">
-        Ember Observer
-      {{/link-to}}
-      {{#if showHeaderSearch}}
-        <div class="search with-default-styling test-header-search">
-          {{#power-select-typeahead
-              search=(action (perform searchForAddons))
-              selected=selectedAddon
-              placeholder="Search"
-              dropdownClass="test-header-search-dropdown"
-              noMatchesMessage="No matching addon names, try another search!"
-              onchange=(action (perform goToAddon)) as |addonName options|}}
-            {{#if addonName.isFullSearchLink}}
-              {{#link-to "index" (query-params query=options.searchText) class="jump-to-full-search test-search-result-jump-to-full-search-link"}}
-                {{#if addonName.noResults}}
-                  No matching addons (by name). Try a full search &raquo;
-                {{else}}
-                  Perform full search &raquo;
-                {{/if}}
-              {{/link-to}}
-            {{else}}
-              {{#link-to "addons.show" addonName class="test-search-result-addon-link"}}{{addonName}}{{/link-to}}
-            {{/if}}
-          {{/power-select-typeahead}}
-          {{#if searchForAddons.isRunning}}
-            {{svg-icon "spinner" class="circle-spinner"}}
-          {{/if}}
-        </div>
-      {{/if}}
-      <nav class="links">
-        <ul>
-          <li>
-            {{#link-to "code-search"}}Code Search{{/link-to}}
-          </li>
-          <li>
-            {{#link-to "about"}}About{{/link-to}}
-          </li>
-          {{#if session.isAuthenticated}}
-            <li>
-              <button {{action logoutUser}} class="logout">Log out</button>
-            </li>
-          {{/if}}
-        </ul>
-      </nav>
-    </header>
     <div class="content">
       {{yield}}
     </div>
