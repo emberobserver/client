@@ -60,7 +60,7 @@
     "ember-feature-flags": "^5.0.0",
     "ember-load-initializers": "^1.1.0",
     "ember-maybe-import-regenerator": "^0.1.6",
-    "ember-metrics": "^0.13.0",
+    "ember-metrics": "git+https://github.com/ef4/ember-metrics#1b485ae6b41a8da933a1756a0aeb29adcfdafc0c",
     "ember-moment": "^7.6.0",
     "ember-pad": "1.2.3",
     "ember-percy": "^1.5.0",
