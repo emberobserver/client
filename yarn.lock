@@ -2031,9 +2031,9 @@ babel-plugin-ember-modules-api-polyfill@^2.6.0, babel-plugin-ember-modules-api-p
   dependencies:
     ember-rfc176-data "^0.3.7"
 
-"babel-plugin-ember-modules-api-polyfill@git+https://github.com/ember-cli/babel-plugin-ember-modules-api-polyfill.git#d0c7772bc9f995f83641a4292afd5e05e7e9bbba":
+"babel-plugin-ember-modules-api-polyfill@git+https://github.com/ember-cli/babel-plugin-ember-modules-api-polyfill#d0c7772bc9f995f83641a4292afd5e05e7e9bbba":
   version "2.6.0"
-  resolved "git+https://github.com/ember-cli/babel-plugin-ember-modules-api-polyfill.git#d0c7772bc9f995f83641a4292afd5e05e7e9bbba"
+  resolved "git+https://github.com/ember-cli/babel-plugin-ember-modules-api-polyfill#d0c7772bc9f995f83641a4292afd5e05e7e9bbba"
   dependencies:
     ember-rfc176-data "^0.3.6"
 
@@ -5102,10 +5102,9 @@ ember-maybe-in-element@^0.2.0:
   dependencies:
     ember-cli-babel "^7.1.0"
 
-ember-metrics@^0.13.0:
+"ember-metrics@git+https://github.com/ef4/ember-metrics#1b485ae6b41a8da933a1756a0aeb29adcfdafc0c":
   version "0.13.0"
-  resolved "https://registry.yarnpkg.com/ember-metrics/-/ember-metrics-0.13.0.tgz#1dccf74c0cd628f6dcabce076d81258e9a8bd7af"
-  integrity sha512-N/EHwqfKzthe7wPK4Rz0MYCl9pxvC+Ld/WhZD/guyeHyHFIYlwI3f1RVyEcWEZ4+m2HcNYafK2QVl8d6Ff1aAg==
+  resolved "git+https://github.com/ef4/ember-metrics#1b485ae6b41a8da933a1756a0aeb29adcfdafc0c"
   dependencies:
     broccoli-funnel "^1.0.1"
     ember-cli-babel "^6.6.0"
