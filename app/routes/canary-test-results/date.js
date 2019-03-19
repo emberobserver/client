@@ -7,7 +7,7 @@ export default Route.extend({
       date: params.date,
       testResults: this.store.query('test-result', {
         fields: {
-          'test-result': 'succeeded,status-message,created-at,semver-string,canary'
+          'test-results': 'succeeded,status-message,created-at,semver-string,canary,version'
         },
         filter: {
           canary: true,

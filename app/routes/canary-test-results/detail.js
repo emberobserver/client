@@ -7,7 +7,8 @@ export default Route.extend({
         'ember-version-compatibilities',
         'version',
         'version.addon'
-      ].join(',')
+      ].join(','),
+      reload: true
     });
   }
 });
