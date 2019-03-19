@@ -1,3 +1,18 @@
-<pre class="test-output">
-  {{@buildResult.output}}
-</pre>
+{{#if isJsonFormat}}
+  {{#each groups as |group|}}
+    <section>
+      <header>{{group.group}}</header>
+
+      {{#each group.commands as |command|}}
+        <details>
+          <summary>{{command.command}}</summary>
+          {{command.output}}
+        </details>
+      {{/each}}
+    </section>
+  {{/each}}
+{{else}}
+  <pre class="test-output">
+    {{@buildResult.output}}
+  </pre>
+{{/if}}
