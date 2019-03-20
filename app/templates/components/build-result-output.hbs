@@ -1,14 +1,16 @@
 {{#if isJsonFormat}}
   {{#each groups as |group|}}
     <section>
-      <header>{{group.group}}</header>
+      <details open={{group.has_failures}}>
+        <summary>{{group.group}}</summary>
 
-      {{#each group.commands as |command|}}
-        <details>
-          <summary>{{command.command}}</summary>
-          {{command.output}}
-        </details>
-      {{/each}}
+        {{#each group.commands as |command|}}
+          <details open={{command.failed}}>
+            <summary>{{command.command}}</summary>
+            <output>{{command.output}}</output>
+          </details>
+        {{/each}}
+      </details>
     </section>
   {{/each}}
 {{else}}

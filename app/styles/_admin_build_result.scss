@@ -2,6 +2,15 @@
   pre {
     line-height: 1;
   }
+
+  details > details {
+    font-family: monospace;
+    margin-left: 25px;
+
+    & > output {
+      white-space: pre;
+    }
+  }
 }
 
 
