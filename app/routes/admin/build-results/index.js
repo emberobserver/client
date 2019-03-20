@@ -11,6 +11,9 @@ export default Route.extend({
       params.date = moment().format('YYYY-MM-DD');
     }
     return this.store.query('test-result', {
+      fields: {
+        'test-results': 'succeeded,status-message,created-at,semver-string,canary,version'
+      },
       filter: {
         date: params.date
       },
