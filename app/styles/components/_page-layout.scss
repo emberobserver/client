@@ -15,12 +15,11 @@
 
     .content {
       flex-grow: 0;
-      width: 75%;
       min-height: 500px;
       padding: $default-spacing $default-spacing 0 $default-spacing;
 
       @media(min-width: $medium-screen) {
-        padding-right: 1rem;
+        width: 65%;
       }
     }
 
