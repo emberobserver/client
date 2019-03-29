@@ -29,6 +29,15 @@
 @import "canary_test_results";
 @import "admin_review";
 
+html {
+ box-sizing:border-box
+}
+*,
+::after,
+::before {
+ box-sizing:inherit;
+}
+
 ::-ms-clear {
   display: none;
 }
