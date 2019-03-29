@@ -21,9 +21,9 @@
   "devDependencies": {
     "@ember/jquery": "^0.5.2",
     "@ember/optional-features": "^0.6.3",
-    "@embroider/compat": "^0.1.0",
-    "@embroider/core": "^0.1.0",
-    "@embroider/webpack": "^0.1.0",
+    "@embroider/compat": "^0.3.0",
+    "@embroider/core": "^0.3.0",
+    "@embroider/webpack": "^0.3.0",
     "bourbon": "4.2.3",
     "bourbon-neat": "1.7.1",
     "broccoli-asset-rev": "^2.7.0",

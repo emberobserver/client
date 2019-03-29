@@ -118,6 +118,14 @@ module.exports = function(defaults) {
           '{{exclusive-button-group}}': {
             yieldsSafeComponents: [ true ]
           }
+        },
+        appModules: {
+          'app.js': {
+            dependsOnModules: [
+              'ember-metrics/metrics-adapters/google-analytics',
+              './metrics-adapters/local-adapter',
+            ]
+          }
         }
       }
     ]
