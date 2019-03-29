@@ -89,6 +89,12 @@ module.exports = function(defaults) {
     // providing packageRules.
     staticComponents: true,
 
+    // Each of these entries can be a string or RegExp. Any route names that
+    // match will get split out of the initial app payload. When you split at a
+    // route, that route and all its child routes will be lazily loaded on
+    // demand.
+    splitAtRoutes: ['admin', 'categories', 'code-search', 'lists'],
+
     // The packageRules system allows you to tell Embroider about sources of
     // dynamic dependencies in classic addons and apps that are otherwise not
     // statically analyzable.

@@ -1,7 +1,7 @@
 import { get } from '@ember/object';
 import { scheduleOnce } from '@ember/runloop';
 import { inject as service } from '@ember/service';
-import EmberRouter from '@ember/routing/router';
+import EmberRouter from '@embroider/router';
 import config from './config/environment';
 import RouterScroll from 'ember-router-scroll';
 
