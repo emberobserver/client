@@ -23,6 +23,7 @@
     "@ember/optional-features": "^0.6.3",
     "@embroider/compat": "^0.3.0",
     "@embroider/core": "^0.3.0",
+    "@embroider/router": "^0.3.0",
     "@embroider/webpack": "^0.3.0",
     "bourbon": "4.2.3",
     "bourbon-neat": "1.7.1",

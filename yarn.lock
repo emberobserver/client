@@ -840,6 +840,13 @@
     resolve "^1.8.1"
     semver "^5.6.0"
 
+"@embroider/router@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@embroider/router/-/router-0.3.0.tgz#7c310756e087060af4b888df0806bd38ef6a353d"
+  integrity sha512-vr54vigRe+V6Xx5YGC46lqRgDT83DP1eh0NE1cL8w1ae231L4SHlg+OVzfLwwiwlH10e5bUr9MUp8aGcu62bBQ==
+  dependencies:
+    ember-cli-babel "^7.1.2"
+
 "@embroider/webpack@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@embroider/webpack/-/webpack-0.3.0.tgz#6ec8df0f8bb19ef48f18102993a4f8319d4d0760"
