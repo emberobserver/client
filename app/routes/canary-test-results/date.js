@@ -7,7 +7,15 @@ export default Route.extend({
       date: params.date,
       testResults: this.store.query('test-result', {
         fields: {
-          'test-results': 'succeeded,status-message,created-at,semver-string,canary,version'
+          'test-results': [
+            'canary',
+            'created-at',
+            'ember-version-compatibilities',
+            'semver-string',
+            'status-message',
+            'succeeded',
+            'version'
+          ].join(',')
         },
         filter: {
           canary: true,
