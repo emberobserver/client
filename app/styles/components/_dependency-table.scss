@@ -1,5 +1,11 @@
 .addon-dependency-table {
 
+  .uncollapse {
+    font-weight: lighter;
+    display: block;
+    margin-top: .5rem;
+  }
+
   .description {
     &.no-addons {
       margin-top: .5rem;
@@ -32,7 +38,7 @@
       }
 
       th {
-        padding-bottom: .5rem;
+        padding-bottom: .25rem;
       }
 
       .version-dependency {

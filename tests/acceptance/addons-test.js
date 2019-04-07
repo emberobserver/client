@@ -395,8 +395,8 @@ module('Acceptance: Addons', function(hooks) {
 
     await visitAddon(addon);
 
-    assert.dom('.test-dependencies .test-dependency-name').hasText(dependency.package);
-    assert.dom('.test-dev-dependencies .test-dependency-name').hasText(devDependency.package);
+    assert.dom('.test-addon-dependencies .test-dependencies .test-dependency-name').hasText(dependency.package);
+    assert.dom('.test-addon-dependencies .test-dependency-name').hasText(devDependency.package);
   });
 
   test('hides some dependencies if there are over a certain amount', async function(assert) {
@@ -420,18 +420,18 @@ module('Acceptance: Addons', function(hooks) {
 
     await visitAddon(addon);
 
-    let dependencyPackages = findAll('.test-dependencies .test-dependency-name');
+    let dependencyPackages = findAll('.test-addon-dependencies .test-dependencies .test-dependency-name');
     assert.equal(8, dependencyPackages.length, 'Shows truncated list of dependencies');
 
-    let devDependencyPackages = findAll('.test-dev-dependencies .test-dependency-name');
+    let devDependencyPackages = findAll('.test-addon-dependencies .test-dev-dependencies .test-dependency-name');
     assert.equal(8, devDependencyPackages.length, 'Shows list of dev dependencies');
 
-    await click('.test-show-all-dependencies');
+    await click('.test-addon-dependencies .test-show-all-dependencies');
 
-    dependencyPackages = findAll('.test-dependencies .test-dependency-name');
+    dependencyPackages = findAll('.test-addon-dependencies .test-dependencies .test-dependency-name');
     assert.equal(10, dependencyPackages.length, 'Shows full list of dependencies');
 
-    devDependencyPackages = findAll('.test-dev-dependencies .test-dependency-name');
+    devDependencyPackages = findAll('.test-addon-dependencies .test-dev-dependencies .test-dependency-name');
     assert.equal(11, devDependencyPackages.length, 'Shows full list of dependencies');
   });
 
@@ -446,9 +446,44 @@ module('Acceptance: Addons', function(hooks) {
 
     await visitAddon(addon);
 
-    assert.dom('.test-no-addons-message').exists();
-    assert.dom('.test-dependencies').doesNotExist();
-    assert.dom('.test-dev-dependencies').doesNotExist();
+    assert.dom('.test-addon-dependencies .test-no-addons-message').exists();
+    assert.dom('.test-addon-dependencies .test-dependencies').doesNotExist();
+    assert.dom('.test-addon-dependencies .test-dev-dependencies').doesNotExist();
+  });
+
+  test('displays addon dependents', async(assert) => {
+    let addon = server.create('addon');
+    let latestVersion = server.create('version', {
+      addon
+    });
+
+    addon.latestAddonVersion = latestVersion;
+    addon.save();
+
+    server.createList('addon-dependency', 7, {
+      dependentVersion: server.create('version'),
+      dependencyType: 'dependencies',
+      package: addon.name,
+    });
+
+    server.createList('addon-dependency', 11, {
+      dependentVersion: server.create('version'),
+      dependencyType: 'devDependencies',
+      package: addon.name,
+    });
+
+    await visitAddon(addon);
+
+    assert.dom('.test-addon-dependents .test-dependencies').doesNotExist('Not showing dependents');
+    assert.dom('.test-addon-dependents .test-dev-dependencies').doesNotExist('Not showing dependents');
+
+    await click('.test-show-dependents');
+
+    let dependencyPackages = findAll('.test-addon-dependents .test-dependencies .test-dependency-name');
+    assert.equal(dependencyPackages.length, 7, 'Shows list of dependent addons');
+
+    let devDependencyPackages = findAll('.test-addon-dependents .test-dev-dependencies .test-dependency-name');
+    assert.equal(devDependencyPackages.length, 8, 'Shows list of dev dependent addons');
   });
 
   test('has a link for users to provide suggestions', async function(assert) {
