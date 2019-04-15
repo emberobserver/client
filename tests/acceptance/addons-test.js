@@ -4,6 +4,8 @@ import { percySnapshot } from 'ember-percy';
 import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
 import moment from 'moment';
 import visitAddon from '../helpers/visit-addon';
+import Mirage from 'ember-cli-mirage';
+import { setupOnerror, resetOnerror } from '@ember/test-helpers';
 
 module('Acceptance: Addons', function(hooks) {
   setupEmberObserverTest(hooks);
@@ -484,6 +486,29 @@ module('Acceptance: Addons', function(hooks) {
 
     let devDependencyPackages = findAll('.test-addon-dependents .test-dev-dependencies .test-dependency-name');
     assert.equal(devDependencyPackages.length, 8, 'Shows list of dev dependent addons');
+  });
+
+  test('when addon dependencies fail to load', async(assert) => {
+    let addon = server.create('addon');
+    let latestVersion = server.create('version', {
+      addon
+    });
+
+    addon.latestAddonVersion = latestVersion;
+    addon.save();
+
+    setupOnerror(() => {});
+
+    await visitAddon(addon);
+
+    server.get('/addon-dependencies', () => {
+      return new Mirage.Response(400);
+    });
+
+    await click('.test-show-dependents');
+
+    assert.dom('.test-addon-dependents .test-uncollapse-error').exists('Shows error message');
+    resetOnerror();
   });
 
   test('has a link for users to provide suggestions', async function(assert) {

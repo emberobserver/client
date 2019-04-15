@@ -23,10 +23,6 @@ export default Component.extend({
     let { dependencies, devDependencies } = yield this.fetchData();
     this.set('dependencies',  dependencies);
     this.set('devDependencies',  devDependencies);
-  }),
-
-  uncollapse: task(function * () {
-    yield this.get('loadDependencies').perform();
     this.set('collapsed', false);
   }),
 

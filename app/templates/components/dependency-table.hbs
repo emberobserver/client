@@ -1,8 +1,10 @@
 {{#if collapsed}}
-  {{#if uncollapse.isRunning}}
+  {{#if loadDependencies.isRunning}}
     <p class="uncollapse">{{dot-spinner}}</p>
+  {{else if loadDependencies.last.isError}}
+    <p class="uncollapse test-uncollapse-error">Unable to load addons</p>
   {{else}}
-    <a href="#" class="uncollapse test-show-dependents" {{action (perform uncollapse)}}>Show addons</a>
+    <a href="#" class="uncollapse test-show-dependents" {{action (perform loadDependencies)}}>Show addons</a>
   {{/if}}
 {{else}}
   {{#if addonHasDependencies}}
