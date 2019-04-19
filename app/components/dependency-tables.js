@@ -25,11 +25,10 @@ export default Component.extend({
       return this.store.query('addon-dependency', {
         filter: { packageAddonId },
         include: 'dependent-version',
-        sort: 'package',
       }).then((results) => {
         return {
-          dependencies: results.filter((dep) => dep.isDependency).map((dep) => dep.dependentVersion.get('addonName')),
-          devDependencies: results.filter((dep) => dep.isDevDependency).map((dep) => dep.dependentVersion.get('addonName'))
+          dependencies: results.filter(dep => dep.isDependency).map(dep => dep.dependentVersion.get('addonName')).sort(),
+          devDependencies: results.filter(dep => dep.isDevDependency).map(dep => dep.dependentVersion.get('addonName')).sort()
         };
       });
     }
