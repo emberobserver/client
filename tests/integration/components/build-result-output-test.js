@@ -6,9 +6,10 @@ import hbs from 'htmlbars-inline-precompile';
 module('Integration | Component | build-result-output', function(hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders build result output as preformatted text when it is not valid JSON', async function(assert) {
+  test('it renders build result output as preformatted text when its format is "text"', async function(assert) {
     this.set('buildResult', {
-      output: "I'm a teapot!"
+      output: "I'm a teapot!",
+      outputFormat: 'text'
     });
     await render(hbs`<BuildResultOutput @buildResult={{buildResult}} />`);
 
@@ -31,7 +32,8 @@ module('Integration | Component | build-result-output', function(hooks) {
               { command: 'rmdir foo', output: 'rmdir: foo: Not a directory' }
             ]
           }
-        ])
+        ]),
+        outputFormat: 'json',
       });
       await render(hbs`<BuildResultOutput @buildResult={{buildResult}} />`);
 
@@ -47,7 +49,8 @@ module('Integration | Component | build-result-output', function(hooks) {
               { command: 'ls', output: 'foo' },
             ]
           }
-        ])
+        ]),
+        outputFormat: 'json'
       });
       await render(hbs`<BuildResultOutput @buildResult={{buildResult}} />`);
 
@@ -65,7 +68,8 @@ module('Integration | Component | build-result-output', function(hooks) {
               { command: 'ls foo', output: 'ls: foo: No such file or directory', failed: true }
             ]
           }
-        ])
+        ]),
+        outputFormat: 'json'
       });
       await render(hbs`<BuildResultOutput @buildResult={{buildResult}} />`);
 
@@ -79,7 +83,8 @@ module('Integration | Component | build-result-output', function(hooks) {
             group: 'Group One',
             has_failures: true
           }
-        ])
+        ]),
+        outputFormat: 'json'
       });
       await render(hbs`<BuildResultOutput @buildResult={{buildResult}} />`);
 
@@ -93,7 +98,8 @@ module('Integration | Component | build-result-output', function(hooks) {
             group: 'Group One',
             has_failures: false
           }
-        ])
+        ]),
+        outputFormat: 'json'
       });
       await render(hbs`<BuildResultOutput @buildResult={{buildResult}} />`);
 
