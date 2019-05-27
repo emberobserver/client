@@ -5,8 +5,9 @@
         <summary>{{group.group}}</summary>
 
         {{#each group.commands as |command|}}
+          {{! template-lint-disable no-nested-interactive }}
           <details open={{command.failed}}>
-            <summary>{{command.command}}</summary>
+            <summary>{{command.command}} {{if command.elapsedTime (concat '(' command.elapsedTime 's)')}}</summary>
             <output>{{command.output}}</output>
           </details>
         {{/each}}
