@@ -88,6 +88,10 @@ Router.map(function() {
       this.route('show', { path: '/:id' });
     });
 
+    this.route('size-calculation-results', function() {
+      this.route('show', { path: '/:id' });
+    });
+
     this.route('addon-lists', function() {
       this.route('addons-needing-categorization');
       this.route('addons-needing-review');
