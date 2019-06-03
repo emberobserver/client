@@ -140,7 +140,8 @@ export default function() {
   this.get('/reviews');
   this.get('/reviews/:id');
   this.get('/build-servers');
-  this.get('/test-results', function(schema, request) {
+
+  let filterByRelatedAddonName = (schema, resourceTableName, request) => {
     if (request.queryParams['filter[addonName]']) {
       let addons = schema.addons.where({ name: request.queryParams['filter[addonName]'] });
       let [addon] = addons.models;
@@ -151,11 +152,20 @@ export default function() {
       if (!version) {
         return { data: [] };
       }
-      return schema.testResults.where({ versionId: version.id });
+      return schema[resourceTableName].where({ versionId: version.id });
     }
-    return schema.testResults.all();
+    return schema[resourceTableName].all();
+  };
+
+  this.get('/test-results', function(schema, request) {
+    return filterByRelatedAddonName(schema, 'testResults', request);
   });
   this.get('/test-results/:id');
+
+  this.get('/size-calculation-results', function(schema, request) {
+    return filterByRelatedAddonName(schema, 'sizeCalculationResults', request);
+  });
+  this.get('/size-calculation-results/:id');
 
   this.get('/search', () => {
     return {

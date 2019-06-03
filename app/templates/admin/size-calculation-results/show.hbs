@@ -1,0 +1,21 @@
+<div class="admin-build-result">
+  <h1>
+    Size Calculation #{{sizeCalculationResult.id}}
+    (<span class="test-addon-name">{{#link-to 'addons.show' addon.name}}{{addon.name}}{{/link-to}}</span>
+    <span class="test-addon-version">{{addonVersion.version}}</span>)
+  </h1>
+
+  <div>
+    Status: <span class="test-build-status">{{buildStatus}}</span>
+    {{#if canRetryBuild}}
+      <button type="button" onclick={{action 'retryBuild'}} class="test-retry-build">Retry</button>
+    {{/if}}
+  </div>
+
+  <div>
+    Tests run at: <span class="test-run-date">{{moment-format sizeCalculationResult.testsRunAt 'YYYY-MM-DD HH:mm' allowEmpty=true}}</span>
+  </div>
+
+  <h2>Output</h2>
+  <pre class="test-output">{{sizeCalculationResult.output}}</pre>
+</div>

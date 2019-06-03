@@ -1,0 +1,50 @@
+<section class="admin-build-result-nav">
+  {{#link-to 'admin.size-calculation-results.index' (query-params date=formattedPreviousDate) class='previous-day'}}
+    &laquo; previous day
+  {{/link-to}}
+
+  Size calculations for {{formattedDisplayDate}}
+
+  {{#if showFollowingDayLink}}
+    {{#link-to 'admin.size-calculation-results.index' (query-params date=formattedFollowingDate) class='next-day'}}
+      next day &raquo;
+    {{/link-to}}
+  {{/if}}
+</section>
+
+<table>
+  <thead>
+    <tr>
+      <th>Addon</th>
+      <th>Version</th>
+      <th>Date/time</th>
+      <th>Result</th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each sortedSizeCalculationResults as |result|}}
+      <tr class="test-size-calculation-result" data-sizeCalculationResultId={{result.id}}>
+        <td>
+          {{#link-to 'addons.show' result.version.addon.name}}
+            {{result.version.addon.name}}
+          {{/link-to}}
+        </td>
+        <td>{{result.version.version}}</td>
+        <td>{{moment-format result.testsRunAt 'YYYY-MM-DD HH:mm' allowEmpty=true}}</td>
+        <td>
+          {{#if result.succeeded}}
+            succeeded
+          {{else}}
+            failed - {{result.errorMessage}}
+          {{/if}}
+        </td>
+        <td>
+          {{#link-to 'admin.size-calculation-results.show' result.id}}
+            details
+          {{/link-to}}
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
