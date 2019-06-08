@@ -1,16 +1,16 @@
-<section class="admin-build-result-nav">
-  {{#link-to 'admin.size-calculation-results.index' (query-params date=formattedPreviousDate) class='previous-day'}}
+{{#date-nav date=date as |nav|}}
+  {{#link-to 'admin.size-calculation-results.index' (query-params date=nav.formattedPreviousDate) class='previous-day'}}
     &laquo; previous day
   {{/link-to}}
 
-  Size calculations for {{formattedDisplayDate}}
+  Size calculation results for {{nav.formattedDisplayDate}}
 
-  {{#if showFollowingDayLink}}
-    {{#link-to 'admin.size-calculation-results.index' (query-params date=formattedFollowingDate) class='next-day'}}
+  {{#if nav.showFollowingDayLink}}
+    {{#link-to 'admin.size-calculation-results.index' (query-params date=nav.formattedFollowingDate) class='next-day'}}
       next day &raquo;
     {{/link-to}}
   {{/if}}
-</section>
+{{/date-nav}}
 
 <table>
   <thead>
