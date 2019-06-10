@@ -54,7 +54,7 @@
     "ember-concurrency": "^0.10.0",
     "ember-data": "~3.10.0",
     "ember-export-application-global": "^2.0.0",
-    "ember-feature-flags": "^5.0.0",
+    "ember-feature-flags": "kategengler/ember-feature-flags#06b33fd",
     "ember-load-initializers": "^2.0.0",
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-metrics": "^0.13.0",
