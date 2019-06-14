@@ -1,9 +1,10 @@
 import { module, test } from 'qunit';
 import { visit, currentURL } from '@ember/test-helpers';
-import { setupApplicationTest } from 'ember-qunit';
+import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
+
 
 module('Acceptance | categories', function(hooks) {
-  setupApplicationTest(hooks);
+  setupEmberObserverTest(hooks);
 
   test('trying to view a nonexistent category displays not-found content', async function(assert) {
     await visit('/categories/addons-that-violate-fundamental-laws-of-the-universe');
