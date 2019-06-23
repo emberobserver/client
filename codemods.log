@@ -1,0 +1,300 @@
+2019-06-23T20:37:19.627Z [info] [app/components/toggle-switch.js]: SUCCESS
+2019-06-23T20:37:19.677Z [warn] [app/index.html]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:19.866Z [info] [app/routes/application.js]: SUCCESS
+2019-06-23T20:37:19.650Z [info] [app/controllers/categories.js]: SUCCESS
+2019-06-23T20:37:19.664Z [info] [app/controllers/code-search.js]: SUCCESS
+2019-06-23T20:37:19.679Z [info] [app/controllers/addons.js]: SUCCESS
+2019-06-23T20:37:19.689Z [info] [app/controllers/index.js]: SUCCESS
+2019-06-23T20:37:19.697Z [info] [app/controllers/lists.js]: SUCCESS
+2019-06-23T20:37:19.705Z [info] [app/controllers/maintainers.js]: SUCCESS
+2019-06-23T20:37:19.716Z [info] [app/controllers/model-not-found.js]: SUCCESS
+2019-06-23T20:37:19.728Z [info] [app/controllers/not-found.js]: SUCCESS
+2019-06-23T20:37:19.750Z [warn] [app/helpers/badge-path.js]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:19.769Z [info] [app/controllers/login.js]: SUCCESS
+2019-06-23T20:37:19.820Z [warn] [app/helpers/canary-version.js]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:19.829Z [warn] [app/helpers/clean-repo-url.js]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:19.839Z [warn] [app/helpers/commify.js]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:19.862Z [warn] [app/helpers/check-pass-proportion.js]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:19.869Z [warn] [app/helpers/includes.js]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:19.914Z [warn] [app/helpers/dom-purify.js]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:19.922Z [warn] [app/helpers/format-score-contribution.js]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:19.936Z [warn] [app/helpers/is-equal.js]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:19.954Z [warn] [app/helpers/next-item.js]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:19.958Z [warn] [app/helpers/less-than.js]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:19.966Z [warn] [app/helpers/pad-line-number.js]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:19.980Z [warn] [app/helpers/pluralize-this.js]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:19.983Z [warn] [app/helpers/pluralize.js]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:19.988Z [warn] [app/helpers/previous-item.js]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:19.993Z [warn] [app/helpers/score-component-color.js]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:19.997Z [warn] [app/helpers/test-result-status-class.js]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:20.003Z [warn] [app/helpers/to-fixed.js]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:20.006Z [warn] [app/initializers/inflections.js]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:20.010Z [warn] [app/initializers/session-service.js]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:20.026Z [info] [app/metrics-adapters/local-adapter.js]: SUCCESS
+2019-06-23T20:37:20.038Z [warn] [app/mixins/controller-with-search.js]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:20.050Z [warn] [app/models/addon-dependency.js]: FAILURE 
+Validation errors: 
+	[isDependency]: Transform not supported - value has modifiers like 'property' or 'meta'
+	[isDevDependency]: Transform not supported - value has modifiers like 'property' or 'meta'
+2019-06-23T20:37:20.053Z [warn] [app/mixins/route-with-search.js]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:20.073Z [info] [app/models/addon-size.js]: SUCCESS
+2019-06-23T20:37:20.238Z [info] [app/models/addon.js]: SUCCESS
+2019-06-23T20:37:20.279Z [info] [app/models/readme.js]: SUCCESS
+2019-06-23T20:37:20.308Z [info] [app/models/version.js]: SUCCESS
+2019-06-23T20:37:20.357Z [info] [app/controllers/application.js]: SUCCESS
+2019-06-23T20:37:20.575Z [warn] [app/templates/about.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:19.936Z [info] [app/router.js]: SUCCESS
+2019-06-23T20:37:20.087Z [info] [app/app.js]: SUCCESS
+2019-06-23T20:37:20.146Z [info] [app/adapters/application.js]: SUCCESS
+2019-06-23T20:37:20.157Z [info] [app/components/addon-list.js]: SUCCESS
+2019-06-23T20:37:20.182Z [info] [app/components/addon-details.js]: SUCCESS
+2019-06-23T20:37:20.198Z [info] [app/components/addon-note.js]: SUCCESS
+2019-06-23T20:37:20.222Z [warn] [app/components/addon-review-form.js]: FAILURE 
+Validation errors: 
+	[save]: Transform not supported - calling the passed action would cause an infinite loop. See https://github.com/scalvert/eslint-plugin-ember-es6-class/pull/2 for more details
+2019-06-23T20:37:20.301Z [info] [app/components/addon-source-usages.js]: SUCCESS
+2019-06-23T20:37:20.316Z [info] [app/components/addon-version-item.js]: SUCCESS
+2019-06-23T20:37:20.332Z [warn] [app/components/addon-review.js]: FAILURE 
+Validation errors: 
+	[answerMap]: Transform not supported - value is of type object. For more details: eslint-plugin-ember/avoid-leaking-state-in-ember-objects
+2019-06-23T20:37:20.374Z [info] [app/components/addon-version-list.js]: SUCCESS
+2019-06-23T20:37:20.430Z [info] [app/components/admin-addon.js]: SUCCESS
+2019-06-23T20:37:20.501Z [info] [app/components/admin-addon-review-form.js]: SUCCESS
+2019-06-23T20:37:20.567Z [info] [app/components/canary-test-result-summary.js]: SUCCESS
+2019-06-23T20:37:20.586Z [info] [app/components/category-chooser.js]: SUCCESS
+2019-06-23T20:37:20.603Z [info] [app/components/category-finder.js]: SUCCESS
+2019-06-23T20:37:20.632Z [info] [app/components/category-position-dropdown.js]: SUCCESS
+2019-06-23T20:37:20.650Z [info] [app/components/comma-separated.js]: SUCCESS
+2019-06-23T20:37:20.663Z [info] [app/components/ember-version-compatibility-list.js]: SUCCESS
+2019-06-23T20:37:20.676Z [info] [app/components/dependency-icon.js]: SUCCESS
+2019-06-23T20:37:20.907Z [info] [app/components/code-search.js]: SUCCESS
+2019-06-23T20:37:21.006Z [warn] [app/components/dependency-table.js]: FAILURE 
+Validation errors: 
+	[dependencyCount]: Transform not supported - need option '--decorators=true' or the property type CallExpression can not be transformed
+	[dependencyCount]: Transform not supported - value has modifiers like 'property' or 'meta'
+	[devDependencyCount]: Transform not supported - need option '--decorators=true' or the property type CallExpression can not be transformed
+	[devDependencyCount]: Transform not supported - value has modifiers like 'property' or 'meta'
+	[hasHiddenDevDependencies]: Transform not supported - value has modifiers like 'property' or 'meta'
+	[hasHiddenDependencies]: Transform not supported - value has modifiers like 'property' or 'meta'
+2019-06-23T20:37:21.017Z [info] [app/components/exclusive-button.js]: SUCCESS
+2019-06-23T20:37:21.074Z [info] [app/components/gravatar-avatar.js]: SUCCESS
+2019-06-23T20:37:21.099Z [info] [app/components/human-url.js]: SUCCESS
+2019-06-23T20:37:21.120Z [info] [app/components/inline-category-list.js]: SUCCESS
+2019-06-23T20:37:21.297Z [info] [app/components/large-search.js]: SUCCESS
+2019-06-23T20:37:21.316Z [info] [app/components/login-form.js]: SUCCESS
+2019-06-23T20:37:21.325Z [info] [app/components/markdown-to-sanitized-html.js]: SUCCESS
+2019-06-23T20:37:21.331Z [info] [app/components/not-found-content.js]: SUCCESS
+2019-06-23T20:37:21.338Z [info] [app/components/official-icon.js]: SUCCESS
+2019-06-23T20:37:21.385Z [info] [app/components/page-layout.js]: SUCCESS
+2019-06-23T20:37:21.408Z [info] [app/components/radio-button-set.js]: SUCCESS
+2019-06-23T20:37:21.420Z [info] [app/components/radio-button.js]: SUCCESS
+2019-06-23T20:37:21.447Z [info] [app/components/relative-time.js]: SUCCESS
+2019-06-23T20:37:21.455Z [info] [app/components/route-index.js]: SUCCESS
+2019-06-23T20:37:21.476Z [info] [app/components/score-detail.js]: SUCCESS
+2019-06-23T20:37:21.516Z [info] [app/components/score-display.js]: SUCCESS
+2019-06-23T20:37:21.545Z [info] [app/components/search-result-set.js]: SUCCESS
+2019-06-23T20:37:21.555Z [warn] [app/components/sort-option.js]: FAILURE 
+Validation errors: 
+	[sortBy]: Transform not supported - calling the passed action would cause an infinite loop. See https://github.com/scalvert/eslint-plugin-ember-es6-class/pull/2 for more details
+2019-06-23T20:37:21.561Z [info] [app/components/sort-order-option.js]: SUCCESS
+2019-06-23T20:37:21.573Z [info] [app/components/stats-bar.js]: SUCCESS
+2019-06-23T20:37:21.588Z [info] [app/components/svg-icon.js]: SUCCESS
+2019-06-23T20:37:21.594Z [info] [app/components/svg-icons.js]: SUCCESS
+2019-06-23T20:37:21.617Z [info] [app/components/test-result-status.js]: SUCCESS
+2019-06-23T20:37:19.919Z [info] [app/routes/code-search.js]: SUCCESS
+2019-06-23T20:37:19.931Z [info] [app/routes/admin.js]: SUCCESS
+2019-06-23T20:37:19.948Z [info] [app/routes/addons.js]: SUCCESS
+2019-06-23T20:37:19.958Z [info] [app/routes/categories.js]: SUCCESS
+2019-06-23T20:37:19.969Z [info] [app/routes/lists.js]: SUCCESS
+2019-06-23T20:37:19.977Z [info] [app/routes/login.js]: SUCCESS
+2019-06-23T20:37:20.073Z [info] [app/routes/index.js]: SUCCESS
+2019-06-23T20:37:20.104Z [info] [app/routes/maintainers.js]: SUCCESS
+2019-06-23T20:37:20.115Z [info] [app/routes/not-found.js]: SUCCESS
+2019-06-23T20:37:20.130Z [info] [app/routes/model-not-found.js]: SUCCESS
+2019-06-23T20:37:20.323Z [info] [app/services/admin-lists.js]: SUCCESS
+2019-06-23T20:37:20.357Z [info] [app/services/api-ajax.js]: SUCCESS
+2019-06-23T20:37:20.368Z [info] [app/services/routing.js]: SUCCESS
+2019-06-23T20:37:20.392Z [info] [app/services/ember-versions.js]: SUCCESS
+2019-06-23T20:37:20.428Z [info] [app/services/code-search.js]: SUCCESS
+2019-06-23T20:37:20.645Z [info] [app/services/search.js]: SUCCESS
+2019-06-23T20:37:20.799Z [info] [app/services/session.js]: SUCCESS
+2019-06-23T20:37:20.856Z [warn] [app/snippets/external-fonts.html]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:20.907Z [warn] [app/snippets/favicon.html]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:20.912Z [warn] [app/snippets/trackjs.html]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.075Z [warn] [app/styles/_about_index.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.087Z [warn] [app/snippets/perf-utils.js]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.098Z [warn] [app/styles/_addons_correct.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.112Z [warn] [app/styles/_addons_index.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.246Z [warn] [app/styles/_addons_show.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.278Z [warn] [app/styles/_addons-list.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.284Z [warn] [app/styles/_admin_build_result.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.300Z [warn] [app/styles/_admin_index.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.317Z [warn] [app/styles/_canary_test_results.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.324Z [warn] [app/styles/_categories_show.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.337Z [warn] [app/styles/_footer.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.393Z [warn] [app/styles/_grid_items.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.402Z [warn] [app/styles/_index.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.504Z [warn] [app/styles/_admin_review.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.510Z [warn] [app/styles/_loading.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.525Z [warn] [app/styles/_maintainers_show.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.535Z [warn] [app/styles/_markdown.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.537Z [warn] [app/styles/_not_found.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.540Z [warn] [app/styles/_login.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.548Z [warn] [app/styles/_stats.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.586Z [warn] [app/styles/_scores.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.610Z [warn] [app/styles/app.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.641Z [warn] [app/styles/button_select.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.645Z [warn] [app/styles/font-icons.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.799Z [warn] [app/styles/normalize.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.643Z [info] [app/components/ember-version-item.js]: SUCCESS
+2019-06-23T20:37:21.766Z [info] [app/components/ember-version-compatibility.js]: SUCCESS
+2019-06-23T20:37:21.830Z [info] [app/components/exclusive-button-group.js]: SUCCESS
+2019-06-23T20:37:21.921Z [warn] [app/styles/base/_typography.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.990Z [warn] [app/templates/components/inline-category-list.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:20.581Z [warn] [app/templates/admin.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:20.583Z [warn] [app/templates/addons.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:20.604Z [warn] [app/templates/application.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:20.607Z [warn] [app/templates/canary-test-results.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:20.609Z [warn] [app/templates/categories.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:20.616Z [warn] [app/templates/code-search.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:20.634Z [warn] [app/templates/index.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:20.640Z [warn] [app/templates/lists.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:20.644Z [warn] [app/templates/login.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:20.647Z [warn] [app/templates/not-found.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:20.649Z [warn] [app/templates/maintainers.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:20.655Z [warn] [app/utils/computed-percent.js]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:20.676Z [warn] [app/utils/measure.js]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:20.687Z [warn] [app/utils/local-storage.js]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:20.731Z [info] [app/controllers/addons/correct.js]: SUCCESS
+2019-06-23T20:37:20.757Z [info] [app/controllers/admin/build-servers.js]: SUCCESS
+2019-06-23T20:37:20.821Z [info] [app/controllers/addons/show.js]: SUCCESS
+2019-06-23T20:37:20.872Z [info] [app/controllers/admin/review.js]: SUCCESS
+2019-06-23T20:37:20.894Z [info] [app/controllers/canary-test-results/detail.js]: SUCCESS
+2019-06-23T20:37:20.943Z [info] [app/controllers/canary-test-results/date.js]: SUCCESS
+2019-06-23T20:37:21.019Z [info] [app/controllers/categories/show.js]: SUCCESS
+2019-06-23T20:37:21.091Z [info] [app/routes/addons/show.js]: SUCCESS
+2019-06-23T20:37:21.110Z [info] [app/routes/addons/top.js]: SUCCESS
+2019-06-23T20:37:21.140Z [info] [app/routes/addons/correct.js]: SUCCESS
+2019-06-23T20:37:21.153Z [info] [app/routes/admin/categories.js]: SUCCESS
+2019-06-23T20:37:21.199Z [info] [app/routes/admin/review.js]: SUCCESS
+2019-06-23T20:37:21.213Z [info] [app/routes/admin/index.js]: SUCCESS
+2019-06-23T20:37:21.228Z [info] [app/routes/canary-test-results/date.js]: SUCCESS
+2019-06-23T20:37:21.247Z [info] [app/routes/canary-test-results/index.js]: SUCCESS
+2019-06-23T20:37:21.270Z [info] [app/routes/canary-test-results/detail.js]: SUCCESS
+2019-06-23T20:37:21.307Z [info] [app/routes/categories/show.js]: SUCCESS
+2019-06-23T20:37:21.322Z [info] [app/routes/maintainers/show.js]: SUCCESS
+2019-06-23T20:37:21.332Z [info] [app/routes/lists/new-addons.js]: SUCCESS
+2019-06-23T20:37:21.342Z [info] [app/routes/lists/top-addons.js]: SUCCESS
+2019-06-23T20:37:21.361Z [info] [app/routes/admin/build-servers.js]: SUCCESS
+2019-06-23T20:37:21.371Z [info] [app/routes/lists/recently-scored-addons.js]: SUCCESS
+2019-06-23T20:37:21.389Z [info] [app/routes/lists/invalid-repo-url.js]: SUCCESS
+2019-06-23T20:37:21.409Z [warn] [app/styles/components/_dependency-table.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.442Z [warn] [app/styles/components/_large-search.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.593Z [warn] [app/styles/components/_page-layout.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.690Z [warn] [app/styles/components/_code-search.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.716Z [warn] [app/styles/components/_spinner.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.803Z [warn] [app/styles/base/_forms.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.809Z [warn] [app/styles/base/_base.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.033Z [warn] [app/styles/components/_toggle-switch.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.055Z [warn] [app/styles/base/_buttons.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.061Z [warn] [app/styles/base/_lists.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.067Z [warn] [app/styles/base/_tables.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.079Z [warn] [app/styles/base/_grid-settings.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.992Z [warn] [app/templates/components/human-url.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.072Z [warn] [app/templates/components/large-search.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.078Z [warn] [app/templates/components/login-form.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.079Z [warn] [app/templates/components/not-found-content.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.084Z [warn] [app/templates/components/official-icon.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.116Z [warn] [app/templates/components/page-layout.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.118Z [warn] [app/templates/components/radio-button.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.123Z [warn] [app/templates/components/radio-button-set.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.140Z [warn] [app/templates/components/route-index.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.142Z [warn] [app/templates/components/relative-time.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.161Z [warn] [app/templates/components/markdown-to-sanitized-html.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.163Z [warn] [app/templates/components/sort-option.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.186Z [warn] [app/templates/components/score-detail.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.191Z [warn] [app/templates/components/sort-order-option.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.200Z [warn] [app/templates/components/search-result-set.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.208Z [warn] [app/templates/components/score-display.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.302Z [warn] [app/templates/components/stats-bar.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.306Z [warn] [app/templates/components/test-result-status.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.324Z [warn] [app/templates/components/svg-icons.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.326Z [warn] [app/templates/components/toggle-switch.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.355Z [info] [app/controllers/admin/build-results/index.js]: SUCCESS
+2019-06-23T20:37:22.446Z [info] [app/controllers/admin/build-results/show.js]: SUCCESS
+2019-06-23T20:37:22.517Z [info] [app/controllers/admin/categories/index.js]: SUCCESS
+2019-06-23T20:37:22.594Z [info] [app/controllers/admin/categories/edit.js]: SUCCESS
+2019-06-23T20:37:22.620Z [info] [app/routes/admin/addon-lists/addons-hidden.js]: SUCCESS
+2019-06-23T20:37:22.642Z [info] [app/controllers/admin/categories/new.js]: SUCCESS
+2019-06-23T20:37:22.651Z [info] [app/routes/admin/addon-lists/addons-needing-rereview.js]: SUCCESS
+2019-06-23T20:37:22.659Z [info] [app/routes/admin/addon-lists/addons-needing-categorization.js]: SUCCESS
+2019-06-23T20:37:22.667Z [info] [app/routes/admin/addon-lists/addons-needing-review.js]: SUCCESS
+2019-06-23T20:37:22.671Z [warn] [app/templates/components/svg-icon.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.685Z [info] [app/routes/admin/categories/edit.js]: SUCCESS
+2019-06-23T20:37:22.691Z [info] [app/routes/admin/categories/new.js]: SUCCESS
+2019-06-23T20:37:22.696Z [info] [app/routes/admin/categories/index.js]: SUCCESS
+2019-06-23T20:37:22.730Z [info] [app/routes/admin/review/addon.js]: SUCCESS
+2019-06-23T20:37:22.738Z [warn] [app/templates/admin/addon-lists/addons-hidden.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.748Z [info] [app/routes/admin/build-results/index.js]: SUCCESS
+2019-06-23T20:37:22.752Z [warn] [app/templates/admin/addon-lists/addons-needing-categorization.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.758Z [info] [app/routes/admin/build-results/show.js]: SUCCESS
+2019-06-23T20:37:22.760Z [warn] [app/templates/admin/addon-lists/addons-needing-review.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.761Z [warn] [app/templates/admin/addon-lists/addons-wip.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.763Z [warn] [app/templates/admin/addon-lists/addons-needing-rereview.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.780Z [info] [app/routes/admin/addon-lists/addons-wip.js]: SUCCESS
+2019-06-23T20:37:22.787Z [warn] [app/templates/admin/categories/new.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.802Z [warn] [app/templates/admin/build-results/index.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:21.943Z [warn] [app/templates/addons/error.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.091Z [warn] [app/styles/base/_variables.scss]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.118Z [warn] [app/templates/addons/correct.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.121Z [warn] [app/templates/admin/addon-lists.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.123Z [warn] [app/templates/admin/build-results.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.125Z [warn] [app/templates/addons/loading.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.135Z [warn] [app/templates/admin/build-servers.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.193Z [warn] [app/templates/addons/show.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.195Z [warn] [app/templates/admin/categories.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.224Z [warn] [app/templates/admin/review.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.258Z [warn] [app/templates/admin/index.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.259Z [warn] [app/templates/categories/loading.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.265Z [warn] [app/templates/categories/error.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.281Z [warn] [app/templates/categories/show.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.294Z [warn] [app/templates/canary-test-results/date.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.296Z [warn] [app/templates/lists/loading.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.300Z [warn] [app/templates/canary-test-results/detail.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.303Z [warn] [app/templates/lists/invalid-repo-url.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.304Z [warn] [app/templates/lists/recently-scored-addons.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.306Z [warn] [app/templates/lists/new-addons.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.307Z [warn] [app/templates/maintainers/loading.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.309Z [warn] [app/templates/lists/top-addons.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.313Z [warn] [app/templates/maintainers/show.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.315Z [warn] [app/templates/maintainers/error.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.330Z [warn] [app/templates/components/addon-details.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.333Z [warn] [app/templates/components/addon-list.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.335Z [warn] [app/templates/components/addon-note.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.350Z [warn] [app/templates/components/addon-review-form.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.385Z [warn] [app/templates/components/addon-review.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.438Z [warn] [app/templates/components/addon-source-usages.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.478Z [warn] [app/templates/components/addon-version-list.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.507Z [warn] [app/templates/components/addon-version-item.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.529Z [warn] [app/templates/components/admin-addon-review-form.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.684Z [warn] [app/templates/components/admin-addon.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.695Z [warn] [app/templates/components/category-chooser.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.705Z [warn] [app/templates/components/canary-test-result-summary.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.724Z [warn] [app/templates/components/category-finder.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.729Z [warn] [app/templates/components/category-position-dropdown.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.730Z [warn] [app/templates/components/comma-separated.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.786Z [warn] [app/templates/components/code-search.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.788Z [warn] [app/templates/components/dependency-icon.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.813Z [warn] [app/templates/components/dependency-table.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.814Z [warn] [app/templates/components/dot-spinner.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.822Z [warn] [app/templates/components/ember-version-compatibility-list.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.840Z [warn] [app/templates/components/ember-version-compatibility.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.842Z [warn] [app/templates/components/ember-version-item.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.845Z [warn] [app/templates/components/exclusive-button-group.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.849Z [warn] [app/templates/components/exclusive-button.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.850Z [warn] [app/templates/components/gravatar-avatar.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.806Z [warn] [app/templates/admin/categories/index.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.835Z [warn] [app/templates/admin/categories/edit.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.844Z [warn] [app/templates/admin/build-results/show.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.845Z [warn] [app/templates/admin/review/error.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
+2019-06-23T20:37:22.859Z [warn] [app/templates/admin/review/addon.hbs]: SKIPPED Could not find runtime data NO_RUNTIME_DATA
