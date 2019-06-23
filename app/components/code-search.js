@@ -1,97 +1,110 @@
+import classic from 'ember-classic-decorator';
+import { classNames } from '@ember-decorators/component';
+import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
-import { mapBy, sum, notEmpty, readOnly } from '@ember/object/computed';
+import { readOnly, notEmpty, sum, mapBy } from '@ember/object/computed';
 import { scheduleOnce } from '@ember/runloop';
 import Component from '@ember/component';
-import { computed } from '@ember/object';
 import { isEmpty, isBlank } from '@ember/utils';
 import { task, timeout } from 'ember-concurrency';
 import config from 'ember-observer/config/environment';
 
 const PageSize = config.codeSearchPageSize;
 
-export default Component.extend({
-  metrics: service(),
-  store: service(),
-  codeSearch: service(),
+@classic
+@classNames('code-search')
+export default class CodeSearchComponent extends Component {
+  @service
+  @service
+  metrics;
 
-  codeQuery: null,
-  sort: null,
-  sortAscending: null,
-  fileFilter: null,
-  quotedLastSearch: null,
-  page: 1,
+  @service
+  @service
+  store;
 
-  classNames: ['code-search'],
-  focusNode: '#code-search-input',
+  @service
+  @service
+  codeSearch;
 
-  usageCounts: mapBy('results', 'count'),
-  totalUsageCount: sum('usageCounts'),
-  filteredUsageCounts: mapBy('filteredResults', 'count'),
-  totalFilteredUsageCount: sum('filteredUsageCounts'),
-  isFilterApplied: notEmpty('fileFilter'),
-  isDisplayingFilteredResults: computed('isFilterApplied', 'isUpdatingFilter', function() {
+  codeQuery = null;
+  sort = null;
+  sortAscending = null;
+  fileFilter = null;
+  quotedLastSearch = null;
+  page = 1;
+  focusNode = '#code-search-input';
+
+  @mapBy('results', 'count')
+  usageCounts;
+
+  @sum('usageCounts')
+  totalUsageCount;
+
+  @mapBy('filteredResults', 'count')
+  filteredUsageCounts;
+
+  @sum('filteredUsageCounts')
+  totalFilteredUsageCount;
+
+  @notEmpty('fileFilter')
+  isFilterApplied;
+
+  @computed('isFilterApplied', 'isUpdatingFilter')
+  get isDisplayingFilteredResults() {
     return this.get('isFilterApplied') && !this.get('isUpdatingFilter');
-  }),
+  }
 
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
     this.set('searchInput', this.get('codeQuery') || '');
     this.get('search').perform();
-  },
+  }
 
-  hasSearchedAndNoResults: computed('results.length', 'search.isIdle', function() {
+  @computed('results.length', 'search.isIdle')
+  get hasSearchedAndNoResults() {
     return this.get('results.length') === 0 && this.get('search.isIdle');
-  }),
-  queryIsValid: computed('searchInput', function() {
+  }
+
+  @computed('searchInput')
+  get queryIsValid() {
     let input = this.get('searchInput');
     return !(isBlank(input) || input.length < 2);
-  }),
-  cleanedSearchInput: computed('searchInput', function() {
+  }
+
+  @computed('searchInput')
+  get cleanedSearchInput() {
     return this.get('searchInput').trim();
-  }),
-  filteredResults: computed('results', 'fileFilter', function() {
+  }
+
+  @computed('results', 'fileFilter')
+  get filteredResults() {
     if (this.get('fileFilter')) {
       return filterByFilePath(this.get('results'), this.get('fileFilter'));
     } else {
       return this.get('results');
     }
-  }),
-  sortedFilteredResults: computed('filteredResults', 'sort', 'sortAscending', function() {
+  }
+
+  @computed('filteredResults', 'sort', 'sortAscending')
+  get sortedFilteredResults() {
     return sortResults(this.get('filteredResults'), this.get('sort'), this.get('sortAscending'));
-  }),
-  displayingResults: computed('sortedFilteredResults', 'page', function() {
+  }
+
+  @computed('sortedFilteredResults', 'page')
+  get displayingResults() {
     return this._getResultsUpToPage(this.get('sortedFilteredResults'), this.get('page'));
-  }),
-  search: task(function* () {
-    let query = this.get('cleanedSearchInput');
-    this.set('results', null);
-    this.set('page', 1);
+  }
 
-    if (!this.get('queryIsValid')) {
-      return;
-    }
+  @task
+  search;
 
-    this.get('metrics').trackEvent({ category: 'Code Search', action: 'Search', label: query });
-
-    this.set('codeQuery', query);
-    let results = yield this.get('codeSearch.addons').perform(query, this.get('regex'));
-    this.set('quotedLastSearch', quoteSearchTerm(query, this.get('regex')));
-
-    this.set('results', results);
-  }).restartable(),
-
-  applyFileFilter: task(function*(fileFilter) {
-    yield timeout(250);
-
-    if (!isEmpty(fileFilter)) {
-      this.set('fileFilter', fileFilter);
-    }
-  }).restartable(),
+  @task
+  applyFileFilter;
 
   clearFileFilter() {
     this.set('page', 1);
     this.set('fileFilter', null);
-  },
+  }
 
   _getResultsUpToPage(results, page) {
     if (!results || !results.length) {
@@ -99,15 +112,16 @@ export default Component.extend({
     }
 
     return results.slice(0, page * PageSize);
-  },
+  }
 
-  canViewMore: computed('displayingResults.length', 'filteredResults.length', function() {
+  @computed('displayingResults.length', 'filteredResults.length')
+  get canViewMore() {
     return this.get('displayingResults.length') < this.get('filteredResults.length');
-  }),
+  }
 
   viewMore() {
     this.set('page', this.get('page') + 1);
-  },
+  }
 
   sortBy(key) {
     let oldKey = this.get('sort');
@@ -116,15 +130,17 @@ export default Component.extend({
     }
 
     this.set('sort', key);
-  },
+  }
 
   focus() {
     this.$(this.get('focusNode')).focus();
-  },
+  }
 
-  isUpdatingResults: readOnly('applyFileFilter.isRunning'),
+  @readOnly('applyFileFilter.isRunning')
+  isUpdatingResults;
 
-  isUpdatingFilter: readOnly('applyFileFilter.isRunning'),
+  @readOnly('applyFileFilter.isRunning')
+  isUpdatingFilter;
 
   clearSearch() {
     this.set('codeQuery', '');
@@ -133,7 +149,7 @@ export default Component.extend({
     this.set('page', 1);
     scheduleOnce('afterRender', this, 'focus');
   }
-});
+}
 
 function sortResults(results, sort, sortAscending) {
   let sorted;

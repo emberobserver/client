@@ -1,9 +1,12 @@
-import { alias } from '@ember/object/computed';
+import classic from 'ember-classic-decorator';
 import { computed } from '@ember/object';
+import { alias } from '@ember/object/computed';
 import Component from '@ember/component';
 
-export default Component.extend({
-  parsed: computed('url', function() {
+@classic
+export default class HumanUrlComponent extends Component {
+  @computed('url')
+  get parsed() {
     if (this.get('url')) {
       let a = document.createElement('a');
 
@@ -14,9 +17,13 @@ export default Component.extend({
 
       return { host, pathname };
     }
-  }),
-  domain: computed('parsed.host', function() {
+  }
+
+  @computed('parsed.host')
+  get domain() {
     return this.getWithDefault('parsed.host', '').replace(/^(www.)?/, '');
-  }),
-  pathname: alias('parsed.pathname')
-});
+  }
+
+  @alias('parsed.pathname')
+  pathname;
+}

@@ -1,3 +1,4 @@
+import classic from 'ember-classic-decorator';
 import { on } from 'rsvp';
 import Ember from 'ember';
 import Application from '@ember/application';
@@ -5,13 +6,14 @@ import Resolver from './resolver';
 import loadInitializers from 'ember-load-initializers';
 import config from './config/environment';
 
-const App = Application.extend({
-  modulePrefix: config.modulePrefix,
-  podModulePrefix: config.podModulePrefix,
-  Resolver
-});
+@classic
+class AppApplication extends Application {
+  modulePrefix = config.modulePrefix;
+  podModulePrefix = config.podModulePrefix;
+  Resolver = Resolver;
+}
 
-loadInitializers(App, config.modulePrefix);
+loadInitializers(AppApplication, config.modulePrefix);
 
 if (config.environment === 'production') {
 
@@ -40,4 +42,4 @@ if (config.environment === 'development' || config.environment === 'test') {
   Error.stackTraceLimit = 200;
 }
 
-export default App;
+export default AppApplication;

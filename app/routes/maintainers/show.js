@@ -1,13 +1,15 @@
+import classic from 'ember-classic-decorator';
 import Route from '@ember/routing/route';
 
-export default Route.extend({
+@classic
+export default class ShowRoute extends Route {
   model(params) {
     return this.get('store').query('maintainer', { filter: { name: params.name } }).then((maintainers) => {
       return maintainers.get('firstObject');
     });
-  },
+  }
 
   titleToken(model) {
     return model.get('name');
-  },
-});
+  }
+}

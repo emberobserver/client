@@ -1,7 +1,9 @@
+import classic from 'ember-classic-decorator';
 import Route from '@ember/routing/route';
 import { hash } from 'rsvp';
 
-export default Route.extend({
+@classic
+export default class AddonRoute extends Route {
   model(params) {
     let name = params.name.replace(/%2F/i, '/');
     let list = this.modelFor('admin.review');
@@ -17,8 +19,9 @@ export default Route.extend({
     };
 
     return hash(data);
-  },
+  }
+
   titleToken(model) {
     return model.addon.get('name');
-  },
-});
+  }
+}

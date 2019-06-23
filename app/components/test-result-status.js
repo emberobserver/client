@@ -1,9 +1,16 @@
+import classic from 'ember-classic-decorator';
+import { classNames } from '@ember-decorators/component';
 import { computed } from '@ember/object';
 import Component from '@ember/component';
 
-export default Component.extend({
-  classNames: ['test-result-status'],
-  statusText: computed('testResult.succeeded', 'testResult.emberVersionCompatibilities.firstObject.compatible', function() {
+@classic
+@classNames('test-result-status')
+export default class TestResultStatusComponent extends Component {
+  @computed(
+    'testResult.succeeded',
+    'testResult.emberVersionCompatibilities.firstObject.compatible'
+  )
+  get statusText() {
     if (this.get('testResult.succeeded')) {
       if (this.get('testResult.emberVersionCompatibilities.firstObject.compatible')) {
         return 'Passed';
@@ -13,11 +20,12 @@ export default Component.extend({
     } else {
       return 'Error';
     }
-  }),
+  }
 
-  statusDetail: computed('testResult.succeeded', 'testResult.statusMessage', function() {
+  @computed('testResult.succeeded', 'testResult.statusMessage')
+  get statusDetail() {
     if (!this.get('testResult.succeeded')) {
       return this.get('testResult.statusMessage') || 'unknown';
     }
-  })
-});
+  }
+}

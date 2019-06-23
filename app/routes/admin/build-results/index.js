@@ -1,10 +1,13 @@
+import classic from 'ember-classic-decorator';
 import Route from '@ember/routing/route';
 import moment from 'moment';
 
-export default Route.extend({
-  queryParams: {
+@classic
+export default class IndexRoute extends Route {
+  queryParams = {
     date: { refreshModel: true }
-  },
+  };
+
   model(params) {
     params = params || { };
     if (!params.date) {
@@ -20,4 +23,4 @@ export default Route.extend({
       include: 'version,version.addon'
     });
   }
-});
+}

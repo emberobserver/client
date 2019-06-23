@@ -1,11 +1,13 @@
+import classic from 'ember-classic-decorator';
+import { action } from '@ember/object';
 import Controller from '@ember/controller';
 
-export default Controller.extend({
-  newBuildServerName: '',
+@classic
+export default class BuildServersController extends Controller {
+  newBuildServerName = '';
 
-  actions: {
-    addBuildServer() {
-      this.store.createRecord('build-server', { name: this.get('newBuildServerName') }).save();
-    }
+  @action
+  addBuildServer() {
+    this.store.createRecord('build-server', { name: this.get('newBuildServerName') }).save();
   }
-});
+}

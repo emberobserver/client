@@ -1,9 +1,15 @@
-import { filterBy, sort } from '@ember/object/computed';
+import classic from 'ember-classic-decorator';
+import { sort, filterBy } from '@ember/object/computed';
 import Component from '@ember/component';
 
-export default Component.extend({
-  categorySorting: ['position:asc'],
-  categoryLinkRoute: 'categories.show',
-  topLevelCategories: filterBy('categories', 'parent', null),
-  sortedTopLevelCategories: sort('topLevelCategories', 'categorySorting')
-});
+@classic
+export default class CategoryFinderComponent extends Component {
+  categorySorting = ['position:asc'];
+  categoryLinkRoute = 'categories.show';
+
+  @filterBy('categories', 'parent', null)
+  topLevelCategories;
+
+  @sort('topLevelCategories', 'categorySorting')
+  sortedTopLevelCategories;
+}

@@ -1,7 +1,9 @@
+import classic from 'ember-classic-decorator';
 import { hash } from 'rsvp';
 import Route from '@ember/routing/route';
 
-export default Route.extend({
+@classic
+export default class EditRoute extends Route {
   model(params) {
     let categories = this.modelFor('admin.categories');
     return hash({
@@ -9,4 +11,4 @@ export default Route.extend({
       category: this.get('store').peekAll('category').findBy('slug', params.slug)
     });
   }
-});
+}

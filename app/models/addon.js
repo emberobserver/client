@@ -1,3 +1,4 @@
+import classic from 'ember-classic-decorator';
 import { computed } from '@ember/object';
 import { gt } from '@ember/object/computed';
 import Model from 'ember-data/model';
@@ -5,47 +6,122 @@ import attr from 'ember-data/attr';
 import { hasMany, belongsTo } from 'ember-data/relationships';
 import moment from 'moment';
 
-export default Model.extend({
-  isAddon: true,
-  name: attr('string'),
-  description: attr('string'),
-  repositoryUrl: attr('string'),
-  latestVersionDate: attr('date'),
-  publishedDate: attr('date'),
-  license: attr('string'),
-  isDeprecated: attr('boolean'),
-  note: attr('string'),
-  isOfficial: attr('boolean'),
-  isCliDependency: attr('boolean'),
-  isHidden: attr('boolean'),
-  hasInvalidGithubRepo: attr('boolean'),
-  score: attr('number'),
-  ranking: attr('number'),
-  githubUsers: hasMany('github-user'),
-  lastMonthDownloads: attr('number'),
-  isWip: attr('boolean'),
-  isTopDownloaded: attr('boolean'),
-  isTopStarred: attr('boolean'),
-  demoUrl: attr('string'),
-  updatedAt: attr('date'),
-  overrideRepositoryUrl: attr('string'),
-  extendsEmber: attr('boolean'),
-  extendsEmberCli: attr('boolean'),
-  isMonorepo: attr('boolean'),
-  hasBeenReviewed: attr('boolean'),
-  githubStats: belongsTo('github-stats', { async: true }),
-  latestAddonVersion: belongsTo('version', { async: true }),
-  latestReview: belongsTo('review', { async: true }),
-  categories: hasMany('category', { async: true }),
-  keywords: hasMany('keyword', { async: true }),
-  versions: hasMany('version', { async: true }),
-  maintainers: hasMany('maintainer', { async: true }),
-  readme: belongsTo('readme', { async: true }),
-  hasMoreThan1Contributor: gt('githubUsers.length', 1),
-  npmUrl: computed('name', function() {
+@classic
+export default class AddonEmberObject extends Model {
+  isAddon = true;
+
+  @attr
+  name;
+
+  @attr
+  description;
+
+  @attr
+  repositoryUrl;
+
+  @attr
+  latestVersionDate;
+
+  @attr
+  publishedDate;
+
+  @attr
+  license;
+
+  @attr
+  isDeprecated;
+
+  @attr
+  note;
+
+  @attr
+  isOfficial;
+
+  @attr
+  isCliDependency;
+
+  @attr
+  isHidden;
+
+  @attr
+  hasInvalidGithubRepo;
+
+  @attr
+  score;
+
+  @attr
+  ranking;
+
+  @hasMany
+  githubUsers;
+
+  @attr
+  lastMonthDownloads;
+
+  @attr
+  isWip;
+
+  @attr
+  isTopDownloaded;
+
+  @attr
+  isTopStarred;
+
+  @attr
+  demoUrl;
+
+  @attr
+  updatedAt;
+
+  @attr
+  overrideRepositoryUrl;
+
+  @attr
+  extendsEmber;
+
+  @attr
+  extendsEmberCli;
+
+  @attr
+  isMonorepo;
+
+  @attr
+  hasBeenReviewed;
+
+  @belongsTo
+  githubStats;
+
+  @belongsTo
+  latestAddonVersion;
+
+  @belongsTo
+  latestReview;
+
+  @hasMany
+  categories;
+
+  @hasMany
+  keywords;
+
+  @hasMany
+  versions;
+
+  @hasMany
+  maintainers;
+
+  @belongsTo
+  readme;
+
+  @gt('githubUsers.length', 1)
+  hasMoreThan1Contributor;
+
+  @computed('name')
+  get npmUrl() {
     return `https://www.npmjs.com/package/${this.get('name')}`;
-  }),
-  isNewAddon: computed('publishedDate', function() {
+  }
+
+  @computed('publishedDate')
+  get isNewAddon() {
     return moment(this.get('publishedDate')).isAfter(moment().subtract(2, 'weeks'));
-  })
-});
+  }
+}

@@ -1,49 +1,49 @@
+import classic from 'ember-classic-decorator';
+import { action, computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
-import { computed } from '@ember/object';
 import { isEmpty } from '@ember/utils';
 import { task } from 'ember-concurrency';
 
-export default Component.extend({
-  visibleUsageCount: 25,
+@classic
+export default class AddonSourceUsagesComponent extends Component {
+  visibleUsageCount = 25;
+  showUsages = false;
+  usages = null;
+  regex = false;
+  fileFilter = null;
 
-  showUsages: false,
+  @service
+  @service
+  codeSearch;
 
-  usages: null,
-
-  regex: false,
-
-  fileFilter: null,
-
-  codeSearch: service(),
-
-  visibleUsages: computed('visibleUsageCount', 'usages', function() {
+  @computed('visibleUsageCount', 'usages')
+  get visibleUsages() {
     return this.get('usages').slice(0, this.get('visibleUsageCount'));
-  }),
+  }
 
-  moreUsages: computed('visibleUsageCount', 'usages', function() {
+  @computed('visibleUsageCount', 'usages')
+  get moreUsages() {
     return this.get('visibleUsageCount') < this.get('usages.length');
-  }),
+  }
 
-  fetchUsages: task(function* () {
-    let usages = yield this.get('codeSearch.usages').perform(this.get('addon.id'), this.get('query'), this.get('regex'));
-    this.set('usages', filterByFilePath(usages, this.get('fileFilter')));
-  }).drop(),
+  @task
+  fetchUsages;
 
-  actions: {
-    toggleUsages() {
-      this.toggleProperty('showUsages');
-      if (this.get('showUsages') && this.get('usages') === null) {
-        this.get('fetchUsages').perform();
-      }
-    },
-
-    viewMore() {
-      let newUsageCount = this.get('visibleUsageCount') + 25;
-      this.set('visibleUsageCount', newUsageCount);
+  @action
+  toggleUsages() {
+    this.toggleProperty('showUsages');
+    if (this.get('showUsages') && this.get('usages') === null) {
+      this.get('fetchUsages').perform();
     }
   }
-});
+
+  @action
+  viewMore() {
+    let newUsageCount = this.get('visibleUsageCount') + 25;
+    this.set('visibleUsageCount', newUsageCount);
+  }
+}
 
 function filterByFilePath(usages, filterTerm) {
   if (isEmpty(filterTerm)) {
