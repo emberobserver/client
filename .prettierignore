@@ -1,0 +1,61 @@
+# THIS IS BASICALLY A TODO LIST!
+
+# waiting for https://github.com/prettier/prettier/issues/6252 to be resolved
+app/templates/components/addon-source-usages.hbs
+
+# waiting for https://github.com/prettier/prettier/pull/6234 to be merged
+app/templates/about.hbs
+app/templates/admin/build-results/index.hbs
+app/templates/components/page-layout.hbs
+
+# {{~/if~}} is transformed into {{/if}}
+# I remember an issue filled for that but I can't find it
+# let's not format it for now
+app/templates/components/inline-category-list.hbs
+
+# **whitespaces / newlines issue**
+# A bug that we have to keep in mind / report / not sure what should be done
+# **Prettier 1.18.2**
+# [Playground link](https://prettier.io/playground/#.....)
+# ```sh
+# --parser=glimmer
+# ```
+
+# **Input:**
+# ```handlebars
+# {{#link-to categoryLinkRoute subcategory.slug class="test-subcategory"}}
+#   <span class="bullet">&#9632;</span>
+#   {{subcategory.name}} ({{subcategory.totalAddonCount}})
+# ```
+
+# **Output:**
+# ```handlebars
+# {{#link-to categoryLinkRoute subcategory.slug class="test-subcategory"
+# }}
+#   <span class="bullet">
+#     ■
+#   </span>
+#   {{subcategory.name}}
+#   (
+#   {{subcategory.totalAddonCount}}
+#   )
+# {{/link-to}}
+# ```
+
+# **Expected behavior:**
+# Two issues here:
+# - the first line formatting is ugly
+# - the parenthesis around handlebards helpers are not well handled (same for brackets, periods and more broadly punctuation)
+app/templates/addons/correct.hbs
+app/templates/components/admin-addon.hbs
+app/templates/components/category-finder.hbs
+app/templates/components/code-search.hbs
+app/templates/components/large-search.hbs
+app/templates/components/search-result-set.hbs
+app/templates/components/stats-bar.hbs
+app/templates/maintainers/show.hbs
+app/templates/admin/build-results/show.hbs
+app/templates/admin/review/addon.hbs
+app/templates/components/category-chooser.hbs
+app/templates/application.hbs
+app/templates/components/addon-details.hbs
