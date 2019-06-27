@@ -1,20 +1,32 @@
 <p>
-  <table class="ember-version-compatibility-list test-ember-version-compatibility-list">
+  <table
+    class="ember-version-compatibility-list test-ember-version-compatibility-list"
+  >
     <thead>
       <tr>
-        <th>Ember Version</th>
-        <th>Compatible?</th>
+        <th>
+          Ember Version
+        </th>
+        <th>
+          Compatible?
+        </th>
       </tr>
     </thead>
     <tbody>
       {{#each versionCompatibilities as |versionCompatibility|}}
         <tr class="test-ember-version-compatibility-item">
-          <td class="test-ember-version-compatibility-ember-version">{{versionCompatibility.emberVersion}}</td>
+          <td class="test-ember-version-compatibility-ember-version">
+            {{versionCompatibility.emberVersion}}
+          </td>
           <td class="test-ember-version-compatibility-test-result">
             {{#if versionCompatibility.compatible}}
-              <span class="result-passed">yes</span>
+              <span class="result-passed">
+                yes
+              </span>
             {{else}}
-              <span class="result-failed">no</span>
+              <span class="result-failed">
+                no
+              </span>
             {{/if}}
           </td>
         </tr>

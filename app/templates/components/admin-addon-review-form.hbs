@@ -1,24 +1,21 @@
-<h5>Review this addon</h5>
-<form {{action (perform saveReview) on="submit"}} class="review-form">
+<h5>
+  Review this addon
+</h5>
+<form class="review-form" {{action (perform saveReview) on="submit"}}>
   <ol>
     {{#each questions as |question|}}
       <li class="test-review-question">
-        <div class="question">{{question.text}}</div>
+        <div class="question">
+          {{question.text}}
+        </div>
         {{#exclusive-button-group
           selectedValue=(get reviewProperties question.fieldName)
-          updateSelectedValue=(action selectOption question.fieldName) as |btn|}}
-          {{component btn
-                      value=1
-                      label="Yes"}}
-          {{component btn
-                      value=2
-                      label="No"}}
-          {{component btn
-                      value=3
-                      label="N/A"}}
-          {{component btn
-                      value=4
-                      label="Unknown"}}
+          updateSelectedValue=(action selectOption question.fieldName) as |btn|
+        }}
+          {{component btn value=1 label="Yes"}}
+          {{component btn value=2 label="No"}}
+          {{component btn value=3 label="N/A"}}
+          {{component btn value=4 label="Unknown"}}
         {{/exclusive-button-group}}
       </li>
     {{/each}}
@@ -30,11 +27,17 @@
     </fieldset>
   {{/if}}
   {{#if saveReview.isIdle}}
-    <input type="submit" class="button test-addon-review-save" value="Create Review">
+    <input
+      type="submit"
+      class="button test-addon-review-save"
+      value="Create Review"
+    />
   {{else}}
-    <input type="submit" class="button" value="Saving..." disabled>
+    <input type="submit" class="button" value="Saving..." disabled />
   {{/if}}
   {{#if recentlySaved}}
-    <b>Saved!</b>
+    <b>
+      Saved!
+    </b>
   {{/if}}
 </form>

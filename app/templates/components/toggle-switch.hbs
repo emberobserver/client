@@ -1,4 +1,12 @@
 <div class="component-toggle-switch {{class}}">
-  <input type="checkbox" name="toggle-switch-{{name}}" id="toggle-switch-{{name}}" onchange={{action onToggle value="target.checked"}} checked={{isChecked}}>
-  <label for="toggle-switch-{{name}}">{{label}}</label>
+  <input
+    type="checkbox"
+    name="toggle-switch-{{name}}"
+    id="toggle-switch-{{name}}"
+    onchange={{action onToggle value="target.checked"}}
+    checked={{isChecked}}
+  />
+  <label for="toggle-switch-{{name}}">
+    {{label}}
+  </label>
 </div>

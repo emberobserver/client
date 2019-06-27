@@ -5,65 +5,84 @@
         Name:
       </label>
       {{input type="text" id="name" value=categoryName}}
-      <br>
+      <br />
       <label for="description">
         Description:
       </label>
       {{input type="text" id="description" value=categoryDescription}}
       {{#if hasSiblingCategories}}
-        <br>
+        <br />
         <label for="position">
           Position:
         </label>
-        {{category-position-dropdown name="position" position=categoryPosition updatePosition=(action (mut categoryPosition)) categories=sortedSiblingCategories}}
+        {{category-position-dropdown
+          name="position"
+          position=categoryPosition
+          updatePosition=(action (mut categoryPosition))
+          categories=sortedSiblingCategories
+        }}
       {{else}}
         {{input type="hidden" id="position" value=categoryPosition}}
       {{/if}}
-      <br>
+      <br />
       <label for="parent">
         Parent category:
       </label>
       {{#x-select name="parent" value=categoryParent}}
         {{#x-option}}(none){{/x-option}}
         {{#each alphabeticTopLevelCategories as |category|}}
-          {{#x-option value=category.id}}{{category.name}}{{/x-option}}
+          {{#x-option value=category.id}}
+            {{category.name}}
+          {{/x-option}}
         {{/each}}
       {{/x-select}}
-      <br>
-      <input type="submit" value="Save category">
+      <br />
+      <input type="submit" value="Save category" />
     </fieldset>
   </form>
-
   {{#if isTopLevelCategory}}
-    <h4>Subcategories</h4>
+    <h4>
+      Subcategories
+    </h4>
     {{#if subcategories}}
       <ol>
         {{#each subcategories as |category|}}
-          <li>{{#link-to 'admin.categories.edit' category.slug}}{{category.name}}{{/link-to}}</li>
+          <li>
+            {{#link-to "admin.categories.edit" category.slug}}
+              {{category.name}}
+            {{/link-to}}
+          </li>
         {{/each}}
       </ol>
     {{else}}
       This category has no subcategories.
     {{/if}}
-
     <form {{action "addSubcategory" on="submit"}}>
       <fieldset>
         <label for="subcategoryName">
           Name:
         </label>
         {{input type="text" id="subcategoryName" value=newCategoryName}}
-        <br>
+        <br />
         <label for="subcategoryDescription">
           Description:
         </label>
-        {{input type="text" id="subcategoryDescription" value=newCategoryDescription}}
-        <br>
+        {{input
+          type="text"
+          id="subcategoryDescription"
+          value=newCategoryDescription
+        }}
+        <br />
         <label for="subcategoryPosition">
           Position:
         </label>
-        {{category-position-dropdown name="subcategoryPosition" position=newCategoryPosition categories=subcategories}}
-        <br>
-        <input type="submit" value="Add category">
+        {{category-position-dropdown
+          name="subcategoryPosition"
+          position=newCategoryPosition
+          categories=subcategories
+        }}
+        <br />
+        <input type="submit" value="Add category" />
       </fieldset>
     </form>
   {{/if}}

@@ -1,38 +1,64 @@
-<div class="ember-version-compatibility test-ember-version-compatibility-section">
-  <h6>ember compatibility</h6>
+<div
+  class="ember-version-compatibility test-ember-version-compatibility-section"
+>
+  <h6>
+    ember compatibility
+  </h6>
   {{#if testResult.succeeded}}
     {{#if allTestsPassed}}
       <p>
         <span class="test-ember-version-compatibility-semver-compat">
-          All tests pass with Ember {{compatibilitySemverString}}
+          All tests pass with Ember
+          {{compatibilitySemverString}}
         </span>
-        <br>
+        <br />
         <em class="test-ember-version-compatibility-timestamp">
-          last ran {{relative-time date=testResult.testsRunAt}}
+          last ran
+          {{relative-time date=testResult.testsRunAt}}
         </em>
       </p>
       {{#if showTable}}
-        <a href="#" {{action "toggleShowTable"}} class="info-action test-ember-version-compatibility-show-table">Hide results</a>
-        {{ember-version-compatibility-list versionCompatibilities=sortedVersionCompatibilities}}
+        <a
+          href="#"
+          class="info-action test-ember-version-compatibility-show-table"
+          {{action "toggleShowTable"}}
+        >
+          Hide results
+        </a>
+        {{ember-version-compatibility-list
+          versionCompatibilities=sortedVersionCompatibilities
+        }}
       {{else}}
-        <a href="#" {{action "toggleShowTable"}} class="info-action test-ember-version-compatibility-show-table">Show detailed results</a>
+        <a
+          href="#"
+          class="info-action test-ember-version-compatibility-show-table"
+          {{action "toggleShowTable"}}
+        >
+          Show detailed results
+        </a>
       {{/if}}
     {{else}}
-      Tests run against Ember {{compatibilitySemverString}} but not all tests passed.
-      <br>
+      Tests run against Ember
+      {{compatibilitySemverString}}
+      but not all tests passed.
+      <br />
       <em class="test-ember-version-compatibility-timestamp">
-        last ran {{relative-time date=testResult.testsRunAt}}
+        last ran
+        {{relative-time date=testResult.testsRunAt}}
       </em>
-      {{ember-version-compatibility-list versionCompatibilities=sortedVersionCompatibilities}}
+      {{ember-version-compatibility-list
+        versionCompatibilities=sortedVersionCompatibilities
+      }}
     {{/if}}
   {{else}}
     <p>
       <span class="test-ember-version-compatibility-unknown">
         We were unable to run this addon's tests.
       </span>
-      <br>
+      <br />
       <em class="test-ember-version-compatibility-timestamp">
-        last tried {{relative-time date=testResult.testsRunAt}}
+        last tried
+        {{relative-time date=testResult.testsRunAt}}
       </em>
     </p>
   {{/if}}

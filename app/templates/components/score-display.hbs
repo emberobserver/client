@@ -6,18 +6,16 @@
   <span class="score wip">
     {{yield "WIP"}}
   </span>
+{{else if hasBeenReviewedAndScored}}
+  <span class="score" data-score={{to-fixed addon.score 0}}>
+    {{#if (is-equal addon.score 10)}}
+      {{yield (to-fixed addon.score 0)}}
+    {{else}}
+      {{yield (to-fixed addon.score 1)}}
+    {{/if}}
+  </span>
 {{else}}
-  {{#if hasBeenReviewedAndScored}}
-    <span class="score" data-score={{to-fixed addon.score 0}}>
-      {{#if (is-equal addon.score 10) }}
-        {{yield (to-fixed addon.score 0)}}
-      {{else}}
-        {{yield (to-fixed addon.score 1)}}
-      {{/if}}
-    </span>
-  {{else}}
-    <span class="score">
-      {{yield "?"}}
-    </span>
-  {{/if}}
+  <span class="score">
+    {{yield "?"}}
+  </span>
 {{/if}}

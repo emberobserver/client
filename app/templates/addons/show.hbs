@@ -2,37 +2,43 @@
   <div class="addon-info">
     <section class="test-addon-header">
       {{#if addon.isDeprecated}}
-        <label class="alert test-addon-flag-deprecation">DEPRECATED</label>
+        <label class="alert test-addon-flag-deprecation">
+          DEPRECATED
+        </label>
       {{/if}}
-
       {{#if addon.isNewAddon}}
-        <small class="test-addon-flag-new">NEW!</small>
+        <small class="test-addon-flag-new">
+          NEW!
+        </small>
       {{/if}}
-
       <h1>
         {{#if addon.isOfficial}}
           {{official-icon class="test-addon-flag-official"}}
         {{/if}}
-
         {{#if addon.isCliDependency}}
           {{dependency-icon class="test-addon-flag-cli-dependency"}}
         {{/if}}
-
         {{addon.name}}
       </h1>
-
-      <p>{{addon.description}}</p>
+      <p>
+        {{addon.description}}
+      </p>
     </section>
     {{#if addon.note}}
       {{addon-note content=addon.note}}
     {{/if}}
-
     {{#if addon.ranking}}
-      <span>{{#link-to "addons.top"}}Ranks #{{addon.ranking}} of the top 100 addons!{{/link-to}}</span>
+      <span>
+        {{#link-to "addons.top"}}
+          Ranks #{{addon.ranking}}of the top 100 addons!
+        {{/link-to}}
+      </span>
     {{/if}}
     {{score-detail addon=addon}}
     <section class="categories">
-      <h4>Categories</h4>
+      <h4>
+        Categories
+      </h4>
       <p>
         {{inline-category-list categories=addon.categories}}
         {{#unless addon.categories}}
@@ -42,50 +48,88 @@
     </section>
     {{#if hasGithubData}}
       <section class="repo-info test-github-data">
-        <h4>GitHub</h4>
-
+        <h4>
+          GitHub
+        </h4>
         {{#if addon.isTopStarred}}
-          <small>TOP 10% STARRED</small>
+          <small>
+            TOP 10% STARRED
+          </small>
         {{/if}}
         <div class="stats">
           <ul>
-            <li class="test-open-issues">{{addon.githubStats.openIssues}}<span>{{pluralize addon.githubStats.openIssues 'Open Issue'}}</span></li>
-            <li class="test-forks">{{addon.githubStats.forks}}<span>{{pluralize addon.githubStats.forks 'Fork'}}</span></li>
-            <li class="test-stars">{{addon.githubStats.stars}}<span>Starred</span></li>
-            <li class="test-contributors">{{addon.githubUsers.length}}<span>{{pluralize addon.githubUsers.length 'Contributor'}}</span></li>
+            <li class="test-open-issues">
+              {{addon.githubStats.openIssues}}
+              <span>
+                {{pluralize addon.githubStats.openIssues "Open Issue"}}
+              </span>
+            </li>
+            <li class="test-forks">
+              {{addon.githubStats.forks}}
+              <span>
+                {{pluralize addon.githubStats.forks "Fork"}}
+              </span>
+            </li>
+            <li class="test-stars">
+              {{addon.githubStats.stars}}
+              <span>
+                Starred
+              </span>
+            </li>
+            <li class="test-contributors">
+              {{addon.githubUsers.length}}
+              <span>
+                {{pluralize addon.githubUsers.length "Contributor"}}
+              </span>
+            </li>
           </ul>
         </div>
         <div class="commit-stats">
-          <strong>latest commit</strong>
-          <p class="test-latest-commit">{{relative-time date=addon.githubStats.latestCommitDate}}</p>
-
-          <strong>first commit</strong>
-          <p class="test-first-commit">{{relative-time date=addon.githubStats.firstCommitDate}}</p>
+          <strong>
+            latest commit
+          </strong>
+          <p class="test-latest-commit">
+            {{relative-time date=addon.githubStats.latestCommitDate}}
+          </p>
+          <strong>
+            first commit
+          </strong>
+          <p class="test-first-commit">
+            {{relative-time date=addon.githubStats.firstCommitDate}}
+          </p>
         </div>
       </section>
     {{/if}}
-
     <section class="latest-review">
-      <h4>Review</h4>
+      <h4>
+        Review
+      </h4>
       {{#if latestReview}}
         {{#unless isLatestReviewForLatestVersion}}
-          <em class="test-review-new-version-warning">{{svg-icon "new-releases"}} New versions of this addon have been released since this review was undertaken.</em>
+          <em class="test-review-new-version-warning">
+            {{svg-icon "new-releases"}}
+            New versions of this addon have been released since this review was undertaken.
+          </em>
         {{/unless}}
         {{addon-review review=latestReview}}
       {{else}}
-        <p class="no-review test-no-review">This addon has not yet been reviewed.</p>
+        <p class="no-review test-no-review">
+          This addon has not yet been reviewed.
+        </p>
       {{/if}}
     </section>
-
     <section class="addon-dependencies">
-      <h4>Dependencies</h4>
+      <h4>
+        Dependencies
+      </h4>
       {{dependency-table addonVersion=latestVersion}}
     </section>
-
     {{#if addon.readme}}
       {{#unless addon.hasInvalidGithubRepo}}
         <section class="readme">
-          <p class="header">README.md</p>
+          <p class="header">
+            README.md
+          </p>
           <p class="test-addon-readme contents">
             {{markdown-to-sanitized-html
               markdown=addon.readme.contents
@@ -99,14 +143,14 @@
       {{/unless}}
     {{/if}}
   </div>
-
   <div class="addon-stats">
     {{#if session.isAuthenticated}}
       {{#link-to "admin.review.addon" addon.name}}
-        <button class="button">Edit</button>
+        <button class="button">
+          Edit
+        </button>
       {{/link-to}}
     {{/if}}
-
     {{stats-bar
       addon=addon
       latestVersion=latestVersion

@@ -1,16 +1,29 @@
-<h4>Review this addon</h4>
-<form {{action "save" on="submit"}} class="review-form">
+<h4>
+  Review this addon
+</h4>
+<form class="review-form" {{action "save" on="submit"}}>
   <fieldset>
     <ol>
       {{#each questions as |question|}}
         <li>
-          <div class="question">{{question.text}}</div>
-          {{radio-button-set selectOption=(action "selectOption") valueField=question.fieldName options=questionOptions class="question-radio-buttons test-question-buttons"}}
+          <div class="question">
+            {{question.text}}
+          </div>
+          {{radio-button-set
+            selectOption=(action "selectOption")
+            valueField=question.fieldName
+            options=questionOptions
+            class="question-radio-buttons test-question-buttons"
+          }}
         </li>
       {{/each}}
     </ol>
     {{textarea value=review.review class="test-addon-review-notes"}}
-    <input type="submit" class="button test-addon-review-save" value="Create Review">
+    <input
+      type="submit"
+      class="button test-addon-review-save"
+      value="Create Review"
+    />
   </fieldset>
 </form>
 {{#if review.review}}

@@ -1,18 +1,28 @@
 <section class="score-detail">
   <h4>
     {{#score-display addon=addon as |score|}}
-      Score <b>{{score}}</b>
+      Score
+      <b>
+        {{score}}
+      </b>
     {{/score-display}}
   </h4>
   {{#if showExplanation}}
-    <a href="#" {{action "toggleExplainScore"}} class="info-action">Hide This</a>
-
+    <a href="#" class="info-action" {{action "toggleExplainScore"}}>
+      Hide This
+    </a>
     {{#unless addon.hasBeenReviewed}}
-      <p class="test-not-reviewed-warning"><em>N/A - This addon has not yet been reviewed.</em></p>
+      <p class="test-not-reviewed-warning">
+        <em>
+          N/A - This addon has not yet been reviewed.
+        </em>
+      </p>
     {{/unless}}
     {{#if this.fetchScoreCalculation.lastSuccessful.value}}
       <ul>
-        {{#each this.fetchScoreCalculation.lastSuccessful.value.info.checks as |check|}}
+        {{#each
+          this.fetchScoreCalculation.lastSuccessful.value.info.checks as |check|
+        }}
           <li class="score-component test-score-component">
             <div class="score-component-description">
               {{check.explanation}}
@@ -20,7 +30,16 @@
             <div class="score-component-numbers">
               {{#let (check-pass-proportion check) as |proportion|}}
                 Value:
-                <span class="score-component-value test-value {{score-component-color proportion}}">{{proportion}}</span>  Max Contribution: <span class="test-max-contribution">{{format-score-contribution check.maxContribution}}</span>
+                <span
+                  class="score-component-value test-value
+                    {{score-component-color proportion}}"
+                >
+                  {{proportion}}
+                </span>
+                Max Contribution:
+                <span class="test-max-contribution">
+                  {{format-score-contribution check.maxContribution}}
+                </span>
               {{/let}}
             </div>
           </li>
@@ -28,6 +47,12 @@
       </ul>
     {{/if}}
   {{else}}
-    <a href="#" {{action "toggleExplainScore"}} class="info-action test-show-score-explanation">Explain This</a>
+    <a
+      href="#"
+      class="info-action test-show-score-explanation"
+      {{action "toggleExplainScore"}}
+    >
+      Explain This
+    </a>
   {{/if}}
 </section>

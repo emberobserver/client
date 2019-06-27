@@ -1,18 +1,27 @@
 {{#if review}}
   <p class="review-date">
-    Manually reviewed on {{moment-format review.createdAt "MMMM Do YYYY" allowEmpty=true}} for version {{review.version.version}}
+    Manually reviewed on
+    {{moment-format review.createdAt "MMMM Do YYYY" allowEmpty=true}}
+    for version
+    {{review.version.version}}
   </p>
   <ol class="questions">
     {{#each answeredQuestions as |question|}}
       <li class="test-review-question">
-        <span class="question">{{question.text}}</span>
-        <span class="answer">{{question.answer}}</span>
+        <span class="question">
+          {{question.text}}
+        </span>
+        <span class="answer">
+          {{question.answer}}
+        </span>
       </li>
     {{/each}}
   </ol>
-  <br>
+  <br />
   {{#if review.review}}
-    <h6>Comments</h6>
+    <h6>
+      Comments
+    </h6>
     <fieldset class="test-review-notes">
       {{markdown-to-html markdown=review.review}}
     </fieldset>

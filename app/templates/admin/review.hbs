@@ -1,4 +1,4 @@
-<div class="route-admin-review {{if list 'with-index'}}">
+<div class="route-admin-review {{if list "with-index"}}">
   <div class="review-index test-review-index">
     <header class="list-header">
       <h1 class="test-list-select">
@@ -7,14 +7,18 @@
           selected=selectedList
           searchField="title"
           dropdownClass="test-list-select-dropdown"
-          onchange=(action selectList) as |option|}}
+          onchange=(action selectList) as |option|
+        }}
           {{option.title}}
         {{/power-select}}
       </h1>
       {{#if adminLists.find.isRunning}}
         {{dot-spinner}}
       {{else}}
-        <div class="addon-count note test-addon-count">{{addons.length}} matching addons</div>
+        <div class="addon-count note test-addon-count">
+          {{addons.length}}
+          matching addons
+        </div>
       {{/if}}
     </header>
     {{#if adminLists.find.isIdle}}
@@ -28,7 +32,9 @@
               <span class="review-addon-list-name">
                 {{addon.name}}
                 {{#if addon.isDeprecated}}
-                  <span class="notice">(Deprecated)</span>
+                  <span class="notice">
+                    (Deprecated)
+                  </span>
                 {{/if}}
               </span>
             </li>
