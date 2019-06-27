@@ -19,6 +19,10 @@ module.exports = {
     'no-trailing-spaces': true,
     'no-partial': true,
     'quotes': false,
-    'table-groups': false
+    'table-groups': false,
+
+    // disable formatting rules
+    'block-indentation': false,
+    'self-closing-void-elements': false
   }
 };
