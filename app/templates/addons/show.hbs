@@ -31,8 +31,11 @@
       <span>{{#link-to "addons.top"}}Ranks #{{addon.ranking}} of the top 100 addons!{{/link-to}}</span>
     {{/if}}
     {{score-detail addon=addon}}
-    <section class="categories">
-      <h4>Categories</h4>
+    <section id="categories" class="categories">
+      <h4>
+        Categories
+        <a href="#categories">{{svg-icon "link" title="Categories"}}</a>
+      </h4>
       <p>
         {{inline-category-list categories=addon.categories}}
         {{#unless addon.categories}}
@@ -42,7 +45,10 @@
     </section>
     {{#if hasGithubData}}
       <section class="repo-info test-github-data">
-        <h4>GitHub</h4>
+        <h4 id="githubStats">
+          GitHub
+          <a href="#githubStats">{{svg-icon "link" title="Github"}}</a>
+        </h4>
 
         {{#if addon.isTopStarred}}
           <small>TOP 10% STARRED</small>
@@ -66,7 +72,10 @@
     {{/if}}
 
     <section class="latest-review">
-      <h4>Review</h4>
+      <h4 id="review">
+        Review
+        <a href="#review">{{svg-icon "link" title="Review"}}</a>
+      </h4>
       {{#if latestReview}}
         {{#unless isLatestReviewForLatestVersion}}
           <em class="test-review-new-version-warning">{{svg-icon "new-releases"}} New versions of this addon have been released since this review was undertaken.</em>
@@ -78,7 +87,10 @@
     </section>
 
     <section class="addon-dependencies">
-      <h4>Dependencies</h4>
+      <h4 id="dependencies">
+        Dependencies
+        <a href="#dependencies">{{svg-icon "link" title="Dependencies"}}</a>
+      </h4>
       {{dependency-table addonVersion=latestVersion}}
     </section>
 
