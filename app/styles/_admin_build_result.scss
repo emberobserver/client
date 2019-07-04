@@ -3,11 +3,17 @@
     line-height: 1;
   }
 
+  summary {
+    outline: none;
+  }
+
   details > details {
     font-family: monospace;
     margin-left: 25px;
 
     & > output {
+      display: block;
+      padding-left: 14px;
       white-space: pre;
     }
   }
