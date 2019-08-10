@@ -118,9 +118,15 @@ module('Acceptance | size calculation results', function(hooks) {
     let version = server.create('version', {
       addonId: addon.id
     });
+    let output = [
+      {
+        group: 'this is the output',
+        commands: [],
+      }
+    ];
     let testResult = server.create('sizeCalculationResult', {
       versionId: version.id,
-      output: 'this is the output',
+      output: JSON.stringify(output),
       createdAt: moment('2016-08-01 12:34:56').utc()
     });
     server.db.versions.update(version, { testResultId: testResult.id });
