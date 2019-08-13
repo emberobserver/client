@@ -2,7 +2,8 @@ import { computed } from '@ember/object';
 import Component from '@ember/component';
 
 export default Component.extend({
-  classNames: ['test-result-status'],
+  tagName: '',
+
   statusText: computed('testResult.succeeded', 'testResult.emberVersionCompatibilities.firstObject.compatible', function() {
     if (this.get('testResult.succeeded')) {
       if (this.get('testResult.emberVersionCompatibilities.firstObject.compatible')) {

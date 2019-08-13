@@ -3,6 +3,8 @@ import { computed } from '@ember/object';
 import { alias, equal } from '@ember/object/computed';
 
 export default Component.extend({
+  tagName: '',
+
   isJsonFormat: equal('buildResult.outputFormat', 'json'),
 
   parsedJSON: computed('buildResult.output', function() {
