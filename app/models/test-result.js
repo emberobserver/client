@@ -1,4 +1,4 @@
-import { alias } from '@ember/object/computed';
+import { readOnly } from '@ember/object/computed';
 import DS from 'ember-data';
 
 export default DS.Model.extend({
@@ -12,5 +12,5 @@ export default DS.Model.extend({
 
   version: DS.belongsTo('version'),
   emberVersionCompatibilities: DS.hasMany('emberVersionCompatibility'),
-  testsRunAt: alias('createdAt')
+  testsRunAt: readOnly('createdAt')
 });

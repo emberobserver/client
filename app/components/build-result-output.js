@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import { alias, equal } from '@ember/object/computed';
+import { equal, readOnly } from '@ember/object/computed';
 
 export default Component.extend({
   tagName: '',
@@ -11,5 +11,5 @@ export default Component.extend({
     return JSON.parse(this.buildResult.output);
   }),
 
-  groups: alias('parsedJSON')
+  groups: readOnly('parsedJSON')
 });
