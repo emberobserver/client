@@ -14,11 +14,12 @@
 @import "login";
 @import "addons_index";
 @import "addons-list";
-@import "components/large-search";
+@import "components/build-result-output";
 @import "components/code-search";
+@import "components/dependency-table";
+@import "components/large-search";
 @import "components/spinner";
 @import "components/toggle-switch";
-@import "components/dependency-table";
 @import "maintainers_show";
 @import "not_found";
 @import "button_select";

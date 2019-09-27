@@ -1,0 +1,23 @@
+<div class="build-result-output">
+  {{#if isJsonFormat}}
+    {{#each groups as |group|}}
+      <section>
+        <details open={{group.has_failures}}>
+          <summary>{{group.group}}</summary>
+
+          {{#each group.commands as |command|}}
+            {{! template-lint-disable no-nested-interactive }}
+            <details open={{command.failed}}>
+              <summary>{{command.command}} {{if command.elapsedTime (concat '(' command.elapsedTime 's)')}}</summary>
+              <output>{{command.output}}</output>
+            </details>
+          {{/each}}
+        </details>
+      </section>
+    {{/each}}
+  {{else}}
+    <pre class="test-output">
+      {{@buildResult.output}}
+    </pre>
+  {{/if}}
+</div>
