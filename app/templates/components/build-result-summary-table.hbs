@@ -1,0 +1,25 @@
+<table data-test-results-table>
+  <thead>
+    <tr>
+      <th>Scenario</th>
+      <th>Result</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each this.scenarios as |scenario|}}
+      <tr>
+        <td>{{scenario.scenarioName}}</td>
+        <td>
+          {{#if scenario.passed}}
+            Passed
+          {{else}}
+            Failed
+            {{#if scenario.allowedToFail}}
+              (allowed)
+            {{/if}}
+          {{/if}}
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

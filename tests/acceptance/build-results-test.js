@@ -2,6 +2,7 @@ import { findAll, click, currentURL, currentRouteName, visit } from '@ember/test
 import { module, test } from 'qunit';
 import { percySnapshot } from 'ember-percy';
 import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
+import emberTryScenario from 'ember-observer/tests/helpers/ember-try-scenario';
 import findByText from '../helpers/find-by-text';
 import login from 'ember-observer/tests/helpers/login';
 import moment from 'moment';
@@ -235,6 +236,37 @@ module('Acceptance | build results', function(hooks) {
       await visit(`/admin/build-results/${testResult.id}`);
 
       assert.dom('.test-retry-build').doesNotExist('no "retry" button should be displayed');
+    });
+
+    test('when test result has ember-try results, displays a summary table', async function(assert) {
+      let testResult = server.create('testResult', {
+        version: server.create('version'),
+        succeeded: true,
+        emberTryResults: {
+          scenarios: [
+            emberTryScenario('3.4'),
+            emberTryScenario('3.8'),
+            emberTryScenario('3.12'),
+            emberTryScenario('3.13')
+          ]
+        }
+      });
+
+      await visit(`/admin/build-results/${testResult.id}`);
+
+      assert.dom('[data-test-results-table]').exists();
+    });
+
+    test('when test result does not have ember-try results, does not display summary table', async function(assert) {
+      let testResult = server.create('testResult', {
+        version: server.create('version'),
+        succeeded: true,
+        emberTryResults: null
+      });
+
+      await visit(`/admin/build-results/${testResult.id}`);
+
+      assert.dom('[data-test-results-table]').doesNotExist();
     });
   });
 });
