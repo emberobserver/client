@@ -1,6 +1,5 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import { inject as service } from '@ember/service';
 import { task } from 'ember-concurrency';
 import { isEmpty } from '@ember/utils';
 
@@ -11,18 +10,20 @@ export default Component.extend({
 
   showingAllDependencies: false,
 
-  store: service(),
+  collapsed: false,
 
   init() {
     this._super(...arguments);
-    this.get('fetchDependencies').perform();
+    if (!this.collapsed) {
+      this.get('loadDependencies').perform();
+    }
   },
 
-  fetchDependencies: task(function * () {
-    let addonVersionId = this.get('addonVersion.id');
-    let results = yield this.store.query('addon-dependency', { filter: { addonVersionId }, sort: 'package' });
-    this.set('dependencies',  results.filter((dep) => dep.isDependency));
-    this.set('devDependencies',  results.filter((dep) => dep.isDevDependency));
+  loadDependencies: task(function * () {
+    let { dependencies, devDependencies } = yield this.fetchData();
+    this.set('dependencies',  dependencies);
+    this.set('devDependencies',  devDependencies);
+    this.set('collapsed', false);
   }),
 
   addonHasDependencies: computed('dependencies', 'devDependencies', function() {

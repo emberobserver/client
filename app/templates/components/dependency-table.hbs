@@ -1,60 +1,70 @@
-{{#if addonHasDependencies}}
-  <p class="description">Version {{addonVersion.version}} of this addon depends on the following addons:</p>
-  <div class="dependency-table">
-    <div>
-      <table class="version-dependencies test-dev-dependencies">
-        <tr>
-          <th>Dev Dependencies</th>
-        </tr>
-        {{#each devDependencies as |dependency index|}}
-          {{#if (or showingAllDependencies (lt index limit))}}
-            <tr>
-              <td class="test-dependency-name">
-                {{#link-to "addons.show" dependency.package}}{{dependency.package}}{{/link-to}}
-              </td>
-            </tr>
-          {{/if}}
-        {{else}}
-          <tr><td>None</td></tr>
-        {{/each}}
-        {{#if hasHiddenDevDependencies}}
-          <tr><td>...</td></tr>
-          <tr>
-            <td>
-              <a href="#" class="more test-show-all-dependencies" {{action (mut showingAllDependencies) true}}>Show {{hiddenDevDependencyCount}} more</a>
-            </td>
-          </tr>
-        {{/if}}
-      </table>
-    </div>
-    <div>
-      <table class="version-dependencies test-dependencies">
-        <tr>
-          <th>Dependencies</th>
-        </tr>
-        {{#each dependencies as |dependency index|}}
-          {{#if (or showingAllDependencies (lt index limit))}}
-            <tr>
-              <td class="test-dependency-name">
-                {{#link-to "addons.show" dependency.package}}{{dependency.package}}{{/link-to}}
-              </td>
-            </tr>
-          {{/if}}
-        {{else}}
-          <tr><td>None</td></tr>
-        {{/each}}
-        {{#if hasHiddenDependencies}}
-          <tr><td>...</td></tr>
-          <tr>
-            <td>
-              <a href="#" class="more test-show-all-dependencies" {{action (mut showingAllDependencies) true}}>Show {{hiddenDependencyCount}} more</a>
-            </td>
-          </tr>
-        {{/if}}
-      </table>
-    </div>
-  </div>
-  <hr>
+{{#if collapsed}}
+  {{#if loadDependencies.isRunning}}
+    <p class="uncollapse">{{dot-spinner}}</p>
+  {{else if loadDependencies.last.isError}}
+    <p class="uncollapse test-uncollapse-error">Unable to load addons</p>
+  {{else}}
+    <a href="#" class="uncollapse test-show-dependents" {{action (perform loadDependencies)}}>Show addons</a>
+  {{/if}}
 {{else}}
-  <p class="no-addons description test-no-addons-message">Version {{addonVersion.version}} of this addon does not depend on any other addons.</p>
+  {{#if addonHasDependencies}}
+    <p class="description">{{description}}</p>
+    <div class="dependency-table">
+      <div>
+        <table class="version-dependencies test-dev-dependencies">
+          <tr>
+            <th>Dev Dependencies</th>
+          </tr>
+          {{#each devDependencies as |dependency index|}}
+            {{#if (or showingAllDependencies (lt index limit))}}
+              <tr>
+                <td class="test-dependency-name">
+                  {{#link-to "addons.show" dependency}}{{dependency}}{{/link-to}}
+                </td>
+              </tr>
+            {{/if}}
+          {{else}}
+            <tr><td>None</td></tr>
+          {{/each}}
+          {{#if hasHiddenDevDependencies}}
+            <tr><td>...</td></tr>
+            <tr>
+              <td>
+                <a href="#" class="more test-show-all-dependencies" {{action (mut showingAllDependencies) true}}>Show {{hiddenDevDependencyCount}} more</a>
+              </td>
+            </tr>
+          {{/if}}
+        </table>
+      </div>
+      <div>
+        <table class="version-dependencies test-dependencies">
+          <tr>
+            <th>Dependencies</th>
+          </tr>
+          {{#each dependencies as |dependency index|}}
+            {{#if (or showingAllDependencies (lt index limit))}}
+              <tr>
+                <td class="test-dependency-name">
+                  {{#link-to "addons.show" dependency}}{{dependency}}{{/link-to}}
+                </td>
+              </tr>
+            {{/if}}
+          {{else}}
+            <tr><td>None</td></tr>
+          {{/each}}
+          {{#if hasHiddenDependencies}}
+            <tr><td>...</td></tr>
+            <tr>
+              <td>
+                <a href="#" class="more test-show-all-dependencies" {{action (mut showingAllDependencies) true}}>Show {{hiddenDependencyCount}} more</a>
+              </td>
+            </tr>
+          {{/if}}
+        </table>
+      </div>
+    </div>
+    <hr>
+  {{else}}
+    <p class="no-addons description test-no-addons-message">{{noAddonsMessage}}</p>
+  {{/if}}
 {{/if}}

@@ -4,6 +4,7 @@ import { belongsTo, hasMany } from 'ember-data/relationships';
 
 export default Model.extend({
   version: attr('string'),
+  addonName: attr('string'),
   released: attr('date'),
   emberCliVersion: attr('string'),
   addon: belongsTo('addon', { inverse: 'versions' }),
