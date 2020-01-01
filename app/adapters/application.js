@@ -8,6 +8,7 @@ export default JSONAPIAdapter.extend({
     if (this.get('session.isAuthenticated')) {
       return this.get('session.header');
     }
+    return null;
   }),
   shouldBackgroundReloadRecord() {
     return false;

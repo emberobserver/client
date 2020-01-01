@@ -119,7 +119,7 @@ export default Component.extend({
   },
 
   focus() {
-    this.$(this.get('focusNode')).focus();
+    document.querySelector(this.get('focusNode')).focus();
   },
 
   isUpdatingResults: readOnly('applyFileFilter.isRunning'),

@@ -10,5 +10,6 @@ export default AjaxService.extend({
     if (this.get('session.isAuthenticated')) {
       return this.get('session.header');
     }
+    return null;
   })
 });

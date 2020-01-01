@@ -17,7 +17,7 @@ const Router = EmberRouter.extend(RouterScroll, {
   },
 
   routeDidChange() {
-    this._trackPage();
+    scheduleOnce('afterRender', this, this._trackPage);
     performance.mark('routeDidChange');
   },
 
@@ -28,21 +28,19 @@ const Router = EmberRouter.extend(RouterScroll, {
   previousPage: null,
 
   _trackPage() {
-    scheduleOnce('afterRender', this, () => {
-      let page = document.location.pathname;
-      let title = this.getWithDefault('currentRouteName', 'unknown');
-      let previousPage = this.get('previousPage');
-      let hasQuery = /query=/.test(document.location.search);
+    let page = document.location.pathname;
+    let title = this.getWithDefault('currentRouteName', 'unknown');
+    let previousPage = this.get('previousPage');
+    let hasQuery = /query=/.test(document.location.search);
 
-      if (hasQuery) {
-        page = `${page}/?query=`;
-      }
+    if (hasQuery) {
+      page = `${page}/?query=`;
+    }
 
-      if (page !== previousPage) {
-        this.set('previousPage', page);
-        get(this, 'metrics').trackPage({ page, title });
-      }
-    });
+    if (page !== previousPage) {
+      this.set('previousPage', page);
+      get(this, 'metrics').trackPage({ page, title });
+    }
   }
 });
 

@@ -128,7 +128,7 @@ export default Component.extend({
     return null;
   }),
   focus() {
-    this.$(this.get('focusNode')).focus();
+    document.querySelector(this.get('focusNode')).focus();
   },
   clearSearch() {
     this.get('metrics').trackEvent({ category: 'Clear Search', action: `Clear on ${document.location.pathname}` });

@@ -20,5 +20,6 @@ export default Component.extend({
     if (!this.get('testResult.succeeded')) {
       return this.get('testResult.statusMessage') || 'unknown';
     }
+    return null;
   })
 });
