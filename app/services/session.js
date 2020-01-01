@@ -27,8 +27,9 @@ export default Service.extend({
           reject();
         }
       });
-    }).catch(function() {
+    }).catch(function(e) {
       session.clearToken();
+      console.error(e);
       console.log('Failed logging in'); // eslint-disable-line no-console
     });
   },

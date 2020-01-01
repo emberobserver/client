@@ -14,6 +14,7 @@ export default Component.extend({
 
       return { host, pathname };
     }
+    return null;
   }),
   domain: computed('parsed.host', function() {
     return this.getWithDefault('parsed.host', '').replace(/^(www.)?/, '');

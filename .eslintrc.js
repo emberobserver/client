@@ -1,8 +1,12 @@
 module.exports = {
   root: true,
+  parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 2018,
-    sourceType: 'module'
+    sourceType: 'module',
+    ecmaFeatures: {
+      legacyDecorators: true
+    }
   },
   plugins: [
     'ember'
@@ -18,7 +22,8 @@ module.exports = {
     // TODO: Enable and correct violations
     'ember/avoid-leaking-state-in-ember-objects': 'off',
     'ember/closure-actions': 'off',
-    'ember/use-brace-expansion': 'off'
+    'ember/use-brace-expansion': 'off',
+    'ember/no-jquery': 'error'
   },
   overrides: [
     // tests
@@ -42,8 +47,7 @@ module.exports = {
         'server/**/*.js',
       ],
       parserOptions: {
-        sourceType: 'script',
-        ecmaVersion: 2015
+        sourceType: 'script'
       },
       env: {
         browser: false,
