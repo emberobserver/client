@@ -21,7 +21,7 @@ export default Controller.extend({
       'name': ['name:asc'],
       'score': ['isDeprecated:asc', 'score:desc']
     };
-    let sortKey = sortKeyMapping[this.get('addonSortKey')] || sortKeyMapping.score;
+    let sortKey = sortKeyMapping[this.addonSortKey] || sortKeyMapping.score;
     return sortKey;
   }),
 

@@ -7,10 +7,10 @@ export default Component.extend({
   showAll: false,
   emberVersions: service(),
   showingVersions: computed('versions', 'showAll', function() {
-    if (this.get('showAll')) {
-      return this.get('versions');
+    if (this.showAll) {
+      return this.versions;
     }
-    return (this.get('versions') || []).slice(0, 10);
+    return (this.versions || []).slice(0, 10);
   }),
   emberVersionDataAfterOldestShowingAddonVersion: computed('emberVersions.versions.[]', 'showingVersions.lastObject', function() {
     let oldestVersionDate = this.get('showingVersions.lastObject.released');
@@ -25,7 +25,7 @@ export default Component.extend({
 
   moreThan10Versions: gt('versions.length', 10),
   thereAreHiddenVersions: computed('moreThan10Versions', 'showAll', function() {
-    return this.get('moreThan10Versions') && !this.get('showAll');
+    return this.moreThan10Versions && !this.showAll;
   }),
   actions: {
     showAllVersions() {

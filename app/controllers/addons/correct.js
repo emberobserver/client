@@ -8,10 +8,10 @@ export default Controller.extend({
       this.api.request('/corrections', {
         method: 'POST',
         data: {
-          name: this.get('name'),
-          email: this.get('email'),
+          name: this.name,
+          email: this.email,
           addon: this.get('model.name'),
-          correction: this.get('correction'),
+          correction: this.correction,
         },
       }).then(() => {
         this.transitionToRoute('addons.show', this.get('model.name'));

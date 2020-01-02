@@ -14,12 +14,12 @@ export default Component.extend({
   metrics: service(),
   searchService: service('search'),
   categories: computed(function() {
-    return this.get('store').peekAll('category');
+    return this.store.peekAll('category');
   }),
   goSearch(term) {
     if (!isBlank(term)) {
-      this.get('metrics').trackEvent({ category: 'Header search', action: `Search on ${document.location.pathname}`, label: this.get('searchTerm') });
-      this.get('routing').transitionTo('index', { queryParams: { query: term } });
+      this.metrics.trackEvent({ category: 'Header search', action: `Search on ${document.location.pathname}`, label: this.searchTerm });
+      this.routing.transitionTo('index', { queryParams: { query: term } });
     }
   },
   searchForAddons: task(function* (term) {
@@ -29,7 +29,7 @@ export default Component.extend({
 
     yield timeout(250);
 
-    this.get('metrics').trackEvent({ category: 'Header autocomplete', action: `Autocomplete on ${document.location.pathname}`, label: term });
+    this.metrics.trackEvent({ category: 'Header autocomplete', action: `Autocomplete on ${document.location.pathname}`, label: term });
     let results = yield this.get('searchService.searchAddonNames').perform(term);
     let limitedResults = results.slice(0, 5);
     if (!limitedResults.length) {
@@ -47,13 +47,13 @@ export default Component.extend({
       this.goSearch(options.searchText);
     } else {
       this.set('selectedAddon', selected);
-      yield this.get('routing').transitionTo('addons.show', selected);
+      yield this.routing.transitionTo('addons.show', selected);
       this.set('selectedAddon', null);
     }
   }),
   logoutUser() {
-    this.get('session').close().finally(() => {
-      this.get('routing').transitionTo('index');
+    this.session.close().finally(() => {
+      this.routing.transitionTo('index');
     });
   }
 });

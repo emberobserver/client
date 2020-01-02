@@ -9,10 +9,10 @@ export default Component.extend({
   ],
   actions: {
     save() {
-      this.sendAction('save', this.get('review'));
+      this.sendAction('save', this.review);
     },
     selectOption(fieldName, value) {
-      this.get('review').set(fieldName, value);
+      this.review.set(fieldName, value);
     }
   }
 });

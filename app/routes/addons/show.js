@@ -7,11 +7,11 @@ export default Route.extend({
 
   model(params) {
     let name = params.name.replace(/%2F/i, '/');
-    let addon = this.get('store').query('addon', { filter: { name }, include: 'versions,maintainers,keywords,latest-review,latest-review.version,latest-addon-version,categories', page: { limit: 1 } }, { reload: true }).then((addons) => {
+    let addon = this.store.query('addon', { filter: { name }, include: 'versions,maintainers,keywords,latest-review,latest-review.version,latest-addon-version,categories', page: { limit: 1 } }, { reload: true }).then((addons) => {
       return addons.get('firstObject');
     });
 
-    let latestTestResult = this.get('store').query('test-result', { filter: { canary: false, addonName: name }, sort: '-createdAt', page: { limit: 1 }, include: 'ember-version-compatibilities,version' }).then((results) => {
+    let latestTestResult = this.store.query('test-result', { filter: { canary: false, addonName: name }, sort: '-createdAt', page: { limit: 1 }, include: 'ember-version-compatibilities,version' }).then((results) => {
       return results.get('firstObject');
     });
 
@@ -21,7 +21,7 @@ export default Route.extend({
     };
 
     if (this.get('session.isAuthenticated')) {
-      data.categories = this.get('store').findAll('category', { include: 'subcategories' });
+      data.categories = this.store.findAll('category', { include: 'subcategories' });
     }
 
     return hash(data);

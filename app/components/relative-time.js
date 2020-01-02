@@ -7,7 +7,7 @@ export default Component.extend({
 
   date: null,
   isoDate: computed('date', function() {
-    let date = this.get('date');
+    let date = this.date;
     return date ? date.toISOString() : null;
   })
 });

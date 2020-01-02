@@ -40,7 +40,7 @@ export default Service.extend({
   },
   isAuthenticated: isPresent('token'),
   header: computed('token', function() {
-    return { 'Authorization': `Token token=${this.get('token')}` };
+    return { 'Authorization': `Token token=${this.token}` };
   })
 });
 

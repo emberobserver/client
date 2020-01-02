@@ -4,10 +4,10 @@ import Component from '@ember/component';
 
 export default Component.extend({
   parsed: computed('url', function() {
-    if (this.get('url')) {
+    if (this.url) {
       let a = document.createElement('a');
 
-      a.href = this.get('url');
+      a.href = this.url;
 
       let host = a.hostname;
       let pathname = a.pathname.replace(/^\/?/, '/');

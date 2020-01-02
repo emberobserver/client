@@ -11,7 +11,7 @@ export default Service.extend({
   addons: task(function* (query, regex) {
     let addons;
 
-    let { results } = yield this.get('api').request('/search/addons', {
+    let { results } = yield this.api.request('/search/addons', {
       params: {
         query, regex
       }
@@ -19,9 +19,9 @@ export default Service.extend({
 
     if (results.length < (4 * PageSize)) {
       let idsParam = results.map((r) => r.addon).join(',');
-      addons = yield this.get('store').query('addon', { filter: { id: idsParam }, include: 'categories' })
+      addons = yield this.store.query('addon', { filter: { id: idsParam }, include: 'categories' })
     } else {
-      addons = yield this.get('store').query('addon', { filter: { codeSearch: true }, include: 'categories', page: { limit: 10000 } });
+      addons = yield this.store.query('addon', { filter: { codeSearch: true }, include: 'categories', page: { limit: 10000 } });
     }
     return results.map((result) => {
       let addon = addons.find((a) => a.get('id') === result.addon);
@@ -32,7 +32,7 @@ export default Service.extend({
   }),
 
   usages: task(function* (addon, query, regex) {
-    let response = yield this.get('api').request('/search/source', {
+    let response = yield this.api.request('/search/source', {
       params: {
         addon, query, regex
       }

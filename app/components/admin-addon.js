@@ -22,13 +22,13 @@ export default Component.extend({
   },
   saveAddon: task(function* () {
     try {
-      yield this.get('addon').save();
+      yield this.addon.save();
     } catch(e) {
       window.alert('Failed to save addon');
     }
   }).drop(),
   renewLatestReview: task(function* () {
-    let newReview = this.get('store').createRecord('review');
+    let newReview = this.store.createRecord('review');
     let latestReview = this.get('addon.latestReview');
 
     questions.forEach(function(question) {

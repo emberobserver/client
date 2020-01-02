@@ -26,9 +26,9 @@ export default DS.Model.extend({
     function() {
       let s = 2;
       /* eslint-disable */
-      if (this.get('hasTests') === 1) { s++; }
-      if (this.get('hasBuild') === 1) { s++; }
-      if (this.get('hasReadme') === 1) { s++; }
+      if (this.hasTests === 1) { s++; }
+      if (this.hasBuild === 1) { s++; }
+      if (this.hasReadme === 1) { s++; }
       /* eslint-enable */
       return s;
     }

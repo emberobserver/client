@@ -5,7 +5,7 @@ export default Controller.extend({
 
   actions: {
     addBuildServer() {
-      this.store.createRecord('build-server', { name: this.get('newBuildServerName') }).save();
+      this.store.createRecord('build-server', { name: this.newBuildServerName }).save();
     }
   }
 });

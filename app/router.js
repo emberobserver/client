@@ -30,7 +30,7 @@ const Router = EmberRouter.extend(RouterScroll, {
   _trackPage() {
     let page = document.location.pathname;
     let title = this.getWithDefault('currentRouteName', 'unknown');
-    let previousPage = this.get('previousPage');
+    let previousPage = this.previousPage;
     let hasQuery = /query=/.test(document.location.search);
 
     if (hasQuery) {
@@ -39,7 +39,7 @@ const Router = EmberRouter.extend(RouterScroll, {
 
     if (page !== previousPage) {
       this.set('previousPage', page);
-      get(this, 'metrics').trackPage({ page, title });
+      this.metrics.trackPage({ page, title });
     }
   }
 });

@@ -40,11 +40,11 @@ export default Controller.extend({
 
   actions: {
     addSubcategory() {
-      let newCategory = this.get('store').createRecord('category', {
-        name: this.get('newCategoryName'),
-        description: this.get('newCategoryDescription'),
-        position: this.get('newCategoryPosition'),
-        parent: this.get('category')
+      let newCategory = this.store.createRecord('category', {
+        name: this.newCategoryName,
+        description: this.newCategoryDescription,
+        position: this.newCategoryPosition,
+        parent: this.category
       });
       newCategory.save().then(() => {
         this.transitionToRoute('admin.categories.index');
@@ -54,10 +54,10 @@ export default Controller.extend({
       });
     },
     updateCategory() {
-      let category = this.get('category');
+      let category = this.category;
 
-      let parentId = this.get('categoryParent');
-      let position = this.get('categoryPosition');
+      let parentId = this.categoryParent;
+      let position = this.categoryPosition;
 
       if (parentId === category.get('id')) {
         alert("You can't make a category a subcategory of itself");
@@ -69,13 +69,13 @@ export default Controller.extend({
         position = -1;
       }
 
-      category.set('name', this.get('categoryName'));
-      category.set('description', this.get('categoryDescription'));
+      category.set('name', this.categoryName);
+      category.set('description', this.categoryDescription);
       category.set('position', position);
 
       let findPromise;
       if (parentId) {
-        findPromise = this.get('store').find('category', parentId);
+        findPromise = this.store.find('category', parentId);
       } else {
         findPromise = new EmberPromise((resolve) => resolve(null));
       }

@@ -19,8 +19,8 @@ export default Component.extend({
     this.set(`reviewProperties.${fieldName}`, value);
   },
   saveReview: task(function* () {
-    let newReview = this.get('store').createRecord('review', this.get('reviewProperties'));
-    newReview.set('review', this.get('reviewText'));
+    let newReview = this.store.createRecord('review', this.reviewProperties);
+    newReview.set('review', this.reviewText);
     newReview.set('version', this.get('addon.latestAddonVersion'));
     try {
       yield newReview.save();
