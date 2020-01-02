@@ -1,12 +1,12 @@
 <section class="admin-build-result-nav">
-  <LinkTo @route="admin.build-results.index" @query={{hash date=formattedPreviousDate}} class="previous-day">
+  <LinkTo @route="admin.build-results.index" @query={{hash date=this.formattedPreviousDate}} class="previous-day">
     &laquo; previous day
   </LinkTo>
 
-  Builds for {{formattedDisplayDate}}
+  Builds for {{this.formattedDisplayDate}}
 
-  {{#if showFollowingDayLink}}
-    <LinkTo @route="admin.build-results.index" @query={{hash date=formattedFollowingDate}} class="next-day">
+  {{#if this.showFollowingDayLink}}
+    <LinkTo @route="admin.build-results.index" @query={{hash date=this.formattedFollowingDate}} class="next-day">
       next day &raquo;
     </LinkTo>
   {{/if}}
@@ -24,7 +24,7 @@
     </tr>
   </thead>
   <tbody>
-    {{#each sortedBuildResults as |testResult|}}
+    {{#each this.sortedBuildResults as |testResult|}}
       <tr class="test-build-result" data-testResultId={{testResult.id}}>
         <td>
           <LinkTo @route="addons.show" @model={{testResult.version.addon.name}}>

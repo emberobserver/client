@@ -1,3 +1,3 @@
-<button {{action onSelect option}} class={{if isSelected 'selected'}}>
-  {{option.label}}
+<button {{action this.onSelect this.option}} class={{if this.isSelected 'selected'}}>
+  {{this.option.label}}
 </button>

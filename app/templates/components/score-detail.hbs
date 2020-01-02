@@ -1,13 +1,13 @@
 <section class="score-detail">
   <h4>
-    <ScoreDisplay @addon={{addon}} as |score|>
+    <ScoreDisplay @addon={{this.addon}} as |score|>
       Score <b>{{score}}</b>
     </ScoreDisplay>
   </h4>
-  {{#if showExplanation}}
+  {{#if this.showExplanation}}
     <a href="#" {{action "toggleExplainScore"}} class="info-action">Hide This</a>
 
-    {{#unless addon.hasBeenReviewed}}
+    {{#unless this.addon.hasBeenReviewed}}
       <p class="test-not-reviewed-warning"><em>N/A - This addon has not yet been reviewed.</em></p>
     {{/unless}}
     {{#if this.fetchScoreCalculation.lastSuccessful.value}}

@@ -1,20 +1,20 @@
-<div class="route-admin-review {{if list 'with-index'}}">
+<div class="route-admin-review {{if this.list 'with-index'}}">
   <div class="review-index test-review-index">
     <header class="list-header">
       <h1 class="test-list-select">
-        <PowerSelect @options={{possibleLists}} @selected={{selectedList}} @searchField="title" @dropdownClass="test-list-select-dropdown" @onchange={{action selectList}} as |option|>
+        <PowerSelect @options={{this.possibleLists}} @selected={{this.selectedList}} @searchField="title" @dropdownClass="test-list-select-dropdown" @onchange={{action this.selectList}} as |option|>
           {{option.title}}
         </PowerSelect>
       </h1>
-      {{#if adminLists.find.isRunning}}
+      {{#if this.adminLists.find.isRunning}}
         <DotSpinner />
       {{else}}
-        <div class="addon-count note test-addon-count">{{addons.length}} matching addons</div>
+        <div class="addon-count note test-addon-count">{{this.addons.length}} matching addons</div>
       {{/if}}
     </header>
-    {{#if adminLists.find.isIdle}}
+    {{#if this.adminLists.find.isIdle}}
       <ul class="review-addon-list">
-        {{#each addons as |addon|}}
+        {{#each this.addons as |addon|}}
           <LinkTo @route="admin.review.addon" @model={{addon.name}}>
             <li class="test-review-list-item">
               <ScoreDisplay @addon={{addon}} as |score|>

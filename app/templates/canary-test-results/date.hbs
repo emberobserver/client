@@ -1,18 +1,18 @@
 <section class="admin-build-result-nav">
-  <LinkTo @route="canary-test-results.date" @model={{formattedPreviousDate}} class="previous-day">
+  <LinkTo @route="canary-test-results.date" @model={{this.formattedPreviousDate}} class="previous-day">
     &laquo; previous day
   </LinkTo>
 
-  Canary test results for {{formattedDisplayDate}}
+  Canary test results for {{this.formattedDisplayDate}}
 
-  {{#if showFollowingDayLink}}
-    <LinkTo @route="canary-test-results.date" @model={{formattedFollowingDate}} class="next-day">
+  {{#if this.showFollowingDayLink}}
+    <LinkTo @route="canary-test-results.date" @model={{this.formattedFollowingDate}} class="next-day">
       next day &raquo;
     </LinkTo>
   {{/if}}
 </section>
 
-<CanaryTestResultSummary @testResults={{model.testResults}} />
+<CanaryTestResultSummary @testResults={{this.model.testResults}} />
 
 <table>
   <thead>
@@ -25,7 +25,7 @@
     </tr>
   </thead>
   <tbody>
-    {{#each model.testResults as |testResult|}}
+    {{#each this.model.testResults as |testResult|}}
       <tr class="canary-test-result">
         <td>
           <LinkTo @route="addons.show" @model={{testResult.version.addon.name}}>

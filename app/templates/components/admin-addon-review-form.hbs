@@ -1,10 +1,10 @@
 <h5>Review this addon</h5>
-<form {{action (perform saveReview) on="submit"}} class="review-form">
+<form {{action (perform this.saveReview) on="submit"}} class="review-form">
   <ol>
-    {{#each questions as |question|}}
+    {{#each this.questions as |question|}}
       <li class="test-review-question">
         <div class="question">{{question.text}}</div>
-        <ExclusiveButtonGroup @selectedValue={{get reviewProperties question.fieldName}} @updateSelectedValue={{action selectOption question.fieldName}} as |btn|>
+        <ExclusiveButtonGroup @selectedValue={{get this.reviewProperties question.fieldName}} @updateSelectedValue={{action this.selectOption question.fieldName}} as |btn|>
           {{component btn
                       value=1
                       label="Yes"}}
@@ -21,18 +21,16 @@
       </li>
     {{/each}}
   </ol>
-  <Textarea @value={{reviewText}} class="test-addon-review-notes" />
-  {{#if reviewText}}
-    <fieldset>
-      <MarkdownToHtml @markdown={{reviewText}} />
+  <Textarea @value={{this.reviewText}} class="test-addon-review-notes" />  {{#if this.reviewText}}    <fieldset>
+      <MarkdownToHtml @markdown={{this.reviewText}} />
     </fieldset>
   {{/if}}
-  {{#if saveReview.isIdle}}
+  {{#if this.saveReview.isIdle}}
     <input type="submit" class="button test-addon-review-save" value="Create Review">
   {{else}}
     <input type="submit" class="button" value="Saving..." disabled>
   {{/if}}
-  {{#if recentlySaved}}
+  {{#if this.recentlySaved}}
     <b>Saved!</b>
   {{/if}}
 </form>

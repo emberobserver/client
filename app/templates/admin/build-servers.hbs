@@ -7,7 +7,7 @@
       </tr>
     </thead>
     <tbody>
-      {{#each model as |buildServer|}}
+      {{#each this.model as |buildServer|}}
         <tr class="test-build-server-row">
           <td>{{buildServer.name}}</td>
           <td>{{buildServer.token}}</td>
@@ -21,7 +21,7 @@
       <label for='name'>
         Name:
       </label>
-      <Input @type="text" @value={{newBuildServerName}} @id="name" class="test-new-build-server-name" />
+      <Input @type="text" @value={{this.newBuildServerName}} @id="name" class="test-new-build-server-name" />
       <input type='submit' value='Add' class='test-add-new-build-server'>
     </fieldset>
   </form>

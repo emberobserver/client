@@ -1,17 +1,17 @@
 <div class="usage-count">
   <a href="#" {{action "toggleUsages"}} class="test-usage-count">
-    {{#if showUsages}}
+    {{#if this.showUsages}}
       {{svg-icon "expand-more"}}
     {{else}}
       {{svg-icon "chevron-right"}}
     {{/if}}
-    {{count}} {{pluralize count "usage"}}
+    {{this.count}} {{pluralize this.count "usage"}}
   </a>
-  {{#if showUsages}}
-    {{#if usages}}
-      {{#each visibleUsages as |usage|}}
+  {{#if this.showUsages}}
+    {{#if this.usages}}
+      {{#each this.visibleUsages as |usage|}}
         <div class="usage test-usage">
-          <a class="filename" href="{{clean-repo-url addon.repositoryUrl}}/tree/master/{{usage.filename}}#L{{usage.line_number}}">
+          <a class="filename" href="{{clean-repo-url this.addon.repositoryUrl}}/tree/master/{{usage.filename}}#L{{usage.line_number}}">
             {{usage.filename}}:{{usage.line_number}}
           </a>
           {{#each usage.lines as |line|}}
@@ -19,12 +19,12 @@
           {{/each}}
         </div>
       {{/each}}
-      {{#if moreUsages}}
+      {{#if this.moreUsages}}
         <a href="#" {{action "viewMore"}} class="view-more">
           See more usages
         </a>
       {{/if}}
-    {{else if fetchUsages.isRunning}}
+    {{else if this.fetchUsages.isRunning}}
       <div class="usage">
         <DotSpinner />
       </div>

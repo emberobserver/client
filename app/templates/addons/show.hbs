@@ -1,92 +1,92 @@
 <div class="addons-show with-default-styling">
   <div class="addon-info">
     <section class="test-addon-header">
-      {{#if addon.isDeprecated}}
+      {{#if this.addon.isDeprecated}}
         <label class="alert test-addon-flag-deprecation">DEPRECATED</label>
       {{/if}}
 
-      {{#if addon.isNewAddon}}
+      {{#if this.addon.isNewAddon}}
         <small class="test-addon-flag-new">NEW!</small>
       {{/if}}
 
       <h1>
-        {{#if addon.isOfficial}}
+        {{#if this.addon.isOfficial}}
           <OfficialIcon @class="test-addon-flag-official" />
         {{/if}}
 
-        {{#if addon.isCliDependency}}
+        {{#if this.addon.isCliDependency}}
           <DependencyIcon @class="test-addon-flag-cli-dependency" />
         {{/if}}
 
-        {{addon.name}}
+        {{this.addon.name}}
       </h1>
 
-      <p>{{addon.description}}</p>
+      <p>{{this.addon.description}}</p>
     </section>
-    {{#if addon.note}}
-      <AddonNote @content={{addon.note}} />
+    {{#if this.addon.note}}
+      <AddonNote @content={{this.addon.note}} />
     {{/if}}
 
-    {{#if addon.ranking}}
-      <span><LinkTo @route="addons.top">Ranks #{{addon.ranking}} of the top 100 addons!</LinkTo></span>
+    {{#if this.addon.ranking}}
+      <span><LinkTo @route="addons.top">Ranks #{{this.addon.ranking}} of the top 100 addons!</LinkTo></span>
     {{/if}}
-    <ScoreDetail @addon={{addon}} />
+    <ScoreDetail @addon={{this.addon}} />
     <section class="categories">
       <h4>Categories</h4>
       <p>
-        <InlineCategoryList @categories={{addon.categories}} />
-        {{#unless addon.categories}}
+        <InlineCategoryList @categories={{this.addon.categories}} />
+        {{#unless this.addon.categories}}
           This addon hasn't been categorized yet.
         {{/unless}}
       </p>
     </section>
-    {{#if hasGithubData}}
+    {{#if this.hasGithubData}}
       <section class="repo-info test-github-data">
         <h4>GitHub</h4>
 
-        {{#if addon.isTopStarred}}
+        {{#if this.addon.isTopStarred}}
           <small>TOP 10% STARRED</small>
         {{/if}}
         <div class="stats">
           <ul>
-            <li class="test-open-issues">{{addon.githubStats.openIssues}}<span>{{pluralize addon.githubStats.openIssues 'Open Issue'}}</span></li>
-            <li class="test-forks">{{addon.githubStats.forks}}<span>{{pluralize addon.githubStats.forks 'Fork'}}</span></li>
-            <li class="test-stars">{{addon.githubStats.stars}}<span>Starred</span></li>
-            <li class="test-contributors">{{addon.githubUsers.length}}<span>{{pluralize addon.githubUsers.length 'Contributor'}}</span></li>
+            <li class="test-open-issues">{{this.addon.githubStats.openIssues}}<span>{{pluralize this.addon.githubStats.openIssues 'Open Issue'}}</span></li>
+            <li class="test-forks">{{this.addon.githubStats.forks}}<span>{{pluralize this.addon.githubStats.forks 'Fork'}}</span></li>
+            <li class="test-stars">{{this.addon.githubStats.stars}}<span>Starred</span></li>
+            <li class="test-contributors">{{this.addon.githubUsers.length}}<span>{{pluralize this.addon.githubUsers.length 'Contributor'}}</span></li>
           </ul>
         </div>
         <div class="commit-stats">
           <strong>latest commit</strong>
-          <p class="test-latest-commit"><RelativeTime @date={{addon.githubStats.latestCommitDate}} /></p>
+          <p class="test-latest-commit"><RelativeTime @date={{this.addon.githubStats.latestCommitDate}} /></p>
 
           <strong>first commit</strong>
-          <p class="test-first-commit"><RelativeTime @date={{addon.githubStats.firstCommitDate}} /></p>
+          <p class="test-first-commit"><RelativeTime @date={{this.addon.githubStats.firstCommitDate}} /></p>
         </div>
       </section>
     {{/if}}
 
     <section class="latest-review">
       <h4>Review</h4>
-      {{#if latestReview}}
-        {{#unless isLatestReviewForLatestVersion}}
+      {{#if this.latestReview}}
+        {{#unless this.isLatestReviewForLatestVersion}}
           <em class="test-review-new-version-warning">{{svg-icon "new-releases"}} New versions of this addon have been released since this review was undertaken.</em>
         {{/unless}}
-        <AddonReview @review={{latestReview}} />
+        <AddonReview @review={{this.latestReview}} />
       {{else}}
         <p class="no-review test-no-review">This addon has not yet been reviewed.</p>
       {{/if}}
     </section>
 
     <section class="addon-dependencies">
-      <DependencyTables @addonVersion={{latestVersion}} @addon={{addon}} />
+      <DependencyTables @addonVersion={{this.latestVersion}} @addon={{this.addon}} />
     </section>
 
-    {{#if addon.readme}}
-      {{#unless addon.hasInvalidGithubRepo}}
+    {{#if this.addon.readme}}
+      {{#unless this.addon.hasInvalidGithubRepo}}
         <section class="readme">
           <p class="header">README.md</p>
           <p class="test-addon-readme contents">
-            <MarkdownToSanitizedHtml @markdown={{addon.readme.contents}} @tables={{true}} @ghCodeBlocks={{true}} @tasklists={{true}} @simplifiedAutoLink={{true}} />
+            <MarkdownToSanitizedHtml @markdown={{this.addon.readme.contents}} @tables={{true}} @ghCodeBlocks={{true}} @tasklists={{true}} @simplifiedAutoLink={{true}} />
           </p>
         </section>
       {{/unless}}
@@ -94,12 +94,12 @@
   </div>
 
   <div class="addon-stats">
-    {{#if session.isAuthenticated}}
-      <LinkTo @route="admin.review.addon" @model={{addon.name}}>
+    {{#if this.session.isAuthenticated}}
+      <LinkTo @route="admin.review.addon" @model={{this.addon.name}}>
         <button class="button">Edit</button>
       </LinkTo>
     {{/if}}
 
-    <StatsBar @addon={{addon}} @latestVersion={{latestVersion}} @testResult={{model.latestTestResult}} @isTestResultForLatestVersion={{isTestResultForLatestVersion}} @sortedAddonVersions={{sortedAddonVersions}} />
+    <StatsBar @addon={{this.addon}} @latestVersion={{this.latestVersion}} @testResult={{this.model.latestTestResult}} @isTestResultForLatestVersion={{this.isTestResultForLatestVersion}} @sortedAddonVersions={{this.sortedAddonVersions}} />
   </div>
 </div>

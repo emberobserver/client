@@ -1,15 +1,15 @@
 <h2 id="title">Categories</h2>
 <ul>
-  {{#each sortedTopLevelCategories as |category|}}
+  {{#each this.sortedTopLevelCategories as |category|}}
     <li title={{category.description}}>
-      <LinkTo @route={{categoryLinkRoute}} @model={{category.slug}} class="test-category">
+      <LinkTo @route={{this.categoryLinkRoute}} @model={{category.slug}} class="test-category">
         {{category.name}} ({{category.totalAddonCount}})
       </LinkTo>
     </li>
     {{#if category.subcategories}}
       {{#each category.subcategories as |subcategory|}}
         <li class="indent" title={{subcategory.description}}>
-          <LinkTo @route={{categoryLinkRoute}} @model={{subcategory.slug}} class="test-subcategory">
+          <LinkTo @route={{this.categoryLinkRoute}} @model={{subcategory.slug}} class="test-subcategory">
             <span class="bullet">&#9632;</span>
             {{subcategory.name}} ({{subcategory.totalAddonCount}})
           </LinkTo>

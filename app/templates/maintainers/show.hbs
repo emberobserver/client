@@ -1,10 +1,10 @@
 <div class="maintainers-show">
   <header>
-    <GravatarAvatar @gravatarId={{model.gravatar}} @title={{model.name}} @alt={{model.name}} />
+    <GravatarAvatar @gravatarId={{this.model.gravatar}} @title={{this.model.name}} @alt={{this.model.name}} />
     <h1>
-      {{model.name}}
+      {{this.model.name}}
     </h1>
-    <p>{{pluralize-this model.addons.length "addon"}} maintained by {{model.name}}.</p>
+    <p>{{pluralize-this this.model.addons.length "addon"}} maintained by {{this.model.name}}.</p>
   </header>
-  <AddonList @addons={{model.addons}} />
+  <AddonList @addons={{this.model.addons}} />
 </div>

@@ -6,29 +6,29 @@
              autocomplete="off"
              id="search-input"
              spellcheck="false"
-             value={{query}}
-                 oninput={{action (perform search) value="target.value"}}>
-      {{#if query}}
-        <button {{action clearSearch}} class="close-button test-clear-search">
+             value={{this.query}}
+             oninput={{action (perform this.search) value="target.value"}}>
+      {{#if this.query}}
+        <button {{action this.clearSearch}} class="close-button test-clear-search">
           {{svg-icon "close"}}
         </button>
       {{/if}}
     </div>
     <div class="readme-toggle">
-      <Input @type="checkbox" class="test-search-readmes" @id="search-readmes" @checked={{searchReadmes}} @change={{action (perform toggleReadmeSearch)}} />
+      <Input @type="checkbox" class="test-search-readmes" @id="search-readmes" @checked={{this.searchReadmes}} @change={{action (perform this.toggleReadmeSearch)}} />
       <label for="search-readmes">Search readmes</label>
     </div>
-    <h6 class="no-results {{if hasSearchedAndNoResults 'showing'}}">No results found for "{{query}}"</h6>
+    <h6 class="no-results {{if this.hasSearchedAndNoResults 'showing'}}">No results found for "{{this.query}}"</h6>
   </div>
 
-  {{#if results.length}}
-    <h4 class="result-info test-result-info">Results for "{{query}}"</h4>
-    <SearchResultSet @results={{results.displayingReadmes}} @totalCount={{results.totalReadmeCount}} @fetchMore={{fetchMoreReadmes}} @title="Readmes" @resultClass="readme-results">
+  {{#if this.results.length}}
+    <h4 class="result-info test-result-info">Results for "{{this.query}}"</h4>
+    <SearchResultSet @results={{this.results.displayingReadmes}} @totalCount={{this.results.totalReadmeCount}} @fetchMore={{this.fetchMoreReadmes}} @title="Readmes" @resultClass="readme-results">
       <ul class="readme-list">
-        {{#each results.displayingReadmes as |addon|}}
+        {{#each this.results.displayingReadmes as |addon|}}
           <li>
             <AddonDetails @addon={{addon}} />
-            {{#each (get _results.readmeMatchMap addon.id) as |match|}}
+            {{#each (get this._results.readmeMatchMap addon.id) as |match|}}
               <div class="test-readme-match text-match">
                 ...{{dom-purify match use-profiles=(hash html=true) hook='target-blank'}}...
               </div>
@@ -37,9 +37,9 @@
         {{/each}}
       </ul>
     </SearchResultSet>
-    <SearchResultSet @results={{results.displayingCategories}} @totalCount={{results.totalCategoriesCount}} @fetchMore={{fetchMoreCategories}} @title="Categories" @resultClass="category-results">
+    <SearchResultSet @results={{this.results.displayingCategories}} @totalCount={{this.results.totalCategoriesCount}} @fetchMore={{this.fetchMoreCategories}} @title="Categories" @resultClass="category-results">
       <ul>
-        {{#each results.displayingCategories as |category|}}
+        {{#each this.results.displayingCategories as |category|}}
           <li>
             <LinkTo @route="categories.show" @model={{category.slug}}>
               <span class="bullet">&#9632;</span>
@@ -49,12 +49,12 @@
         {{/each}}
       </ul>
     </SearchResultSet>
-    <SearchResultSet @results={{results.displayingAddons}} @totalCount={{results.totalAddonsCount}} @fetchMore={{fetchMoreAddons}} @title="Addons" @resultClass="addon-results">
-      <AddonList @addons={{results.displayingAddons}} />
+    <SearchResultSet @results={{this.results.displayingAddons}} @totalCount={{this.results.totalAddonsCount}} @fetchMore={{this.fetchMoreAddons}} @title="Addons" @resultClass="addon-results">
+      <AddonList @addons={{this.results.displayingAddons}} />
     </SearchResultSet>
-    <SearchResultSet @results={{results.displayingMaintainers}} @totalCount={{results.totalMaintainersCount}} @fetchMore={{fetchMoreMaintainers}} @title="Maintainers" @resultClass="maintainer-results">
+    <SearchResultSet @results={{this.results.displayingMaintainers}} @totalCount={{this.results.totalMaintainersCount}} @fetchMore={{this.fetchMoreMaintainers}} @title="Maintainers" @resultClass="maintainer-results">
       <ul>
-        {{#each results.displayingMaintainers as |maintainer|}}
+        {{#each this.results.displayingMaintainers as |maintainer|}}
           <li>
             <LinkTo @route="maintainers.show" @model={{maintainer.name}}>
               <span class="bullet">&#9632;</span>
@@ -64,7 +64,7 @@
         {{/each}}
       </ul>
     </SearchResultSet>
-  {{else if search.isRunning}}
+  {{else if this.search.isRunning}}
     <DotSpinner />
   {{/if}}
 </div>
