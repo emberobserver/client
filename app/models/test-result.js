@@ -1,16 +1,16 @@
+import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 import { readOnly } from '@ember/object/computed';
-import DS from 'ember-data';
 
-export default DS.Model.extend({
-  succeeded: DS.attr('boolean'),
-  statusMessage: DS.attr('string'),
-  createdAt: DS.attr('date'),
-  canary: DS.attr('boolean'),
-  output: DS.attr('string'),
-  outputFormat: DS.attr('string'),
-  semverString: DS.attr('string'),
+export default Model.extend({
+  succeeded: attr('boolean'),
+  statusMessage: attr('string'),
+  createdAt: attr('date'),
+  canary: attr('boolean'),
+  output: attr('string'),
+  outputFormat: attr('string'),
+  semverString: attr('string'),
 
-  version: DS.belongsTo('version'),
-  emberVersionCompatibilities: DS.hasMany('emberVersionCompatibility'),
+  version: belongsTo('version'),
+  emberVersionCompatibilities: hasMany('emberVersionCompatibility'),
   testsRunAt: readOnly('createdAt')
 });

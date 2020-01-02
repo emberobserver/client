@@ -1,7 +1,7 @@
-import DS from 'ember-data';
+import Model, { belongsTo, attr } from '@ember-data/model';
 
-export default DS.Model.extend({
-  version: DS.belongsTo('version'),
-  emberVersion: DS.attr('string'),
-  compatible: DS.attr('boolean')
+export default Model.extend({
+  version: belongsTo('version'),
+  emberVersion: attr('string'),
+  compatible: attr('boolean')
 });

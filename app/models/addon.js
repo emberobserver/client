@@ -1,9 +1,7 @@
 import classic from 'ember-classic-decorator';
 import { computed } from '@ember/object';
 import { gt } from '@ember/object/computed';
-import Model from 'ember-data/model';
-import attr from 'ember-data/attr';
-import { hasMany, belongsTo } from 'ember-data/relationships';
+import Model, { hasMany, belongsTo, attr } from '@ember-data/model';
 import moment from 'moment';
 
 @classic
