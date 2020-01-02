@@ -1,18 +1,18 @@
 <section class="admin-build-result-nav">
-  {{#link-to 'canary-test-results.date' formattedPreviousDate class='previous-day'}}
+  <LinkTo @route="canary-test-results.date" @model={{formattedPreviousDate}} class="previous-day">
     &laquo; previous day
-  {{/link-to}}
+  </LinkTo>
 
   Canary test results for {{formattedDisplayDate}}
 
   {{#if showFollowingDayLink}}
-    {{#link-to 'canary-test-results.date' formattedFollowingDate class='next-day'}}
+    <LinkTo @route="canary-test-results.date" @model={{formattedFollowingDate}} class="next-day">
       next day &raquo;
-    {{/link-to}}
+    </LinkTo>
   {{/if}}
 </section>
 
-{{canary-test-result-summary testResults=model.testResults}}
+<CanaryTestResultSummary @testResults={{model.testResults}} />
 
 <table>
   <thead>
@@ -28,9 +28,9 @@
     {{#each model.testResults as |testResult|}}
       <tr class="canary-test-result">
         <td>
-          {{#link-to 'addons.show' testResult.version.addon.name}}
+          <LinkTo @route="addons.show" @model={{testResult.version.addon.name}}>
             {{testResult.version.addon.name}}
-          {{/link-to}}
+          </LinkTo>
         </td>
         <td>
           {{testResult.version.version}}
@@ -39,12 +39,12 @@
           {{testResult.emberVersionCompatibilities.firstObject.emberVersion}}
         </td>
         <td class="test-result {{test-result-status-class testResult}}">
-          {{test-result-status testResult=testResult}}
+          <TestResultStatus @testResult={{testResult}} />
         </td>
         <td>
-          {{#link-to 'canary-test-results.detail' testResult.id}}
+          <LinkTo @route="canary-test-results.detail" @model={{testResult.id}}>
             View
-          {{/link-to}}
+          </LinkTo>
         </td>
       </tr>
     {{/each}}

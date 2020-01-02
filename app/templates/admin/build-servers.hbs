@@ -1,4 +1,4 @@
-{{#page-layout showCategories=false}}
+<PageLayout @showCategories={{false}}>
   <table>
     <thead>
       <tr>
@@ -21,8 +21,8 @@
       <label for='name'>
         Name:
       </label>
-      {{input type='text' value=newBuildServerName id='name' class='test-new-build-server-name'}}
+      <Input @type="text" @value={{newBuildServerName}} @id="name" class="test-new-build-server-name" />
       <input type='submit' value='Add' class='test-add-new-build-server'>
     </fieldset>
   </form>
-{{/page-layout}}
+</PageLayout>

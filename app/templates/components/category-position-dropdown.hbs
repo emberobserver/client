@@ -1,6 +1,6 @@
-{{#x-select value=position action=updatePosition as |xs|}}
-  {{#xs.option value=-1}}At end{{/xs.option}}
+<XSelect @value={{position}} @action={{updatePosition}} as |xs|>
+  <xs.option @value={{-1}}>At end</xs.option>
   {{#each categories as |category|}}
-    {{#xs.option value=category.position}}Before "{{category.name}}"{{/xs.option}}
+    <xs.option @value={{category.position}}>Before "{{category.name}}"</xs.option>
   {{/each}}
-{{/x-select}}
+</XSelect>

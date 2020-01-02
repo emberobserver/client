@@ -5,14 +5,14 @@
       {{#each questions as |question|}}
         <li>
           <div class="question">{{question.text}}</div>
-          {{radio-button-set selectOption=(action "selectOption") valueField=question.fieldName options=questionOptions class="question-radio-buttons test-question-buttons"}}
+          <RadioButtonSet @selectOption={{action "selectOption"}} @valueField={{question.fieldName}} @options={{questionOptions}} @class="question-radio-buttons test-question-buttons" />
         </li>
       {{/each}}
     </ol>
-    {{textarea value=review.review class="test-addon-review-notes"}}
+    <Textarea @value={{review.review}} class="test-addon-review-notes" />
     <input type="submit" class="button test-addon-review-save" value="Create Review">
   </fieldset>
 </form>
 {{#if review.review}}
-  {{markdown-to-html markdown=review.review}}
+  <MarkdownToHtml @markdown={{review.review}} />
 {{/if}}

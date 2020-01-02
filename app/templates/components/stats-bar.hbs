@@ -5,7 +5,7 @@
 
 <ul class="stats-list">
   <li class="test-addon-latest-version">
-    <b>{{latestVersion.version}}</b> from {{relative-time date=addon.latestVersionDate}}
+    <b>{{latestVersion.version}}</b> from <RelativeTime @date={{addon.latestVersionDate}} />
   </li>
   <li class="test-addon-top-downloaded">
     {{#if addon.isTopDownloaded}}
@@ -17,7 +17,7 @@
   </li>
   {{#if addon.demoUrl}}
     <li class="test-addon-demo-url">
-      <b>demo</b> {{human-url url=addon.demoUrl}}
+      <b>demo</b> <HumanUrl @url={{addon.demoUrl}} />
     </li>
   {{/if}}
   <li class="test-addon-repo-url">
@@ -28,11 +28,11 @@
         {{svg-icon "help" class="test-addon-flag-invalid-repo" title=(concat "This addon has an incorrect repo URL in its package.json: " addon.repositoryUrl)}}
       </div>
     {{else}}
-      {{human-url url=addon.repositoryUrl}}
+      <HumanUrl @url={{addon.repositoryUrl}} />
     {{/if}}
   </li>
   <li class="test-addon-package-url">
-    <b>package</b> {{human-url url=addon.npmUrl}}
+    <b>package</b> <HumanUrl @url={{addon.npmUrl}} />
   </li>
   <li class="test-addon-license">
     <b>license</b> <a href={{licenseUrl}}>{{addon.license}}</a>
@@ -46,7 +46,7 @@
       versions of this addon have been released since these tests ran.
     </em>
   {{/unless}}
-  {{ember-version-compatibility testResult=testResult}}
+  <EmberVersionCompatibility @testResult={{testResult}} />
 {{/if}}
 
 <h6>npm keywords</h6>
@@ -54,18 +54,18 @@
 <p class="keywords test-addon-keywords">
 
   {{#each addon.keywords as |keyword|}}
-    {{#comma-separated list=addon.keywords item=keyword as |value separator|}}
+    <CommaSeparated @list={{addon.keywords}} @item={{keyword}} as |value separator|>
       {{value.keyword}}{{separator}}
-    {{/comma-separated}}
+    </CommaSeparated>
   {{/each}}
 </p>
 
 <h6>maintainers</h6>
 <p class="test-addon-maintainers">
   {{#each addon.maintainers as |maintainer|}}
-    {{#link-to "maintainers.show" maintainer.name}}
-      {{gravatar-avatar gravatarId=maintainer.gravatar title=maintainer.name alt=maintainer.name}}
-    {{/link-to}}
+    <LinkTo @route="maintainers.show" @model={{maintainer.name}}>
+      <GravatarAvatar @gravatarId={{maintainer.gravatar}} @title={{maintainer.name}} @alt={{maintainer.name}} />
+    </LinkTo>
   {{/each}}
 </p>
 
@@ -77,7 +77,7 @@
 <h6 class="test-addon-version-count">versions ({{sortedAddonVersions.length}})</h6>
 
 <p>
-  {{addon-version-list versions=sortedAddonVersions}}
+  <AddonVersionList @versions={{sortedAddonVersions}} />
 </p>
 
 <section class="badge test-addon-badge">
@@ -91,6 +91,6 @@
   {{/if}}
 </section>
 <hr>
-{{#link-to 'addons.correct' addon.name class="test-addon-correction-link"}}
+<LinkTo @route="addons.correct" @model={{addon.name}} class="test-addon-correction-link">
   Suggest a correction
-{{/link-to}}
+</LinkTo>

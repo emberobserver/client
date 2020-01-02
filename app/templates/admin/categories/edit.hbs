@@ -4,31 +4,31 @@
       <label for="name">
         Name:
       </label>
-      {{input type="text" id="name" value=categoryName}}
+      <Input @type="text" @id="name" @value={{categoryName}} />
       <br>
       <label for="description">
         Description:
       </label>
-      {{input type="text" id="description" value=categoryDescription}}
+      <Input @type="text" @id="description" @value={{categoryDescription}} />
       {{#if hasSiblingCategories}}
         <br>
         <label for="position">
           Position:
         </label>
-        {{category-position-dropdown name="position" position=categoryPosition updatePosition=(action (mut categoryPosition)) categories=sortedSiblingCategories}}
+        <CategoryPositionDropdown @name="position" @position={{categoryPosition}} @updatePosition={{action (mut categoryPosition)}} @categories={{sortedSiblingCategories}} />
       {{else}}
-        {{input type="hidden" id="position" value=categoryPosition}}
+        <Input @type="hidden" @id="position" @value={{categoryPosition}} />
       {{/if}}
       <br>
       <label for="parent">
         Parent category:
       </label>
-      {{#x-select name="parent" value=categoryParent}}
-        {{#x-option}}(none){{/x-option}}
+      <XSelect @name="parent" @value={{categoryParent}}>
+        <XOption>(none)</XOption>
         {{#each alphabeticTopLevelCategories as |category|}}
-          {{#x-option value=category.id}}{{category.name}}{{/x-option}}
+          <XOption @value={{category.id}}>{{category.name}}</XOption>
         {{/each}}
-      {{/x-select}}
+      </XSelect>
       <br>
       <input type="submit" value="Save category">
     </fieldset>
@@ -39,7 +39,7 @@
     {{#if subcategories}}
       <ol>
         {{#each subcategories as |category|}}
-          <li>{{#link-to 'admin.categories.edit' category.slug}}{{category.name}}{{/link-to}}</li>
+          <li><LinkTo @route="admin.categories.edit" @model={{category.slug}}>{{category.name}}</LinkTo></li>
         {{/each}}
       </ol>
     {{else}}
@@ -51,17 +51,17 @@
         <label for="subcategoryName">
           Name:
         </label>
-        {{input type="text" id="subcategoryName" value=newCategoryName}}
+        <Input @type="text" @id="subcategoryName" @value={{newCategoryName}} />
         <br>
         <label for="subcategoryDescription">
           Description:
         </label>
-        {{input type="text" id="subcategoryDescription" value=newCategoryDescription}}
+        <Input @type="text" @id="subcategoryDescription" @value={{newCategoryDescription}} />
         <br>
         <label for="subcategoryPosition">
           Position:
         </label>
-        {{category-position-dropdown name="subcategoryPosition" position=newCategoryPosition categories=subcategories}}
+        <CategoryPositionDropdown @name="subcategoryPosition" @position={{newCategoryPosition}} @categories={{subcategories}} />
         <br>
         <input type="submit" value="Add category">
       </fieldset>

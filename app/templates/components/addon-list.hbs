@@ -1,7 +1,7 @@
 <ul class="addon-list">
   {{#each addons as |addon|}}
     <li class="test-addon-row">
-      {{addon-details addon=addon showRanking=showRanking}}
+      <AddonDetails @addon={{addon}} @showRanking={{showRanking}} />
     </li>
   {{/each}}
   {{yield}}

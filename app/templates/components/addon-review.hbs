@@ -14,7 +14,7 @@
   {{#if review.review}}
     <h6>Comments</h6>
     <fieldset class="test-review-notes">
-      {{markdown-to-html markdown=review.review}}
+      <MarkdownToHtml @markdown={{review.review}} />
     </fieldset>
   {{/if}}
 {{/if}}

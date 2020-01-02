@@ -1,14 +1,14 @@
 <section class="admin-build-result-nav">
-  {{#link-to 'admin.build-results.index' (query-params date=formattedPreviousDate) class='previous-day'}}
+  <LinkTo @route="admin.build-results.index" @query={{hash date=formattedPreviousDate}} class="previous-day">
     &laquo; previous day
-  {{/link-to}}
+  </LinkTo>
 
   Builds for {{formattedDisplayDate}}
 
   {{#if showFollowingDayLink}}
-    {{#link-to 'admin.build-results.index' (query-params date=formattedFollowingDate) class='next-day'}}
+    <LinkTo @route="admin.build-results.index" @query={{hash date=formattedFollowingDate}} class="next-day">
       next day &raquo;
-    {{/link-to}}
+    </LinkTo>
   {{/if}}
 </section>
 
@@ -27,9 +27,9 @@
     {{#each sortedBuildResults as |testResult|}}
       <tr class="test-build-result" data-testResultId={{testResult.id}}>
         <td>
-          {{#link-to 'addons.show' testResult.version.addon.name}}
+          <LinkTo @route="addons.show" @model={{testResult.version.addon.name}}>
             {{testResult.version.addon.name}}
-          {{/link-to}}
+          </LinkTo>
         </td>
         <td>{{testResult.version.version}}</td>
         <td>{{moment-format testResult.testsRunAt 'YYYY-MM-DD HH:mm' allowEmpty=true}}</td>
@@ -44,9 +44,9 @@
           {{if testResult.canary 'canary' testResult.semverString}}
         </td>
         <td>
-          {{#link-to 'admin.build-results.show' testResult.id}}
+          <LinkTo @route="admin.build-results.show" @model={{testResult.id}}>
             details
-          {{/link-to}}
+          </LinkTo>
         </td>
       </tr>
     {{/each}}

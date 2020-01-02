@@ -2,17 +2,12 @@
   <div class="review-index test-review-index">
     <header class="list-header">
       <h1 class="test-list-select">
-        {{#power-select
-          options=possibleLists
-          selected=selectedList
-          searchField="title"
-          dropdownClass="test-list-select-dropdown"
-          onchange=(action selectList) as |option|}}
+        <PowerSelect @options={{possibleLists}} @selected={{selectedList}} @searchField="title" @dropdownClass="test-list-select-dropdown" @onchange={{action selectList}} as |option|>
           {{option.title}}
-        {{/power-select}}
+        </PowerSelect>
       </h1>
       {{#if adminLists.find.isRunning}}
-        {{dot-spinner}}
+        <DotSpinner />
       {{else}}
         <div class="addon-count note test-addon-count">{{addons.length}} matching addons</div>
       {{/if}}
@@ -20,11 +15,11 @@
     {{#if adminLists.find.isIdle}}
       <ul class="review-addon-list">
         {{#each addons as |addon|}}
-          {{#link-to "admin.review.addon" addon.name}}
+          <LinkTo @route="admin.review.addon" @model={{addon.name}}>
             <li class="test-review-list-item">
-              {{#score-display addon=addon as |score|}}
+              <ScoreDisplay @addon={{addon}} as |score|>
                 {{score}}
-              {{/score-display}}
+              </ScoreDisplay>
               <span class="review-addon-list-name">
                 {{addon.name}}
                 {{#if addon.isDeprecated}}
@@ -32,7 +27,7 @@
                 {{/if}}
               </span>
             </li>
-          {{/link-to}}
+          </LinkTo>
         {{/each}}
       </ul>
     {{/if}}

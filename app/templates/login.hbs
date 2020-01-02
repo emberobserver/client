@@ -1,5 +1,5 @@
-{{#page-layout showCategories=true}}
+<PageLayout @showCategories={{true}}>
   <div class="container login with-default-styling">
-    {{login-form loginAction=(action "login")}}
+    <LoginForm @loginAction={{action "login"}} />
   </div>
-{{/page-layout}}
+</PageLayout>

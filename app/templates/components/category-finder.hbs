@@ -2,17 +2,17 @@
 <ul>
   {{#each sortedTopLevelCategories as |category|}}
     <li title={{category.description}}>
-      {{#link-to categoryLinkRoute category.slug class="test-category"}}
+      <LinkTo @route={{categoryLinkRoute}} @model={{category.slug}} class="test-category">
         {{category.name}} ({{category.totalAddonCount}})
-      {{/link-to}}
+      </LinkTo>
     </li>
     {{#if category.subcategories}}
       {{#each category.subcategories as |subcategory|}}
         <li class="indent" title={{subcategory.description}}>
-          {{#link-to categoryLinkRoute subcategory.slug class="test-subcategory"}}
+          <LinkTo @route={{categoryLinkRoute}} @model={{subcategory.slug}} class="test-subcategory">
             <span class="bullet">&#9632;</span>
             {{subcategory.name}} ({{subcategory.totalAddonCount}})
-          {{/link-to}}
+          </LinkTo>
         </li>
       {{/each}}
     {{/if}}

@@ -1,6 +1,6 @@
 {{#if collapsed}}
   {{#if loadDependencies.isRunning}}
-    <p class="uncollapse">{{dot-spinner}}</p>
+    <p class="uncollapse"><DotSpinner /></p>
   {{else if loadDependencies.last.isError}}
     <p class="uncollapse test-uncollapse-error">Unable to load addons</p>
   {{else}}
@@ -19,7 +19,7 @@
             {{#if (or showingAllDependencies (lt index limit))}}
               <tr>
                 <td class="test-dependency-name">
-                  {{#link-to "addons.show" dependency}}{{dependency}}{{/link-to}}
+                  <LinkTo @route="addons.show" @model={{dependency}}>{{dependency}}</LinkTo>
                 </td>
               </tr>
             {{/if}}
@@ -45,7 +45,7 @@
             {{#if (or showingAllDependencies (lt index limit))}}
               <tr>
                 <td class="test-dependency-name">
-                  {{#link-to "addons.show" dependency}}{{dependency}}{{/link-to}}
+                  <LinkTo @route="addons.show" @model={{dependency}}>{{dependency}}</LinkTo>
                 </td>
               </tr>
             {{/if}}

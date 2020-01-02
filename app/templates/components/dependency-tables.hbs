@@ -1,16 +1,4 @@
 <h4>Dependencies</h4>
-{{dependency-table
-    fetchData=(action "fetchDependencies" addonVersion.id)
-    collapsed=false
-    description=(concat "Version " addonVersion.version " of this addon depends on the following addons:")
-    noAddonsMessage=(concat "Version " addonVersion.version " of this addon does not depend on any other addons.")
-    class="test-addon-dependencies"
-}}
+<DependencyTable @fetchData={{action "fetchDependencies" addonVersion.id}} @collapsed={{false}} @description={{concat "Version " addonVersion.version " of this addon depends on the following addons:"}} @noAddonsMessage={{concat "Version " addonVersion.version " of this addon does not depend on any other addons."}} @class="test-addon-dependencies" />
 <h4>Dependents</h4>
-{{dependency-table
-    fetchData=(action "fetchDependents" addon.id)
-    collapsed=true
-    description="This addon is a dependency of the current versions of the following addons:"
-    noAddonsMessage="No addons have a current version that depends on this addon."
-    class="test-addon-dependents"
-}}
+<DependencyTable @fetchData={{action "fetchDependents" addon.id}} @collapsed={{true}} @description="This addon is a dependency of the current versions of the following addons:" @noAddonsMessage="No addons have a current version that depends on this addon." @class="test-addon-dependents" />
