@@ -13,11 +13,13 @@ module('Acceptance: admin', function(hooks) {
   });
 
   test('visiting /admin', async function(assert) {
-    assert.expect(2);
+    assert.expect(3);
     let done = assert.async();
 
     server.post('/authentication/login.json', function(db, request) {
-      assert.equal(request.requestBody, 'email=test%40example.com&password=password123');
+      let body = JSON.parse(request.requestBody);
+      assert.equal(body.email, 'test@example.com');
+      assert.equal(body.password, 'password123');
       done();
       return {
         token: 'abc123'

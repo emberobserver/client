@@ -2,12 +2,12 @@ import Service, { inject as service } from '@ember/service';
 import { task } from 'ember-concurrency';
 
 export default Service.extend({
-  ajax: service(),
+  api: service(),
   _autocompleteData: null,
   _latestSearchResults: null,
   _fetchAutocompleteData: task(function* () {
     if (!this.get('_autocompleteData')) {
-      let data = yield this.get('ajax').request('/api/v2/autocomplete_data');
+      let data = yield this.get('api').request('/autocomplete_data');
       this.set('_autocompleteData', {
         addons: data.addons.sortBy('score').reverse(),
         categories: data.categories,
@@ -40,8 +40,8 @@ export default Service.extend({
     };
   },
   _searchReadmes: task(function* (query) {
-    let results = yield this.get('ajax').request('/api/v2/search', {
-      data: {
+    let results = yield this.get('api').request('/search', {
+      params: {
         query
       }
     });

@@ -1,23 +1,25 @@
-import $ from 'jquery';
 import Controller from '@ember/controller';
+import { inject as service } from '@ember/service';
 
 export default Controller.extend({
-
+  api: service(),
   actions: {
     submitCorrection() {
-      let controller = this;
-      $.post('/api/v2/corrections', {
-        name: this.get('name'),
-        email: this.get('email'),
-        addon: this.get('model.name'),
-        correction: this.get('correction')
-      }).done(function() {
-        controller.transitionToRoute('addons.show', controller.get('model.name'));
+      this.api.request('/corrections', {
+        method: 'POST',
+        data: {
+          name: this.get('name'),
+          email: this.get('email'),
+          addon: this.get('model.name'),
+          correction: this.get('correction'),
+        },
+      }).then(() => {
+        this.transitionToRoute('addons.show', this.get('model.name'));
       });
     },
 
     cancel() {
       this.transitionToRoute('addons.show', this.get('model.name'));
-    }
-  }
+    },
+  },
 });
