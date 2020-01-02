@@ -185,7 +185,7 @@ module('Acceptance | version compatibility', function(hooks) {
       let compatible = true;
       if (typeof(emberVersion) === 'object') {
         version = emberVersion.version;
-        compatible = emberVersion.hasOwnProperty('compatible') ? emberVersion.compatible : true;
+        compatible = Object.prototype.hasOwnProperty.call(emberVersion, 'compatible') ? emberVersion.compatible : true;
       }
       return server.create('emberVersionCompatibility', { emberVersion: version, compatible });
     });

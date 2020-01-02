@@ -14,5 +14,7 @@ jobs:
           paths:
             - node_modules
             - ~/.cache/yarn
+      - run: yarn lint:hbs
+      - run: yarn lint:js
       - run: JOBS=1 COVERAGE=true yarn test
       - run: bash <(curl -s https://codecov.io/bash)
