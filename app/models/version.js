@@ -1,7 +1,5 @@
 import classic from 'ember-classic-decorator';
-import Model from 'ember-data/model';
-import attr from 'ember-data/attr';
-import { belongsTo, hasMany } from 'ember-data/relationships';
+import Model, { hasMany, belongsTo, attr } from '@ember-data/model';
 
 @classic
 export default class Version extends Model {

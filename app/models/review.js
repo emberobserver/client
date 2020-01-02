@@ -1,8 +1,6 @@
+import Model, { belongsTo, attr } from '@ember-data/model';
 import { alias } from '@ember/object/computed';
 import { computed } from '@ember/object';
-import DS from 'ember-data';
-
-const { attr, belongsTo } = DS;
 
 export const questions = [
   { text: 'Are there meaningful tests?', fieldName: 'hasTests' },
@@ -10,7 +8,7 @@ export const questions = [
   { text: 'Does the addon have a build?', fieldName: 'hasBuild' }
 ];
 
-export default DS.Model.extend({
+export default Model.extend({
   questions,
   review: attr('string'),
   createdAt: attr('date'),

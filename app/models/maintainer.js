@@ -1,8 +1,6 @@
-import DS from 'ember-data';
+import Model, { hasMany, attr } from '@ember-data/model';
 
-const { attr, hasMany } = DS;
-
-export default DS.Model.extend({
+export default Model.extend({
   name: attr('string'),
   gravatar: attr('string'),
   addons: hasMany('addon', { async: true })
