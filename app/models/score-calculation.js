@@ -1,7 +1,14 @@
+import classic from 'ember-classic-decorator';
 import Model, { attr, belongsTo } from '@ember-data/model';
 
-export default Model.extend({
-  info: attr(),
-  addon: belongsTo(),
-  addonVersion: belongsTo()
-});
+@classic
+export default class ScoreCalculation extends Model {
+  @attr()
+  info;
+
+  @belongsTo()
+  addon;
+
+  @belongsTo()
+  addonVersion;
+}

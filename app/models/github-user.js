@@ -1,6 +1,11 @@
+import classic from 'ember-classic-decorator';
 import Model, { attr } from '@ember-data/model';
 
-export default Model.extend({
-  name: attr('string'),
-  avatarUrl: attr('string')
-});
+@classic
+export default class GithubUser extends Model {
+  @attr('string')
+  name;
+
+  @attr('string')
+  avatarUrl;
+}
