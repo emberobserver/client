@@ -1,17 +1,23 @@
+import classic from 'ember-classic-decorator';
+import { action, computed } from '@ember/object';
 import Component from '@ember/component';
-import { computed } from '@ember/object';
 
-export default Component.extend({
-  showBadgeText: false,
-  licenseUrl: computed('addon.license', function() {
+@classic
+export default class StatsBar extends Component {
+  showBadgeText = false;
+
+  @computed('addon.license')
+  get licenseUrl() {
     return `https://spdx.org/licenses/${this.get('addon.license')}`;
-  }),
-  installCommandText: computed('addon.name', function() {
-    return `ember install ${this.get('addon.name')}`;
-  }),
-  actions: {
-    toggleBadgeText() {
-      this.toggleProperty('showBadgeText');
-    }
   }
-});
+
+  @computed('addon.name')
+  get installCommandText() {
+    return `ember install ${this.get('addon.name')}`;
+  }
+
+  @action
+  toggleBadgeText() {
+    this.toggleProperty('showBadgeText');
+  }
+}

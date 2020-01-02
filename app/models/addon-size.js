@@ -1,22 +1,39 @@
+import classic from 'ember-classic-decorator';
+import { computed } from '@ember/object';
 import Model from 'ember-data/model';
 import attr from 'ember-data/attr';
 import { belongsTo } from 'ember-data/relationships';
-import { computed } from '@ember/object';
 
-export default Model.extend({
-  appJsSize: attr('number'),
-  appCssSize: attr('number'),
-  vendorJsSize: attr('number'),
-  vendorCssSize: attr('number'),
-  otherJsSize: attr('number'),
-  otherCssSize: attr('number'),
-  addonVersion: belongsTo('version'),
+@classic
+export default class AddonSize extends Model {
+  @attr('number')
+  appJsSize;
 
-  totalJsSize: computed('appJsSize', 'vendorJsSize', 'otherJsSize', function() {
+  @attr('number')
+  appCssSize;
+
+  @attr('number')
+  vendorJsSize;
+
+  @attr('number')
+  vendorCssSize;
+
+  @attr('number')
+  otherJsSize;
+
+  @attr('number')
+  otherCssSize;
+
+  @belongsTo('version')
+  addonVersion;
+
+  @computed('appJsSize', 'vendorJsSize', 'otherJsSize')
+  get totalJsSize() {
     return this.appJsSize + this.vendorJsSize + this.otherJsSize;
-  }),
+  }
 
-  totalCssSize: computed('appCssSize', 'vendorCssSize', 'otherJCssSize', function() {
+  @computed('appCssSize', 'vendorCssSize', 'otherJCssSize')
+  get totalCssSize() {
     return this.appCssSize + this.vendorCssSize + this.otherCssSize;
-  })
-});
+  }
+}

@@ -1,14 +1,18 @@
+import classic from 'ember-classic-decorator';
 import Service, { inject as service } from '@ember/service';
 import { task } from 'ember-concurrency';
 import config from 'ember-observer/config/environment';
 const PageSize = config.codeSearchPageSize;
 
-export default Service.extend({
-  api: service(),
+@classic
+export default class CodeSearchService extends Service {
+  @service
+  api;
 
-  store: service(),
+  @service
+  store;
 
-  addons: task(function* (query, regex) {
+  @task(function* (query, regex) {
     let addons;
 
     let { results } = yield this.api.request('/search/addons', {
@@ -29,9 +33,10 @@ export default Service.extend({
         return { addon, count: result.count, files: result.files };
       }
     }).compact();
-  }),
+  })
+  addons;
 
-  usages: task(function* (addon, query, regex) {
+  @task(function* (addon, query, regex) {
     let response = yield this.api.request('/search/source', {
       params: {
         addon, query, regex
@@ -39,4 +44,5 @@ export default Service.extend({
     });
     return response.results;
   })
-});
+  usages;
+}

@@ -1,6 +1,8 @@
+import classic from 'ember-classic-decorator';
 import Component from '@ember/component';
 
-export default Component.extend({
-  selectedValue: null,
-  updateSelectedValue: null,
-});
+@classic
+export default class ExclusiveButtonGroup extends Component {
+  selectedValue = null;
+  updateSelectedValue = null;
+}

@@ -1,13 +1,28 @@
+import classic from 'ember-classic-decorator';
 import Model from 'ember-data/model';
 import attr from 'ember-data/attr';
 import { belongsTo, hasMany } from 'ember-data/relationships';
 
-export default Model.extend({
-  version: attr('string'),
-  addonName: attr('string'),
-  released: attr('date'),
-  emberCliVersion: attr('string'),
-  addon: belongsTo('addon', { inverse: 'versions' }),
-  review: belongsTo('review'),
-  dependencies: hasMany('addon-dependency')
-});
+@classic
+export default class Version extends Model {
+  @attr('string')
+  version;
+
+  @attr('string')
+  addonName;
+
+  @attr('date')
+  released;
+
+  @attr('string')
+  emberCliVersion;
+
+  @belongsTo('addon', { inverse: 'versions' })
+  addon;
+
+  @belongsTo('review')
+  review;
+
+  @hasMany('addon-dependency')
+  dependencies;
+}

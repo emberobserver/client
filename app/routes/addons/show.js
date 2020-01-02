@@ -1,9 +1,12 @@
-import { hash } from 'rsvp';
+import classic from 'ember-classic-decorator';
 import { inject as service } from '@ember/service';
+import { hash } from 'rsvp';
 import Route from '@ember/routing/route';
 
-export default Route.extend({
-  session: service(),
+@classic
+export default class ShowRoute extends Route {
+  @service
+  session;
 
   model(params) {
     let name = params.name.replace(/%2F/i, '/');
@@ -25,14 +28,16 @@ export default Route.extend({
     }
 
     return hash(data);
-  },
+  }
 
   titleToken(model) {
     return model.addon.get('name');
-  },
+  }
 
   afterModel() {
     this.emberVersions.fetch();
-  },
-  emberVersions: service(),
-});
+  }
+
+  @service
+  emberVersions;
+}

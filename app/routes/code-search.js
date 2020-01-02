@@ -1,12 +1,14 @@
+import classic from 'ember-classic-decorator';
 import Route from '@ember/routing/route';
 
-export default Route.extend({
-  queryParams: {
+@classic
+export default class CodeSearchRoute extends Route {
+  queryParams = {
     codeQuery: {
       replace: true
     },
     regex: {
       replace: true
     }
-  }
-});
+  };
+}

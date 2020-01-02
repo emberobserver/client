@@ -1,31 +1,35 @@
+import classic from 'ember-classic-decorator';
+import { inject as service } from '@ember/service';
 import { get } from '@ember/object';
 import { scheduleOnce } from '@ember/runloop';
-import { inject as service } from '@ember/service';
 import EmberRouter from '@ember/routing/router';
 import config from './config/environment';
 import RouterScroll from 'ember-router-scroll';
 
-const Router = EmberRouter.extend(RouterScroll, {
-  location: config.locationType,
-  rootURL: config.rootURL,
-  metrics: service(),
+@classic
+class Router extends EmberRouter.extend(RouterScroll) {
+  location = config.locationType;
+  rootURL = config.rootURL;
+
+  @service
+  metrics;
 
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
     this.on('routeDidChange', () => this.routeDidChange());
     this.on('routeWillChange', () => this.routeWillChange());
-  },
+  }
 
   routeDidChange() {
     scheduleOnce('afterRender', this, this._trackPage);
     performance.mark('routeDidChange');
-  },
+  }
 
   routeWillChange() {
     performance.mark('routeWillChange');
-  },
+  }
 
-  previousPage: null,
+  previousPage = null;
 
   _trackPage() {
     let page = document.location.pathname;
@@ -42,7 +46,7 @@ const Router = EmberRouter.extend(RouterScroll, {
       this.metrics.trackPage({ page, title });
     }
   }
-});
+}
 
 Router.map(function() {
   this.route('categories', function() {
