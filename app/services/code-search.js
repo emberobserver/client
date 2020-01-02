@@ -21,7 +21,7 @@ export default Service.extend({
       let idsParam = results.map((r) => r.addon).join(',');
       addons = yield this.get('store').query('addon', { filter: { id: idsParam }, include: 'categories' })
     } else {
-      addons = yield this.get('store').query('addon', { filter: { codeSearch: true }, page: { limit: 10000 } });
+      addons = yield this.get('store').query('addon', { filter: { codeSearch: true }, include: 'categories', page: { limit: 10000 } });
     }
     return results.map((result) => {
       let addon = addons.find((a) => a.get('id') === result.addon);
