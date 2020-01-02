@@ -51,7 +51,7 @@
     "ember-cli-template-lint": "^1.0.0-beta.3",
     "ember-cli-test-loader": "^2.2.0",
     "ember-cli-uglify": "^3.0.0",
-    "ember-concurrency": "^0.10.0",
+    "ember-concurrency": "^1.1.3",
     "ember-data": "~3.14.0",
     "ember-export-application-global": "^2.0.0",
     "ember-feature-flags": "6.0.0",
@@ -81,8 +81,5 @@
   },
   "engines": {
     "node": "8.* || >= 10.*"
-  },
-  "resolutions": {
-    "ember-concurrency": "^0.10.0"
   }
 }
