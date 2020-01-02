@@ -1,23 +1,23 @@
-{{#if results.length}}
-  <div class="results {{resultClass}}">
+{{#if this.results.length}}
+  <div class="results {{this.resultClass}}">
     <h5>
-      <a href="#" {{action toggleResultsExpansion}}>
-        {{#if resultsCollapsed}}
+      <a href="#" {{action this.toggleResultsExpansion}}>
+        {{#if this.resultsCollapsed}}
           {{svg-icon "chevron-right"}}
         {{else}}
           {{svg-icon "expand-more"}}
         {{/if}}
-        {{title}} ({{totalCount}})
+        {{this.title}} ({{this.totalCount}})
       </a>
     </h5>
-    {{#unless resultsCollapsed}}
+    {{#unless this.resultsCollapsed}}
       <div class="results-content">
         {{yield}}
-        {{#if (less-than results.length totalCount)}}
-          {{#if fetchMore.isRunning}}
+        {{#if (less-than this.results.length this.totalCount)}}
+          {{#if this.fetchMore.isRunning}}
             <button class="button more-results">Fetching more...</button>
           {{else}}
-            <button {{action (perform fetchMore)}} class="button more-results">Show more</button>
+            <button {{action (perform this.fetchMore)}} class="button more-results">Show more</button>
           {{/if}}
         {{/if}}
       </div>

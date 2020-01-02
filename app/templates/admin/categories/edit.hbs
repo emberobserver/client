@@ -4,28 +4,28 @@
       <label for="name">
         Name:
       </label>
-      <Input @type="text" @id="name" @value={{categoryName}} />
+      <Input @type="text" @id="name" @value={{this.categoryName}} />
       <br>
       <label for="description">
         Description:
       </label>
-      <Input @type="text" @id="description" @value={{categoryDescription}} />
-      {{#if hasSiblingCategories}}
+      <Input @type="text" @id="description" @value={{this.categoryDescription}} />
+      {{#if this.hasSiblingCategories}}
         <br>
         <label for="position">
           Position:
         </label>
-        <CategoryPositionDropdown @name="position" @position={{categoryPosition}} @updatePosition={{action (mut categoryPosition)}} @categories={{sortedSiblingCategories}} />
+        <CategoryPositionDropdown @name="position" @position={{this.categoryPosition}} @updatePosition={{action (mut this.categoryPosition)}} @categories={{this.sortedSiblingCategories}} />
       {{else}}
-        <Input @type="hidden" @id="position" @value={{categoryPosition}} />
+        <Input @type="hidden" @id="position" @value={{this.categoryPosition}} />
       {{/if}}
       <br>
       <label for="parent">
         Parent category:
       </label>
-      <XSelect @name="parent" @value={{categoryParent}}>
+      <XSelect @name="parent" @value={{this.categoryParent}}>
         <XOption>(none)</XOption>
-        {{#each alphabeticTopLevelCategories as |category|}}
+        {{#each this.alphabeticTopLevelCategories as |category|}}
           <XOption @value={{category.id}}>{{category.name}}</XOption>
         {{/each}}
       </XSelect>
@@ -34,11 +34,11 @@
     </fieldset>
   </form>
 
-  {{#if isTopLevelCategory}}
+  {{#if this.isTopLevelCategory}}
     <h4>Subcategories</h4>
-    {{#if subcategories}}
+    {{#if this.subcategories}}
       <ol>
-        {{#each subcategories as |category|}}
+        {{#each this.subcategories as |category|}}
           <li><LinkTo @route="admin.categories.edit" @model={{category.slug}}>{{category.name}}</LinkTo></li>
         {{/each}}
       </ol>
@@ -51,17 +51,17 @@
         <label for="subcategoryName">
           Name:
         </label>
-        <Input @type="text" @id="subcategoryName" @value={{newCategoryName}} />
+        <Input @type="text" @id="subcategoryName" @value={{this.newCategoryName}} />
         <br>
         <label for="subcategoryDescription">
           Description:
         </label>
-        <Input @type="text" @id="subcategoryDescription" @value={{newCategoryDescription}} />
+        <Input @type="text" @id="subcategoryDescription" @value={{this.newCategoryDescription}} />
         <br>
         <label for="subcategoryPosition">
           Position:
         </label>
-        <CategoryPositionDropdown @name="subcategoryPosition" @position={{newCategoryPosition}} @categories={{subcategories}} />
+        <CategoryPositionDropdown @name="subcategoryPosition" @position={{this.newCategoryPosition}} @categories={{this.subcategories}} />
         <br>
         <input type="submit" value="Add category">
       </fieldset>

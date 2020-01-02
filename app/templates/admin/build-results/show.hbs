@@ -1,28 +1,28 @@
 <div class="admin-build-result">
   <h1>
-    Build #{{buildResult.id}}
-    (<span class="test-addon-name"><LinkTo @route="addons.show" @model={{addon.name}}>{{addon.name}}</LinkTo></span>
-    <span class="test-addon-version">{{addonVersion.version}}</span>)
+    Build #{{this.buildResult.id}}
+    (<span class="test-addon-name"><LinkTo @route="addons.show" @model={{this.addon.name}}>{{this.addon.name}}</LinkTo></span>
+    <span class="test-addon-version">{{this.addonVersion.version}}</span>)
   </h1>
 
   <div>
-    Status: <span class="test-build-status">{{buildStatus}}</span>
-    {{#if canRetryBuild}}
+    Status: <span class="test-build-status">{{this.buildStatus}}</span>
+    {{#if this.canRetryBuild}}
       <button type="button" onclick={{action 'retryBuild'}} class="test-retry-build">Retry</button>
     {{/if}}
   </div>
 
   <div>
-    Tests run at: <span class="test-run-date">{{moment-format buildResult.testsRunAt 'YYYY-MM-DD HH:mm' allowEmpty=true}}</span>
+    Tests run at: <span class="test-run-date">{{moment-format this.buildResult.testsRunAt 'YYYY-MM-DD HH:mm' allowEmpty=true}}</span>
   </div>
 
   <div>
     Semver string:
     <span class="test-semver-string">
-      {{if buildResult.canary 'canary' buildResult.semverString}}
+      {{if this.buildResult.canary 'canary' this.buildResult.semverString}}
     </span>
   </div>
 
   <h2>Output</h2>
-  <BuildResultOutput @buildResult={{buildResult}} />
+  <BuildResultOutput @buildResult={{this.buildResult}} />
 </div>

@@ -1,8 +1,8 @@
 <div>
   {{yield
     (component "exclusive-button"
-      selectedValue=selectedValue
-      updateSelectedValue=updateSelectedValue
+      selectedValue=this.selectedValue
+      updateSelectedValue=this.updateSelectedValue
     )
   }}
 </div>

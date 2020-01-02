@@ -1,13 +1,13 @@
-<div class="page-layout {{unless showCategories 'categories-collapsed'}}">
+<div class="page-layout {{unless this.showCategories 'categories-collapsed'}}">
   <div class="main">
     <header class="navigation">
       <LinkTo @route="index" @query={{hash query=""}} class="name">
         <img alt="telescope" src="/telescope.svg">
         Ember Observer
       </LinkTo>
-      {{#if showHeaderSearch}}
+      {{#if this.showHeaderSearch}}
         <div class="search with-default-styling test-header-search">
-          <PowerSelectTypeahead @search={{action (perform searchForAddons)}} @selected={{selectedAddon}} @placeholder="Search" @dropdownClass="test-header-search-dropdown" @noMatchesMessage="No matching addon names, try another search!" @onchange={{action (perform goToAddon)}} as |addonName options|>
+          <PowerSelectTypeahead @search={{action (perform this.searchForAddons)}} @selected={{this.selectedAddon}} @placeholder="Search" @dropdownClass="test-header-search-dropdown" @noMatchesMessage="No matching addon names, try another search!" @onchange={{action (perform this.goToAddon)}} as |addonName options|>
             {{#if addonName.isFullSearchLink}}
               <LinkTo @route="index" @query={{hash query=options.searchText}} class="jump-to-full-search test-search-result-jump-to-full-search-link">
                 {{#if addonName.noResults}}
@@ -20,7 +20,7 @@
               <LinkTo @route="addons.show" @model={{addonName}} class="test-search-result-addon-link">{{addonName}}</LinkTo>
             {{/if}}
           </PowerSelectTypeahead>
-          {{#if searchForAddons.isRunning}}
+          {{#if this.searchForAddons.isRunning}}
             {{svg-icon "spinner" class="circle-spinner"}}
           {{/if}}
         </div>
@@ -33,9 +33,9 @@
           <li>
             <LinkTo @route="about">About</LinkTo>
           </li>
-          {{#if session.isAuthenticated}}
+          {{#if this.session.isAuthenticated}}
             <li>
-              <button {{action logoutUser}} class="logout">Log out</button>
+              <button {{action this.logoutUser}} class="logout">Log out</button>
             </li>
           {{/if}}
         </ul>
@@ -44,8 +44,8 @@
     <div class="content">
       {{yield}}
     </div>
-    {{#if showCategories}}
-      <CategoryFinder @class="categories-list" @categories={{categories}} />
+    {{#if this.showCategories}}
+      <CategoryFinder @class="categories-list" @categories={{this.categories}} />
     {{/if}}
   </div>
 </div>

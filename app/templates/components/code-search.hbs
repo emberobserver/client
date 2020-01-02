@@ -1,16 +1,16 @@
 <h1>Code Search</h1>
 <div class="search-wrapper with-default-styling">
-  <form {{action (perform search) on="submit"}}>
+  <form {{action (perform this.search) on="submit"}}>
     <div class="search-wrapper-inner">
-      <Input @type="search" placeholder="Search for addons containing code" @autocomplete="off" @id="code-search-input" @spellcheck="false" @value={{searchInput}} />
-      {{#if codeQuery}}
-        <button type="button" {{action clearSearch}} class="close-button test-clear-search">{{svg-icon "close"}}</button>
+      <Input @type="search" placeholder="Search for addons containing code" @autocomplete="off" @id="code-search-input" @spellcheck="false" @value={{this.searchInput}} />
+      {{#if this.codeQuery}}
+        <button type="button" {{action this.clearSearch}} class="close-button test-clear-search">{{svg-icon "close"}}</button>
       {{/if}}
     </div>
     <div class="search-actions">
-      <Input @type="checkbox" @id="regex-toggle" class="test-regex-search" @checked={{regex}} />
+      <Input @type="checkbox" @id="regex-toggle" class="test-regex-search" @checked={{this.regex}} />
       <label for="regex-toggle">Regex search</label>
-      {{#if regex}}
+      {{#if this.regex}}
         <a href="https://github.com/google/re2/wiki/Syntax" class="regex-help test-regex-help" rel="noopener" target="_blank">(re2 syntax)</a>
       {{/if}}
     </div>
@@ -18,10 +18,10 @@
   </form>
 </div>
 
-{{#if results.length}}
+{{#if this.results.length}}
   <div class="result-details">
     <h5 class="test-last-search test-result-info">
-      Results for {{quotedLastSearch}} &mdash; Found {{pluralize-this results.length 'addon'}} ({{pluralize-this totalUsageCount 'usage'}})
+      Results for {{this.quotedLastSearch}} &mdash; Found {{pluralize-this this.results.length 'addon'}} ({{pluralize-this this.totalUsageCount 'usage'}})
     </h5>
   </div>
   <div class="result-controls">
@@ -29,55 +29,55 @@
       <h6>Filter by file path</h6>
       <div class="filter-input">
         <input type="text"
-               value={{fileFilter}}
-                 oninput={{action (perform applyFileFilter) value="target.value"}}
+               value={{this.fileFilter}}
+               oninput={{action (perform this.applyFileFilter) value="target.value"}}
                class="test-file-filter-input">
-        {{#if isFilterApplied}}
-          <button type="button" {{action clearFileFilter}} class="close-button test-clear-file-filter">{{svg-icon "close" alignBaseline=false}}</button>
+        {{#if this.isFilterApplied}}
+          <button type="button" {{action this.clearFileFilter}} class="close-button test-clear-file-filter">{{svg-icon "close" alignBaseline=false}}</button>
         {{/if}}
       </div>
-      {{#if isDisplayingFilteredResults}}
+      {{#if this.isDisplayingFilteredResults}}
         <span class="filter-results test-filtered-result-info">
-          Filtered to {{pluralize-this filteredResults.length 'addon'}} ({{pluralize-this totalFilteredUsageCount 'usage'}})
+          Filtered to {{pluralize-this this.filteredResults.length 'addon'}} ({{pluralize-this this.totalFilteredUsageCount 'usage'}})
         </span>
       {{/if}}
     </div>
     <div class="sort-controls">
       <div class="button-select test-sort">
-        <SortOrderOption @key="name" @selectedSort={{sort}} @sortAscending={{sortAscending}} @sortBy={{action sortBy}}>
+        <SortOrderOption @key="name" @selectedSort={{this.sort}} @sortAscending={{this.sortAscending}} @sortBy={{action this.sortBy}}>
           Name
         </SortOrderOption>
-        <SortOrderOption @key="usages" @selectedSort={{sort}} @sortAscending={{sortAscending}} @sortBy={{action sortBy}}>
+        <SortOrderOption @key="usages" @selectedSort={{this.sort}} @sortAscending={{this.sortAscending}} @sortBy={{action this.sortBy}}>
           Usages
         </SortOrderOption>
-        <SortOrderOption @key="score" @selectedSort={{sort}} @sortAscending={{sortAscending}} @sortBy={{action sortBy}}>
+        <SortOrderOption @key="score" @selectedSort={{this.sort}} @sortAscending={{this.sortAscending}} @sortBy={{action this.sortBy}}>
           Score
         </SortOrderOption>
-        <SortOrderOption @key="updated" @selectedSort={{sort}} @sortAscending={{sortAscending}} @sortBy={{action sortBy}}>
+        <SortOrderOption @key="updated" @selectedSort={{this.sort}} @sortAscending={{this.sortAscending}} @sortBy={{action this.sortBy}}>
           Updated
         </SortOrderOption>
       </div>
     </div>
   </div>
   <ul class="addon-list">
-    {{#if isUpdatingResults}}
+    {{#if this.isUpdatingResults}}
       <DotSpinner />
     {{else}}
-      {{#each displayingResults as |result|}}
+      {{#each this.displayingResults as |result|}}
         <li data-id={{result.addon.id}}>
           <AddonDetails @addon={{result.addon}} />
-          <AddonSourceUsages @addon={{result.addon}} @count={{result.count}} @query={{codeQuery}} @regex={{regex}} @fileFilter={{fileFilter}} />
+          <AddonSourceUsages @addon={{result.addon}} @count={{result.count}} @query={{this.codeQuery}} @regex={{this.regex}} @fileFilter={{this.fileFilter}} />
         </li>
       {{/each}}
-      {{#if canViewMore}}
-        <a href="#" {{action viewMore}} class="view-more test-view-more">
+      {{#if this.canViewMore}}
+        <a href="#" {{action this.viewMore}} class="view-more test-view-more">
           <li>See more results</li>
         </a>
       {{/if}}
     {{/if}}
   </ul>
-{{else if search.isRunning}}
+{{else if this.search.isRunning}}
   <DotSpinner />
-{{else if hasSearchedAndNoResults}}
-  <h4 class="result-info">No addons found containing {{quotedLastSearch}}</h4>
+{{else if this.hasSearchedAndNoResults}}
+  <h4 class="result-info">No addons found containing {{this.quotedLastSearch}}</h4>
 {{/if}}

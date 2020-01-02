@@ -3,17 +3,17 @@
     <label for="name">
       Name:
     </label>
-    <Input @type="text" @id="name" @value={{newCategoryName}} />
+    <Input @type="text" @id="name" @value={{this.newCategoryName}} />
     <br>
     <label for="description">
       Description:
     </label>
-    <Input @type="text" @id="description" @value={{newCategoryDescription}} />
+    <Input @type="text" @id="description" @value={{this.newCategoryDescription}} />
     <br>
     <label for="position">
       Position:
     </label>
-    <CategoryPositionDropdown @name="position" @position={{newCategoryPosition}} @updatePosition={{action (mut newCategoryPosition)}} @categories={{sortedTopLevelCategories}} />
+    <CategoryPositionDropdown @name="position" @position={{this.newCategoryPosition}} @updatePosition={{action (mut this.newCategoryPosition)}} @categories={{this.sortedTopLevelCategories}} />
     <br>
     <input type="submit" class="button" value="Add category">
   </fieldset>

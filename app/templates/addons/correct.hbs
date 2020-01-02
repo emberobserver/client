@@ -1,26 +1,25 @@
 <div class="addons-correct with-default-styling">
   <h1>
-    {{#if model.isOfficial}}
+    {{#if this.model.isOfficial}}
       <OfficialIcon />
     {{/if}}
 
-    {{#if model.isCliDependency}}
+    {{#if this.model.isCliDependency}}
       <DependencyIcon />
     {{/if}}
 
-    {{model.name}}
+    {{this.model.name}}
 
   </h1>
 
-  <p class="description">{{model.description}}</p>
+  <p class="description">{{this.model.description}}</p>
 
   <h2>Suggest a correction</h2>
-  <p>Ember Observer is an index of Ember addons. We do not maintain {{model.name}}.</p>
+  <p>Ember Observer is an index of Ember addons. We do not maintain {{this.model.name}}.</p>
   <form {{action "submitCorrection" on="submit"}}>
-    <Input @type="text" @value={{name}} placeholder="Your name" />
-    <Input @type="text" @value={{email}} placeholder="Your email address" />
-    <Textarea @value={{correction}} placeholder="Describe what needs correcting" />
-    <p>
+    <Input @type="text" @value={{this.name}} placeholder="Your name" />
+    <Input @type="text" @value={{this.email}} placeholder="Your email address" />
+    <Textarea @value={{this.correction}} placeholder="Describe what needs correcting" />    <p>
       <strong>Note:</strong>
       Most of the data (other than the reviews) presented for an addon comes from NPM.
       If you've updated the <code>package.json</code> file for an addon, you'll need to push a new release to NPM for

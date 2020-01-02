@@ -1,17 +1,17 @@
 <div class="test-result-detail">
   <h1>
-    {{addon.name}} {{addonVersion.version}}
-    against {{canary-version testResult}}
+    {{this.addon.name}} {{this.addonVersion.version}}
+    against {{canary-version this.testResult}}
   </h1>
 
   <div>
-    Status: <TestResultStatus @testResult={{testResult}} />
+    Status: <TestResultStatus @testResult={{this.testResult}} />
   </div>
 
   <div>
-    Tests run at: <span class="test-run-date">{{moment-format testResult.testsRunAt 'YYYY-MM-DD HH:mm' allowEmpty=true}}</span>
+    Tests run at: <span class="test-run-date">{{moment-format this.testResult.testsRunAt 'YYYY-MM-DD HH:mm' allowEmpty=true}}</span>
   </div>
 
   <h2>Output</h2>
-  <BuildResultOutput @buildResult={{testResult}} />
+  <BuildResultOutput @buildResult={{this.testResult}} />
 </div>

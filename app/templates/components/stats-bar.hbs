@@ -1,60 +1,60 @@
 <h4 class="single-column-header">Stats</h4>
 <p class="addon-install test-addon-install-command">
-  {{installCommandText}}
+  {{this.installCommandText}}
 </p>
 
 <ul class="stats-list">
   <li class="test-addon-latest-version">
-    <b>{{latestVersion.version}}</b> from <RelativeTime @date={{addon.latestVersionDate}} />
+    <b>{{this.latestVersion.version}}</b> from <RelativeTime @date={{this.addon.latestVersionDate}} />
   </li>
   <li class="test-addon-top-downloaded">
-    {{#if addon.isTopDownloaded}}
+    {{#if this.addon.isTopDownloaded}}
       <div>
         <small>TOP 10%!</small>
       </div>
     {{/if}}
-    <b>{{commify addon.lastMonthDownloads}}</b> downloads in last month
+    <b>{{commify this.addon.lastMonthDownloads}}</b> downloads in last month
   </li>
-  {{#if addon.demoUrl}}
+  {{#if this.addon.demoUrl}}
     <li class="test-addon-demo-url">
-      <b>demo</b> <HumanUrl @url={{addon.demoUrl}} />
+      <b>demo</b> <HumanUrl @url={{this.addon.demoUrl}} />
     </li>
   {{/if}}
   <li class="test-addon-repo-url">
     <b>repo</b>
-    {{#if addon.hasInvalidGithubRepo}}
+    {{#if this.addon.hasInvalidGithubRepo}}
       <div>
         Unavailable
-        {{svg-icon "help" class="test-addon-flag-invalid-repo" title=(concat "This addon has an incorrect repo URL in its package.json: " addon.repositoryUrl)}}
+        {{svg-icon "help" class="test-addon-flag-invalid-repo" title=(concat "This addon has an incorrect repo URL in its package.json: " this.addon.repositoryUrl)}}
       </div>
     {{else}}
-      <HumanUrl @url={{addon.repositoryUrl}} />
+      <HumanUrl @url={{this.addon.repositoryUrl}} />
     {{/if}}
   </li>
   <li class="test-addon-package-url">
-    <b>package</b> <HumanUrl @url={{addon.npmUrl}} />
+    <b>package</b> <HumanUrl @url={{this.addon.npmUrl}} />
   </li>
   <li class="test-addon-license">
-    <b>license</b> <a href={{licenseUrl}}>{{addon.license}}</a>
+    <b>license</b> <a href={{this.licenseUrl}}>{{this.addon.license}}</a>
   </li>
 </ul>
 
-{{#if testResult}}
-  {{#unless isTestResultForLatestVersion}}
+{{#if this.testResult}}
+  {{#unless this.isTestResultForLatestVersion}}
     <em class="test-ember-version-compatibility-new-version-warning">
       {{svg-icon "new-releases"}} New
       versions of this addon have been released since these tests ran.
     </em>
   {{/unless}}
-  <EmberVersionCompatibility @testResult={{testResult}} />
+  <EmberVersionCompatibility @testResult={{this.testResult}} />
 {{/if}}
 
 <h6>npm keywords</h6>
 
 <p class="keywords test-addon-keywords">
 
-  {{#each addon.keywords as |keyword|}}
-    <CommaSeparated @list={{addon.keywords}} @item={{keyword}} as |value separator|>
+  {{#each this.addon.keywords as |keyword|}}
+    <CommaSeparated @list={{this.addon.keywords}} @item={{keyword}} as |value separator|>
       {{value.keyword}}{{separator}}
     </CommaSeparated>
   {{/each}}
@@ -62,35 +62,35 @@
 
 <h6>maintainers</h6>
 <p class="test-addon-maintainers">
-  {{#each addon.maintainers as |maintainer|}}
+  {{#each this.addon.maintainers as |maintainer|}}
     <LinkTo @route="maintainers.show" @model={{maintainer.name}}>
       <GravatarAvatar @gravatarId={{maintainer.gravatar}} @title={{maintainer.name}} @alt={{maintainer.name}} />
     </LinkTo>
   {{/each}}
 </p>
 
-{{#if latestVersion.emberCliVersion}}
+{{#if this.latestVersion.emberCliVersion}}
   <h6>ember-cli version</h6>
-  <p class="test-addon-ember-cli-version">{{latestVersion.emberCliVersion}}</p>
+  <p class="test-addon-ember-cli-version">{{this.latestVersion.emberCliVersion}}</p>
 {{/if}}
 
-<h6 class="test-addon-version-count">versions ({{sortedAddonVersions.length}})</h6>
+<h6 class="test-addon-version-count">versions ({{this.sortedAddonVersions.length}})</h6>
 
 <p>
-  <AddonVersionList @versions={{sortedAddonVersions}} />
+  <AddonVersionList @versions={{this.sortedAddonVersions}} />
 </p>
 
 <section class="badge test-addon-badge">
-  <img alt="Addon Badge" src={{badge-path addon.name}}>
+  <img alt="Addon Badge" src={{badge-path this.addon.name}}>
   <a href="#" class="copy-to-clipboard test-show-badge-markdown" title="Show badge markdown to copy" {{action "toggleBadgeText"}}>{{svg-icon "content-paste"}}</a>
-  {{#if showBadgeText}}
+  {{#if this.showBadgeText}}
     <hr>
     <code class="test-badge-markdown">
-      [![Ember Observer Score](https://emberobserver.com{{badge-path addon.name}})](https://emberobserver.com/addons/{{addon.name}})
+      [![Ember Observer Score](https://emberobserver.com{{badge-path this.addon.name}})](https://emberobserver.com/addons/{{this.addon.name}})
     </code>
   {{/if}}
 </section>
 <hr>
-<LinkTo @route="addons.correct" @model={{addon.name}} class="test-addon-correction-link">
+<LinkTo @route="addons.correct" @model={{this.addon.name}} class="test-addon-correction-link">
   Suggest a correction
 </LinkTo>

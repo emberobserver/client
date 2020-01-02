@@ -1,7 +1,7 @@
 <form {{action "login" on="submit"}}>
   <label for="email">Email</label>
-  <Input @value={{email}} @name="email" class="test-email" />
+  <Input @value={{this.email}} @name="email" class="test-email" />
   <label for="password">Password</label>
-  <Input @type="password" @value={{password}} @name="password" class="test-password" />
+  <Input @type="password" @value={{this.password}} @name="password" class="test-password" />
   <Input @type="submit" @value="Log in" class="button test-log-in" />
 </form>

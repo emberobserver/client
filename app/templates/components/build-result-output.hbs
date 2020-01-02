@@ -1,6 +1,6 @@
 <div class="build-result-output">
-  {{#if isJsonFormat}}
-    {{#each groups as |group|}}
+  {{#if this.isJsonFormat}}
+    {{#each this.groups as |group|}}
       <section>
         <details open={{group.has_failures}}>
           <summary>{{group.group}}</summary>
