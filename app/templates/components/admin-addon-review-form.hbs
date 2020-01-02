@@ -4,9 +4,7 @@
     {{#each questions as |question|}}
       <li class="test-review-question">
         <div class="question">{{question.text}}</div>
-        {{#exclusive-button-group
-          selectedValue=(get reviewProperties question.fieldName)
-          updateSelectedValue=(action selectOption question.fieldName) as |btn|}}
+        <ExclusiveButtonGroup @selectedValue={{get reviewProperties question.fieldName}} @updateSelectedValue={{action selectOption question.fieldName}} as |btn|>
           {{component btn
                       value=1
                       label="Yes"}}
@@ -19,14 +17,14 @@
           {{component btn
                       value=4
                       label="Unknown"}}
-        {{/exclusive-button-group}}
+        </ExclusiveButtonGroup>
       </li>
     {{/each}}
   </ol>
-  {{textarea value=reviewText class="test-addon-review-notes"}}
+  <Textarea @value={{reviewText}} class="test-addon-review-notes" />
   {{#if reviewText}}
     <fieldset>
-      {{markdown-to-html markdown=reviewText}}
+      <MarkdownToHtml @markdown={{reviewText}} />
     </fieldset>
   {{/if}}
   {{#if saveReview.isIdle}}

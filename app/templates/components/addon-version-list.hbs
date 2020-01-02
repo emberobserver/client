@@ -2,9 +2,9 @@
   {{#each versionsWithMeta as |version|}}
     <li>
       {{#if version.isEmber}}
-        {{ember-version-item version=version.version}}
+        <EmberVersionItem @version={{version.version}} />
       {{else}}
-        {{addon-version-item version=version.version}}
+        <AddonVersionItem @version={{version.version}} />
       {{/if}}
     </li>
   {{/each}}

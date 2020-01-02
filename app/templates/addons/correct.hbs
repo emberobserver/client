@@ -1,11 +1,11 @@
 <div class="addons-correct with-default-styling">
   <h1>
     {{#if model.isOfficial}}
-      {{official-icon}}
+      <OfficialIcon />
     {{/if}}
 
     {{#if model.isCliDependency}}
-      {{dependency-icon}}
+      <DependencyIcon />
     {{/if}}
 
     {{model.name}}
@@ -17,9 +17,9 @@
   <h2>Suggest a correction</h2>
   <p>Ember Observer is an index of Ember addons. We do not maintain {{model.name}}.</p>
   <form {{action "submitCorrection" on="submit"}}>
-    {{input type="text" value=name placeholder="Your name"}}
-    {{input type="text" value=email placeholder="Your email address"}}
-    {{textarea value=correction placeholder="Describe what needs correcting"}}
+    <Input @type="text" @value={{name}} placeholder="Your name" />
+    <Input @type="text" @value={{email}} placeholder="Your email address" />
+    <Textarea @value={{correction}} placeholder="Describe what needs correcting" />
     <p>
       <strong>Note:</strong>
       Most of the data (other than the reviews) presented for an addon comes from NPM.

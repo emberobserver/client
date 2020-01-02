@@ -11,11 +11,11 @@
 
       <h1>
         {{#if addon.isOfficial}}
-          {{official-icon class="test-addon-flag-official"}}
+          <OfficialIcon @class="test-addon-flag-official" />
         {{/if}}
 
         {{#if addon.isCliDependency}}
-          {{dependency-icon class="test-addon-flag-cli-dependency"}}
+          <DependencyIcon @class="test-addon-flag-cli-dependency" />
         {{/if}}
 
         {{addon.name}}
@@ -24,17 +24,17 @@
       <p>{{addon.description}}</p>
     </section>
     {{#if addon.note}}
-      {{addon-note content=addon.note}}
+      <AddonNote @content={{addon.note}} />
     {{/if}}
 
     {{#if addon.ranking}}
-      <span>{{#link-to "addons.top"}}Ranks #{{addon.ranking}} of the top 100 addons!{{/link-to}}</span>
+      <span><LinkTo @route="addons.top">Ranks #{{addon.ranking}} of the top 100 addons!</LinkTo></span>
     {{/if}}
-    {{score-detail addon=addon}}
+    <ScoreDetail @addon={{addon}} />
     <section class="categories">
       <h4>Categories</h4>
       <p>
-        {{inline-category-list categories=addon.categories}}
+        <InlineCategoryList @categories={{addon.categories}} />
         {{#unless addon.categories}}
           This addon hasn't been categorized yet.
         {{/unless}}
@@ -57,10 +57,10 @@
         </div>
         <div class="commit-stats">
           <strong>latest commit</strong>
-          <p class="test-latest-commit">{{relative-time date=addon.githubStats.latestCommitDate}}</p>
+          <p class="test-latest-commit"><RelativeTime @date={{addon.githubStats.latestCommitDate}} /></p>
 
           <strong>first commit</strong>
-          <p class="test-first-commit">{{relative-time date=addon.githubStats.firstCommitDate}}</p>
+          <p class="test-first-commit"><RelativeTime @date={{addon.githubStats.firstCommitDate}} /></p>
         </div>
       </section>
     {{/if}}
@@ -71,14 +71,14 @@
         {{#unless isLatestReviewForLatestVersion}}
           <em class="test-review-new-version-warning">{{svg-icon "new-releases"}} New versions of this addon have been released since this review was undertaken.</em>
         {{/unless}}
-        {{addon-review review=latestReview}}
+        <AddonReview @review={{latestReview}} />
       {{else}}
         <p class="no-review test-no-review">This addon has not yet been reviewed.</p>
       {{/if}}
     </section>
 
     <section class="addon-dependencies">
-      {{dependency-tables addonVersion=latestVersion addon=addon}}
+      <DependencyTables @addonVersion={{latestVersion}} @addon={{addon}} />
     </section>
 
     {{#if addon.readme}}
@@ -86,13 +86,7 @@
         <section class="readme">
           <p class="header">README.md</p>
           <p class="test-addon-readme contents">
-            {{markdown-to-sanitized-html
-              markdown=addon.readme.contents
-              tables=true
-              ghCodeBlocks=true
-              tasklists=true
-              simplifiedAutoLink=true
-            }}
+            <MarkdownToSanitizedHtml @markdown={{addon.readme.contents}} @tables={{true}} @ghCodeBlocks={{true}} @tasklists={{true}} @simplifiedAutoLink={{true}} />
           </p>
         </section>
       {{/unless}}
@@ -101,17 +95,11 @@
 
   <div class="addon-stats">
     {{#if session.isAuthenticated}}
-      {{#link-to "admin.review.addon" addon.name}}
+      <LinkTo @route="admin.review.addon" @model={{addon.name}}>
         <button class="button">Edit</button>
-      {{/link-to}}
+      </LinkTo>
     {{/if}}
 
-    {{stats-bar
-      addon=addon
-      latestVersion=latestVersion
-      testResult=model.latestTestResult
-      isTestResultForLatestVersion=isTestResultForLatestVersion
-      sortedAddonVersions=sortedAddonVersions
-    }}
+    <StatsBar @addon={{addon}} @latestVersion={{latestVersion}} @testResult={{model.latestTestResult}} @isTestResultForLatestVersion={{isTestResultForLatestVersion}} @sortedAddonVersions={{sortedAddonVersions}} />
   </div>
 </div>

@@ -1,8 +1,8 @@
 <section class="score-detail">
   <h4>
-    {{#score-display addon=addon as |score|}}
+    <ScoreDisplay @addon={{addon}} as |score|>
       Score <b>{{score}}</b>
-    {{/score-display}}
+    </ScoreDisplay>
   </h4>
   {{#if showExplanation}}
     <a href="#" {{action "toggleExplainScore"}} class="info-action">Hide This</a>

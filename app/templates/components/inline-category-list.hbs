@@ -1,6 +1,6 @@
 {{#each categoriesSortedByAddonCount as |category|}}
-  {{#comma-separated list=categoriesSortedByAddonCount item=category as |value separator|}}
-    {{#link-to "categories.show" value.slug}}
+  <CommaSeparated @list={{categoriesSortedByAddonCount}} @item={{category}} as |value separator|>
+    <LinkTo @route="categories.show" @model={{value.slug}}>
       {{#if showWithoutParent}}
         {{value.name}}
       {{else}}
@@ -13,6 +13,6 @@
         ({{value.totalAddonCount}})
       {{~/if~}}
       {{separator}}
-    {{/link-to}}
-  {{/comma-separated}}
+    </LinkTo>
+  </CommaSeparated>
 {{/each}}
