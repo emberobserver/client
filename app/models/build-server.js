@@ -1,6 +1,11 @@
+import classic from 'ember-classic-decorator';
 import Model, { attr } from '@ember-data/model';
 
-export default Model.extend({
-  name: attr('string'),
-  token: attr('string')
-});
+@classic
+export default class BuildServer extends Model {
+  @attr('string')
+  name;
+
+  @attr('string')
+  token;
+}

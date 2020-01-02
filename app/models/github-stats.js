@@ -1,11 +1,26 @@
+import classic from 'ember-classic-decorator';
 import Model, { attr, belongsTo } from '@ember-data/model';
 
-export default Model.extend({
-  stars: attr('number'),
-  firstCommitDate: attr('date'),
-  latestCommitDate: attr('date'),
-  forks: attr('number'),
-  openIssues: attr('number'),
-  committedToRecently: attr('boolean'),
-  addon: belongsTo('addon')
-});
+@classic
+export default class GithubStats extends Model {
+  @attr('number')
+  stars;
+
+  @attr('date')
+  firstCommitDate;
+
+  @attr('date')
+  latestCommitDate;
+
+  @attr('number')
+  forks;
+
+  @attr('number')
+  openIssues;
+
+  @attr('boolean')
+  committedToRecently;
+
+  @belongsTo('addon')
+  addon;
+}

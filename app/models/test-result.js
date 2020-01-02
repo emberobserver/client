@@ -1,16 +1,36 @@
-import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
+import classic from 'ember-classic-decorator';
 import { readOnly } from '@ember/object/computed';
+import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 
-export default Model.extend({
-  succeeded: attr('boolean'),
-  statusMessage: attr('string'),
-  createdAt: attr('date'),
-  canary: attr('boolean'),
-  output: attr('string'),
-  outputFormat: attr('string'),
-  semverString: attr('string'),
+@classic
+export default class TestResult extends Model {
+  @attr('boolean')
+  succeeded;
 
-  version: belongsTo('version'),
-  emberVersionCompatibilities: hasMany('emberVersionCompatibility'),
-  testsRunAt: readOnly('createdAt')
-});
+  @attr('string')
+  statusMessage;
+
+  @attr('date')
+  createdAt;
+
+  @attr('boolean')
+  canary;
+
+  @attr('string')
+  output;
+
+  @attr('string')
+  outputFormat;
+
+  @attr('string')
+  semverString;
+
+  @belongsTo('version')
+  version;
+
+  @hasMany('emberVersionCompatibility')
+  emberVersionCompatibilities;
+
+  @readOnly('createdAt')
+  testsRunAt;
+}

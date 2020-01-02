@@ -1,6 +1,7 @@
-import Model, { belongsTo, attr } from '@ember-data/model';
-import { alias } from '@ember/object/computed';
+import classic from 'ember-classic-decorator';
 import { computed } from '@ember/object';
+import { alias } from '@ember/object/computed';
+import Model, { belongsTo, attr } from '@ember-data/model';
 
 export const questions = [
   { text: 'Are there meaningful tests?', fieldName: 'hasTests' },
@@ -8,27 +9,39 @@ export const questions = [
   { text: 'Does the addon have a build?', fieldName: 'hasBuild' }
 ];
 
-export default Model.extend({
-  questions,
-  review: attr('string'),
-  createdAt: attr('date'),
-  hasTests: attr('number'),
-  hasReadme: attr('number'),
-  hasBuild: attr('number'),
-  version: belongsTo('version'),
-  versionReleased: alias('version.released'),
-  score: computed(
-    'hasTests',
-    'hasBuild',
-    'hasReadme',
-    function() {
-      let s = 2;
-      /* eslint-disable */
-      if (this.hasTests === 1) { s++; }
-      if (this.hasBuild === 1) { s++; }
-      if (this.hasReadme === 1) { s++; }
-      /* eslint-enable */
-      return s;
-    }
-  )
-});
+@classic
+export default class Review extends Model {
+  questions = questions;
+
+  @attr('string')
+  review;
+
+  @attr('date')
+  createdAt;
+
+  @attr('number')
+  hasTests;
+
+  @attr('number')
+  hasReadme;
+
+  @attr('number')
+  hasBuild;
+
+  @belongsTo('version')
+  version;
+
+  @alias('version.released')
+  versionReleased;
+
+  @computed('hasTests', 'hasBuild', 'hasReadme')
+  get score() {
+    let s = 2;
+    /* eslint-disable */
+    if (this.hasTests === 1) { s++; }
+    if (this.hasBuild === 1) { s++; }
+    if (this.hasReadme === 1) { s++; }
+    /* eslint-enable */
+    return s;
+  }
+}

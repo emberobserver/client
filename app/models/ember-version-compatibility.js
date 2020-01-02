@@ -1,7 +1,14 @@
+import classic from 'ember-classic-decorator';
 import Model, { belongsTo, attr } from '@ember-data/model';
 
-export default Model.extend({
-  version: belongsTo('version'),
-  emberVersion: attr('string'),
-  compatible: attr('boolean')
-});
+@classic
+export default class EmberVersionCompatibility extends Model {
+  @belongsTo('version')
+  version;
+
+  @attr('string')
+  emberVersion;
+
+  @attr('boolean')
+  compatible;
+}
