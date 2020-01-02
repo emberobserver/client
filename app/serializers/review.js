@@ -1,6 +1,6 @@
-import DS from 'ember-data';
+import ApplicationSerializer from './application';
 
-export default DS.JSONAPISerializer.extend({
+export default ApplicationSerializer.extend({
   attrs: {
     createdAt: { serialize: false }
   }
