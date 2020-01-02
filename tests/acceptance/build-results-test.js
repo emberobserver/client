@@ -202,7 +202,7 @@ module('Acceptance | build results', function(hooks) {
   });
 
   test('detail page has a "retry" button for failed builds', async function(assert) {
-    assert.expect(2);
+    assert.expect(3);
 
     let version = server.create('version');
     let testResult = server.create('testResult', {
@@ -222,6 +222,8 @@ module('Acceptance | build results', function(hooks) {
     assert.dom('.test-retry-build').exists('"retry" button exists');
 
     await click('.test-retry-build');
+
+    assert.dom('.test-retry-build').doesNotExist('"retry" button removed after retrying');
   });
 
   test('detail page does not have a "retry" button for successful builds', async function(assert) {

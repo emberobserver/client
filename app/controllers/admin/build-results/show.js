@@ -4,7 +4,7 @@ import Controller from '@ember/controller';
 import { readOnly } from '@ember/object/computed';
 
 export default Controller.extend({
-  ajax: service('apiAjax'),
+  api: service(),
   buildResult: readOnly('model'),
   addonVersion: readOnly('buildResult.version'),
   addon: readOnly('addonVersion.addon'),
@@ -24,7 +24,10 @@ export default Controller.extend({
   actions: {
     retryBuild() {
       this.set('hasRetriedBuild', true);
-      this.get('ajax').post(`test_results/${this.get('buildResult.id')}/retry`).catch(() => this.get('hasRetriedBuild', false));
+      this.get('api').request(`/test_results/${this.get('buildResult.id')}/retry`, { method: 'POST' }).catch((e) => {
+        this.get('hasRetriedBuild', false);
+        throw e;
+      });
     }
   }
 });

@@ -1,23 +1,13 @@
 import { computed } from '@ember/object';
-import { bind } from '@ember/runloop';
-import $ from 'jquery';
 import { Promise as EmberPromise } from 'rsvp';
-import Service from '@ember/service';
+import Service, { inject as service } from '@ember/service';
 import LocalStore from '../utils/local-storage';
 
 export default Service.extend({
+  api: service(),
   open(email, password) {
     let session = this;
-    return new EmberPromise(function(resolve, reject) {
-      $.ajax({
-        type: 'POST',
-        url: '/api/v2/authentication/login.json',
-        data: { email, password },
-        dataType: 'json',
-        success: bind(null, resolve),
-        error: bind(null, reject)
-      });
-    }).then(function(response) {
+    return this.api.request('/authentication/login.json', { method: 'POST', data: { email, password }}).then(function(response) {
       return new EmberPromise(function(resolve, reject) {
         if (response.token) {
           session.set('token', response.token);
@@ -29,8 +19,7 @@ export default Service.extend({
       });
     }).catch(function(e) {
       session.clearToken();
-      console.error(e);
-      console.log('Failed logging in'); // eslint-disable-line no-console
+      console.error('Failed logging in', e); // eslint-disable-line no-console
     });
   },
   fetch() {
@@ -41,16 +30,7 @@ export default Service.extend({
   },
   close() {
     let session = this;
-    return new EmberPromise(function(resolve, reject) {
-      $.ajax({
-        type: 'POST',
-        url: '/api/authentication/logout.json',
-        dataType: 'json',
-        headers: session.get('header'),
-        success: bind(null, resolve),
-        error: bind(null, reject)
-      });
-    }).finally(function() {
+    return this.api.request('/authentication/logout.json', { method: 'POST' }).finally(function() {
       session.clearToken();
     });
   },

@@ -4,15 +4,15 @@ import config from 'ember-observer/config/environment';
 const PageSize = config.codeSearchPageSize;
 
 export default Service.extend({
-  apiAjax: service(),
+  api: service(),
 
   store: service(),
 
   addons: task(function* (query, regex) {
     let addons;
 
-    let { results } = yield this.get('apiAjax').request('/search/addons', {
-      data: {
+    let { results } = yield this.get('api').request('/search/addons', {
+      params: {
         query, regex
       }
     });
@@ -32,8 +32,8 @@ export default Service.extend({
   }),
 
   usages: task(function* (addon, query, regex) {
-    let response = yield this.get('apiAjax').request('/search/source', {
-      data: {
+    let response = yield this.get('api').request('/search/source', {
+      params: {
         addon, query, regex
       }
     });
