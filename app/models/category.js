@@ -12,18 +12,18 @@ export default DS.Model.extend({
   parent: belongsTo('category', { async: false, inverse: 'subcategories' }),
   subcategories: hasMany('category', { inverse: 'parent', async: false }),
   slug: computed('name', function() {
-    return this.get('name').dasherize();
+    return this.name.dasherize();
   }),
   displayName: computed('parent.name', 'name', function() {
-    if (this.get('parent')) {
-      return `${this.get('parent.name')} > ${this.get('name')}`;
+    if (this.parent) {
+      return `${this.get('parent.name')} > ${this.name}`;
     } else {
-      return this.get('name');
+      return this.name;
     }
   }),
   totalAddonCount: computed('subcategories.@each.addonCount', function() {
-    return this.get('subcategories').mapBy('addonCount').reduce(function(categoryA, categoryB) {
+    return this.subcategories.mapBy('addonCount').reduce(function(categoryA, categoryB) {
       return categoryA + categoryB;
-    }, this.get('addonCount'));
+    }, this.addonCount);
   })
 });

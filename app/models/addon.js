@@ -43,9 +43,9 @@ export default Model.extend({
   readme: belongsTo('readme', { async: true }),
   hasMoreThan1Contributor: gt('githubUsers.length', 1),
   npmUrl: computed('name', function() {
-    return `https://www.npmjs.com/package/${this.get('name')}`;
+    return `https://www.npmjs.com/package/${this.name}`;
   }),
   isNewAddon: computed('publishedDate', function() {
-    return moment(this.get('publishedDate')).isAfter(moment().subtract(2, 'weeks'));
+    return moment(this.publishedDate).isAfter(moment().subtract(2, 'weeks'));
   })
 });

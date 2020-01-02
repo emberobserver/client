@@ -6,15 +6,15 @@ export default Service.extend({
   _autocompleteData: null,
   _latestSearchResults: null,
   _fetchAutocompleteData: task(function* () {
-    if (!this.get('_autocompleteData')) {
-      let data = yield this.get('api').request('/autocomplete_data');
+    if (!this._autocompleteData) {
+      let data = yield this.api.request('/autocomplete_data');
       this.set('_autocompleteData', {
         addons: data.addons.sortBy('score').reverse(),
         categories: data.categories,
         maintainers: data.maintainers
       });
     }
-    return this.get('_autocompleteData');
+    return this._autocompleteData;
   }),
   _searchAddons(query, possibleAddons) {
     let addonResultsMatchingOnName = findMatches(query, 'name', possibleAddons);
@@ -40,7 +40,7 @@ export default Service.extend({
     };
   },
   _searchReadmes: task(function* (query) {
-    let results = yield this.get('api').request('/search', {
+    let results = yield this.api.request('/search', {
       params: {
         query
       }
@@ -58,19 +58,19 @@ export default Service.extend({
     };
   }),
   searchAddonNames: task(function* (query) {
-    let data = yield this.get('_fetchAutocompleteData').perform();
+    let data = yield this._fetchAutocompleteData.perform();
     let trimmed = query.trim();
     let addonResultsMatchingOnName = findAddonNameMatches(trimmed, data.addons);
     return addonResultsMatchingOnName.mapBy('name');
   }),
   search: task(function* (query, options) {
-    let data = yield this.get('_fetchAutocompleteData').perform();
+    let data = yield this._fetchAutocompleteData.perform();
     let addonResults = this._searchAddons(query, data.addons);
     let categoryResults = this._searchCategories(query, data.categories);
     let maintainerResults = this._searchMaintainers(query, data.maintainers);
     let readmeResults = { matchIds: [], matchMap: {}, matchCount: 0 };
     if (options.includeReadmes) {
-      readmeResults = yield this.get('_searchReadmes').perform(query);
+      readmeResults = yield this._searchReadmes.perform(query);
     }
     let results = {
       query,

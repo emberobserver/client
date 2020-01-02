@@ -2,12 +2,12 @@ import Route from '@ember/routing/route';
 
 export default Route.extend({
   beforeModel() {
-    this.get('session').fetch();
+    this.session.fetch();
   },
 
   model() {
     return {
-      categories: this.get('store').findAll('category', { include: 'subcategories,parent' })
+      categories: this.store.findAll('category', { include: 'subcategories,parent' })
     };
   },
 

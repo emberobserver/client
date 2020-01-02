@@ -18,13 +18,13 @@ export default Controller.extend({
   }),
 
   canRetryBuild: computed('buildResult.succeeded', 'hasRetriedBuild', function() {
-    return !this.get('buildResult.succeeded') && !this.get('hasRetriedBuild');
+    return !this.get('buildResult.succeeded') && !this.hasRetriedBuild;
   }),
 
   actions: {
     retryBuild() {
       this.set('hasRetriedBuild', true);
-      this.get('api').request(`/test_results/${this.get('buildResult.id')}/retry`, { method: 'POST' }).catch((e) => {
+      this.api.request(`/test_results/${this.get('buildResult.id')}/retry`, { method: 'POST' }).catch((e) => {
         this.get('hasRetriedBuild', false);
         throw e;
       });

@@ -17,10 +17,10 @@ export default Controller.extend({
   possibleLists,
   selectedListKey: oneWay('model.key'),
   selectedList: computed('selectedListKey', function() {
-    return possibleLists.find(l => l.key === this.get('selectedListKey'));
+    return possibleLists.find(l => l.key === this.selectedListKey);
   }),
   selectList(list) {
     this.set('selectedListKey', list.key);
-    this.get('router').transitionTo('admin.review', { queryParams: { list: list.key } });
+    this.router.transitionTo('admin.review', { queryParams: { list: list.key } });
   }
 });

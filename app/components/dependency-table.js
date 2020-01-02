@@ -15,7 +15,7 @@ export default Component.extend({
   init() {
     this._super(...arguments);
     if (!this.collapsed) {
-      this.get('loadDependencies').perform();
+      this.loadDependencies.perform();
     }
   },
 

@@ -12,7 +12,7 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    this.get('fetchScoreCalculation').perform();
+    this.fetchScoreCalculation.perform();
   },
 
   fetchScoreCalculation: task(function * () {

@@ -6,11 +6,11 @@ import measure from '../../utils/measure';
 export default Route.extend({
   model(params) {
     return this.modelFor('application').categories.then(() => {
-      let category = this.get('store').peekAll('category').findBy('slug', params.slug);
+      let category = this.store.peekAll('category').findBy('slug', params.slug);
       if (!category) {
         throw new Error(`no such category ${params.slug}`);
       }
-      let addons = this.get('store').query('addon', { filter: { inCategory: category.get('id') }, include: 'categories' });
+      let addons = this.store.query('addon', { filter: { inCategory: category.get('id') }, include: 'categories' });
       return hash({
         category,
         addons

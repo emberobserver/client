@@ -17,14 +17,14 @@ export default Component.extend({
   focusNode: '#search-input',
   init() {
     this._super(...arguments);
-    this.get('search').perform(this.get('query'));
+    this.search.perform(this.query);
   },
   hasSearchedAndNoResults: computed('queryIsValid', 'results.length', 'search.isIdle', function() {
-    return this.get('queryIsValid') && !this.get('results.length') && this.get('search.isIdle');
+    return this.queryIsValid && !this.get('results.length') && this.get('search.isIdle');
   }),
   queryIsValid: computed('query', function() {
     let emMatcher = /(^e$|^em$|^emb$|^embe$|^ember$|^ember-$)/;
-    let query = this.get('query');
+    let query = this.query;
     return !(isBlank(query) || query.length < 3 || emMatcher.test(query));
   }),
   fetchMoreAddons: task(function* () {
@@ -53,16 +53,16 @@ export default Component.extend({
   }),
   search: task(function* (query) {
     this.set('query', query.trim());
-    if (!this.get('queryIsValid')) {
+    if (!this.queryIsValid) {
       this.set('_results', null);
       return;
     }
 
     yield timeout(250);
 
-    this.get('metrics').trackEvent({ category: 'Search', action: 'Search on /', label: this.get('query') });
+    this.metrics.trackEvent({ category: 'Search', action: 'Search on /', label: this.query });
 
-    let results = yield this.get('searchService.search').perform(this.get('query'), { includeReadmes: this.get('searchReadmes') });
+    let results = yield this.get('searchService.search').perform(this.query, { includeReadmes: this.searchReadmes });
     let firstPageOfResults = yield this._fetchFirstPageOfResults(results);
 
     this.set('_results', {
@@ -85,7 +85,7 @@ export default Component.extend({
   }).restartable(),
   toggleReadmeSearch: task(function* () {
     this.toggleProperty('searchReadmes');
-    yield this.get('search').perform(this.get('query'));
+    yield this.search.perform(this.query);
   }),
   _fetchFirstPageOfResults(results) {
     let addonsPromise = this._fetchPageOfAddonResults(results.addonResults, 1);
@@ -105,33 +105,33 @@ export default Component.extend({
       return resolve(null);
     }
     let ids = results.matchIds.slice((page - 1) * PageSize, page * PageSize);
-    return this.get('store').query('maintainer', { filter: { id: ids.join(',') }, sort: 'name' }).then((maintainers) => maintainers.toArray());
+    return this.store.query('maintainer', { filter: { id: ids.join(',') }, sort: 'name' }).then((maintainers) => maintainers.toArray());
   },
   _fetchPageOfCategoryResults(results, page) {
     if (!results || !results.matchCount) {
       return resolve(null);
     }
     let ids = results.matchIds.slice((page - 1) * PageSize, page * PageSize);
-    return this.get('store').query('category', { filter: { id: ids.join(',') }, sort: 'name' }).then((categories) => categories.toArray());
+    return this.store.query('category', { filter: { id: ids.join(',') }, sort: 'name' }).then((categories) => categories.toArray());
   },
   _fetchPageOfAddonResults(results, page) {
     if (!results || !results.matchCount) {
       return resolve(null);
     }
     let ids = results.matchIds.slice((page - 1) * PageSize, page * PageSize);
-    return this.get('store').query('addon', { filter: { id: ids.join(',') }, sort: '-score', include: 'categories' }).then((addons) => addons.toArray());
+    return this.store.query('addon', { filter: { id: ids.join(',') }, sort: '-score', include: 'categories' }).then((addons) => addons.toArray());
   },
   results: computed('query', '_results', function() {
-    if (this.get('queryIsValid')) {
-      return this.get('_results');
+    if (this.queryIsValid) {
+      return this._results;
     }
     return null;
   }),
   focus() {
-    document.querySelector(this.get('focusNode')).focus();
+    document.querySelector(this.focusNode).focus();
   },
   clearSearch() {
-    this.get('metrics').trackEvent({ category: 'Clear Search', action: `Clear on ${document.location.pathname}` });
+    this.metrics.trackEvent({ category: 'Clear Search', action: `Clear on ${document.location.pathname}` });
 
     this.set('query', '');
     this.set('_results', null);

@@ -6,7 +6,7 @@ export default Route.extend({
     let categories = this.modelFor('admin.categories');
     return hash({
       categories,
-      category: this.get('store').peekAll('category').findBy('slug', params.slug)
+      category: this.store.peekAll('category').findBy('slug', params.slug)
     });
   }
 });

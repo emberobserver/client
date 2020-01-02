@@ -12,11 +12,11 @@ export default Component.extend({
   }),
 
   sortedVersionCompatibilities: computed('versionCompatibilitiesForReleasedVersions.@each.emberVersion', function() {
-    return this.get('versionCompatibilitiesForReleasedVersions').toArray().sort(sortByVersion);
+    return this.versionCompatibilitiesForReleasedVersions.toArray().sort(sortByVersion);
   }),
 
   allTestsPassed: computed('versionCompatibilitiesForReleasedVersions.@each.compatible', function() {
-    return this.get('versionCompatibilitiesForReleasedVersions').every((versionCompatibility) => versionCompatibility.get('compatible'));
+    return this.versionCompatibilitiesForReleasedVersions.every((versionCompatibility) => versionCompatibility.get('compatible'));
   }),
 
   compatibilitySemverString: computed('sortedVersionCompatibilities.[]', function() {

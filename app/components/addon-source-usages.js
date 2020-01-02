@@ -18,28 +18,28 @@ export default Component.extend({
   codeSearch: service(),
 
   visibleUsages: computed('visibleUsageCount', 'usages', function() {
-    return this.get('usages').slice(0, this.get('visibleUsageCount'));
+    return this.usages.slice(0, this.visibleUsageCount);
   }),
 
   moreUsages: computed('visibleUsageCount', 'usages', function() {
-    return this.get('visibleUsageCount') < this.get('usages.length');
+    return this.visibleUsageCount < this.get('usages.length');
   }),
 
   fetchUsages: task(function* () {
-    let usages = yield this.get('codeSearch.usages').perform(this.get('addon.id'), this.get('query'), this.get('regex'));
-    this.set('usages', filterByFilePath(usages, this.get('fileFilter')));
+    let usages = yield this.get('codeSearch.usages').perform(this.get('addon.id'), this.query, this.regex);
+    this.set('usages', filterByFilePath(usages, this.fileFilter));
   }).drop(),
 
   actions: {
     toggleUsages() {
       this.toggleProperty('showUsages');
-      if (this.get('showUsages') && this.get('usages') === null) {
-        this.get('fetchUsages').perform();
+      if (this.showUsages && this.usages === null) {
+        this.fetchUsages.perform();
       }
     },
 
     viewMore() {
-      let newUsageCount = this.get('visibleUsageCount') + 25;
+      let newUsageCount = this.visibleUsageCount + 25;
       this.set('visibleUsageCount', newUsageCount);
     }
   }

@@ -12,10 +12,10 @@ export default Controller.extend({
 
   actions: {
     addCategory() {
-      let newCategory = this.get('store').createRecord('category', {
-        name: this.get('newCategoryName'),
-        description: this.get('newCategoryDescription'),
-        position: this.get('newCategoryPosition')
+      let newCategory = this.store.createRecord('category', {
+        name: this.newCategoryName,
+        description: this.newCategoryDescription,
+        position: this.newCategoryPosition
       });
       newCategory.save().then(() => {
         this.transitionToRoute('admin.categories.index');

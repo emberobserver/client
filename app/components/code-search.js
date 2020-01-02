@@ -30,52 +30,52 @@ export default Component.extend({
   totalFilteredUsageCount: sum('filteredUsageCounts'),
   isFilterApplied: notEmpty('fileFilter'),
   isDisplayingFilteredResults: computed('isFilterApplied', 'isUpdatingFilter', function() {
-    return this.get('isFilterApplied') && !this.get('isUpdatingFilter');
+    return this.isFilterApplied && !this.isUpdatingFilter;
   }),
 
   init() {
     this._super(...arguments);
-    this.set('searchInput', this.get('codeQuery') || '');
-    this.get('search').perform();
+    this.set('searchInput', this.codeQuery || '');
+    this.search.perform();
   },
 
   hasSearchedAndNoResults: computed('results.length', 'search.isIdle', function() {
     return this.get('results.length') === 0 && this.get('search.isIdle');
   }),
   queryIsValid: computed('searchInput', function() {
-    let input = this.get('searchInput');
+    let input = this.searchInput;
     return !(isBlank(input) || input.length < 2);
   }),
   cleanedSearchInput: computed('searchInput', function() {
-    return this.get('searchInput').trim();
+    return this.searchInput.trim();
   }),
   filteredResults: computed('results', 'fileFilter', function() {
-    if (this.get('fileFilter')) {
-      return filterByFilePath(this.get('results'), this.get('fileFilter'));
+    if (this.fileFilter) {
+      return filterByFilePath(this.results, this.fileFilter);
     } else {
-      return this.get('results');
+      return this.results;
     }
   }),
   sortedFilteredResults: computed('filteredResults', 'sort', 'sortAscending', function() {
-    return sortResults(this.get('filteredResults'), this.get('sort'), this.get('sortAscending'));
+    return sortResults(this.filteredResults, this.sort, this.sortAscending);
   }),
   displayingResults: computed('sortedFilteredResults', 'page', function() {
-    return this._getResultsUpToPage(this.get('sortedFilteredResults'), this.get('page'));
+    return this._getResultsUpToPage(this.sortedFilteredResults, this.page);
   }),
   search: task(function* () {
-    let query = this.get('cleanedSearchInput');
+    let query = this.cleanedSearchInput;
     this.set('results', null);
     this.set('page', 1);
 
-    if (!this.get('queryIsValid')) {
+    if (!this.queryIsValid) {
       return;
     }
 
-    this.get('metrics').trackEvent({ category: 'Code Search', action: 'Search', label: query });
+    this.metrics.trackEvent({ category: 'Code Search', action: 'Search', label: query });
 
     this.set('codeQuery', query);
-    let results = yield this.get('codeSearch.addons').perform(query, this.get('regex'));
-    this.set('quotedLastSearch', quoteSearchTerm(query, this.get('regex')));
+    let results = yield this.get('codeSearch.addons').perform(query, this.regex);
+    this.set('quotedLastSearch', quoteSearchTerm(query, this.regex));
 
     this.set('results', results);
   }).restartable(),
@@ -106,20 +106,20 @@ export default Component.extend({
   }),
 
   viewMore() {
-    this.set('page', this.get('page') + 1);
+    this.set('page', this.page + 1);
   },
 
   sortBy(key) {
-    let oldKey = this.get('sort');
-    if (oldKey === key || this.get('sortAscending') !== defaultSortAscendingFor(key)) {
-      this.set('sortAscending', !this.get('sortAscending'));
+    let oldKey = this.sort;
+    if (oldKey === key || this.sortAscending !== defaultSortAscendingFor(key)) {
+      this.set('sortAscending', !this.sortAscending);
     }
 
     this.set('sort', key);
   },
 
   focus() {
-    document.querySelector(this.get('focusNode')).focus();
+    document.querySelector(this.focusNode).focus();
   },
 
   isUpdatingResults: readOnly('applyFileFilter.isRunning'),
