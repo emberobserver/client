@@ -1,29 +1,38 @@
+import classic from 'ember-classic-decorator';
 import { computed } from '@ember/object';
 import { sort } from '@ember/object/computed';
 import Controller from '@ember/controller';
 import moment from 'moment';
 
-export default Controller.extend({
-  queryParams: ['date'],
-  buildResultSorting: ['testsRunAt:desc'],
-  sortedBuildResults: sort('model', 'buildResultSorting'),
+@classic
+export default class IndexController extends Controller {
+  queryParams = ['date'];
+  buildResultSorting = ['testsRunAt:desc'];
 
-  formattedDisplayDate: computed('date', function() {
+  @sort('model', 'buildResultSorting')
+  sortedBuildResults;
+
+  @computed('date')
+  get formattedDisplayDate() {
     return moment(this.date).utc().format('YYYY-MM-DD');
-  }),
+  }
 
-  formattedPreviousDate: computed('date', function() {
+  @computed('date')
+  get formattedPreviousDate() {
     let date = this.date;
     return moment(date).subtract(1, 'day').format('YYYY-MM-DD');
-  }),
+  }
 
-  formattedFollowingDate: computed('date', function() {
+  @computed('date')
+  get formattedFollowingDate() {
     let date = this.date;
     return moment(date).add(1, 'day').format('YYYY-MM-DD');
-  }),
-  showFollowingDayLink: computed('date', function() {
+  }
+
+  @computed('date')
+  get showFollowingDayLink() {
     let dateFromParam = moment(this.date);
     let currentDate = moment();
     return !dateFromParam.isSame(currentDate, 'day');
-  })
-});
+  }
+}

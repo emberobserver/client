@@ -1,37 +1,43 @@
+import classic from 'ember-classic-decorator';
+import { tagName } from '@ember-decorators/component';
+import { action, computed } from '@ember/object';
 import { compare } from '@ember/utils';
-import { computed } from '@ember/object';
 import Component from '@ember/component';
 
-export default Component.extend({
-  tagName: '',
-  showTable: false,
+@classic
+@tagName('')
+export default class EmberVersionCompatibility extends Component {
+  showTable = false;
 
-  versionCompatibilitiesForReleasedVersions: computed('testResult.emberVersionCompatibilities.@each.emberVersion', function() {
+  @computed('testResult.emberVersionCompatibilities.@each.emberVersion')
+  get versionCompatibilitiesForReleasedVersions() {
     return this.get('testResult.emberVersionCompatibilities')
       .filter((versionCompatibility) => !versionCompatibility.get('emberVersion').match(/(beta|canary)/));
-  }),
+  }
 
-  sortedVersionCompatibilities: computed('versionCompatibilitiesForReleasedVersions.@each.emberVersion', function() {
+  @computed('versionCompatibilitiesForReleasedVersions.@each.emberVersion')
+  get sortedVersionCompatibilities() {
     return this.versionCompatibilitiesForReleasedVersions.toArray().sort(sortByVersion);
-  }),
+  }
 
-  allTestsPassed: computed('versionCompatibilitiesForReleasedVersions.@each.compatible', function() {
+  @computed('versionCompatibilitiesForReleasedVersions.@each.compatible')
+  get allTestsPassed() {
     return this.versionCompatibilitiesForReleasedVersions.every((versionCompatibility) => versionCompatibility.get('compatible'));
-  }),
+  }
 
-  compatibilitySemverString: computed('sortedVersionCompatibilities.[]', function() {
+  @computed('sortedVersionCompatibilities.[]')
+  get compatibilitySemverString() {
     let earliestVersion = this.get('sortedVersionCompatibilities.lastObject.emberVersion');
     let latestVersion = this.get('sortedVersionCompatibilities.firstObject.emberVersion');
 
     return `>=${earliestVersion} <=${latestVersion}`;
-  }),
-
-  actions: {
-    toggleShowTable() {
-      this.toggleProperty('showTable');
-    }
   }
-});
+
+  @action
+  toggleShowTable() {
+    this.toggleProperty('showTable');
+  }
+}
 
 function extractVersionParts(versionNumber) {
   let matches = versionNumber.match(/^(\d+)\.(\d+)\.(\d+)/);

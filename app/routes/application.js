@@ -1,15 +1,17 @@
+import classic from 'ember-classic-decorator';
 import Route from '@ember/routing/route';
 
-export default Route.extend({
+@classic
+export default class ApplicationRoute extends Route {
   beforeModel() {
     this.session.fetch();
-  },
+  }
 
   model() {
     return {
       categories: this.store.findAll('category', { include: 'subcategories,parent' })
     };
-  },
+  }
 
   title(tokens) {
     let tokenStr = tokens.join(' | ');
@@ -19,4 +21,4 @@ export default Route.extend({
       return 'Ember Observer';
     }
   }
-});
+}

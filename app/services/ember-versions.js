@@ -1,9 +1,12 @@
+import classic from 'ember-classic-decorator';
 import Service, { inject as service } from '@ember/service';
 
-export default Service.extend({
-  store: service(),
+@classic
+export default class EmberVersionsService extends Service {
+  @service
+  store;
 
-  versions: [],
+  versions = [];
 
   fetch() {
     this.store.query('ember-version', {
@@ -12,4 +15,4 @@ export default Service.extend({
       this.set('versions', emberVersions);
     });
   }
-});
+}

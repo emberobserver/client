@@ -1,12 +1,17 @@
+import classic from 'ember-classic-decorator';
 import { computed } from '@ember/object';
 import Service, { inject as service } from '@ember/service';
 import fetch from 'fetch';
 
-export default Service.extend({
-  session: service(),
+@classic
+export default class ApiService extends Service {
+  @service
+  session;
 
-  namespace: '/api/v2',
-  headers: computed('session.{isAuthenticated,header}', function() {
+  namespace = '/api/v2';
+
+  @computed('session.{isAuthenticated,header}')
+  get headers() {
     let defaultHeaders = {
       'Content-Type': 'application/vnd.api+json',
     };
@@ -14,9 +19,9 @@ export default Service.extend({
       return Object.assign(defaultHeaders, this.get('session.header'));
     }
     return defaultHeaders;
-  }),
+  }
 
-  request: async function(requestUrl, options = {}) {
+  async request(requestUrl, options = {}) {
     let defaultOptions = {
       headers: this.headers
     };
@@ -43,4 +48,4 @@ export default Service.extend({
       return response.json();
     }
   }
-});
+}

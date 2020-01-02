@@ -1,8 +1,14 @@
-import { filterBy, sort } from '@ember/object/computed';
+import classic from 'ember-classic-decorator';
+import { sort, filterBy } from '@ember/object/computed';
 import Controller from '@ember/controller';
 
-export default Controller.extend({
-  categorySorting: ['position:desc'],
-  unsortedTopLevelCategories: filterBy('model', 'parent', null),
-  topLevelCategories: sort('unsortedTopLevelCategories', 'categorySorting')
-});
+@classic
+export default class IndexController extends Controller {
+  categorySorting = ['position:desc'];
+
+  @filterBy('model', 'parent', null)
+  unsortedTopLevelCategories;
+
+  @sort('unsortedTopLevelCategories', 'categorySorting')
+  topLevelCategories;
+}

@@ -1,28 +1,31 @@
+import classic from 'ember-classic-decorator';
+import { action } from '@ember/object';
+import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import { task } from 'ember-concurrency';
-import { inject as service } from '@ember/service';
 
 
-export default Component.extend({
-  showExplanation: false,
+@classic
+export default class ScoreDetail extends Component {
+  showExplanation = false;
+  addon = null;
 
-  addon: null,
-
-  store: service(),
+  @service
+  store;
 
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
     this.fetchScoreCalculation.perform();
-  },
+  }
 
-  fetchScoreCalculation: task(function * () {
+  @task(function * () {
     let calculationResult = yield this.store.query('score-calculation', { filter: { addonId: this.addon.get('id'), latest: true } });
     return calculationResult.get('firstObject');
-  }),
+  })
+  fetchScoreCalculation;
 
-  actions: {
-    toggleExplainScore() {
-      this.toggleProperty('showExplanation');
-    }
+  @action
+  toggleExplainScore() {
+    this.toggleProperty('showExplanation');
   }
-});
+}

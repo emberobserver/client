@@ -1,10 +1,12 @@
+import classic from 'ember-classic-decorator';
 import Controller from '@ember/controller';
 
-export default Controller.extend({
-  queryParams: ['codeQuery', 'sort', 'sortAscending', 'regex', 'fileFilter'],
-  codeQuery: '',
-  sort: 'name',
-  sortAscending: true,
-  regex: false,
-  fileFilter: null
-});
+@classic
+export default class CodeSearchController extends Controller {
+  queryParams = ['codeQuery', 'sort', 'sortAscending', 'regex', 'fileFilter'];
+  codeQuery = '';
+  sort = 'name';
+  sortAscending = true;
+  regex = false;
+  fileFilter = null;
+}

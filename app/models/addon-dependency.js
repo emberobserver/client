@@ -1,13 +1,23 @@
+import classic from 'ember-classic-decorator';
+import { equal } from '@ember/object/computed';
 import Model from 'ember-data/model';
 import attr from 'ember-data/attr';
 import { belongsTo } from 'ember-data/relationships';
-import { computed } from '@ember/object';
 
-export default Model.extend({
-  package: attr('string'),
-  dependencyType: attr('string'),
-  dependentVersion: belongsTo('version'),
+@classic
+export default class AddonDependency extends Model {
+  @attr('string')
+  package;
 
-  isDependency: computed.equal('dependencyType', 'dependencies'),
-  isDevDependency: computed.equal('dependencyType', 'devDependencies'),
-});
+  @attr('string')
+  dependencyType;
+
+  @belongsTo('version')
+  dependentVersion;
+
+  @equal('dependencyType', 'dependencies')
+  isDependency;
+
+  @equal('dependencyType', 'devDependencies')
+  isDevDependency;
+}

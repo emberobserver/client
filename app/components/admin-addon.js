@@ -1,33 +1,45 @@
-import Component from '@ember/component';
+import classic from 'ember-classic-decorator';
+import { tagName } from '@ember-decorators/component';
 import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 import { task, timeout } from 'ember-concurrency';
 import { questions } from '../models/review';
 
-export default Component.extend({
-  tagName: '',
-  store: service(),
-  addon: null,
-  recentlyRenewed: false,
+@classic
+@tagName('')
+export default class AdminAddon extends Component {
+  @service
+  store;
+
+  addon = null;
+  recentlyRenewed = false;
+
   updateInvalidRepoFlag(value) {
     this.set('addon.hasInvalidGithubRepo', !value);
-  },
+  }
+
   updateIsWipFlag(value) {
     this.set('addon.isWip', !value);
-  },
+  }
+
   updateIsDeprecatedFlag(value) {
     this.set('addon.isDeprecated', !value);
-  },
+  }
+
   updateIsHiddenFlag(value) {
     this.set('addon.isHidden', !value);
-  },
-  saveAddon: task(function* () {
+  }
+
+  @(task(function* () {
     try {
       yield this.addon.save();
     } catch(e) {
       window.alert('Failed to save addon');
     }
-  }).drop(),
-  renewLatestReview: task(function* () {
+  }).drop())
+  saveAddon;
+
+  @(task(function* () {
     let newReview = this.store.createRecord('review');
     let latestReview = this.get('addon.latestReview');
 
@@ -46,10 +58,13 @@ export default Component.extend({
       console.error(e); // eslint-disable-line no-console
       window.alert('Failed to renew review');
     }
-  }).drop(),
-  completeRenew: task(function* () {
+  }).drop())
+  renewLatestReview;
+
+  @(task(function* () {
     this.set('recentlyRenewed', true);
     yield timeout(2000);
     this.set('recentlyRenewed', false);
-  }).drop(),
-});
+  }).drop())
+  completeRenew;
+}

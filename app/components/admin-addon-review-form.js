@@ -1,24 +1,32 @@
-import Component from '@ember/component';
+import classic from 'ember-classic-decorator';
 import { inject } from '@ember/service';
+import Component from '@ember/component';
 import { task, timeout } from 'ember-concurrency';
 import { questions } from '../models/review';
 
-export default Component.extend({
-  addon: null,
-  reviewProperties: null,
-  questions,
-  store: inject(),
+@classic
+export default class AdminAddonReviewForm extends Component {
+  addon = null;
+  reviewProperties = null;
+  questions = questions;
+
+  @inject()
+  store;
+
   didReceiveAttrs() {
-    this._super(...arguments);
+    super.didReceiveAttrs(...arguments);
     this.reset();
-  },
+  }
+
   reset() {
     this.set('reviewProperties', {});
-  },
+  }
+
   selectOption(fieldName, value) {
     this.set(`reviewProperties.${fieldName}`, value);
-  },
-  saveReview: task(function* () {
+  }
+
+  @(task(function* () {
     let newReview = this.store.createRecord('review', this.reviewProperties);
     newReview.set('review', this.reviewText);
     newReview.set('version', this.get('addon.latestAddonVersion'));
@@ -32,10 +40,13 @@ export default Component.extend({
       console.error(e); // eslint-disable-line no-console
       window.alert('Failed to create review');
     }
-  }).drop(),
-  complete: task(function* () {
+  }).drop())
+  saveReview;
+
+  @(task(function* () {
     this.set('recentlySaved', true);
     yield timeout(2000);
     this.set('recentlySaved', false);
-  }).drop(),
-});
+  }).drop())
+  complete;
+}

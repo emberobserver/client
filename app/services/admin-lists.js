@@ -1,3 +1,4 @@
+import classic from 'ember-classic-decorator';
 import Service, { inject } from '@ember/service';
 import { task } from 'ember-concurrency';
 
@@ -31,9 +32,12 @@ export const lists = {
     title: 'Addons marked as invalid repo url'
   }
 };
-export default Service.extend({
-  store: inject(),
-  find: task(function* (listParam) {
+@classic
+export default class AdminListsService extends Service {
+  @inject()
+  store;
+
+  @task(function* (listParam) {
     let list = lists[listParam];
     let addons = yield this[list.method]();
     return {
@@ -41,26 +45,34 @@ export default Service.extend({
       title: list.title,
       key: listParam,
     }
-  }),
+  })
+  find;
+
   addonsNeedingCategorization() {
     return this.store.query('addon', { filter: { isWip: false, notCategorized: true, hasRepoUrl: true }, sort: '-latestVersionDate' });
-  },
+  }
+
   hiddenAddons() {
     return this.store.query('addon', { filter: { hidden: true }, sort: '-latestVersionDate' });
-  },
+  }
+
   addonsNeedingReReview() {
     return this.store.query('addon', { filter: { needsReReview: true, hasRepoUrl: true }, sort: '-latestVersionDate' });
-  },
+  }
+
   addonsNeedingReview() {
     return this.store.query('addon', { filter: { notReviewed: true, isWip: false, hasRepoUrl: true }, sort: '-latestVersionDate' });
-  },
+  }
+
   addonsWip() {
     return this.store.query('addon', { filter: { isWip: true }, sort: '-latestVersionDate' });
-  },
+  }
+
   missingRepoUrl() {
     return this.store.query('addon', { filter: { missingRepoUrl: true }, sort: '-latestVersionDate' });
-  },
+  }
+
   invalidRepoUrl() {
     return this.store.query('addon', { filter: { invalidRepoUrl: true }, sort: '-latestVersionDate' });
   }
-});
+}

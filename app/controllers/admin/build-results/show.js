@@ -1,33 +1,44 @@
-import { computed } from '@ember/object';
+import classic from 'ember-classic-decorator';
+import { action, computed } from '@ember/object';
 import { inject as service } from '@ember/service';
-import Controller from '@ember/controller';
 import { readOnly } from '@ember/object/computed';
+import Controller from '@ember/controller';
 
-export default Controller.extend({
-  api: service(),
-  buildResult: readOnly('model'),
-  addonVersion: readOnly('buildResult.version'),
-  addon: readOnly('addonVersion.addon'),
-  hasRetriedBuild: false,
+@classic
+export default class ShowController extends Controller {
+  @service
+  api;
 
-  buildStatus: computed('buildResult.succeeded', 'buildResult.statusMessage', function() {
+  @readOnly('model')
+  buildResult;
+
+  @readOnly('buildResult.version')
+  addonVersion;
+
+  @readOnly('addonVersion.addon')
+  addon;
+
+  hasRetriedBuild = false;
+
+  @computed('buildResult.succeeded', 'buildResult.statusMessage')
+  get buildStatus() {
     if (this.get('buildResult.succeeded')) {
       return 'succeeded';
     }
     return this.get('buildResult.statusMessage');
-  }),
-
-  canRetryBuild: computed('buildResult.succeeded', 'hasRetriedBuild', function() {
-    return !this.get('buildResult.succeeded') && !this.hasRetriedBuild;
-  }),
-
-  actions: {
-    retryBuild() {
-      this.set('hasRetriedBuild', true);
-      this.api.request(`/test_results/${this.get('buildResult.id')}/retry`, { method: 'POST' }).catch((e) => {
-        this.get('hasRetriedBuild', false);
-        throw e;
-      });
-    }
   }
-});
+
+  @computed('buildResult.succeeded', 'hasRetriedBuild')
+  get canRetryBuild() {
+    return !this.get('buildResult.succeeded') && !this.hasRetriedBuild;
+  }
+
+  @action
+  retryBuild() {
+    this.set('hasRetriedBuild', true);
+    this.api.request(`/test_results/${this.get('buildResult.id')}/retry`, { method: 'POST' }).catch((e) => {
+      this.get('hasRetriedBuild', false);
+      throw e;
+    });
+  }
+}

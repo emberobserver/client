@@ -1,7 +1,9 @@
+import classic from 'ember-classic-decorator';
 import { hash } from 'rsvp';
 import Route from '@ember/routing/route';
 
-export default Route.extend({
+@classic
+export default class DateRoute extends Route {
   model(params) {
     return hash({
       date: params.date,
@@ -29,4 +31,4 @@ export default Route.extend({
       })
     });
   }
-});
+}

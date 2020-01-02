@@ -1,3 +1,5 @@
+import classic from 'ember-classic-decorator';
 import Route from '@ember/routing/route';
 
-export default Route.extend();
+@classic
+export default class NewRoute extends Route {}

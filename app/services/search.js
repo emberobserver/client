@@ -1,11 +1,16 @@
+import classic from 'ember-classic-decorator';
 import Service, { inject as service } from '@ember/service';
 import { task } from 'ember-concurrency';
 
-export default Service.extend({
-  api: service(),
-  _autocompleteData: null,
-  _latestSearchResults: null,
-  _fetchAutocompleteData: task(function* () {
+@classic
+export default class SearchService extends Service {
+  @service
+  api;
+
+  _autocompleteData = null;
+  _latestSearchResults = null;
+
+  @task(function* () {
     if (!this._autocompleteData) {
       let data = yield this.api.request('/autocomplete_data');
       this.set('_autocompleteData', {
@@ -15,7 +20,9 @@ export default Service.extend({
       });
     }
     return this._autocompleteData;
-  }),
+  })
+  _fetchAutocompleteData;
+
   _searchAddons(query, possibleAddons) {
     let addonResultsMatchingOnName = findMatches(query, 'name', possibleAddons);
     let addonResultsMatchingOnDescription = findMatches(query, 'description', possibleAddons);
@@ -24,22 +31,25 @@ export default Service.extend({
       matchIds: addonIds,
       matchCount: addonIds.length
     };
-  },
+  }
+
   _searchCategories(query, possibleCategories) {
     let categoryIds = findMatches(query, 'name', possibleCategories).mapBy('id');
     return {
       matchIds: categoryIds,
       matchCount: categoryIds.length
     };
-  },
+  }
+
   _searchMaintainers(query, possibleMaintainers) {
     let maintainerIds = findMatches(query, 'name', possibleMaintainers).mapBy('id');
     return {
       matchIds: maintainerIds,
       matchCount: maintainerIds.length
     };
-  },
-  _searchReadmes: task(function* (query) {
+  }
+
+  @task(function* (query) {
     let results = yield this.api.request('/search', {
       params: {
         query
@@ -56,14 +66,18 @@ export default Service.extend({
       matchMap: addonMatchMap,
       matchCount: results.search.length
     };
-  }),
-  searchAddonNames: task(function* (query) {
+  })
+  _searchReadmes;
+
+  @task(function* (query) {
     let data = yield this._fetchAutocompleteData.perform();
     let trimmed = query.trim();
     let addonResultsMatchingOnName = findAddonNameMatches(trimmed, data.addons);
     return addonResultsMatchingOnName.mapBy('name');
-  }),
-  search: task(function* (query, options) {
+  })
+  searchAddonNames;
+
+  @task(function* (query, options) {
     let data = yield this._fetchAutocompleteData.perform();
     let addonResults = this._searchAddons(query, data.addons);
     let categoryResults = this._searchCategories(query, data.categories);
@@ -83,7 +97,8 @@ export default Service.extend({
     this.set('_latestSearchResults', results);
     return results;
   })
-});
+  search;
+}
 
 function findMatches(query, prop, items) {
   query = escapeForRegex(query);
