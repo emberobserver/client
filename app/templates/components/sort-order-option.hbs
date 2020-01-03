@@ -1,4 +1,4 @@
-<button class="button-option {{if (is-equal this.selectedSort this.key) "selected"}}" {{action this.sortBy this.key}}>
+<button type="button" class="button-option {{if (is-equal this.selectedSort this.key) "selected"}}" {{action this.sortBy this.key}}>
   {{yield}}
   {{#if (is-equal this.selectedSort this.key)}}
     {{#if this.sortAscending}}

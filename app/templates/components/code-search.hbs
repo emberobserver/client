@@ -11,7 +11,7 @@
       <Input @type="checkbox" @id="regex-toggle" class="test-regex-search" @checked={{this.regex}} />
       <label for="regex-toggle">Regex search</label>
       {{#if this.regex}}
-        <a href="https://github.com/google/re2/wiki/Syntax" class="regex-help test-regex-help" rel="noopener" target="_blank">(re2 syntax)</a>
+        <a href="https://github.com/google/re2/wiki/Syntax" class="regex-help test-regex-help" rel="noopener noreferrer" target="_blank">(re2 syntax)</a>
       {{/if}}
     </div>
     <button type="submit" class="test-submit-search button">Search</button>

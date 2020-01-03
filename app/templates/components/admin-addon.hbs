@@ -52,9 +52,9 @@
   {{else}}
     <em>Missing</em>
   {{/if}}
-  <a href="https://www.google.com/search?q=%22{{this.addon.name}}%22" target="_blank" rel="noopener" title="Search Google">&nbsp;{{svg-icon "google"}}</a>
+  <a href="https://www.google.com/search?q=%22{{this.addon.name}}%22" target="_blank" rel="noopener noreferrer" title="Search Google">&nbsp;{{svg-icon "google"}}</a>
   |
-  <a href="https://github.com/search?q=%22{{this.addon.name}}%22" target="_blank" rel="noopener" title="Search GitHub">{{svg-icon "github"}}</a>
+  <a href="https://github.com/search?q=%22{{this.addon.name}}%22" target="_blank" rel="noopener noreferrer" title="Search GitHub">{{svg-icon "github"}}</a>
   <ToggleSwitch @label={{if this.addon.hasInvalidGithubRepo "Has invalid Repo URL" "Has valid Repo URL"}} @isChecked={{not this.addon.hasInvalidGithubRepo}} @onToggle={{action this.updateInvalidRepoFlag}} @name="repo" @class="test-toggle-repo-validity" />
 </section>
 
@@ -84,9 +84,9 @@
 
 <section>
   {{#if this.saveAddon.isRunning}}
-    <button class="button" disabled>Saving...</button>
+    <button type="button" class="button" disabled>Saving...</button>
   {{else}}
-    <button class="button test-save-addon" {{action (perform this.saveAddon)}}>Save</button>
+    <button type="button" class="button test-save-addon" {{action (perform this.saveAddon)}}>Save</button>
   {{/if}}
   <div class="note">Last saved {{moment-from-now this.addon.updatedAt allowEmpty=true}} ({{moment-format this.addon.updatedAt "MMMM DD, YYYY h:mm:ss" allowEmpty=true}})</div>
 </section>
@@ -100,9 +100,9 @@
       {{/if}}
       <AddonReview @review={{this.addon.latestReview}} />
       {{#if this.renewLatestReview.isIdle}}
-        <button {{action (perform this.renewLatestReview)}} class="button test-renew-latest-review">Renew Review</button>
+        <button type="button" {{action (perform this.renewLatestReview)}} class="button test-renew-latest-review">Renew Review</button>
       {{else}}
-        <button disabled class="button">Saving...</button>
+        <button type="button" disabled class="button">Saving...</button>
       {{/if}}
       {{#if this.recentlyRenewed}}
         <b>Saved!</b>
