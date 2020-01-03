@@ -35,7 +35,7 @@
           </li>
           {{#if this.session.isAuthenticated}}
             <li>
-              <button {{action this.logoutUser}} class="logout">Log out</button>
+              <button type="button" {{action this.logoutUser}} class="logout">Log out</button>
             </li>
           {{/if}}
         </ul>

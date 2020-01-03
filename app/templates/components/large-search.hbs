@@ -9,7 +9,7 @@
              value={{this.query}}
              oninput={{action (perform this.search) value="target.value"}}>
       {{#if this.query}}
-        <button {{action this.clearSearch}} class="close-button test-clear-search">
+        <button type="button" {{action this.clearSearch}} class="close-button test-clear-search">
           {{svg-icon "close"}}
         </button>
       {{/if}}

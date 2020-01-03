@@ -96,7 +96,7 @@
   <div class="addon-stats">
     {{#if this.session.isAuthenticated}}
       <LinkTo @route="admin.review.addon" @model={{this.addon.name}}>
-        <button class="button">Edit</button>
+        <button type="button" class="button">Edit</button>
       </LinkTo>
     {{/if}}
 

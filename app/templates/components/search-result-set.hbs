@@ -15,9 +15,9 @@
         {{yield}}
         {{#if (less-than this.results.length this.totalCount)}}
           {{#if this.fetchMore.isRunning}}
-            <button class="button more-results">Fetching more...</button>
+            <button type="button" class="button more-results">Fetching more...</button>
           {{else}}
-            <button {{action (perform this.fetchMore)}} class="button more-results">Show more</button>
+            <button type="button" {{action (perform this.fetchMore)}} class="button more-results">Show more</button>
           {{/if}}
         {{/if}}
       </div>
