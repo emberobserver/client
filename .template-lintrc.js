@@ -3,6 +3,132 @@
 module.exports = {
   pending: [
     {
+      "moduleId": "app/components/addon-review-form",
+      "only": [
+        "no-action"
+      ]
+    },
+    {
+      "moduleId": "app/components/addon-source-usages",
+      "only": [
+        "no-action"
+      ]
+    },
+    {
+      "moduleId": "app/components/addon-version-list",
+      "only": [
+        "no-action"
+      ]
+    },
+    {
+      "moduleId": "app/components/admin-addon-review-form",
+      "only": [
+        "no-action"
+      ]
+    },
+    {
+      "moduleId": "app/components/admin-addon",
+      "only": [
+        "no-action"
+      ]
+    },
+    {
+      "moduleId": "app/components/code-search",
+      "only": [
+        "no-action"
+      ]
+    },
+    {
+      "moduleId": "app/components/dependency-table",
+      "only": [
+        "no-action"
+      ]
+    },
+    {
+      "moduleId": "app/components/dependency-tables",
+      "only": [
+        "no-action"
+      ]
+    },
+    {
+      "moduleId": "app/components/ember-version-compatibility",
+      "only": [
+        "no-action"
+      ]
+    },
+    {
+      "moduleId": "app/components/exclusive-button",
+      "only": [
+        "no-action"
+      ]
+    },
+    {
+      "moduleId": "app/components/large-search",
+      "only": [
+        "no-action"
+      ]
+    },
+    {
+      "moduleId": "app/components/login-form",
+      "only": [
+        "no-action"
+      ]
+    },
+    {
+      "moduleId": "app/components/page-layout",
+      "only": [
+        "no-action"
+      ]
+    },
+    {
+      "moduleId": "app/components/radio-button-set",
+      "only": [
+        "no-action"
+      ]
+    },
+    {
+      "moduleId": "app/components/radio-button",
+      "only": [
+        "no-action"
+      ]
+    },
+    {
+      "moduleId": "app/components/score-detail",
+      "only": [
+        "no-action"
+      ]
+    },
+    {
+      "moduleId": "app/components/search-result-set",
+      "only": [
+        "no-action"
+      ]
+    },
+    {
+      "moduleId": "app/components/sort-option",
+      "only": [
+        "no-action"
+      ]
+    },
+    {
+      "moduleId": "app/components/sort-order-option",
+      "only": [
+        "no-action"
+      ]
+    },
+    {
+      "moduleId": "app/components/stats-bar",
+      "only": [
+        "no-action"
+      ]
+    },
+    {
+      "moduleId": "app/components/toggle-switch",
+      "only": [
+        "no-action"
+      ]
+    },
+    {
       "moduleId": "app/templates/login",
       "only": [
         "no-action"
@@ -22,132 +148,6 @@ module.exports = {
     },
     {
       "moduleId": "app/templates/admin/review",
-      "only": [
-        "no-action"
-      ]
-    },
-    {
-      "moduleId": "app/templates/components/addon-review-form",
-      "only": [
-        "no-action"
-      ]
-    },
-    {
-      "moduleId": "app/templates/components/addon-source-usages",
-      "only": [
-        "no-action"
-      ]
-    },
-    {
-      "moduleId": "app/templates/components/addon-version-list",
-      "only": [
-        "no-action"
-      ]
-    },
-    {
-      "moduleId": "app/templates/components/admin-addon-review-form",
-      "only": [
-        "no-action"
-      ]
-    },
-    {
-      "moduleId": "app/templates/components/admin-addon",
-      "only": [
-        "no-action"
-      ]
-    },
-    {
-      "moduleId": "app/templates/components/code-search",
-      "only": [
-        "no-action"
-      ]
-    },
-    {
-      "moduleId": "app/templates/components/dependency-table",
-      "only": [
-        "no-action"
-      ]
-    },
-    {
-      "moduleId": "app/templates/components/dependency-tables",
-      "only": [
-        "no-action"
-      ]
-    },
-    {
-      "moduleId": "app/templates/components/ember-version-compatibility",
-      "only": [
-        "no-action"
-      ]
-    },
-    {
-      "moduleId": "app/templates/components/exclusive-button",
-      "only": [
-        "no-action"
-      ]
-    },
-    {
-      "moduleId": "app/templates/components/large-search",
-      "only": [
-        "no-action"
-      ]
-    },
-    {
-      "moduleId": "app/templates/components/login-form",
-      "only": [
-        "no-action"
-      ]
-    },
-    {
-      "moduleId": "app/templates/components/page-layout",
-      "only": [
-        "no-action"
-      ]
-    },
-    {
-      "moduleId": "app/templates/components/radio-button-set",
-      "only": [
-        "no-action"
-      ]
-    },
-    {
-      "moduleId": "app/templates/components/radio-button",
-      "only": [
-        "no-action"
-      ]
-    },
-    {
-      "moduleId": "app/templates/components/score-detail",
-      "only": [
-        "no-action"
-      ]
-    },
-    {
-      "moduleId": "app/templates/components/search-result-set",
-      "only": [
-        "no-action"
-      ]
-    },
-    {
-      "moduleId": "app/templates/components/sort-option",
-      "only": [
-        "no-action"
-      ]
-    },
-    {
-      "moduleId": "app/templates/components/sort-order-option",
-      "only": [
-        "no-action"
-      ]
-    },
-    {
-      "moduleId": "app/templates/components/stats-bar",
-      "only": [
-        "no-action"
-      ]
-    },
-    {
-      "moduleId": "app/templates/components/toggle-switch",
       "only": [
         "no-action"
       ]
