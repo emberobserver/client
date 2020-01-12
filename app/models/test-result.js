@@ -25,7 +25,7 @@ export default class TestResult extends Model {
   @attr('string')
   semverString;
 
-  @attr
+  @attr()
   emberTryResults;
 
   @belongsTo('version')

@@ -252,6 +252,7 @@ module('Acceptance | build results', function(hooks) {
         }
       });
 
+      await login();
       await visit(`/admin/build-results/${testResult.id}`);
 
       assert.dom('[data-test-results-table]').exists();
