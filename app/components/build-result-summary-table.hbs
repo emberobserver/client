@@ -1,4 +1,4 @@
-<table data-test-results-table>
+<table class="test-result-summary-table" data-test-results-table>
   <thead>
     <tr>
       <th>Scenario</th>
@@ -7,19 +7,7 @@
   </thead>
   <tbody>
     {{#each this.scenarios as |scenario|}}
-      <tr>
-        <td>{{scenario.scenarioName}}</td>
-        <td>
-          {{#if scenario.passed}}
-            Passed
-          {{else}}
-            Failed
-            {{#if scenario.allowedToFail}}
-              (allowed)
-            {{/if}}
-          {{/if}}
-        </td>
-      </tr>
+      <BuildResultSummaryTable::Row @scenario={{scenario}} />
     {{/each}}
   </tbody>
 </table>
