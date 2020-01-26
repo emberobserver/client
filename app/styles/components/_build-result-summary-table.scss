@@ -1,0 +1,14 @@
+.build-result-summary-table {
+  width: auto;
+
+  td {
+    padding: 0.75em;
+  }
+
+  th:first-child {
+    width: 15em;
+  }
+  th:not(:first-child) {
+    width: 8em;
+  }
+}
