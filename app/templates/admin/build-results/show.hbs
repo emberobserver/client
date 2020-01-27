@@ -23,6 +23,11 @@
     </span>
   </div>
 
+  {{#if this.buildResult.emberTryResults}}
+    <h2>Results</h2>
+    <BuildResultSummaryTable @results={{this.buildResult.emberTryResults}} />
+  {{/if}}
+
   <h2>Output</h2>
   <BuildResultOutput @buildResult={{this.buildResult}} />
 </div>

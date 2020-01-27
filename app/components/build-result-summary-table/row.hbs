@@ -1,0 +1,13 @@
+<tr>
+  <td>{{@scenario.scenarioName}}</td>
+  <td class="test-result {{this.testResultClass}}">
+    {{#if @scenario.passed}}
+      Passed
+    {{else}}
+      Failed
+      {{#if @scenario.allowedToFail}}
+        (allowed)
+      {{/if}}
+    {{/if}}
+  </td>
+</tr>

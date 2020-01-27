@@ -1,0 +1,13 @@
+<table class="build-result-summary-table" data-test-results-table>
+  <thead>
+    <tr>
+      <th>Scenario</th>
+      <th>Result</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each this.scenarios as |scenario|}}
+      <BuildResultSummaryTable::Row @scenario={{scenario}} />
+    {{/each}}
+  </tbody>
+</table>

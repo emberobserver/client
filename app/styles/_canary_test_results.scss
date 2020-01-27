@@ -26,7 +26,7 @@
     background-color: #e61313;
   }
 
-  &.error {
+  &.error, &.allowed-failure {
     background-color: #9e9e9e;
   }
 }
