@@ -102,7 +102,16 @@ module('Acceptance | size calculation results', function(hooks) {
 
   test('links to detail for individual builds', async function(assert) {
     let version = server.create('version');
-    let testResult = server.create('sizeCalculationResult', { versionId: version.id });
+    let output = [
+      {
+        group: 'this is the output',
+        commands: [],
+      }
+    ];
+    let testResult = server.create('sizeCalculationResult', {
+      versionId: version.id,
+      output: JSON.stringify(output),
+    });
 
     await login();
     await visit('/admin/size-calculation-results');
