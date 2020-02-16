@@ -4,7 +4,7 @@ import Controller from '@ember/controller';
 import { alias } from '@ember/object/computed';
 
 export default Controller.extend({
-  ajax: service('apiAjax'),
+  api: service('api'),
   sizeCalculationResult: alias('model'),
   addonVersion: alias('sizeCalculationResult.version'),
   addon: alias('addonVersion.addon'),
@@ -24,7 +24,10 @@ export default Controller.extend({
   actions: {
     retryBuild() {
       this.set('hasRetriedBuild', true);
-      this.get('ajax').post(`size_calculation_results/${this.get('sizeCalculationResult.id')}/retry`).catch(() => this.get('hasRetriedBuild', false));
+      this.api.request(`/size_calculation_results/${this.get('sizeCalculationResult.id')}/retry`, { method: 'POST' }).catch((e) => {
+        this.get('hasRetriedBuild', false);
+        throw e;
+      });
     }
   }
 });

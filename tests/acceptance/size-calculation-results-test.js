@@ -137,7 +137,7 @@ module('Acceptance | size calculation results', function(hooks) {
     assert.dom('.test-addon-name').hasText(addon.name, 'displays addon name');
     assert.dom('.test-addon-version').hasText(version.version, 'displays addon version');
     assert.dom('.test-run-date').hasText('2016-08-01 12:34', 'displays date/time tests ran');
-    assert.dom('.test-output').hasText('this is the output', "displays result's output");
+    assert.dom('.build-result-output').hasText('this is the output', "displays result's output as json");
   });
 
   test('detail page shows "succeeded" for status when build succeeded', async function(assert) {

@@ -1,9 +1,0 @@
-{{#each commandGroups as |commandGroup|}}
-  <em>
-    {{commandGroup.group}}{{#if commandGroup.has_failures}}<span class="error">&nbsp;(Has failures)</span>{{/if}}
-  </em>
-  {{#each commandGroup.commands as |command|}}
-    <pre>&gt;&nbsp;{{command.command}}</pre>{{#if command.failed}}<span class="error">Failed with exit code {{command.exit_code}}</span>{{/if}}
-    <pre>{{command.output}}</pre>
-  {{/each}}
-{{/each}}
