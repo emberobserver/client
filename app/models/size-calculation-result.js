@@ -8,5 +8,7 @@ export default DS.Model.extend({
   output: DS.attr('string'),
 
   version: DS.belongsTo('version'),
-  testsRunAt: alias('createdAt')
+  testsRunAt: alias('createdAt'),
+
+  outputFormat: 'json',
 });
