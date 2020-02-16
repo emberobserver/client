@@ -1,21 +1,21 @@
 <div class="admin-build-result">
   <h1>
-    Size Calculation #{{sizeCalculationResult.id}}
-    (<span class="test-addon-name">{{#link-to 'addons.show' addon.name}}{{addon.name}}{{/link-to}}</span>
-    <span class="test-addon-version">{{addonVersion.version}}</span>)
+    Size Calculation #{{this.sizeCalculationResult.id}}
+    (<span class="test-addon-name"><LinkTo @route="addons.show" @model={{this.addon.name}}>{{this.addon.name}}</LinkTo></span>
+    <span class="test-addon-version">{{this.addonVersion.version}}</span>)
   </h1>
 
   <div>
-    Status: <span class="test-build-status">{{buildStatus}}</span>
-    {{#if canRetryBuild}}
-      <button type="button" onclick={{action 'retryBuild'}} class="test-retry-build">Retry</button>
+    Status: <span class="test-build-status">{{this.buildStatus}}</span>
+    {{#if this.canRetryBuild}}
+      <button type="button" {{on "click" this.retryBuild}} class="test-retry-build">Retry</button>
     {{/if}}
   </div>
 
   <div>
-    Tests run at: <span class="test-run-date">{{moment-format sizeCalculationResult.testsRunAt 'YYYY-MM-DD HH:mm' allowEmpty=true}}</span>
+    Tests run at: <span class="test-run-date">{{moment-format this.sizeCalculationResult.testsRunAt 'YYYY-MM-DD HH:mm' allowEmpty=true}}</span>
   </div>
 
   <h2>Output</h2>
-  <BuildResultOutput @buildResult={{sizeCalculationResult}} />
+  <BuildResultOutput @buildResult={{this.sizeCalculationResult}} />
 </div>
