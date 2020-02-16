@@ -1,16 +1,16 @@
-{{#date-nav date=date as |nav|}}
-  {{#link-to 'admin.size-calculation-results.index' (query-params date=nav.formattedPreviousDate) class='previous-day'}}
+<DateNav @date={{this.date}} as |nav|>
+  <LinkTo @route="admin.size-calculation-results.index" @query={{hash date=nav.formattedPreviousDate}} @class="previous-day">
     &laquo; previous day
-  {{/link-to}}
+  </LinkTo>
 
   Size calculation results for {{nav.formattedDisplayDate}}
 
   {{#if nav.showFollowingDayLink}}
-    {{#link-to 'admin.size-calculation-results.index' (query-params date=nav.formattedFollowingDate) class='next-day'}}
+    <LinkTo @route="admin.size-calculation-results.index" @query={{hash date=nav.formattedFollowingDate}} @class='next-day'>
       next day &raquo;
-    {{/link-to}}
+    </LinkTo>
   {{/if}}
-{{/date-nav}}
+</DateNav>
 
 <table>
   <thead>
@@ -23,12 +23,12 @@
     </tr>
   </thead>
   <tbody>
-    {{#each sortedSizeCalculationResults as |result|}}
+    {{#each this.sortedSizeCalculationResults as |result|}}
       <tr class="test-size-calculation-result" data-sizeCalculationResultId={{result.id}}>
         <td>
-          {{#link-to 'addons.show' result.version.addon.name}}
+          <LinkTo @route="addons.show" @model={{result.version.addon.name}}>
             {{result.version.addon.name}}
-          {{/link-to}}
+          </LinkTo>
         </td>
         <td>{{result.version.version}}</td>
         <td>{{moment-format result.testsRunAt 'YYYY-MM-DD HH:mm' allowEmpty=true}}</td>
@@ -40,9 +40,9 @@
           {{/if}}
         </td>
         <td>
-          {{#link-to 'admin.size-calculation-results.show' result.id}}
+          <LinkTo @route="admin.size-calculation-results.show" @model={{result.id}}>
             details
-          {{/link-to}}
+          </LinkTo>
         </td>
       </tr>
     {{/each}}
