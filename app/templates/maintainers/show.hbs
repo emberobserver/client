@@ -5,6 +5,7 @@
       {{this.model.name}}
     </h1>
     <p>{{pluralize-this this.model.addons.length "addon"}} maintained by {{this.model.name}}.</p>
+    <TotalScore @addons={{this.model.addons}} />
   </header>
   <AddonList @addons={{this.model.addons}} />
 </div>
