@@ -21,6 +21,9 @@ export default class Version extends Model {
   @belongsTo('review')
   review;
 
+  @belongsTo('addon-size')
+  addonSize;
+
   @hasMany('addon-dependency')
   dependencies;
 }

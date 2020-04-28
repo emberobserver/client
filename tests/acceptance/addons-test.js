@@ -401,6 +401,81 @@ module('Acceptance: Addons', function(hooks) {
     assert.dom('.test-addon-dependencies .test-dependency-name').hasText(devDependency.package);
   });
 
+  test('displays addon dependency size info when available', async (assert) => {
+    let addon = server.create('addon');
+    let latestVersion = server.create('version', {
+      addon
+    });
+
+    let otherAssetsJson = {
+      files: [
+        {
+          name: 'dist/ember-fetch/fetch-fastboot-9f92e76e789a8d7a64fe7fa9b14c699a.js',
+          size: 863,
+          gzipSize: 522
+        }
+      ]
+    };
+
+    let dependencySize = server.create('addon-size', {
+      appJsSize: 512,
+      vendorJsSize: 512,
+      otherJsSize: 128,
+      appCssSize: 0,
+      vendorCssSize: 500,
+      otherCssSize: 0,
+      appJsGzipSize: 500,
+      vendorJsGzipSize: 500,
+      otherJsGzipSize: 50,
+      appCssGzipSize: 0,
+      vendorCssGzipSize: 30,
+      otherCssGzipSize: 0,
+      otherAssets: otherAssetsJson
+    });
+
+    let packageAddonVersion = server.create('version', {
+      addonSize: dependencySize,
+    })
+    let packageAddon = server.create('addon', {
+      latestAddonVersion: packageAddonVersion,
+    });
+
+    let dependencyWithSize = server.create('addon-dependency', {
+      dependentVersion: latestVersion,
+      packageAddon,
+      dependencyType: 'dependencies'
+    });
+
+    let dependencyWithNoSize = server.create('addon-dependency', {
+      dependentVersion: latestVersion,
+      dependencyType: 'dependencies'
+    });
+
+    addon.latestAddonVersion = latestVersion;
+    addon.save();
+
+    let devDependency = server.create('addon-dependency', {
+      dependentVersion: latestVersion,
+      dependencyType: 'devDependencies'
+    });
+
+    await visitAddon(addon);
+
+    assert.dom(`.test-dependency-${dependencyWithSize.package} .test-dependency-name`).containsText(dependencyWithSize.package, 'Package name still shows along with size');
+    assert.dom(`.test-dependency-${dependencyWithSize.package} .test-size-summary`).containsText('1.61 KB (1.05 KB gzipped)', 'Total size shows');
+
+    assert.dom(`.test-dependency-${dependencyWithNoSize.package} .test-size-summary`).doesNotExist('No size summary shows if none found');
+    assert.dom(`.test-dev-dependency-${devDependency.package} .test-size-summary`).doesNotExist('No size data shown for dev dependencies');
+
+    await click(`.test-dependency-${dependencyWithSize.package} .test-size-summary`);
+    assert.dom(`.test-dependency-${dependencyWithSize.package} .test-size-detail`).exists('Size detail shows');
+
+    await click(`.test-dependency-${dependencyWithSize.package} .test-other-assets-toggle`);
+    assert.dom(`.test-dependency-${dependencyWithSize.package} .test-other-assets-details`).exists('Other assets detail shows');
+
+    await percySnapshot('/addons/show | with dependency asset size details');
+  });
+
   test('hides some dependencies if there are over a certain amount', async function(assert) {
     let addon = server.create('addon');
     let latestVersion = server.create('version', {
