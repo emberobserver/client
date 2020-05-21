@@ -16,9 +16,9 @@
     <div class="sort-controls">
       Sort by:
       <div class="button-select">
-        <SortOption @name="Score" @key="score" @selectedSort={{this.addonSortKey}} @sortBy="sortBy" />
-        <SortOption @name="Name" @key="name" @selectedSort={{this.addonSortKey}} @sortBy="sortBy" />
-        <SortOption @name="Updated" @key="latestVersionDate" @selectedSort={{this.addonSortKey}} @sortBy="sortBy" />
+        <SortOption @name="Score" @key="score" @selectedSort={{this.addonSortKey}} @sortBy={{this.sortBy}} data-test-sort-by="score" />
+        <SortOption @name="Name" @key="name" @selectedSort={{this.addonSortKey}} @sortBy={{this.sortBy}} data-test-sort-by="name" />
+        <SortOption @name="Updated" @key="latestVersionDate" @selectedSort={{this.addonSortKey}} @sortBy={{this.sortBy}} data-test-sort-by="updated" />
       </div>
     </div>
   </div>
