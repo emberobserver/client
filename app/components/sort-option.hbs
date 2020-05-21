@@ -1,1 +1,3 @@
-<button type="button" {{action @sortBy @key}} class="button-option {{if this.isSelected 'selected'}}">{{this.name}}</button>
+<button type="button" {{action @sortBy @key}} class="button-option {{if this.isSelected 'selected'}}" ...attributes>
+  {{@name}}
+</button>
