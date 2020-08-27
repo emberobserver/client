@@ -30,7 +30,7 @@ export default class SizeCalculationResultsShowController extends Controller {
 
   @computed('sizeCalculationResult.succeeded', 'hasRetriedBuild')
   get canRetryBuild() {
-    return !this.get('sizeCalculationResult.succeeded') && !this.get('hasRetriedBuild');
+    return !this.get('sizeCalculationResult.succeeded') && !this.hasRetriedBuild;
   }
 
   @action

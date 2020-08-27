@@ -20,7 +20,7 @@ export default class ShowController extends Controller {
   @sort('addons', 'addonSorting')
   sortedAddons;
 
-  @computed('category.subcategories')
+  @computed('category.subcategories.length')
   get hasSubcategories() {
     return this.get('category.subcategories.length') > 0;
   }

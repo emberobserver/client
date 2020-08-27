@@ -25,7 +25,7 @@ export default class EmberVersionCompatibility extends Component {
     return this.versionCompatibilitiesForReleasedVersions.every((versionCompatibility) => versionCompatibility.get('compatible'));
   }
 
-  @computed('sortedVersionCompatibilities.[]')
+  @computed('sortedVersionCompatibilities.[]', 'sortedVersionCompatibilities.firstObject.emberVersion', 'sortedVersionCompatibilities.lastObject.emberVersion')
   get compatibilitySemverString() {
     let earliestVersion = this.get('sortedVersionCompatibilities.lastObject.emberVersion');
     let latestVersion = this.get('sortedVersionCompatibilities.firstObject.emberVersion');

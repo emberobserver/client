@@ -30,7 +30,7 @@ export default class AddonSize extends Model {
     return this.appJsSize + this.vendorJsSize + this.otherJsSize;
   }
 
-  @computed('appCssSize', 'vendorCssSize', 'otherJCssSize')
+  @computed('appCssSize', 'otherCssSize', 'otherJCssSize', 'vendorCssSize')
   get totalCssSize() {
     return this.appCssSize + this.vendorCssSize + this.otherCssSize;
   }

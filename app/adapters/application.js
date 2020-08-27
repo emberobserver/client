@@ -1,6 +1,6 @@
 import classic from 'ember-classic-decorator';
 import { computed } from '@ember/object';
-import JSONAPIAdapter from 'ember-data/adapters/json-api';
+import JSONAPIAdapter from '@ember-data/adapter/json-api';
 
 @classic
 export default class Application extends JSONAPIAdapter {

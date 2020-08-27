@@ -21,7 +21,7 @@ export default class AddonSourceUsages extends Component {
     return this.usages.slice(0, this.visibleUsageCount);
   }
 
-  @computed('visibleUsageCount', 'usages')
+  @computed('usages.length', 'visibleUsageCount')
   get moreUsages() {
     return this.visibleUsageCount < this.get('usages.length');
   }

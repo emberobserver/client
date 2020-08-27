@@ -155,7 +155,7 @@ export default class LargeSearch extends Component {
     return this.store.query('addon', { filter: { id: ids.join(',') }, sort: '-score', include: 'categories' }).then((addons) => addons.toArray());
   }
 
-  @computed('query', '_results')
+  @computed('_results', 'query', 'queryIsValid')
   get results() {
     if (this.queryIsValid) {
       return this._results;

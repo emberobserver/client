@@ -28,7 +28,7 @@ export default class ShowController extends Controller {
     return this.get('latestReview.version.version') === this.get('latestVersion.version');
   }
 
-  @computed('model.latestTestResult.version', 'latestVersion')
+  @computed('latestVersion.version', 'model.latestTestResult.version.version')
   get isTestResultForLatestVersion() {
     return this.get('model.latestTestResult.version.version') === this.get('latestVersion.version');
   }

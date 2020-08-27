@@ -19,7 +19,7 @@ export default class AddonVersionList extends Component {
     return (this.versions || []).slice(0, 10);
   }
 
-  @computed('emberVersions.versions.[]', 'showingVersions.lastObject')
+  @computed('emberVersions.versions.[]', 'showingVersions.lastObject.released')
   get emberVersionDataAfterOldestShowingAddonVersion() {
     let oldestVersionDate = this.get('showingVersions.lastObject.released');
     return this.get('emberVersions.versions').filter(version => version.released > oldestVersionDate);

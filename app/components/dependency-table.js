@@ -39,7 +39,7 @@ export default class DependencyTable extends Component {
   @alias('devDependencies.length')
   devDependencyCount;
 
-  @computed('dependencyCount', 'devDependencies')
+  @computed('dependencyCount', 'devDependencies', 'devDependencyCount', 'limit')
   get hasManyDependencies() {
     if (!this.dependencyCount || !this.devDependencyCount) {
       return false;
@@ -47,7 +47,7 @@ export default class DependencyTable extends Component {
     return this.dependencyCount > this.limit || this.devDependencyCount > this.limit;
   }
 
-  @computed('dependencyCount', 'showingAllDependencies')
+  @computed('dependencyCount', 'limit', 'showingAllDependencies')
   get hiddenDependencyCount() {
     if (this.showingAllDependencies) {
       return 0;
@@ -55,7 +55,7 @@ export default class DependencyTable extends Component {
     return Math.max(this.dependencyCount - this.limit, 0);
   }
 
-  @computed('devDependencyCount', 'showingAllDependencies')
+  @computed('devDependencyCount', 'limit', 'showingAllDependencies')
   get hiddenDevDependencyCount() {
     if (this.showingAllDependencies) {
       return 0;

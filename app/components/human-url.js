@@ -22,7 +22,7 @@ export default class HumanUrl extends Component {
 
   @computed('parsed.host')
   get domain() {
-    return this.getWithDefault('parsed.host', '').replace(/^(www.)?/, '');
+    return (this.get('parsed.host') === undefined ? '' : this.get('parsed.host')).replace(/^(www.)?/, '');
   }
 
   @alias('parsed.pathname')
