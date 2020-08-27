@@ -27,8 +27,7 @@
     }
 
     .no-results {
-      color: white;
-      margin-top: 0.5rem;
+      margin-top: 0.5rem 0;
       visibility: hidden;
 
       &.showing {
