@@ -18,7 +18,7 @@ You will need the following things properly installed on your computer.
 
 * `git clone <repository-url>` this repository
 * change into the new directory
-* `npm install`
+* `yarn install`
 
 ## Running / Development
 

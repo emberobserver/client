@@ -40,19 +40,24 @@
       font-weight: 500;
       line-height: 1;
       white-space: nowrap;
-      display: block;
+      display: flex;
       margin-bottom: 1rem;
+      align-items: end;
 
       @include media($medium-screen) {
         margin-right: $default-spacing;
         margin-bottom: 0;
-        display: inline-block;
+        display: flex;
+        align-items: end;
       }
 
       img {
-        height: 2rem;
+        height: 3rem;
         vertical-align: middle;
-        margin-right: 0.5rem;
+        margin-right: 1rem;
+      }
+      p {
+        margin: 0;
       }
     }
 
