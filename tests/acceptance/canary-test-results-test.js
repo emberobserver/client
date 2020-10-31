@@ -1,4 +1,5 @@
 import { currentRouteName, visit } from '@ember/test-helpers';
+import Service from '@ember/service';
 import { module, test } from 'qunit';
 import { percySnapshot } from 'ember-percy';
 import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
@@ -8,8 +9,11 @@ module('Acceptance | canary test results', function(hooks) {
   setupEmberObserverTest(hooks);
 
   hooks.beforeEach(function() {
-    let currentDateService = this.owner.lookup('service:current-date');
-    currentDateService.date = moment('2020-10-31T17:14:51Z');
+    this.owner.register('service:current-date', class extends Service {
+      get date() {
+        return moment('2020-10-31T17:14:51Z');
+      }
+    });
   });
 
   test('redirects to current day', async function(assert) {

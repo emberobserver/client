@@ -1,6 +1,7 @@
 import { hbs } from 'ember-cli-htmlbars';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
+import Service from '@ember/service';
 import { render } from '@ember/test-helpers';
 import moment from 'moment';
 
@@ -26,9 +27,13 @@ module('Integration | Component | relative-date', function(hooks) {
   });
 
   test('it uses the currentDate service to determine the current date', async function(assert) {
-    this.owner.lookup('service:current-date').date = moment('2020-10-30T00:00:00Z');
+    this.owner.register('service:current-date', class extends Service {
+      get date() {
+        return moment('2006-10-30T00:00:00Z');
+      }
+    });
 
-    this.date = moment('2020-09-30T00:00:00Z');
+    this.date = moment('2006-09-30T00:00:00Z');
     await render(hbs`
       <RelativeTime @date={{this.date}} />
     `);
