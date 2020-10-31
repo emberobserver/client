@@ -79,7 +79,12 @@ module('Acceptance | admin review addon', function(hooks) {
       hasBeenReviewed: true,
       repositoryUrl: 'http://example.com/fake-addon',
       demoUrl: 'http://example.org/demo',
+      updatedAt: '2020-10-01T17:14:51Z',
     });
+
+    // fix "current date" so the relative date of the "last review" date
+    // doesn't change and cause Percy to show a change when it shouldn't.
+    this.owner.lookup('service:current-date').date = moment('2020-10-31T17:14:51Z');
 
     let newestAddonVersion = server.create('version', {
       addon,
