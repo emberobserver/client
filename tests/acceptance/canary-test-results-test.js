@@ -7,6 +7,11 @@ import moment from 'moment';
 module('Acceptance | canary test results', function(hooks) {
   setupEmberObserverTest(hooks);
 
+  hooks.beforeEach(function() {
+    let currentDateService = this.owner.lookup('service:current-date');
+    currentDateService.date = moment('2020-10-31T17:14:51Z');
+  });
+
   test('redirects to current day', async function(assert) {
     let addon = server.create('addon');
 
@@ -14,8 +19,7 @@ module('Acceptance | canary test results', function(hooks) {
 
     server.create('testResult', {
       versionId: addonVersion.id,
-      canary: true,
-      createdAt: moment('2016-08-07 16:30').utc()
+      canary: true
     });
 
     await visit('/canary-test-results');
