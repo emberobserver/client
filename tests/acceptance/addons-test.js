@@ -242,7 +242,8 @@ module('Acceptance: Addons', function(hooks) {
       hasTests: 1,
       hasReadme: 4,
       hasBuild: 1,
-      review: 'Seems ok'
+      review: 'Seems ok',
+      createdAt: '2020-10-31T17:14:51Z'
     });
 
     addonWithReview.latestReview = review;
