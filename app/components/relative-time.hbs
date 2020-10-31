@@ -1,1 +1,3 @@
-{{moment-from-now this.date allowEmpty=true}}
+<time datetime={{this.isoDate}} title={{this.isoDate}}>
+  {{moment-from-now @date allowEmpty=true}}
+</time>
