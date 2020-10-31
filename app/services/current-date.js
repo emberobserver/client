@@ -1,7 +1,8 @@
 import Service from '@ember/service';
+import { tracked } from '@glimmer/tracking';
 
 export default class CurrentDateService extends Service {
-  currentDateOverride = null;
+  @tracked currentDateOverride = null;
 
   get date() {
     return this.currentDateOverride || new Date();
