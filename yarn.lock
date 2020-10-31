@@ -6471,13 +6471,6 @@ ember-moment@^8.0.0:
     ember-getowner-polyfill "^2.2.0"
     ember-macro-helpers "^4.2.2"
 
-ember-pad@1.2.3:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/ember-pad/-/ember-pad-1.2.3.tgz#e75b0f580348e6447cda3ddfb0a415024f09ca83"
-  integrity sha512-Dpaqv40nDCIHoxp2YEpxz7RcQaYHS0L8fs91sGG7YkCUHsNjSBcyrABighnofWMBCcaJD7f9mx+fZPdGjdJjxA==
-  dependencies:
-    ember-cli-babel "^6.6.0"
-
 ember-percy@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/ember-percy/-/ember-percy-1.6.0.tgz#b0b7f27a4f60ac8992648337fc6d64404109d325"

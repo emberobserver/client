@@ -60,7 +60,6 @@
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-metrics": "^0.14.0",
     "ember-moment": "^8.0.0",
-    "ember-pad": "1.2.3",
     "ember-percy": "^1.6.0",
     "ember-power-select": "^2.2.1",
     "ember-power-select-typeahead": "^0.7.3",
