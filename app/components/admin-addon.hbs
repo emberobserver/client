@@ -28,11 +28,9 @@
   </div>
   <div>
     <b>npm keywords</b>
-    {{#each @addon.keywords as |keyword|}}
-      <CommaSeparated @list={{@addon.keywords}} @item={{keyword}} as |value separator|>
-        {{value.keyword}}{{separator}}
-      </CommaSeparated>
-    {{/each}}
+    <CommaSeparatedList @list={{@addon.keywords}} as |value separator|>
+      {{value.keyword}}{{separator}}
+    </CommaSeparatedList>
   </div>
   {{#if @addon.ranking}}
     <span><LinkTo @route="addons.top">Ranks #{{@addon.ranking}} of the top 100 addons!</LinkTo></span>

@@ -53,11 +53,9 @@
 
 <p class="keywords test-addon-keywords">
 
-  {{#each this.addon.keywords as |keyword|}}
-    <CommaSeparated @list={{this.addon.keywords}} @item={{keyword}} as |value separator|>
-      {{value.keyword}}{{separator}}
-    </CommaSeparated>
-  {{/each}}
+  <CommaSeparatedList @list={{this.addon.keywords}} as |value separator|>
+    {{value.keyword}}{{separator}}
+  </CommaSeparatedList>
 </p>
 
 <h6>maintainers</h6>
