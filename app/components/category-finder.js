@@ -1,15 +1,15 @@
-import classic from 'ember-classic-decorator';
-import { sort, filterBy } from '@ember/object/computed';
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 
-@classic
 export default class CategoryFinder extends Component {
-  categorySorting = ['position:asc'];
-  categoryLinkRoute = 'categories.show';
+  get categoryLinkRoute() {
+    return this.args.categoryLinkRoute || 'categories.show';
+  }
 
-  @filterBy('categories', 'parent', null)
-  topLevelCategories;
+  get topLevelCategories() {
+    return this.args.categories.filterBy('parent', null);
+  }
 
-  @sort('topLevelCategories', 'categorySorting')
-  sortedTopLevelCategories;
+  get sortedTopLevelCategories() {
+    return this.topLevelCategories.sortBy('position');
+  }
 }
