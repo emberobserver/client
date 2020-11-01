@@ -62,7 +62,7 @@
 <p class="test-addon-maintainers">
   {{#each this.addon.maintainers as |maintainer|}}
     <LinkTo @route="maintainers.show" @model={{maintainer.name}}>
-      <GravatarAvatar @gravatarId={{maintainer.gravatar}} @title={{maintainer.name}} @alt={{maintainer.name}} />
+      <GravatarAvatar @gravatarId={{maintainer.gravatar}} title={{maintainer.name}} alt={{maintainer.name}} />
     </LinkTo>
   {{/each}}
 </p>
