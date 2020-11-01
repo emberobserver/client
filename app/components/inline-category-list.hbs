@@ -1,18 +1,16 @@
-{{#each this.categoriesSortedByAddonCount as |category|}}
-  <CommaSeparated @list={{this.categoriesSortedByAddonCount}} @item={{category}} as |value separator|>
-    <LinkTo @route="categories.show" @model={{value.slug}}>
-      {{#if this.showWithoutParent}}
-        {{value.name}}
-      {{else}}
-        {{#if value.parent}}
-          {{value.parent.name}} >
-        {{/if}}
-        {{value.name}}
-      {{~/if~}}
-      {{#if this.showAddonCount}}
-        ({{value.totalAddonCount}})
-      {{~/if~}}
-      {{separator}}
-    </LinkTo>
-  </CommaSeparated>
-{{/each}}
+<CommaSeparatedList @list={{this.categoriesSortedByAddonCount}} as |value separator|>
+  <LinkTo @route="categories.show" @model={{value.slug}}>
+    {{#if this.showWithoutParent}}
+      {{value.name}}
+    {{else}}
+      {{#if value.parent}}
+        {{value.parent.name}} >
+      {{/if}}
+      {{value.name}}
+    {{~/if~}}
+    {{#if this.showAddonCount}}
+      ({{value.totalAddonCount}})
+    {{~/if~}}
+    {{separator}}
+  </LinkTo>
+</CommaSeparatedList>

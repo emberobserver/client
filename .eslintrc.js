@@ -23,7 +23,12 @@ module.exports = {
     'ember/avoid-leaking-state-in-ember-objects': 'off',
     'ember/closure-actions': 'off',
     'ember/use-brace-expansion': 'off',
-    'ember/no-jquery': 'error'
+    'ember/no-get': 'warn',
+    'ember/no-get-with-default': 'warn',
+    'ember/no-jquery': 'error',
+    'ember/no-private-routing-service': 'warn',
+    'ember/require-computed-property-dependencies': 'warn',
+    'ember/use-ember-data-rfc-395-imports': 'warn'
   },
   overrides: [
     // tests

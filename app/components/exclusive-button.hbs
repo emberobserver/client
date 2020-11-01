@@ -1,1 +1,3 @@
-<button type="button" {{action this.updateSelectedValue this.value}} class={{if (eq this.selectedValue this.value) "selected"}}>{{this.label}}</button>
+<button type="button" {{on "click" this.updateSelectedValue}} class={{if (eq @selectedValue @value) "selected"}}>
+  {{@label}}
+</button>

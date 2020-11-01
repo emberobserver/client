@@ -3,5 +3,4 @@
   <LinkTo @route="admin.categories.new">Add category</LinkTo>
 </fieldset>
 
-<CategoryFinder @class="categories-list" @categoryLinkRoute="admin.categories.edit" @categories={{this.model}} />
-
+<CategoryFinder @categoryLinkRoute="admin.categories.edit" @categories={{this.model}} class="categories-list" />

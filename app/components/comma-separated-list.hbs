@@ -1,0 +1,5 @@
+<span>
+  {{#each @list as |item|}}
+    {{yield item (if (eq item @list.lastObject) '' ', ')}}
+  {{/each}}
+</span>

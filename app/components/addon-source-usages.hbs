@@ -1,17 +1,17 @@
 <div class="usage-count">
-  <a href="#" {{action "toggleUsages"}} class="test-usage-count">
+  <a href="#" {{on "click" this.toggleUsages}} class="test-usage-count">
     {{#if this.showUsages}}
-      {{svg-icon "expand-more"}}
+      <SvgIcon @icon="expand-more" />
     {{else}}
-      {{svg-icon "chevron-right"}}
+      <SvgIcon @icon="chevron-right" />
     {{/if}}
-    {{this.count}} {{pluralize this.count "usage"}}
+    {{@count}} {{pluralize @count "usage"}}
   </a>
   {{#if this.showUsages}}
     {{#if this.usages}}
       {{#each this.visibleUsages as |usage|}}
         <div class="usage test-usage">
-          <a class="filename" href="{{clean-repo-url this.addon.repositoryUrl}}/tree/master/{{usage.filename}}#L{{usage.line_number}}">
+          <a class="filename" href="{{clean-repo-url @addon.repositoryUrl}}/tree/master/{{usage.filename}}#L{{usage.line_number}}">
             {{usage.filename}}:{{usage.line_number}}
           </a>
           {{#each usage.lines as |line|}}
@@ -20,7 +20,7 @@
         </div>
       {{/each}}
       {{#if this.moreUsages}}
-        <a href="#" {{action "viewMore"}} class="view-more">
+        <a href="#" {{on "click" this.viewMore}} class="view-more">
           See more usages
         </a>
       {{/if}}

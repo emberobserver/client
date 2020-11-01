@@ -1,41 +1,35 @@
-import classic from 'ember-classic-decorator';
-import { tagName } from '@ember-decorators/component';
-import { action, computed } from '@ember/object';
+import { action } from '@ember/object';
 import { compare } from '@ember/utils';
-import Component from '@ember/component';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 
-@classic
-@tagName('')
 export default class EmberVersionCompatibility extends Component {
-  showTable = false;
+  @tracked showTable = false;
 
-  @computed('testResult.emberVersionCompatibilities.@each.emberVersion')
   get versionCompatibilitiesForReleasedVersions() {
-    return this.get('testResult.emberVersionCompatibilities')
+    return this.args.testResult.get('emberVersionCompatibilities')
       .filter((versionCompatibility) => !versionCompatibility.get('emberVersion').match(/(beta|canary)/));
   }
 
-  @computed('versionCompatibilitiesForReleasedVersions.@each.emberVersion')
   get sortedVersionCompatibilities() {
     return this.versionCompatibilitiesForReleasedVersions.toArray().sort(sortByVersion);
   }
 
-  @computed('versionCompatibilitiesForReleasedVersions.@each.compatible')
   get allTestsPassed() {
     return this.versionCompatibilitiesForReleasedVersions.every((versionCompatibility) => versionCompatibility.get('compatible'));
   }
 
-  @computed('sortedVersionCompatibilities.[]')
   get compatibilitySemverString() {
-    let earliestVersion = this.get('sortedVersionCompatibilities.lastObject.emberVersion');
-    let latestVersion = this.get('sortedVersionCompatibilities.firstObject.emberVersion');
+    let earliestVersion = this.sortedVersionCompatibilities.get('lastObject.emberVersion');
+    let latestVersion = this.sortedVersionCompatibilities.get('firstObject.emberVersion');
 
     return `>=${earliestVersion} <=${latestVersion}`;
   }
 
   @action
-  toggleShowTable() {
-    this.toggleProperty('showTable');
+  toggleShowTable(event) {
+    event.preventDefault();
+    this.showTable = !this.showTable;
   }
 }
 

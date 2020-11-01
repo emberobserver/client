@@ -3,31 +3,7 @@
 module.exports = {
   pending: [
     {
-      "moduleId": "app/components/addon-review-form",
-      "only": [
-        "no-action"
-      ]
-    },
-    {
-      "moduleId": "app/components/addon-source-usages",
-      "only": [
-        "no-action"
-      ]
-    },
-    {
-      "moduleId": "app/components/addon-version-list",
-      "only": [
-        "no-action"
-      ]
-    },
-    {
       "moduleId": "app/components/admin-addon-review-form",
-      "only": [
-        "no-action"
-      ]
-    },
-    {
-      "moduleId": "app/components/admin-addon",
       "only": [
         "no-action"
       ]
@@ -46,18 +22,6 @@ module.exports = {
     },
     {
       "moduleId": "app/components/dependency-tables",
-      "only": [
-        "no-action"
-      ]
-    },
-    {
-      "moduleId": "app/components/ember-version-compatibility",
-      "only": [
-        "no-action"
-      ]
-    },
-    {
-      "moduleId": "app/components/exclusive-button",
       "only": [
         "no-action"
       ]

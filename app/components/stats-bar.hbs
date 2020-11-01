@@ -25,7 +25,7 @@
     {{#if this.addon.hasInvalidGithubRepo}}
       <div>
         Unavailable
-        {{svg-icon "help" class="test-addon-flag-invalid-repo" title=(concat "This addon has an incorrect repo URL in its package.json: " this.addon.repositoryUrl)}}
+        <SvgIcon @icon="help" class="test-addon-flag-invalid-repo" @title={{concat "This addon has an incorrect repo URL in its package.json: " this.addon.repositoryUrl}} />
       </div>
     {{else}}
       <HumanUrl @url={{this.addon.repositoryUrl}} />
@@ -42,7 +42,7 @@
 {{#if this.testResult}}
   {{#unless this.isTestResultForLatestVersion}}
     <em class="test-ember-version-compatibility-new-version-warning">
-      {{svg-icon "new-releases"}} New
+      <SvgIcon @icon="new-releases" /> New
       versions of this addon have been released since these tests ran.
     </em>
   {{/unless}}
@@ -53,18 +53,16 @@
 
 <p class="keywords test-addon-keywords">
 
-  {{#each this.addon.keywords as |keyword|}}
-    <CommaSeparated @list={{this.addon.keywords}} @item={{keyword}} as |value separator|>
-      {{value.keyword}}{{separator}}
-    </CommaSeparated>
-  {{/each}}
+  <CommaSeparatedList @list={{this.addon.keywords}} as |value separator|>
+    {{value.keyword}}{{separator}}
+  </CommaSeparatedList>
 </p>
 
 <h6>maintainers</h6>
 <p class="test-addon-maintainers">
   {{#each this.addon.maintainers as |maintainer|}}
     <LinkTo @route="maintainers.show" @model={{maintainer.name}}>
-      <GravatarAvatar @gravatarId={{maintainer.gravatar}} @title={{maintainer.name}} @alt={{maintainer.name}} />
+      <GravatarAvatar @gravatarId={{maintainer.gravatar}} title={{maintainer.name}} alt={{maintainer.name}} />
     </LinkTo>
   {{/each}}
 </p>
@@ -82,7 +80,7 @@
 
 <section class="badge test-addon-badge">
   <img alt="Addon Badge" src={{badge-path this.addon.name}}>
-  <a href="#" class="copy-to-clipboard test-show-badge-markdown" title="Show badge markdown to copy" {{action "toggleBadgeText"}}>{{svg-icon "content-paste"}}</a>
+  <a href="#" class="copy-to-clipboard test-show-badge-markdown" title="Show badge markdown to copy" {{action "toggleBadgeText"}}><SvgIcon @icon="content-paste" /></a>
   {{#if this.showBadgeText}}
     <hr>
     <code class="test-badge-markdown">

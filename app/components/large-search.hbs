@@ -10,7 +10,7 @@
              oninput={{action (perform this.search) value="target.value"}}>
       {{#if this.query}}
         <button type="button" {{action this.clearSearch}} class="close-button test-clear-search">
-          {{svg-icon "close"}}
+          <SvgIcon @icon="close" />
         </button>
       {{/if}}
     </div>

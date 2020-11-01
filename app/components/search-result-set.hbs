@@ -3,9 +3,9 @@
     <h5>
       <a href="#" {{action this.toggleResultsExpansion}}>
         {{#if this.resultsCollapsed}}
-          {{svg-icon "chevron-right"}}
+          <SvgIcon @icon="chevron-right" />
         {{else}}
-          {{svg-icon "expand-more"}}
+          <SvgIcon @icon="expand-more" />
         {{/if}}
         {{this.title}} ({{this.totalCount}})
       </a>

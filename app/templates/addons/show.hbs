@@ -11,11 +11,11 @@
 
       <h1>
         {{#if this.addon.isOfficial}}
-          <OfficialIcon @class="test-addon-flag-official" />
+          <OfficialIcon class="test-addon-flag-official" />
         {{/if}}
 
         {{#if this.addon.isCliDependency}}
-          <DependencyIcon @class="test-addon-flag-cli-dependency" />
+          <DependencyIcon class="test-addon-flag-cli-dependency" />
         {{/if}}
 
         {{this.addon.name}}
@@ -69,7 +69,7 @@
       <h4>Review</h4>
       {{#if this.latestReview}}
         {{#unless this.isLatestReviewForLatestVersion}}
-          <em class="test-review-new-version-warning">{{svg-icon "new-releases"}} New versions of this addon have been released since this review was undertaken.</em>
+          <em class="test-review-new-version-warning"><SvgIcon @icon="new-releases" /> New versions of this addon have been released since this review was undertaken.</em>
         {{/unless}}
         <AddonReview @review={{this.latestReview}} />
       {{else}}

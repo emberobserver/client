@@ -1,49 +1,44 @@
-import classic from 'ember-classic-decorator';
-import { action, computed } from '@ember/object';
+import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { isEmpty } from '@ember/utils';
-import { task } from 'ember-concurrency';
+import { dropTask } from 'ember-concurrency-decorators';
+import { tracked } from '@glimmer/tracking';
 
-@classic
 export default class AddonSourceUsages extends Component {
-  visibleUsageCount = 25;
-  showUsages = false;
-  usages = null;
-  regex = false;
-  fileFilter = null;
+  @tracked showUsages = false;
+  @tracked usages = null;
+  @tracked visibleUsageCount = 25;
 
-  @service
-  codeSearch;
+  @service codeSearch;
 
-  @computed('visibleUsageCount', 'usages')
   get visibleUsages() {
     return this.usages.slice(0, this.visibleUsageCount);
   }
 
-  @computed('visibleUsageCount', 'usages')
   get moreUsages() {
-    return this.visibleUsageCount < this.get('usages.length');
+    return this.visibleUsageCount < this.usages.length;
   }
 
-  @(task(function* () {
-    let usages = yield this.get('codeSearch.usages').perform(this.get('addon.id'), this.query, this.regex);
-    this.set('usages', filterByFilePath(usages, this.fileFilter));
-  }).drop())
-  fetchUsages;
+  @dropTask
+  *fetchUsages() {
+    let usages = yield this.codeSearch.usages.perform(this.args.addon.id, this.args.query, this.args.regex);
+    this.usages = filterByFilePath(usages, this.args.fileFilter);
+  }
 
   @action
-  toggleUsages() {
-    this.toggleProperty('showUsages');
+  toggleUsages(event) {
+    event.preventDefault();
+    this.showUsages = !this.showUsages;
     if (this.showUsages && this.usages === null) {
       this.fetchUsages.perform();
     }
   }
 
   @action
-  viewMore() {
-    let newUsageCount = this.visibleUsageCount + 25;
-    this.set('visibleUsageCount', newUsageCount);
+  viewMore(event) {
+    event.preventDefault();
+    this.visibleUsageCount = this.visibleUsageCount + 25;
   }
 }
 
