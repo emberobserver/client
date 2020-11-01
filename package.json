@@ -30,7 +30,7 @@
     "ember-classic-decorator": "^1.0.5",
     "ember-cli": "~3.15.1",
     "ember-cli-app-version": "^3.2.0",
-    "ember-cli-babel": "^7.13.0",
+    "ember-cli-babel": "^7.23.0",
     "ember-cli-code-coverage": "^1.0.0-beta.8",
     "ember-cli-dependency-checker": "^3.2.0",
     "ember-cli-deploy": "^1.0.2",
