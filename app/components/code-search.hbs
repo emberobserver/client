@@ -4,7 +4,7 @@
     <div class="search-wrapper-inner">
       <Input @type="search" placeholder="Search for addons containing code" @autocomplete="off" @id="code-search-input" @spellcheck="false" @value={{this.searchInput}} />
       {{#if this.codeQuery}}
-        <button type="button" {{action this.clearSearch}} class="close-button test-clear-search">{{svg-icon "close"}}</button>
+        <button type="button" {{action this.clearSearch}} class="close-button test-clear-search"><SvgIcon @icon="close" /></button>
       {{/if}}
     </div>
     <div class="search-actions">
@@ -33,7 +33,7 @@
                oninput={{action (perform this.applyFileFilter) value="target.value"}}
                class="test-file-filter-input">
         {{#if this.isFilterApplied}}
-          <button type="button" {{action this.clearFileFilter}} class="close-button test-clear-file-filter">{{svg-icon "close" alignBaseline=false}}</button>
+          <button type="button" {{action this.clearFileFilter}} class="close-button test-clear-file-filter"><SvgIcon @icon="close" alignBaseline={{false}} /></button>
         {{/if}}
       </div>
       {{#if this.isDisplayingFilteredResults}}

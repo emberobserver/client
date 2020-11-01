@@ -2,10 +2,10 @@
   <LinkTo @route="addons.show" @model={{@addon.name}} class="test-addon-link">
     {{@addon.name}}
     {{#if @addon.isOfficial}}
-      <OfficialIcon @class="test-official-icon" />
+      <OfficialIcon class="test-official-icon" />
     {{/if}}
     {{#if @addon.isCliDependency}}
-      <DependencyIcon @class="test-cli-dep-icon" />
+      <DependencyIcon class="test-cli-dep-icon" />
     {{/if}}
   </LinkTo>
 </h2>
@@ -50,9 +50,9 @@
   {{else}}
     <em>Missing</em>
   {{/if}}
-  <a href="https://www.google.com/search?q=%22{{@addon.name}}%22" target="_blank" rel="noopener noreferrer" title="Search Google">&nbsp;{{svg-icon "google"}}</a>
+  <a href="https://www.google.com/search?q=%22{{@addon.name}}%22" target="_blank" rel="noopener noreferrer" title="Search Google">&nbsp;<SvgIcon @icon="google" /></a>
   |
-  <a href="https://github.com/search?q=%22{{@addon.name}}%22" target="_blank" rel="noopener noreferrer" title="Search GitHub">{{svg-icon "github"}}</a>
+  <a href="https://github.com/search?q=%22{{@addon.name}}%22" target="_blank" rel="noopener noreferrer" title="Search GitHub"><SvgIcon @icon="github" /></a>
   <ToggleSwitch @label={{if @addon.hasInvalidGithubRepo "Has invalid Repo URL" "Has valid Repo URL"}} @isChecked={{not @addon.hasInvalidGithubRepo}} @onToggle={{fn this.toggleFlag "hasInvalidGithubRepo"}} @name="repo" @class="test-toggle-repo-validity" />
 </section>
 
@@ -94,7 +94,7 @@
   <div class="contents">
     {{#if @addon.latestReview}}
       {{#if (not-eq @addon.latestReview.version.version @addon.latestAddonVersion.version)}}
-        <em class="test-review-new-version-warning">{{svg-icon "new-releases"}} New versions of this addon have been released since this review was undertaken.</em>
+        <em class="test-review-new-version-warning"><SvgIcon @icon="new-releases" /> New versions of this addon have been released since this review was undertaken.</em>
       {{/if}}
       <AddonReview @review={{@addon.latestReview}} />
       {{#if this.renewLatestReview.isIdle}}

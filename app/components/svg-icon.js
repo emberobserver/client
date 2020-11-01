@@ -1,8 +1,11 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
+import { isPresent } from '@ember/utils';
 
-export default Component.extend({
-  tagName: '',
-  alignBaseline: true,
-}).reopenClass({
-  positionalParams: ['iconName']
-});
+export default class SvgIcon extends Component {
+  get alignBaseline() {
+    if (isPresent(this.args.alignBaseline)) {
+      return this.args.alignBaseline;
+    }
+    return true;
+  }
+}
