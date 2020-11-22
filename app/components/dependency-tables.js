@@ -19,11 +19,12 @@ export default class DependencyTables extends Component {
   fetchDependencies(addonVersionId) {
     return this.store.query('addon-dependency', {
       filter: { addonVersionId },
+      include: 'package-addon.latest-addon-version.addon-size',
       sort: 'package',
     }).then((results) => {
       return {
-        dependencies: results.filter(dependencies).map(dep => dep.package),
-        devDependencies: results.filter(devDependencies).map(dep => dep.package)
+        dependencies: results.filter(dependencies).map(dep => dependencyObject(dep)),
+        devDependencies: results.filter(devDependencies).map(dep => dependencyObject(dep))
       };
     });
   }
@@ -35,9 +36,17 @@ export default class DependencyTables extends Component {
       include: 'dependent-version',
     }).then((results) => {
       return {
-        dependencies: results.filter(dependencies).map(dep => dep.dependentVersion.get('addonName')).sort(),
-        devDependencies: results.filter(devDependencies).map(dep => dep.dependentVersion.get('addonName')).sort()
+        dependencies: results.filter(dependencies).map(dep => dependentObject(dep)).sortBy('packageName'),
+        devDependencies: results.filter(devDependencies).map(dep => dependentObject(dep)).sortBy('packageName')
       };
     });
   }
+}
+
+function dependencyObject(dependency) {
+  return { packageName: dependency.get('package'), size: dependency.get('addonSize') };
+}
+
+function dependentObject(dependency) {
+  return { packageName: dependency.get('dependentVersion.addonName'), size: null };
 }

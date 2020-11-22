@@ -1,0 +1,57 @@
+.dependency-size {
+
+  .toggle-detail {
+    margin-left: 4px;
+    cursor: pointer;
+    font-family: monospace;
+  }
+
+  .size-detail {
+    font-family: monospace;
+    margin: 6px 0;
+
+    @include media($small-screen) {
+      margin: 10px;
+    }
+  }
+
+  .totals {
+    font-weight: bold;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 8px 0;
+
+    @include media($small-screen) {
+      margin: 2px 0;
+
+      &.other-assets {
+        padding-left: 10px;
+      }
+    }
+  }
+
+  .column-1 {
+    display: flex;
+    flex-basis: 120px;
+  }
+
+  .column-2 {
+    display: flex;
+    flex-basis: 100%;
+    flex-direction: column;
+    flex: 1;
+
+    @include media($small-screen) {
+      flex-direction: row;
+      .asset-size {
+        padding-left: .5rem;
+      }
+    }
+  }
+
+}

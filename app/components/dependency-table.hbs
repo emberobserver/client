@@ -18,8 +18,8 @@
           {{#each this.devDependencies as |dependency index|}}
             {{#if (or this.showingAllDependencies (lt index this.limit))}}
               <tr>
-                <td class="test-dependency-name">
-                  <LinkTo @route="addons.show" @model={{dependency}}>{{dependency}}</LinkTo>
+                <td class="test-dev-dependency-{{dependency.packageName}}">
+                  <LinkTo @route="addons.show" @model={{dependency.packageName}} class="test-dependency-name">{{dependency.packageName}}</LinkTo>
                 </td>
               </tr>
             {{/if}}
@@ -44,8 +44,11 @@
           {{#each this.dependencies as |dependency index|}}
             {{#if (or this.showingAllDependencies (lt index this.limit))}}
               <tr>
-                <td class="test-dependency-name">
-                  <LinkTo @route="addons.show" @model={{dependency}}>{{dependency}}</LinkTo>
+                <td class="test-dependency-{{dependency.packageName}}">
+                  <LinkTo @route="addons.show" @model={{dependency.packageName}} class="test-dependency-name">{{dependency.packageName}}</LinkTo>
+                  {{#if dependency.size}}
+                    <DependencySize @addonSize={{dependency.size}} />
+                  {{/if}}
                 </td>
               </tr>
             {{/if}}
