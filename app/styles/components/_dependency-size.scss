@@ -1,13 +1,12 @@
 .dependency-size {
+  font-family: monospace;
 
   .toggle-detail {
     margin-left: 4px;
     cursor: pointer;
-    font-family: monospace;
   }
 
   .size-detail {
-    font-family: monospace;
     margin: 6px 0;
 
     @include media($small-screen) {
