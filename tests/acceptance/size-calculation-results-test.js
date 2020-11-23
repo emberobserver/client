@@ -27,30 +27,43 @@ module('Acceptance | size calculation results', function(hooks) {
     assert.dom(results[2]).hasText('2016-08-07 16:30', 'displays date/time');
   });
 
-  test('sorts results by run date', async function(assert) {
-    let addon = server.create('addon');
-    let addonVersion = server.create('version', { addonId: addon.id });
-    let middleTestResult = server.create('sizeCalculationResult', {
-      createdAt: moment('2016-11-19 12:00:00').utc()
+  test('sorts results by addon name then date', async function(assert) {
+    let addon1 = server.create('addon', { name: 'foo' });
+    let addon2 = server.create('addon', { name: 'bat' });
+    let addon3 = server.create('addon', { name: 'ember-foo' });
+    let addonVersion1 = server.create('version', { addonId: addon1.id, addonName: 'foo' });
+    let addonVersion2 = server.create('version', { addonId: addon2.id, addonName: 'bat' });
+    let addonVersion3 = server.create('version', { addonId: addon3.id, addonName: 'ember-foo' });
+    let addon1Result = server.create('sizeCalculationResult', {
+      createdAt: moment('2016-11-19 12:00:00').utc(),
+      version: addonVersion1,
     });
-    let earliestTestResult = server.create('sizeCalculationResult', {
-      createdAt: moment('2016-11-19 00:00:01').utc()
+    let addon2Result = server.create('sizeCalculationResult', {
+      createdAt: moment('2016-11-19 12:00:00').utc(),
+      version: addonVersion2,
     });
-    let latestTestResult = server.create('sizeCalculationResult', {
-      createdAt: moment('2016-11-19 23:59:59').utc()
+    let addon3MiddleResult = server.create('sizeCalculationResult', {
+      createdAt: moment('2016-11-19 12:00:00').utc(),
+      version: addonVersion3,
     });
-    addonVersion.update({
-      sizeCalculationResultIds: [middleTestResult.id, earliestTestResult.id, latestTestResult.id]
+    let addon3EarliestResult = server.create('sizeCalculationResult', {
+      createdAt: moment('2016-11-19 00:00:01').utc(),
+      version: addonVersion3,
+    });
+    let addon3LatestResult = server.create('sizeCalculationResult', {
+      createdAt: moment('2016-11-19 23:59:59').utc(),
+      version: addonVersion3,
     });
 
     await login();
     await visit('/admin/size-calculation-results');
 
-    assert.dom('.test-size-calculation-result').hasAttribute('data-sizeCalculationResultId', `${latestTestResult.id}`);
-
     let results = findAll('.test-size-calculation-result');
-    assert.dom(results[1]).hasAttribute('data-sizeCalculationResultId', `${middleTestResult.id}`);
-    assert.dom(results[2]).hasAttribute('data-sizeCalculationResultId', `${earliestTestResult.id}`);
+    assert.dom(results[0]).hasAttribute('data-sizeCalculationResultId', `${addon2Result.id}`, 'Addon with first name comes first');
+    assert.dom(results[1]).hasAttribute('data-sizeCalculationResultId', `${addon3LatestResult.id}`, 'Addon with middle name and latest date');
+    assert.dom(results[2]).hasAttribute('data-sizeCalculationResultId', `${addon3MiddleResult.id}`, 'Addon with middle name and middle date');
+    assert.dom(results[3]).hasAttribute('data-sizeCalculationResultId', `${addon3EarliestResult.id}`, 'Addon with middle name and earliest date');
+    assert.dom(results[4]).hasAttribute('data-sizeCalculationResultId', `${addon1Result.id}`, 'Addon with latest name comes last');
   });
 
   test('displays appropriate status based on result', async function(assert) {
