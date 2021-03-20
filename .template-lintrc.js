@@ -141,12 +141,6 @@ module.exports = {
       ]
     },
     {
-      "moduleId": "app/templates/admin/build-servers",
-      "only": [
-        "no-action"
-      ]
-    },
-    {
       "moduleId": "app/templates/admin/review",
       "only": [
         "no-action"
