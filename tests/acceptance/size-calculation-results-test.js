@@ -124,6 +124,7 @@ module('Acceptance | size calculation results', function(hooks) {
     let testResult = server.create('sizeCalculationResult', {
       versionId: version.id,
       output: JSON.stringify(output),
+      testsRunAt: '2020-10-31T17:14:51Z',
     });
 
     await login();

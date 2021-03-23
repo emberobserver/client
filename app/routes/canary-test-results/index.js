@@ -1,10 +1,11 @@
-import classic from 'ember-classic-decorator';
 import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 import moment from 'moment';
 
-@classic
 export default class IndexRoute extends Route {
+  @service currentDate;
+
   beforeModel() {
-    this.transitionTo('canary-test-results.date', moment().format('YYYY-MM-DD'));
+    this.transitionTo('canary-test-results.date', moment(this.currentDate.date).format('YYYY-MM-DD'));
   }
 }

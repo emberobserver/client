@@ -5,6 +5,7 @@ import {
   findAll,
   visit,
 } from '@ember/test-helpers';
+import Service from '@ember/service';
 import { module, test } from 'qunit';
 import { percySnapshot } from 'ember-percy';
 import { selectChoose } from 'ember-power-select/test-support/helpers';
@@ -79,6 +80,15 @@ module('Acceptance | admin review addon', function(hooks) {
       hasBeenReviewed: true,
       repositoryUrl: 'http://example.com/fake-addon',
       demoUrl: 'http://example.org/demo',
+      updatedAt: '2020-10-01T17:14:51Z',
+    });
+
+    // fix "current date" so the relative date of the "last review" date
+    // doesn't change and cause Percy to show a change when it shouldn't.
+    this.owner.register('service:current-date', class extends Service {
+      get date() {
+        return moment('2020-10-31T17:14:51Z');
+      }
     });
 
     let newestAddonVersion = server.create('version', {
