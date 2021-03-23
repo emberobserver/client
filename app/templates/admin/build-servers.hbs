@@ -7,8 +7,8 @@
       </tr>
     </thead>
     <tbody>
-      {{#each this.model as |buildServer|}}
-        <tr class="test-build-server-row">
+      {{#each @model as |buildServer|}}
+        <tr data-test-build-server>
           <td>{{buildServer.name}}</td>
           <td>{{buildServer.token}}</td>
         </tr>
@@ -16,13 +16,13 @@
     </tbody>
   </table>
 
-  <form {{action 'addBuildServer' on='submit'}}>
+  <form {{on "submit" this.save}}>
     <fieldset>
-      <label for='name'>
+      <label for="name">
         Name:
       </label>
-      <Input @type="text" @value={{this.newBuildServerName}} @id="name" class="test-new-build-server-name" />
-      <input type='submit' value='Add' class='test-add-new-build-server'>
+      <Input @value={{this.newBuildServerName}} @type="text" id="name" data-test-new-build-server-name />
+      <input type="submit" value="Add" data-test-add-new-build-server>
     </fieldset>
   </form>
 </PageLayout>

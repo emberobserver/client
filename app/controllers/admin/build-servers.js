@@ -1,13 +1,14 @@
-import classic from 'ember-classic-decorator';
 import { action } from '@ember/object';
 import Controller from '@ember/controller';
+import { tracked } from '@glimmer/tracking';
 
-@classic
 export default class BuildServersController extends Controller {
-  newBuildServerName = '';
+  @tracked newBuildServerName = '';
 
   @action
-  addBuildServer() {
-    this.store.createRecord('build-server', { name: this.newBuildServerName }).save();
+  async save(event) {
+    event.preventDefault();
+    await this.store.createRecord('build-server', { name: this.newBuildServerName }).save();
+    this.newBuildServerName = '';
   }
 }
