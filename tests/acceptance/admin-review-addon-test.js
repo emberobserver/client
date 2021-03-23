@@ -75,7 +75,7 @@ module('Acceptance | admin review addon', function(hooks) {
     let addon = server.create('addon', {
       name: 'fake-addon',
       description: 'Foo bar baz',
-      latestVersionDate: moment().subtract(1, 'day').toISOString(),
+      latestVersionDate: '2020-10-30T11:00:00Z',
       score: 5,
       hasBeenReviewed: true,
       repositoryUrl: 'http://example.com/fake-addon',
@@ -94,6 +94,7 @@ module('Acceptance | admin review addon', function(hooks) {
     let newestAddonVersion = server.create('version', {
       addon,
       version: '1.1.3',
+      released: addon.latestVersionDate
     });
 
     addon.update('latestAddonVersionId', newestAddonVersion.id);
