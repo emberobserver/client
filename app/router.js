@@ -2,7 +2,7 @@ import classic from 'ember-classic-decorator';
 import { inject as service } from '@ember/service';
 import { scheduleOnce } from '@ember/runloop';
 import EmberRouter from '@ember/routing/router';
-import config from './config/environment';
+import config from 'ember-observer/config/environment';
 import RouterScroll from 'ember-router-scroll';
 
 @classic

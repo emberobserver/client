@@ -179,5 +179,5 @@ module.exports = {
     'no-partial': true,
     'quotes': false,
     'table-groups': false,
-  },
+  }
 };
