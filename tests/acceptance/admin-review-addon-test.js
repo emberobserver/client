@@ -622,11 +622,11 @@ module('Acceptance | admin review addon', function(hooks) {
 
       await assert.powerSelectOptionsAre('.test-list-select', '.test-list-select-dropdown', expectedOptions);
 
-      assert.dom('.test-addon-count', '5 matching addons');
+      assert.dom('.test-addon-count').hasText('5 matching addons');
 
       await selectChoose('.test-list-select', 'Addons needing re-review');
 
-      assert.dom('.test-addon-count', '0 matching addons');
+      assert.dom('.test-addon-count').hasText('0 matching addons');
     });
   });
 });
