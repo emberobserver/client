@@ -18,7 +18,7 @@ export default class PageLayout extends Component {
   session;
 
   @service
-  routing;
+  router;
 
   @service
   metrics;
@@ -38,7 +38,7 @@ export default class PageLayout extends Component {
         action: `Search on ${document.location.pathname}`,
         label: this.searchTerm,
       });
-      this.routing.transitionTo('index', { queryParams: { query: term } });
+      this.router.transitionTo('index', { queryParams: { query: term } });
     }
   }
 
@@ -77,7 +77,7 @@ export default class PageLayout extends Component {
       this.goSearch(options.searchText);
     } else {
       this.set('selectedAddon', selected);
-      yield this.routing.transitionTo('addons.show', selected);
+      yield this.router.transitionTo('addons.show', selected);
       this.set('selectedAddon', null);
     }
   })
@@ -85,7 +85,7 @@ export default class PageLayout extends Component {
 
   logoutUser() {
     this.session.close().finally(() => {
-      this.routing.transitionTo('index');
+      this.router.transitionTo('index');
     });
   }
 }
