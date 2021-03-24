@@ -1,10 +1,4 @@
-import {
-  click,
-  currentURL,
-  fillIn,
-  findAll,
-  visit,
-} from '@ember/test-helpers';
+import { click, currentURL, fillIn, findAll, visit } from '@ember/test-helpers';
 import Service from '@ember/service';
 import { module, test } from 'qunit';
 import { percySnapshot } from 'ember-percy';
@@ -17,53 +11,61 @@ import moment from 'moment';
 
 let windowAlert;
 
-module('Acceptance | admin review addon', function(hooks) {
+module('Acceptance | admin review addon', function (hooks) {
   setupEmberObserverTest(hooks);
 
-  hooks.before(function() {
-    QUnit.assert.onCorrectAddonPage = function(addon) { // eslint-disable-line no-undef
+  hooks.before(function () {
+    QUnit.assert.onCorrectAddonPage = function (addon) {
+      // eslint-disable-line no-undef
       this.dom('.test-addon-link').includesText(addon.name, 'Page renders');
     };
   });
 
-  hooks.beforeEach(async function() {
+  hooks.beforeEach(async function () {
     windowAlert = window.alert;
 
-    window.alert = function(message) {
+    window.alert = function (message) {
       throw new Error(message);
     };
 
     await login();
   });
 
-  hooks.afterEach(function() {
+  hooks.afterEach(function () {
     window.alert = windowAlert;
   });
 
-  hooks.after(function() {
+  hooks.after(function () {
     delete QUnit.assert.onCorrectAddonPage; // eslint-disable-line no-undef
   });
 
-  test('addon not found', async function(assert) {
+  test('addon not found', async function (assert) {
     await visit('/admin/review/what');
     assert.equal(currentURL(), '/admin/review/what', 'preserves URL');
-    assert.dom('.test-not-found').hasText("Oops! We can't find what you were looking for. Try searching above?");
+    assert
+      .dom('.test-not-found')
+      .hasText(
+        "Oops! We can't find what you were looking for. Try searching above?"
+      );
   });
 
-  test('Has a descriptive page title', async function(assert) {
+  test('Has a descriptive page title', async function (assert) {
     let addon = server.create('addon', {
       name: 'fake-addon',
     });
 
     await visitAddon(addon);
 
-    assert.equal(document.title, 'Admin | Review | fake-addon - Ember Observer');
+    assert.equal(
+      document.title,
+      'Admin | Review | fake-addon - Ember Observer'
+    );
   });
 
-  test('Displays hidden addons', async function(assert) {
+  test('Displays hidden addons', async function (assert) {
     let addon = server.create('addon', {
       name: 'fake-addon',
-      isHidden: true
+      isHidden: true,
     });
 
     await visitAddon(addon);
@@ -71,7 +73,7 @@ module('Acceptance | admin review addon', function(hooks) {
     assert.onCorrectAddonPage(addon);
   });
 
-  test('Displays basic info about addon', async function(assert) {
+  test('Displays basic info about addon', async function (assert) {
     let addon = server.create('addon', {
       name: 'fake-addon',
       description: 'Foo bar baz',
@@ -85,16 +87,19 @@ module('Acceptance | admin review addon', function(hooks) {
 
     // fix "current date" so the relative date of the "last review" date
     // doesn't change and cause Percy to show a change when it shouldn't.
-    this.owner.register('service:current-date', class extends Service {
-      get date() {
-        return moment('2020-10-31T17:14:51Z');
+    this.owner.register(
+      'service:current-date',
+      class extends Service {
+        get date() {
+          return moment('2020-10-31T17:14:51Z');
+        }
       }
-    });
+    );
 
     let newestAddonVersion = server.create('version', {
       addon,
       version: '1.1.3',
-      released: addon.latestVersionDate
+      released: addon.latestVersionDate,
     });
 
     addon.update('latestAddonVersionId', newestAddonVersion.id);
@@ -107,14 +112,24 @@ module('Acceptance | admin review addon', function(hooks) {
     assert.dom('.test-description').includesText('Foo bar baz');
     assert.dom('.test-last-updated').hasText('1.1.3 from a day ago');
     assert.dom('.test-addon-demo-url').includesText('http://example.org/demo');
-    assert.dom('.test-addon-package-url').includesText('https://www.npmjs.com/package/fake-addon');
+    assert
+      .dom('.test-addon-package-url')
+      .includesText('https://www.npmjs.com/package/fake-addon');
     assert.dom('.test-score').hasText('5.0');
     assert.dom('.test-repo-url').hasText('http://example.com/fake-addon');
-    assert.dom('.test-repo-url').hasAttribute('href', 'http://example.com/fake-addon');
-    assert.dom('.test-repo-url').hasAttribute('target', 'repo', 'Has fixed target to facilitate multi-window workflow');
+    assert
+      .dom('.test-repo-url')
+      .hasAttribute('href', 'http://example.com/fake-addon');
+    assert
+      .dom('.test-repo-url')
+      .hasAttribute(
+        'target',
+        'repo',
+        'Has fixed target to facilitate multi-window workflow'
+      );
   });
 
-  test('Displays stars next to addon name, if applicable', async function(assert) {
+  test('Displays stars next to addon name, if applicable', async function (assert) {
     let normalAddon = server.create('addon', {
       name: 'normal-addon',
     });
@@ -138,7 +153,7 @@ module('Acceptance | admin review addon', function(hooks) {
     assert.dom('.test-cli-dep-icon').exists();
   });
 
-  test('Toggle switches', async function(assert) {
+  test('Toggle switches', async function (assert) {
     let addon = server.create('addon', {
       name: 'fake-addon',
       repositoryUrl: 'http://example.com/fake-addon',
@@ -154,53 +169,98 @@ module('Acceptance | admin review addon', function(hooks) {
 
     assert.onCorrectAddonPage(addon);
 
-    assertToggleState(assert, '.test-toggle-repo-validity', { checked: true, text: 'Has valid Repo URL' });
+    assertToggleState(assert, '.test-toggle-repo-validity', {
+      checked: true,
+      text: 'Has valid Repo URL',
+    });
 
     await toggle('.test-toggle-repo-validity');
 
-    assertToggleState(assert, '.test-toggle-repo-validity', { checked: false, text: 'Has invalid Repo URL' });
+    assertToggleState(assert, '.test-toggle-repo-validity', {
+      checked: false,
+      text: 'Has invalid Repo URL',
+    });
 
-    assertToggleState(assert, '.test-toggle-is-wip', { checked: false, text: 'Is a WIP' });
+    assertToggleState(assert, '.test-toggle-is-wip', {
+      checked: false,
+      text: 'Is a WIP',
+    });
 
     await toggle('.test-toggle-is-wip');
 
-    assertToggleState(assert, '.test-toggle-is-wip', { checked: true, text: 'Not a WIP' });
+    assertToggleState(assert, '.test-toggle-is-wip', {
+      checked: true,
+      text: 'Not a WIP',
+    });
 
-    assertToggleState(assert, '.test-toggle-is-deprecated', { checked: true, text: 'Active' });
+    assertToggleState(assert, '.test-toggle-is-deprecated', {
+      checked: true,
+      text: 'Active',
+    });
 
     await toggle('.test-toggle-is-deprecated');
 
-    assertToggleState(assert, '.test-toggle-is-deprecated', { checked: false, text: 'Deprecated' });
+    assertToggleState(assert, '.test-toggle-is-deprecated', {
+      checked: false,
+      text: 'Deprecated',
+    });
 
-    assertToggleState(assert, '.test-toggle-is-hidden', { checked: false, text: 'Hidden' });
+    assertToggleState(assert, '.test-toggle-is-hidden', {
+      checked: false,
+      text: 'Hidden',
+    });
 
     await toggle('.test-toggle-is-hidden');
 
-    assertToggleState(assert, '.test-toggle-is-hidden', { checked: true, text: 'Visible' });
+    assertToggleState(assert, '.test-toggle-is-hidden', {
+      checked: true,
+      text: 'Visible',
+    });
 
-    assertToggleState(assert, '.test-toggle-is-official', { checked: true, text: 'Is Official?' });
+    assertToggleState(assert, '.test-toggle-is-official', {
+      checked: true,
+      text: 'Is Official?',
+    });
 
     await toggle('.test-toggle-is-official');
 
-    assertToggleState(assert, '.test-toggle-is-official', { checked: false, text: 'Is Official?' });
+    assertToggleState(assert, '.test-toggle-is-official', {
+      checked: false,
+      text: 'Is Official?',
+    });
 
-    assertToggleState(assert, '.test-toggle-is-cli-dep', { checked: true, text: 'Is CLI Dependency?' });
+    assertToggleState(assert, '.test-toggle-is-cli-dep', {
+      checked: true,
+      text: 'Is CLI Dependency?',
+    });
 
     await toggle('.test-toggle-is-cli-dep');
 
-    assertToggleState(assert, '.test-toggle-is-cli-dep', { checked: false, text: 'Is CLI Dependency?' });
+    assertToggleState(assert, '.test-toggle-is-cli-dep', {
+      checked: false,
+      text: 'Is CLI Dependency?',
+    });
 
     await toggle('.test-toggle-extends-ember');
 
-    assertToggleState(assert, '.test-toggle-extends-ember', { checked: true, text: 'Extends Ember?' });
+    assertToggleState(assert, '.test-toggle-extends-ember', {
+      checked: true,
+      text: 'Extends Ember?',
+    });
 
     await toggle('.test-toggle-extends-ember-cli');
 
-    assertToggleState(assert, '.test-toggle-extends-ember-cli', { checked: true, text: 'Extends Ember CLI?' });
+    assertToggleState(assert, '.test-toggle-extends-ember-cli', {
+      checked: true,
+      text: 'Extends Ember CLI?',
+    });
 
     await toggle('.test-toggle-is-monorepo');
 
-    assertToggleState(assert, '.test-toggle-is-monorepo', { checked: true, text: 'Is Monorepo?' });
+    assertToggleState(assert, '.test-toggle-is-monorepo', {
+      checked: true,
+      text: 'Is Monorepo?',
+    });
 
     await click('.test-save-addon');
 
@@ -217,7 +277,7 @@ module('Acceptance | admin review addon', function(hooks) {
     assert.equal(addon.isMonorepo, true, 'Toggle isMonorepo saves');
   });
 
-  test('Addon note', async function(assert) {
+  test('Addon note', async function (assert) {
     let addon = server.create('addon', {
       name: 'fake-addon',
       note: 'Stuff and things',
@@ -235,7 +295,7 @@ module('Acceptance | admin review addon', function(hooks) {
     assert.equal(addon.note, 'Air and water', 'Note is updated');
   });
 
-  test('Override repository URL', async function(assert) {
+  test('Override repository URL', async function (assert) {
     let addon = server.create('addon', {
       name: 'fake-addon',
       overrideRepositoryUrl: 'http://example.com',
@@ -250,60 +310,78 @@ module('Acceptance | admin review addon', function(hooks) {
     await click('.test-save-addon');
 
     addon.reload();
-    assert.equal(addon.overrideRepositoryUrl, 'http://example.org', 'Override repo url is updated');
+    assert.equal(
+      addon.overrideRepositoryUrl,
+      'http://example.org',
+      'Override repo url is updated'
+    );
   });
 
-  test('Editing categories', async function(assert) {
+  test('Editing categories', async function (assert) {
     let categoryA = server.create('category', {
       name: 'Pets',
-      description: 'Domesticated animals'
+      description: 'Domesticated animals',
     });
 
     let categoryB = server.create('category', {
       name: 'Cats',
       parentId: categoryA.id,
-      description: 'Feline pets'
+      description: 'Feline pets',
     });
 
     let categoryC = server.create('category', {
       name: 'Bears',
-      description: 'Wild animals'
+      description: 'Wild animals',
     });
 
     let addon = server.create('addon', {
       name: 'fake-addon',
-      categoryIds: [categoryC.id]
+      categoryIds: [categoryC.id],
     });
 
     await visitAddon(addon);
 
     assert.onCorrectAddonPage(addon);
-    await assert.powerSelectOptionsAre('.test-category-chooser', '.test-category-chooser-dropdown', ['Bears', 'Pets · Domesticated animals', 'Pets > Cats · Feline pets'], 'All categories are options, sorted by displayName; descriptions only display for non-selected options');
+    await assert.powerSelectOptionsAre(
+      '.test-category-chooser',
+      '.test-category-chooser-dropdown',
+      ['Bears', 'Pets · Domesticated animals', 'Pets > Cats · Feline pets'],
+      'All categories are options, sorted by displayName; descriptions only display for non-selected options'
+    );
     assert.powerSelectMultipleOptionSelected('.test-category-chooser', 'Bears');
 
     await selectChoose('.test-category-chooser', 'Pets > Cats · Feline pets');
     assert.powerSelectMultipleOptionSelected('.test-category-chooser', 'Bears');
-    assert.powerSelectMultipleOptionSelected('.test-category-chooser', 'Pets > Cats');
+    assert.powerSelectMultipleOptionSelected(
+      '.test-category-chooser',
+      'Pets > Cats'
+    );
 
     await click('.test-save-addon');
 
     addon.reload();
-    assert.deepEqual(addon.categoryIds.sort(), [categoryB.id, categoryC.id].sort(), 'Categories save');
+    assert.deepEqual(
+      addon.categoryIds.sort(),
+      [categoryB.id, categoryC.id].sort(),
+      'Categories save'
+    );
   });
 
-  test('Review display', async function(assert) {
+  test('Review display', async function (assert) {
     let addon = server.create('addon', {
-      name: 'fake-addon'
+      name: 'fake-addon',
     });
 
     await visitAddon(addon);
 
     assert.onCorrectAddonPage(addon);
 
-    assert.dom('.test-no-review').exists('Warning about not yet reviewed appears');
+    assert
+      .dom('.test-no-review')
+      .exists('Warning about not yet reviewed appears');
 
     let addonWithReview = server.create('addon', {
-      name: 'test-addon-with-review'
+      name: 'test-addon-with-review',
     });
 
     let review = server.create('review', {
@@ -311,7 +389,7 @@ module('Acceptance | admin review addon', function(hooks) {
       hasTests: 1,
       hasReadme: 4,
       hasBuild: 1,
-      review: 'Seems ok'
+      review: 'Seems ok',
     });
 
     addonWithReview.latestReview = review;
@@ -320,14 +398,14 @@ module('Acceptance | admin review addon', function(hooks) {
     let addonVersion = server.create('version', {
       addon: addonWithReview,
       review,
-      released: moment().subtract(3, 'months')
+      released: moment().subtract(3, 'months'),
     });
 
     // Newer version without review
     server.create('version', {
       addon: addonWithReview,
       review: null,
-      released: moment().subtract(1, 'months')
+      released: moment().subtract(1, 'months'),
     });
 
     review.update('versionId', addonVersion.id);
@@ -342,21 +420,25 @@ module('Acceptance | admin review addon', function(hooks) {
     assert.dom(questions[2]).hasText('Does the addon have a build? Yes');
 
     assert.dom('.test-review-notes').hasText('Seems ok');
-    assert.dom('.test-review-new-version-warning').hasText('New versions of this addon have been released since this review was undertaken.');
+    assert
+      .dom('.test-review-new-version-warning')
+      .hasText(
+        'New versions of this addon have been released since this review was undertaken.'
+      );
   });
 
-  test('When saving fails', async function(assert) {
+  test('When saving fails', async function (assert) {
     let actualMessage;
 
-    window.alert = function(message) {
+    window.alert = function (message) {
       actualMessage = message;
     };
 
     let addon = server.create('addon', {
-      name: 'fake-addon'
+      name: 'fake-addon',
     });
 
-    server.patch('/addons/:id', function() {
+    server.patch('/addons/:id', function () {
       return new Mirage.Response(500);
     });
 
@@ -370,9 +452,9 @@ module('Acceptance | admin review addon', function(hooks) {
     assert.equal(actualMessage, 'Failed to save addon');
   });
 
-  test('Renewing a review', async function(assert) {
+  test('Renewing a review', async function (assert) {
     let addon = server.create('addon', {
-      name: 'test-addon-with-review'
+      name: 'test-addon-with-review',
     });
 
     let review = server.create('review', {
@@ -380,7 +462,7 @@ module('Acceptance | admin review addon', function(hooks) {
       hasTests: 1,
       hasReadme: 4,
       hasBuild: 1,
-      review: 'Seems ok'
+      review: 'Seems ok',
     });
 
     addon.latestReview = review;
@@ -389,14 +471,14 @@ module('Acceptance | admin review addon', function(hooks) {
     let addonVersion = server.create('version', {
       addon: addon,
       review,
-      released: moment().subtract(3, 'months')
+      released: moment().subtract(3, 'months'),
     });
 
     // Newer version without review
     let newestAddonVersion = server.create('version', {
       addon: addon,
       review: null,
-      released: moment().subtract(1, 'months')
+      released: moment().subtract(1, 'months'),
     });
 
     review.update('versionId', addonVersion.id);
@@ -405,35 +487,51 @@ module('Acceptance | admin review addon', function(hooks) {
     await visitAddon(addon);
 
     assert.onCorrectAddonPage(addon);
-    assert.dom('.test-review-new-version-warning').hasText('New versions of this addon have been released since this review was undertaken.');
+    assert
+      .dom('.test-review-new-version-warning')
+      .hasText(
+        'New versions of this addon have been released since this review was undertaken.'
+      );
 
     await click('.test-renew-latest-review');
 
-    assert.dom('.test-review-new-version-warning').doesNotExist('Review is now for latest version');
+    assert
+      .dom('.test-review-new-version-warning')
+      .doesNotExist('Review is now for latest version');
 
-    let newReview = server.schema.reviews.all().models[server.schema.reviews.all().models.length - 1];
+    let newReview = server.schema.reviews.all().models[
+      server.schema.reviews.all().models.length - 1
+    ];
 
     assert.notEqual(newReview.id, review.id);
 
     newestAddonVersion.reload();
-    assert.equal(newestAddonVersion.review.id, newReview.id, 'New review is associated with correct version');
+    assert.equal(
+      newestAddonVersion.review.id,
+      newReview.id,
+      'New review is associated with correct version'
+    );
 
-    assert.equal(newReview.version.id, newestAddonVersion.id, 'Review is associated with newest addon version');
+    assert.equal(
+      newReview.version.id,
+      newestAddonVersion.id,
+      'Review is associated with newest addon version'
+    );
     assert.equal(newReview.hasTests, 1);
     assert.equal(newReview.hasReadme, 4);
     assert.equal(newReview.hasBuild, 1);
     assert.equal(newReview.review, 'Seems ok');
   });
 
-  test('When renewing a review fails', async function(assert) {
+  test('When renewing a review fails', async function (assert) {
     let actualMessage;
 
-    window.alert = function(message) {
+    window.alert = function (message) {
       actualMessage = message;
     };
 
     let addon = server.create('addon', {
-      name: 'test-addon-with-review'
+      name: 'test-addon-with-review',
     });
 
     let review = server.create('review', {
@@ -441,7 +539,7 @@ module('Acceptance | admin review addon', function(hooks) {
       hasTests: 1,
       hasReadme: 4,
       hasBuild: 1,
-      review: 'Seems ok'
+      review: 'Seems ok',
     });
 
     addon.latestReview = review;
@@ -450,13 +548,13 @@ module('Acceptance | admin review addon', function(hooks) {
     let addonVersion = server.create('version', {
       addon: addon,
       review,
-      released: moment().subtract(3, 'months')
+      released: moment().subtract(3, 'months'),
     });
 
     review.update('versionId', addonVersion.id);
     addon.update('latestAddonVersionId', addonVersion.id);
 
-    server.post('/reviews', function() {
+    server.post('/reviews', function () {
       return new Mirage.Response(500);
     });
 
@@ -469,19 +567,19 @@ module('Acceptance | admin review addon', function(hooks) {
     assert.equal(actualMessage, 'Failed to renew review');
   });
 
-  test('Creating a new review', async function(assert) {
+  test('Creating a new review', async function (assert) {
     let addon = server.create('addon', {
-      name: 'test-addon-with-review'
+      name: 'test-addon-with-review',
     });
 
     let addonVersion = server.create('version', {
       addon: addon,
-      released: moment().subtract(3, 'months')
+      released: moment().subtract(3, 'months'),
     });
 
     server.create('version', {
       addon: addon,
-      released: moment().subtract(6, 'months')
+      released: moment().subtract(6, 'months'),
     });
 
     addon.update('latestAddonVersionId', addonVersion.id);
@@ -489,7 +587,9 @@ module('Acceptance | admin review addon', function(hooks) {
     await visitAddon(addon);
 
     assert.onCorrectAddonPage(addon);
-    assert.dom('.test-review-new-version-warning').doesNotExist('Review is current');
+    assert
+      .dom('.test-review-new-version-warning')
+      .doesNotExist('Review is current');
 
     await answerQuestion('Are there meaningful tests?', 'No');
     await answerQuestion('Is the README filled out?', 'Yes');
@@ -497,9 +597,13 @@ module('Acceptance | admin review addon', function(hooks) {
     await fillIn('.test-addon-review-notes', '#Some Review');
     await click('.test-addon-review-save');
 
-    assert.dom('.test-review-new-version-warning').doesNotExist('Review is current');
+    assert
+      .dom('.test-review-new-version-warning')
+      .doesNotExist('Review is current');
 
-    let newReview = server.schema.reviews.all().models[server.schema.reviews.all().models.length - 1];
+    let newReview = server.schema.reviews.all().models[
+      server.schema.reviews.all().models.length - 1
+    ];
     assert.equal(newReview.version.id, addonVersion.id);
     assert.equal(newReview.hasTests, 2);
     assert.equal(newReview.hasReadme, 1);
@@ -513,30 +617,30 @@ module('Acceptance | admin review addon', function(hooks) {
     assert.dom('.test-review-notes').hasText('Some Review');
   });
 
-  test('When creating a new review fails', async function(assert) {
+  test('When creating a new review fails', async function (assert) {
     let actualMessage;
 
-    window.alert = function(message) {
+    window.alert = function (message) {
       actualMessage = message;
     };
 
     let addon = server.create('addon', {
-      name: 'test-addon-with-review'
+      name: 'test-addon-with-review',
     });
 
     let addonVersion = server.create('version', {
       addon: addon,
-      released: moment().subtract(3, 'months')
+      released: moment().subtract(3, 'months'),
     });
 
     server.create('version', {
       addon: addon,
-      released: moment().subtract(6, 'months')
+      released: moment().subtract(6, 'months'),
     });
 
     addon.update('latestAddonVersionId', addonVersion.id);
 
-    server.post('/reviews', function() {
+    server.post('/reviews', function () {
       return new Mirage.Response(500);
     });
 
@@ -550,21 +654,23 @@ module('Acceptance | admin review addon', function(hooks) {
     assert.equal(actualMessage, 'Failed to create review');
   });
 
-  module('lists', function() {
-    test('Visiting list without a list param defaults to needing-review', async function(assert) {
+  module('lists', function () {
+    test('Visiting list without a list param defaults to needing-review', async function (assert) {
       let addon = server.create('addon', {
-        name: 'fake-addon'
+        name: 'fake-addon',
       });
 
       await visit('/admin/review');
 
       assert.onCorrectAddonPage(addon);
-      assert.dom('.test-review-list-item').exists({ count: 1 }, 'Displays list of addons');
+      assert
+        .dom('.test-review-list-item')
+        .exists({ count: 1 }, 'Displays list of addons');
     });
 
-    test('Visiting addon without a list param does not show index', async function(assert) {
+    test('Visiting addon without a list param does not show index', async function (assert) {
       let addon = server.create('addon', {
-        name: 'fake-addon'
+        name: 'fake-addon',
       });
 
       await visitAddon(addon);
@@ -573,25 +679,25 @@ module('Acceptance | admin review addon', function(hooks) {
       assert.dom('.test-review-index').isNotVisible();
     });
 
-    test('Visiting with just a list selects first addon', async function(assert) {
+    test('Visiting with just a list selects first addon', async function (assert) {
       server.create('addon', {
-        name: 'fake-addon-a'
+        name: 'fake-addon-a',
       });
 
       let hiddenAddon = server.create('addon', {
         name: 'fake-addon-b',
         isHidden: true,
-        latestVersionDate: moment().subtract(1, 'day').toISOString()
+        latestVersionDate: moment().subtract(1, 'day').toISOString(),
       });
 
       server.create('addon', {
-        name: 'fake-addon-c'
+        name: 'fake-addon-c',
       });
 
       server.create('addon', {
         name: 'fake-addon-d',
         isHidden: true,
-        latestVersionDate: moment().subtract(4, 'days').toISOString()
+        latestVersionDate: moment().subtract(4, 'days').toISOString(),
       });
 
       await visitList('hidden');
@@ -605,7 +711,7 @@ module('Acceptance | admin review addon', function(hooks) {
       assert.equal(items.length, 2, 'Only two items display');
     });
 
-    test('Displays different list of addons', async function(assert) {
+    test('Displays different list of addons', async function (assert) {
       server.createList('addon', 5, { isHidden: true });
 
       await visitList('hidden');
@@ -617,10 +723,14 @@ module('Acceptance | admin review addon', function(hooks) {
         'Addons needing review',
         'Addons marked WIP',
         'Addons without a repo url set',
-        'Addons marked as invalid repo url'
+        'Addons marked as invalid repo url',
       ];
 
-      await assert.powerSelectOptionsAre('.test-list-select', '.test-list-select-dropdown', expectedOptions);
+      await assert.powerSelectOptionsAre(
+        '.test-list-select',
+        '.test-list-select-dropdown',
+        expectedOptions
+      );
 
       assert.dom('.test-addon-count').hasText('5 matching addons');
 
@@ -639,13 +749,19 @@ async function visitList(listName) {
   await visit(`/admin/review?list=${listName}`);
 }
 
-function assertToggleState(assert, selector, options = { checked: false, text: '' }) {
+function assertToggleState(
+  assert,
+  selector,
+  options = { checked: false, text: '' }
+) {
   if (options.checked) {
     assert.dom(`${selector} input`).isChecked();
   } else {
     assert.dom(`${selector} input`).isNotChecked();
   }
-  assert.dom(`${selector} label`).hasText(options.text, `has text when checked: ${options.checked}`);
+  assert
+    .dom(`${selector} label`)
+    .hasText(options.text, `has text when checked: ${options.checked}`);
 }
 
 async function toggle(selector) {
@@ -654,6 +770,9 @@ async function toggle(selector) {
 
 async function answerQuestion(question, answer) {
   let questionEl = await findByText('.test-review-question', question);
-  let answerButton = await findByText(Array.from(questionEl.querySelectorAll('button')), answer);
+  let answerButton = await findByText(
+    Array.from(questionEl.querySelectorAll('button')),
+    answer
+  );
   await click(answerButton);
 }

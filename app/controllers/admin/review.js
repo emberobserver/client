@@ -6,7 +6,7 @@ import Controller from '@ember/controller';
 import { lists } from 'ember-observer/services/admin-lists';
 
 const possibleLists = Object.keys(lists).map((key) => {
-  return { title: lists[key].title, key }
+  return { title: lists[key].title, key };
 });
 
 @classic
@@ -30,11 +30,13 @@ export default class ReviewController extends Controller {
 
   @computed('selectedListKey')
   get selectedList() {
-    return possibleLists.find(l => l.key === this.selectedListKey);
+    return possibleLists.find((l) => l.key === this.selectedListKey);
   }
 
   selectList(list) {
     this.set('selectedListKey', list.key);
-    this.router.transitionTo('admin.review', { queryParams: { list: list.key } });
+    this.router.transitionTo('admin.review', {
+      queryParams: { list: list.key },
+    });
   }
 }

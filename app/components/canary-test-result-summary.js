@@ -5,7 +5,7 @@ import Component from '@ember/component';
 import computedPercent from 'ember-observer/utils/computed-percent';
 
 function computedFormattedPercent(percentPropertyName) {
-  return computed(percentPropertyName, function() {
+  return computed(percentPropertyName, function () {
     let value = this.get(percentPropertyName);
     if (!value) {
       return '--';
@@ -23,12 +23,18 @@ export default class CanaryTestResultSummary extends Component {
   errorBuilds;
 
   @filter('testResults', (testResult) => {
-    return testResult.get('succeeded') && !testResult.get('emberVersionCompatibilities.firstObject.compatible');
+    return (
+      testResult.get('succeeded') &&
+      !testResult.get('emberVersionCompatibilities.firstObject.compatible')
+    );
   })
   failedBuilds;
 
   @filter('testResults', (testResult) => {
-    return testResult.get('succeeded') && testResult.get('emberVersionCompatibilities.firstObject.compatible');
+    return (
+      testResult.get('succeeded') &&
+      testResult.get('emberVersionCompatibilities.firstObject.compatible')
+    );
   })
   passedBuilds;
 

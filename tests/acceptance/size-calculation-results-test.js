@@ -1,4 +1,10 @@
-import { findAll, click, currentURL, currentRouteName, visit } from '@ember/test-helpers';
+import {
+  findAll,
+  click,
+  currentURL,
+  currentRouteName,
+  visit,
+} from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { percySnapshot } from 'ember-percy';
 import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
@@ -6,15 +12,15 @@ import findByText from '../helpers/find-by-text';
 import login from 'ember-observer/tests/helpers/login';
 import moment from 'moment';
 
-module('Acceptance | size calculation results', function(hooks) {
+module('Acceptance | size calculation results', function (hooks) {
   setupEmberObserverTest(hooks);
 
-  test('displays basic info about a build', async function(assert) {
+  test('displays basic info about a build', async function (assert) {
     let addon = server.create('addon');
     let addonVersion = server.create('version', { addonId: addon.id });
     server.create('sizeCalculationResult', {
       versionId: addonVersion.id,
-      createdAt: moment('2016-08-07 16:30').utc()
+      createdAt: moment('2016-08-07 16:30').utc(),
     });
 
     await login();
@@ -27,13 +33,22 @@ module('Acceptance | size calculation results', function(hooks) {
     assert.dom(results[2]).hasText('2016-08-07 16:30', 'displays date/time');
   });
 
-  test('sorts results by addon name then date', async function(assert) {
+  test('sorts results by addon name then date', async function (assert) {
     let addon1 = server.create('addon', { name: 'foo' });
     let addon2 = server.create('addon', { name: 'bat' });
     let addon3 = server.create('addon', { name: 'ember-foo' });
-    let addonVersion1 = server.create('version', { addonId: addon1.id, addonName: 'foo' });
-    let addonVersion2 = server.create('version', { addonId: addon2.id, addonName: 'bat' });
-    let addonVersion3 = server.create('version', { addonId: addon3.id, addonName: 'ember-foo' });
+    let addonVersion1 = server.create('version', {
+      addonId: addon1.id,
+      addonName: 'foo',
+    });
+    let addonVersion2 = server.create('version', {
+      addonId: addon2.id,
+      addonName: 'bat',
+    });
+    let addonVersion3 = server.create('version', {
+      addonId: addon3.id,
+      addonName: 'ember-foo',
+    });
     let addon1Result = server.create('sizeCalculationResult', {
       createdAt: moment('2016-11-19 12:00:00').utc(),
       version: addonVersion1,
@@ -59,67 +74,112 @@ module('Acceptance | size calculation results', function(hooks) {
     await visit('/admin/size-calculation-results');
 
     let results = findAll('.test-size-calculation-result');
-    assert.dom(results[0]).hasAttribute('data-sizeCalculationResultId', `${addon2Result.id}`, 'Addon with first name comes first');
-    assert.dom(results[1]).hasAttribute('data-sizeCalculationResultId', `${addon3LatestResult.id}`, 'Addon with middle name and latest date');
-    assert.dom(results[2]).hasAttribute('data-sizeCalculationResultId', `${addon3MiddleResult.id}`, 'Addon with middle name and middle date');
-    assert.dom(results[3]).hasAttribute('data-sizeCalculationResultId', `${addon3EarliestResult.id}`, 'Addon with middle name and earliest date');
-    assert.dom(results[4]).hasAttribute('data-sizeCalculationResultId', `${addon1Result.id}`, 'Addon with latest name comes last');
+    assert
+      .dom(results[0])
+      .hasAttribute(
+        'data-sizeCalculationResultId',
+        `${addon2Result.id}`,
+        'Addon with first name comes first'
+      );
+    assert
+      .dom(results[1])
+      .hasAttribute(
+        'data-sizeCalculationResultId',
+        `${addon3LatestResult.id}`,
+        'Addon with middle name and latest date'
+      );
+    assert
+      .dom(results[2])
+      .hasAttribute(
+        'data-sizeCalculationResultId',
+        `${addon3MiddleResult.id}`,
+        'Addon with middle name and middle date'
+      );
+    assert
+      .dom(results[3])
+      .hasAttribute(
+        'data-sizeCalculationResultId',
+        `${addon3EarliestResult.id}`,
+        'Addon with middle name and earliest date'
+      );
+    assert
+      .dom(results[4])
+      .hasAttribute(
+        'data-sizeCalculationResultId',
+        `${addon1Result.id}`,
+        'Addon with latest name comes last'
+      );
   });
 
-  test('displays appropriate status based on result', async function(assert) {
+  test('displays appropriate status based on result', async function (assert) {
     let addon = server.create('addon');
     let addonVersion = server.create('version', { addonId: addon.id });
     let timedOutResult = server.create('sizeCalculationResult', {
       succeeded: false,
       errorMessage: 'something unexpected happened',
-      createdAt: moment().subtract(30, 'minutes').utc()
+      createdAt: moment().subtract(30, 'minutes').utc(),
     });
     let succeededResult = server.create('sizeCalculationResult', {
       succeeded: true,
-      createdAt: moment().subtract(1, 'hour').utc()
+      createdAt: moment().subtract(1, 'hour').utc(),
     });
     addonVersion.update({
-      sizeCalculationResultIds: [timedOutResult.id, succeededResult.id]
+      sizeCalculationResultIds: [timedOutResult.id, succeededResult.id],
     });
 
     await login();
     await visit('/admin/size-calculation-results');
 
     let results = findAll('.test-size-calculation-result');
-    assert.dom(results[0]).containsText('failed - something unexpected happened', 'displays failure notice with error message for failed builds');
-    assert.dom(results[1]).containsText('succeeded', 'displays "succeeded" for successful builds');
+    assert
+      .dom(results[0])
+      .containsText(
+        'failed - something unexpected happened',
+        'displays failure notice with error message for failed builds'
+      );
+    assert
+      .dom(results[1])
+      .containsText('succeeded', 'displays "succeeded" for successful builds');
   });
 
-  test('links to previous day', async function(assert) {
+  test('links to previous day', async function (assert) {
     await login();
     await visit('/admin/size-calculation-results?date=2017-02-01');
 
-    assert.dom('a[href="/admin/size-calculation-results?date=2017-01-31"]').exists('has a link to the results for the previous day');
+    assert
+      .dom('a[href="/admin/size-calculation-results?date=2017-01-31"]')
+      .exists('has a link to the results for the previous day');
   });
 
-  test('links to following day if not viewing the current date', async function(assert) {
+  test('links to following day if not viewing the current date', async function (assert) {
     await login();
     await visit('/admin/size-calculation-results?date=2016-11-18');
 
-    assert.dom('a[href="/admin/size-calculation-results?date=2016-11-19"]').exists('has a link to the results for the following day');
+    assert
+      .dom('a[href="/admin/size-calculation-results?date=2016-11-19"]')
+      .exists('has a link to the results for the following day');
   });
 
-  test('does not link to following day if viewing the current date', async function(assert) {
+  test('does not link to following day if viewing the current date', async function (assert) {
     let tomorrow = moment().add(1, 'day').utc().format('Y-M-D');
 
     await login();
     await visit('/admin/size-calculation-results');
 
-    assert.dom(`a[href="/admin/size-calculation-results?date=${tomorrow}"]`).doesNotExist('does not have a link to the results for the following day');
+    assert
+      .dom(`a[href="/admin/size-calculation-results?date=${tomorrow}"]`)
+      .doesNotExist(
+        'does not have a link to the results for the following day'
+      );
   });
 
-  test('links to detail for individual builds', async function(assert) {
+  test('links to detail for individual builds', async function (assert) {
     let version = server.create('version');
     let output = [
       {
         group: 'this is the output',
         commands: [],
-      }
+      },
     ];
     let testResult = server.create('sizeCalculationResult', {
       versionId: version.id,
@@ -133,24 +193,27 @@ module('Acceptance | size calculation results', function(hooks) {
 
     await percySnapshot('/admin/size-calculation-results');
 
-    assert.equal(currentURL(), `/admin/size-calculation-results/${testResult.id}`);
+    assert.equal(
+      currentURL(),
+      `/admin/size-calculation-results/${testResult.id}`
+    );
   });
 
-  test('detail page shows data for a build', async function(assert) {
+  test('detail page shows data for a build', async function (assert) {
     let addon = server.create('addon');
     let version = server.create('version', {
-      addonId: addon.id
+      addonId: addon.id,
     });
     let output = [
       {
         group: 'this is the output',
         commands: [],
-      }
+      },
     ];
     let testResult = server.create('sizeCalculationResult', {
       versionId: version.id,
       output: JSON.stringify(output),
-      createdAt: moment('2016-08-01 12:34:56').utc()
+      createdAt: moment('2016-08-01 12:34:56').utc(),
     });
     server.db.versions.update(version, { testResultId: testResult.id });
 
@@ -158,52 +221,62 @@ module('Acceptance | size calculation results', function(hooks) {
     await visit(`/admin/size-calculation-results/${testResult.id}`);
 
     assert.dom('.test-addon-name').hasText(addon.name, 'displays addon name');
-    assert.dom('.test-addon-version').hasText(version.version, 'displays addon version');
-    assert.dom('.test-run-date').hasText('2016-08-01 12:34', 'displays date/time tests ran');
-    assert.dom('.build-result-output').hasText('this is the output', "displays result's output as json");
+    assert
+      .dom('.test-addon-version')
+      .hasText(version.version, 'displays addon version');
+    assert
+      .dom('.test-run-date')
+      .hasText('2016-08-01 12:34', 'displays date/time tests ran');
+    assert
+      .dom('.build-result-output')
+      .hasText('this is the output', "displays result's output as json");
   });
 
-  test('detail page shows "succeeded" for status when build succeeded', async function(assert) {
+  test('detail page shows "succeeded" for status when build succeeded', async function (assert) {
     let version = server.create('version');
     let testResult = server.create('sizeCalculationResult', {
       versionId: version.id,
-      succeeded: true
+      succeeded: true,
     });
     server.db.versions.update(version, { testResultId: testResult.id });
 
     await login();
     await visit(`/admin/size-calculation-results/${testResult.id}`);
 
-    assert.dom('.test-build-status').hasText('succeeded', 'displays "succeeded" for build status');
+    assert
+      .dom('.test-build-status')
+      .hasText('succeeded', 'displays "succeeded" for build status');
   });
 
-  test('detail page shows status message when build did not succeeded', async function(assert) {
+  test('detail page shows status message when build did not succeeded', async function (assert) {
     let version = server.create('version');
     let testResult = server.create('sizeCalculationResult', {
       versionId: version.id,
       succeeded: false,
-      errorMessage: 'this is the status'
+      errorMessage: 'this is the status',
     });
     server.db.versions.update(version, { testResultId: testResult.id });
 
     await login();
     await visit(`/admin/size-calculation-results/${testResult.id}`);
 
-    assert.dom('.test-build-status').hasText('this is the status', 'displays status message for the build');
+    assert
+      .dom('.test-build-status')
+      .hasText('this is the status', 'displays status message for the build');
   });
 
-  test('detail page has a "retry" button for failed builds', async function(assert) {
+  test('detail page has a "retry" button for failed builds', async function (assert) {
     assert.expect(2);
 
     let version = server.create('version');
     let testResult = server.create('sizeCalculationResult', {
       versionId: version.id,
       succeeded: false,
-      errorMessage: 'failed'
+      errorMessage: 'failed',
     });
     server.db.versions.update(version, { testResultId: testResult.id });
 
-    server.post('/size_calculation_results/:id/retry', function() {
+    server.post('/size_calculation_results/:id/retry', function () {
       assert.ok(true, 'makes retry request');
     });
 
@@ -215,17 +288,19 @@ module('Acceptance | size calculation results', function(hooks) {
     await click('.test-retry-build');
   });
 
-  test('detail page does not have a "retry" button for successful builds', async function(assert) {
+  test('detail page does not have a "retry" button for successful builds', async function (assert) {
     let version = server.create('version');
     let testResult = server.create('sizeCalculationResult', {
       versionId: version.id,
-      succeeded: true
+      succeeded: true,
     });
     server.db.versions.update(version, { testResultId: testResult.id });
 
     await login();
     await visit(`/admin/size-calculation-results/${testResult.id}`);
 
-    assert.dom('.test-retry-build').doesNotExist('no "retry" button should be displayed');
+    assert
+      .dom('.test-retry-build')
+      .doesNotExist('no "retry" button should be displayed');
   });
 });

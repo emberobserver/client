@@ -32,7 +32,8 @@ class Router extends EmberRouter.extend(RouterScroll) {
 
   _trackPage() {
     let page = document.location.pathname;
-    let title = this.getWithDefault('currentRouteName', 'unknown');
+    let title =
+      this.currentRouteName === undefined ? 'unknown' : this.currentRouteName;
     let previousPage = this.previousPage;
     let hasQuery = /query=/.test(document.location.search);
 
@@ -47,52 +48,52 @@ class Router extends EmberRouter.extend(RouterScroll) {
   }
 }
 
-Router.map(function() {
-  this.route('categories', function() {
+Router.map(function () {
+  this.route('categories', function () {
     this.route('show', { path: '/:slug' });
   });
 
-  this.route('addons', function() {
+  this.route('addons', function () {
     this.route('correct', { path: '/*name/correct' });
     this.route('show', { path: '/*name' });
     this.route('top', { path: '/lists/top' });
   });
 
-  this.route('lists', function() {
+  this.route('lists', function () {
     this.route('top-addons');
     this.route('new-addons');
     this.route('recently-scored-addons');
     this.route('invalid-repo-url');
   });
 
-  this.route('maintainers', function() {
+  this.route('maintainers', function () {
     this.route('show', { path: '/:name' });
   });
 
   this.route('code-search');
 
-  this.route('canary-test-results', function() {
+  this.route('canary-test-results', function () {
     this.route('date', { path: '/:date' });
     this.route('detail', { path: '/:id/detail' });
   });
 
   this.route('login');
-  this.route('admin', function() {
-    this.route('categories', function() {
+  this.route('admin', function () {
+    this.route('categories', function () {
       this.route('index', { path: '/' });
       this.route('new');
       this.route('edit', { path: '/:slug' });
     });
     this.route('build-servers');
-    this.route('build-results', function() {
+    this.route('build-results', function () {
       this.route('show', { path: '/:id' });
     });
 
-    this.route('size-calculation-results', function() {
+    this.route('size-calculation-results', function () {
       this.route('show', { path: '/:id' });
     });
 
-    this.route('addon-lists', function() {
+    this.route('addon-lists', function () {
       this.route('addons-needing-categorization');
       this.route('addons-needing-review');
       this.route('addons-needing-rereview');
@@ -100,7 +101,7 @@ Router.map(function() {
       this.route('addons-wip');
     });
 
-    this.route('review', function() {
+    this.route('review', function () {
       this.route('addon', { path: '/*name' });
     });
   });

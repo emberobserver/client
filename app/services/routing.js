@@ -5,6 +5,8 @@ import Service from '@ember/service';
 @classic
 export default class RoutingService extends Service {
   transitionTo() {
-    return getOwner(this).lookup('router:main').transitionTo(...arguments);
+    return getOwner(this)
+      .lookup('router:main')
+      .transitionTo(...arguments);
   }
 }

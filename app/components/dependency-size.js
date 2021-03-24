@@ -9,7 +9,7 @@ export default class DependencySizeComponent extends Component {
 
   get shouldShow() {
     let addonSize = this.args.addonSize;
-    return addonSize && get(addonSize, 'totalSize') > 0;
+    return addonSize && addonSize.totalSize > 0;
   }
 
   @action

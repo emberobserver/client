@@ -39,10 +39,12 @@ export default class Category extends Model {
     }
   }
 
-  @computed('subcategories.@each.addonCount')
+  @computed('addonCount', 'subcategories.@each.addonCount')
   get totalAddonCount() {
-    return this.subcategories.mapBy('addonCount').reduce(function(categoryA, categoryB) {
-      return categoryA + categoryB;
-    }, this.addonCount);
+    return this.subcategories
+      .mapBy('addonCount')
+      .reduce(function (categoryA, categoryB) {
+        return categoryA + categoryB;
+      }, this.addonCount);
   }
 }

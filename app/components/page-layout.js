@@ -33,7 +33,11 @@ export default class PageLayout extends Component {
 
   goSearch(term) {
     if (!isBlank(term)) {
-      this.metrics.trackEvent({ category: 'Header search', action: `Search on ${document.location.pathname}`, label: this.searchTerm });
+      this.metrics.trackEvent({
+        category: 'Header search',
+        action: `Search on ${document.location.pathname}`,
+        label: this.searchTerm,
+      });
       this.routing.transitionTo('index', { queryParams: { query: term } });
     }
   }
@@ -45,14 +49,22 @@ export default class PageLayout extends Component {
 
     yield timeout(250);
 
-    this.metrics.trackEvent({ category: 'Header autocomplete', action: `Autocomplete on ${document.location.pathname}`, label: term });
-    let results = yield this.get('searchService.searchAddonNames').perform(term);
+    this.metrics.trackEvent({
+      category: 'Header autocomplete',
+      action: `Autocomplete on ${document.location.pathname}`,
+      label: term,
+    });
+    let results = yield this.get('searchService.searchAddonNames').perform(
+      term
+    );
     let limitedResults = results.slice(0, 5);
     if (!limitedResults.length) {
-      return [{
-        noResults: true,
-        isFullSearchLink: true
-      }];
+      return [
+        {
+          noResults: true,
+          isFullSearchLink: true,
+        },
+      ];
     }
 
     limitedResults.insertAt(1, { isFullSearchLink: true });

@@ -17,30 +17,42 @@ export default class CodeSearchService extends Service {
 
     let { results } = yield this.api.request('/search/addons', {
       params: {
-        query, regex
-      }
+        query,
+        regex,
+      },
     });
 
-    if (results.length < (4 * PageSize)) {
+    if (results.length < 4 * PageSize) {
       let idsParam = results.map((r) => r.addon).join(',');
-      addons = yield this.store.query('addon', { filter: { id: idsParam }, include: 'categories' })
+      addons = yield this.store.query('addon', {
+        filter: { id: idsParam },
+        include: 'categories',
+      });
     } else {
-      addons = yield this.store.query('addon', { filter: { codeSearch: true }, include: 'categories', page: { limit: 10000 } });
+      addons = yield this.store.query('addon', {
+        filter: { codeSearch: true },
+        include: 'categories',
+        page: { limit: 10000 },
+      });
     }
-    return results.map((result) => {
-      let addon = addons.find((a) => a.get('id') === result.addon);
-      if (addon) {
-        return { addon, count: result.count, files: result.files };
-      }
-    }).compact();
+    return results
+      .map((result) => {
+        let addon = addons.find((a) => a.get('id') === result.addon);
+        if (addon) {
+          return { addon, count: result.count, files: result.files };
+        }
+      })
+      .compact();
   })
   addons;
 
   @task(function* (addon, query, regex) {
     let response = yield this.api.request('/search/source', {
       params: {
-        addon, query, regex
-      }
+        addon,
+        query,
+        regex,
+      },
     });
     return response.results;
   })

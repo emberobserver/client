@@ -6,5 +6,5 @@ export default Mirage.Factory.extend({
   statusMessage: '',
   testsRunAt: () => moment.utc(),
   canary: false,
-  output: ''
+  output: '',
 });

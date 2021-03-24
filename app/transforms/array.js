@@ -12,5 +12,5 @@ export default DS.Transform.extend({
   },
   serialize(deserialized) {
     return deserialized;
-  }
+  },
 });

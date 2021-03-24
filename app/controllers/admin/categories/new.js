@@ -21,13 +21,16 @@ export default class NewController extends Controller {
     let newCategory = this.store.createRecord('category', {
       name: this.newCategoryName,
       description: this.newCategoryDescription,
-      position: this.newCategoryPosition
+      position: this.newCategoryPosition,
     });
-    newCategory.save().then(() => {
-      this.transitionToRoute('admin.categories.index');
-    }).catch((message) => {
-      newCategory.deleteRecord();
-      alert(message);
-    });
+    newCategory
+      .save()
+      .then(() => {
+        this.transitionToRoute('admin.categories.index');
+      })
+      .catch((message) => {
+        newCategory.deleteRecord();
+        alert(message);
+      });
   }
 }

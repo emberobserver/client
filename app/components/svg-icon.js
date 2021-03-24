@@ -4,5 +4,5 @@ export default Component.extend({
   tagName: '',
   alignBaseline: true,
 }).reopenClass({
-  positionalParams: ['iconName']
+  positionalParams: ['iconName'],
 });

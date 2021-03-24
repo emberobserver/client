@@ -23,7 +23,7 @@ export default class ApiService extends Service {
 
   async request(requestUrl, options = {}) {
     let defaultOptions = {
-      headers: this.headers
+      headers: this.headers,
     };
 
     let opts = Object.assign(defaultOptions, options);

@@ -1,14 +1,14 @@
 import { helper } from '@ember/component/helper';
 
-export function scoreComponentColor([proportion]/*, hash*/) {
+export function scoreComponentColor([proportion] /*, hash*/) {
   if (proportion === 1) {
-    return "green";
+    return 'green';
   }
   if (proportion < 0.5) {
-    return "red"
+    return 'red';
   }
   if (proportion >= 0.5) {
-    return "yellow"
+    return 'yellow';
   }
 }
 

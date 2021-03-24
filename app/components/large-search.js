@@ -35,7 +35,11 @@ export default class LargeSearch extends Component {
 
   @computed('queryIsValid', 'results.length', 'search.isIdle')
   get hasSearchedAndNoResults() {
-    return this.queryIsValid && !this.get('results.length') && this.get('search.isIdle');
+    return (
+      this.queryIsValid &&
+      !this.get('results.length') &&
+      this.get('search.isIdle')
+    );
   }
 
   @computed('query')
@@ -47,7 +51,10 @@ export default class LargeSearch extends Component {
 
   @task(function* () {
     let pageToFetch = this.get('_results.lastAddonPageDisplaying') + 1;
-    let moreAddons = yield this._fetchPageOfAddonResults(this.get('_results.rawResults.addonResults'), pageToFetch);
+    let moreAddons = yield this._fetchPageOfAddonResults(
+      this.get('_results.rawResults.addonResults'),
+      pageToFetch
+    );
     this.get('_results.displayingAddons').pushObjects(moreAddons);
     this.set('_results.lastAddonPageDisplaying', pageToFetch);
   })
@@ -55,7 +62,10 @@ export default class LargeSearch extends Component {
 
   @task(function* () {
     let pageToFetch = this.get('_results.lastMaintainerPageDisplaying') + 1;
-    let moreMaintainers = yield this._fetchPageOfMaintainerResults(this.get('_results.rawResults.maintainerResults'), pageToFetch);
+    let moreMaintainers = yield this._fetchPageOfMaintainerResults(
+      this.get('_results.rawResults.maintainerResults'),
+      pageToFetch
+    );
     this.get('_results.displayingMaintainers').pushObjects(moreMaintainers);
     this.set('_results.lastMaintainerPageDisplaying', pageToFetch);
   })
@@ -63,7 +73,10 @@ export default class LargeSearch extends Component {
 
   @task(function* () {
     let pageToFetch = this.get('_results.lastCategoryPageDisplaying') + 1;
-    let moreCategories = yield this._fetchPageOfCategoryResults(this.get('_results.rawResults.categoryResults'), pageToFetch);
+    let moreCategories = yield this._fetchPageOfCategoryResults(
+      this.get('_results.rawResults.categoryResults'),
+      pageToFetch
+    );
     this.get('_results.displayingCategories').pushObjects(moreCategories);
     this.set('_results.lastCategoryPageDisplaying', pageToFetch);
   })
@@ -71,7 +84,10 @@ export default class LargeSearch extends Component {
 
   @task(function* () {
     let pageToFetch = this.get('_results.lastReadmePageDisplaying') + 1;
-    let moreReadmes = yield this._fetchPageOfAddonResults(this.get('_results.rawResults.readmeResults'), pageToFetch);
+    let moreReadmes = yield this._fetchPageOfAddonResults(
+      this.get('_results.rawResults.readmeResults'),
+      pageToFetch
+    );
     this.get('_results.displayingReadmes').pushObjects(moreReadmes);
     this.set('_results.lastReadmePageDisplaying', pageToFetch);
   })
@@ -86,9 +102,15 @@ export default class LargeSearch extends Component {
 
     yield timeout(250);
 
-    this.metrics.trackEvent({ category: 'Search', action: 'Search on /', label: this.query });
+    this.metrics.trackEvent({
+      category: 'Search',
+      action: 'Search on /',
+      label: this.query,
+    });
 
-    let results = yield this.get('searchService.search').perform(this.query, { includeReadmes: this.searchReadmes });
+    let results = yield this.get('searchService.search').perform(this.query, {
+      includeReadmes: this.searchReadmes,
+    });
     let firstPageOfResults = yield this._fetchFirstPageOfResults(results);
 
     this.set('_results', {
@@ -106,7 +128,7 @@ export default class LargeSearch extends Component {
       totalReadmeCount: results.readmeResults.matchCount,
       lastReadmePageDisplaying: 1,
       rawResults: results,
-      length: results.length
+      length: results.length,
     });
   }).restartable())
   search;
@@ -119,15 +141,21 @@ export default class LargeSearch extends Component {
 
   _fetchFirstPageOfResults(results) {
     let addonsPromise = this._fetchPageOfAddonResults(results.addonResults, 1);
-    let categoriesPromise = this._fetchPageOfCategoryResults(results.categoryResults, 1);
-    let maintainersPromise = this._fetchPageOfMaintainerResults(results.maintainerResults, 1);
+    let categoriesPromise = this._fetchPageOfCategoryResults(
+      results.categoryResults,
+      1
+    );
+    let maintainersPromise = this._fetchPageOfMaintainerResults(
+      results.maintainerResults,
+      1
+    );
     let readmePromise = this._fetchPageOfAddonResults(results.readmeResults, 1);
 
     return hash({
       addons: addonsPromise,
       categories: categoriesPromise,
       maintainers: maintainersPromise,
-      readmes: readmePromise
+      readmes: readmePromise,
     });
   }
 
@@ -136,7 +164,9 @@ export default class LargeSearch extends Component {
       return resolve(null);
     }
     let ids = results.matchIds.slice((page - 1) * PageSize, page * PageSize);
-    return this.store.query('maintainer', { filter: { id: ids.join(',') }, sort: 'name' }).then((maintainers) => maintainers.toArray());
+    return this.store
+      .query('maintainer', { filter: { id: ids.join(',') }, sort: 'name' })
+      .then((maintainers) => maintainers.toArray());
   }
 
   _fetchPageOfCategoryResults(results, page) {
@@ -144,7 +174,9 @@ export default class LargeSearch extends Component {
       return resolve(null);
     }
     let ids = results.matchIds.slice((page - 1) * PageSize, page * PageSize);
-    return this.store.query('category', { filter: { id: ids.join(',') }, sort: 'name' }).then((categories) => categories.toArray());
+    return this.store
+      .query('category', { filter: { id: ids.join(',') }, sort: 'name' })
+      .then((categories) => categories.toArray());
   }
 
   _fetchPageOfAddonResults(results, page) {
@@ -152,10 +184,16 @@ export default class LargeSearch extends Component {
       return resolve(null);
     }
     let ids = results.matchIds.slice((page - 1) * PageSize, page * PageSize);
-    return this.store.query('addon', { filter: { id: ids.join(',') }, sort: '-score', include: 'categories' }).then((addons) => addons.toArray());
+    return this.store
+      .query('addon', {
+        filter: { id: ids.join(',') },
+        sort: '-score',
+        include: 'categories',
+      })
+      .then((addons) => addons.toArray());
   }
 
-  @computed('query', '_results')
+  @computed('_results', 'query', 'queryIsValid')
   get results() {
     if (this.queryIsValid) {
       return this._results;
@@ -168,7 +206,10 @@ export default class LargeSearch extends Component {
   }
 
   clearSearch() {
-    this.metrics.trackEvent({ category: 'Clear Search', action: `Clear on ${document.location.pathname}` });
+    this.metrics.trackEvent({
+      category: 'Clear Search',
+      action: `Clear on ${document.location.pathname}`,
+    });
 
     this.set('query', '');
     this.set('_results', null);

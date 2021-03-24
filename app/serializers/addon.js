@@ -23,5 +23,5 @@ export default ApplicationSerializer.extend({
     latestAddonVersion: { serialize: false },
     updatedAt: { serialize: false },
     hasBeenReviewed: { serialize: false },
-  }
+  },
 });

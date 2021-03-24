@@ -12,7 +12,11 @@ export default class TestResultStatus extends Component {
   )
   get statusText() {
     if (this.get('testResult.succeeded')) {
-      if (this.get('testResult.emberVersionCompatibilities.firstObject.compatible')) {
+      if (
+        this.get(
+          'testResult.emberVersionCompatibilities.firstObject.compatible'
+        )
+      ) {
         return 'Passed';
       } else {
         return 'Failed';

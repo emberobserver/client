@@ -6,7 +6,7 @@ import Controller from '@ember/controller';
 @classic
 export default class ShowController extends Controller {
   queryParams = {
-    addonSortKey: 'sort'
+    addonSortKey: 'sort',
   };
 
   addonSortKey = 'score';
@@ -20,7 +20,7 @@ export default class ShowController extends Controller {
   @sort('addons', 'addonSorting')
   sortedAddons;
 
-  @computed('category.subcategories')
+  @computed('category.subcategories.length')
   get hasSubcategories() {
     return this.get('category.subcategories.length') > 0;
   }
@@ -28,9 +28,9 @@ export default class ShowController extends Controller {
   @computed('addonSortKey')
   get addonSorting() {
     let sortKeyMapping = {
-      'latestVersionDate': ['latestVersionDate:desc'],
-      'name': ['name:asc'],
-      'score': ['isDeprecated:asc', 'score:desc']
+      latestVersionDate: ['latestVersionDate:desc'],
+      name: ['name:asc'],
+      score: ['isDeprecated:asc', 'score:desc'],
     };
     let sortKey = sortKeyMapping[this.addonSortKey] || sortKeyMapping.score;
     return sortKey;

@@ -17,14 +17,14 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
   env: {
-    browser: true
+    browser: true,
   },
   rules: {
     // TODO: Enable and correct violations
     'ember/avoid-leaking-state-in-ember-objects': 'off',
     'ember/closure-actions': 'off',
     'ember/use-brace-expansion': 'off',
-    'ember/no-jquery': 'error'
+    'ember/no-jquery': 'error',
   },
   rules: {},
   overrides: [
@@ -34,7 +34,7 @@ module.exports = {
       excludedFiles: ['tests/dummy/**/*.js'],
       globals: {
         server: true,
-      }
+      },
     },
     // node files
     {

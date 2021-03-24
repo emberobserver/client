@@ -5,10 +5,10 @@ import Service from '@ember/service';
 import { render } from '@ember/test-helpers';
 import moment from 'moment';
 
-module('Integration | Component | relative-date', function(hooks) {
+module('Integration | Component | relative-date', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders as a <time> tag', async function(assert) {
+  test('it renders as a <time> tag', async function (assert) {
     await render(hbs`
       <RelativeTime/>
     `);
@@ -16,7 +16,7 @@ module('Integration | Component | relative-date', function(hooks) {
     assert.dom('time').exists();
   });
 
-  test('it displays the relative time from the given date', async function(assert) {
+  test('it displays the relative time from the given date', async function (assert) {
     this.date = moment().subtract(3, 'days');
 
     await render(hbs`
@@ -26,12 +26,15 @@ module('Integration | Component | relative-date', function(hooks) {
     assert.dom('time').hasText('3 days ago');
   });
 
-  test('it uses the currentDate service to determine the current date', async function(assert) {
-    this.owner.register('service:current-date', class extends Service {
-      get date() {
-        return moment('2006-10-30T00:00:00Z');
+  test('it uses the currentDate service to determine the current date', async function (assert) {
+    this.owner.register(
+      'service:current-date',
+      class extends Service {
+        get date() {
+          return moment('2006-10-30T00:00:00Z');
+        }
       }
-    });
+    );
 
     this.date = moment('2006-09-30T00:00:00Z');
     await render(hbs`
@@ -41,7 +44,7 @@ module('Integration | Component | relative-date', function(hooks) {
     assert.dom('time').hasText('a month ago');
   });
 
-  test('it sets the datetime and title attributes to the ISO-formatted date string', async function(assert) {
+  test('it sets the datetime and title attributes to the ISO-formatted date string', async function (assert) {
     this.date = moment('2020-09-30T00:00:00Z');
 
     await render(hbs`

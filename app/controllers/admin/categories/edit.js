@@ -1,6 +1,14 @@
 import classic from 'ember-classic-decorator';
 import { action } from '@ember/object';
-import { filterBy, empty, gt, filter, sort, oneWay, alias } from '@ember/object/computed';
+import {
+  filterBy,
+  empty,
+  gt,
+  filter,
+  sort,
+  oneWay,
+  alias,
+} from '@ember/object/computed';
 import { Promise as EmberPromise } from 'rsvp';
 import Controller from '@ember/controller';
 
@@ -30,7 +38,7 @@ export default class EditController extends Controller {
   @sort('category.subcategories', 'categoryPositionSorting')
   subcategories;
 
-  @filter('categories', function(item) {
+  @filter('categories', function (item) {
     return item.get('parent.id') === this.get('category.parent.id');
   })
   siblingCategories;
@@ -60,14 +68,17 @@ export default class EditController extends Controller {
       name: this.newCategoryName,
       description: this.newCategoryDescription,
       position: this.newCategoryPosition,
-      parent: this.category
+      parent: this.category,
     });
-    newCategory.save().then(() => {
-      this.transitionToRoute('admin.categories.index');
-    }).catch((message) => {
-      newCategory.deleteRecord();
-      alert(message);
-    });
+    newCategory
+      .save()
+      .then(() => {
+        this.transitionToRoute('admin.categories.index');
+      })
+      .catch((message) => {
+        newCategory.deleteRecord();
+        alert(message);
+      });
   }
 
   @action
@@ -98,14 +109,17 @@ export default class EditController extends Controller {
       findPromise = new EmberPromise((resolve) => resolve(null));
     }
 
-    findPromise.then(function(parentCategory) {
-      category.set('parent', parentCategory);
-      return category.save();
-    }).then(() => {
-      this.transitionToRoute('admin.categories.index');
-    }).catch((message) => {
-      category.rollbackAttributes();
-      alert(message);
-    });
+    findPromise
+      .then(function (parentCategory) {
+        category.set('parent', parentCategory);
+        return category.save();
+      })
+      .then(() => {
+        this.transitionToRoute('admin.categories.index');
+      })
+      .catch((message) => {
+        category.rollbackAttributes();
+        alert(message);
+      });
   }
 }

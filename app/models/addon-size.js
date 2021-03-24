@@ -67,7 +67,7 @@ export default class AddonSize extends Model {
     return this.appJsGzipSize + this.vendorJsGzipSize + this.otherJsGzipSize;
   }
 
-  @computed('appCssSize', 'vendorCssSize', 'otherJCssSize')
+  @computed('appCssSize', 'otherCssSize', 'otherJCssSize', 'vendorCssSize')
   get totalCssSize() {
     return this.appCssSize + this.vendorCssSize + this.otherCssSize;
   }
@@ -87,18 +87,18 @@ export default class AddonSize extends Model {
     return this.totalJsGzipSize + this.totalCssGzipSize;
   }
 
-  @computed('otherAssets')
+  @computed('otherAssets.files.length')
   get hasOtherAssetsFiles() {
     return this.otherAssets.files && this.otherAssets.files.length > 0;
   }
 
-  @computed('otherAssets')
+  @computed('otherAssets.files')
   get normalizedOtherAssetFiles() {
-    return this.otherAssets.files.map(function(f) {
+    return this.otherAssets.files.map(function (f) {
       return {
         name: normalizeFingerprintedAsset(f.name),
         size: f.size,
-        gzipSize: f.gzipSize
+        gzipSize: f.gzipSize,
       };
     });
   }

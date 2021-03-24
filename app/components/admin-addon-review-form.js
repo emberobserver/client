@@ -36,7 +36,7 @@ export default class AdminAddonReviewForm extends Component {
       yield this.addon.save();
       this.reset();
       this.complete.perform();
-    } catch(e) {
+    } catch (e) {
       console.error(e); // eslint-disable-line no-console
       window.alert('Failed to create review');
     }

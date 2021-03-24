@@ -2,7 +2,7 @@
 
 const parseFlag = require('./parse-flag');
 
-module.exports = function(environment) {
+module.exports = function (environment) {
   let ENV = {
     modulePrefix: 'ember-observer',
     environment,
@@ -17,8 +17,8 @@ module.exports = function(environment) {
       },
       EXTEND_PROTOTYPES: {
         // Prevent Ember Data from overriding Date.parse.
-        Date: false
-      }
+        Date: false,
+      },
     },
 
     APP: {
@@ -26,12 +26,11 @@ module.exports = function(environment) {
       // when it is created
     },
 
-    featureFlags: {
-    }
+    featureFlags: {},
   };
 
   ENV['ember-cli-mirage'] = {
-    discoverEmberDataModels: false
+    discoverEmberDataModels: false,
   };
 
   if (parseFlag('COLLECT_METRICS', true)) {
@@ -40,13 +39,13 @@ module.exports = function(environment) {
         name: 'GoogleAnalytics',
         environments: ['production'],
         config: {
-          id: 'UA-59673320-1'
-        }
+          id: 'UA-59673320-1',
+        },
       },
       {
         name: 'LocalAdapter',
-        environments: ['development']
-      }
+        environments: ['development'],
+      },
     ];
   }
 
@@ -71,7 +70,7 @@ module.exports = function(environment) {
     ENV.codeSearchPageSize = 3;
 
     ENV['ember-cli-mirage'] = {
-      enabled: false
+      enabled: false,
     };
   }
 

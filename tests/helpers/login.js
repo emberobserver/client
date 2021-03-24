@@ -1,9 +1,9 @@
 import { click, fillIn, visit } from '@ember/test-helpers';
 
 export default async function login() {
-  server.post('/authentication/login.json', function() {
+  server.post('/authentication/login.json', function () {
     return {
-      token: 'abc123'
+      token: 'abc123',
     };
   });
   await visit('/login');

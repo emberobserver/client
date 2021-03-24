@@ -4,9 +4,11 @@ import Route from '@ember/routing/route';
 @classic
 export default class ShowRoute extends Route {
   model(params) {
-    return this.store.query('maintainer', { filter: { name: params.name } }).then((maintainers) => {
-      return maintainers.get('firstObject');
-    });
+    return this.store
+      .query('maintainer', { filter: { name: params.name } })
+      .then((maintainers) => {
+        return maintainers.get('firstObject');
+      });
   }
 
   titleToken(model) {

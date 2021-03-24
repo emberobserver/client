@@ -36,9 +36,13 @@ export default class ShowController extends Controller {
   @action
   retryBuild() {
     this.set('hasRetriedBuild', true);
-    this.api.request(`/test_results/${this.get('buildResult.id')}/retry`, { method: 'POST' }).catch((e) => {
-      this.get('hasRetriedBuild', false);
-      throw e;
-    });
+    this.api
+      .request(`/test_results/${this.get('buildResult.id')}/retry`, {
+        method: 'POST',
+      })
+      .catch((e) => {
+        this.get('hasRetriedBuild', false);
+        throw e;
+      });
   }
 }

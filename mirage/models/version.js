@@ -5,5 +5,5 @@ export default Model.extend({
   review: belongsTo(),
   addonSize: belongsTo(),
   testResults: hasMany(),
-  dependencies: hasMany('addon-dependency')
+  dependencies: hasMany('addon-dependency'),
 });
