@@ -1,6 +1,6 @@
 import { click, currentURL, fillIn, findAll, visit } from '@ember/test-helpers';
 import Service from '@ember/service';
-import { module, test } from 'qunit';
+import QUnit, { module, test } from 'qunit';
 import { percySnapshot } from 'ember-percy';
 import { selectChoose } from 'ember-power-select/test-support/helpers';
 import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
