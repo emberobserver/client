@@ -24,7 +24,10 @@ module.exports = {
     'ember/avoid-leaking-state-in-ember-objects': 'off',
     'ember/closure-actions': 'off',
     'ember/use-brace-expansion': 'off',
+    'ember/no-classic-components': 'off',
+    'ember/no-get': 'off',
     'ember/no-jquery': 'error',
+    'ember/require-tagless-components': 'off',
   },
   overrides: [
     // tests

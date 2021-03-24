@@ -20,9 +20,6 @@ export default class LargeSearch extends Component {
   @service('search')
   searchService;
 
-  @service('-routing')
-  routing;
-
   @service
   metrics;
 
