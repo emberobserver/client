@@ -1,5 +1,6 @@
 import classic from 'ember-classic-decorator';
 import { computed } from '@ember/object';
+import { dasherize } from '@ember/string';
 import Model, { hasMany, belongsTo, attr } from '@ember-data/model';
 
 @classic
@@ -27,7 +28,7 @@ export default class Category extends Model {
 
   @computed('name')
   get slug() {
-    return this.name.dasherize();
+    return dasherize(this.name);
   }
 
   @computed('parent.name', 'name')
