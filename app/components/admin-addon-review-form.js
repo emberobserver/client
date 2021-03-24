@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-component-lifecycle-hooks */
 import classic from 'ember-classic-decorator';
 import { inject } from '@ember/service';
 import Component from '@ember/component';
