@@ -26,7 +26,6 @@ module.exports = {
     'ember/use-brace-expansion': 'off',
     'ember/no-jquery': 'error',
   },
-  rules: {},
   overrides: [
     // tests
     {
