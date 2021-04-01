@@ -1150,7 +1150,7 @@
     ember-cli-htmlbars "^5.7.1"
     ember-destroyable-polyfill "^2.0.3"
 
-"@ember/test-waiters@^2.4.3":
+"@ember/test-waiters@^2.3.0", "@ember/test-waiters@^2.4.3":
   version "2.4.3"
   resolved "https://registry.yarnpkg.com/@ember/test-waiters/-/test-waiters-2.4.3.tgz#44c144fad5e3a5858b02604c1df7edea61a52dbf"
   integrity sha512-2Nq1y5+mbBg2QeP57JaOrhfCCu2tEBr8QA3XrJw6uutnU5heNKIROnh1gskqDg72m8lqocA1UFzpCQIg4XQywQ==
@@ -5224,16 +5224,18 @@ elliptic@^6.5.3:
     minimalistic-assert "^1.0.1"
     minimalistic-crypto-utils "^1.0.1"
 
-ember-app-scheduler@^1.0.5:
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/ember-app-scheduler/-/ember-app-scheduler-1.0.8.tgz#37adacce2fa5ab59324e2c0b08f3c4a3568025b4"
-  integrity sha512-fYCOhQTLb1b+TZ2PBSqyvHXVAxf7qfWD0ZSJTd/IdU/xbLJSt34X75w7qK2uBHZCkVvCNm/ATW3pjFC/0zYk7A==
+ember-app-scheduler@^5.1.2:
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/ember-app-scheduler/-/ember-app-scheduler-5.1.2.tgz#ddf40996579c8587f4264e5604ac3e4be61e33c8"
+  integrity sha512-nkm+Y9iTTdnO9yATpdg5p2h5PccMajiOJlz+NdgoFr5pgcdfkj7IxQXJw2TLd5iLH2GQiAMmnudrLLN1NIFdvA==
   dependencies:
+    "@ember/test-waiters" "^2.3.0"
     "@types/ember" "^3.1.0"
     "@types/rsvp" "^4.0.2"
-    ember-cli-babel "^7.1.3"
-    ember-cli-typescript "^2.0.0"
+    ember-cli-babel "^7.23.0"
+    ember-cli-typescript "^3.1.4"
     ember-compatibility-helpers "^1.1.2"
+    ember-destroyable-polyfill "^2.0.2"
 
 ember-assign-helper@^0.3.0:
   version "0.3.0"
@@ -5721,7 +5723,7 @@ ember-cli-typescript@3.0.0:
     stagehand "^1.0.0"
     walk-sync "^2.0.0"
 
-ember-cli-typescript@^2.0.0, ember-cli-typescript@^2.0.2:
+ember-cli-typescript@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/ember-cli-typescript/-/ember-cli-typescript-2.0.2.tgz#464984131fbdc05655eb61d1c3cdd911d3137f0d"
   integrity sha512-7I5azCTxOgRDN8aSSnJZIKSqr+MGnT+jLTUbBYqF8wu6ojs2DUnTePxUcQMcvNh3Q3B1ySv7Q/uZFSjdU9gSjA==
@@ -6259,13 +6261,13 @@ ember-router-generator@^2.0.0:
     "@babel/traverse" "^7.4.5"
     recast "^0.18.1"
 
-ember-router-scroll@1.3.3:
-  version "1.3.3"
-  resolved "https://registry.yarnpkg.com/ember-router-scroll/-/ember-router-scroll-1.3.3.tgz#411991a671bd970497f5ce757baa627e850ae6e0"
-  integrity sha512-SwGsX7kceLXd3AZtKFcM/Ggl5lw37/a1v2rYHwWKZNMiyICBctJmWeEvALLQpiNzT8YMJrJHBkucHFmG07JPXQ==
+ember-router-scroll@^4.0.0:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/ember-router-scroll/-/ember-router-scroll-4.0.2.tgz#a11a6377b8b9dfa09b4ff7584b8de4bfc23be627"
+  integrity sha512-PltfuWinwyIiE083nrUp3PpB9H7OoNq1zdBiGGbUc2Z2Ot04/nAOu90b2F7xq59AzSDfXlhPZr3WCK296XqrTg==
   dependencies:
-    ember-app-scheduler "^1.0.5"
-    ember-cli-babel "^7.1.2"
+    ember-app-scheduler "^5.1.2"
+    ember-cli-babel "^7.11.1"
     ember-compatibility-helpers "^1.1.2"
 
 ember-source-channel-url@^1.0.1:

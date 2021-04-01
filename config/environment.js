@@ -7,7 +7,7 @@ module.exports = function (environment) {
     modulePrefix: 'ember-observer',
     environment,
     rootURL: '/',
-    locationType: 'router-scroll',
+    locationType: 'auto',
     historySupportMiddleware: true,
     codeSearchPageSize: 50,
     EmberENV: {
