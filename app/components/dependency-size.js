@@ -1,15 +1,14 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
+import { action, get } from '@ember/object';
 
 export default class DependencySizeComponent extends Component {
   @tracked isViewingDetails;
   @tracked isViewingOtherAssets;
-  @tracked addonSize;
 
   get shouldShow() {
     let addonSize = this.args.addonSize;
-    return addonSize && addonSize.totalSize > 0;
+    return addonSize && get(addonSize, 'totalSize') > 0;
   }
 
   @action
