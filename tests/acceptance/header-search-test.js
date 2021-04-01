@@ -39,7 +39,7 @@ module('Acceptance | header search', function (hooks) {
 
     assert.equal(
       currentURL(),
-      '/?query=test',
+      '/?query=test&searchReadmes=false',
       'Perform full search takes to index with correct query'
     );
   });
@@ -136,7 +136,7 @@ module('Acceptance | header search', function (hooks) {
 
     assert.equal(
       currentURL(),
-      '/?query=foo',
+      '/?query=foo&searchReadmes=false',
       'Link goes to main search with query'
     );
   });
