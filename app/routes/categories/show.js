@@ -12,10 +12,13 @@ export default class ShowRoute extends Route {
       if (!category) {
         throw new Error(`no such category ${params.slug}`);
       }
-      let addons = this.store.query('addon', { filter: { inCategory: category.get('id') }, include: 'categories' });
+      let addons = this.store.query('addon', {
+        filter: { inCategory: category.get('id') },
+        include: 'categories',
+      });
       return hash({
         category,
-        addons
+        addons,
       });
     });
   }

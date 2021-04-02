@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-component-lifecycle-hooks */
 import classic from 'ember-classic-decorator';
 import { inject } from '@ember/service';
 import Component from '@ember/component';
@@ -36,7 +37,7 @@ export default class AdminAddonReviewForm extends Component {
       yield this.addon.save();
       this.reset();
       this.complete.perform();
-    } catch(e) {
+    } catch (e) {
       console.error(e); // eslint-disable-line no-console
       window.alert('Failed to create review');
     }

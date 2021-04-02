@@ -16,5 +16,5 @@ export default {
     if (this.storage()) {
       return this.storage().removeItem(item);
     }
-  }
+  },
 };

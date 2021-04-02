@@ -9,6 +9,6 @@ export default class ScoreDisplay extends Component {
   @computed('addon.{score,hasBeenReviewed}')
   get hasBeenReviewedAndScored() {
     let score = this.get('addon.score');
-    return typeof(score) === 'number' && this.get('addon.hasBeenReviewed');
+    return typeof score === 'number' && this.get('addon.hasBeenReviewed');
   }
 }

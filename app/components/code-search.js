@@ -101,17 +101,24 @@ export default class CodeSearch extends Component {
       return;
     }
 
-    this.metrics.trackEvent({ category: 'Code Search', action: 'Search', label: query });
+    this.metrics.trackEvent({
+      category: 'Code Search',
+      action: 'Search',
+      label: query,
+    });
 
     this.set('codeQuery', query);
-    let results = yield this.get('codeSearch.addons').perform(query, this.regex);
+    let results = yield this.get('codeSearch.addons').perform(
+      query,
+      this.regex
+    );
     this.set('quotedLastSearch', quoteSearchTerm(query, this.regex));
 
     this.set('results', results);
   }).restartable())
   search;
 
-  @(task(function*(fileFilter) {
+  @(task(function* (fileFilter) {
     yield timeout(250);
 
     if (!isEmpty(fileFilter)) {
@@ -135,7 +142,9 @@ export default class CodeSearch extends Component {
 
   @computed('displayingResults.length', 'filteredResults.length')
   get canViewMore() {
-    return this.get('displayingResults.length') < this.get('filteredResults.length');
+    return (
+      this.get('displayingResults.length') < this.get('filteredResults.length')
+    );
   }
 
   viewMore() {
@@ -210,7 +219,7 @@ function filterByFilePath(results, filterTerm) {
   let filterRegex;
   try {
     filterRegex = new RegExp(filterTerm);
-  } catch(e) {
+  } catch (e) {
     return [];
   }
   results.forEach((result) => {
@@ -221,7 +230,7 @@ function filterByFilePath(results, filterTerm) {
       filteredList.push({
         addon: result.addon,
         files: filteredFiles,
-        count: filteredFiles.length
+        count: filteredFiles.length,
       });
     }
   });

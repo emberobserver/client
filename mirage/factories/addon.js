@@ -32,5 +32,5 @@ export default Factory.extend({
   },
   hasBeenReviewed() {
     return !!this.latestReview;
-  }
+  },
 });

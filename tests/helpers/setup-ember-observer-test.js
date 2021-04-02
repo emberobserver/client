@@ -4,17 +4,17 @@ import LocalStore from 'ember-observer/utils/local-storage';
 import mockStorage from './local-storage-mock';
 
 export function setupEmberObserverTest(hooks) {
-  LocalStore.storage = function() {
+  LocalStore.storage = function () {
     return mockStorage;
   };
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     window.server = startMirage();
   });
 
-  hooks.afterEach(function() {
+  hooks.afterEach(function () {
     window.server.shutdown();
   });
-  
+
   setupApplicationTest(hooks);
 }

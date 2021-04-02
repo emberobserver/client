@@ -2,7 +2,7 @@ import ApplicationSerializer from './application';
 
 export default ApplicationSerializer.extend({
   attrs: {
-    addonCount: { serialize: false }
+    addonCount: { serialize: false },
   },
   normalize(modelClass, responseHash) {
     if (responseHash.relationships) {
@@ -14,5 +14,5 @@ export default ApplicationSerializer.extend({
       }
     }
     return this._super(...arguments);
-  }
+  },
 });

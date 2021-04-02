@@ -16,19 +16,19 @@ export default class DateRoute extends Route {
             'semver-string',
             'status-message',
             'succeeded',
-            'version'
-          ].join(',')
+            'version',
+          ].join(','),
         },
         filter: {
           canary: true,
-          date: params.date
+          date: params.date,
         },
         include: [
           'ember-version-compatibilities',
           'version',
-          'version.addon'
-        ].join(',')
-      })
+          'version.addon',
+        ].join(','),
+      }),
     });
   }
 }

@@ -1,7 +1,7 @@
 import { helper } from '@ember/component/helper';
 import { isEmpty } from '@ember/utils';
 
-export function formatBytes([number]/*, hash*/) {
+export function formatBytes([number] /*, hash*/) {
   if (isEmpty(number)) {
     return '';
   }
@@ -18,7 +18,7 @@ export function formatBytes([number]/*, hash*/) {
 }
 
 function format(number, denominator, unit) {
-  return `${parseFloat((number / denominator).toFixed(2))} ${unit}`
+  return `${parseFloat((number / denominator).toFixed(2))} ${unit}`;
 }
 
 export default helper(formatBytes);

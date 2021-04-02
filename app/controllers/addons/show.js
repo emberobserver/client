@@ -25,16 +25,25 @@ export default class ShowController extends Controller {
 
   @computed('latestReview.version.version', 'latestVersion.version')
   get isLatestReviewForLatestVersion() {
-    return this.get('latestReview.version.version') === this.get('latestVersion.version');
+    return (
+      this.get('latestReview.version.version') ===
+      this.get('latestVersion.version')
+    );
   }
 
-  @computed('model.latestTestResult.version', 'latestVersion')
+  @computed('latestVersion.version', 'model.latestTestResult.version.version')
   get isTestResultForLatestVersion() {
-    return this.get('model.latestTestResult.version.version') === this.get('latestVersion.version');
+    return (
+      this.get('model.latestTestResult.version.version') ===
+      this.get('latestVersion.version')
+    );
   }
 
   @computed('addon.hasInvalidGithubRepo', 'addon.githubStats.firstCommitDate')
   get hasGithubData() {
-    return !this.get('addon.hasInvalidGithubRepo') && this.get('addon.githubStats.firstCommitDate');
+    return (
+      !this.get('addon.hasInvalidGithubRepo') &&
+      this.get('addon.githubStats.firstCommitDate')
+    );
   }
 }

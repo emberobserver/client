@@ -8,9 +8,9 @@ export default class DetailRoute extends Route {
       include: [
         'ember-version-compatibilities',
         'version',
-        'version.addon'
+        'version.addon',
       ].join(','),
-      reload: true
+      reload: true,
     });
   }
 }

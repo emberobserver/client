@@ -1,14 +1,14 @@
 /* jshint node: true */
 
-module.exports = function(deployTarget) {
+module.exports = function (deployTarget) {
   var ENV = {
-    build: {}
+    build: {},
     // include other plugin configuration that applies to all deploy targets here
   };
 
   ENV['with-rsync'] = {
     username: 'eo',
-    root: '/srv/app/ember-observer/client'
+    root: '/srv/app/ember-observer/client',
   };
 
   if (deployTarget === 'development') {

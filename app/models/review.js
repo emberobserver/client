@@ -6,7 +6,7 @@ import Model, { belongsTo, attr } from '@ember-data/model';
 export const questions = [
   { text: 'Are there meaningful tests?', fieldName: 'hasTests' },
   { text: 'Is the README filled out?', fieldName: 'hasReadme' },
-  { text: 'Does the addon have a build?', fieldName: 'hasBuild' }
+  { text: 'Does the addon have a build?', fieldName: 'hasBuild' },
 ];
 
 @classic

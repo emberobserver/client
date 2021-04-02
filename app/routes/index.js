@@ -7,18 +7,31 @@ import measure from '../utils/measure';
 export default class IndexRoute extends Route {
   queryParams = {
     query: {
-      replace: true
+      replace: true,
     },
     searchReadmes: {
-      replace: true
-    }
+      replace: true,
+    },
   };
 
   model() {
     return hash({
-      topAddons: this.store.query('addon', { page: { limit: 10 }, filter: { top: true }, sort: 'ranking', include: 'categories' }),
-      newAddons: this.store.query('addon', { page: { limit: 10 }, sort: '-publishedDate', include: 'categories' }),
-      recentlyScoredAddons: this.store.query('addon', { page: { limit: 10 }, filter: { recentlyReviewed: true }, include: 'categories' })
+      topAddons: this.store.query('addon', {
+        page: { limit: 10 },
+        filter: { top: true },
+        sort: 'ranking',
+        include: 'categories',
+      }),
+      newAddons: this.store.query('addon', {
+        page: { limit: 10 },
+        sort: '-publishedDate',
+        include: 'categories',
+      }),
+      recentlyScoredAddons: this.store.query('addon', {
+        page: { limit: 10 },
+        filter: { recentlyReviewed: true },
+        include: 'categories',
+      }),
     });
   }
 

@@ -3,5 +3,5 @@ export default {
   removeItem() {},
   key() {},
   getItem() {},
-  length: 0
+  length: 0,
 };

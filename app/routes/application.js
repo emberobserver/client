@@ -9,7 +9,9 @@ export default class ApplicationRoute extends Route {
 
   model() {
     return {
-      categories: this.store.findAll('category', { include: 'subcategories,parent' })
+      categories: this.store.findAll('category', {
+        include: 'subcategories,parent',
+      }),
     };
   }
 

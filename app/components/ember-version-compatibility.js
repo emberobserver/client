@@ -11,24 +11,38 @@ export default class EmberVersionCompatibility extends Component {
 
   @computed('testResult.emberVersionCompatibilities.@each.emberVersion')
   get versionCompatibilitiesForReleasedVersions() {
-    return this.get('testResult.emberVersionCompatibilities')
-      .filter((versionCompatibility) => !versionCompatibility.get('emberVersion').match(/(beta|canary)/));
+    return this.get('testResult.emberVersionCompatibilities').filter(
+      (versionCompatibility) =>
+        !versionCompatibility.get('emberVersion').match(/(beta|canary)/)
+    );
   }
 
   @computed('versionCompatibilitiesForReleasedVersions.@each.emberVersion')
   get sortedVersionCompatibilities() {
-    return this.versionCompatibilitiesForReleasedVersions.toArray().sort(sortByVersion);
+    return this.versionCompatibilitiesForReleasedVersions
+      .toArray()
+      .sort(sortByVersion);
   }
 
   @computed('versionCompatibilitiesForReleasedVersions.@each.compatible')
   get allTestsPassed() {
-    return this.versionCompatibilitiesForReleasedVersions.every((versionCompatibility) => versionCompatibility.get('compatible'));
+    return this.versionCompatibilitiesForReleasedVersions.every(
+      (versionCompatibility) => versionCompatibility.get('compatible')
+    );
   }
 
-  @computed('sortedVersionCompatibilities.[]')
+  @computed(
+    'sortedVersionCompatibilities.[]',
+    'sortedVersionCompatibilities.firstObject.emberVersion',
+    'sortedVersionCompatibilities.lastObject.emberVersion'
+  )
   get compatibilitySemverString() {
-    let earliestVersion = this.get('sortedVersionCompatibilities.lastObject.emberVersion');
-    let latestVersion = this.get('sortedVersionCompatibilities.firstObject.emberVersion');
+    let earliestVersion = this.get(
+      'sortedVersionCompatibilities.lastObject.emberVersion'
+    );
+    let latestVersion = this.get(
+      'sortedVersionCompatibilities.firstObject.emberVersion'
+    );
 
     return `>=${earliestVersion} <=${latestVersion}`;
   }

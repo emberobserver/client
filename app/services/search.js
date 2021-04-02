@@ -16,7 +16,7 @@ export default class SearchService extends Service {
       this.set('_autocompleteData', {
         addons: data.addons.sortBy('score').reverse(),
         categories: data.categories,
-        maintainers: data.maintainers
+        maintainers: data.maintainers,
       });
     }
     return this._autocompleteData;
@@ -25,35 +25,46 @@ export default class SearchService extends Service {
 
   _searchAddons(query, possibleAddons) {
     let addonResultsMatchingOnName = findMatches(query, 'name', possibleAddons);
-    let addonResultsMatchingOnDescription = findMatches(query, 'description', possibleAddons);
-    let addonIds = [].concat(addonResultsMatchingOnName, addonResultsMatchingOnDescription).uniq().mapBy('id');
+    let addonResultsMatchingOnDescription = findMatches(
+      query,
+      'description',
+      possibleAddons
+    );
+    let addonIds = []
+      .concat(addonResultsMatchingOnName, addonResultsMatchingOnDescription)
+      .uniq()
+      .mapBy('id');
     return {
       matchIds: addonIds,
-      matchCount: addonIds.length
+      matchCount: addonIds.length,
     };
   }
 
   _searchCategories(query, possibleCategories) {
-    let categoryIds = findMatches(query, 'name', possibleCategories).mapBy('id');
+    let categoryIds = findMatches(query, 'name', possibleCategories).mapBy(
+      'id'
+    );
     return {
       matchIds: categoryIds,
-      matchCount: categoryIds.length
+      matchCount: categoryIds.length,
     };
   }
 
   _searchMaintainers(query, possibleMaintainers) {
-    let maintainerIds = findMatches(query, 'name', possibleMaintainers).mapBy('id');
+    let maintainerIds = findMatches(query, 'name', possibleMaintainers).mapBy(
+      'id'
+    );
     return {
       matchIds: maintainerIds,
-      matchCount: maintainerIds.length
+      matchCount: maintainerIds.length,
     };
   }
 
   @task(function* (query) {
     let results = yield this.api.request('/search', {
       params: {
-        query
-      }
+        query,
+      },
     });
 
     let addonMatchMap = {};
@@ -64,7 +75,7 @@ export default class SearchService extends Service {
     return {
       matchIds: Object.keys(addonMatchMap),
       matchMap: addonMatchMap,
-      matchCount: results.search.length
+      matchCount: results.search.length,
     };
   })
   _searchReadmes;
@@ -92,7 +103,11 @@ export default class SearchService extends Service {
       maintainerResults,
       categoryResults,
       readmeResults,
-      length: (addonResults.matchCount + maintainerResults.matchCount + categoryResults.matchCount + readmeResults.matchCount)
+      length:
+        addonResults.matchCount +
+        maintainerResults.matchCount +
+        categoryResults.matchCount +
+        readmeResults.matchCount,
     };
     this.set('_latestSearchResults', results);
     return results;
@@ -103,7 +118,7 @@ export default class SearchService extends Service {
 function findMatches(query, prop, items) {
   query = escapeForRegex(query);
   let matcher = new RegExp(query, 'i');
-  let results = items.filter(function(item) {
+  let results = items.filter(function (item) {
     return matcher.test(item[prop]);
   });
   return results;
@@ -113,16 +128,18 @@ function findAddonNameMatches(searchTerm, addons) {
   let query = escapeForRegex(stripEmberPrefixes(searchTerm));
   let matcher = new RegExp(query, 'i');
 
-  let matches = addons.map(function(item) {
-    let trimmedName = stripEmberPrefixes(item.name);
-    let match = matcher.exec(trimmedName);
-    if (match) {
-      return { item, match };
-    }
-    return null;
-  }).compact();
+  let matches = addons
+    .map(function (item) {
+      let trimmedName = stripEmberPrefixes(item.name);
+      let match = matcher.exec(trimmedName);
+      if (match) {
+        return { item, match };
+      }
+      return null;
+    })
+    .compact();
 
-  let sortByMatchIndexThenScoreThenAddonName = function(a, b) {
+  let sortByMatchIndexThenScoreThenAddonName = function (a, b) {
     if (a.match.index < b.match.index) {
       return -1;
     }

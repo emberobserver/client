@@ -5,5 +5,5 @@ export default Mirage.Factory.extend({
   succeeded: true,
   errorMessage: '',
   createdAt: () => moment.utc(),
-  output: () => "[]",
+  output: () => '[]',
 });
