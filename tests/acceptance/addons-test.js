@@ -1,11 +1,12 @@
 import { click, currentRouteName, currentURL, visit, findAll } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { percySnapshot } from 'ember-percy';
-import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
+import { setupEmberObserverTest } from 'ember-observer/tests/helpers/setup-ember-observer-test';
 import moment from 'moment';
-import visitAddon from '../helpers/visit-addon';
+import visitAddon from 'ember-observer/tests/helpers/visit-addon';
 import Mirage from 'ember-cli-mirage';
 import { setupOnerror, resetOnerror } from '@ember/test-helpers';
+import Service from '@ember/service';
 
 module('Acceptance: Addons', function(hooks) {
   setupEmberObserverTest(hooks);
@@ -170,8 +171,8 @@ module('Acceptance: Addons', function(hooks) {
       openIssues: 13,
       forks: 94,
       stars: 37,
-      latestCommitDate: window.moment().subtract(2, 'months').toString(),
-      firstCommitDate: window.moment().subtract(1, 'years').toString(),
+      latestCommitDate: moment().subtract(2, 'months').toString(),
+      firstCommitDate: moment().subtract(1, 'years').toString(),
       addonId: addon.id
     });
 
@@ -225,6 +226,14 @@ module('Acceptance: Addons', function(hooks) {
   });
 
   test('displays review', async function(assert) {
+    // make "current date" a static value so the relative date of the "last review" date
+    // doesn't change and cause Percy to show a change when it shouldn't.
+    this.owner.register('service:current-date', class extends Service {
+      get date() {
+        return moment('2020-10-31T17:14:51Z');
+      }
+    });
+
     let addon = server.create('addon', {
       name: 'test-addon'
     });
@@ -252,14 +261,14 @@ module('Acceptance: Addons', function(hooks) {
     let addonVersion = server.create('version', {
       addon: addonWithReview,
       review,
-      released: window.moment().subtract(3, 'months')
+      released: '2020-07-30T17:14:51Z'
     });
 
     // Newer version without review
     let newerVersion = server.create('version', {
       addon: addonWithReview,
       review: null,
-      released: window.moment().subtract(1, 'months')
+      released: '2020-09-30T17:41:51Z'
     });
 
     review.update('versionId', addonVersion.id);
@@ -288,7 +297,7 @@ module('Acceptance: Addons', function(hooks) {
     let addon = server.create('addon', {
       name: 'test-addon',
       maintainerIds: maintainers.map((m) => m.id),
-      latestVersionDate: window.moment().subtract(3, 'months'),
+      latestVersionDate: moment().subtract(3, 'months'),
       isTopDownloaded: true,
       lastMonthDownloads: 1564,
       demoUrl: 'http://www.example.com/demo_of_addon',
@@ -301,7 +310,7 @@ module('Acceptance: Addons', function(hooks) {
       version: '1.0.1',
       addonId: addon.id,
       emberCliVersion: '1.13.1',
-      released: window.moment().subtract(3, 'months')
+      released: moment().subtract(3, 'months')
     });
 
     addon.update('latestAddonVersion', version);
@@ -310,7 +319,7 @@ module('Acceptance: Addons', function(hooks) {
       version: '1.0.0',
       addonId: addon.id,
       emberCliVersion: '1.13.0',
-      released: window.moment().subtract(4, 'months')
+      released: moment().subtract(4, 'months')
     });
 
     server.create('ember-version', {
@@ -377,7 +386,7 @@ module('Acceptance: Addons', function(hooks) {
     assert.dom('.readme').doesNotExist('does not display readme');
   });
 
-  test('displays addon dependencies', async (assert) => {
+  test('displays addon dependencies', async function(assert) {
     let addon = server.create('addon');
     let latestVersion = server.create('version', {
       addon
@@ -402,7 +411,7 @@ module('Acceptance: Addons', function(hooks) {
     assert.dom('.test-addon-dependencies .test-dependency-name').hasText(devDependency.package);
   });
 
-  test('displays addon dependency size info when available', async (assert) => {
+  test('displays addon dependency size info when available', async function(assert) {
     let addon = server.create('addon');
     let latestVersion = server.create('version', {
       addon
@@ -513,7 +522,7 @@ module('Acceptance: Addons', function(hooks) {
     assert.equal(11, devDependencyPackages.length, 'Shows full list of dependencies');
   });
 
-  test('when there are no addon dependencies', async (assert) => {
+  test('when there are no addon dependencies', async function(assert) {
     let addon = server.create('addon');
     let latestVersion = server.create('version', {
       addon
