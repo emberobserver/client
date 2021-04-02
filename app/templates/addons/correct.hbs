@@ -16,7 +16,7 @@
 
   <h2>Suggest a correction</h2>
   <p>Ember Observer is an index of Ember addons. We do not maintain {{this.model.name}}.</p>
-  <form {{action "submitCorrection" on="submit"}}>
+  <form {{on "submit" (prevent-default this.submitCorrection)}}>
     <Input @type="text" @value={{this.name}} placeholder="Your name" />
     <Input @type="text" @value={{this.email}} placeholder="Your email address" />
     <Textarea @value={{this.correction}} placeholder="Describe what needs correcting" />    <p>
@@ -28,6 +28,6 @@
       A new NPM release also means the addon will be queued up for a new review.
     </p>
     <input type="submit" class="button" value="Submit">
-    <button type="button" class="button cancel" {{action "cancel"}}>Cancel</button>
+    <button type="button" class="button cancel" {{on "click" this.cancel}}>Cancel</button>
   </form>
 </div>

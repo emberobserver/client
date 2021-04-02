@@ -1,11 +1,10 @@
-import classic from 'ember-classic-decorator';
-import { tagName } from '@ember-decorators/component';
-import Component from '@ember/component';
+import Component from '@glimmer/component';
+import { action } from '@ember/object';
 
-@classic
-@tagName('')
 export default class ToggleSwitch extends Component {
-  label = '';
-  onToggle = null;
-  isChecked = null;
+  @action
+  onToggle(event) {
+    const checked = event.target.checked;
+    this.args.onToggle(checked);
+  }
 }

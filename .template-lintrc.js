@@ -82,34 +82,6 @@ module.exports = {
       moduleId: 'app/components/stats-bar',
       only: ['no-action'],
     },
-    {
-      moduleId: 'app/components/toggle-switch',
-      only: ['no-action'],
-    },
-    {
-      moduleId: 'app/templates/login',
-      only: ['no-action'],
-    },
-    {
-      moduleId: 'app/templates/addons/correct',
-      only: ['no-action'],
-    },
-    {
-      moduleId: 'app/templates/admin/review',
-      only: ['no-action'],
-    },
-    {
-      moduleId: 'app/templates/admin/build-results/show',
-      only: ['no-action'],
-    },
-    {
-      moduleId: 'app/templates/admin/categories/edit',
-      only: ['no-action'],
-    },
-    {
-      moduleId: 'app/templates/admin/categories/new',
-      only: ['no-action'],
-    },
   ],
   extends: 'octane',
   rules: {

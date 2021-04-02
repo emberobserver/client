@@ -1,5 +1,5 @@
 import classic from 'ember-classic-decorator';
-import { computed } from '@ember/object';
+import { action, computed } from '@ember/object';
 import { inject } from '@ember/service';
 import { readOnly, oneWay } from '@ember/object/computed';
 import Controller from '@ember/controller';
@@ -33,6 +33,7 @@ export default class ReviewController extends Controller {
     return possibleLists.find((l) => l.key === this.selectedListKey);
   }
 
+  @action
   selectList(list) {
     this.set('selectedListKey', list.key);
     this.router.transitionTo('admin.review', {

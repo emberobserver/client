@@ -8,7 +8,7 @@
   <div>
     Status: <span class="test-build-status">{{this.buildStatus}}</span>
     {{#if this.canRetryBuild}}
-      <button type="button" onclick={{action 'retryBuild'}} class="test-retry-build">Retry</button>
+      <button type="button" {{on "click" this.retryBuild}} class="test-retry-build">Retry</button>
     {{/if}}
   </div>
 
@@ -19,7 +19,7 @@
   <div>
     Semver string:
     <span class="test-semver-string">
-      {{if this.buildResult.canary 'canary' this.buildResult.semverString}}
+      {{if this.buildResult.canary "canary" this.buildResult.semverString}}
     </span>
   </div>
 
