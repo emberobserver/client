@@ -1,7 +1,7 @@
-import Mirage from 'ember-cli-mirage';
+import { Factory } from 'ember-cli-mirage';
 
-export default Mirage.Factory.extend({
+export default Factory.extend({
   version: (i) => `1.0.${i}`,
-  released: () => new Date(),
+  released: '2021-01-01T12:34:56Z',
   emberCliVersion: '1.13.1'
 });
