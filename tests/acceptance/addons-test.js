@@ -294,11 +294,14 @@ module('Acceptance: Addons', function (hooks) {
   test('displays review', async function (assert) {
     // make "current date" a static value so the relative date of the "last review" date
     // doesn't change and cause Percy to show a change when it shouldn't.
-    this.owner.register('service:current-date', class extends Service {
-      get date() {
-        return moment('2020-10-31T17:14:51Z');
+    this.owner.register(
+      'service:current-date',
+      class extends Service {
+        get date() {
+          return moment('2020-10-31T17:14:51Z');
+        }
       }
-    });
+    );
 
     let addon = server.create('addon', {
       name: 'test-addon',
@@ -507,7 +510,7 @@ module('Acceptance: Addons', function (hooks) {
     assert.dom('.readme').doesNotExist('does not display readme');
   });
 
-  test('displays addon dependencies', async function(assert) {
+  test('displays addon dependencies', async function (assert) {
     let addon = server.create('addon');
     let latestVersion = server.create('version', {
       addon,
@@ -536,7 +539,7 @@ module('Acceptance: Addons', function (hooks) {
       .hasText(devDependency.package);
   });
 
-  test('displays addon dependency size info when available', async function(assert) {
+  test('displays addon dependency size info when available', async function (assert) {
     let addon = server.create('addon');
     let latestVersion = server.create('version', {
       addon,
@@ -697,7 +700,7 @@ module('Acceptance: Addons', function (hooks) {
     );
   });
 
-  test('when there are no addon dependencies', async function(assert) {
+  test('when there are no addon dependencies', async function (assert) {
     let addon = server.create('addon');
     let latestVersion = server.create('version', {
       addon,
