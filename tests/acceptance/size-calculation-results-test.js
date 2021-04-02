@@ -7,8 +7,8 @@ import {
 } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { percySnapshot } from 'ember-percy';
-import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
-import findByText from '../helpers/find-by-text';
+import { setupEmberObserverTest } from 'ember-observer/tests/helpers/setup-ember-observer-test';
+import findByText from 'ember-observer/tests/helpers/find-by-text';
 import login from 'ember-observer/tests/helpers/login';
 import moment from 'moment';
 
@@ -184,11 +184,11 @@ module('Acceptance | size calculation results', function (hooks) {
     let testResult = server.create('sizeCalculationResult', {
       versionId: version.id,
       output: JSON.stringify(output),
-      testsRunAt: '2020-10-31T17:14:51Z',
+      createdAt: '2020-10-31T17:14:51Z',
     });
 
     await login();
-    await visit('/admin/size-calculation-results');
+    await visit('/admin/size-calculation-results?date=2020-10-31');
     await click(findByText('.test-size-calculation-result a', 'details'));
 
     await percySnapshot('/admin/size-calculation-results');
