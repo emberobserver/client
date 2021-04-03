@@ -9,13 +9,13 @@ module('Integration | Component | toggle-switch', function (hooks) {
   test('it renders and can be toggled', async function (assert) {
     let toggleValue;
 
-    this.set('onToggle', function (value) {
-      toggleValue = value;
-    });
+    this.onToggle = (value) => (toggleValue = value);
 
     this.set('isChecked', false);
     await render(
-      hbs`{{toggle-switch label="Test toggle" name="toggle-1" isChecked=isChecked onToggle=(action onToggle) class="test-toggle"}}`
+      hbs`
+        <ToggleSwitch @label="Test toggle" @name="toggle-1" @isChecked={{this.isChecked}} @onToggle={{this.onToggle}} class="test-toggle"/>
+      `
     );
 
     assert.dom('.test-toggle').exists('Toggle renders');

@@ -1,13 +1,12 @@
-import classic from 'ember-classic-decorator';
-import { tagName } from '@ember-decorators/component';
-import Component from '@ember/component';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
-@classic
-@tagName('')
 export default class SearchResultSet extends Component {
-  resultsCollapsed = false;
+  @tracked resultsCollapsed = false;
 
+  @action
   toggleResultsExpansion() {
-    this.toggleProperty('resultsCollapsed');
+    this.resultsCollapsed = !this.resultsCollapsed;
   }
 }

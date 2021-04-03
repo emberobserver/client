@@ -1,19 +1,13 @@
-import classic from 'ember-classic-decorator';
 import { action } from '@ember/object';
-import { tagName } from '@ember-decorators/component';
 import { inject as service } from '@ember/service';
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 
 const dependencies = (dep) => dep.isDependency;
 const devDependencies = (dep) => dep.isDevDependency;
 
-@classic
-@tagName('')
 export default class DependencyTables extends Component {
   @service
   store;
-
-  addonVersion = null;
 
   @action
   fetchDependencies(addonVersionId) {

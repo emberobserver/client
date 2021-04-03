@@ -1,10 +1,10 @@
 <h5>Review this addon</h5>
-<form {{action (perform this.saveReview) on="submit"}} class="review-form">
+<form class="review-form" {{on "submit" (prevent-default (perform this.saveReview))}}>
   <ol>
     {{#each this.questions as |question|}}
       <li class="test-review-question">
         <div class="question">{{question.text}}</div>
-        <ExclusiveButtonGroup @selectedValue={{get this.reviewProperties question.fieldName}} @updateSelectedValue={{action this.selectOption question.fieldName}} as |btn|>
+        <ExclusiveButtonGroup @selectedValue={{get this.reviewProperties question.fieldName}} @updateSelectedValue={{fn this.selectOption question.fieldName}} as |btn|>
           {{component btn
                       value=1
                       label="Yes"}}

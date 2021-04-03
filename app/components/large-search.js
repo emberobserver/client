@@ -1,5 +1,5 @@
 import classic from 'ember-classic-decorator';
-import { computed } from '@ember/object';
+import { action, computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { scheduleOnce } from '@ember/runloop';
 import { hash, resolve } from 'rsvp';
@@ -202,6 +202,7 @@ export default class LargeSearch extends Component {
     document.querySelector(this.focusNode).focus();
   }
 
+  @action
   clearSearch() {
     this.metrics.trackEvent({
       category: 'Clear Search',

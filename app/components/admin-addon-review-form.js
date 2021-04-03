@@ -2,6 +2,7 @@
 import classic from 'ember-classic-decorator';
 import { inject } from '@ember/service';
 import Component from '@ember/component';
+import { action } from '@ember/object';
 import { task, timeout } from 'ember-concurrency';
 import { questions } from '../models/review';
 
@@ -23,6 +24,7 @@ export default class AdminAddonReviewForm extends Component {
     this.set('reviewProperties', {});
   }
 
+  @action
   selectOption(fieldName, value) {
     this.set(`reviewProperties.${fieldName}`, value);
   }

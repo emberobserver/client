@@ -1,12 +1,12 @@
 <div class="usage-count">
-  <a href="#" {{action "toggleUsages"}} class="test-usage-count">
+  <button type="button" class="test-usage-count" {{on "click" this.toggleUsages}}>
     {{#if this.showUsages}}
       {{svg-icon "expand-more"}}
     {{else}}
       {{svg-icon "chevron-right"}}
     {{/if}}
     {{this.count}} {{pluralize this.count "usage"}}
-  </a>
+  </button>
   {{#if this.showUsages}}
     {{#if this.usages}}
       {{#each this.visibleUsages as |usage|}}
@@ -20,9 +20,9 @@
         </div>
       {{/each}}
       {{#if this.moreUsages}}
-        <a href="#" {{action "viewMore"}} class="view-more">
+        <button type="button" class="view-more" {{on "click" this.viewMore}}>
           See more usages
-        </a>
+        </button>
       {{/if}}
     {{else if this.fetchUsages.isRunning}}
       <div class="usage">
