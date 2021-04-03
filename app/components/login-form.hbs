@@ -1,4 +1,4 @@
-<form {{action "login" on="submit"}}>
+<form {{on "submit" (prevent-default this.login)}}>
   <label for="email">Email</label>
   <Input @value={{this.email}} @name="email" class="test-email" />
   <label for="password">Password</label>

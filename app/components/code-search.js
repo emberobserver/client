@@ -1,6 +1,6 @@
 import classic from 'ember-classic-decorator';
 import { classNames } from '@ember-decorators/component';
-import { computed } from '@ember/object';
+import { action, computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { readOnly, notEmpty, sum, mapBy } from '@ember/object/computed';
 import { scheduleOnce } from '@ember/runloop';
@@ -127,6 +127,7 @@ export default class CodeSearch extends Component {
   }).restartable())
   applyFileFilter;
 
+  @action
   clearFileFilter() {
     this.set('page', 1);
     this.set('fileFilter', null);
@@ -147,10 +148,12 @@ export default class CodeSearch extends Component {
     );
   }
 
+  @action
   viewMore() {
     this.set('page', this.page + 1);
   }
 
+  @action
   sortBy(key) {
     let oldKey = this.sort;
     if (oldKey === key || this.sortAscending !== defaultSortAscendingFor(key)) {
@@ -170,6 +173,7 @@ export default class CodeSearch extends Component {
   @readOnly('applyFileFilter.isRunning')
   isUpdatingFilter;
 
+  @action
   clearSearch() {
     this.set('codeQuery', '');
     this.set('searchInput', '');

@@ -1,5 +1,6 @@
 import classic from 'ember-classic-decorator';
 import { tagName } from '@ember-decorators/component';
+import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import { task, timeout } from 'ember-concurrency';
@@ -14,18 +15,22 @@ export default class AdminAddon extends Component {
   addon = null;
   recentlyRenewed = false;
 
+  @action
   updateInvalidRepoFlag(value) {
     this.set('addon.hasInvalidGithubRepo', !value);
   }
 
+  @action
   updateIsWipFlag(value) {
     this.set('addon.isWip', !value);
   }
 
+  @action
   updateIsDeprecatedFlag(value) {
     this.set('addon.isDeprecated', !value);
   }
 
+  @action
   updateIsHiddenFlag(value) {
     this.set('addon.isHidden', !value);
   }

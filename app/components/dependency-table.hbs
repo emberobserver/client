@@ -4,7 +4,7 @@
   {{else if this.loadDependencies.last.isError}}
     <p class="uncollapse test-uncollapse-error">Unable to load addons</p>
   {{else}}
-    <a href="#" class="uncollapse test-show-dependents" {{action (perform this.loadDependencies)}}>Show addons</a>
+    <button type="button" class="uncollapse test-show-dependents btn-link" {{on "click" (perform this.loadDependencies)}}>Show addons</button>
   {{/if}}
 {{else}}
   {{#if this.addonHasDependencies}}
@@ -30,7 +30,7 @@
             <tr><td>...</td></tr>
             <tr>
               <td>
-                <a href="#" class="more test-show-all-dependencies" {{action (mut this.showingAllDependencies) true}}>Show {{this.hiddenDevDependencyCount}} more</a>
+                <button type="button" class="btn-link more test-show-all-dependencies" {{on "click" (fn (mut this.showingAllDependencies) true)}}>Show {{this.hiddenDevDependencyCount}} more</button>
               </td>
             </tr>
           {{/if}}
@@ -59,7 +59,7 @@
             <tr><td>...</td></tr>
             <tr>
               <td>
-                <a href="#" class="more test-show-all-dependencies" {{action (mut this.showingAllDependencies) true}}>Show {{this.hiddenDependencyCount}} more</a>
+                <button type="button" class="btn-link more test-show-all-dependencies" {{on "click" (fn (mut this.showingAllDependencies) true)}}>Show {{this.hiddenDependencyCount}} more</button>
               </td>
             </tr>
           {{/if}}

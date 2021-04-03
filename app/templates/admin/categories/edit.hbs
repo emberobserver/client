@@ -1,5 +1,5 @@
 <div class="admin-categories-edit with-default-styling">
-  <form {{action "updateCategory" on="submit"}}>
+  <form {{on "submit" (prevent-default this.updateCategory)}}>
     <fieldset>
       <label for="name">
         Name:
@@ -15,7 +15,7 @@
         <label for="position">
           Position:
         </label>
-        <CategoryPositionDropdown @name="position" @position={{this.categoryPosition}} @updatePosition={{action (mut this.categoryPosition)}} @categories={{this.sortedSiblingCategories}} />
+        <CategoryPositionDropdown @name="position" @position={{this.categoryPosition}} @updatePosition={{fn (mut this.categoryPosition)}} @categories={{this.sortedSiblingCategories}} />
       {{else}}
         <Input @type="hidden" @id="position" @value={{this.categoryPosition}} />
       {{/if}}
@@ -46,7 +46,7 @@
       This category has no subcategories.
     {{/if}}
 
-    <form {{action "addSubcategory" on="submit"}}>
+    <form {{on "submit" (prevent-default this.addSubcategory)}}>
       <fieldset>
         <label for="subcategoryName">
           Name:

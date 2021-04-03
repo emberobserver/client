@@ -1,5 +1,5 @@
 import classic from 'ember-classic-decorator';
-import { computed } from '@ember/object';
+import { action, computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { resolve } from 'rsvp';
 import Component from '@ember/component';
@@ -83,6 +83,7 @@ export default class PageLayout extends Component {
   })
   goToAddon;
 
+  @action
   logoutUser() {
     this.session.close().finally(() => {
       this.router.transitionTo('index');

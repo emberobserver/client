@@ -7,15 +7,15 @@
              id="search-input"
              spellcheck="false"
              value={{this.query}}
-             oninput={{action (perform this.search) value="target.value"}}>
+             {{on "input" (event-target-value (perform this.search))}}>
       {{#if this.query}}
-        <button type="button" {{action this.clearSearch}} class="close-button test-clear-search">
+        <button type="button" class="close-button test-clear-search" {{on "click" this.clearSearch}}>
           {{svg-icon "close"}}
         </button>
       {{/if}}
     </div>
     <div class="readme-toggle">
-      <Input @type="checkbox" class="test-search-readmes" @id="search-readmes" @checked={{this.searchReadmes}} @change={{action (perform this.toggleReadmeSearch)}} />
+      <Input @type="checkbox" class="test-search-readmes" @id="search-readmes" @checked={{this.searchReadmes}} @change={{perform this.toggleReadmeSearch}} />
       <label for="search-readmes">Search readmes</label>
     </div>
     <h6 class="no-results {{if this.hasSearchedAndNoResults 'showing'}}">No results found for "{{this.query}}"</h6>

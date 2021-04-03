@@ -1,4 +1,4 @@
-<form {{action "addCategory" on="submit"}} class="with-default-styling">
+<form {{on "submit" (prevent-default this.addCategory)}} class="with-default-styling">
   <fieldset>
     <label for="name">
       Name:
@@ -13,7 +13,7 @@
     <label for="position">
       Position:
     </label>
-    <CategoryPositionDropdown @name="position" @position={{this.newCategoryPosition}} @updatePosition={{action (mut this.newCategoryPosition)}} @categories={{this.sortedTopLevelCategories}} />
+    <CategoryPositionDropdown @name="position" @position={{this.newCategoryPosition}} @updatePosition={{fn (mut this.newCategoryPosition)}} @categories={{this.sortedTopLevelCategories}} />
     <br>
     <input type="submit" class="button" value="Add category">
   </fieldset>

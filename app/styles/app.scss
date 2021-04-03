@@ -88,3 +88,26 @@ $ember-power-select-highlighted-background: $light-gray;
     color: $dark-gray;
   }
 }
+
+button.btn-link {
+  @include transition(color 0.1s linear);
+
+  background: none !important;
+  border: none;
+  color: $base-link-color;
+  cursor: pointer;
+  padding: 0 !important;
+
+  &:hover {
+    color: $hover-link-color;
+  }
+
+  &:active, &:focus {
+    color: $hover-link-color;
+    outline: none;
+  }
+}
+
+h5 button.btn-link {
+  font-weight: 700;
+}
