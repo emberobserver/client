@@ -9,6 +9,6 @@
     </li>
   {{/each}}
   {{#if this.thereAreHiddenVersions}}
-    <a href="#" {{action "showAllVersions"}}>Show all versions</a>
+    <button type="button" class="btn-link" {{on "click" this.showAllVersions}}>Show all versions</button>
   {{/if}}
 </ul>

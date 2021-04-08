@@ -3,7 +3,7 @@ import Ember from 'ember';
 import Application from '@ember/application';
 import Resolver from 'ember-resolver';
 import loadInitializers from 'ember-load-initializers';
-import config from './config/environment';
+import config from 'ember-observer/config/environment';
 
 export default class App extends Application {
   modulePrefix = config.modulePrefix;
@@ -14,25 +14,20 @@ export default class App extends Application {
 loadInitializers(App, config.modulePrefix);
 
 if (config.environment === 'production') {
-
-  Ember.onerror = function(error) {
-
+  Ember.onerror = function (error) {
     if (window.trackJs) {
       window.trackJs.track(error);
     }
 
     console.error(error); // eslint-disable-line no-console
-
   };
 
-  on('error', function(error) {
-
+  on('error', function (error) {
     if (window.trackJs) {
       window.trackJs.track(error);
     }
 
     console.error(error); // eslint-disable-line no-console
-
   });
 }
 

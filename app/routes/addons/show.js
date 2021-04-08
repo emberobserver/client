@@ -10,21 +10,41 @@ export default class ShowRoute extends Route {
 
   model(params) {
     let name = params.name.replace(/%2F/i, '/');
-    let addon = this.store.query('addon', { filter: { name }, include: 'versions,maintainers,keywords,latest-review,latest-review.version,latest-addon-version,categories', page: { limit: 1 } }, { reload: true }).then((addons) => {
-      return addons.get('firstObject');
-    });
+    let addon = this.store
+      .query(
+        'addon',
+        {
+          filter: { name },
+          include:
+            'versions,maintainers,keywords,latest-review,latest-review.version,latest-addon-version,categories',
+          page: { limit: 1 },
+        },
+        { reload: true }
+      )
+      .then((addons) => {
+        return addons.get('firstObject');
+      });
 
-    let latestTestResult = this.store.query('test-result', { filter: { canary: false, addonName: name }, sort: '-createdAt', page: { limit: 1 }, include: 'ember-version-compatibilities,version' }).then((results) => {
-      return results.get('firstObject');
-    });
+    let latestTestResult = this.store
+      .query('test-result', {
+        filter: { canary: false, addonName: name },
+        sort: '-createdAt',
+        page: { limit: 1 },
+        include: 'ember-version-compatibilities,version',
+      })
+      .then((results) => {
+        return results.get('firstObject');
+      });
 
     let data = {
       addon,
-      latestTestResult
+      latestTestResult,
     };
 
     if (this.get('session.isAuthenticated')) {
-      data.categories = this.store.findAll('category', { include: 'subcategories' });
+      data.categories = this.store.findAll('category', {
+        include: 'subcategories',
+      });
     }
 
     return hash(data);

@@ -82,7 +82,7 @@
 
 <section class="badge test-addon-badge">
   <img alt="Addon Badge" src={{badge-path this.addon.name}}>
-  <a href="#" class="copy-to-clipboard test-show-badge-markdown" title="Show badge markdown to copy" {{action "toggleBadgeText"}}>{{svg-icon "content-paste"}}</a>
+  <button type="button" class="copy-to-clipboard test-show-badge-markdown" title="Show badge markdown to copy" {{on "click" this.toggleBadgeText}}>{{svg-icon "content-paste"}}</button>
   {{#if this.showBadgeText}}
     <hr>
     <code class="test-badge-markdown">

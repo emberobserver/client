@@ -22,8 +22,8 @@ export default Factory.extend({
 
   otherAssets() {
     let empty = {
-      files: []
+      files: [],
     };
     return JSON.stringify(empty);
-  }
+  },
 });

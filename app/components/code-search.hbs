@@ -1,10 +1,10 @@
 <h1>Code Search</h1>
 <div class="search-wrapper with-default-styling">
-  <form {{action (perform this.search) on="submit"}}>
+  <form {{on "submit" (prevent-default (perform this.search))}}>
     <div class="search-wrapper-inner">
       <Input @type="search" placeholder="Search for addons containing code" @autocomplete="off" @id="code-search-input" @spellcheck="false" @value={{this.searchInput}} />
       {{#if this.codeQuery}}
-        <button type="button" {{action this.clearSearch}} class="close-button test-clear-search">{{svg-icon "close"}}</button>
+        <button type="button" class="close-button test-clear-search" {{on "click" this.clearSearch}}>{{svg-icon "close"}}</button>
       {{/if}}
     </div>
     <div class="search-actions">
@@ -30,10 +30,10 @@
       <div class="filter-input">
         <input type="text"
                value={{this.fileFilter}}
-               oninput={{action (perform this.applyFileFilter) value="target.value"}}
-               class="test-file-filter-input">
+               class="test-file-filter-input"
+               {{on "input" (event-target-value (perform this.applyFileFilter))}}>
         {{#if this.isFilterApplied}}
-          <button type="button" {{action this.clearFileFilter}} class="close-button test-clear-file-filter">{{svg-icon "close" alignBaseline=false}}</button>
+          <button type="button" class="close-button test-clear-file-filter" {{on "click" this.clearFileFilter}}>{{svg-icon "close" alignBaseline=false}}</button>
         {{/if}}
       </div>
       {{#if this.isDisplayingFilteredResults}}
@@ -44,16 +44,16 @@
     </div>
     <div class="sort-controls">
       <div class="button-select test-sort">
-        <SortOrderOption @key="name" @selectedSort={{this.sort}} @sortAscending={{this.sortAscending}} @sortBy={{action this.sortBy}}>
+        <SortOrderOption @key="name" @selectedSort={{this.sort}} @sortAscending={{this.sortAscending}} @sortBy={{this.sortBy}}>
           Name
         </SortOrderOption>
-        <SortOrderOption @key="usages" @selectedSort={{this.sort}} @sortAscending={{this.sortAscending}} @sortBy={{action this.sortBy}}>
+        <SortOrderOption @key="usages" @selectedSort={{this.sort}} @sortAscending={{this.sortAscending}} @sortBy={{this.sortBy}}>
           Usages
         </SortOrderOption>
-        <SortOrderOption @key="score" @selectedSort={{this.sort}} @sortAscending={{this.sortAscending}} @sortBy={{action this.sortBy}}>
+        <SortOrderOption @key="score" @selectedSort={{this.sort}} @sortAscending={{this.sortAscending}} @sortBy={{this.sortBy}}>
           Score
         </SortOrderOption>
-        <SortOrderOption @key="updated" @selectedSort={{this.sort}} @sortAscending={{this.sortAscending}} @sortBy={{action this.sortBy}}>
+        <SortOrderOption @key="updated" @selectedSort={{this.sort}} @sortAscending={{this.sortAscending}} @sortBy={{this.sortBy}}>
           Updated
         </SortOrderOption>
       </div>
@@ -70,9 +70,9 @@
         </li>
       {{/each}}
       {{#if this.canViewMore}}
-        <a href="#" {{action this.viewMore}} class="view-more test-view-more">
+        <button type="button" class="btn-link view-more test-view-more" {{on "click" this.viewMore}}>
           <li>See more results</li>
-        </a>
+        </button>
       {{/if}}
     {{/if}}
   </ul>

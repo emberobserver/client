@@ -4,6 +4,9 @@ import Route from '@ember/routing/route';
 @classic
 export default class AddonsWipRoute extends Route {
   model() {
-    return this.store.query('addon', { filter: { isWip: true }, sort: '-latestVersionDate' });
+    return this.store.query('addon', {
+      filter: { isWip: true },
+      sort: '-latestVersionDate',
+    });
   }
 }

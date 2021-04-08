@@ -7,8 +7,7 @@ export default class LocalAdapter extends BaseAdapter {
     return 'LocalAdapter';
   }
 
-  init() {
-  }
+  init() {}
 
   identify(options = {}) {
     console.log('Metrics:', 'identify', options); // eslint-disable-line no-console

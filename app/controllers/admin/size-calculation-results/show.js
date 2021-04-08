@@ -20,7 +20,10 @@ export default class SizeCalculationResultsShowController extends Controller {
 
   hasRetriedBuild = false;
 
-  @computed('sizeCalculationResult.succeeded', 'sizeCalculationResult.errorMessage')
+  @computed(
+    'sizeCalculationResult.succeeded',
+    'sizeCalculationResult.errorMessage'
+  )
   get buildStatus() {
     if (this.get('sizeCalculationResult.succeeded')) {
       return 'succeeded';
@@ -30,15 +33,24 @@ export default class SizeCalculationResultsShowController extends Controller {
 
   @computed('sizeCalculationResult.succeeded', 'hasRetriedBuild')
   get canRetryBuild() {
-    return !this.get('sizeCalculationResult.succeeded') && !this.get('hasRetriedBuild');
+    return (
+      !this.get('sizeCalculationResult.succeeded') && !this.hasRetriedBuild
+    );
   }
 
   @action
   retryBuild() {
     this.set('hasRetriedBuild', true);
-    this.api.request(`/size_calculation_results/${this.get('sizeCalculationResult.id')}/retry`, { method: 'POST' }).catch((e) => {
-      this.get('hasRetriedBuild', false);
-      throw e;
-    });
+    this.api
+      .request(
+        `/size_calculation_results/${this.get(
+          'sizeCalculationResult.id'
+        )}/retry`,
+        { method: 'POST' }
+      )
+      .catch((e) => {
+        this.get('hasRetriedBuild', false);
+        throw e;
+      });
   }
 }

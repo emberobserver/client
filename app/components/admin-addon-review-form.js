@@ -1,6 +1,8 @@
+/* eslint-disable ember/no-component-lifecycle-hooks */
 import classic from 'ember-classic-decorator';
 import { inject } from '@ember/service';
 import Component from '@ember/component';
+import { action } from '@ember/object';
 import { task, timeout } from 'ember-concurrency';
 import { questions } from '../models/review';
 
@@ -22,6 +24,7 @@ export default class AdminAddonReviewForm extends Component {
     this.set('reviewProperties', {});
   }
 
+  @action
   selectOption(fieldName, value) {
     this.set(`reviewProperties.${fieldName}`, value);
   }
@@ -36,7 +39,7 @@ export default class AdminAddonReviewForm extends Component {
       yield this.addon.save();
       this.reset();
       this.complete.perform();
-    } catch(e) {
+    } catch (e) {
       console.error(e); // eslint-disable-line no-console
       window.alert('Failed to create review');
     }

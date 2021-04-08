@@ -1,6 +1,6 @@
 import classic from 'ember-classic-decorator';
 import { classNames } from '@ember-decorators/component';
-import { computed } from '@ember/object';
+import { action, computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { readOnly, notEmpty, sum, mapBy } from '@ember/object/computed';
 import { scheduleOnce } from '@ember/runloop';
@@ -101,17 +101,24 @@ export default class CodeSearch extends Component {
       return;
     }
 
-    this.metrics.trackEvent({ category: 'Code Search', action: 'Search', label: query });
+    this.metrics.trackEvent({
+      category: 'Code Search',
+      action: 'Search',
+      label: query,
+    });
 
     this.set('codeQuery', query);
-    let results = yield this.get('codeSearch.addons').perform(query, this.regex);
+    let results = yield this.get('codeSearch.addons').perform(
+      query,
+      this.regex
+    );
     this.set('quotedLastSearch', quoteSearchTerm(query, this.regex));
 
     this.set('results', results);
   }).restartable())
   search;
 
-  @(task(function*(fileFilter) {
+  @(task(function* (fileFilter) {
     yield timeout(250);
 
     if (!isEmpty(fileFilter)) {
@@ -120,6 +127,7 @@ export default class CodeSearch extends Component {
   }).restartable())
   applyFileFilter;
 
+  @action
   clearFileFilter() {
     this.set('page', 1);
     this.set('fileFilter', null);
@@ -135,13 +143,17 @@ export default class CodeSearch extends Component {
 
   @computed('displayingResults.length', 'filteredResults.length')
   get canViewMore() {
-    return this.get('displayingResults.length') < this.get('filteredResults.length');
+    return (
+      this.get('displayingResults.length') < this.get('filteredResults.length')
+    );
   }
 
+  @action
   viewMore() {
     this.set('page', this.page + 1);
   }
 
+  @action
   sortBy(key) {
     let oldKey = this.sort;
     if (oldKey === key || this.sortAscending !== defaultSortAscendingFor(key)) {
@@ -161,6 +173,7 @@ export default class CodeSearch extends Component {
   @readOnly('applyFileFilter.isRunning')
   isUpdatingFilter;
 
+  @action
   clearSearch() {
     this.set('codeQuery', '');
     this.set('searchInput', '');
@@ -210,7 +223,7 @@ function filterByFilePath(results, filterTerm) {
   let filterRegex;
   try {
     filterRegex = new RegExp(filterTerm);
-  } catch(e) {
+  } catch (e) {
     return [];
   }
   results.forEach((result) => {
@@ -221,7 +234,7 @@ function filterByFilePath(results, filterTerm) {
       filteredList.push({
         addon: result.addon,
         files: filteredFiles,
-        count: filteredFiles.length
+        count: filteredFiles.length,
       });
     }
   });

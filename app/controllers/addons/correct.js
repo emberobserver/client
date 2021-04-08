@@ -10,17 +10,19 @@ export default class CorrectController extends Controller {
 
   @action
   submitCorrection() {
-    this.api.request('/corrections', {
-      method: 'POST',
-      data: {
-        name: this.name,
-        email: this.email,
-        addon: this.get('model.name'),
-        correction: this.correction,
-      },
-    }).then(() => {
-      this.transitionToRoute('addons.show', this.get('model.name'));
-    });
+    this.api
+      .request('/corrections', {
+        method: 'POST',
+        data: {
+          name: this.name,
+          email: this.email,
+          addon: this.get('model.name'),
+          correction: this.correction,
+        },
+      })
+      .then(() => {
+        this.transitionToRoute('addons.show', this.get('model.name'));
+      });
   }
 
   @action

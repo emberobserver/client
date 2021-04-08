@@ -2,17 +2,27 @@ import { module, test } from 'qunit';
 import { click, currentURL, findAll, visit } from '@ember/test-helpers';
 import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
 
-module('Acceptance | categories', function(hooks) {
+module('Acceptance | categories', function (hooks) {
   setupEmberObserverTest(hooks);
 
-  test('trying to view a nonexistent category displays not-found content', async function(assert) {
-    await visit('/categories/addons-that-violate-fundamental-laws-of-the-universe');
+  test('trying to view a nonexistent category displays not-found content', async function (assert) {
+    await visit(
+      '/categories/addons-that-violate-fundamental-laws-of-the-universe'
+    );
 
-    assert.equal(currentURL(), '/categories/addons-that-violate-fundamental-laws-of-the-universe', 'preserves URL');
-    assert.dom('.test-not-found').hasText("Oops! We can't find what you were looking for. Try searching above?");
+    assert.equal(
+      currentURL(),
+      '/categories/addons-that-violate-fundamental-laws-of-the-universe',
+      'preserves URL'
+    );
+    assert
+      .dom('.test-not-found')
+      .hasText(
+        "Oops! We can't find what you were looking for. Try searching above?"
+      );
   });
 
-  test('can change category sorting', async function(assert) {
+  test('can change category sorting', async function (assert) {
     server.logging = true;
     let category = server.create('category', { name: 'Awesome addons' });
     server.create('addon', {

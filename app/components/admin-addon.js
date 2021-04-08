@@ -1,5 +1,6 @@
 import classic from 'ember-classic-decorator';
 import { tagName } from '@ember-decorators/component';
+import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import { task, timeout } from 'ember-concurrency';
@@ -14,18 +15,22 @@ export default class AdminAddon extends Component {
   addon = null;
   recentlyRenewed = false;
 
+  @action
   updateInvalidRepoFlag(value) {
     this.set('addon.hasInvalidGithubRepo', !value);
   }
 
+  @action
   updateIsWipFlag(value) {
     this.set('addon.isWip', !value);
   }
 
+  @action
   updateIsDeprecatedFlag(value) {
     this.set('addon.isDeprecated', !value);
   }
 
+  @action
   updateIsHiddenFlag(value) {
     this.set('addon.isHidden', !value);
   }
@@ -33,7 +38,7 @@ export default class AdminAddon extends Component {
   @(task(function* () {
     try {
       yield this.addon.save();
-    } catch(e) {
+    } catch (e) {
       window.alert('Failed to save addon');
     }
   }).drop())
@@ -43,7 +48,7 @@ export default class AdminAddon extends Component {
     let newReview = this.store.createRecord('review');
     let latestReview = this.get('addon.latestReview');
 
-    questions.forEach(function(question) {
+    questions.forEach(function (question) {
       newReview.set(question.fieldName, latestReview.get(question.fieldName));
     });
     newReview.set('review', latestReview.get('review'));
@@ -54,7 +59,7 @@ export default class AdminAddon extends Component {
       this.addon.set('latestReview', newReview);
       yield this.addon.save();
       this.completeRenew.perform();
-    } catch(e) {
+    } catch (e) {
       console.error(e); // eslint-disable-line no-console
       window.alert('Failed to renew review');
     }

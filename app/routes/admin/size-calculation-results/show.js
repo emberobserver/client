@@ -6,7 +6,7 @@ export default class SizeCalculationResultsShowRoute extends Route {
   model(params) {
     return this.store.findRecord('size-calculation-result', params.id, {
       include: 'version,version.addon',
-      reload: true
+      reload: true,
     });
   }
 }

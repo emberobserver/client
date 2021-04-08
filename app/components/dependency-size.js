@@ -5,7 +5,6 @@ import { action, get } from '@ember/object';
 export default class DependencySizeComponent extends Component {
   @tracked isViewingDetails;
   @tracked isViewingOtherAssets;
-  @tracked addonSize;
 
   get shouldShow() {
     let addonSize = this.args.addonSize;

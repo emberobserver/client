@@ -1,14 +1,16 @@
-import { alias } from '@ember/object/computed';
-import DS from 'ember-data';
+import Model, { attr, belongsTo } from '@ember-data/model';
 
-export default DS.Model.extend({
-  succeeded: DS.attr('boolean'),
-  errorMessage: DS.attr('string'),
-  createdAt: DS.attr('date'),
-  output: DS.attr('string'),
+export default class extends Model {
+  @attr('boolean') succeeded;
+  @attr('string') errorMessage;
+  @attr('date') createdAt;
+  @attr('string') output;
 
-  version: DS.belongsTo('version'),
-  testsRunAt: alias('createdAt'),
+  @belongsTo('version') version;
 
-  outputFormat: 'json',
-});
+  get testsRunAt() {
+    return this.createdAt;
+  }
+
+  outputFormat = 'json';
+}

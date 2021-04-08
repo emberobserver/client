@@ -4,7 +4,6 @@ import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import { task } from 'ember-concurrency';
 
-
 @classic
 export default class ScoreDetail extends Component {
   showExplanation = false;
@@ -18,8 +17,10 @@ export default class ScoreDetail extends Component {
     this.fetchScoreCalculation.perform();
   }
 
-  @task(function * () {
-    let calculationResult = yield this.store.query('score-calculation', { filter: { addonId: this.addon.get('id'), latest: true } });
+  @task(function* () {
+    let calculationResult = yield this.store.query('score-calculation', {
+      filter: { addonId: this.addon.get('id'), latest: true },
+    });
     return calculationResult.get('firstObject');
   })
   fetchScoreCalculation;

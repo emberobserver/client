@@ -21,13 +21,17 @@ export default class AddonSourceUsages extends Component {
     return this.usages.slice(0, this.visibleUsageCount);
   }
 
-  @computed('visibleUsageCount', 'usages')
+  @computed('usages.length', 'visibleUsageCount')
   get moreUsages() {
     return this.visibleUsageCount < this.get('usages.length');
   }
 
   @(task(function* () {
-    let usages = yield this.get('codeSearch.usages').perform(this.get('addon.id'), this.query, this.regex);
+    let usages = yield this.get('codeSearch.usages').perform(
+      this.get('addon.id'),
+      this.query,
+      this.regex
+    );
     this.set('usages', filterByFilePath(usages, this.fileFilter));
   }).drop())
   fetchUsages;
@@ -54,7 +58,7 @@ function filterByFilePath(usages, filterTerm) {
   let filterRegex;
   try {
     filterRegex = new RegExp(filterTerm);
-  } catch(e) {
+  } catch (e) {
     return [];
   }
   return usages.filter((usage) => {

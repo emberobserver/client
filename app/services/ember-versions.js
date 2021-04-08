@@ -9,10 +9,12 @@ export default class EmberVersionsService extends Service {
   versions = [];
 
   fetch() {
-    this.store.query('ember-version', {
-      filter: { release: true, majorAndMinor: true }
-    }).then((emberVersions) => {
-      this.set('versions', emberVersions);
-    });
+    this.store
+      .query('ember-version', {
+        filter: { release: true, majorAndMinor: true },
+      })
+      .then((emberVersions) => {
+        this.set('versions', emberVersions);
+      });
   }
 }

@@ -6,8 +6,8 @@ import Route from '@ember/routing/route';
 export default class ReviewRoute extends Route {
   queryParams = {
     list: {
-      refreshModel: true
-    }
+      refreshModel: true,
+    },
   };
 
   @inject()
@@ -22,12 +22,17 @@ export default class ReviewRoute extends Route {
   redirect(model, transition) {
     if (transition.targetName === 'admin.review.index') {
       if (model && model.addons.get('length')) {
-        return this.replaceWith('admin.review.addon', model.addons.get('firstObject.name'));
+        return this.replaceWith(
+          'admin.review.addon',
+          model.addons.get('firstObject.name')
+        );
       }
 
       if (!transition.to.queryParams.list) {
         transition.abort();
-        return this.replaceWith('admin.review.index', { queryParams: { list: 'needing-review' } });
+        return this.replaceWith('admin.review.index', {
+          queryParams: { list: 'needing-review' },
+        });
       }
     }
   }

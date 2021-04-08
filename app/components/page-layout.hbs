@@ -7,7 +7,7 @@
       </LinkTo>
       {{#if this.showHeaderSearch}}
         <div class="search with-default-styling test-header-search">
-          <PowerSelectTypeahead @search={{action (perform this.searchForAddons)}} @selected={{this.selectedAddon}} @placeholder="Search" @dropdownClass="test-header-search-dropdown" @noMatchesMessage="No matching addon names, try another search!" @onchange={{action (perform this.goToAddon)}} as |addonName options|>
+          <PowerSelectTypeahead @search={{perform this.searchForAddons}} @selected={{this.selectedAddon}} @placeholder="Search" @dropdownClass="test-header-search-dropdown" @noMatchesMessage="No matching addon names, try another search!" @onChange={{perform this.goToAddon}} as |addonName options|>
             {{#if addonName.isFullSearchLink}}
               <LinkTo @route="index" @query={{hash query=options.searchText}} class="jump-to-full-search test-search-result-jump-to-full-search-link">
                 {{#if addonName.noResults}}
@@ -35,7 +35,7 @@
           </li>
           {{#if this.session.isAuthenticated}}
             <li>
-              <button type="button" {{action this.logoutUser}} class="logout">Log out</button>
+              <button type="button" class="logout" {{on "click" this.logoutUser}}>Log out</button>
             </li>
           {{/if}}
         </ul>

@@ -8,7 +8,7 @@ export default class EditRoute extends Route {
     let categories = this.modelFor('admin.categories');
     return hash({
       categories,
-      category: this.store.peekAll('category').findBy('slug', params.slug)
+      category: this.store.peekAll('category').findBy('slug', params.slug),
     });
   }
 }

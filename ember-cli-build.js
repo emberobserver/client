@@ -5,17 +5,17 @@ const parseFlag = require('./config/parse-flag');
 const env = EmberApp.env();
 const broccoliAssetRevDefaults = require('broccoli-asset-rev/lib/default-options');
 
-module.exports = function(defaults) {
+module.exports = function (defaults) {
   let options = {
     inlineContent: {},
     minifyJS: {},
     minifyCSS: {},
     fingerprint: {
-      extensions: broccoliAssetRevDefaults.extensions.concat(['svg'])
+      extensions: broccoliAssetRevDefaults.extensions.concat(['svg']),
     },
     sourcemaps: {
-      extensions: ['js']
-    }
+      extensions: ['js'],
+    },
   };
 
   if (parseFlag('FAVICON', true)) {
@@ -23,7 +23,8 @@ module.exports = function(defaults) {
   }
 
   if (parseFlag('EXTERNAL_FONTS', true)) {
-    options.inlineContent['snippets/external-fonts'] = 'app/snippets/external-fonts.html';
+    options.inlineContent['snippets/external-fonts'] =
+      'app/snippets/external-fonts.html';
   }
 
   if (parseFlag('REPORT_ERRORS', env === 'production')) {
@@ -56,9 +57,7 @@ module.exports = function(defaults) {
   // along with the exports of each module as its value.
 
   app.import('node_modules/dompurify/dist/purify.js', {
-    using: [
-      { transformation: 'amd', as: 'dom-purify' }
-    ]
+    using: [{ transformation: 'amd', as: 'dom-purify' }],
   });
 
   return app.toTree();

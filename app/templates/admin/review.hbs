@@ -2,7 +2,7 @@
   <div class="review-index test-review-index">
     <header class="list-header">
       <h1 class="test-list-select">
-        <PowerSelect @options={{this.possibleLists}} @selected={{this.selectedList}} @searchField="title" @dropdownClass="test-list-select-dropdown" @onchange={{action this.selectList}} as |option|>
+        <PowerSelect @options={{this.possibleLists}} @selected={{this.selectedList}} @searchField="title" @dropdownClass="test-list-select-dropdown" @onChange={{this.selectList}} as |option|>
           {{option.title}}
         </PowerSelect>
       </h1>

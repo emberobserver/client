@@ -12,27 +12,27 @@ export default ApplicationSerializer.extend({
     }
 
     return json;
-  }
+  },
 });
 
 function setRelationshipLinks(object) {
   if (object && object.relationships) {
     object.relationships['github-stats'] = {
       links: {
-        related: `/api/v2/addons/${object.id}/github-stats`
-      }
+        related: `/api/v2/addons/${object.id}/github-stats`,
+      },
     };
 
     object.relationships['github-users'] = {
       links: {
-        related: `/api/v2/addons/${object.id}/github-users`
-      }
+        related: `/api/v2/addons/${object.id}/github-users`,
+      },
     };
 
     object.relationships['latest-review'] = {
       links: {
-        related: `/api/v2/addons/${object.id}/latest-review`
-      }
+        related: `/api/v2/addons/${object.id}/latest-review`,
+      },
     };
   }
 }

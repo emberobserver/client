@@ -1,7 +1,9 @@
 import { helper } from '@ember/component/helper';
 
 export default helper(function canaryVersion([testResult]) {
-  let version = testResult.get('emberVersionCompatibilities.firstObject.emberVersion');
+  let version = testResult.get(
+    'emberVersionCompatibilities.firstObject.emberVersion'
+  );
   if (!version) {
     return 'an unknown version';
   }

@@ -11,20 +11,26 @@ export default class SessionService extends Service {
 
   open(email, password) {
     let session = this;
-    return this.api.request('/authentication/login.json', { method: 'POST', data: { email, password }}).then(function(response) {
-      return new EmberPromise(function(resolve, reject) {
-        if (response.token) {
-          session.set('token', response.token);
-          LocalStore.save('sessionToken', response.token);
-          resolve();
-        } else {
-          reject();
-        }
+    return this.api
+      .request('/authentication/login.json', {
+        method: 'POST',
+        data: { email, password },
+      })
+      .then(function (response) {
+        return new EmberPromise(function (resolve, reject) {
+          if (response.token) {
+            session.set('token', response.token);
+            LocalStore.save('sessionToken', response.token);
+            resolve();
+          } else {
+            reject();
+          }
+        });
+      })
+      .catch(function (e) {
+        session.clearToken();
+        console.error('Failed logging in', e); // eslint-disable-line no-console
       });
-    }).catch(function(e) {
-      session.clearToken();
-      console.error('Failed logging in', e); // eslint-disable-line no-console
-    });
   }
 
   fetch() {
@@ -36,9 +42,11 @@ export default class SessionService extends Service {
 
   close() {
     let session = this;
-    return this.api.request('/authentication/logout.json', { method: 'POST' }).finally(function() {
-      session.clearToken();
-    });
+    return this.api
+      .request('/authentication/logout.json', { method: 'POST' })
+      .finally(function () {
+        session.clearToken();
+      });
   }
 
   clearToken() {
@@ -51,13 +59,13 @@ export default class SessionService extends Service {
 
   @computed('token')
   get header() {
-    return { 'Authorization': `Token token=${this.token}` };
+    return { Authorization: `Token token=${this.token}` };
   }
 }
 
 function isPresent(strProp) {
-  return computed(strProp, function() {
+  return computed(strProp, function () {
     let str = this.get(strProp);
-    return typeof str !== 'undefined' && !(/^\s*$/).test(str) && (str !== null);
+    return typeof str !== 'undefined' && !/^\s*$/.test(str) && str !== null;
   });
 }

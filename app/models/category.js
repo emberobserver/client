@@ -1,5 +1,6 @@
 import classic from 'ember-classic-decorator';
 import { computed } from '@ember/object';
+import { dasherize } from '@ember/string';
 import Model, { hasMany, belongsTo, attr } from '@ember-data/model';
 
 @classic
@@ -27,7 +28,7 @@ export default class Category extends Model {
 
   @computed('name')
   get slug() {
-    return this.name.dasherize();
+    return dasherize(this.name);
   }
 
   @computed('parent.name', 'name')
@@ -39,10 +40,12 @@ export default class Category extends Model {
     }
   }
 
-  @computed('subcategories.@each.addonCount')
+  @computed('addonCount', 'subcategories.@each.addonCount')
   get totalAddonCount() {
-    return this.subcategories.mapBy('addonCount').reduce(function(categoryA, categoryB) {
-      return categoryA + categoryB;
-    }, this.addonCount);
+    return this.subcategories
+      .mapBy('addonCount')
+      .reduce(function (categoryA, categoryB) {
+        return categoryA + categoryB;
+      }, this.addonCount);
   }
 }
