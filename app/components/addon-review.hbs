@@ -10,8 +10,8 @@
       </li>
     {{/each}}
   </ol>
-  <br>
   {{#if this.review.review}}
+    <br>
     <h6>Comments</h6>
     <fieldset class="test-review-notes">
       <MarkdownToHtml @markdown={{this.review.review}} />
