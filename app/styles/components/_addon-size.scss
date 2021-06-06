@@ -1,22 +1,4 @@
-.dependency-size {
-  font-family: monospace;
-
-  .toggle-detail {
-    margin-left: 4px;
-    cursor: pointer;
-  }
-
-  .size-detail {
-    margin: 6px 0;
-
-    @include media($small-screen) {
-      margin: 10px;
-    }
-  }
-
-  .totals {
-    font-weight: bold;
-  }
+.addon-size {
 
   .row {
     display: flex;
@@ -32,21 +14,35 @@
         padding-left: 10px;
       }
     }
+
+    &.total {
+      font-weight: bold;
+    }
+
+    &.grand-total {
+      border-top: 1px dotted #97bacc;
+      margin-top: .5rem;
+      padding-top: .5rem;
+    }
   }
 
   .column-1 {
     display: flex;
-    flex-basis: 120px;
+    flex-basis: 50%;
+    padding-right: 1rem;
+
+    @include media($medium-screen) {
+      flex-basis: unset;
+    }
   }
 
   .column-2 {
     display: flex;
-    flex-basis: 100%;
     flex-direction: column;
-    flex: 1;
 
-    @include media($small-screen) {
+    @include media($medium-screen) {
       flex-direction: row;
+
       .asset-size {
         padding-left: .5rem;
       }

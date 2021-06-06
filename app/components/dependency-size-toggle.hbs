@@ -1,0 +1,11 @@
+{{#if this.shouldShow}}
+  <span class="dependency-size">
+    <a role="button" href="#" {{on "click" this.toggleDetail}} class="test-size-summary toggle-detail">
+      {{format-bytes @addonSize.totalSize}} ({{format-bytes @addonSize.totalGzipSize}} gzipped) {{svg-icon (if this.isViewingDetails "expand-less" "expand-more")}}
+    </a>
+
+    {{#if this.isViewingDetails}}
+      <AddonSize @addonSize={{@addonSize}} class="size-detail test-size-detail" />
+    {{/if}}
+  </span>
+{{/if}}

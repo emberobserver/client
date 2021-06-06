@@ -77,6 +77,13 @@
       {{/if}}
     </section>
 
+    {{#if this.latestVersion.addonSize}}
+      <section class="latest-size test-latest-size">
+        <h4>Size</h4>
+        <AddonSize @addonSize={{this.latestVersion.addonSize}} @showTotalRow={{true}}/>
+      </section>
+    {{/if}}
+
     <section class="addon-dependencies">
       <DependencyTables @addonVersion={{this.latestVersion}} @addon={{this.addon}} />
     </section>

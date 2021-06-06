@@ -31,7 +31,8 @@
 @import "canary_test_results";
 @import "admin_review";
 @import "components/date-nav";
-@import "components/dependency-size";
+@import "components/addon-size";
+@import "components/dependency-size-toggle";
 
 ::-ms-clear {
   display: none;

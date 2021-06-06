@@ -1,0 +1,16 @@
+.dependency-size {
+  font-family: monospace;
+
+  .toggle-detail {
+    margin-left: 4px;
+    cursor: pointer;
+  }
+
+  .size-detail {
+    margin: 6px 0;
+
+    @include media($small-screen) {
+      margin: 10px;
+    }
+  }
+}

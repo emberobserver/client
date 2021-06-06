@@ -47,7 +47,7 @@
                 <td class="test-dependency-{{dependency.packageName}}">
                   <LinkTo @route="addons.show" @model={{dependency.packageName}} class="test-dependency-name">{{dependency.packageName}}</LinkTo>
                   {{#if dependency.size}}
-                    <DependencySize @addonSize={{dependency.size}} />
+                    <DependencySizeToggle @addonSize={{dependency.size}} />
                   {{/if}}
                 </td>
               </tr>

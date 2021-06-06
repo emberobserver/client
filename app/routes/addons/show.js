@@ -16,7 +16,7 @@ export default class ShowRoute extends Route {
         {
           filter: { name },
           include:
-            'versions,maintainers,keywords,latest-review,latest-review.version,latest-addon-version,categories',
+            'versions,maintainers,keywords,latest-review,latest-review.version,latest-addon-version,latest-addon-version.addon-size,categories',
           page: { limit: 1 },
         },
         { reload: true }
