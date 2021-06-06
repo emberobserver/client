@@ -364,6 +364,71 @@ module('Acceptance: Addons', function (hooks) {
       );
   });
 
+  test('displays addon size when available', async function (assert) {
+    let addon = server.create('addon');
+
+    let otherAssetsJson = {
+      files: [
+        {
+          name:
+            'dist/ember-fetch/fetch-fastboot-9f92e76e789a8d7a64fe7fa9b14c699a.js',
+          size: 863,
+          gzipSize: 522,
+        },
+      ],
+    };
+
+    let addonSize = server.create('addon-size', {
+      appJsSize: 216,
+      vendorJsSize: 5390,
+      otherJsSize: 128,
+      appCssSize: 0,
+      vendorCssSize: 512,
+      otherCssSize: 0,
+      appJsGzipSize: 19,
+      vendorJsGzipSize: 737,
+      otherJsGzipSize: 50,
+      appCssGzipSize: 0,
+      vendorCssGzipSize: 60,
+      otherCssGzipSize: 0,
+      otherAssets: otherAssetsJson,
+    });
+
+    addon.latestAddonVersion = server.create('version', {
+      addon,
+      addonSize,
+    });
+    addon.save();
+
+    await visitAddon(addon);
+
+    await percySnapshot('/addons/show | with size');
+
+    assert.dom('.test-latest-size').exists('Addon size section shows');
+
+    assert.dom('.test-latest-size .test-app-js').exists();
+
+    assert.dom('.test-latest-size .test-vendor-js').exists();
+
+    assert.dom(`.test-latest-size .test-vendor-css`).exists();
+  });
+
+  test('omits addon size section when no size data', async (assert) => {
+    let addon = server.create('addon');
+    addon.latestAddonVersion = server.create('version', {
+      addon,
+    });
+    addon.save();
+
+    await visitAddon(addon);
+
+    assert
+      .dom('.test-latest-size')
+      .doesNotExist(
+        'Addon size section does not show if latest version has no size data'
+      );
+  });
+
   test('displays addon stats', async function (assert) {
     let maintainers = server.createList('maintainer', 3);
 

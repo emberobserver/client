@@ -3,26 +3,10 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, click, findAll } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | dependency-size', function (hooks) {
+module('Integration | Component | addon-size', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('renders size summary', async function (assert) {
-    let addonSize = {
-      totalSize: 2048,
-      totalGzipSize: 900,
-    };
-
-    this.set('addonSize', addonSize);
-
-    await render(hbs`<DependencySize @addonSize={{addonSize}}/>`);
-
-    assert.dom('.test-size-summary').exists();
-    assert
-      .dom('.test-size-summary')
-      .hasText('2 KB (900 B gzipped)', 'Shows size summary');
-  });
-
-  test('renders size details when expanded', async function (assert) {
+  test('shows size details', async function (assert) {
     let addonSize = {
       appJsSize: 1024,
       appJsGzipSize: 400,
@@ -51,15 +35,7 @@ module('Integration | Component | dependency-size', function (hooks) {
 
     this.set('addonSize', addonSize);
 
-    await render(hbs`<DependencySize @addonSize={{addonSize}}/>`);
-
-    assert
-      .dom('.test-size-detail')
-      .doesNotExist('Does not show detail before expanding');
-
-    await click('.test-size-summary');
-
-    assert.dom('.test-size-detail').exists('Shows detail after expanding');
+    await render(hbs`<AddonSize @addonSize={{addonSize}}/>`);
 
     assert.dom('.test-app-js').hasText('1 KB (400 B gzipped)');
     assert.dom('.test-app-css').hasText('800 B (200 B gzipped)');
@@ -69,11 +45,9 @@ module('Integration | Component | dependency-size', function (hooks) {
     assert.dom('.test-total-js').hasText('3.13 KB (1.46 KB gzipped)');
     assert.dom('.test-total-css').hasText('2.93 KB (1.17 KB gzipped)');
 
-    await click('.test-size-summary');
-
     assert
-      .dom('.test-size-detail')
-      .doesNotExist('Detail gone after collapsing');
+      .dom('.test-total-size')
+      .doesNotExist('Does not show total size by default');
   });
 
   test('skips rows that have 0 size', async function (assert) {
@@ -90,15 +64,7 @@ module('Integration | Component | dependency-size', function (hooks) {
 
     this.set('addonSize', addonSize);
 
-    await render(hbs`<DependencySize @addonSize={{addonSize}}/>`);
-
-    assert
-      .dom('.test-size-detail')
-      .doesNotExist('Does not show detail before expanding');
-
-    await click('.test-size-summary');
-
-    assert.dom('.test-size-detail').exists('Shows detail after expanding');
+    await render(hbs`<AddonSize @addonSize={{addonSize}}/>`);
 
     assert.dom('.test-app-js').hasText('1 KB (400 B gzipped)');
     assert.dom('.test-total-js').hasText('3.13 KB (1.46 KB gzipped)');
@@ -116,21 +82,9 @@ module('Integration | Component | dependency-size', function (hooks) {
     assert
       .dom('.test-other-assets')
       .doesNotExist('Does not show row if size is 0');
-
-    await click('.test-size-summary');
   });
 
-  test('does not show if no addon size given', async function (assert) {
-    this.set('addonSize', null);
-
-    await render(hbs`<DependencySize @addonSize={{addonSize}}/>`);
-
-    assert
-      .dom('.test-size-summary')
-      .doesNotExist('Does not show summary if no addon size');
-  });
-
-  test('does now show if total size is 0', async function (assert) {
+  test('when total size is 0', async function (assert) {
     let addonSize = {
       totalSize: 0,
       totalGzipSize: 20,
@@ -138,7 +92,7 @@ module('Integration | Component | dependency-size', function (hooks) {
 
     this.set('addonSize', addonSize);
 
-    await render(hbs`<DependencySize @addonSize={{addonSize}}/>`);
+    await render(hbs`<AddonSize @addonSize={{addonSize}}/>`);
 
     assert
       .dom('.test-size-summary')
@@ -177,9 +131,7 @@ module('Integration | Component | dependency-size', function (hooks) {
 
     this.set('addonSize', addonSize);
 
-    await render(hbs`<DependencySize @addonSize={{addonSize}}/>`);
-
-    await click('.test-size-summary');
+    await render(hbs`<AddonSize @addonSize={{addonSize}}/>`);
 
     assert
       .dom('.test-other-assets-details')
@@ -211,47 +163,35 @@ module('Integration | Component | dependency-size', function (hooks) {
       .doesNotExist('Detail gone after collapsing');
   });
 
-  test('toggling details resets other assets state', async function (assert) {
+  test('can view grand total row', async function (assert) {
     let addonSize = {
       appJsSize: 1024,
       appJsGzipSize: 400,
 
-      otherAssetsSize: 1836,
-      otherAssetsGzipSize: 1100,
+      vendorCssSize: 2048,
+      vendorCssGzipSize: 1000,
 
       totalJsSize: 3200,
       totalJsGzipSize: 1500,
 
-      totalSize: 6000,
-      totalGzipSize: 2080,
+      totalCssSize: 3000,
+      totalCssGzipSize: 1200,
 
-      normalizedOtherAssetFiles: [
-        {
-          name: 'auto-import-fastboot.js',
-          size: 57729,
-          gzipSize: 16869,
-        },
-        {
-          name: 'chunk.js',
-          size: 57729,
-          gzipSize: 16869,
-        },
-      ],
-
-      hasOtherAssetsFiles: true,
+      totalSize: 6200,
+      totalGzipSize: 2700,
     };
 
     this.set('addonSize', addonSize);
 
-    await render(hbs`<DependencySize @addonSize={{addonSize}}/>`);
+    await render(
+      hbs`<AddonSize @addonSize={{addonSize}} @showTotalRow={{true}}/>`
+    );
 
-    await click('.test-size-summary');
-    await click('.test-other-assets-toggle');
-    await click('.test-size-summary');
-    await click('.test-size-summary');
+    let totalRow = findAll('.test-total-size');
+    assert.equal(totalRow.length, 1, 'Single total size row');
 
     assert
-      .dom('.test-other-assets-details')
-      .doesNotExist('Other assets state reset');
+      .dom(totalRow[0])
+      .containsText('6.05 KB (2.64 KB gzipped)', 'Shows total asset size');
   });
 });

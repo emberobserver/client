@@ -77,6 +77,13 @@
     }
   }
 
+  .latest-size {
+    margin: 3rem 0;
+    h4 {
+      margin-bottom: .5rem;
+    }
+  }
+
   .addon-info {
     @include span-columns(12);
     margin-bottom: 2rem;
