@@ -20,7 +20,7 @@
     }
 
     &.grand-total {
-      border-top: 1px dotted #97bacc;
+      border-top: 1px dotted tint($blue, 50%);
       margin-top: .5rem;
       padding-top: .5rem;
     }

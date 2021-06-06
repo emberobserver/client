@@ -45,7 +45,7 @@
         margin-top: .5rem;
         display: flex;
         justify-content: space-between;
-        border-bottom: 1px dotted #97bacc;
+        border-bottom: 1px dotted tint($blue, 50%);
       }
 
       .more {
