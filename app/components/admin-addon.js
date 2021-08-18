@@ -1,75 +1,71 @@
-import classic from 'ember-classic-decorator';
-import { tagName } from '@ember-decorators/component';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
-import Component from '@ember/component';
-import { task, timeout } from 'ember-concurrency';
+import Component from '@glimmer/component';
+import { dropTask, timeout } from 'ember-concurrency';
 import { questions } from '../models/review';
+import { tracked } from '@glimmer/tracking';
 
-@classic
-@tagName('')
 export default class AdminAddon extends Component {
   @service
   store;
 
-  addon = null;
-  recentlyRenewed = false;
+  @tracked recentlyRenewed = false;
 
   @action
   updateInvalidRepoFlag(value) {
-    this.set('addon.hasInvalidGithubRepo', !value);
+    this.args.addon.set('hasInvalidGithubRepo', !value);
   }
 
   @action
   updateIsWipFlag(value) {
-    this.set('addon.isWip', !value);
+    this.args.addon.set('isWip', !value);
   }
 
   @action
   updateIsDeprecatedFlag(value) {
-    this.set('addon.isDeprecated', !value);
+    this.args.addon('isDeprecated', !value);
   }
 
   @action
   updateIsHiddenFlag(value) {
-    this.set('addon.isHidden', !value);
+    this.args.addon('isHidden', !value);
   }
 
-  @(task(function* () {
+  @dropTask
+  *saveAddon() {
     try {
-      yield this.addon.save();
+      yield this.args.addon.save();
     } catch (e) {
       window.alert('Failed to save addon');
     }
-  }).drop())
-  saveAddon;
+  }
 
-  @(task(function* () {
+  @dropTask
+  *renewLatestReview() {
     let newReview = this.store.createRecord('review');
-    let latestReview = this.get('addon.latestReview');
+    let latestReview = this.args.addon.latestReview;
 
     questions.forEach(function (question) {
       newReview.set(question.fieldName, latestReview.get(question.fieldName));
     });
     newReview.set('review', latestReview.get('review'));
-    newReview.set('version', this.get('addon.latestAddonVersion'));
+    newReview.set('version', this.args.addon.get('latestAddonVersion'));
 
     try {
       yield newReview.save();
-      this.addon.set('latestReview', newReview);
-      yield this.addon.save();
+      this.args.addon.set('latestReview', newReview);
+      yield this.args.addon.save();
       this.completeRenew.perform();
     } catch (e) {
       console.error(e); // eslint-disable-line no-console
       window.alert('Failed to renew review');
     }
-  }).drop())
-  renewLatestReview;
+  }
 
-  @(task(function* () {
-    this.set('recentlyRenewed', true);
+  @dropTask
+  *completeRenew() {
+    this.recentlyRenewed = true;
     yield timeout(2000);
-    this.set('recentlyRenewed', false);
-  }).drop())
-  completeRenew;
+    this.recentlyRenewed = false;
+  }
 }
