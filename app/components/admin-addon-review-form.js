@@ -11,6 +11,9 @@ export default class AdminAddonReviewForm extends Component {
   @tracked
   recentlySaved = false;
 
+  @tracked
+  reviewText = null;
+
   questions = questions;
 
   @service
@@ -19,6 +22,7 @@ export default class AdminAddonReviewForm extends Component {
   @action
   reset() {
     this.reviewProperties = tracked({});
+    this.reviewText = null;
   }
 
   @action
