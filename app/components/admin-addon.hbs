@@ -1,10 +1,10 @@
 <h2>
-  <LinkTo @route="addons.show" @model={{this.addon.name}} class="test-addon-link">
-    {{this.addon.name}}
-    {{#if this.addon.isOfficial}}
+  <LinkTo @route="addons.show" @model={{@addon.name}} class="test-addon-link">
+    {{@addon.name}}
+    {{#if @addon.isOfficial}}
       <OfficialIcon @class="test-official-icon" />
     {{/if}}
-    {{#if this.addon.isCliDependency}}
+    {{#if @addon.isCliDependency}}
       <DependencyIcon @class="test-cli-dep-icon" />
     {{/if}}
   </LinkTo>
@@ -12,74 +12,74 @@
 
 <section class="addon-info">
   <div class="test-last-updated">
-    <b>{{this.addon.latestAddonVersion.version}}</b> from <RelativeTime @date={{this.addon.latestVersionDate}} />
+    <b>{{@addon.latestAddonVersion.version}}</b> from <RelativeTime @date={{@addon.latestVersionDate}} />
   </div>
-  <div class="test-description"><b>description</b> {{this.addon.description}}</div>
-  {{#if this.addon.demoUrl}}
+  <div class="test-description"><b>description</b> {{@addon.description}}</div>
+  {{#if @addon.demoUrl}}
     <div class="test-addon-demo-url">
-      <b>demo</b> <a href={{this.addon.demoUrl}}>{{this.addon.demoUrl}}</a>
+      <b>demo</b> <a href={{@addon.demoUrl}}>{{@addon.demoUrl}}</a>
     </div>
   {{/if}}
   <div class="test-addon-package-url">
-    <b>package</b> <a href={{this.addon.npmUrl}}>{{this.addon.npmUrl}}</a>
+    <b>package</b> <a href={{@addon.npmUrl}}>{{@addon.npmUrl}}</a>
   </div>
   <div class="test-addon-license">
-    <b>license</b> {{this.addon.license}}
+    <b>license</b> {{@addon.license}}
   </div>
   <div>
     <b>npm keywords</b>
-    {{#each this.addon.keywords as |keyword|}}
-      <CommaSeparated @list={{this.addon.keywords}} @item={{keyword}} as |value separator|>
+    {{#each @addon.keywords as |keyword|}}
+      <CommaSeparated @list={{@addon.keywords}} @item={{keyword}} as |value separator|>
         {{value.keyword}}{{separator}}
       </CommaSeparated>
     {{/each}}
   </div>
-  {{#if this.addon.ranking}}
-    <span><LinkTo @route="addons.top">Ranks #{{this.addon.ranking}} of the top 100 addons!</LinkTo></span>
+  {{#if @addon.ranking}}
+    <span><LinkTo @route="addons.top">Ranks #{{@addon.ranking}} of the top 100 addons!</LinkTo></span>
   {{/if}}
 </section>
 
 <section>
-  <ScoreDisplay @addon={{this.addon}} as |val|>
+  <ScoreDisplay @addon={{@addon}} as |val|>
     Score <b class="test-score">{{val}}</b>
   </ScoreDisplay>
 </section>
 
 <section>
   <label>Repo URL</label>
-  {{#if this.addon.repositoryUrl}}
-    <a href={{this.addon.repositoryUrl}} target="repo" class="test-repo-url">{{this.addon.repositoryUrl}}</a>
+  {{#if @addon.repositoryUrl}}
+    <a href={{@addon.repositoryUrl}} target="repo" class="test-repo-url">{{@addon.repositoryUrl}}</a>
   {{else}}
     <em>Missing</em>
   {{/if}}
-  <a href="https://www.google.com/search?q=%22{{this.addon.name}}%22" target="_blank" rel="noopener noreferrer" title="Search Google">&nbsp;{{svg-icon "google"}}</a>
+  <a href="https://www.google.com/search?q=%22{{@addon.name}}%22" target="_blank" rel="noopener noreferrer" title="Search Google">&nbsp;{{svg-icon "google"}}</a>
   |
-  <a href="https://github.com/search?q=%22{{this.addon.name}}%22" target="_blank" rel="noopener noreferrer" title="Search GitHub">{{svg-icon "github"}}</a>
-  <ToggleSwitch @label={{if this.addon.hasInvalidGithubRepo "Has invalid Repo URL" "Has valid Repo URL"}} @isChecked={{not this.addon.hasInvalidGithubRepo}} @onToggle={{this.updateInvalidRepoFlag}} @name="repo" class="test-toggle-repo-validity" />
+  <a href="https://github.com/search?q=%22{{@addon.name}}%22" target="_blank" rel="noopener noreferrer" title="Search GitHub">{{svg-icon "github"}}</a>
+  <ToggleSwitch @label={{if @addon.hasInvalidGithubRepo "Has invalid Repo URL" "Has valid Repo URL"}} @isChecked={{not @addon.hasInvalidGithubRepo}} @onToggle={{this.updateInvalidRepoFlag}} @name="repo" class="test-toggle-repo-validity" />
 </section>
 
 <section class="toggles">
-  <ToggleSwitch @label={{if this.addon.isWip "Is a WIP" "Not a WIP"}} @isChecked={{not this.addon.isWip}} @onToggle={{this.updateIsWipFlag}} @name="wip" class="test-toggle-is-wip" />
-  <ToggleSwitch @label={{if this.addon.isDeprecated "Deprecated" "Active"}} @isChecked={{not this.addon.isDeprecated}} @onToggle={{this.updateIsDeprecatedFlag}} @name="deprecated" class="test-toggle-is-deprecated" />
-  <ToggleSwitch @label={{if this.addon.isHidden "Hidden" "Visible"}} @isChecked={{not this.addon.isHidden}} @onToggle={{this.updateIsHiddenFlag}} @name="hidden" class="hidden-toggle test-toggle-is-hidden" />
-  <ToggleSwitch @label="Is Official?" @isChecked={{this.addon.isOfficial}} @onToggle={{fn (mut this.addon.isOfficial)}} @name="official" class="test-toggle-is-official" />
-  <ToggleSwitch @label="Is CLI Dependency?" @isChecked={{this.addon.isCliDependency}} @onToggle={{fn (mut this.addon.isCliDependency)}} @name="cli-dep" class="test-toggle-is-cli-dep" />
-  <ToggleSwitch @label="Extends Ember?" @isChecked={{this.addon.extendsEmber}} @onToggle={{fn (mut this.addon.extendsEmber)}} @name="extends-ember" class="test-toggle-extends-ember" />
-  <ToggleSwitch @label="Extends Ember CLI?" @isChecked={{this.addon.extendsEmberCli}} @onToggle={{fn (mut this.addon.extendsEmberCli)}} @name="extends-ember-cli" class="test-toggle-extends-ember-cli" />
-  <ToggleSwitch @label="Is Monorepo?" @isChecked={{this.addon.isMonorepo}} @onToggle={{fn (mut this.addon.isMonorepo)}} @name="is-monorepo" class="test-toggle-is-monorepo" />
+  <ToggleSwitch @label={{if @addon.isWip "Is a WIP" "Not a WIP"}} @isChecked={{not @addon.isWip}} @onToggle={{this.updateIsWipFlag}} @name="wip" class="test-toggle-is-wip" />
+  <ToggleSwitch @label={{if @addon.isDeprecated "Deprecated" "Active"}} @isChecked={{not @addon.isDeprecated}} @onToggle={{this.updateIsDeprecatedFlag}} @name="deprecated" class="test-toggle-is-deprecated" />
+  <ToggleSwitch @label={{if @addon.isHidden "Hidden" "Visible"}} @isChecked={{not @addon.isHidden}} @onToggle={{this.updateIsHiddenFlag}} @name="hidden" class="hidden-toggle test-toggle-is-hidden" />
+  <ToggleSwitch @label="Is Official?" @isChecked={{@addon.isOfficial}} @onToggle={{fn (mut @addon.isOfficial)}} @name="official" class="test-toggle-is-official" />
+  <ToggleSwitch @label="Is CLI Dependency?" @isChecked={{@addon.isCliDependency}} @onToggle={{fn (mut @addon.isCliDependency)}} @name="cli-dep" class="test-toggle-is-cli-dep" />
+  <ToggleSwitch @label="Extends Ember?" @isChecked={{@addon.extendsEmber}} @onToggle={{fn (mut @addon.extendsEmber)}} @name="extends-ember" class="test-toggle-extends-ember" />
+  <ToggleSwitch @label="Extends Ember CLI?" @isChecked={{@addon.extendsEmberCli}} @onToggle={{fn (mut @addon.extendsEmberCli)}} @name="extends-ember-cli" class="test-toggle-extends-ember-cli" />
+  <ToggleSwitch @label="Is Monorepo?" @isChecked={{@addon.isMonorepo}} @onToggle={{fn (mut @addon.isMonorepo)}} @name="is-monorepo" class="test-toggle-is-monorepo" />
 </section>
 
 <section class="with-default-styling">
   <label>Override Repo URL</label>
-  <Input @value={{this.addon.overrideRepositoryUrl}} class="test-override-repo-url-input" @autocomplete="off" />
+  <Input @value={{@addon.overrideRepositoryUrl}} class="test-override-repo-url-input" @autocomplete="off" />
 </section>
 
 <section class="with-default-styling">
   <label>Note</label>
-  <Textarea @value={{this.addon.note}} @rows="3" class="note-input test-note-input" @autocomplete="off" /></section>
+  <Textarea @value={{@addon.note}} @rows="3" class="note-input test-note-input" @autocomplete="off" /></section>
 
 <section>
-  <CategoryChooser @categories={{this.categories}} @addon={{this.addon}} @onchange={{fn (mut this.addon.categories)}} />
+  <CategoryChooser @categories={{this.categories}} @addon={{@addon}} @onchange={{fn (mut @addon.categories)}} />
 </section>
 
 <section>
@@ -88,17 +88,17 @@
   {{else}}
     <button type="button" class="button test-save-addon" {{on "click" (perform this.saveAddon)}}>Save</button>
   {{/if}}
-  <div class="note">Last saved <RelativeTime @date={{this.addon.updatedAt}} /> ({{moment-format this.addon.updatedAt "MMMM DD, YYYY h:mm:ss" allowEmpty=true}})</div>
+  <div class="note">Last saved <RelativeTime @date={{@addon.updatedAt}} /> ({{moment-format @addon.updatedAt "MMMM DD, YYYY h:mm:ss" allowEmpty=true}})</div>
 </section>
 
 <section class="latest-review">
   <h5 class="header">Latest Review</h5>
   <div class="contents">
-    {{#if this.addon.latestReview}}
-      {{#if (not-eq this.addon.latestReview.version.version this.addon.latestAddonVersion.version)}}
+    {{#if @addon.latestReview}}
+      {{#if (not-eq @addon.latestReview.version.version @addon.latestAddonVersion.version)}}
         <em class="test-review-new-version-warning">{{svg-icon "new-releases"}} New versions of this addon have been released since this review was undertaken.</em>
       {{/if}}
-      <AddonReview @review={{this.addon.latestReview}} />
+      <AddonReview @review={{@addon.latestReview}} />
       {{#if this.renewLatestReview.isIdle}}
         <button type="button" {{on "click" (perform this.renewLatestReview)}} class="button test-renew-latest-review">Renew Review</button>
       {{else}}
@@ -112,18 +112,18 @@
     {{/if}}
     <hr>
     <section class="with-default-styling">
-      <AdminAddonReviewForm @addon={{this.addon}} />
+      <AdminAddonReviewForm @addon={{@addon}} />
     </section>
   </div>
 </section>
 
 <section>
-  {{#if this.addon.readme}}
-    {{#unless this.addon.hasInvalidGithubRepo}}
+  {{#if @addon.readme}}
+    {{#unless @addon.hasInvalidGithubRepo}}
       <section class="readme">
         <p class="header">README.md</p>
         <p class="test-addon-readme contents">
-          <MarkdownToSanitizedHtml @markdown={{this.addon.readme.contents}} @tables={{true}} @ghCodeBlocks={{true}} @tasklists={{true}} @simplifiedAutoLink={{true}} />
+          <MarkdownToSanitizedHtml @markdown={{@addon.readme.contents}} @tables={{true}} @ghCodeBlocks={{true}} @tasklists={{true}} @simplifiedAutoLink={{true}} />
         </p>
       </section>
     {{/unless}}

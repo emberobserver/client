@@ -1,22 +1,18 @@
 <h5>Review this addon</h5>
-<form class="review-form" {{on "submit" (prevent-default (perform this.saveReview))}}>
+<form
+  class="review-form"
+  {{on "submit" (prevent-default (perform this.saveReview))}}
+  {{did-update this.reset @addon}}
+>
   <ol>
     {{#each this.questions as |question|}}
       <li class="test-review-question">
         <div class="question">{{question.text}}</div>
-        <ExclusiveButtonGroup @selectedValue={{get this.reviewProperties question.fieldName}} @updateSelectedValue={{fn this.selectOption question.fieldName}} as |btn|>
-          {{component btn
-                      value=1
-                      label="Yes"}}
-          {{component btn
-                      value=2
-                      label="No"}}
-          {{component btn
-                      value=3
-                      label="N/A"}}
-          {{component btn
-                      value=4
-                      label="Unknown"}}
+        <ExclusiveButtonGroup @selectedValue={{get this.reviewProperties question.fieldName}} @updateSelectedValue={{fn this.selectOption question.fieldName}} as |Button|>
+          <Button @value={{1}} @label="Yes" />
+          <Button @value={{2}} @label="No" />
+          <Button @value={{3}} @label="N/A" />
+          <Button @value={{4}} @label="Unknown" />
         </ExclusiveButtonGroup>
       </li>
     {{/each}}

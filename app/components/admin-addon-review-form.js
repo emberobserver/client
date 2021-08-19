@@ -1,55 +1,56 @@
-/* eslint-disable ember/no-component-lifecycle-hooks */
-import classic from 'ember-classic-decorator';
-import { inject } from '@ember/service';
-import Component from '@ember/component';
 import { action } from '@ember/object';
-import { task, timeout } from 'ember-concurrency';
-import { questions } from '../models/review';
+import { inject as service } from '@ember/service';
+import Component from '@glimmer/component';
+import { tracked } from 'tracked-built-ins';
+import { dropTask, timeout } from 'ember-concurrency';
+import { questions } from 'ember-observer/models/review';
 
-@classic
 export default class AdminAddonReviewForm extends Component {
-  addon = null;
-  reviewProperties = null;
+  @tracked reviewProperties = tracked({});
+
+  @tracked
+  recentlySaved = false;
+
+  @tracked
+  reviewText = null;
+
   questions = questions;
 
-  @inject()
+  @service
   store;
 
-  didReceiveAttrs() {
-    super.didReceiveAttrs(...arguments);
-    this.reset();
-  }
-
+  @action
   reset() {
-    this.set('reviewProperties', {});
+    this.reviewProperties = tracked({});
+    this.reviewText = null;
   }
 
   @action
   selectOption(fieldName, value) {
-    this.set(`reviewProperties.${fieldName}`, value);
+    this.reviewProperties[fieldName] = value;
   }
 
-  @(task(function* () {
+  @dropTask
+  *saveReview() {
     let newReview = this.store.createRecord('review', this.reviewProperties);
     newReview.set('review', this.reviewText);
-    newReview.set('version', this.get('addon.latestAddonVersion'));
+    newReview.set('version', this.args.addon.get('latestAddonVersion'));
     try {
       yield newReview.save();
-      this.addon.set('latestReview', newReview);
-      yield this.addon.save();
+      this.args.addon.set('latestReview', newReview);
+      yield this.args.addon.save();
       this.reset();
       this.complete.perform();
     } catch (e) {
       console.error(e); // eslint-disable-line no-console
       window.alert('Failed to create review');
     }
-  }).drop())
-  saveReview;
+  }
 
-  @(task(function* () {
-    this.set('recentlySaved', true);
+  @dropTask
+  *complete() {
+    this.recentlySaved = true;
     yield timeout(2000);
-    this.set('recentlySaved', false);
-  }).drop())
-  complete;
+    this.recentlySaved = false;
+  }
 }

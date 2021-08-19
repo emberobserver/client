@@ -654,6 +654,36 @@ module('Acceptance | admin review addon', function (hooks) {
     assert.equal(actualMessage, 'Failed to create review');
   });
 
+  test('resets toggles/fields when changing addons', async function (assert) {
+    let firstAddon = server.create('addon', { note: null });
+    let secondAddon = server.create('addon', { note: null });
+
+    await visitAddon(firstAddon, '?list=needing-review');
+    await toggle('.test-toggle-is-wip');
+    await fillIn('.test-note-input', 'Some notes about this addon');
+    await click('.test-save-addon');
+
+    await answerQuestion('Are there meaningful tests?', 'Yes');
+    await answerQuestion('Is the README filled out?', 'Yes');
+    await answerQuestion('Does the addon have a build?', 'No');
+    await fillIn('.test-addon-review-notes', 'A note on the review');
+    await click('.test-addon-review-save');
+
+    // go to the other addon
+    await click(findByText('.test-review-list-item', secondAddon.name));
+    assertToggleState(assert, '.test-toggle-is-wip', {
+      checked: true,
+      text: 'Not a WIP',
+    });
+    assert.dom('.test-note-input').hasNoValue('clears addon note field');
+    assert
+      .dom('.test-review-question button.selected')
+      .doesNotExist('clears review questions');
+    assert
+      .dom('.test-addon-review-notes')
+      .hasNoValue('clears review note field');
+  });
+
   module('lists', function () {
     test('Visiting list without a list param defaults to needing-review', async function (assert) {
       let addon = server.create('addon', {
