@@ -71,12 +71,12 @@
 
 <section class="with-default-styling">
   <label>Override Repo URL</label>
-  <Input @value={{this.addon.overrideRepositoryUrl}} class="test-override-repo-url-input" @autocomplete="off" />
+  <Input @value={{this.addon.overrideRepositoryUrl}} class="test-override-repo-url-input" autocomplete="off" />
 </section>
 
 <section class="with-default-styling">
   <label>Note</label>
-  <Textarea @value={{this.addon.note}} @rows="3" class="note-input test-note-input" @autocomplete="off" /></section>
+  <Textarea @value={{this.addon.note}} rows="3" class="note-input test-note-input" autocomplete="off" /></section>
 
 <section>
   <CategoryChooser @categories={{this.categories}} @addon={{this.addon}} @onchange={{fn (mut this.addon.categories)}} />

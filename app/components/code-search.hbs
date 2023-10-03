@@ -2,13 +2,13 @@
 <div class="search-wrapper with-default-styling">
   <form {{on "submit" (prevent-default (perform this.search))}}>
     <div class="search-wrapper-inner">
-      <Input @type="search" placeholder="Search for addons containing code" @autocomplete="off" @id="code-search-input" @spellcheck="false" @value={{this.searchInput}} />
+      <Input @type="search" placeholder="Search for addons containing code" autocomplete="off" id="code-search-input" spellcheck="false" @value={{this.searchInput}} />
       {{#if this.codeQuery}}
         <button type="button" class="close-button test-clear-search" {{on "click" this.clearSearch}}>{{svg-icon "close"}}</button>
       {{/if}}
     </div>
     <div class="search-actions">
-      <Input @type="checkbox" @id="regex-toggle" class="test-regex-search" @checked={{this.regex}} />
+      <Input @type="checkbox" id="regex-toggle" class="test-regex-search" @checked={{this.regex}} />
       <label for="regex-toggle">Regex search</label>
       {{#if this.regex}}
         <a href="https://github.com/google/re2/wiki/Syntax" class="regex-help test-regex-help" rel="noopener noreferrer" target="_blank">(re2 syntax)</a>

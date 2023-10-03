@@ -14,6 +14,7 @@ module.exports = {
     'no-outlet-outside-routes': true,
     'no-trailing-spaces': true,
     'no-partial': true,
+    'require-input-label': false,
     quotes: false,
     'table-groups': false,
   },
