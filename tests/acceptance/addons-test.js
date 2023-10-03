@@ -370,8 +370,7 @@ module('Acceptance: Addons', function (hooks) {
     let otherAssetsJson = {
       files: [
         {
-          name:
-            'dist/ember-fetch/fetch-fastboot-9f92e76e789a8d7a64fe7fa9b14c699a.js',
+          name: 'dist/ember-fetch/fetch-fastboot-9f92e76e789a8d7a64fe7fa9b14c699a.js',
           size: 863,
           gzipSize: 522,
         },
@@ -413,7 +412,7 @@ module('Acceptance: Addons', function (hooks) {
     assert.dom(`.test-latest-size .test-vendor-css`).exists();
   });
 
-  test('omits addon size section when no size data', async (assert) => {
+  test('omits addon size section when no size data', async function (assert) {
     let addon = server.create('addon');
     addon.latestAddonVersion = server.create('version', {
       addon,
@@ -613,8 +612,7 @@ module('Acceptance: Addons', function (hooks) {
     let otherAssetsJson = {
       files: [
         {
-          name:
-            'dist/ember-fetch/fetch-fastboot-9f92e76e789a8d7a64fe7fa9b14c699a.js',
+          name: 'dist/ember-fetch/fetch-fastboot-9f92e76e789a8d7a64fe7fa9b14c699a.js',
           size: 863,
           gzipSize: 522,
         },
@@ -730,8 +728,8 @@ module('Acceptance: Addons', function (hooks) {
       '.test-addon-dependencies .test-dependencies .test-dependency-name'
     );
     assert.equal(
-      8,
       dependencyPackages.length,
+      8,
       'Shows truncated list of dependencies'
     );
 
@@ -739,8 +737,8 @@ module('Acceptance: Addons', function (hooks) {
       '.test-addon-dependencies .test-dev-dependencies .test-dependency-name'
     );
     assert.equal(
-      8,
       devDependencyPackages.length,
+      8,
       'Shows list of dev dependencies'
     );
 
@@ -750,8 +748,8 @@ module('Acceptance: Addons', function (hooks) {
       '.test-addon-dependencies .test-dependencies .test-dependency-name'
     );
     assert.equal(
-      10,
       dependencyPackages.length,
+      10,
       'Shows full list of dependencies'
     );
 
@@ -759,8 +757,8 @@ module('Acceptance: Addons', function (hooks) {
       '.test-addon-dependencies .test-dev-dependencies .test-dependency-name'
     );
     assert.equal(
-      11,
       devDependencyPackages.length,
+      11,
       'Shows full list of dependencies'
     );
   });
@@ -783,7 +781,7 @@ module('Acceptance: Addons', function (hooks) {
       .doesNotExist();
   });
 
-  test('displays addon dependents', async (assert) => {
+  test('displays addon dependents', async function (assert) {
     let addon = server.create('addon');
     let latestVersion = server.create('version', {
       addon,
@@ -834,7 +832,7 @@ module('Acceptance: Addons', function (hooks) {
     );
   });
 
-  test('when addon dependencies fail to load', async (assert) => {
+  test('when addon dependencies fail to load', async function (assert) {
     let addon = server.create('addon');
     let latestVersion = server.create('version', {
       addon,

@@ -8,9 +8,9 @@ QUnit.assert.typeaheadSuggestionsAre = function (
   suggestions,
   message
 ) {
-  let actualSuggestions = findAll(
-    `${selector} .ember-power-select-option`
-  ).map((option) => option.textContent.trim());
+  let actualSuggestions = findAll(`${selector} .ember-power-select-option`).map(
+    (option) => option.textContent.trim()
+  );
   this.deepEqual(
     actualSuggestions,
     suggestions,

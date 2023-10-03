@@ -154,6 +154,8 @@ module('Acceptance | admin review addon', function (hooks) {
   });
 
   test('Toggle switches', async function (assert) {
+    assert.expect(40);
+
     let addon = server.create('addon', {
       name: 'fake-addon',
       repositoryUrl: 'http://example.com/fake-addon',
@@ -266,15 +268,15 @@ module('Acceptance | admin review addon', function (hooks) {
 
     addon.reload();
 
-    assert.equal(addon.hasInvalidGithubRepo, true, 'Toggle invalid repo saves');
-    assert.equal(addon.isWip, false, 'Toggle isWip saves');
-    assert.equal(addon.isDeprecated, true, 'Toggle isDeprecated saves');
-    assert.equal(addon.isHidden, false, 'Toggle isHidden saves');
-    assert.equal(addon.isOfficial, false, 'Toggle isOfficial saves');
-    assert.equal(addon.isCliDependency, false, 'Toggle isCliDependency saves');
-    assert.equal(addon.extendsEmber, true, 'Toggle extendsEmber saves');
-    assert.equal(addon.extendsEmberCli, true, 'Toggle extendsEmberCli saves');
-    assert.equal(addon.isMonorepo, true, 'Toggle isMonorepo saves');
+    assert.true(addon.hasInvalidGithubRepo, 'Toggle invalid repo saves');
+    assert.false(addon.isWip, 'Toggle isWip saves');
+    assert.true(addon.isDeprecated, 'Toggle isDeprecated saves');
+    assert.false(addon.isHidden, 'Toggle isHidden saves');
+    assert.false(addon.isOfficial, 'Toggle isOfficial saves');
+    assert.false(addon.isCliDependency, 'Toggle isCliDependency saves');
+    assert.true(addon.extendsEmber, 'Toggle extendsEmber saves');
+    assert.true(addon.extendsEmberCli, 'Toggle extendsEmberCli saves');
+    assert.true(addon.isMonorepo, 'Toggle isMonorepo saves');
   });
 
   test('Addon note', async function (assert) {
@@ -499,9 +501,10 @@ module('Acceptance | admin review addon', function (hooks) {
       .dom('.test-review-new-version-warning')
       .doesNotExist('Review is now for latest version');
 
-    let newReview = server.schema.reviews.all().models[
-      server.schema.reviews.all().models.length - 1
-    ];
+    let newReview =
+      server.schema.reviews.all().models[
+        server.schema.reviews.all().models.length - 1
+      ];
 
     assert.notEqual(newReview.id, review.id);
 
@@ -601,9 +604,10 @@ module('Acceptance | admin review addon', function (hooks) {
       .dom('.test-review-new-version-warning')
       .doesNotExist('Review is current');
 
-    let newReview = server.schema.reviews.all().models[
-      server.schema.reviews.all().models.length - 1
-    ];
+    let newReview =
+      server.schema.reviews.all().models[
+        server.schema.reviews.all().models.length - 1
+      ];
     assert.equal(newReview.version.id, addonVersion.id);
     assert.equal(newReview.hasTests, 2);
     assert.equal(newReview.hasReadme, 1);

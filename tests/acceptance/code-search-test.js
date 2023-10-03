@@ -118,7 +118,7 @@ module('Acceptance | code search', function (hooks) {
     await click('.test-usage-count');
 
     assert.equal(addon.id, addonParam, 'Addon name is provided to request');
-    assert.equal('asdf', queryParam, 'Query is provided to request');
+    assert.equal(queryParam, 'asdf', 'Query is provided to request');
 
     assert
       .dom('.test-last-search')
@@ -411,8 +411,8 @@ module('Acceptance | code search', function (hooks) {
     await visit('/code-search?codeQuery=foo&regex=true');
 
     assert.equal(
-      'true',
       addonRegexParam,
+      'true',
       'Regex param from queryParams is included in initial addon request and is true'
     );
     assert
@@ -434,8 +434,8 @@ module('Acceptance | code search', function (hooks) {
 
     await click('.test-usage-count');
     assert.equal(
-      'true',
       usageRegexParam,
+      'true',
       'Regex param is included in usage request and is true'
     );
 
@@ -450,8 +450,8 @@ module('Acceptance | code search', function (hooks) {
 
     await click('.test-submit-search');
     assert.equal(
-      'false',
       addonRegexParam,
+      'false',
       'Regex param is included in addon request and is false'
     );
     assert
@@ -460,8 +460,8 @@ module('Acceptance | code search', function (hooks) {
 
     await click('.test-usage-count');
     assert.equal(
-      'false',
       usageRegexParam,
+      'false',
       'Regex param is included in usage request and is false'
     );
   });

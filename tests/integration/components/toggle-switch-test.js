@@ -45,7 +45,7 @@ module('Integration | Component | toggle-switch', function (hooks) {
 
     await click('.test-toggle input');
 
-    assert.equal(toggleValue, true, 'onToggle is called');
+    assert.true(toggleValue, 'onToggle is called');
     assert.dom('.test-toggle input').isChecked();
   });
 });
