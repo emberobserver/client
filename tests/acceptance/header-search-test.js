@@ -1,4 +1,4 @@
-import { click, fillIn, currentURL } from '@ember/test-helpers';
+import { click, fillIn, find, currentURL } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
 import { selectChoose } from 'ember-power-select/test-support/helpers';
@@ -122,7 +122,19 @@ module('Acceptance | header search', function (hooks) {
 
     await fillIn('.test-header-search input', 'test');
 
-    await click(findByText('.test-search-result-addon-link', 'addon-test'));
+    /**
+     * Note: Parent element <li> is being clicked here, whereas in real life user
+     * clicks <a> inside <li>. The problem is that current implementation of the
+     * component has an <a> inside PowerSelect that attaches a listener to <li>.
+     * After upgrading to 3.28, this started producing a hard redirect that breaks
+     * the flow of test and causes a browser timeout.
+     * This only happens with programmatic click, while real mouse click behaves
+     * as expected.
+     * `.parentElement` should be removed once the hard redirect is figured out.
+     */
+    await click(
+      findByText('.test-search-result-addon-link', 'addon-test').parentElement
+    );
 
     assert.equal(
       currentURL(),
@@ -132,7 +144,9 @@ module('Acceptance | header search', function (hooks) {
 
     await fillIn('.test-header-search input', 'foo');
 
-    await click('.test-search-result-jump-to-full-search-link');
+    await click(
+      find('.test-search-result-jump-to-full-search-link').parentElement
+    );
 
     assert.equal(
       currentURL(),
