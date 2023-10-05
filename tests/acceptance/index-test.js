@@ -109,6 +109,8 @@ module('Acceptance: Index', function (hooks) {
   });
 
   test('including readme matches in search', async function (assert) {
+    assert.expect(19);
+
     let addon1 = server.create('addon', { name: 'ember-test-thing' });
     let addon2 = server.create('addon', { name: 'ember-different' });
 
@@ -147,9 +149,8 @@ module('Acceptance: Index', function (hooks) {
     assert.ok(findByText('.test-readme-match', 'the test of time'));
 
     assert.dom('#search-input').hasValue('test', 'Query is in text box');
-    assert.equal(
+    assert.true(
       find('.test-search-readmes').checked,
-      true,
       'Include readmes is checked'
     );
 
@@ -168,9 +169,8 @@ module('Acceptance: Index', function (hooks) {
     assert.dom('.readme-list li').doesNotExist('No readme matches showing');
 
     assert.dom('#search-input').hasValue('test', 'Query is still in text box');
-    assert.equal(
+    assert.false(
       find('.test-search-readmes').checked,
-      false,
       'Include readmes is not checked'
     );
   });
@@ -259,6 +259,8 @@ module('Acceptance: Index', function (hooks) {
 
   function testSearch(url, assertForContentOnUrl) {
     test(`visiting ${url} with a query`, async function (assert) {
+      assert.expect(18);
+
       server.create('addon', { name: 'ember-a-thing' });
       server.create('addon', {
         name: 'ember-test-me',

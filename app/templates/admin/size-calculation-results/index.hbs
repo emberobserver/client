@@ -1,12 +1,12 @@
 <DateNav @date={{this.date}} as |nav|>
-  <LinkTo @route="admin.size-calculation-results.index" @query={{hash date=nav.formattedPreviousDate}} @class="previous-day">
+  <LinkTo @route="admin.size-calculation-results.index" @query={{hash date=nav.formattedPreviousDate}} class="previous-day">
     &laquo; previous day
   </LinkTo>
 
   Size calculation results for {{nav.formattedDisplayDate}}
 
   {{#if nav.showFollowingDayLink}}
-    <LinkTo @route="admin.size-calculation-results.index" @query={{hash date=nav.formattedFollowingDate}} @class='next-day'>
+    <LinkTo @route="admin.size-calculation-results.index" @query={{hash date=nav.formattedFollowingDate}} class='next-day'>
       next day &raquo;
     </LinkTo>
   {{/if}}

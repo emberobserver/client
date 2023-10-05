@@ -168,12 +168,9 @@ module('Acceptance | version compatibility', function (hooks) {
       '2.3.0',
       '2.4.0',
     ]);
-    let {
-      addon: addonWithSomePassing,
-    } = createAddonWithVersionCompatibilities([
-      failedVersion('2.3.0'),
-      '2.4.0',
-    ]);
+    let { addon: addonWithSomePassing } = createAddonWithVersionCompatibilities(
+      [failedVersion('2.3.0'), '2.4.0']
+    );
     let { addon: addonWithTestFailure } = createAddonWithTestFailure();
 
     await visitAddon(addonWithAllPassing);

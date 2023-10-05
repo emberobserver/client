@@ -22,9 +22,8 @@ export default class HumanUrl extends Component {
 
   @computed('parsed.host')
   get domain() {
-    return (this.get('parsed.host') === undefined
-      ? ''
-      : this.get('parsed.host')
+    return (
+      this.get('parsed.host') === undefined ? '' : this.get('parsed.host')
     ).replace(/^(www.)?/, '');
   }
 

@@ -1,15 +1,17 @@
+{{! template-lint-disable no-duplicate-landmark-elements }}
+
 <div class="admin-categories-edit with-default-styling">
   <form {{on "submit" (prevent-default this.updateCategory)}}>
     <fieldset>
       <label for="name">
         Name:
       </label>
-      <Input @type="text" @id="name" @value={{this.categoryName}} />
+      <Input @type="text" id="name" @value={{this.categoryName}} />
       <br>
       <label for="description">
         Description:
       </label>
-      <Input @type="text" @id="description" @value={{this.categoryDescription}} />
+      <Input @type="text" id="description" @value={{this.categoryDescription}} />
       {{#if this.hasSiblingCategories}}
         <br>
         <label for="position">
@@ -17,7 +19,7 @@
         </label>
         <CategoryPositionDropdown @name="position" @position={{this.categoryPosition}} @updatePosition={{fn (mut this.categoryPosition)}} @categories={{this.sortedSiblingCategories}} />
       {{else}}
-        <Input @type="hidden" @id="position" @value={{this.categoryPosition}} />
+        <Input @type="hidden" id="position" @value={{this.categoryPosition}} />
       {{/if}}
       <br>
       <label for="parent">
@@ -51,12 +53,12 @@
         <label for="subcategoryName">
           Name:
         </label>
-        <Input @type="text" @id="subcategoryName" @value={{this.newCategoryName}} />
+        <Input @type="text" id="subcategoryName" @value={{this.newCategoryName}} />
         <br>
         <label for="subcategoryDescription">
           Description:
         </label>
-        <Input @type="text" @id="subcategoryDescription" @value={{this.newCategoryDescription}} />
+        <Input @type="text" id="subcategoryDescription" @value={{this.newCategoryDescription}} />
         <br>
         <label for="subcategoryPosition">
           Position:
