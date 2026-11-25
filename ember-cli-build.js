@@ -1,8 +1,6 @@
 'use strict';;
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
-const parseFlag = require('./config/parse-flag');
 const env = EmberApp.env();
-const broccoliAssetRevDefaults = require('broccoli-asset-rev/lib/default-options');
 
 const {
   compatBuild
@@ -13,24 +11,7 @@ module.exports = async function(defaults) {
     buildOnce
   } = await import("@embroider/vite");
 
-  let options = {
-    minifyJS: {},
-    minifyCSS: {},
-    fingerprint: {
-      extensions: broccoliAssetRevDefaults.extensions.concat(['svg']),
-    },
-    sourcemaps: {
-      extensions: ['js'],
-    },
-  };
-
-  options.minifyJS.enabled = parseFlag('MINIFY_JS', env === 'production');
-
-  options.minifyCSS.enabled = parseFlag('MINIFY_CSS', env === 'production');
-
-  options.sourcemaps.enabled = parseFlag('SOURCEMAPS', env !== 'production');
-
-  options.fingerprint.enabled = parseFlag('FINGERPRINT', env === 'production');
+  let options = {};
 
   let app = new EmberApp(defaults, options);
 
@@ -46,10 +27,6 @@ module.exports = async function(defaults) {
   // modules that you would like to import into your application
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
-
-  app.import('node_modules/dompurify/dist/purify.js', {
-    using: [{ transformation: 'amd', as: 'dom-purify' }],
-  });
 
   return compatBuild(app, buildOnce);
 };
