@@ -22,6 +22,7 @@ import momentFormat from "ember-moment/helpers/moment-format";
 import AddonReview from "./addon-review.gjs";
 import AdminAddonReviewForm from "./admin-addon-review-form.gjs";
 import MarkdownToSanitizedHtml from "./markdown-to-sanitized-html.gjs";
+import { saveRecord } from "@warp-drive/legacy/compat/builders";
 
 export default class AdminAddon extends Component {<template><h2>
   <LinkTo @route="addons.show" @model={{this.addon.name}} class="test-addon-link">
@@ -198,7 +199,7 @@ export default class AdminAddon extends Component {<template><h2>
 
   saveAddon = task({ drop: true }, async () => {
     try {
-      await this.addon.save();
+      await this.store.request(saveRecord(this.addon));
     } catch (e) {
       window.alert('Failed to save addon');
     }
@@ -215,9 +216,9 @@ export default class AdminAddon extends Component {<template><h2>
     set(newReview, 'version', asRecord(get(this, 'addon.latestAddonVersion')));
 
     try {
-      await newReview.save();
+      await this.store.request(saveRecord(newReview));
       set(this.addon, 'latestReview', newReview);
-      await this.addon.save();
+      await this.store.request(saveRecord(this.addon));
       this.completeRenew.perform();
     } catch (e) {
       console.error(e); // eslint-disable-line no-console

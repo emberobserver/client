@@ -4,6 +4,7 @@ import { Promise as EmberPromise } from 'rsvp';
 import Controller from '@ember/controller';
 import { service } from '@ember/service';
 import asArray, { sortBy } from 'ember-observer/utils/as-array';
+import { saveRecord } from "@warp-drive/legacy/compat/builders";
 
 export default class EditController extends Controller {
   @service router;
@@ -70,8 +71,7 @@ export default class EditController extends Controller {
       position: this.newCategoryPosition,
       parent: this.category,
     });
-    newCategory
-      .save()
+    this.store.request(saveRecord(newCategory))
       .then(() => {
         this.router.transitionTo('admin.categories.index');
       })
@@ -110,9 +110,9 @@ export default class EditController extends Controller {
     }
 
     findPromise
-      .then(function (parentCategory) {
+      .then((parentCategory) => {
         category.set('parent', parentCategory);
-        return category.save();
+        return this.store.request(saveRecord(category));
       })
       .then(() => {
         this.router.transitionTo('admin.categories.index');

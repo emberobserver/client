@@ -1,7 +1,7 @@
-import Inflector from 'ember-inflector';
+import { uncountable } from "@warp-drive/utilities/string";
 
 export function initialize(/* application */) {
-  Inflector.inflector.uncountable('github-stats');
+  uncountable('github-stats');
 }
 
 export default {

@@ -26,7 +26,7 @@ export default class TestResult extends Model {
   @belongsTo('version', { async: true, inverse: null })
   version;
 
-  @hasMany('emberVersionCompatibility', { async: true, inverse: null })
+  @hasMany('ember-version-compatibility', { async: true, inverse: null })
   emberVersionCompatibilities;
 
   @readOnly('createdAt')

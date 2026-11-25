@@ -14,6 +14,7 @@ import ExclusiveButtonGroup from "./exclusive-button-group.gjs";
 import { get as get0, fn } from "@ember/helper";
 import { Textarea } from "@ember/component";
 import MarkdownToHtml from "ember-cli-showdown/components/markdown-to-html";
+import { saveRecord } from "@warp-drive/legacy/compat/builders";
 
 export default class AdminAddonReviewForm extends Component {<template><div ...attributes>
 {{this.didReceiveAttrs @addon}}
@@ -82,9 +83,9 @@ export default class AdminAddonReviewForm extends Component {<template><div ...a
     set(newReview, 'review', asRecord(this.reviewText));
     set(newReview, 'version', asRecord(get(this, 'addon.latestAddonVersion')));
     try {
-      await newReview.save();
+      await this.store.request(saveRecord(newReview));
       set(this.addon, 'latestReview', newReview);
-      await this.addon.save();
+      await this.store.request(saveRecord(this.addon));
       this.reset();
       this.complete.perform();
     } catch (e) {

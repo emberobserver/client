@@ -7,6 +7,7 @@ const macros = buildMacros({
   configure(config) {
     setConfig(config, {
       ___legacy_support: true,
+      deprecations: { DEPRECATE_TRACKING_PACKAGE: false },
     });
 
     if (process.env.EMBER_ENV === "test") {

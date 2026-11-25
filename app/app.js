@@ -15,6 +15,7 @@ import loadInitializers from "ember-load-initializers";
 import "@nullvoxpopuli/legacy-prototype-extensions/array";
 import { on } from 'rsvp';
 import setupInspector from "@embroider/legacy-inspector-support/ember-source-4.12";
+import "@warp-drive/ember/install";
 /**
  * `./config/environment` is there because these addons look up the app's config as `config:environment`:
  * @nullvoxpopuli/ember-router-scroll, ember-cli-showdown, ember-moment, ember-page-title.

@@ -2,6 +2,7 @@ import { action, get } from '@ember/object';
 import Controller from '@ember/controller';
 import { service } from '@ember/service';
 import asArray, { sortBy } from 'ember-observer/utils/as-array';
+import { saveRecord } from "@warp-drive/legacy/compat/builders";
 
 export default class NewController extends Controller {
   @service router;
@@ -28,8 +29,7 @@ export default class NewController extends Controller {
       description: this.newCategoryDescription,
       position: this.newCategoryPosition,
     });
-    newCategory
-      .save()
+    this.store.request(saveRecord(newCategory))
       .then(() => {
         this.router.transitionTo('admin.categories.index');
       })
