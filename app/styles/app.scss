@@ -62,7 +62,6 @@
 $ember-power-select-number-of-visible-options: 10;
 $ember-power-select-highlighted-background: $light-gray;
 @import "ember-power-select/app/styles/ember-power-select";
-@import 'ember-power-select-typeahead/app/styles/ember-power-select-typeahead';
 
 .ember-power-select-option {
   padding: ($base-spacing / 4) ($base-spacing / 4);

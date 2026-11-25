@@ -69,3 +69,8 @@ entries:
     links:
       - "https://github.com/percy/ember-percy"
       - "https://www.npmjs.com/package/@percy/sdk-utils"
+  - id: "ember-power-select-typeahead"
+    status: "removed"
+    note: "ember-power-select-typeahead is replaced by ember-power-select with @searchEnabled and @searchFieldPosition=\"trigger\". Its styles are gone. Check the look of the search field in the trigger."
+    links:
+      - "https://ember-power-select.com/docs/the-search"
