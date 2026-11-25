@@ -60,7 +60,7 @@
     "ember-feature-flags": "6.0.0",
     "ember-inflector": "^4.0.1",
     "ember-load-initializers": "^3.0.1",
-    "ember-metrics": "^1.1.0",
+    "ember-metrics": "^3.0.0",
     "ember-mirage": "^0.4.3",
     "ember-moment": "^8.0.0",
     "ember-page-title": "^9.0.3",
