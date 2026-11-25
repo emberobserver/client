@@ -159,3 +159,8 @@ entries:
   - id: "declare-imports"
     status: "added"
     note: "The app imports @ember-data/adapter, @ember-data/debug, @ember-data/model, @ember-data/serializer without declaring them. They are dependencies now, with the ranges of the packages that brought them, or their installed versions."
+  - id: "ember-cli-server"
+    status: "moved"
+    note: "The Vite dev server runs server/index.js, as ember serve did, through the plugin in server/vite.mjs. Vite's `server.proxy` option can replace the proxies."
+    links:
+      - "https://vite.dev/config/server-options#server-proxy"
