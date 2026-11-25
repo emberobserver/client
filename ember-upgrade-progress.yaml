@@ -169,3 +169,6 @@ entries:
     note: "These stylesheets still use @import, which Sass deprecates: app/styles/app.scss, app/styles/base/_base.scss, app/styles/base/_grid-settings.scss. `npx sass-migrator module --migrate-deps` moves them to @use, after the libraries that they import, such as bourbon, are Sass modules or are gone."
     links:
       - "https://sass-lang.com/documentation/cli/migrator/"
+  - id: "unused-dependencies"
+    status: "removed"
+    note: "No file, script or other dependency used these packages: @babel/plugin-transform-typescript, @embroider/core, @rollup/plugin-babel, babel-eslint, ember-cli-deprecation-workflow, ember-decorators, ember-inflector, npm-run-all, qunit-theme-ember, @embroider/router. If a tool loads one of them by itself, add it back."
