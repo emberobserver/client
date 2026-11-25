@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { click, fillIn, findAll, currentURL, visit } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { percySnapshot } from 'ember-percy';
@@ -177,17 +178,17 @@ module('Acceptance | code search', function (hooks) {
     let addonA = server.create('addon', {
       name: 'ember-try',
       score: 3,
-      latestVersionDate: window.moment().subtract(2, 'days'),
+      latestVersionDate: moment().subtract(2, 'days'),
     });
     let addonB = server.create('addon', {
       name: 'ember-blanket',
       score: 2,
-      latestVersionDate: window.moment().subtract(3, 'days'),
+      latestVersionDate: moment().subtract(3, 'days'),
     });
     let addonC = server.create('addon', {
       name: 'ember-foo',
       score: 1,
-      latestVersionDate: window.moment().subtract(1, 'days'),
+      latestVersionDate: moment().subtract(1, 'days'),
     });
 
     server.get('/search/addons', () => {
