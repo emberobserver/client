@@ -1,0 +1,5 @@
+overrides:
+  ember-basic-dropdown: 3.0.16
+
+strictDepBuilds: false
+blockExoticSubdeps: false

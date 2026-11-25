@@ -1,0 +1,11 @@
+# ember-upgrade writes this file.
+# Each entry is a workaround to undo later, or work that ember-upgrade left for you.
+# Remove an entry when its work is done.
+entries:
+  - id: "package-manager"
+    status: "todo"
+    note: "yarn.lock became pnpm-lock.yaml, with the same versions. pnpm does not let a package import a dependency that its package.json does not list. If a build fails on a missing package, add that package to the package.json that imports it. pnpm skips the build scripts of dependencies. Run `pnpm approve-builds` to pick the ones the app needs, then remove `strictDepBuilds: false` from pnpm-workspace.yaml. `blockExoticSubdeps: false` lets a dependency install another package from git. Remove it when no dependency does that. These files still run yarn or npm: .github/workflows/ci.yml, README.md."
+    links:
+      - "https://pnpm.io/motivation"
+      - "https://pnpm.io/cli/import"
+      - "https://pnpm.io/cli/approve-builds"
