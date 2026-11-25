@@ -14,7 +14,6 @@ module.exports = async function(defaults) {
   } = await import("@embroider/vite");
 
   let options = {
-    inlineContent: {},
     minifyJS: {},
     minifyCSS: {},
     fingerprint: {
@@ -24,21 +23,6 @@ module.exports = async function(defaults) {
       extensions: ['js'],
     },
   };
-
-  if (parseFlag('FAVICON', true)) {
-    options.inlineContent['snippets/favicon'] = 'app/snippets/favicon.html';
-  }
-
-  if (parseFlag('EXTERNAL_FONTS', true)) {
-    options.inlineContent['snippets/external-fonts'] =
-      'app/snippets/external-fonts.html';
-  }
-
-  if (parseFlag('REPORT_ERRORS', env === 'production')) {
-    options.inlineContent['snippets/trackjs'] = 'app/snippets/trackjs.html';
-  }
-
-  options.inlineContent['snippets/perf-utils'] = 'app/snippets/perf-utils.js';
 
   options.minifyJS.enabled = parseFlag('MINIFY_JS', env === 'production');
 

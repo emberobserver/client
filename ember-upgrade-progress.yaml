@@ -102,7 +102,7 @@ entries:
     links:
       - "https://github.com/mike-north/ember-cli-document-title-northm"
   - id: "ember-cli-inline-content"
-    status: "v1-addon"
-    note: "The latest release, 0.4.1, is a v1 addon. Replace it, or help to convert it to a v2 addon."
+    status: "removed"
+    note: "The HTML files hold the snippets of ember-cli-inline-content now. These depended on a flag or the environment, so they are not in the HTML: snippets/trackjs (app/snippets/trackjs.html, if parseFlag('REPORT_ERRORS', env === 'production')). Add each one that you need, for example with a Vite plugin that uses transformIndexHtml."
     links:
-      - "https://github.com/gdub22/ember-cli-inline-content"
+      - "https://vite.dev/guide/api-plugin#transformindexhtml"
