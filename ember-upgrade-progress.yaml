@@ -91,3 +91,18 @@ entries:
   - id: "emberx-select"
     status: "moved into the app"
     note: "emberx-select is a v1 addon with no v2 release, so its code is in the app now, where ember-cli merged it. The code is now in app/components/x-option.js, app/components/x-select.js, app/components/x-select.hbs, tests/helpers/x-select.js."
+  - id: "@ember/jquery"
+    status: "v1-addon"
+    note: "The latest release, 2.0.0, is a v1 addon. Replace it, or help to convert it to a v2 addon."
+    links:
+      - "https://github.com/emberjs/ember-jquery"
+  - id: "ember-cli-document-title-northm"
+    status: "v1-addon"
+    note: "The latest release, 1.0.3, is a v1 addon. Replace it, or help to convert it to a v2 addon."
+    links:
+      - "https://github.com/mike-north/ember-cli-document-title-northm"
+  - id: "ember-cli-inline-content"
+    status: "v1-addon"
+    note: "The latest release, 0.4.1, is a v1 addon. Replace it, or help to convert it to a v2 addon."
+    links:
+      - "https://github.com/gdub22/ember-cli-inline-content"
