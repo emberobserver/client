@@ -5,6 +5,8 @@ import Controller from '@ember/controller';
 
 @classic
 export default class CorrectController extends Controller {
+  @service router;
+
   @service
   api;
 
@@ -21,12 +23,12 @@ export default class CorrectController extends Controller {
         },
       })
       .then(() => {
-        this.transitionToRoute('addons.show', this.get('model.name'));
+        this.router.transitionTo('addons.show', this.get('model.name'));
       });
   }
 
   @action
   cancel() {
-    this.transitionToRoute('addons.show', this.get('model.name'));
+    this.router.transitionTo('addons.show', this.get('model.name'));
   }
 }

@@ -1,3 +1,4 @@
+import { asRecord } from 'ember-observer/utils/as-array';
 import {
   click,
   currentRouteName,
@@ -394,10 +395,10 @@ module('Acceptance: Addons', function (hooks) {
       otherAssets: otherAssetsJson,
     });
 
-    addon.latestAddonVersion = server.create('version', {
+    addon.latestAddonVersion = asRecord(server.create('version', {
       addon,
       addonSize,
-    });
+    }));
     addon.save();
 
     await visitAddon(addon);
@@ -415,9 +416,9 @@ module('Acceptance: Addons', function (hooks) {
 
   test('omits addon size section when no size data', async (assert) => {
     let addon = server.create('addon');
-    addon.latestAddonVersion = server.create('version', {
+    addon.latestAddonVersion = asRecord(server.create('version', {
       addon,
-    });
+    }));
     addon.save();
 
     await visitAddon(addon);
@@ -879,9 +880,9 @@ module('Acceptance: Addons', function (hooks) {
 
   module('Scoped addons', function (hooks) {
     hooks.beforeEach(function () {
-      this.addon = server.create('addon', {
+      this.addon = asRecord(server.create('addon', {
         name: '@foo-bar/test-addon',
-      });
+      }));
     });
 
     test('can view a scoped addon with a / in the URL', async function (assert) {

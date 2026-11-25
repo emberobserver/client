@@ -9,6 +9,6 @@ export default class Maintainer extends Model {
   @attr('string')
   gravatar;
 
-  @hasMany('addon', { async: true })
+  @hasMany('addon', { async: true, inverse: 'maintainers' })
   addons;
 }

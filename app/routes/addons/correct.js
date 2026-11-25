@@ -1,3 +1,4 @@
+import asArray from 'ember-observer/utils/as-array';
 import classic from 'ember-classic-decorator';
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
@@ -15,7 +16,7 @@ export default class CorrectRoute extends Route {
         { reload: true }
       )
       .then((addons) => {
-        return addons.get('firstObject');
+        return asArray(addons)[0];
       });
   }
 }

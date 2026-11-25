@@ -10,10 +10,10 @@ export default class AddonDependency extends Model {
   @attr('string')
   dependencyType;
 
-  @belongsTo('version')
+  @belongsTo('version', { async: true, inverse: 'dependencies' })
   dependentVersion;
 
-  @belongsTo('addon')
+  @belongsTo('addon', { async: true, inverse: null })
   packageAddon;
 
   @equal('dependencyType', 'dependencies')

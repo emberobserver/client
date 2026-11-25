@@ -1,3 +1,4 @@
+import asArray from 'ember-observer/utils/as-array';
 import classic from 'ember-classic-decorator';
 import Service, { inject as service } from '@ember/service';
 import { task } from 'ember-concurrency';
@@ -35,14 +36,13 @@ export default class CodeSearchService extends Service {
         page: { limit: 10000 },
       });
     }
-    return results
+    return asArray(results
       .map((result) => {
         let addon = addons.find((a) => a.get('id') === result.addon);
         if (addon) {
           return { addon, count: result.count, files: result.files };
         }
-      })
-      .compact();
+      })).filter((item) => item != null);
   })
   addons;
 

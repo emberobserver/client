@@ -1,3 +1,6 @@
+import { compare } from '@ember/utils';
+import asArray from 'ember-observer/utils/as-array';
+import { get } from '@ember/object';
 import classic from 'ember-classic-decorator';
 import { action, computed } from '@ember/object';
 import { inject as service } from '@ember/service';
@@ -21,8 +24,8 @@ export default class AddonVersionList extends Component {
 
   @computed('emberVersions.versions.[]', 'showingVersions.lastObject.released')
   get emberVersionDataAfterOldestShowingAddonVersion() {
-    let oldestVersionDate = this.get('showingVersions.lastObject.released');
-    return this.get('emberVersions.versions').filter(
+    let oldestVersionDate = asArray(get(this, 'showingVersions')).slice(-1)[0]?.released;
+    return asArray(this.get('emberVersions.versions')).filter(
       (version) => version.released > oldestVersionDate
     );
   }
@@ -38,7 +41,7 @@ export default class AddonVersionList extends Component {
     versions = versions.concat(
       this.showingVersions.map((version) => ({ isAddon: true, version }))
     );
-    return versions.sortBy('version.released').reverse();
+    return asArray(versions).slice().sort((a, b) => compare(get(a, 'version.released'), get(b, 'version.released'))).reverse();
   }
 
   @gt('versions.length', 10)

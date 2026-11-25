@@ -25,10 +25,10 @@ export default class TestResult extends Model {
   @attr('string')
   semverString;
 
-  @belongsTo('version')
+  @belongsTo('version', { async: true, inverse: null })
   version;
 
-  @hasMany('emberVersionCompatibility')
+  @hasMany('emberVersionCompatibility', { async: true, inverse: null })
   emberVersionCompatibilities;
 
   @readOnly('createdAt')

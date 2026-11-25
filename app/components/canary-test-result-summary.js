@@ -1,3 +1,5 @@
+import asArray from 'ember-observer/utils/as-array';
+import { get } from '@ember/object';
 import classic from 'ember-classic-decorator';
 import { computed } from '@ember/object';
 import { readOnly, filter } from '@ember/object/computed';
@@ -25,7 +27,7 @@ export default class CanaryTestResultSummary extends Component {
   @filter('testResults', (testResult) => {
     return (
       testResult.get('succeeded') &&
-      !testResult.get('emberVersionCompatibilities.firstObject.compatible')
+      !asArray(get(testResult, 'emberVersionCompatibilities'))[0]?.compatible
     );
   })
   failedBuilds;
@@ -33,7 +35,7 @@ export default class CanaryTestResultSummary extends Component {
   @filter('testResults', (testResult) => {
     return (
       testResult.get('succeeded') &&
-      testResult.get('emberVersionCompatibilities.firstObject.compatible')
+      asArray(get(testResult, 'emberVersionCompatibilities'))[0]?.compatible
     );
   })
   passedBuilds;

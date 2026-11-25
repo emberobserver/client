@@ -6,7 +6,7 @@ export default class extends Model {
   @attr('date') createdAt;
   @attr('string') output;
 
-  @belongsTo('version') version;
+  @belongsTo('version', { async: true, inverse: null }) version;
 
   get testsRunAt() {
     return this.createdAt;

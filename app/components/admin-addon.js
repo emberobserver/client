@@ -1,3 +1,4 @@
+import { asRecord } from 'ember-observer/utils/as-array';
 import classic from 'ember-classic-decorator';
 import { tagName } from '@ember-decorators/component';
 import { action } from '@ember/object';
@@ -51,8 +52,8 @@ export default class AdminAddon extends Component {
     questions.forEach(function (question) {
       newReview.set(question.fieldName, latestReview.get(question.fieldName));
     });
-    newReview.set('review', latestReview.get('review'));
-    newReview.set('version', this.get('addon.latestAddonVersion'));
+    newReview.set('review', asRecord(latestReview.get('review')));
+    newReview.set('version', asRecord(this.get('addon.latestAddonVersion')));
 
     try {
       yield newReview.save();

@@ -44,7 +44,7 @@ export default class AddonSize extends Model {
   @attr()
   otherAssets;
 
-  @belongsTo('version')
+  @belongsTo('version', { async: true, inverse: 'addonSize' })
   addonVersion;
 
   @computed('otherJsSize', 'otherCssSize')

@@ -50,7 +50,7 @@ export default class Addon extends Model {
   @attr('number')
   ranking;
 
-  @hasMany('github-user')
+  @hasMany('github-user', { async: true, inverse: null })
   githubUsers;
 
   @attr('number')
@@ -86,28 +86,28 @@ export default class Addon extends Model {
   @attr('boolean')
   hasBeenReviewed;
 
-  @belongsTo('github-stats', { async: true })
+  @belongsTo('github-stats', { async: true, inverse: 'addon' })
   githubStats;
 
-  @belongsTo('version', { async: true })
+  @belongsTo('version', { async: true, inverse: null })
   latestAddonVersion;
 
-  @belongsTo('review', { async: true })
+  @belongsTo('review', { async: true, inverse: null })
   latestReview;
 
-  @hasMany('category', { async: true })
+  @hasMany('category', { async: true, inverse: 'addons' })
   categories;
 
-  @hasMany('keyword', { async: true })
+  @hasMany('keyword', { async: true, inverse: 'addons' })
   keywords;
 
-  @hasMany('version', { async: true })
+  @hasMany('version', { async: true, inverse: 'addon' })
   versions;
 
-  @hasMany('maintainer', { async: true })
+  @hasMany('maintainer', { async: true, inverse: 'addons' })
   maintainers;
 
-  @belongsTo('readme', { async: true })
+  @belongsTo('readme', { async: true, inverse: null })
   readme;
 
   @gt('githubUsers.length', 1)

@@ -1,3 +1,5 @@
+import { asRecord } from 'ember-observer/utils/as-array';
+import asArray from 'ember-observer/utils/as-array';
 import classic from 'ember-classic-decorator';
 import { inject as service } from '@ember/service';
 import { hash } from 'rsvp';
@@ -24,7 +26,7 @@ export default class ShowRoute extends Route {
         { reload: true }
       )
       .then((addons) => {
-        return addons.get('firstObject');
+        return asArray(addons)[0];
       });
 
     let latestTestResult = this.store
@@ -35,7 +37,7 @@ export default class ShowRoute extends Route {
         include: 'ember-version-compatibilities,version',
       })
       .then((results) => {
-        return results.get('firstObject');
+        return asArray(results)[0];
       });
 
     let data = {
@@ -44,9 +46,9 @@ export default class ShowRoute extends Route {
     };
 
     if (this.get('session.isAuthenticated')) {
-      data.categories = this.store.findAll('category', {
+      data.categories = asRecord(this.store.findAll('category', {
         include: 'subcategories',
-      });
+      }));
     }
 
     return hash(data);

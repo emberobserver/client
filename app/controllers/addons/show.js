@@ -1,3 +1,6 @@
+import { get } from '@ember/object';
+import { compare } from '@ember/utils';
+import asArray from 'ember-observer/utils/as-array';
 import classic from 'ember-classic-decorator';
 import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
@@ -19,7 +22,7 @@ export default class ShowController extends Controller {
 
   @computed('addon.versions')
   get sortedAddonVersions() {
-    return (this.get('addon.versions') || []).sortBy('released').reverse();
+    return asArray(this.get('addon.versions') || []).slice().sort((a, b) => compare(get(a, 'released'), get(b, 'released'))).reverse();
   }
 
   @readOnly('addon.latestAddonVersion')

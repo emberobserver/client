@@ -1,3 +1,5 @@
+import asArray from 'ember-observer/utils/as-array';
+import { get } from '@ember/object';
 import classic from 'ember-classic-decorator';
 import { tagName } from '@ember-decorators/component';
 import { computed } from '@ember/object';
@@ -13,9 +15,7 @@ export default class TestResultStatus extends Component {
   get statusText() {
     if (this.get('testResult.succeeded')) {
       if (
-        this.get(
-          'testResult.emberVersionCompatibilities.firstObject.compatible'
-        )
+        asArray(get(this, 'testResult.emberVersionCompatibilities'))[0]?.compatible
       ) {
         return 'Passed';
       } else {

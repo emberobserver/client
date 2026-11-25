@@ -1,3 +1,4 @@
+import asArray from 'ember-observer/utils/as-array';
 import classic from 'ember-classic-decorator';
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
@@ -10,7 +11,7 @@ export default class ShowRoute extends Route {
     return this.store
       .query('maintainer', { filter: { name: params.name } })
       .then((maintainers) => {
-        return maintainers.get('firstObject');
+        return asArray(maintainers)[0];
       });
   }
 

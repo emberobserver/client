@@ -1,7 +1,8 @@
 import classic from 'ember-classic-decorator';
 import { tagName } from '@ember-decorators/component';
-import { sort } from '@ember/object/computed';
 import Component from '@ember/component';
+import { get } from '@ember/object';
+import { sortBy } from 'ember-observer/utils/as-array';
 
 @classic
 @tagName('')
@@ -10,6 +11,7 @@ export default class CategoryChooser extends Component {
   addon = null;
   categorySorting = ['displayName:asc'];
 
-  @sort('categories', 'categorySorting')
-  sortedCategories;
+  get sortedCategories() {
+    return sortBy(get(this, 'categories'), get(this, 'categorySorting'));
+  }
 }

@@ -15,15 +15,15 @@ export default class Version extends Model {
   @attr('string')
   emberCliVersion;
 
-  @belongsTo('addon', { inverse: 'versions' })
+  @belongsTo('addon', { inverse: 'versions', async: true })
   addon;
 
-  @belongsTo('review')
+  @belongsTo('review', { async: true, inverse: 'version' })
   review;
 
-  @belongsTo('addon-size')
+  @belongsTo('addon-size', { async: true, inverse: 'addonVersion' })
   addonSize;
 
-  @hasMany('addon-dependency')
+  @hasMany('addon-dependency', { async: true, inverse: 'dependentVersion' })
   dependencies;
 }

@@ -1,13 +1,15 @@
+import { compare } from '@ember/utils';
 import classic from 'ember-classic-decorator';
 import { classNames } from '@ember-decorators/component';
-import { action, computed } from '@ember/object';
+import { action, computed, get } from '@ember/object';
 import { inject as service } from '@ember/service';
-import { readOnly, notEmpty, sum, mapBy } from '@ember/object/computed';
+import { readOnly, notEmpty } from '@ember/object/computed';
 import { scheduleOnce } from '@ember/runloop';
 import Component from '@ember/component';
 import { isEmpty, isBlank } from '@ember/utils';
 import { task, timeout } from 'ember-concurrency';
 import config from 'ember-observer/config/environment';
+import asArray from 'ember-observer/utils/as-array';
 
 const PageSize = config.codeSearchPageSize;
 
@@ -31,17 +33,21 @@ export default class CodeSearch extends Component {
   page = 1;
   focusNode = '#code-search-input';
 
-  @mapBy('results', 'count')
-  usageCounts;
+  get usageCounts() {
+    return asArray(get(this, 'results')).map((item) => item.count);
+  }
 
-  @sum('usageCounts')
-  totalUsageCount;
+  get totalUsageCount() {
+    return asArray(get(this, 'usageCounts')).reduce((total, value) => total + value, 0);
+  }
 
-  @mapBy('filteredResults', 'count')
-  filteredUsageCounts;
+  get filteredUsageCounts() {
+    return asArray(get(this, 'filteredResults')).map((item) => item.count);
+  }
 
-  @sum('filteredUsageCounts')
-  totalFilteredUsageCount;
+  get totalFilteredUsageCount() {
+    return asArray(get(this, 'filteredUsageCounts')).reduce((total, value) => total + value, 0);
+  }
 
   @notEmpty('fileFilter')
   isFilterApplied;
@@ -187,19 +193,19 @@ function sortResults(results, sort, sortAscending) {
   let sorted;
 
   if (sort === 'usages') {
-    sorted = results.sortBy('count');
+    sorted = asArray(results).slice().sort((a, b) => compare(get(a, 'count'), get(b, 'count')));
   }
 
   if (sort === 'name') {
-    sorted = results.sortBy('addon.name');
+    sorted = asArray(results).slice().sort((a, b) => compare(get(a, 'addon.name'), get(b, 'addon.name')));
   }
 
   if (sort === 'score') {
-    sorted = results.sortBy('addon.score');
+    sorted = asArray(results).slice().sort((a, b) => compare(get(a, 'addon.score'), get(b, 'addon.score')));
   }
 
   if (sort === 'updated') {
-    sorted = results.sortBy('addon.latestVersionDate');
+    sorted = asArray(results).slice().sort((a, b) => compare(get(a, 'addon.latestVersionDate'), get(b, 'addon.latestVersionDate')));
   }
 
   if (!sortAscending) {

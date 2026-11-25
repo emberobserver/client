@@ -1,7 +1,8 @@
 import classic from 'ember-classic-decorator';
 import { classNames, tagName } from '@ember-decorators/component';
-import { sort } from '@ember/object/computed';
 import Component from '@ember/component';
+import { get } from '@ember/object';
+import { sortBy } from 'ember-observer/utils/as-array';
 
 @classic
 @tagName('span')
@@ -9,6 +10,7 @@ import Component from '@ember/component';
 export default class InlineCategoryList extends Component {
   categorySorting = ['totalAddonCount:desc'];
 
-  @sort('categories', 'categorySorting')
-  categoriesSortedByAddonCount;
+  get categoriesSortedByAddonCount() {
+    return sortBy(get(this, 'categories'), get(this, 'categorySorting'));
+  }
 }

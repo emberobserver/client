@@ -1,3 +1,6 @@
+import { get } from '@ember/object';
+import { compare } from '@ember/utils';
+import asArray from 'ember-observer/utils/as-array';
 import classic from 'ember-classic-decorator';
 import Service, { inject as service } from '@ember/service';
 import { task } from 'ember-concurrency';
@@ -14,7 +17,7 @@ export default class SearchService extends Service {
     if (!this._autocompleteData) {
       let data = yield this.api.request('/autocomplete_data');
       this.set('_autocompleteData', {
-        addons: data.addons.sortBy('score').reverse(),
+        addons: asArray(data.addons).slice().sort((a, b) => compare(get(a, 'score'), get(b, 'score'))).reverse(),
         categories: data.categories,
         maintainers: data.maintainers,
       });
@@ -30,10 +33,8 @@ export default class SearchService extends Service {
       'description',
       possibleAddons
     );
-    let addonIds = []
-      .concat(addonResultsMatchingOnName, addonResultsMatchingOnDescription)
-      .uniq()
-      .mapBy('id');
+    let addonIds = Array.from(new Set(asArray([]
+      .concat(addonResultsMatchingOnName, addonResultsMatchingOnDescription)))).map((item) => get(item, 'id'));
     return {
       matchIds: addonIds,
       matchCount: addonIds.length,
@@ -41,9 +42,7 @@ export default class SearchService extends Service {
   }
 
   _searchCategories(query, possibleCategories) {
-    let categoryIds = findMatches(query, 'name', possibleCategories).mapBy(
-      'id'
-    );
+    let categoryIds = asArray(findMatches(query, 'name', possibleCategories)).map((item) => get(item, 'id'));
     return {
       matchIds: categoryIds,
       matchCount: categoryIds.length,
@@ -51,9 +50,7 @@ export default class SearchService extends Service {
   }
 
   _searchMaintainers(query, possibleMaintainers) {
-    let maintainerIds = findMatches(query, 'name', possibleMaintainers).mapBy(
-      'id'
-    );
+    let maintainerIds = asArray(findMatches(query, 'name', possibleMaintainers)).map((item) => get(item, 'id'));
     return {
       matchIds: maintainerIds,
       matchCount: maintainerIds.length,
@@ -84,7 +81,7 @@ export default class SearchService extends Service {
     let data = yield this._fetchAutocompleteData.perform();
     let trimmed = query.trim();
     let addonResultsMatchingOnName = findAddonNameMatches(trimmed, data.addons);
-    return addonResultsMatchingOnName.mapBy('name');
+    return asArray(addonResultsMatchingOnName).map((item) => get(item, 'name'));
   })
   searchAddonNames;
 
@@ -128,7 +125,7 @@ function findAddonNameMatches(searchTerm, addons) {
   let query = escapeForRegex(stripEmberPrefixes(searchTerm));
   let matcher = new RegExp(query, 'i');
 
-  let matches = addons
+  let matches = asArray(addons
     .map(function (item) {
       let trimmedName = stripEmberPrefixes(item.name);
       let match = matcher.exec(trimmedName);
@@ -136,8 +133,7 @@ function findAddonNameMatches(searchTerm, addons) {
         return { item, match };
       }
       return null;
-    })
-    .compact();
+    })).filter((item) => item != null);
 
   let sortByMatchIndexThenScoreThenAddonName = function (a, b) {
     if (a.match.index < b.match.index) {
@@ -164,7 +160,7 @@ function findAddonNameMatches(searchTerm, addons) {
     return 0;
   };
 
-  return matches.sort(sortByMatchIndexThenScoreThenAddonName).mapBy('item');
+  return asArray(matches.sort(sortByMatchIndexThenScoreThenAddonName)).map((element) => get(element, 'item'));
 }
 
 function stripEmberPrefixes(str) {

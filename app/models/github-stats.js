@@ -21,6 +21,6 @@ export default class GithubStats extends Model {
   @attr('boolean')
   committedToRecently;
 
-  @belongsTo('addon')
+  @belongsTo('addon', { async: true, inverse: 'githubStats' })
   addon;
 }

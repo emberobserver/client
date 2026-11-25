@@ -1,9 +1,12 @@
+import asArray from 'ember-observer/utils/as-array';
 import classic from 'ember-classic-decorator';
 import { inject } from '@ember/service';
 import Route from '@ember/routing/route';
 
 @classic
 export default class ReviewRoute extends Route {
+  @inject router;
+
   queryParams = {
     list: {
       refreshModel: true,
@@ -21,16 +24,15 @@ export default class ReviewRoute extends Route {
 
   redirect(model, transition) {
     if (transition.targetName === 'admin.review.index') {
-      if (model && model.addons.get('length')) {
-        return this.replaceWith(
+      if (model && asArray(model.addons).length) {
+        return this.router.replaceWith(
           'admin.review.addon',
-          model.addons.get('firstObject.name')
+          asArray(model.addons)[0]?.name
         );
       }
 
       if (!transition.to.queryParams.list) {
-        transition.abort();
-        return this.replaceWith('admin.review.index', {
+        return this.router.replaceWith('admin.review.index', {
           queryParams: { list: 'needing-review' },
         });
       }

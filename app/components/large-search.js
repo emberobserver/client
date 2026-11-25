@@ -1,3 +1,4 @@
+import asArray from 'ember-observer/utils/as-array';
 import classic from 'ember-classic-decorator';
 import { action, computed } from '@ember/object';
 import { inject as service } from '@ember/service';
@@ -163,7 +164,7 @@ export default class LargeSearch extends Component {
     let ids = results.matchIds.slice((page - 1) * PageSize, page * PageSize);
     return this.store
       .query('maintainer', { filter: { id: ids.join(',') }, sort: 'name' })
-      .then((maintainers) => maintainers.toArray());
+      .then((maintainers) => asArray(maintainers).slice());
   }
 
   _fetchPageOfCategoryResults(results, page) {
@@ -173,7 +174,7 @@ export default class LargeSearch extends Component {
     let ids = results.matchIds.slice((page - 1) * PageSize, page * PageSize);
     return this.store
       .query('category', { filter: { id: ids.join(',') }, sort: 'name' })
-      .then((categories) => categories.toArray());
+      .then((categories) => asArray(categories).slice());
   }
 
   _fetchPageOfAddonResults(results, page) {
@@ -187,7 +188,7 @@ export default class LargeSearch extends Component {
         sort: '-score',
         include: 'categories',
       })
-      .then((addons) => addons.toArray());
+      .then((addons) => asArray(addons).slice());
   }
 
   @computed('_results', 'query', 'queryIsValid')

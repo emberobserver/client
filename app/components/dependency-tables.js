@@ -1,3 +1,6 @@
+import { get } from '@ember/object';
+import { compare } from '@ember/utils';
+import asArray from 'ember-observer/utils/as-array';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import Component from '@glimmer/component';
@@ -38,14 +41,12 @@ export default class DependencyTables extends Component {
       })
       .then((results) => {
         return {
-          dependencies: results
+          dependencies: asArray(results
             .filter(dependencies)
-            .map((dep) => dependentObject(dep))
-            .sortBy('packageName'),
-          devDependencies: results
+            .map((dep) => dependentObject(dep))).slice().sort((a, b) => compare(get(a, 'packageName'), get(b, 'packageName'))),
+          devDependencies: asArray(results
             .filter(devDependencies)
-            .map((dep) => dependentObject(dep))
-            .sortBy('packageName'),
+            .map((dep) => dependentObject(dep))).slice().sort((a, b) => compare(get(a, 'packageName'), get(b, 'packageName'))),
         };
       });
   }

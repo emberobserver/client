@@ -1,3 +1,5 @@
+import { get } from '@ember/object';
+import asArray from 'ember-observer/utils/as-array';
 import classic from 'ember-classic-decorator';
 import { hash } from 'rsvp';
 import Route from '@ember/routing/route';
@@ -11,7 +13,7 @@ export default class ShowRoute extends Route {
 
   model(params) {
     return this.modelFor('application').categories.then(() => {
-      let category = this.store.peekAll('category').findBy('slug', params.slug);
+      let category = asArray(this.store.peekAll('category')).find((item) => get(item, 'slug') === params.slug);
       if (!category) {
         throw new Error(`no such category ${params.slug}`);
       }

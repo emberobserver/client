@@ -1,3 +1,5 @@
+import { get } from '@ember/object';
+import asArray from 'ember-observer/utils/as-array';
 import {
   click,
   fillIn,
@@ -24,7 +26,7 @@ module('Acceptance: Index', function (hooks) {
       addonCount: 4,
     });
 
-    category.update({ addonIds: addons.mapBy('id') });
+    category.update({ addonIds: asArray(addons).map((item) => get(item, 'id')) });
 
     let addonA = server.create('addon');
 

@@ -1,3 +1,4 @@
+import asArray from 'ember-observer/utils/as-array';
 import classic from 'ember-classic-decorator';
 import Route from '@ember/routing/route';
 import { hash } from 'rsvp';
@@ -23,7 +24,7 @@ export default class AddonRoute extends Route {
         { reload: true }
       )
       .then((addons) => {
-        return addons.get('firstObject');
+        return asArray(addons)[0];
       });
 
     let data = {

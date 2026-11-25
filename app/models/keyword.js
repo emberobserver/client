@@ -6,6 +6,6 @@ export default class Keyword extends Model {
   @attr('string')
   keyword;
 
-  @hasMany('addon')
+  @hasMany('addon', { async: true, inverse: 'keywords' })
   addons;
 }

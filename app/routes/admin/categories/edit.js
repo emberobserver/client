@@ -1,3 +1,5 @@
+import { get } from '@ember/object';
+import asArray from 'ember-observer/utils/as-array';
 import classic from 'ember-classic-decorator';
 import { hash } from 'rsvp';
 import Route from '@ember/routing/route';
@@ -11,7 +13,7 @@ export default class EditRoute extends Route {
     let categories = this.modelFor('admin.categories');
     return hash({
       categories,
-      category: this.store.peekAll('category').findBy('slug', params.slug),
+      category: asArray(this.store.peekAll('category')).find((item) => get(item, 'slug') === params.slug),
     });
   }
 }

@@ -1,3 +1,5 @@
+import asArray from 'ember-observer/utils/as-array';
+import { get } from '@ember/object';
 import classic from 'ember-classic-decorator';
 import { tagName } from '@ember-decorators/component';
 import { action, computed } from '@ember/object';
@@ -11,7 +13,7 @@ export default class EmberVersionCompatibility extends Component {
 
   @computed('testResult.emberVersionCompatibilities.@each.emberVersion')
   get versionCompatibilitiesForReleasedVersions() {
-    return this.get('testResult.emberVersionCompatibilities').filter(
+    return asArray(this.get('testResult.emberVersionCompatibilities')).filter(
       (versionCompatibility) =>
         !versionCompatibility.get('emberVersion').match(/(beta|canary)/)
     );
@@ -19,8 +21,7 @@ export default class EmberVersionCompatibility extends Component {
 
   @computed('versionCompatibilitiesForReleasedVersions.@each.emberVersion')
   get sortedVersionCompatibilities() {
-    return this.versionCompatibilitiesForReleasedVersions
-      .toArray()
+    return asArray(this.versionCompatibilitiesForReleasedVersions).slice()
       .sort(sortByVersion);
   }
 
@@ -37,12 +38,8 @@ export default class EmberVersionCompatibility extends Component {
     'sortedVersionCompatibilities.lastObject.emberVersion'
   )
   get compatibilitySemverString() {
-    let earliestVersion = this.get(
-      'sortedVersionCompatibilities.lastObject.emberVersion'
-    );
-    let latestVersion = this.get(
-      'sortedVersionCompatibilities.firstObject.emberVersion'
-    );
+    let earliestVersion = asArray(get(this, 'sortedVersionCompatibilities')).slice(-1)[0]?.emberVersion;
+    let latestVersion = asArray(get(this, 'sortedVersionCompatibilities'))[0]?.emberVersion;
 
     return `>=${earliestVersion} <=${latestVersion}`;
   }

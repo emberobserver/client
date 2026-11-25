@@ -6,9 +6,9 @@ export default class ScoreCalculation extends Model {
   @attr()
   info;
 
-  @belongsTo()
+  @belongsTo('addon', { async: true, inverse: null })
   addon;
 
-  @belongsTo()
+  @belongsTo('addon-version', { async: true, inverse: null })
   addonVersion;
 }

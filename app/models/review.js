@@ -28,7 +28,7 @@ export default class Review extends Model {
   @attr('number')
   hasBuild;
 
-  @belongsTo('version')
+  @belongsTo('version', { async: true, inverse: 'review' })
   version;
 
   @alias('version.released')

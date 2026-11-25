@@ -4,11 +4,13 @@ import { service } from '@ember/service';
 
 @classic
 export default class AdminRoute extends Route {
+  @service router;
+
   @service session;
 
   beforeModel() {
     if (!this.get('session.isAuthenticated')) {
-      this.transitionTo('index');
+      this.router.transitionTo('index');
     }
   }
 

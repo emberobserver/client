@@ -1,3 +1,4 @@
+import asArray from 'ember-observer/utils/as-array';
 import classic from 'ember-classic-decorator';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
@@ -21,7 +22,7 @@ export default class ScoreDetail extends Component {
     let calculationResult = yield this.store.query('score-calculation', {
       filter: { addonId: this.addon.get('id'), latest: true },
     });
-    return calculationResult.get('firstObject');
+    return asArray(calculationResult)[0];
   })
   fetchScoreCalculation;
 

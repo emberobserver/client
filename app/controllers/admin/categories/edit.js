@@ -1,20 +1,15 @@
 import classic from 'ember-classic-decorator';
-import { action } from '@ember/object';
-import {
-  filterBy,
-  empty,
-  gt,
-  filter,
-  sort,
-  oneWay,
-  alias,
-} from '@ember/object/computed';
+import { action, get } from '@ember/object';
+import { empty, gt, filter, oneWay, alias } from '@ember/object/computed';
 import { Promise as EmberPromise } from 'rsvp';
 import Controller from '@ember/controller';
 import { service } from '@ember/service';
+import asArray, { sortBy } from 'ember-observer/utils/as-array';
 
 @classic
 export default class EditController extends Controller {
+  @service router;
+
   @service store;
 
   categoryNameSorting = ['name:asc'];
@@ -38,16 +33,18 @@ export default class EditController extends Controller {
   @oneWay('category.position')
   categoryPosition;
 
-  @sort('category.subcategories', 'categoryPositionSorting')
-  subcategories;
+  get subcategories() {
+    return sortBy(get(this, 'category.subcategories'), get(this, 'categoryPositionSorting'));
+  }
 
   @filter('categories', function (item) {
     return item.get('parent.id') === this.get('category.parent.id');
   })
   siblingCategories;
 
-  @sort('siblingCategories', 'categoryPositionSorting')
-  sortedSiblingCategories;
+  get sortedSiblingCategories() {
+    return sortBy(get(this, 'siblingCategories'), get(this, 'categoryPositionSorting'));
+  }
 
   @gt('siblingCategories.length', 1)
   hasSiblingCategories;
@@ -55,11 +52,13 @@ export default class EditController extends Controller {
   @empty('category.parent')
   isTopLevelCategory;
 
-  @filterBy('categories', 'parent', null)
-  topLevelCategories;
+  get topLevelCategories() {
+    return asArray(get(this, 'categories')).filter((item) => item.parent === null);
+  }
 
-  @sort('topLevelCategories', 'categoryNameSorting')
-  alphabeticTopLevelCategories;
+  get alphabeticTopLevelCategories() {
+    return sortBy(get(this, 'topLevelCategories'), get(this, 'categoryNameSorting'));
+  }
 
   newCategoryName = '';
   newCategoryDescription = '';
@@ -76,7 +75,7 @@ export default class EditController extends Controller {
     newCategory
       .save()
       .then(() => {
-        this.transitionToRoute('admin.categories.index');
+        this.router.transitionTo('admin.categories.index');
       })
       .catch((message) => {
         newCategory.deleteRecord();
@@ -118,7 +117,7 @@ export default class EditController extends Controller {
         return category.save();
       })
       .then(() => {
-        this.transitionToRoute('admin.categories.index');
+        this.router.transitionTo('admin.categories.index');
       })
       .catch((message) => {
         category.rollbackAttributes();

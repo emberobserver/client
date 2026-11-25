@@ -1,3 +1,4 @@
+import { asRecord } from 'ember-observer/utils/as-array';
 /* eslint-disable ember/no-component-lifecycle-hooks */
 import classic from 'ember-classic-decorator';
 import { inject } from '@ember/service';
@@ -31,8 +32,8 @@ export default class AdminAddonReviewForm extends Component {
 
   @(task(function* () {
     let newReview = this.store.createRecord('review', this.reviewProperties);
-    newReview.set('review', this.reviewText);
-    newReview.set('version', this.get('addon.latestAddonVersion'));
+    newReview.set('review', asRecord(this.reviewText));
+    newReview.set('version', asRecord(this.get('addon.latestAddonVersion')));
     try {
       yield newReview.save();
       this.addon.set('latestReview', newReview);
