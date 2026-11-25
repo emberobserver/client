@@ -1,6 +1,6 @@
 $ember-power-select-multiple-selection-background-color: $light-gray;
 $ember-power-select-multiple-option-border-color: $dark-blue-gray;
-$ember-power-select-multiple-option-padding: 4px $base-spacing/2;
+$ember-power-select-multiple-option-padding: 4px $base-spacing*0.5;
 $ember-power-select-highlighted-color: $medium-gray;
 $ember-power-select-selected-background: $blue;
 $ember-power-select-multiple-selection-color: $medium-gray;
@@ -21,7 +21,7 @@ $ember-power-select-multiple-selection-color: $medium-gray;
     .addon-count {
       margin-top: 1em;
       margin-bottom: 0.5em;
-      margin-left: $base-spacing/2;
+      margin-left: $base-spacing*0.5;
     }
 
     .review-addon-list {
@@ -36,10 +36,10 @@ $ember-power-select-multiple-selection-color: $medium-gray;
       }
 
       li {
-        padding: $base-spacing/2 10px;
+        padding: $base-spacing*0.5 10px;
 
         .score {
-          margin-right: $base-spacing/2;
+          margin-right: $base-spacing*0.5;
         }
 
         .review-addon-list-name {
@@ -69,7 +69,7 @@ $ember-power-select-multiple-selection-color: $medium-gray;
         }
 
         .component-toggle-switch {
-          margin-top: $base-spacing/2;
+          margin-top: $base-spacing*0.5;
         }
 
         .hidden-toggle {
@@ -91,7 +91,7 @@ $ember-power-select-multiple-selection-color: $medium-gray;
         max-height: 10em;
 
         .component-toggle-switch {
-          margin-right: $base-spacing/2;
+          margin-right: $base-spacing*0.5;
           width: 15em;
         }
       }
@@ -196,7 +196,7 @@ $ember-power-select-multiple-selection-color: $medium-gray;
     .nav-previous-next {
       position: fixed;
       width: calc(100% - 33%);
-      padding: $base-spacing/2 $base-spacing;
+      padding: $base-spacing*0.5 $base-spacing;
       left: 33%;
       top: 0;
       z-index: 3;

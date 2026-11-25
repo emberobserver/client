@@ -64,7 +64,7 @@ $ember-power-select-highlighted-background: $light-gray;
 @import "ember-power-select";
 
 .ember-power-select-option {
-  padding: ($base-spacing / 4) ($base-spacing / 4);
+  padding: ($base-spacing * 0.25) ($base-spacing * 0.25);
   font-size: 1.25rem;
 }
 

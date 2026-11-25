@@ -1,9 +1,11 @@
+@use "sass:color";
+
 .addons-show {
 
   h1 {
     margin-top: 0;
     margin-bottom: .25em;
-    color: darken($blue, 5);
+    color: color.adjust($blue, $lightness: -5%, $space: hsl);
   }
 
   form {
@@ -204,19 +206,19 @@
 
   .score-detail {
     .score-component {
-      margin-bottom: $base-spacing/2;
+      margin-bottom: $base-spacing*0.5;
 
       .score-component-numbers {
         font-family: monospace;
         font-weight: bold;
-        margin-left: $base-spacing/2;
+        margin-left: $base-spacing*0.5;
 
         .score-component-value {
           display: inline-block;
           min-width: 3em;
           font-weight: bold;
           text-align: right;
-          margin-right: $base-spacing/2;
+          margin-right: $base-spacing*0.5;
 
           &.red {
             color: $low-color;

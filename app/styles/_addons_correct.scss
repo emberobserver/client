@@ -1,9 +1,11 @@
+@use "sass:color";
+
 .addons-correct {
 
   h1 {
     margin-top: 0;
     margin-bottom: .25em;
-    color: darken($blue, 5);
+    color: color.adjust($blue, $lightness: -5%, $space: hsl);
   }
 
   h2 {
@@ -20,7 +22,7 @@
     background-color: $background-color;
 
     &:hover {
-      background-color: darken($background-color, 20%);
+      background-color: color.adjust($background-color, $lightness: -20%, $space: hsl);
     }
   }
 }

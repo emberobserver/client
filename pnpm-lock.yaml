@@ -257,6 +257,18 @@ importers:
       '@warp-drive/core':
         specifier: ~5.8.2
         version: 5.8.2(@babel/core@7.29.13(supports-color@8.1.1))(@glint/template@1.11.1)(supports-color@8.1.1)
+      '@warp-drive/ember':
+        specifier: ~5.8.2
+        version: 5.8.2(@babel/core@7.29.13(supports-color@8.1.1))(@ember/test-waiters@4.1.2)(@glint/template@1.11.1)(supports-color@8.1.1)
+      '@warp-drive/json-api':
+        specifier: ~5.8.2
+        version: 5.8.2(@babel/core@7.29.13(supports-color@8.1.1))(@glint/template@1.11.1)(@warp-drive/core@5.8.2(@babel/core@7.29.13(supports-color@8.1.1))(@glint/template@1.11.1)(supports-color@8.1.1))(supports-color@8.1.1)
+      '@warp-drive/legacy':
+        specifier: ~5.8.2
+        version: 5.8.2(@babel/core@7.29.13(supports-color@8.1.1))(@glint/template@1.11.1)(@warp-drive/core@5.8.2(@babel/core@7.29.13(supports-color@8.1.1))(@glint/template@1.11.1)(supports-color@8.1.1))(@warp-drive/utilities@5.8.2(@babel/core@7.29.13(supports-color@8.1.1))(@glint/template@1.11.1)(@warp-drive/core@5.8.2(@babel/core@7.29.13(supports-color@8.1.1))(@glint/template@1.11.1)(supports-color@8.1.1))(supports-color@8.1.1))(supports-color@8.1.1)
+      '@warp-drive/utilities':
+        specifier: ~5.8.2
+        version: 5.8.2(@babel/core@7.29.13(supports-color@8.1.1))(@glint/template@1.11.1)(@warp-drive/core@5.8.2(@babel/core@7.29.13(supports-color@8.1.1))(@glint/template@1.11.1)(supports-color@8.1.1))(supports-color@8.1.1)
       babel-eslint:
         specifier: ^10.1.0
         version: 10.1.0(eslint@10.15.0(supports-color@8.1.1))(supports-color@8.1.1)

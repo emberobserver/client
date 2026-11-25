@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // Typography
 $open-sans: 'Open Sans', sans-serif;
 $sans-serif: 'Open Sans';
@@ -52,14 +54,14 @@ $accent-color: $coral;
 
 // Link Colors
 $base-link-color: $base-accent-color;
-$hover-link-color: darken($base-accent-color, 15);
+$hover-link-color: color.adjust($base-accent-color, $lightness: -15%, $space: hsl);
 $base-button-color: $accent-color;
 $hover-button-color: $dark-coral;
 
 // Flash Colors
 $alert-color: $dark-coral;
 $error-color: $light-red;
-$notice-color: lighten($base-accent-color, 40);
+$notice-color: color.adjust($base-accent-color, $lightness: 40%, $space: hsl);
 $success-color: $light-green;
 
 // Border color
@@ -69,11 +71,11 @@ $base-border-dotted: 1px dotted $base-border-color;
 
 // Forms
 $form-border-color: $base-border-color;
-$form-border-color-hover: darken($base-border-color, 10);
+$form-border-color-hover: color.adjust($base-border-color, $lightness: -10%, $space: hsl);
 $form-border-color-focus: $base-accent-color;
 $form-border-radius: $base-border-radius;
 $form-box-shadow: inset 0 1px 3px rgba(black,0.06);
-$form-box-shadow-focus: $form-box-shadow, 0 0 5px rgba(darken($form-border-color-focus, 5), 0.7);
+$form-box-shadow-focus: $form-box-shadow, 0 0 5px rgba(color.adjust($form-border-color-focus, $lightness: -5%, $space: hsl), 0.7);
 $form-font-size: 1.5em;
 $form-font-family: $base-font-family;
 

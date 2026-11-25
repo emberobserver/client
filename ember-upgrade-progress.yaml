@@ -164,3 +164,8 @@ entries:
     note: "The Vite dev server runs server/index.js, as ember serve did, through the plugin in server/vite.mjs. Vite's `server.proxy` option can replace the proxies."
     links:
       - "https://vite.dev/config/server-options#server-proxy"
+  - id: "sass-deprecations"
+    status: "todo"
+    note: "These stylesheets still use @import, which Sass deprecates: app/styles/app.scss, app/styles/base/_base.scss, app/styles/base/_grid-settings.scss. `npx sass-migrator module --migrate-deps` moves them to @use, after the libraries that they import, such as bourbon, are Sass modules or are gone."
+    links:
+      - "https://sass-lang.com/documentation/cli/migrator/"

@@ -1,14 +1,16 @@
-.stats {
-  $stats-color: lighten($base-accent-color, 10%);
+@use "sass:color";
 
-  padding: $base-spacing / 2;
+.stats {
+  $stats-color: color.adjust($base-accent-color, $lightness: 10%, $space: hsl);
+
+  padding: $base-spacing * 0.5;
 
   ul {
     padding: 0;
   }
 
   li {
-    border-right: 1px solid transparentize($base-font-color, 0.8);
+    border-right: 1px solid color.adjust($base-font-color, $alpha: -0.8);
     color: $stats-color;
     display: inline;
     float: left;

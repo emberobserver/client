@@ -1,3 +1,5 @@
+@use "sass:color";
+
 .about-index {
   article {
     @include clearfix;
@@ -60,7 +62,7 @@
     }
 
     p.date {
-      color: transparentize($base-font-color, 0.6);
+      color: color.adjust($base-font-color, $alpha: -0.6);
       font-family: $sans-serif;
       font-size: 0.8em;
       margin-bottom: 0.5em;

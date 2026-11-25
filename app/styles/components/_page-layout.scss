@@ -1,3 +1,5 @@
+@use "sass:color";
+
 .page-layout {
 
   &.categories-collapsed {
@@ -35,7 +37,7 @@
     }
 
     .name {
-      color: darken($light-gray, 10);
+      color: color.adjust($light-gray, $lightness: -10%, $space: hsl);
       font-size: 2rem;
       font-weight: 500;
       line-height: 1;
@@ -153,7 +155,7 @@
         color: $nav-link-color;
 
         &:hover, &:focus {
-          color: lighten($nav-link-color, 15);
+          color: color.adjust($nav-link-color, $lightness: 15%, $space: hsl);
         }
       }
 
