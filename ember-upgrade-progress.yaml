@@ -48,3 +48,8 @@ entries:
     links:
       - "https://github.com/nonzzz/vite-plugin-compression"
       - "https://vite.dev/guide/static-deploy"
+  - id: "ember-export-application-global"
+    status: "removed"
+    note: "ember-export-application-global is removed. It put the application on window, named after the modulePrefix, for debugging. Ember Inspector finds the app without it. Code that reads that global needs another way to the app, such as the owner."
+    links:
+      - "https://github.com/ember-cli/ember-export-application-global"
