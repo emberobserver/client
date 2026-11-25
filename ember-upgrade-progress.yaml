@@ -63,3 +63,9 @@ entries:
     note: "ember-cli-code-coverage is removed, because it instruments the ember-cli build. For coverage of a Vite build, add vite-plugin-istanbul."
     links:
       - "https://github.com/iFaxity/vite-plugin-istanbul"
+  - id: "ember-percy"
+    status: "removed"
+    note: "ember-percy is removed, and so are the percySnapshot calls in the tests. @percy/ember has no v2 release yet. To take snapshots again, call @percy/sdk-utils from a test helper."
+    links:
+      - "https://github.com/percy/ember-percy"
+      - "https://www.npmjs.com/package/@percy/sdk-utils"

@@ -10,7 +10,6 @@ import {
   visit,
 } from '@ember/test-helpers';
 import { module, test } from 'qunit';
-import { percySnapshot } from 'ember-percy';
 import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
 import findByText from '../helpers/find-by-text';
 
@@ -41,7 +40,6 @@ module('Acceptance: Index', function (hooks) {
 
     await visit('/');
 
-    await percySnapshot('/index');
 
     assert
       .dom('.test-category')
@@ -82,7 +80,6 @@ module('Acceptance: Index', function (hooks) {
     let simpleAuth = findByText('a', 'Simple Auth (1)');
     await click(simpleAuth);
 
-    await percySnapshot('/categories/show');
 
     assert.equal(
       currentURL(),
@@ -238,7 +235,6 @@ module('Acceptance: Index', function (hooks) {
   test('Unknown routes are handled', async function (assert) {
     await visit('/bullshit');
 
-    await percySnapshot('not-found');
 
     assert.equal(currentRouteName(), 'not-found');
   });
@@ -254,7 +250,6 @@ module('Acceptance: Index', function (hooks) {
 
     await click(findByText('.top-addons a', 'See all top 100 addons'));
 
-    await percySnapshot('/lists/top-addons');
 
     assert.equal(currentURL(), '/lists/top-addons', 'link to top addons works');
   });

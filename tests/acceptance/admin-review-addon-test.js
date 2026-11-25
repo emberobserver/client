@@ -1,7 +1,6 @@
 import { click, currentURL, fillIn, findAll, visit } from '@ember/test-helpers';
 import Service from '@ember/service';
 import QUnit, { module, test } from 'qunit';
-import { percySnapshot } from 'ember-percy';
 import { selectChoose } from 'ember-power-select/test-support/helpers';
 import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
 import findByText from '../helpers/find-by-text';
@@ -106,7 +105,6 @@ module('Acceptance | admin review addon', function (hooks) {
 
     await visitAddon(addon);
 
-    await percySnapshot('/admin/review/addon');
 
     assert.dom('.test-addon-link').includesText('fake-addon');
     assert.dom('.test-description').includesText('Foo bar baz');

@@ -1,6 +1,5 @@
 import { click, fillIn, currentURL, visit } from '@ember/test-helpers';
 import { module, test } from 'qunit';
-import { percySnapshot } from 'ember-percy';
 import login from 'ember-observer/tests/helpers/login';
 import { setupEmberObserverTest } from 'ember-observer/tests/helpers/setup-ember-observer-test';
 
@@ -23,7 +22,6 @@ module('Acceptance | Admin | Build servers', function (hooks) {
     await login();
     await visit('/admin/build-servers');
 
-    await percySnapshot('/admin/build-servers');
 
     assert.dom('[data-test-build-server]').exists({ count: 15 });
   });

@@ -1,7 +1,6 @@
 import { currentRouteName, visit } from '@ember/test-helpers';
 import Service from '@ember/service';
 import { module, test } from 'qunit';
-import { percySnapshot } from 'ember-percy';
 import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
 import moment from 'moment';
 
@@ -31,7 +30,6 @@ module('Acceptance | canary test results', function (hooks) {
 
     await visit('/canary-test-results');
 
-    await percySnapshot('/canary-test-results/date');
 
     assert.equal(
       currentRouteName(),

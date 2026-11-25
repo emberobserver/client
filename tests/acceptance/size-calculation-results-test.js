@@ -6,7 +6,6 @@ import {
   visit,
 } from '@ember/test-helpers';
 import { module, test } from 'qunit';
-import { percySnapshot } from 'ember-percy';
 import { setupEmberObserverTest } from 'ember-observer/tests/helpers/setup-ember-observer-test';
 import findByText from 'ember-observer/tests/helpers/find-by-text';
 import login from 'ember-observer/tests/helpers/login';
@@ -191,7 +190,6 @@ module('Acceptance | size calculation results', function (hooks) {
     await visit('/admin/size-calculation-results?date=2020-10-31');
     await click(findByText('.test-size-calculation-result a', 'details'));
 
-    await percySnapshot('/admin/size-calculation-results');
 
     assert.equal(
       currentURL(),

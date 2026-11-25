@@ -7,7 +7,6 @@ import {
   findAll,
 } from '@ember/test-helpers';
 import { module, test } from 'qunit';
-import { percySnapshot } from 'ember-percy';
 import { setupEmberObserverTest } from 'ember-observer/tests/helpers/setup-ember-observer-test';
 import moment from 'moment';
 import visitAddon from 'ember-observer/tests/helpers/visit-addon';
@@ -21,7 +20,6 @@ module('Acceptance: Addons', function (hooks) {
   test('addon not found', async function (assert) {
     await visit('/addons/ember-nonexistent-addon');
 
-    await percySnapshot('/addons/ember-nonexistent-addon');
 
     assert.equal(currentURL(), '/addons/ember-nonexistent-addon');
     assert
@@ -231,7 +229,6 @@ module('Acceptance: Addons', function (hooks) {
 
     await click('.info-action');
 
-    await percySnapshot('/addons/show | with github data');
 
     assert.dom('.test-github-data').containsText('TOP 10% STARRED');
     assert.dom('.test-open-issues').containsText('13');
@@ -350,7 +347,6 @@ module('Acceptance: Addons', function (hooks) {
 
     await click('.info-action');
 
-    await percySnapshot('/addons/show | with review');
 
     let questions = findAll('.test-review-question');
     assert.dom(questions[0]).hasText('Are there meaningful tests? Yes');
@@ -403,7 +399,6 @@ module('Acceptance: Addons', function (hooks) {
 
     await visitAddon(addon);
 
-    await percySnapshot('/addons/show | with size');
 
     assert.dom('.test-latest-size').exists('Addon size section shows');
 
@@ -703,7 +698,6 @@ module('Acceptance: Addons', function (hooks) {
       )
       .exists('Other assets detail shows');
 
-    await percySnapshot('/addons/show | with dependency asset size details');
   });
 
   test('hides some dependencies if there are over a certain amount', async function (assert) {
@@ -869,7 +863,6 @@ module('Acceptance: Addons', function (hooks) {
 
     await click('.test-addon-correction-link');
 
-    await percySnapshot('/addons/correct');
 
     assert.equal(
       currentURL(),

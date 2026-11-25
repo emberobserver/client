@@ -6,7 +6,6 @@ import {
   visit,
 } from '@ember/test-helpers';
 import { module, test } from 'qunit';
-import { percySnapshot } from 'ember-percy';
 import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
 import findByText from '../helpers/find-by-text';
 import login from 'ember-observer/tests/helpers/login';
@@ -185,7 +184,6 @@ module('Acceptance | build results', function (hooks) {
     await visit('/admin/build-results');
     await click(findByText('.test-build-result a', 'details'));
 
-    await percySnapshot('/admin/build-results');
 
     assert.equal(currentURL(), `/admin/build-results/${testResult.id}`);
   });
