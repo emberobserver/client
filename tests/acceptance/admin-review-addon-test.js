@@ -1,7 +1,7 @@
 import { click, currentURL, fillIn, findAll, visit } from '@ember/test-helpers';
 import Service from '@ember/service';
 import QUnit, { module, test } from 'qunit';
-import { selectChoose } from 'ember-power-select/test-support/helpers';
+import { selectChoose } from 'ember-power-select/test-support';
 import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
 import findByText from '../helpers/find-by-text';
 import login from 'ember-observer/tests/helpers/login';

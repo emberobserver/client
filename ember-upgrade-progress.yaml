@@ -85,3 +85,6 @@ entries:
   - id: "ember-feature-flags"
     status: "moved into the app"
     note: "ember-feature-flags is a v1 addon with no v2 release, so its code is in the app now, where ember-cli merged it. The code is now in tests/helpers/ember-feature-flags/-private/enable-feature.js, tests/helpers/ember-feature-flags/index.js, app/helpers/feature-flag.js, app/services/features.js, tests/helpers/ember-feature-flags/helpers/with-feature.js."
+  - id: "ember-power-select: overrides"
+    status: "removed"
+    note: "package.json forced versions that ember-power-select 9.0.6 does not accept, so they are gone: ember-basic-dropdown (3.0.16, and ember-power-select 9.0.6 asks for ^9.0.1)."

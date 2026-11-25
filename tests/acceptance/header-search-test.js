@@ -1,7 +1,7 @@
-import { click, fillIn, currentURL } from '@ember/test-helpers';
+import { fillIn, currentURL, triggerEvent } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
-import { selectChoose } from 'ember-power-select/test-support/helpers';
+import { selectChoose } from 'ember-power-select/test-support';
 import visitAddon from '../helpers/visit-addon';
 import findByText from '../helpers/find-by-text';
 
@@ -122,7 +122,8 @@ module('Acceptance | header search', function (hooks) {
 
     await fillIn('.test-header-search input', 'test');
 
-    await click(findByText('.test-search-result-addon-link', 'addon-test'));
+    /** click() renders between mouseup and click. PowerSelect closes on mouseup, so a full click reaches a removed element. */
+    await triggerEvent(findByText('.test-search-result-addon-link', 'addon-test'), 'click');
 
     assert.equal(
       currentURL(),
@@ -132,7 +133,8 @@ module('Acceptance | header search', function (hooks) {
 
     await fillIn('.test-header-search input', 'foo');
 
-    await click('.test-search-result-jump-to-full-search-link');
+    /** click() renders between mouseup and click. PowerSelect closes on mouseup, so a full click reaches a removed element. */
+    await triggerEvent('.test-search-result-jump-to-full-search-link', 'click');
 
     assert.equal(
       currentURL(),
