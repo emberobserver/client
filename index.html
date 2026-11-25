@@ -7,9 +7,6 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {{content-for "head"}}
-
-    <link integrity="" rel="stylesheet" href="/@embroider/virtual/vendor.css">
     <link integrity="" rel="stylesheet" href="/app/styles/app.scss">
     <link rel="search" type="application/opensearchdescription+xml" title="Ember Observer" href="/opensearch.xml" />
 
@@ -43,27 +40,22 @@
     <meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
     <meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
     <link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans:300,400,400i,700" rel="stylesheet">
-    {{content-for "head-footer"}}
   </head>
   <body>
-    {{content-for "body"}}
-
     <script>performance.mark("beforeVendor");</script>
-    <script src="/@embroider/virtual/vendor.js"></script>
     <script>performance.mark("beforeApp");</script>
     <script>
       if (window.location.search === "?perf.profile") {
         console.profile("initialRender");
       }
     </script>
+    <script>performance.mark("afterApp");</script>
+
     <script type="module">
-      import Application from './app/app';
-      import environment from './app/config/environment';
+      import Application from "#app/app";
+      import environment from "#config";
 
       Application.create(environment.APP);
     </script>
-    <script>performance.mark("afterApp");</script>
-
-    {{content-for "body-footer"}}
   </body>
 </html>

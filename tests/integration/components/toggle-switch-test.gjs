@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, click } from '@ember/test-helpers';
-import ToggleSwitch from "../../../app/components/toggle-switch.gjs";
+import ToggleSwitch from "#app/components/toggle-switch.gjs";
 
 module('Integration | Component | toggle-switch', function (hooks) {
   setupRenderingTest(hooks);

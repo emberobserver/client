@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
-import cleanRepoUrl from "../../../app/helpers/clean-repo-url.js";
+import cleanRepoUrl from "#app/helpers/clean-repo-url.js";
 
 module('Integration | Helper | clean-repo-url', function (hooks) {
   setupRenderingTest(hooks);

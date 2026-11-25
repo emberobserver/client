@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
-import formatBytes from "../../../app/helpers/format-bytes.js";
+import formatBytes from "#app/helpers/format-bytes.js";
 
 module('Integration | Helper | format-bytes', function (hooks) {
   setupRenderingTest(hooks);

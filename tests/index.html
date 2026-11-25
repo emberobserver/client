@@ -1,45 +1,11 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>EmberObserver Tests</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    {{content-for "head"}}
-    {{content-for "test-head"}}
-
-    <link rel="stylesheet" href="/@embroider/virtual/vendor.css">
-    <link rel="stylesheet" href="/app/styles/app.scss">
-    <link rel="stylesheet" href="/@embroider/virtual/test-support.css">
-
-    <script>
-    window.performance = window.performance || {};
-
-    if (!performance.mark) {
-      performance.mark = function () {};
-      performance.measure = function () {};
-    }
-
-    // WebKit bug: https://bugs.webkit.org/show_bug.cgi?id=137407
-    window._performance = window.performance;
-
-    /* eslint-disable no-console */
-    if (!console.profile) {
-      console.profile = function () {};
-      console.profileEnd = function () {};
-    }
-    /* eslint-enable no-console */
-    </script>
-
-    {{content-for "head-footer"}}
-    {{content-for "test-head-footer"}}
+    <meta charset="utf-8" />
+    <title>Tests</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
   <body>
-    {{content-for "body"}}
-    {{content-for "test-body"}}
-
     <div id="qunit"></div>
     <div id="qunit-fixture">
       <div id="ember-testing-container">
@@ -47,18 +13,15 @@
       </div>
     </div>
 
-    <script src="/testem.js" integrity=""></script>
-    <script src="/@embroider/virtual/vendor.js"></script>
-    <script src="/@embroider/virtual/test-support.js"></script>
-    
-    <script type="module">import "ember-testing";</script>
+    <script src="/testem.js" integrity="" data-embroider-ignore></script>
     <script type="module">
-      import { start } from './test-helper';
-      import.meta.glob("./**/*.{js,ts,gjs,gts}", { eager: true });
-      start();
+      import "ember-testing";
     </script>
 
-    {{content-for "body-footer"}}
-    
+    <script type="module">
+      import { start } from "./test-helper";
+
+      await start();
+    </script>
   </body>
 </html>

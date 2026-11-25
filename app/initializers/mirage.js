@@ -1,5 +1,5 @@
 import { importSync, isDevelopingApp, isTesting, macroCondition } from '@embroider/macros';
-import config from 'ember-observer/config/environment';
+import config from '#config';
 
 /**
  * ember-cli-mirage started the server from its own initializer, with these rules.

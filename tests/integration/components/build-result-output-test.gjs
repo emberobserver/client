@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
-import BuildResultOutput from "../../../app/components/build-result-output.gjs";
+import BuildResultOutput from "#app/components/build-result-output.gjs";
 
 module('Integration | Component | build-result-output', function (hooks) {
   setupRenderingTest(hooks);

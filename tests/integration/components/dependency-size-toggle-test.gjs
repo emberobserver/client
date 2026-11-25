@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, click } from '@ember/test-helpers';
-import DependencySizeToggle from "../../../app/components/dependency-size-toggle.gjs";
+import DependencySizeToggle from "#app/components/dependency-size-toggle.gjs";
 
 module('Integration | Component | dependency-size-toggle', function (hooks) {
   setupRenderingTest(hooks);

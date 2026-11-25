@@ -3,7 +3,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import Service from '@ember/service';
 import { render } from '@ember/test-helpers';
 import moment from 'moment';
-import RelativeTime from "../../../app/components/relative-time.gjs";
+import RelativeTime from "#app/components/relative-time.gjs";
 
 module('Integration | Component | relative-date', function (hooks) {
   setupRenderingTest(hooks);

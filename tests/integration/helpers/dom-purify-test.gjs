@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
-import domPurify from "../../../app/helpers/dom-purify.js";
+import domPurify from "#app/helpers/dom-purify.js";
 
 module('Integration | Helper | dom-purify', function (hooks) {
   setupRenderingTest(hooks);

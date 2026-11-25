@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
-import ScoreDisplay from "../../../app/components/score-display.gjs";
+import ScoreDisplay from "#app/components/score-display.gjs";
 
 module('Integration | Component | score-display', function (hooks) {
   setupRenderingTest(hooks);

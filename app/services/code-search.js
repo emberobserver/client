@@ -1,7 +1,7 @@
 import asArray from 'ember-observer/utils/as-array';
 import Service, { service } from '@ember/service';
 import { task } from 'ember-concurrency';
-import config from 'ember-observer/config/environment';
+import config from '#config';
 const PageSize = config.codeSearchPageSize;
 
 export default class CodeSearchService extends Service {

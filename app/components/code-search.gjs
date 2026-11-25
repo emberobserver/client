@@ -5,7 +5,7 @@ import { scheduleOnce } from '@ember/runloop';
 import Component from '@glimmer/component';
 import { isEmpty, isBlank } from '@ember/utils';
 import { task, timeout } from 'ember-concurrency';
-import config from 'ember-observer/config/environment';
+import config from '#config';
 import asArray from 'ember-observer/utils/as-array';
 import { tracked } from '@glimmer/tracking';
 import { on } from "@ember/modifier";

@@ -8,3 +8,6 @@ overrides:
 
 strictDepBuilds: false
 blockExoticSubdeps: false
+minimumReleaseAgeExclude:
+  - '@nullvoxpopuli/ember-build-tooling-utils@2.0.1'
+  - '@nullvoxpopuli/ember-vite@2.1.0'
