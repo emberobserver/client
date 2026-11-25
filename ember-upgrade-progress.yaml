@@ -88,3 +88,6 @@ entries:
   - id: "ember-power-select: overrides"
     status: "removed"
     note: "package.json forced versions that ember-power-select 9.0.6 does not accept, so they are gone: ember-basic-dropdown (3.0.16, and ember-power-select 9.0.6 asks for ^9.0.1)."
+  - id: "emberx-select"
+    status: "moved into the app"
+    note: "emberx-select is a v1 addon with no v2 release, so its code is in the app now, where ember-cli merged it. The code is now in app/components/x-option.js, app/components/x-select.js, app/components/x-select.hbs, tests/helpers/x-select.js."
