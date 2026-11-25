@@ -1,3 +1,4 @@
+import "@nullvoxpopuli/legacy-prototype-extensions/array";
 import { on } from 'rsvp';
 import Application from '@ember/application';
 import Resolver from 'ember-resolver';

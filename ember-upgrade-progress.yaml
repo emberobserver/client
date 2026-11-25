@@ -14,3 +14,8 @@ entries:
     note: "ember-fetch is removed, and the code uses the global fetch, through waitForFetch of @ember/test-waiters, so that tests wait for each request. ember-fetch rejected some responses that fetch resolves, so check the error handling of each call."
     links:
       - "https://rfcs.emberjs.com/id/1065-remove-ember-fetch"
+  - id: "@nullvoxpopuli/legacy-prototype-extensions"
+    status: "added"
+    note: "Ember 6 removed the array prototype extensions, such as mapBy, objectAt, and firstObject on native arrays. app.js imports @nullvoxpopuli/legacy-prototype-extensions/array, which adds them back. Move the code to native array methods, then remove the import and the package."
+    links:
+      - "https://deprecations.emberjs.com/id/deprecate-array-prototype-extensions"
