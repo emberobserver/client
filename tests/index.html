@@ -1,28 +1,11 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>EmberObserver Tests</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    {{content-for "head"}}
-    {{content-for "test-head"}}
-
-    <link rel="stylesheet" href="{{rootURL}}assets/vendor.css">
-    <link rel="stylesheet" href="{{rootURL}}assets/ember-observer.css">
-    <link rel="stylesheet" href="{{rootURL}}assets/test-support.css">
-
-    {{content-for "snippets/perf-utils"}}
-
-    {{content-for "head-footer"}}
-    {{content-for "test-head-footer"}}
+    <meta charset="utf-8" />
+    <title>Tests</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
   <body>
-    {{content-for "body"}}
-    {{content-for "test-body"}}
-
     <div id="qunit"></div>
     <div id="qunit-fixture">
       <div id="ember-testing-container">
@@ -30,13 +13,15 @@
       </div>
     </div>
 
-    <script src="/testem.js" integrity=""></script>
-    <script src="{{rootURL}}assets/vendor.js"></script>
-    <script src="{{rootURL}}assets/test-support.js"></script>
-    <script src="{{rootURL}}assets/ember-observer.js"></script>
-    <script src="{{rootURL}}assets/tests.js"></script>
+    <script src="/testem.js" integrity="" data-embroider-ignore></script>
+    <script type="module">
+      import 'ember-testing';
+    </script>
 
-    {{content-for "body-footer"}}
-    {{content-for "test-body-footer"}}
+    <script type="module">
+      import { start } from './test-helper';
+
+      await start();
+    </script>
   </body>
 </html>

@@ -1,7 +1,5 @@
-import classic from 'ember-classic-decorator';
 import Model, { hasMany, attr } from '@ember-data/model';
 
-@classic
 export default class Maintainer extends Model {
   @attr('string')
   name;
@@ -9,6 +7,6 @@ export default class Maintainer extends Model {
   @attr('string')
   gravatar;
 
-  @hasMany('addon', { async: true })
+  @hasMany('addon', { async: true, inverse: 'maintainers' })
   addons;
 }

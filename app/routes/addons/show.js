@@ -1,10 +1,12 @@
-import classic from 'ember-classic-decorator';
-import { inject as service } from '@ember/service';
+import { asRecord } from 'ember-observer/utils/as-array';
+import asArray from 'ember-observer/utils/as-array';
+import { service } from '@ember/service';
 import { hash } from 'rsvp';
 import Route from '@ember/routing/route';
 
-@classic
 export default class ShowRoute extends Route {
+  @service store;
+
   @service
   session;
 
@@ -19,10 +21,10 @@ export default class ShowRoute extends Route {
             'versions,maintainers,keywords,latest-review,latest-review.version,latest-addon-version,latest-addon-version.addon-size,categories',
           page: { limit: 1 },
         },
-        { reload: true }
+        { reload: true },
       )
       .then((addons) => {
-        return addons.get('firstObject');
+        return asArray(addons)[0];
       });
 
     let latestTestResult = this.store
@@ -33,7 +35,7 @@ export default class ShowRoute extends Route {
         include: 'ember-version-compatibilities,version',
       })
       .then((results) => {
-        return results.get('firstObject');
+        return asArray(results)[0];
       });
 
     let data = {
@@ -42,16 +44,14 @@ export default class ShowRoute extends Route {
     };
 
     if (this.get('session.isAuthenticated')) {
-      data.categories = this.store.findAll('category', {
-        include: 'subcategories',
-      });
+      data.categories = asRecord(
+        this.store.findAll('category', {
+          include: 'subcategories',
+        }),
+      );
     }
 
     return hash(data);
-  }
-
-  titleToken(model) {
-    return model.addon.get('name');
   }
 
   afterModel() {

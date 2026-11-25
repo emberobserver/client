@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @keyframes switch-on-transform {
   0% {
     transform: translate(0) scaleX(1);
@@ -26,12 +28,12 @@
   align-items: center;
 
   label {
-    margin-left: $base-spacing/2;
+    margin-left: $base-spacing * 0.5;
     display: block;
     cursor: pointer;
   }
 
-  input[type=checkbox] {
+  input[type='checkbox'] {
     cursor: pointer;
     position: relative;
     display: inline-block;
@@ -41,7 +43,7 @@
     width: 4em;
     font-size: 1em;
     border-radius: 1.5em;
-    background-color: lighten($dark-gray, 20%);;
+    background-color: color.adjust($dark-gray, $lightness: 20%, $space: hsl);
     border-color: transparent;
     background-clip: padding-box;
     color: $light-gray;
@@ -49,7 +51,7 @@
     transition: all 0.25s linear 0.25s;
 
     &:before {
-      content: "";
+      content: '';
       position: absolute;
       top: 0;
       left: 0;
@@ -69,7 +71,7 @@
       left: 0.675em;
       top: 0;
       line-height: 2;
-      content: "\2713 \2715";
+      content: '\2713 \2715';
       letter-spacing: 1em;
       z-index: 1;
     }
@@ -77,7 +79,7 @@
     &:focus {
       color: white;
       border-color: transparent;
-      background-color: lighten($dark-gray, 20%);
+      background-color: color.adjust($dark-gray, $lightness: 20%, $space: hsl);
       outline: none;
     }
 
@@ -91,6 +93,5 @@
         animation: switch-on-transform 0.25s ease-out forwards;
       }
     }
-
   }
 }

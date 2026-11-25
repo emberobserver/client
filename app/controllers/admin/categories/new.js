@@ -1,20 +1,31 @@
-import classic from 'ember-classic-decorator';
-import { action } from '@ember/object';
-import { sort, filterBy } from '@ember/object/computed';
+import { action, get } from '@ember/object';
 import Controller from '@ember/controller';
+import { service } from '@ember/service';
+import asArray, { sortBy } from 'ember-observer/utils/as-array';
+import { saveRecord } from '@warp-drive/legacy/compat/builders';
 
-@classic
 export default class NewController extends Controller {
+  @service router;
+
+  @service store;
+
   newCategoryName = '';
   newCategoryDescription = '';
   newCategoryPosition = '';
   categorySorting = ['position:asc'];
 
-  @filterBy('model.categories', 'parent', null)
-  topLevelCategories;
+  get topLevelCategories() {
+    return asArray(get(this, 'model.categories')).filter(
+      (item) => item.parent === null,
+    );
+  }
 
-  @sort('topLevelCategories', 'categorySorting')
-  sortedTopLevelCategories;
+  get sortedTopLevelCategories() {
+    return sortBy(
+      get(this, 'topLevelCategories'),
+      get(this, 'categorySorting'),
+    );
+  }
 
   @action
   addCategory() {
@@ -23,10 +34,10 @@ export default class NewController extends Controller {
       description: this.newCategoryDescription,
       position: this.newCategoryPosition,
     });
-    newCategory
-      .save()
+    this.store
+      .request(saveRecord(newCategory))
       .then(() => {
-        this.transitionToRoute('admin.categories.index');
+        this.router.transitionTo('admin.categories.index');
       })
       .catch((message) => {
         newCategory.deleteRecord();

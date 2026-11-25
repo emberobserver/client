@@ -1,13 +1,14 @@
-.addons-correct {
+@use 'sass:color';
 
+.addons-correct {
   h1 {
     margin-top: 0;
-    margin-bottom: .25em;
-    color: darken($blue, 5);
+    margin-bottom: 0.25em;
+    color: color.adjust($blue, $lightness: -5%, $space: hsl);
   }
 
   h2 {
-    margin-bottom: .5em;
+    margin-bottom: 0.5em;
   }
 
   form {
@@ -20,7 +21,11 @@
     background-color: $background-color;
 
     &:hover {
-      background-color: darken($background-color, 20%);
+      background-color: color.adjust(
+        $background-color,
+        $lightness: -20%,
+        $space: hsl
+      );
     }
   }
 }

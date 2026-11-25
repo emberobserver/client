@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Ember Observer</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link integrity="" rel="stylesheet" href="/app/styles/app.scss" />
+    <link
+      rel="search"
+      type="application/opensearchdescription+xml"
+      title="Ember Observer"
+      href="/opensearch.xml"
+    />
+
+    <script>
+      window.performance = window.performance || {};
+
+      if (!performance.mark) {
+        performance.mark = function () {};
+        performance.measure = function () {};
+      }
+
+      // WebKit bug: https://bugs.webkit.org/show_bug.cgi?id=137407
+      window._performance = window.performance;
+
+      /* eslint-disable no-console */
+      if (!console.profile) {
+        console.profile = function () {};
+        console.profileEnd = function () {};
+      }
+      /* eslint-enable no-console */
+    </script>
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/favicon-128.png" sizes="128x128" />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="152x152"
+      href="/apple-touch-icon-152x152.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="/favicon-196x196.png"
+      sizes="196x196"
+    />
+    <meta name="application-name" content="Ember Observer" />
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
+    <meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
+    <meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
+    <meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans:300,400,400i,700"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <script>
+      performance.mark('beforeVendor');
+    </script>
+    <script>
+      performance.mark('beforeApp');
+    </script>
+    <script>
+      if (window.location.search === '?perf.profile') {
+        console.profile('initialRender');
+      }
+    </script>
+    <script>
+      performance.mark('afterApp');
+    </script>
+
+    <script type="module">
+      import Application from '#app/app';
+      import environment from '#config';
+
+      Application.create(environment.APP);
+    </script>
+  </body>
+</html>

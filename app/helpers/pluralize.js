@@ -1,5 +1,5 @@
 import { helper } from '@ember/component/helper';
-import { pluralize } from 'ember-inflector';
+import { pluralize } from '@warp-drive/utilities/string';
 
 export default helper(function pluralizeHelper([count, singular]) {
   if (count > 1) {

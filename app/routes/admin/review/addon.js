@@ -1,9 +1,11 @@
-import classic from 'ember-classic-decorator';
+import asArray from 'ember-observer/utils/as-array';
 import Route from '@ember/routing/route';
 import { hash } from 'rsvp';
+import { service } from '@ember/service';
 
-@classic
 export default class AddonRoute extends Route {
+  @service store;
+
   model(params) {
     let name = params.name.replace(/%2F/i, '/');
     let list = this.modelFor('admin.review');
@@ -17,10 +19,10 @@ export default class AddonRoute extends Route {
             'latest-addon-version,versions,maintainers,keywords,latest-review,latest-review.version,categories',
           page: { limit: 1 },
         },
-        { reload: true }
+        { reload: true },
       )
       .then((addons) => {
-        return addons.get('firstObject');
+        return asArray(addons)[0];
       });
 
     let data = {
@@ -32,9 +34,5 @@ export default class AddonRoute extends Route {
     };
 
     return hash(data);
-  }
-
-  titleToken(model) {
-    return model.addon.get('name');
   }
 }

@@ -1,0 +1,13 @@
+overrides:
+  '@ember/test-waiters': '^4.1.2'
+  '@embroider/macros': '^1.21.4'
+  babel-plugin-ember-template-compilation: '^4.0.2'
+  ember-element-helper: '^1.0.0'
+  ember-cli-babel: '^8.3.2'
+  ember-cli-htmlbars: '^7.0.1'
+
+strictDepBuilds: false
+blockExoticSubdeps: false
+minimumReleaseAgeExclude:
+  - '@nullvoxpopuli/ember-build-tooling-utils@2.0.1'
+  - '@nullvoxpopuli/ember-vite@2.1.0'

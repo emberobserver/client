@@ -1,8 +1,6 @@
-import classic from 'ember-classic-decorator';
 import { equal, readOnly } from '@ember/object/computed';
 import Model, { belongsTo, attr } from '@ember-data/model';
 
-@classic
 export default class AddonDependency extends Model {
   @attr('string')
   package;
@@ -10,10 +8,10 @@ export default class AddonDependency extends Model {
   @attr('string')
   dependencyType;
 
-  @belongsTo('version')
+  @belongsTo('version', { async: true, inverse: 'dependencies' })
   dependentVersion;
 
-  @belongsTo('addon')
+  @belongsTo('addon', { async: true, inverse: null })
   packageAddon;
 
   @equal('dependencyType', 'dependencies')

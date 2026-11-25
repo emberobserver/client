@@ -1,16 +1,15 @@
-import classic from 'ember-classic-decorator';
-import { computed } from '@ember/object';
-import { sort } from '@ember/object/computed';
+import { computed, get } from '@ember/object';
 import Controller from '@ember/controller';
 import moment from 'moment';
+import { sortBy } from 'ember-observer/utils/as-array';
 
-@classic
 export default class IndexController extends Controller {
   queryParams = ['date'];
   buildResultSorting = ['testsRunAt:desc'];
 
-  @sort('model', 'buildResultSorting')
-  sortedBuildResults;
+  get sortedBuildResults() {
+    return sortBy(get(this, 'model'), get(this, 'buildResultSorting'));
+  }
 
   @computed('date')
   get formattedDisplayDate() {

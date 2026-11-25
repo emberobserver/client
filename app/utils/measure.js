@@ -47,7 +47,7 @@ export function renderEnd() {
       if (location.search === '?perf.tracing') {
         document.location.href = 'about:blank';
       } else if (location.search === '?perf.profile') {
-        console.profileEnd('initialRender'); // eslint-disable-line no-console
+        console.profileEnd('initialRender');
       }
     });
   });

@@ -1,0 +1,41 @@
+import Component from '@glimmer/component';
+import AddonList from "./addon-list.gjs";
+import { LinkTo } from "@ember/routing";
+
+export default class RouteIndex extends Component {<template><div ...attributes>
+<div class="top-addons">
+  <h1>Top addons</h1>
+  <AddonList @addons={{@topAddons}} @showRanking={{true}}>
+    <LinkTo @route="lists.top-addons">
+      <li class="more">
+        See all top 100 addons
+      </li>
+    </LinkTo>
+  </AddonList>
+</div>
+
+<div class="recently-scored-addons">
+  <h1>Recently scored addons</h1>
+  <AddonList @addons={{@recentlyScoredAddons}}>
+    <LinkTo @route="lists.recently-scored-addons">
+      <li class="more">
+        See all recently scored addons
+      </li>
+    </LinkTo>
+  </AddonList>
+</div>
+
+<div class="new-addons">
+  <h1>New addons</h1>
+  <AddonList @addons={{@newAddons}}>
+    <LinkTo @route="lists.new-addons">
+      <li class="more">
+        See all new addons
+      </li>
+    </LinkTo>
+  </AddonList>
+</div>
+</div>
+</template>
+
+}

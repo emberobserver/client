@@ -1,17 +1,15 @@
-import classic from 'ember-classic-decorator';
+import asArray from 'ember-observer/utils/as-array';
 import Route from '@ember/routing/route';
+import { service } from '@ember/service';
 
-@classic
 export default class ShowRoute extends Route {
+  @service store;
+
   model(params) {
     return this.store
       .query('maintainer', { filter: { name: params.name } })
       .then((maintainers) => {
-        return maintainers.get('firstObject');
+        return asArray(maintainers)[0];
       });
-  }
-
-  titleToken(model) {
-    return model.get('name');
   }
 }

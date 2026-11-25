@@ -1,0 +1,23 @@
+import PageLayout from "../../components/page-layout.gjs";
+import { LinkTo } from "@ember/routing";
+<template><PageLayout @showCategories={{false}}>
+  <div class="admin-index">
+    <h1>Admin</h1>
+
+    <nav>
+      <ul>
+        <li><LinkTo @route="admin.review">Review & categorize addons</LinkTo></li>
+        <li><LinkTo @route="admin.categories.index">Categories</LinkTo></li>
+        <li><LinkTo @route="admin.addon-lists.addons-needing-categorization">Addons needing categorization</LinkTo></li>
+        <li><LinkTo @route="admin.addon-lists.addons-needing-review">Addons needing review</LinkTo></li>
+        <li><LinkTo @route="admin.addon-lists.addons-needing-rereview">Addons with new updates since their last review</LinkTo></li>
+        <li><LinkTo @route="admin.addon-lists.addons-wip">WIP Addons</LinkTo></li>
+        <li><LinkTo @route="admin.addon-lists.addons-hidden">Hidden Addons</LinkTo></li>
+        <li><LinkTo @route="admin.build-results">Build results</LinkTo></li>
+        <li><LinkTo @route="admin.size-calculation-results">Addon size calculation results</LinkTo></li>
+        <li><LinkTo @route="admin.build-servers">Manage build servers</LinkTo></li>
+      </ul>
+    </nav>
+  </div>
+</PageLayout>
+</template>

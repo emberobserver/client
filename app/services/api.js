@@ -1,9 +1,8 @@
-import classic from 'ember-classic-decorator';
 import { computed } from '@ember/object';
-import Service, { inject as service } from '@ember/service';
-import fetch from 'fetch';
+import Service, { service } from '@ember/service';
+import { waitForFetch } from '@ember/test-waiters';
+const fetch = (input, init) => waitForFetch(globalThis.fetch(input, init));
 
-@classic
 export default class ApiService extends Service {
   @service
   session;

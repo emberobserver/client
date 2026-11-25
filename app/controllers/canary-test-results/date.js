@@ -1,10 +1,8 @@
-import classic from 'ember-classic-decorator';
 import { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import Controller from '@ember/controller';
 import moment from 'moment';
 
-@classic
 export default class DateController extends Controller {
   @readOnly('model.date')
   date;

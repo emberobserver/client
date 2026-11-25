@@ -1,13 +1,14 @@
-import classic from 'ember-classic-decorator';
-import { action, computed } from '@ember/object';
-import { sort, alias } from '@ember/object/computed';
+import { action, computed, get } from '@ember/object';
+import { alias } from '@ember/object/computed';
 import Controller from '@ember/controller';
+import { sortBy } from 'ember-observer/utils/as-array';
 
-@classic
 export default class ShowController extends Controller {
-  queryParams = {
-    addonSortKey: 'sort',
-  };
+  queryParams = [
+    {
+      addonSortKey: 'sort',
+    },
+  ];
 
   addonSortKey = 'score';
 
@@ -17,8 +18,9 @@ export default class ShowController extends Controller {
   @alias('model.addons')
   addons;
 
-  @sort('addons', 'addonSorting')
-  sortedAddons;
+  get sortedAddons() {
+    return sortBy(get(this, 'addons'), get(this, 'addonSorting'));
+  }
 
   @computed('category.subcategories.length')
   get hasSubcategories() {

@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 .about-index {
   article {
     @include clearfix;
@@ -40,9 +42,9 @@
     }
 
     code {
-      background: #F7F7F7;
+      background: #f7f7f7;
       border-radius: $base-border-radius * 1.5;
-      border: 1px solid #E0E0E0;
+      border: 1px solid #e0e0e0;
       font-family: monaco;
       font-size: 0.65em;
       font-style: normal;
@@ -60,7 +62,7 @@
     }
 
     p.date {
-      color: transparentize($base-font-color, 0.6);
+      color: color.adjust($base-font-color, $alpha: -0.6);
       font-family: $sans-serif;
       font-size: 0.8em;
       margin-bottom: 0.5em;
@@ -106,6 +108,4 @@
       font-style: italic;
     }
   }
-
-
 }

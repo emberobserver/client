@@ -1,0 +1,29 @@
+import SvgIcons from "../components/svg-icons.gjs";
+import BasicDropdownWormhole from "ember-basic-dropdown/components/basic-dropdown-wormhole";
+<template><SvgIcons />
+<div class="container">
+  {{outlet}}
+  <footer class="footer" role="contentinfo">
+    <hr>
+    <section class="sponsor">
+      <p>Sponsored by</p>
+      <p>
+        <a href="http://www.codeallday.com"><img src="/cad-split-lines.png" alt="Code All Day"></a>
+      </p>
+    </section>
+    <p>
+      Created by <a href="http://www.codeallday.com">Katie Gengler</a>, <a href="http://louissimons.com/">Louis Simons</a> and <a href="http://pgengler.net">Phil Gengler</a>.
+    </p>
+    <p>An open source project hosted on <a href="https://github.com/emberobserver/client">GitHub</a></p>
+
+    {{!-- TrackJS Badge for error reporting  --}}
+    <div>
+      <a href="https://tkjs.us/partner">
+        {{!-- template-lint-disable no-inline-styles --}}
+        <img src="https://trackjs.com/assets/external/badge_300_dark.gif" height="32px" width="150px" alt="Protected by TrackJS JavaScript Error Logging" style="border-radius:2px;height:32px;width:150px;">
+      </a>
+    </div>
+  </footer>
+</div>
+<BasicDropdownWormhole />
+</template>

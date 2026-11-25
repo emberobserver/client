@@ -1,5 +1,4 @@
-import classic from 'ember-classic-decorator';
-import Service, { inject } from '@ember/service';
+import Service, { service as inject } from '@ember/service';
 import { task } from 'ember-concurrency';
 
 export const lists = {
@@ -32,21 +31,19 @@ export const lists = {
     title: 'Addons marked as invalid repo url',
   },
 };
-@classic
 export default class AdminListsService extends Service {
   @inject()
   store;
 
-  @task(function* (listParam) {
+  find = task(async (listParam) => {
     let list = lists[listParam];
-    let addons = yield this[list.method]();
+    let addons = await this[list.method]();
     return {
       addons,
       title: list.title,
       key: listParam,
     };
-  })
-  find;
+  });
 
   addonsNeedingCategorization() {
     return this.store.query('addon', {

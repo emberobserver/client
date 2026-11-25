@@ -1,6 +1,6 @@
 import { helper } from '@ember/component/helper';
-import { htmlSafe } from '@ember/string';
-import createDOMPurify from 'dom-purify';
+import { htmlSafe } from '@ember/template';
+import createDOMPurify from 'dompurify/dist/purify.js';
 
 const config = {
   ALLOWED_TAGS: [

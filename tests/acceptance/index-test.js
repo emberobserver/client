@@ -1,3 +1,5 @@
+import { get } from '@ember/object';
+import asArray from 'ember-observer/utils/as-array';
 import {
   click,
   fillIn,
@@ -8,7 +10,6 @@ import {
   visit,
 } from '@ember/test-helpers';
 import { module, test } from 'qunit';
-import { percySnapshot } from 'ember-percy';
 import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
 import findByText from '../helpers/find-by-text';
 
@@ -24,7 +25,9 @@ module('Acceptance: Index', function (hooks) {
       addonCount: 4,
     });
 
-    category.update({ addonIds: addons.mapBy('id') });
+    category.update({
+      addonIds: asArray(addons).map((item) => get(item, 'id')),
+    });
 
     let addonA = server.create('addon');
 
@@ -39,21 +42,19 @@ module('Acceptance: Index', function (hooks) {
 
     await visit('/');
 
-    await percySnapshot('/index');
-
     assert
       .dom('.test-category')
       .exists({ count: 8 }, 'All categories should display');
     assert.ok(
       findByText('.test-category', 'Authentication (5)'),
-      'Categories should list title and count of addons'
+      'Categories should list title and count of addons',
     );
     let firstSubcategory = findAll('.test-subcategory')[0];
     assert
       .dom(firstSubcategory)
       .containsText(
         'Simple Auth (1)',
-        'Subcategories should display under category'
+        'Subcategories should display under category',
       );
 
     let authenticationCategory = findByText('.test-category', 'Authentication');
@@ -62,7 +63,7 @@ module('Acceptance: Index', function (hooks) {
     assert.equal(
       currentURL(),
       '/categories/authentication',
-      'URL should use category name token'
+      'URL should use category name token',
     );
     assert
       .dom('.test-category-header')
@@ -80,12 +81,10 @@ module('Acceptance: Index', function (hooks) {
     let simpleAuth = findByText('a', 'Simple Auth (1)');
     await click(simpleAuth);
 
-    await percySnapshot('/categories/show');
-
     assert.equal(
       currentURL(),
       '/categories/simple-auth',
-      'URL should use category name token'
+      'URL should use category name token',
     );
     assert
       .dom('.test-category-header')
@@ -116,15 +115,15 @@ module('Acceptance: Index', function (hooks) {
       assert.equal(
         request.queryParams.query,
         'test',
-        'Query is sent to readme search'
+        'Query is sent to readme search',
       );
       return {
         search: [
           {
             addon_id: addon1.id,
             matches: ['testing stuff', 'more testing tips'],
-          }, // eslint-disable-line camelcase
-          { addon_id: addon2.id, matches: ['the test of time'] }, // eslint-disable-line camelcase
+          },
+          { addon_id: addon2.id, matches: ['the test of time'] },
         ],
       };
     });
@@ -150,7 +149,7 @@ module('Acceptance: Index', function (hooks) {
     assert.equal(
       find('.test-search-readmes').checked,
       true,
-      'Include readmes is checked'
+      'Include readmes is checked',
     );
 
     await click('.test-search-readmes');
@@ -171,7 +170,7 @@ module('Acceptance: Index', function (hooks) {
     assert.equal(
       find('.test-search-readmes').checked,
       false,
-      'Include readmes is not checked'
+      'Include readmes is not checked',
     );
   });
 
@@ -184,7 +183,7 @@ module('Acceptance: Index', function (hooks) {
           {
             addon_id: addon.id,
             matches: ['<style> a { color: "green"; }</style>'],
-          }, // eslint-disable-line camelcase
+          },
         ],
       };
     });
@@ -236,8 +235,6 @@ module('Acceptance: Index', function (hooks) {
   test('Unknown routes are handled', async function (assert) {
     await visit('/bullshit');
 
-    await percySnapshot('not-found');
-
     assert.equal(currentRouteName(), 'not-found');
   });
 
@@ -251,8 +248,6 @@ module('Acceptance: Index', function (hooks) {
     await visit(`/?query=test`);
 
     await click(findByText('.top-addons a', 'See all top 100 addons'));
-
-    await percySnapshot('/lists/top-addons');
 
     assert.equal(currentURL(), '/lists/top-addons', 'link to top addons works');
   });

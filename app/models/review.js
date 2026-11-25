@@ -1,4 +1,3 @@
-import classic from 'ember-classic-decorator';
 import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import Model, { belongsTo, attr } from '@ember-data/model';
@@ -9,7 +8,6 @@ export const questions = [
   { text: 'Does the addon have a build?', fieldName: 'hasBuild' },
 ];
 
-@classic
 export default class Review extends Model {
   questions = questions;
 
@@ -28,7 +26,7 @@ export default class Review extends Model {
   @attr('number')
   hasBuild;
 
-  @belongsTo('version')
+  @belongsTo('version', { async: true, inverse: 'review' })
   version;
 
   @alias('version.released')
@@ -37,11 +35,15 @@ export default class Review extends Model {
   @computed('hasTests', 'hasBuild', 'hasReadme')
   get score() {
     let s = 2;
-    /* eslint-disable */
-    if (this.hasTests === 1) { s++; }
-    if (this.hasBuild === 1) { s++; }
-    if (this.hasReadme === 1) { s++; }
-    /* eslint-enable */
+    if (this.hasTests === 1) {
+      s++;
+    }
+    if (this.hasBuild === 1) {
+      s++;
+    }
+    if (this.hasReadme === 1) {
+      s++;
+    }
     return s;
   }
 }

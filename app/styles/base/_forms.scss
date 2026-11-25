@@ -1,15 +1,19 @@
+@use 'sass:color';
+
+@use 'sass:math';
+
 fieldset {
-  background: lighten($base-border-color, 10);
+  background: color.adjust($base-border-color, $lightness: 10%, $space: hsl);
   border: $base-border;
-  margin: 0 0 ($base-spacing / 2) 0;
+  margin: 0 0 ($base-spacing * 0.5) 0;
   padding: $base-spacing;
 
   label {
     font-weight: bold;
-    margin-bottom: $base-spacing / 4;
+    margin-bottom: $base-spacing * 0.25;
 
     &.required:after {
-      content: "*";
+      content: '*';
     }
 
     abbr {
@@ -23,7 +27,6 @@ fieldset {
 }
 
 .with-default-styling {
-
   input,
   select {
     display: block;
@@ -33,7 +36,7 @@ fieldset {
 
   textarea,
   #{$all-text-inputs},
-  select[multiple=multiple] {
+  select[multiple='multiple'] {
     @include transition(border-color);
     box-sizing: border-box;
     background-color: white;
@@ -42,8 +45,8 @@ fieldset {
     box-shadow: $form-box-shadow;
     font-family: $form-font-family;
     font-size: $form-font-size;
-    margin-bottom: $base-spacing / 2;
-    padding: ($base-spacing / 3) ($base-spacing / 3);
+    margin-bottom: $base-spacing * 0.5;
+    padding: math.div($base-spacing, 3) math.div($base-spacing, 3);
     width: 100%;
 
     &:hover {
@@ -61,18 +64,18 @@ fieldset {
     resize: vertical;
   }
 
-  input[type="search"] {
+  input[type='search'] {
     @include appearance(none);
   }
 
-  input[type="checkbox"],
-  input[type="radio"] {
+  input[type='checkbox'],
+  input[type='radio'] {
     display: inline;
-    margin-right: $base-spacing / 4;
+    margin-right: $base-spacing * 0.25;
   }
 
-  input[type="file"] {
-    padding-bottom: $base-spacing / 2;
+  input[type='file'] {
+    padding-bottom: $base-spacing * 0.5;
     width: 100%;
   }
 

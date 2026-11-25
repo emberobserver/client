@@ -1,10 +1,8 @@
-import classic from 'ember-classic-decorator';
 import { action, computed } from '@ember/object';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 import Controller from '@ember/controller';
 import { readOnly } from '@ember/object/computed';
 
-@classic
 export default class SizeCalculationResultsShowController extends Controller {
   @service
   api;
@@ -22,7 +20,7 @@ export default class SizeCalculationResultsShowController extends Controller {
 
   @computed(
     'sizeCalculationResult.succeeded',
-    'sizeCalculationResult.errorMessage'
+    'sizeCalculationResult.errorMessage',
   )
   get buildStatus() {
     if (this.get('sizeCalculationResult.succeeded')) {
@@ -44,9 +42,9 @@ export default class SizeCalculationResultsShowController extends Controller {
     this.api
       .request(
         `/size_calculation_results/${this.get(
-          'sizeCalculationResult.id'
+          'sizeCalculationResult.id',
         )}/retry`,
-        { method: 'POST' }
+        { method: 'POST' },
       )
       .catch((e) => {
         this.get('hasRetriedBuild', false);

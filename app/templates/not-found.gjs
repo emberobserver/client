@@ -1,0 +1,7 @@
+import PageLayout from "../components/page-layout.gjs";
+<template><PageLayout @showCategories={{false}}>
+  <div class="not-found test-not-found">
+    <h1>Oops! We can't find what you were looking for. Try searching above?</h1>
+  </div>
+</PageLayout>
+</template>

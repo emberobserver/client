@@ -1,20 +1,23 @@
+@use 'sass:color';
+
 table {
   border-collapse: collapse;
-  margin: ($base-spacing / 2) 0;
+  margin: ($base-spacing * 0.5) 0;
   table-layout: fixed;
   width: 100%;
 }
 
 th {
-  border-bottom: 1px solid darken($base-border-color, 15);
+  border-bottom: 1px solid
+    color.adjust($base-border-color, $lightness: -15%, $space: hsl);
   font-weight: bold;
-  padding: ($base-spacing / 2) 0;
+  padding: ($base-spacing * 0.5) 0;
   text-align: left;
 }
 
 td {
   border-bottom: $base-border;
-  padding: ($base-spacing / 2) 0;
+  padding: ($base-spacing * 0.5) 0;
 }
 
 tr,

@@ -1,14 +1,19 @@
-import classic from 'ember-classic-decorator';
+import { get } from '@ember/object';
+import asArray from 'ember-observer/utils/as-array';
 import { hash } from 'rsvp';
 import Route from '@ember/routing/route';
 
 import measure from '../../utils/measure';
+import { service } from '@ember/service';
 
-@classic
 export default class ShowRoute extends Route {
+  @service store;
+
   model(params) {
     return this.modelFor('application').categories.then(() => {
-      let category = this.store.peekAll('category').findBy('slug', params.slug);
+      let category = asArray(this.store.peekAll('category')).find(
+        (item) => get(item, 'slug') === params.slug,
+      );
       if (!category) {
         throw new Error(`no such category ${params.slug}`);
       }
@@ -24,8 +29,4 @@ export default class ShowRoute extends Route {
   }
 
   afterModel = measure;
-
-  titleToken(model) {
-    return model.category.get('name');
-  }
 }

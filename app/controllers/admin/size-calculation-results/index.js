@@ -1,14 +1,13 @@
-import classic from 'ember-classic-decorator';
+import asArray from 'ember-observer/utils/as-array';
 import { computed } from '@ember/object';
 import Controller from '@ember/controller';
 
-@classic
 export default class SizeCalculationResultsIndexController extends Controller {
   queryParams = ['date'];
 
   @computed('model')
   get sortedSizeCalculationResults() {
-    return this.model.toArray().sort(sortByAddonNameAndMostRecent);
+    return asArray(this.model).slice().sort(sortByAddonNameAndMostRecent);
   }
 }
 
