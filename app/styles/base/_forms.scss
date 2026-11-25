@@ -1,6 +1,6 @@
-@use "sass:color";
+@use 'sass:color';
 
-@use "sass:math";
+@use 'sass:math';
 
 fieldset {
   background: color.adjust($base-border-color, $lightness: 10%, $space: hsl);
@@ -13,7 +13,7 @@ fieldset {
     margin-bottom: $base-spacing * 0.25;
 
     &.required:after {
-      content: "*";
+      content: '*';
     }
 
     abbr {
@@ -27,7 +27,6 @@ fieldset {
 }
 
 .with-default-styling {
-
   input,
   select {
     display: block;
@@ -37,7 +36,7 @@ fieldset {
 
   textarea,
   #{$all-text-inputs},
-  select[multiple=multiple] {
+  select[multiple='multiple'] {
     @include transition(border-color);
     box-sizing: border-box;
     background-color: white;
@@ -65,17 +64,17 @@ fieldset {
     resize: vertical;
   }
 
-  input[type="search"] {
+  input[type='search'] {
     @include appearance(none);
   }
 
-  input[type="checkbox"],
-  input[type="radio"] {
+  input[type='checkbox'],
+  input[type='radio'] {
     display: inline;
     margin-right: $base-spacing * 0.25;
   }
 
-  input[type="file"] {
+  input[type='file'] {
     padding-bottom: $base-spacing * 0.5;
     width: 100%;
   }

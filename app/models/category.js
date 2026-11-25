@@ -42,7 +42,8 @@ export default class Category extends Model {
 
   @computed('addonCount', 'subcategories.@each.addonCount')
   get totalAddonCount() {
-    return asArray(this.subcategories).map((item) => get(item, 'addonCount'))
+    return asArray(this.subcategories)
+      .map((item) => get(item, 'addonCount'))
       .reduce(function (categoryA, categoryB) {
         return categoryA + categoryB;
       }, this.addonCount);

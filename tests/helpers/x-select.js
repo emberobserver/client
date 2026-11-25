@@ -13,10 +13,10 @@ export function select(selector, ...texts) {
   let $options = $select.find(`option`);
 
   if (!$options.length) {
-    throw `No options found in ${selector}` ;
+    throw `No options found in ${selector}`;
   }
 
-  $options.each(function() {
+  $options.each(function () {
     let $option = jQuery(this);
 
     run(() => {
@@ -27,7 +27,7 @@ export function select(selector, ...texts) {
         return optionText === text.toUpperCase();
       });
 
-      if(this.selected) {
+      if (this.selected) {
         $option.prop('selected', true).trigger('change');
       }
     });

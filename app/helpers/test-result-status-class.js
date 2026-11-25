@@ -4,7 +4,9 @@ import { helper } from '@ember/component/helper';
 
 export default helper(function testResultStatusClass([testResult]) {
   if (testResult.get('succeeded')) {
-    if (asArray(get(testResult, 'emberVersionCompatibilities'))[0]?.compatible) {
+    if (
+      asArray(get(testResult, 'emberVersionCompatibilities'))[0]?.compatible
+    ) {
       return 'passed';
     } else {
       return 'failed';

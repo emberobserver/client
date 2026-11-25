@@ -1,4 +1,4 @@
-@use "sass:color";
+@use 'sass:color';
 
 .stats {
   $stats-color: color.adjust($base-accent-color, $lightness: 10%, $space: hsl);

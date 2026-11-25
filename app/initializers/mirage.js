@@ -1,4 +1,9 @@
-import { importSync, isDevelopingApp, isTesting, macroCondition } from '@embroider/macros';
+import {
+  importSync,
+  isDevelopingApp,
+  isTesting,
+  macroCondition,
+} from '@embroider/macros';
 import config from '#config';
 
 /**
@@ -8,7 +13,9 @@ import config from '#config';
 export function initialize() {
   if (macroCondition(isDevelopingApp())) {
     let settings = config['ember-cli-mirage'] ?? {};
-    let enabled = settings.enabled ?? (config.environment === 'development' && !(settings.usingProxy ?? true));
+    let enabled =
+      settings.enabled ??
+      (config.environment === 'development' && !(settings.usingProxy ?? true));
 
     if (enabled && !isTesting() && !('FastBoot' in globalThis)) {
       let { default: makeServer } = importSync('#mirage/servers/default');

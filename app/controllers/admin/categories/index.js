@@ -10,6 +10,9 @@ export default class IndexController extends Controller {
   }
 
   get topLevelCategories() {
-    return sortBy(get(this, 'unsortedTopLevelCategories'), get(this, 'categorySorting'));
+    return sortBy(
+      get(this, 'unsortedTopLevelCategories'),
+      get(this, 'categorySorting'),
+    );
   }
 }

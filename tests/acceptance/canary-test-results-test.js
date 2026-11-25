@@ -14,7 +14,7 @@ module('Acceptance | canary test results', function (hooks) {
         get date() {
           return moment('2020-10-31T17:14:51Z');
         }
-      }
+      },
     );
   });
 
@@ -30,11 +30,10 @@ module('Acceptance | canary test results', function (hooks) {
 
     await visit('/canary-test-results');
 
-
     assert.equal(
       currentRouteName(),
       'canary-test-results.date',
-      'transitions to canary test results date route'
+      'transitions to canary test results date route',
     );
   });
 });

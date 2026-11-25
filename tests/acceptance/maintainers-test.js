@@ -10,7 +10,6 @@ module('Acceptance: Maintainers', function (hooks) {
 
     await visit('/maintainers/maintainer-0');
 
-
     assert.equal(currentRouteName(), 'maintainers.show');
   });
 
@@ -20,12 +19,12 @@ module('Acceptance: Maintainers', function (hooks) {
     assert.equal(
       currentURL(),
       '/maintainers/404maintainernotfound',
-      'preserves URL'
+      'preserves URL',
     );
     assert
       .dom('.test-not-found')
       .hasText(
-        "Oops! We can't find what you were looking for. Try searching above?"
+        "Oops! We can't find what you were looking for. Try searching above?",
       );
   });
 });

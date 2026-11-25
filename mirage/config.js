@@ -47,7 +47,7 @@ export default function () {
   this.get('/categories', function (schema, request) {
     if (request.queryParams['filter[id]']) {
       let categories = schema.categories.find(
-        request.queryParams['filter[id]'].split(',')
+        request.queryParams['filter[id]'].split(','),
       );
       if (!categories.models.length) {
         return new Mirage.Response(404);
@@ -82,7 +82,7 @@ export default function () {
 
     if (request.queryParams['filter[id]']) {
       let addons = schema.addons.find(
-        request.queryParams['filter[id]'].split(',')
+        request.queryParams['filter[id]'].split(','),
       );
       if (!addons.models.length) {
         return new Mirage.Response(404);
@@ -93,7 +93,7 @@ export default function () {
 
     if (request.queryParams['filter[inCategory]']) {
       let category = schema.categories.find(
-        request.queryParams['filter[inCategory]']
+        request.queryParams['filter[inCategory]'],
       );
       return category.addons;
     }
@@ -207,8 +207,8 @@ export default function () {
     addon.update(this.normalizedRequestAttrs());
     let categories = schema.categories.find(
       JSON.parse(request.requestBody).data.relationships.categories.data.mapBy(
-        'id'
-      )
+        'id',
+      ),
     );
     addon.categoryIds = categories.models.mapBy('id');
     addon.save();

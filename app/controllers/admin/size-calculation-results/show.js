@@ -20,7 +20,7 @@ export default class SizeCalculationResultsShowController extends Controller {
 
   @computed(
     'sizeCalculationResult.succeeded',
-    'sizeCalculationResult.errorMessage'
+    'sizeCalculationResult.errorMessage',
   )
   get buildStatus() {
     if (this.get('sizeCalculationResult.succeeded')) {
@@ -42,9 +42,9 @@ export default class SizeCalculationResultsShowController extends Controller {
     this.api
       .request(
         `/size_calculation_results/${this.get(
-          'sizeCalculationResult.id'
+          'sizeCalculationResult.id',
         )}/retry`,
-        { method: 'POST' }
+        { method: 'POST' },
       )
       .catch((e) => {
         this.get('hasRetriedBuild', false);

@@ -92,7 +92,7 @@ module('Acceptance | build results', function (hooks) {
       .dom(results[0])
       .containsText(
         'failed - timed out',
-        'displays failure notice with status message for failed builds'
+        'displays failure notice with status message for failed builds',
       );
     assert
       .dom(results[1])
@@ -172,7 +172,7 @@ module('Acceptance | build results', function (hooks) {
     assert
       .dom(`a[href="/admin/build-results?date=${tomorrow}"]`)
       .doesNotExist(
-        'does not have a link to the results for the following day'
+        'does not have a link to the results for the following day',
       );
   });
 
@@ -183,7 +183,6 @@ module('Acceptance | build results', function (hooks) {
     await login();
     await visit('/admin/build-results');
     await click(findByText('.test-build-result a', 'details'));
-
 
     assert.equal(currentURL(), `/admin/build-results/${testResult.id}`);
   });

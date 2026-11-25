@@ -20,12 +20,11 @@ module('Acceptance: Addons', function (hooks) {
   test('addon not found', async function (assert) {
     await visit('/addons/ember-nonexistent-addon');
 
-
     assert.equal(currentURL(), '/addons/ember-nonexistent-addon');
     assert
       .dom('.test-not-found')
       .hasText(
-        "Oops! We can't find what you were looking for. Try searching above?"
+        "Oops! We can't find what you were looking for. Try searching above?",
       );
   });
 
@@ -42,7 +41,7 @@ module('Acceptance: Addons', function (hooks) {
       .dom('.score')
       .hasText(
         'Score 0.0',
-        'Displays 0 for score when addon has a score of zero'
+        'Displays 0 for score when addon has a score of zero',
       );
   });
 
@@ -171,13 +170,13 @@ module('Acceptance: Addons', function (hooks) {
       .dom('.test-value', checks[0])
       .hasClass(
         'yellow',
-        'Has class to indicate mediocre check passing percentage'
+        'Has class to indicate mediocre check passing percentage',
       );
     assert
       .dom('.test-max-contribution', checks[0])
       .containsText(
         '3.33',
-        'Displays max contribution in the scale of the score'
+        'Displays max contribution in the scale of the score',
       );
 
     assert.dom(checks[1]).containsText('Mines bitcoin');
@@ -189,7 +188,7 @@ module('Acceptance: Addons', function (hooks) {
       .dom('.test-max-contribution', checks[1])
       .containsText(
         '3.33',
-        'Displays max contribution in the scale of the score'
+        'Displays max contribution in the scale of the score',
       );
 
     assert.dom(checks[2]).containsText('Makes breakfast for me');
@@ -198,13 +197,13 @@ module('Acceptance: Addons', function (hooks) {
       .dom('.test-value', checks[2])
       .hasClass(
         'green',
-        'Has class to indicate perfect check passing percentage'
+        'Has class to indicate perfect check passing percentage',
       );
     assert
       .dom('.test-max-contribution', checks[2])
       .containsText(
         '3.33',
-        'Displays max contribution in the scale of the score'
+        'Displays max contribution in the scale of the score',
       );
   });
 
@@ -228,7 +227,6 @@ module('Acceptance: Addons', function (hooks) {
     await visitAddon(addon);
 
     await click('.info-action');
-
 
     assert.dom('.test-github-data').containsText('TOP 10% STARRED');
     assert.dom('.test-open-issues').containsText('13');
@@ -298,7 +296,7 @@ module('Acceptance: Addons', function (hooks) {
         get date() {
           return moment('2020-10-31T17:14:51Z');
         }
-      }
+      },
     );
 
     let addon = server.create('addon', {
@@ -347,7 +345,6 @@ module('Acceptance: Addons', function (hooks) {
 
     await click('.info-action');
 
-
     let questions = findAll('.test-review-question');
     assert.dom(questions[0]).hasText('Are there meaningful tests? Yes');
     assert.dom(questions[1]).hasText('Is the README filled out? Unknown');
@@ -357,7 +354,7 @@ module('Acceptance: Addons', function (hooks) {
     assert
       .dom('.test-review-new-version-warning')
       .hasText(
-        'New versions of this addon have been released since this review was undertaken.'
+        'New versions of this addon have been released since this review was undertaken.',
       );
   });
 
@@ -367,8 +364,7 @@ module('Acceptance: Addons', function (hooks) {
     let otherAssetsJson = {
       files: [
         {
-          name:
-            'dist/ember-fetch/fetch-fastboot-9f92e76e789a8d7a64fe7fa9b14c699a.js',
+          name: 'dist/ember-fetch/fetch-fastboot-9f92e76e789a8d7a64fe7fa9b14c699a.js',
           size: 863,
           gzipSize: 522,
         },
@@ -391,14 +387,15 @@ module('Acceptance: Addons', function (hooks) {
       otherAssets: otherAssetsJson,
     });
 
-    addon.latestAddonVersion = asRecord(server.create('version', {
-      addon,
-      addonSize,
-    }));
+    addon.latestAddonVersion = asRecord(
+      server.create('version', {
+        addon,
+        addonSize,
+      }),
+    );
     addon.save();
 
     await visitAddon(addon);
-
 
     assert.dom('.test-latest-size').exists('Addon size section shows');
 
@@ -411,9 +408,11 @@ module('Acceptance: Addons', function (hooks) {
 
   test('omits addon size section when no size data', async (assert) => {
     let addon = server.create('addon');
-    addon.latestAddonVersion = asRecord(server.create('version', {
-      addon,
-    }));
+    addon.latestAddonVersion = asRecord(
+      server.create('version', {
+        addon,
+      }),
+    );
     addon.save();
 
     await visitAddon(addon);
@@ -421,7 +420,7 @@ module('Acceptance: Addons', function (hooks) {
     assert
       .dom('.test-latest-size')
       .doesNotExist(
-        'Addon size section does not show if latest version has no size data'
+        'Addon size section does not show if latest version has no size data',
       );
   });
 
@@ -482,7 +481,7 @@ module('Acceptance: Addons', function (hooks) {
 
     assert
       .dom(
-        '.test-addon-demo-url a[href="http://www.example.com/demo_of_addon"]'
+        '.test-addon-demo-url a[href="http://www.example.com/demo_of_addon"]',
       )
       .exists();
     assert
@@ -496,7 +495,7 @@ module('Acceptance: Addons', function (hooks) {
 
     assert
       .dom(
-        '.test-addon-package-url a[href="https://www.npmjs.com/package/test-addon"]'
+        '.test-addon-package-url a[href="https://www.npmjs.com/package/test-addon"]',
       )
       .exists();
     assert
@@ -518,12 +517,12 @@ module('Acceptance: Addons', function (hooks) {
       .exists('maintainers should have link to them');
     assert
       .dom(
-        '.test-addon-maintainers img[src="https://secure.gravatar.com/avatar/412412d3d6d6fc8809f9121216dd0?d=identicon"]'
+        '.test-addon-maintainers img[src="https://secure.gravatar.com/avatar/412412d3d6d6fc8809f9121216dd0?d=identicon"]',
       )
       .exists('maintainers should have gravatar');
     assert
       .dom(
-        '.test-addon-maintainers img[title="maintainer-0"][alt="maintainer-0"]'
+        '.test-addon-maintainers img[title="maintainer-0"][alt="maintainer-0"]',
       )
       .exists('Title and source of gravatar are set');
 
@@ -534,7 +533,7 @@ module('Acceptance: Addons', function (hooks) {
       .dom('.test-addon-versions li')
       .exists(
         { count: 3 },
-        'Only 3 list items should be under versions, 2 for versions, 1 for ember versions after publishing of addon'
+        'Only 3 list items should be under versions, 2 for versions, 1 for ember versions after publishing of addon',
       );
     let versionListItems = findAll('.test-addon-versions li');
     assert.dom(versionListItems[0]).containsText('1.0.1');
@@ -550,7 +549,7 @@ module('Acceptance: Addons', function (hooks) {
     assert
       .dom('.test-addon-badge .test-badge-markdown')
       .hasText(
-        '[![Ember Observer Score](https://emberobserver.com/badges/test-addon.svg)](https://emberobserver.com/addons/test-addon)'
+        '[![Ember Observer Score](https://emberobserver.com/badges/test-addon.svg)](https://emberobserver.com/addons/test-addon)',
       );
   });
 
@@ -609,8 +608,7 @@ module('Acceptance: Addons', function (hooks) {
     let otherAssetsJson = {
       files: [
         {
-          name:
-            'dist/ember-fetch/fetch-fastboot-9f92e76e789a8d7a64fe7fa9b14c699a.js',
+          name: 'dist/ember-fetch/fetch-fastboot-9f92e76e789a8d7a64fe7fa9b14c699a.js',
           size: 863,
           gzipSize: 522,
         },
@@ -663,11 +661,11 @@ module('Acceptance: Addons', function (hooks) {
 
     assert
       .dom(
-        `.test-dependency-${dependencyWithSize.package} .test-dependency-name`
+        `.test-dependency-${dependencyWithSize.package} .test-dependency-name`,
       )
       .containsText(
         dependencyWithSize.package,
-        'Package name still shows along with size'
+        'Package name still shows along with size',
       );
     assert
       .dom(`.test-dependency-${dependencyWithSize.package} .test-size-summary`)
@@ -675,7 +673,7 @@ module('Acceptance: Addons', function (hooks) {
 
     assert
       .dom(
-        `.test-dependency-${dependencyWithNoSize.package} .test-size-summary`
+        `.test-dependency-${dependencyWithNoSize.package} .test-size-summary`,
       )
       .doesNotExist('No size summary shows if none found');
     assert
@@ -683,21 +681,20 @@ module('Acceptance: Addons', function (hooks) {
       .doesNotExist('No size data shown for dev dependencies');
 
     await click(
-      `.test-dependency-${dependencyWithSize.package} .test-size-summary`
+      `.test-dependency-${dependencyWithSize.package} .test-size-summary`,
     );
     assert
       .dom(`.test-dependency-${dependencyWithSize.package} .test-size-detail`)
       .exists('Size detail shows');
 
     await click(
-      `.test-dependency-${dependencyWithSize.package} .test-other-assets-toggle`
+      `.test-dependency-${dependencyWithSize.package} .test-other-assets-toggle`,
     );
     assert
       .dom(
-        `.test-dependency-${dependencyWithSize.package} .test-other-assets-details`
+        `.test-dependency-${dependencyWithSize.package} .test-other-assets-details`,
       )
       .exists('Other assets detail shows');
-
   });
 
   test('hides some dependencies if there are over a certain amount', async function (assert) {
@@ -722,41 +719,41 @@ module('Acceptance: Addons', function (hooks) {
     await visitAddon(addon);
 
     let dependencyPackages = findAll(
-      '.test-addon-dependencies .test-dependencies .test-dependency-name'
+      '.test-addon-dependencies .test-dependencies .test-dependency-name',
     );
     assert.equal(
       8,
       dependencyPackages.length,
-      'Shows truncated list of dependencies'
+      'Shows truncated list of dependencies',
     );
 
     let devDependencyPackages = findAll(
-      '.test-addon-dependencies .test-dev-dependencies .test-dependency-name'
+      '.test-addon-dependencies .test-dev-dependencies .test-dependency-name',
     );
     assert.equal(
       8,
       devDependencyPackages.length,
-      'Shows list of dev dependencies'
+      'Shows list of dev dependencies',
     );
 
     await click('.test-addon-dependencies .test-show-all-dependencies');
 
     dependencyPackages = findAll(
-      '.test-addon-dependencies .test-dependencies .test-dependency-name'
+      '.test-addon-dependencies .test-dependencies .test-dependency-name',
     );
     assert.equal(
       10,
       dependencyPackages.length,
-      'Shows full list of dependencies'
+      'Shows full list of dependencies',
     );
 
     devDependencyPackages = findAll(
-      '.test-addon-dependencies .test-dev-dependencies .test-dependency-name'
+      '.test-addon-dependencies .test-dev-dependencies .test-dependency-name',
     );
     assert.equal(
       11,
       devDependencyPackages.length,
-      'Shows full list of dependencies'
+      'Shows full list of dependencies',
     );
   });
 
@@ -811,21 +808,21 @@ module('Acceptance: Addons', function (hooks) {
     await click('.test-show-dependents');
 
     let dependencyPackages = findAll(
-      '.test-addon-dependents .test-dependencies .test-dependency-name'
+      '.test-addon-dependents .test-dependencies .test-dependency-name',
     );
     assert.equal(
       dependencyPackages.length,
       7,
-      'Shows list of dependent addons'
+      'Shows list of dependent addons',
     );
 
     let devDependencyPackages = findAll(
-      '.test-addon-dependents .test-dev-dependencies .test-dependency-name'
+      '.test-addon-dependents .test-dev-dependencies .test-dependency-name',
     );
     assert.equal(
       devDependencyPackages.length,
       8,
-      'Shows list of dev dependent addons'
+      'Shows list of dev dependent addons',
     );
   });
 
@@ -863,19 +860,20 @@ module('Acceptance: Addons', function (hooks) {
 
     await click('.test-addon-correction-link');
 
-
     assert.equal(
       currentURL(),
       '/addons/test-addon/correct',
-      'suggest a correction link works'
+      'suggest a correction link works',
     );
   });
 
   module('Scoped addons', function (hooks) {
     hooks.beforeEach(function () {
-      this.addon = asRecord(server.create('addon', {
-        name: '@foo-bar/test-addon',
-      }));
+      this.addon = asRecord(
+        server.create('addon', {
+          name: '@foo-bar/test-addon',
+        }),
+      );
     });
 
     test('can view a scoped addon with a / in the URL', async function (assert) {
@@ -901,7 +899,7 @@ module('Acceptance: Addons', function (hooks) {
       assert
         .dom('.test-addon-badge .test-badge-markdown')
         .hasText(
-          '[![Ember Observer Score](https://emberobserver.com/badges/-foo-bar-test-addon.svg)](https://emberobserver.com/addons/@foo-bar/test-addon)'
+          '[![Ember Observer Score](https://emberobserver.com/badges/-foo-bar-test-addon.svg)](https://emberobserver.com/addons/@foo-bar/test-addon)',
         );
     });
   });

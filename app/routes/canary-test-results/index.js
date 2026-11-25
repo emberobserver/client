@@ -10,7 +10,7 @@ export default class IndexRoute extends Route {
   beforeModel() {
     this.router.transitionTo(
       'canary-test-results.date',
-      moment(this.currentDate.date).format('YYYY-MM-DD')
+      moment(this.currentDate.date).format('YYYY-MM-DD'),
     );
   }
 }

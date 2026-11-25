@@ -1,4 +1,5 @@
 <!-- ember.nvp:start -->
+
 # ember-observer
 
 An Ember app, generated with [ember.nvp](https://github.com/NullVoxPopuli/ember.nvp).
@@ -47,7 +48,7 @@ Code from older Ember versions does not work here.
   Re-export each one in `app/services/`, for example `app/services/page-title.js`:
 
   ```js
-  export { default } from "ember-page-title/services/page-title";
+  export { default } from 'ember-page-title/services/page-title';
   ```
 
 ## Production build
@@ -97,5 +98,7 @@ From `imports` in `package.json`:
   pnpm build:test
   pnpm test:ci --test_page "tests/index.html?hidepassed&filter=<text>"
   ```
+
 - Read state from the DOM with `assert.dom()` from qunit-dom.
+
 <!-- ember.nvp:end -->

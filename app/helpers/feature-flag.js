@@ -7,7 +7,11 @@ export default Helper.extend({
 
   compute([flag]) {
     if (this._observedFlag) {
-      this.get('features').removeObserver(this._observedFlag, this, 'recompute');
+      this.get('features').removeObserver(
+        this._observedFlag,
+        this,
+        'recompute',
+      );
     }
 
     this.set('_observedFlag', camelize(flag));
@@ -18,11 +22,15 @@ export default Helper.extend({
 
   _observedFlag: null,
 
-  willDestroy () {
+  willDestroy() {
     this._super(...arguments);
 
     if (this._observedFlag) {
-      this.get('features').removeObserver(this._observedFlag, this, 'recompute');
+      this.get('features').removeObserver(
+        this._observedFlag,
+        this,
+        'recompute',
+      );
     }
-  }
+  },
 });

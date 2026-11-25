@@ -1,6 +1,6 @@
 $ember-power-select-multiple-selection-background-color: $light-gray;
 $ember-power-select-multiple-option-border-color: $dark-blue-gray;
-$ember-power-select-multiple-option-padding: 4px $base-spacing*0.5;
+$ember-power-select-multiple-option-padding: 4px $base-spacing * 0.5;
 $ember-power-select-highlighted-color: $medium-gray;
 $ember-power-select-selected-background: $blue;
 $ember-power-select-multiple-selection-color: $medium-gray;
@@ -21,11 +21,12 @@ $ember-power-select-multiple-selection-color: $medium-gray;
     .addon-count {
       margin-top: 1em;
       margin-bottom: 0.5em;
-      margin-left: $base-spacing*0.5;
+      margin-left: $base-spacing * 0.5;
     }
 
     .review-addon-list {
-      a:hover, a.active {
+      a:hover,
+      a.active {
         li {
           background-color: $light-gray;
         }
@@ -36,10 +37,10 @@ $ember-power-select-multiple-selection-color: $medium-gray;
       }
 
       li {
-        padding: $base-spacing*0.5 10px;
+        padding: $base-spacing * 0.5 10px;
 
         .score {
-          margin-right: $base-spacing*0.5;
+          margin-right: $base-spacing * 0.5;
         }
 
         .review-addon-list-name {
@@ -69,12 +70,11 @@ $ember-power-select-multiple-selection-color: $medium-gray;
         }
 
         .component-toggle-switch {
-          margin-top: $base-spacing*0.5;
+          margin-top: $base-spacing * 0.5;
         }
 
         .hidden-toggle {
-
-          input[type=checkbox] {
+          input[type='checkbox'] {
             background-color: $dark-coral;
 
             &:checked {
@@ -91,7 +91,7 @@ $ember-power-select-multiple-selection-color: $medium-gray;
         max-height: 10em;
 
         .component-toggle-switch {
-          margin-right: $base-spacing*0.5;
+          margin-right: $base-spacing * 0.5;
           width: 15em;
         }
       }
@@ -111,7 +111,6 @@ $ember-power-select-multiple-selection-color: $medium-gray;
       }
 
       .review-form {
-
         li {
           margin-bottom: 1em;
         }
@@ -137,7 +136,8 @@ $ember-power-select-multiple-selection-color: $medium-gray;
           border: 1px solid $base-accent-color;
           font-weight: 300;
 
-          &:hover, &.selected {
+          &:hover,
+          &.selected {
             background-color: $base-accent-color;
             color: white !important;
           }
@@ -153,7 +153,7 @@ $ember-power-select-multiple-selection-color: $medium-gray;
         @include box();
 
         .review-date {
-          font-size: .8em;
+          font-size: 0.8em;
           color: #999;
         }
 
@@ -162,7 +162,7 @@ $ember-power-select-multiple-selection-color: $medium-gray;
         }
 
         .no-review {
-          margin-top: .5em;
+          margin-top: 0.5em;
           font-size: 1.1em;
         }
 
@@ -173,7 +173,7 @@ $ember-power-select-multiple-selection-color: $medium-gray;
         .questions {
           li {
             @include clearfix();
-            margin-bottom: .7em;
+            margin-bottom: 0.7em;
             border-bottom: 1px dotted tint($blue, 50%);
 
             &:hover {
@@ -196,7 +196,7 @@ $ember-power-select-multiple-selection-color: $medium-gray;
     .nav-previous-next {
       position: fixed;
       width: calc(100% - 33%);
-      padding: $base-spacing*0.5 $base-spacing;
+      padding: $base-spacing * 0.5 $base-spacing;
       left: 33%;
       top: 0;
       z-index: 3;

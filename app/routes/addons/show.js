@@ -21,7 +21,7 @@ export default class ShowRoute extends Route {
             'versions,maintainers,keywords,latest-review,latest-review.version,latest-addon-version,latest-addon-version.addon-size,categories',
           page: { limit: 1 },
         },
-        { reload: true }
+        { reload: true },
       )
       .then((addons) => {
         return asArray(addons)[0];
@@ -44,9 +44,11 @@ export default class ShowRoute extends Route {
     };
 
     if (this.get('session.isAuthenticated')) {
-      data.categories = asRecord(this.store.findAll('category', {
-        include: 'subcategories',
-      }));
+      data.categories = asRecord(
+        this.store.findAll('category', {
+          include: 'subcategories',
+        }),
+      );
     }
 
     return hash(data);

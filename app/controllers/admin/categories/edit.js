@@ -4,7 +4,7 @@ import { Promise as EmberPromise } from 'rsvp';
 import Controller from '@ember/controller';
 import { service } from '@ember/service';
 import asArray, { sortBy } from 'ember-observer/utils/as-array';
-import { saveRecord } from "@warp-drive/legacy/compat/builders";
+import { saveRecord } from '@warp-drive/legacy/compat/builders';
 
 export default class EditController extends Controller {
   @service router;
@@ -33,7 +33,10 @@ export default class EditController extends Controller {
   categoryPosition;
 
   get subcategories() {
-    return sortBy(get(this, 'category.subcategories'), get(this, 'categoryPositionSorting'));
+    return sortBy(
+      get(this, 'category.subcategories'),
+      get(this, 'categoryPositionSorting'),
+    );
   }
 
   @filter('categories', function (item) {
@@ -42,7 +45,10 @@ export default class EditController extends Controller {
   siblingCategories;
 
   get sortedSiblingCategories() {
-    return sortBy(get(this, 'siblingCategories'), get(this, 'categoryPositionSorting'));
+    return sortBy(
+      get(this, 'siblingCategories'),
+      get(this, 'categoryPositionSorting'),
+    );
   }
 
   @gt('siblingCategories.length', 1)
@@ -52,11 +58,16 @@ export default class EditController extends Controller {
   isTopLevelCategory;
 
   get topLevelCategories() {
-    return asArray(get(this, 'categories')).filter((item) => item.parent === null);
+    return asArray(get(this, 'categories')).filter(
+      (item) => item.parent === null,
+    );
   }
 
   get alphabeticTopLevelCategories() {
-    return sortBy(get(this, 'topLevelCategories'), get(this, 'categoryNameSorting'));
+    return sortBy(
+      get(this, 'topLevelCategories'),
+      get(this, 'categoryNameSorting'),
+    );
   }
 
   newCategoryName = '';
@@ -71,7 +82,8 @@ export default class EditController extends Controller {
       position: this.newCategoryPosition,
       parent: this.category,
     });
-    this.store.request(saveRecord(newCategory))
+    this.store
+      .request(saveRecord(newCategory))
       .then(() => {
         this.router.transitionTo('admin.categories.index');
       })

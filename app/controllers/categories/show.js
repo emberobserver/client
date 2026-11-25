@@ -4,9 +4,11 @@ import Controller from '@ember/controller';
 import { sortBy } from 'ember-observer/utils/as-array';
 
 export default class ShowController extends Controller {
-  queryParams = [{
-    addonSortKey: 'sort',
-  }];
+  queryParams = [
+    {
+      addonSortKey: 'sort',
+    },
+  ];
 
   addonSortKey = 'score';
 

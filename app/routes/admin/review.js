@@ -25,7 +25,7 @@ export default class ReviewRoute extends Route {
       if (model && asArray(model.addons).length) {
         return this.router.replaceWith(
           'admin.review.addon',
-          asArray(model.addons)[0]?.name
+          asArray(model.addons)[0]?.name,
         );
       }
 

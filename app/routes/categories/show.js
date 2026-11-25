@@ -11,7 +11,9 @@ export default class ShowRoute extends Route {
 
   model(params) {
     return this.modelFor('application').categories.then(() => {
-      let category = asArray(this.store.peekAll('category')).find((item) => get(item, 'slug') === params.slug);
+      let category = asArray(this.store.peekAll('category')).find(
+        (item) => get(item, 'slug') === params.slug,
+      );
       if (!category) {
         throw new Error(`no such category ${params.slug}`);
       }

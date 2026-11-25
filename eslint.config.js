@@ -5,7 +5,7 @@
  *
  * Handles: (G)TS + (G)JS, QUnit, Supporting Node files
  */
-import { ember } from "ember-eslint";
+import { ember } from 'ember-eslint';
 
 export default [
   ...ember.recommended(import.meta.dirname),
@@ -13,51 +13,43 @@ export default [
   // see: https://eslint.org/docs/user-guide/configuring/configuration-files#how-do-overrides-work
   {
     rules: {
-      "ember/avoid-leaking-state-in-ember-objects": "off",
-      "ember/closure-actions": "off",
-      "ember/use-brace-expansion": "off",
-      "ember/no-classic-components": "off",
-      "ember/no-get": "off",
-      "ember/require-tagless-components": "off"
-    }
+      'ember/avoid-leaking-state-in-ember-objects': 'off',
+      'ember/closure-actions': 'off',
+      'ember/use-brace-expansion': 'off',
+      'ember/no-classic-components': 'off',
+      'ember/no-get': 'off',
+      'ember/require-tagless-components': 'off',
+    },
   },
   {
-    files: [
-      "**/*.{js,ts}",
-      "**/*.gjs",
-      "**/*.gts"
-    ],
+    files: ['**/*.{js,ts}', '**/*.gjs', '**/*.gts'],
     rules: {
-      "ember/no-jquery": "error"
-    }
+      'ember/no-jquery': 'error',
+    },
   },
   {
-    files: [
-      "tests/**/*.js"
-    ],
-    ignores: [
-      "tests/dummy/**/*.js"
-    ],
+    files: ['tests/**/*.js'],
+    ignores: ['tests/dummy/**/*.js'],
     languageOptions: {
       globals: {
-        server: true
-      }
-    }
+        server: true,
+      },
+    },
   },
   {
     files: [
-      ".eslintrc.js",
-      ".prettierrc.js",
-      ".template-lintrc.js",
-      "ember-cli-build.js",
-      "testem.js",
-      "blueprints/*/index.js",
-      "config/**/*.js",
-      "lib/*/index.js",
-      "server/**/*.js"
+      '.eslintrc.js',
+      '.prettierrc.js',
+      '.template-lintrc.js',
+      'ember-cli-build.js',
+      'testem.js',
+      'blueprints/*/index.js',
+      'config/**/*.js',
+      'lib/*/index.js',
+      'server/**/*.js',
     ],
     rules: {
-      "n/no-unpublished-require": "off"
-    }
+      'n/no-unpublished-require': 'off',
+    },
   },
 ];

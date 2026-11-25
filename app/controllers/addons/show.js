@@ -20,7 +20,10 @@ export default class ShowController extends Controller {
 
   @computed('addon.versions')
   get sortedAddonVersions() {
-    return asArray(this.get('addon.versions') || []).slice().sort((a, b) => compare(get(a, 'released'), get(b, 'released'))).reverse();
+    return asArray(this.get('addon.versions') || [])
+      .slice()
+      .sort((a, b) => compare(get(a, 'released'), get(b, 'released')))
+      .reverse();
   }
 
   @readOnly('addon.latestAddonVersion')

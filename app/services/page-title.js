@@ -6,7 +6,9 @@ import PageTitleService from 'ember-page-title/services/page-title';
  */
 export default class PageTitle extends PageTitleService {
   toString() {
-    return title(this.visibleTokens.map((token) => token.title).filter(Boolean));
+    return title(
+      this.visibleTokens.map((token) => token.title).filter(Boolean),
+    );
   }
 }
 

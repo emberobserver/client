@@ -1,4 +1,4 @@
-@use "sass:color";
+@use 'sass:color';
 
 body {
   -webkit-font-smoothing: antialiased;
@@ -61,7 +61,8 @@ a {
     color: $hover-link-color;
   }
 
-  &:active, &:focus {
+  &:active,
+  &:focus {
     color: $hover-link-color;
     outline: none;
   }
@@ -93,6 +94,6 @@ cite {
   font-style: italic;
 
   &:before {
-    content: "\2014 \00A0";
+    content: '\2014 \00A0';
   }
 }

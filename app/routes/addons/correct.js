@@ -11,7 +11,7 @@ export default class CorrectRoute extends Route {
       .query(
         'addon',
         { filter: { name }, page: { limit: 1 } },
-        { reload: true }
+        { reload: true },
       )
       .then((addons) => {
         return asArray(addons)[0];

@@ -1,4 +1,4 @@
-@use "sass:color";
+@use 'sass:color';
 
 table {
   border-collapse: collapse;
@@ -8,7 +8,8 @@ table {
 }
 
 th {
-  border-bottom: 1px solid color.adjust($base-border-color, $lightness: -15%, $space: hsl);
+  border-bottom: 1px solid
+    color.adjust($base-border-color, $lightness: -15%, $space: hsl);
   font-weight: bold;
   padding: ($base-spacing * 0.5) 0;
   text-align: left;

@@ -1,4 +1,4 @@
-import { createRequire } from "node:module";
+import { createRequire } from 'node:module';
 
 /**
  * Runs server/index.js in the Vite dev server, as `ember serve` did, for the app's proxies and mocks.
@@ -7,9 +7,9 @@ import { createRequire } from "node:module";
  */
 export default function emberCliServer() {
   return {
-    name: "ember-cli-server",
+    name: 'ember-cli-server',
     configureServer(server) {
-      createRequire(import.meta.url)("./index.js")(server.middlewares);
+      createRequire(import.meta.url)('./index.js')(server.middlewares);
     },
   };
 }

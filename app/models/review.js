@@ -36,9 +36,15 @@ export default class Review extends Model {
   get score() {
     let s = 2;
     /* eslint-disable */
-    if (this.hasTests === 1) { s++; }
-    if (this.hasBuild === 1) { s++; }
-    if (this.hasReadme === 1) { s++; }
+    if (this.hasTests === 1) {
+      s++;
+    }
+    if (this.hasBuild === 1) {
+      s++;
+    }
+    if (this.hasReadme === 1) {
+      s++;
+    }
     /* eslint-enable */
     return s;
   }

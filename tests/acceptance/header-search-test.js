@@ -22,7 +22,7 @@ module('Acceptance | header search', function (hooks) {
     assert.typeaheadSuggestionsAre(
       '.test-header-search-dropdown',
       ['test-addon', 'Perform full search »', 'addon-test'],
-      'Search displays matching addons and option to perform a search'
+      'Search displays matching addons and option to perform a search',
     );
   });
 
@@ -40,7 +40,7 @@ module('Acceptance | header search', function (hooks) {
     assert.equal(
       currentURL(),
       '/?query=test',
-      'Perform full search takes to index with correct query'
+      'Perform full search takes to index with correct query',
     );
   });
 
@@ -60,7 +60,7 @@ module('Acceptance | header search', function (hooks) {
     assert.equal(
       currentURL(),
       '/addons/test-addon',
-      'Selecting an addon navigates to that addon'
+      'Selecting an addon navigates to that addon',
     );
   });
 
@@ -76,7 +76,7 @@ module('Acceptance | header search', function (hooks) {
     assert.typeaheadSuggestionsAre(
       '.test-header-search-dropdown',
       ['No matching addons (by name). Try a full search »'],
-      'Perform full search is only option when no matches'
+      'Perform full search is only option when no matches',
     );
   });
 
@@ -107,7 +107,7 @@ module('Acceptance | header search', function (hooks) {
     assert.typeaheadSuggestionsAre(
       '.test-header-search-dropdown',
       expectedResults,
-      'Shows max of five matching addons'
+      'Shows max of five matching addons',
     );
   });
 
@@ -123,12 +123,15 @@ module('Acceptance | header search', function (hooks) {
     await fillIn('.test-header-search input', 'test');
 
     /** click() renders between mouseup and click. PowerSelect closes on mouseup, so a full click reaches a removed element. */
-    await triggerEvent(findByText('.test-search-result-addon-link', 'addon-test'), 'click');
+    await triggerEvent(
+      findByText('.test-search-result-addon-link', 'addon-test'),
+      'click',
+    );
 
     assert.equal(
       currentURL(),
       '/addons/addon-test',
-      'Link goes to the selected addon'
+      'Link goes to the selected addon',
     );
 
     await fillIn('.test-header-search input', 'foo');
@@ -139,7 +142,7 @@ module('Acceptance | header search', function (hooks) {
     assert.equal(
       currentURL(),
       '/?query=foo',
-      'Link goes to main search with query'
+      'Link goes to main search with query',
     );
   });
 
@@ -168,7 +171,7 @@ module('Acceptance | header search', function (hooks) {
     assert.typeaheadSuggestionsAre(
       '.test-header-search-dropdown',
       expectedResults,
-      'Results are sorted by match, then score, then name, ignoring "ember-" and "ember-cli-" prefixes'
+      'Results are sorted by match, then score, then name, ignoring "ember-" and "ember-cli-" prefixes',
     );
   });
 });

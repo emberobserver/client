@@ -1,4 +1,4 @@
-import { uncountable } from "@warp-drive/utilities/string";
+import { uncountable } from '@warp-drive/utilities/string';
 
 export function initialize(/* application */) {
   uncountable('github-stats');

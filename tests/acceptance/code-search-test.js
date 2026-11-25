@@ -51,7 +51,7 @@ module('Acceptance | code search', function (hooks) {
       .hasAttribute(
         'href',
         '/addons/ember-try',
-        'Addon name links to addon page'
+        'Addon name links to addon page',
       );
     assert
       .dom(`[data-id="${firstAddon.id}"] .test-usage-count`)
@@ -124,20 +124,20 @@ module('Acceptance | code search', function (hooks) {
       .dom('.test-last-search')
       .hasText(
         'Results for "asdf" — Found 1 addon (2 usages)',
-        'Last search shows'
+        'Last search shows',
       );
 
     assert
       .dom('.test-usage')
       .containsText(
         'app/services/fake-service.js:52',
-        'Filename shows with line number of match'
+        'Filename shows with line number of match',
       );
     assert
       .dom('.test-usage')
       .containsText(
         '51if (addonData) {',
-        'Source code lines show with line numbers'
+        'Source code lines show with line numbers',
       );
     assert.dom('.match').exists({ count: 2 }, 'Two matches are highlighted');
 
@@ -146,13 +146,13 @@ module('Acceptance | code search', function (hooks) {
       .dom(matches[0])
       .hasText(
         'addons.pushObject({ addon: addonData.addon });',
-        'First match is highlighted correctly'
+        'First match is highlighted correctly',
       );
     assert
       .dom(matches[1])
       .hasText(
         'store: inject.service(),',
-        'Second match is highlighted correctly'
+        'Second match is highlighted correctly',
       );
 
     let secondUsage = findAll('.test-usage')[1];
@@ -165,7 +165,7 @@ module('Acceptance | code search', function (hooks) {
       .hasAttribute(
         'href',
         'https://github.com/kategengler/ember-feature-flags/tree/master/app/services/fake-service.js#L52',
-        'Link to the matched source code line'
+        'Link to the matched source code line',
       );
 
     await click('.test-usage-count');
@@ -232,19 +232,18 @@ module('Acceptance | code search', function (hooks) {
 
     await click(usageSortButton);
 
-
     let resortedAddonNames = findAll('.test-addon-name');
     assert
       .dom(resortedAddonNames[0])
       .containsText(
         'ember-foo',
-        'Addons are sorted descending by default for switch to usage count sort'
+        'Addons are sorted descending by default for switch to usage count sort',
       );
     assert
       .dom(resortedAddonNames[1])
       .containsText(
         'ember-blanket',
-        'Addons are sorted descending by usage count'
+        'Addons are sorted descending by usage count',
       );
     assert
       .dom(resortedAddonNames[2])
@@ -252,7 +251,7 @@ module('Acceptance | code search', function (hooks) {
     assert.equal(
       currentURL(),
       '/code-search?codeQuery=foo&sort=usages&sortAscending=false',
-      'Sort and sort direction is in query params'
+      'Sort and sort direction is in query params',
     );
     assert.dom(usageSortButton).hasClass('selected');
     assert.ok(usageSortButton.querySelector('.icon-expand-more'));
@@ -264,13 +263,13 @@ module('Acceptance | code search', function (hooks) {
       .dom(resortedAddonNames[0])
       .containsText(
         'ember-try',
-        'Addons are sorted ascending by usage count when direction toggled'
+        'Addons are sorted ascending by usage count when direction toggled',
       );
     assert
       .dom(resortedAddonNames[1])
       .containsText(
         'ember-blanket',
-        'Addons are sorted ascending by usage count'
+        'Addons are sorted ascending by usage count',
       );
     assert
       .dom(resortedAddonNames[2])
@@ -278,7 +277,7 @@ module('Acceptance | code search', function (hooks) {
     assert.equal(
       currentURL(),
       '/code-search?codeQuery=foo&sort=usages',
-      'Sort is in query params'
+      'Sort is in query params',
     );
     assert.dom(usageSortButton).hasClass('selected');
     assert.ok(usageSortButton.querySelector('.icon-expand-less'));
@@ -298,7 +297,7 @@ module('Acceptance | code search', function (hooks) {
     assert.equal(
       currentURL(),
       '/code-search?codeQuery=foo',
-      'Sort and sort direction not in query params when default'
+      'Sort and sort direction not in query params when default',
     );
     assert.dom(nameSortButton).hasClass('selected');
     assert.ok(nameSortButton.querySelector('.icon-expand-less'));
@@ -318,7 +317,7 @@ module('Acceptance | code search', function (hooks) {
     assert.equal(
       currentURL(),
       '/code-search?codeQuery=foo&sortAscending=false',
-      'Sort direction is in query params'
+      'Sort direction is in query params',
     );
     assert.dom(nameSortButton).hasClass('selected');
     assert.ok(nameSortButton.querySelector('.icon-expand-more'));
@@ -330,7 +329,7 @@ module('Acceptance | code search', function (hooks) {
       .dom(scoreSortedAddonNames[0])
       .containsText(
         'ember-try',
-        'Addons are sorted by descending score by default'
+        'Addons are sorted by descending score by default',
       );
     assert
       .dom(scoreSortedAddonNames[1])
@@ -341,7 +340,7 @@ module('Acceptance | code search', function (hooks) {
     assert.equal(
       currentURL(),
       '/code-search?codeQuery=foo&sort=score&sortAscending=false',
-      'Sort is in query params'
+      'Sort is in query params',
     );
 
     await click(findByText('.test-sort button', 'Updated'));
@@ -351,7 +350,7 @@ module('Acceptance | code search', function (hooks) {
       .dom(latestVersionDateSortedNames[0])
       .containsText(
         'ember-foo',
-        'Addons are sorted by descending latest version date by default'
+        'Addons are sorted by descending latest version date by default',
       );
     assert
       .dom(latestVersionDateSortedNames[1])
@@ -360,12 +359,12 @@ module('Acceptance | code search', function (hooks) {
       .dom(latestVersionDateSortedNames[2])
       .containsText(
         'ember-blanket',
-        'Addons are sorted by latest version date'
+        'Addons are sorted by latest version date',
       );
     assert.equal(
       currentURL(),
       '/code-search?codeQuery=foo&sort=updated&sortAscending=false',
-      'Sort is in query params'
+      'Sort is in query params',
     );
   });
 
@@ -412,7 +411,7 @@ module('Acceptance | code search', function (hooks) {
     assert.equal(
       'true',
       addonRegexParam,
-      'Regex param from queryParams is included in initial addon request and is true'
+      'Regex param from queryParams is included in initial addon request and is true',
     );
     assert
       .dom('.test-regex-search:checked')
@@ -421,21 +420,21 @@ module('Acceptance | code search', function (hooks) {
       .dom('.test-last-search')
       .hasText(
         'Results for /foo/ — Found 1 addon (2 usages)',
-        'Last search shows as a regex'
+        'Last search shows as a regex',
       );
     assert
       .dom('.test-regex-help')
       .hasAttribute(
         'href',
         'https://github.com/google/re2/wiki/Syntax',
-        'Regex syntax link shows'
+        'Regex syntax link shows',
       );
 
     await click('.test-usage-count');
     assert.equal(
       'true',
       usageRegexParam,
-      'Regex param is included in usage request and is true'
+      'Regex param is included in usage request and is true',
     );
 
     await click('.test-regex-search');
@@ -444,14 +443,14 @@ module('Acceptance | code search', function (hooks) {
       .dom('.test-last-search')
       .hasText(
         'Results for /foo/ — Found 1 addon (2 usages)',
-        'Last search still shows as a regex'
+        'Last search still shows as a regex',
       );
 
     await click('.test-submit-search');
     assert.equal(
       'false',
       addonRegexParam,
-      'Regex param is included in addon request and is false'
+      'Regex param is included in addon request and is false',
     );
     assert
       .dom('.test-regex-help')
@@ -461,7 +460,7 @@ module('Acceptance | code search', function (hooks) {
     assert.equal(
       'false',
       usageRegexParam,
-      'Regex param is included in usage request and is false'
+      'Regex param is included in usage request and is false',
     );
   });
 
@@ -580,25 +579,25 @@ module('Acceptance | code search', function (hooks) {
       .dom('.test-result-info')
       .containsText(
         '3 addons',
-        'full result count shows when filter is applied'
+        'full result count shows when filter is applied',
       );
     assert
       .dom('.test-result-info')
       .containsText(
         '6 usages',
-        'full usage count shows when filter is applied'
+        'full usage count shows when filter is applied',
       );
     assert
       .dom('.test-filtered-result-info')
       .containsText(
         '2 addons',
-        'filtered result count shows when filter is applied'
+        'filtered result count shows when filter is applied',
       );
     assert
       .dom('.test-filtered-result-info')
       .containsText(
         '3 usages',
-        'filtered usage count shows when filter is applied'
+        'filtered usage count shows when filter is applied',
       );
 
     await click('.test-clear-file-filter');
@@ -617,13 +616,13 @@ module('Acceptance | code search', function (hooks) {
       .dom('.test-filtered-result-info')
       .containsText(
         '1 addon',
-        'filtered result count is correct after regex search'
+        'filtered result count is correct after regex search',
       );
     assert
       .dom('.test-filtered-result-info')
       .containsText(
         '1 usage',
-        'filtered usage count is correct after regex search'
+        'filtered usage count is correct after regex search',
       );
   });
 
@@ -684,13 +683,13 @@ module('Acceptance | code search', function (hooks) {
     assert.equal(
       findByText('.test-usage', 'app/services/no-match.js'),
       null,
-      'filtered out file does not show'
+      'filtered out file does not show',
     );
     assert
       .dom('.test-usage')
       .containsText(
         'app/controllers/index.js',
-        'file with matching name shows'
+        'file with matching name shows',
       );
 
     await click('.test-clear-file-filter');
@@ -702,7 +701,7 @@ module('Acceptance | code search', function (hooks) {
       .dom(secondUsage)
       .containsText(
         'app/services/no-match.js',
-        'previously filtered out file now shows'
+        'previously filtered out file now shows',
       );
   });
 
@@ -783,13 +782,13 @@ module('Acceptance | code search', function (hooks) {
       .dom('.test-filtered-result-info')
       .containsText(
         '4 addons',
-        'filtered addon count shows when filter is applied'
+        'filtered addon count shows when filter is applied',
       );
     assert
       .dom('.test-filtered-result-info')
       .containsText(
         '6 usages',
-        'filtered usage count shows when filter is applied'
+        'filtered usage count shows when filter is applied',
       );
     let firstAddonName = findAll('.test-addon-name')[0];
     assert
@@ -943,7 +942,7 @@ module('Acceptance | code search', function (hooks) {
       .dom('.filename')
       .hasAttribute(
         'href',
-        'https://github.com/ember-cli/ember-try/tree/master/app/services/fake-service.js#L52'
+        'https://github.com/ember-cli/ember-try/tree/master/app/services/fake-service.js#L52',
       );
   });
 

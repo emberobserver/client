@@ -78,35 +78,35 @@ module('Acceptance | size calculation results', function (hooks) {
       .hasAttribute(
         'data-sizeCalculationResultId',
         `${addon2Result.id}`,
-        'Addon with first name comes first'
+        'Addon with first name comes first',
       );
     assert
       .dom(results[1])
       .hasAttribute(
         'data-sizeCalculationResultId',
         `${addon3LatestResult.id}`,
-        'Addon with middle name and latest date'
+        'Addon with middle name and latest date',
       );
     assert
       .dom(results[2])
       .hasAttribute(
         'data-sizeCalculationResultId',
         `${addon3MiddleResult.id}`,
-        'Addon with middle name and middle date'
+        'Addon with middle name and middle date',
       );
     assert
       .dom(results[3])
       .hasAttribute(
         'data-sizeCalculationResultId',
         `${addon3EarliestResult.id}`,
-        'Addon with middle name and earliest date'
+        'Addon with middle name and earliest date',
       );
     assert
       .dom(results[4])
       .hasAttribute(
         'data-sizeCalculationResultId',
         `${addon1Result.id}`,
-        'Addon with latest name comes last'
+        'Addon with latest name comes last',
       );
   });
 
@@ -134,7 +134,7 @@ module('Acceptance | size calculation results', function (hooks) {
       .dom(results[0])
       .containsText(
         'failed - something unexpected happened',
-        'displays failure notice with error message for failed builds'
+        'displays failure notice with error message for failed builds',
       );
     assert
       .dom(results[1])
@@ -168,7 +168,7 @@ module('Acceptance | size calculation results', function (hooks) {
     assert
       .dom(`a[href="/admin/size-calculation-results?date=${tomorrow}"]`)
       .doesNotExist(
-        'does not have a link to the results for the following day'
+        'does not have a link to the results for the following day',
       );
   });
 
@@ -190,10 +190,9 @@ module('Acceptance | size calculation results', function (hooks) {
     await visit('/admin/size-calculation-results?date=2020-10-31');
     await click(findByText('.test-size-calculation-result a', 'details'));
 
-
     assert.equal(
       currentURL(),
-      `/admin/size-calculation-results/${testResult.id}`
+      `/admin/size-calculation-results/${testResult.id}`,
     );
   });
 

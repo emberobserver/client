@@ -3,13 +3,14 @@ import Service from '@ember/service';
 import { camelize } from '@ember/string';
 
 const FeaturesService = Service.extend({
-
   init() {
     this._super(...arguments);
     this._flags = Object.create(null);
 
-    this.setUnknownProperty = function(key) {
-      throw new Error(`Please use enable/disable to set feature flags. You attempted to set ${key}`);
+    this.setUnknownProperty = function (key) {
+      throw new Error(
+        `Please use enable/disable to set feature flags. You attempted to set ${key}`,
+      );
     };
   },
 
@@ -71,7 +72,7 @@ const FeaturesService = Service.extend({
 
   unknownProperty(key) {
     return this.isEnabled(key);
-  }
+  },
 });
 
 // Use a native getter instead of a `volatile` computed property since those
@@ -84,7 +85,7 @@ const FeaturesService = Service.extend({
 Object.defineProperty(FeaturesService.prototype, 'flags', {
   get() {
     return Object.keys(this._flags);
-  }
+  },
 });
 
 export default FeaturesService;

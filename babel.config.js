@@ -1,7 +1,7 @@
-import { buildMacros } from "@embroider/macros/babel";
-import { setConfig } from "@warp-drive/core/build-config";
+import { buildMacros } from '@embroider/macros/babel';
+import { setConfig } from '@warp-drive/core/build-config';
 
-const isProduction = process.env.NODE_ENV === "production";
+const isProduction = process.env.NODE_ENV === 'production';
 
 const macros = buildMacros({
   configure(config) {
@@ -10,46 +10,53 @@ const macros = buildMacros({
       deprecations: { DEPRECATE_TRACKING_PACKAGE: false },
     });
 
-    if (process.env.EMBER_ENV === "test") {
+    if (process.env.EMBER_ENV === 'test') {
       config.enableRuntimeMode();
     }
   },
 });
 
 export default {
-  plugins: [[
-    "babel-plugin-ember-template-compilation",
-    {
-      transforms: [...macros.templateMacros],
-    },
-  ], [
-    "module:decorator-transforms",
-    {
-      runtime: {
-        import: import.meta.resolve("decorator-transforms/runtime-esm"),
+  plugins: [
+    [
+      'babel-plugin-ember-template-compilation',
+      {
+        transforms: [...macros.templateMacros],
       },
-    },
-  ], [
-    "@babel/plugin-transform-runtime",
-    {
-      absoluteRuntime: import.meta.dirname,
-      useESModules: true,
-      regenerator: false,
-    },
-  ], isProduction && [
-    "babel-plugin-debug-macros",
-    {
-      debugTools: {
-        isDebug: false,
-        source: "@ember/debug",
-        assertPredicateIndex: 1,
+    ],
+    [
+      'module:decorator-transforms',
+      {
+        runtime: {
+          import: import.meta.resolve('decorator-transforms/runtime-esm'),
+        },
       },
-      externalizeHelpers: {
-        module: "@ember/debug",
+    ],
+    [
+      '@babel/plugin-transform-runtime',
+      {
+        absoluteRuntime: import.meta.dirname,
+        useESModules: true,
+        regenerator: false,
       },
-    },
-    "@ember/debug stripping",
-  ], "ember-concurrency/async-arrow-task-transform", ...macros.babelMacros].filter(Boolean),
+    ],
+    isProduction && [
+      'babel-plugin-debug-macros',
+      {
+        debugTools: {
+          isDebug: false,
+          source: '@ember/debug',
+          assertPredicateIndex: 1,
+        },
+        externalizeHelpers: {
+          module: '@ember/debug',
+        },
+      },
+      '@ember/debug stripping',
+    ],
+    'ember-concurrency/async-arrow-task-transform',
+    ...macros.babelMacros,
+  ].filter(Boolean),
 
   generatorOpts: {
     compact: false,

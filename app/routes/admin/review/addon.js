@@ -19,7 +19,7 @@ export default class AddonRoute extends Route {
             'latest-addon-version,versions,maintainers,keywords,latest-review,latest-review.version,categories',
           page: { limit: 1 },
         },
-        { reload: true }
+        { reload: true },
       )
       .then((addons) => {
         return asArray(addons)[0];

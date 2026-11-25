@@ -1,5 +1,5 @@
 /* globals requirejs, require */
-"use strict";
+'use strict';
 
 let moduleIncludeMatchers = [];
 let moduleExcludeMatchers = [];
@@ -13,7 +13,7 @@ export function addModuleExcludeMatcher(fn) {
 }
 
 function checkMatchers(matchers, moduleName) {
-  return matchers.some(matcher => matcher(moduleName));
+  return matchers.some((matcher) => matcher(moduleName));
 }
 
 export default class TestLoader {
@@ -45,7 +45,10 @@ export default class TestLoader {
         continue;
       }
 
-      if (checkMatchers(moduleIncludeMatchers, moduleName) || this.shouldLoadModule(moduleName)) {
+      if (
+        checkMatchers(moduleIncludeMatchers, moduleName) ||
+        this.shouldLoadModule(moduleName)
+      ) {
         testModules.push(moduleName);
       }
     }
@@ -67,7 +70,7 @@ export default class TestLoader {
   require(moduleName) {
     try {
       require(moduleName);
-    } catch(e) {
+    } catch (e) {
       this.moduleLoadFailure(moduleName, e);
     }
   }
@@ -78,7 +81,9 @@ export default class TestLoader {
     } else if (!this._didLogMissingUnsee) {
       this._didLogMissingUnsee = true;
       if (typeof console !== 'undefined') {
-        console.warn('unable to require.unsee, please upgrade loader.js to >= v3.3.0');
+        console.warn(
+          'unable to require.unsee, please upgrade loader.js to >= v3.3.0',
+        );
       }
     }
   }
@@ -86,4 +91,4 @@ export default class TestLoader {
   moduleLoadFailure(moduleName, error) {
     console.error('Error loading: ' + moduleName, error.stack);
   }
-};
+}

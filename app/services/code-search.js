@@ -34,13 +34,14 @@ export default class CodeSearchService extends Service {
         page: { limit: 10000 },
       });
     }
-    return asArray(results
-      .map((result) => {
+    return asArray(
+      results.map((result) => {
         let addon = addons.find((a) => a.get('id') === result.addon);
         if (addon) {
           return { addon, count: result.count, files: result.files };
         }
-      })).filter((item) => item != null);
+      }),
+    ).filter((item) => item != null);
   });
 
   usages = task(async (addon, query, regex) => {

@@ -2,7 +2,7 @@ import { action, get } from '@ember/object';
 import Controller from '@ember/controller';
 import { service } from '@ember/service';
 import asArray, { sortBy } from 'ember-observer/utils/as-array';
-import { saveRecord } from "@warp-drive/legacy/compat/builders";
+import { saveRecord } from '@warp-drive/legacy/compat/builders';
 
 export default class NewController extends Controller {
   @service router;
@@ -15,11 +15,16 @@ export default class NewController extends Controller {
   categorySorting = ['position:asc'];
 
   get topLevelCategories() {
-    return asArray(get(this, 'model.categories')).filter((item) => item.parent === null);
+    return asArray(get(this, 'model.categories')).filter(
+      (item) => item.parent === null,
+    );
   }
 
   get sortedTopLevelCategories() {
-    return sortBy(get(this, 'topLevelCategories'), get(this, 'categorySorting'));
+    return sortBy(
+      get(this, 'topLevelCategories'),
+      get(this, 'categorySorting'),
+    );
   }
 
   @action
@@ -29,7 +34,8 @@ export default class NewController extends Controller {
       description: this.newCategoryDescription,
       position: this.newCategoryPosition,
     });
-    this.store.request(saveRecord(newCategory))
+    this.store
+      .request(saveRecord(newCategory))
       .then(() => {
         this.router.transitionTo('admin.categories.index');
       })

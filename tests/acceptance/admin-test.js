@@ -27,12 +27,10 @@ module('Acceptance: admin', function (hooks) {
 
     await visit('/login');
 
-
     await fillIn('.test-email', 'test@example.com');
     await fillIn('.test-password', 'password123');
     await click('.test-log-in');
     await visit('/admin');
-
 
     assert.equal(currentURL(), '/admin', 'Does not redirect');
   });

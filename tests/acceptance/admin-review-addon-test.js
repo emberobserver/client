@@ -44,7 +44,7 @@ module('Acceptance | admin review addon', function (hooks) {
     assert
       .dom('.test-not-found')
       .hasText(
-        "Oops! We can't find what you were looking for. Try searching above?"
+        "Oops! We can't find what you were looking for. Try searching above?",
       );
   });
 
@@ -57,7 +57,7 @@ module('Acceptance | admin review addon', function (hooks) {
 
     assert.equal(
       document.title,
-      'Admin | Review | fake-addon - Ember Observer'
+      'Admin | Review | fake-addon - Ember Observer',
     );
   });
 
@@ -92,7 +92,7 @@ module('Acceptance | admin review addon', function (hooks) {
         get date() {
           return moment('2020-10-31T17:14:51Z');
         }
-      }
+      },
     );
 
     let newestAddonVersion = server.create('version', {
@@ -104,7 +104,6 @@ module('Acceptance | admin review addon', function (hooks) {
     addon.update('latestAddonVersionId', newestAddonVersion.id);
 
     await visitAddon(addon);
-
 
     assert.dom('.test-addon-link').includesText('fake-addon');
     assert.dom('.test-description').includesText('Foo bar baz');
@@ -123,7 +122,7 @@ module('Acceptance | admin review addon', function (hooks) {
       .hasAttribute(
         'target',
         'repo',
-        'Has fixed target to facilitate multi-window workflow'
+        'Has fixed target to facilitate multi-window workflow',
       );
   });
 
@@ -311,7 +310,7 @@ module('Acceptance | admin review addon', function (hooks) {
     assert.equal(
       addon.overrideRepositoryUrl,
       'http://example.org',
-      'Override repo url is updated'
+      'Override repo url is updated',
     );
   });
 
@@ -344,7 +343,7 @@ module('Acceptance | admin review addon', function (hooks) {
       '.test-category-chooser',
       '.test-category-chooser-dropdown',
       ['Bears', 'Pets · Domesticated animals', 'Pets > Cats · Feline pets'],
-      'All categories are options, sorted by displayName; descriptions only display for non-selected options'
+      'All categories are options, sorted by displayName; descriptions only display for non-selected options',
     );
     assert.powerSelectMultipleOptionSelected('.test-category-chooser', 'Bears');
 
@@ -352,7 +351,7 @@ module('Acceptance | admin review addon', function (hooks) {
     assert.powerSelectMultipleOptionSelected('.test-category-chooser', 'Bears');
     assert.powerSelectMultipleOptionSelected(
       '.test-category-chooser',
-      'Pets > Cats'
+      'Pets > Cats',
     );
 
     await click('.test-save-addon');
@@ -361,7 +360,7 @@ module('Acceptance | admin review addon', function (hooks) {
     assert.deepEqual(
       addon.categoryIds.sort(),
       [categoryB.id, categoryC.id].sort(),
-      'Categories save'
+      'Categories save',
     );
   });
 
@@ -421,7 +420,7 @@ module('Acceptance | admin review addon', function (hooks) {
     assert
       .dom('.test-review-new-version-warning')
       .hasText(
-        'New versions of this addon have been released since this review was undertaken.'
+        'New versions of this addon have been released since this review was undertaken.',
       );
   });
 
@@ -488,7 +487,7 @@ module('Acceptance | admin review addon', function (hooks) {
     assert
       .dom('.test-review-new-version-warning')
       .hasText(
-        'New versions of this addon have been released since this review was undertaken.'
+        'New versions of this addon have been released since this review was undertaken.',
       );
 
     await click('.test-renew-latest-review');
@@ -497,9 +496,10 @@ module('Acceptance | admin review addon', function (hooks) {
       .dom('.test-review-new-version-warning')
       .doesNotExist('Review is now for latest version');
 
-    let newReview = server.schema.reviews.all().models[
-      server.schema.reviews.all().models.length - 1
-    ];
+    let newReview =
+      server.schema.reviews.all().models[
+        server.schema.reviews.all().models.length - 1
+      ];
 
     assert.notEqual(newReview.id, review.id);
 
@@ -507,13 +507,13 @@ module('Acceptance | admin review addon', function (hooks) {
     assert.equal(
       newestAddonVersion.review.id,
       newReview.id,
-      'New review is associated with correct version'
+      'New review is associated with correct version',
     );
 
     assert.equal(
       newReview.version.id,
       newestAddonVersion.id,
-      'Review is associated with newest addon version'
+      'Review is associated with newest addon version',
     );
     assert.equal(newReview.hasTests, 1);
     assert.equal(newReview.hasReadme, 4);
@@ -599,9 +599,10 @@ module('Acceptance | admin review addon', function (hooks) {
       .dom('.test-review-new-version-warning')
       .doesNotExist('Review is current');
 
-    let newReview = server.schema.reviews.all().models[
-      server.schema.reviews.all().models.length - 1
-    ];
+    let newReview =
+      server.schema.reviews.all().models[
+        server.schema.reviews.all().models.length - 1
+      ];
     assert.equal(newReview.version.id, addonVersion.id);
     assert.equal(newReview.hasTests, 2);
     assert.equal(newReview.hasReadme, 1);
@@ -727,7 +728,7 @@ module('Acceptance | admin review addon', function (hooks) {
       await assert.powerSelectOptionsAre(
         '.test-list-select',
         '.test-list-select-dropdown',
-        expectedOptions
+        expectedOptions,
       );
 
       assert.dom('.test-addon-count').hasText('5 matching addons');
@@ -750,7 +751,7 @@ async function visitList(listName) {
 function assertToggleState(
   assert,
   selector,
-  options = { checked: false, text: '' }
+  options = { checked: false, text: '' },
 ) {
   if (options.checked) {
     assert.dom(`${selector} input`).isChecked();
@@ -770,7 +771,7 @@ async function answerQuestion(question, answer) {
   let questionEl = await findByText('.test-review-question', question);
   let answerButton = await findByText(
     Array.from(questionEl.querySelectorAll('button')),
-    answer
+    answer,
   );
   await click(answerButton);
 }

@@ -1,4 +1,4 @@
-@use "sass:color";
+@use 'sass:color';
 
 .about-index {
   article {
@@ -42,9 +42,9 @@
     }
 
     code {
-      background: #F7F7F7;
+      background: #f7f7f7;
       border-radius: $base-border-radius * 1.5;
-      border: 1px solid #E0E0E0;
+      border: 1px solid #e0e0e0;
       font-family: monaco;
       font-size: 0.65em;
       font-style: normal;
@@ -108,6 +108,4 @@
       font-style: italic;
     }
   }
-
-
 }

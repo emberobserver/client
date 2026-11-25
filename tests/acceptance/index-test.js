@@ -25,7 +25,9 @@ module('Acceptance: Index', function (hooks) {
       addonCount: 4,
     });
 
-    category.update({ addonIds: asArray(addons).map((item) => get(item, 'id')) });
+    category.update({
+      addonIds: asArray(addons).map((item) => get(item, 'id')),
+    });
 
     let addonA = server.create('addon');
 
@@ -40,20 +42,19 @@ module('Acceptance: Index', function (hooks) {
 
     await visit('/');
 
-
     assert
       .dom('.test-category')
       .exists({ count: 8 }, 'All categories should display');
     assert.ok(
       findByText('.test-category', 'Authentication (5)'),
-      'Categories should list title and count of addons'
+      'Categories should list title and count of addons',
     );
     let firstSubcategory = findAll('.test-subcategory')[0];
     assert
       .dom(firstSubcategory)
       .containsText(
         'Simple Auth (1)',
-        'Subcategories should display under category'
+        'Subcategories should display under category',
       );
 
     let authenticationCategory = findByText('.test-category', 'Authentication');
@@ -62,7 +63,7 @@ module('Acceptance: Index', function (hooks) {
     assert.equal(
       currentURL(),
       '/categories/authentication',
-      'URL should use category name token'
+      'URL should use category name token',
     );
     assert
       .dom('.test-category-header')
@@ -80,11 +81,10 @@ module('Acceptance: Index', function (hooks) {
     let simpleAuth = findByText('a', 'Simple Auth (1)');
     await click(simpleAuth);
 
-
     assert.equal(
       currentURL(),
       '/categories/simple-auth',
-      'URL should use category name token'
+      'URL should use category name token',
     );
     assert
       .dom('.test-category-header')
@@ -115,7 +115,7 @@ module('Acceptance: Index', function (hooks) {
       assert.equal(
         request.queryParams.query,
         'test',
-        'Query is sent to readme search'
+        'Query is sent to readme search',
       );
       return {
         search: [
@@ -149,7 +149,7 @@ module('Acceptance: Index', function (hooks) {
     assert.equal(
       find('.test-search-readmes').checked,
       true,
-      'Include readmes is checked'
+      'Include readmes is checked',
     );
 
     await click('.test-search-readmes');
@@ -170,7 +170,7 @@ module('Acceptance: Index', function (hooks) {
     assert.equal(
       find('.test-search-readmes').checked,
       false,
-      'Include readmes is not checked'
+      'Include readmes is not checked',
     );
   });
 
@@ -235,7 +235,6 @@ module('Acceptance: Index', function (hooks) {
   test('Unknown routes are handled', async function (assert) {
     await visit('/bullshit');
 
-
     assert.equal(currentRouteName(), 'not-found');
   });
 
@@ -249,7 +248,6 @@ module('Acceptance: Index', function (hooks) {
     await visit(`/?query=test`);
 
     await click(findByText('.top-addons a', 'See all top 100 addons'));
-
 
     assert.equal(currentURL(), '/lists/top-addons', 'link to top addons works');
   });

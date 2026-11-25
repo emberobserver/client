@@ -1,1 +1,1 @@
-export { DateTransform as default } from "@ember-data/serializer/transform";
+export { DateTransform as default } from '@ember-data/serializer/transform';

@@ -1,5 +1,4 @@
-export function initialize(application) {
-}
+export function initialize(application) {}
 
 export default {
   name: 'session-service',
