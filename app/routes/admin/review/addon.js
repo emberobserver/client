@@ -1,9 +1,12 @@
 import classic from 'ember-classic-decorator';
 import Route from '@ember/routing/route';
 import { hash } from 'rsvp';
+import { service } from '@ember/service';
 
 @classic
 export default class AddonRoute extends Route {
+  @service store;
+
   model(params) {
     let name = params.name.replace(/%2F/i, '/');
     let list = this.modelFor('admin.review');

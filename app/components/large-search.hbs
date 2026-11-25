@@ -15,7 +15,7 @@
       {{/if}}
     </div>
     <div class="readme-toggle">
-      <Input @type="checkbox" class="test-search-readmes" @id="search-readmes" @checked={{this.searchReadmes}} @change={{perform this.toggleReadmeSearch}} />
+      <Input @type="checkbox" class="test-search-readmes" id="search-readmes" @checked={{this.searchReadmes}} {{on "change" (perform this.toggleReadmeSearch)}} />
       <label for="search-readmes">Search readmes</label>
     </div>
     <h6 class="no-results {{if this.hasSearchedAndNoResults 'showing'}}">No results found for "{{this.query}}"</h6>

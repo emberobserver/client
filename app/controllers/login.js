@@ -5,6 +5,8 @@ import Controller from '@ember/controller';
 
 @classic
 export default class LoginController extends Controller {
+  @service session;
+
   @service
   router;
 

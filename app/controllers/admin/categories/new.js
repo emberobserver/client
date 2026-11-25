@@ -2,9 +2,12 @@ import classic from 'ember-classic-decorator';
 import { action } from '@ember/object';
 import { sort, filterBy } from '@ember/object/computed';
 import Controller from '@ember/controller';
+import { service } from '@ember/service';
 
 @classic
 export default class NewController extends Controller {
+  @service store;
+
   newCategoryName = '';
   newCategoryDescription = '';
   newCategoryPosition = '';

@@ -1,9 +1,12 @@
 import classic from 'ember-classic-decorator';
 import { computed } from '@ember/object';
 import JSONAPIAdapter from '@ember-data/adapter/json-api';
+import { service } from '@ember/service';
 
 @classic
 export default class Application extends JSONAPIAdapter {
+  @service session;
+
   namespace = 'api/v2';
   coalesceFindRequests = true;
 

@@ -11,9 +11,12 @@ import {
 } from '@ember/object/computed';
 import { Promise as EmberPromise } from 'rsvp';
 import Controller from '@ember/controller';
+import { service } from '@ember/service';
 
 @classic
 export default class EditController extends Controller {
+  @service store;
+
   categoryNameSorting = ['name:asc'];
   categoryPositionSorting = ['position:asc'];
 

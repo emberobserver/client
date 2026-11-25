@@ -6,6 +6,8 @@ import Controller from '@ember/controller';
 
 @classic
 export default class ShowController extends Controller {
+  @service session;
+
   @service
   features;
 

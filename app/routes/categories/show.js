@@ -3,9 +3,12 @@ import { hash } from 'rsvp';
 import Route from '@ember/routing/route';
 
 import measure from '../../utils/measure';
+import { service } from '@ember/service';
 
 @classic
 export default class ShowRoute extends Route {
+  @service store;
+
   model(params) {
     return this.modelFor('application').categories.then(() => {
       let category = this.store.peekAll('category').findBy('slug', params.slug);

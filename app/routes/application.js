@@ -1,8 +1,13 @@
 import classic from 'ember-classic-decorator';
 import Route from '@ember/routing/route';
+import { service } from '@ember/service';
 
 @classic
 export default class ApplicationRoute extends Route {
+  @service session;
+
+  @service store;
+
   beforeModel() {
     this.session.fetch();
   }

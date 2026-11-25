@@ -1,5 +1,5 @@
 <nav class="nav-previous-next">
-  {{#with (hash previous=(previous-item this.model.list.addons this.model.addon) next=(next-item this.model.list.addons this.model.addon)) as |nav|}}
+  {{#if (hash previous=(previous-item this.model.list.addons this.model.addon) next=(next-item this.model.list.addons this.model.addon))}}{{#let (hash previous=(previous-item this.model.list.addons this.model.addon) next=(next-item this.model.list.addons this.model.addon)) as |nav|}}
     {{#if nav.previous}}
       <LinkTo @route="admin.review.addon" @model={{nav.previous.name}} class="previous">&laquo; Previous <span class="nav-detail">({{nav.previous.name}})</span></LinkTo>
     {{else}}
@@ -10,7 +10,7 @@
     {{else}}
       <div class="next"></div>
     {{/if}}
-  {{/with}}
+  {{/let}}{{/if}}
 </nav>
 <div class="addon-area">
   <AdminAddon @addon={{this.model.addon}} @categories={{this.model.categories}} />

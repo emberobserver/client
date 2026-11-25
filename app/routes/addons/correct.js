@@ -1,8 +1,11 @@
 import classic from 'ember-classic-decorator';
 import Route from '@ember/routing/route';
+import { service } from '@ember/service';
 
 @classic
 export default class CorrectRoute extends Route {
+  @service store;
+
   model(params) {
     let name = params.name.replace(/%2F/i, '/');
     return this.store

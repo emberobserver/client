@@ -5,6 +5,8 @@ import Route from '@ember/routing/route';
 
 @classic
 export default class ShowRoute extends Route {
+  @service store;
+
   @service
   session;
 
