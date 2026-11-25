@@ -1,6 +1,6 @@
 @import "normalize";
-@import "node_modules/bourbon/app/assets/stylesheets/_bourbon";
-@import "node_modules/bourbon-neat/app/assets/stylesheets/_neat";
+@import "bourbon/app/assets/stylesheets/_bourbon";
+@import "bourbon-neat/app/assets/stylesheets/_neat";
 @import "base/base";
 @import "font-icons";
 @import "markdown";
@@ -61,8 +61,8 @@
 
 $ember-power-select-number-of-visible-options: 10;
 $ember-power-select-highlighted-background: $light-gray;
-@import "ember-power-select";
-@import 'ember-power-select-typeahead';
+@import "ember-power-select/app/styles/ember-power-select";
+@import 'ember-power-select-typeahead/app/styles/ember-power-select-typeahead';
 
 .ember-power-select-option {
   padding: ($base-spacing / 4) ($base-spacing / 4);
