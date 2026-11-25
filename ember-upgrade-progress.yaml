@@ -156,3 +156,6 @@ entries:
   - id: "app-tree: @ember-data/debug"
     status: "added"
     note: "@ember-data/debug merged these modules into the app through ember-cli: app/data-adapter.js. ember.nvp apps do not merge app trees, so they re-export the addon now. Delete the ones that the app does not use."
+  - id: "declare-imports"
+    status: "added"
+    note: "The app imports @ember-data/adapter, @ember-data/debug, @ember-data/model, @ember-data/serializer without declaring them. They are dependencies now, with the ranges of the packages that brought them, or their installed versions."

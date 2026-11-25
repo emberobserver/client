@@ -24,6 +24,10 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.29.7",
+    "@ember-data/adapter": "5.8.2",
+    "@ember-data/debug": "5.8.2",
+    "@ember-data/model": "5.8.2",
+    "@ember-data/serializer": "5.8.2",
     "@ember/optional-features": "^3.0.0",
     "@ember/string": "^4.0.1",
     "@ember/test-helpers": "^5.8.0",
