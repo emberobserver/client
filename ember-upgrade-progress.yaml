@@ -53,3 +53,8 @@ entries:
     note: "ember-export-application-global is removed. It put the application on window, named after the modulePrefix, for debugging. Ember Inspector finds the app without it. Code that reads that global needs another way to the app, such as the owner."
     links:
       - "https://github.com/ember-cli/ember-export-application-global"
+  - id: "ember-try"
+    status: "removed"
+    note: "ember-try is removed. To test against other versions, use @embroider/try."
+    links:
+      - "https://github.com/embroider-build/embroider/tree/main/packages/try"
