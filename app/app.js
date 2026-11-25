@@ -1,5 +1,4 @@
 import { on } from 'rsvp';
-import Ember from 'ember';
 import Application from '@ember/application';
 import Resolver from 'ember-resolver';
 import loadInitializers from 'ember-load-initializers';
@@ -14,13 +13,13 @@ export default class App extends Application {
 loadInitializers(App, config.modulePrefix);
 
 if (config.environment === 'production') {
-  Ember.onerror = function (error) {
+  window.addEventListener("error", function ({ error }) {
     if (window.trackJs) {
       window.trackJs.track(error);
     }
 
     console.error(error); // eslint-disable-line no-console
-  };
+  });
 
   on('error', function (error) {
     if (window.trackJs) {
