@@ -42,3 +42,9 @@ entries:
     note: "Vite compiles the app's Sass now, with sass (Dart Sass), and index.html links the Sass entry. Imports that ember-cli-sass found through app/styles, include paths, or addons are relative paths or package paths now, and the app declares bourbon, bourbon-neat, ember-power-select, ember-power-select-typeahead. Dart Sass deprecates some Sass features, such as `/` for division. Check the build output for warnings."
     links:
       - "https://vite.dev/guide/features.html#css-pre-processors"
+  - id: "ember-cli-deploy"
+    status: "removed"
+    note: "ember-cli-deploy and its plugins are removed. Deploy the dist/ folder that `vite build` writes. For gzip and brotli files, use vite-plugin-compression2. For S3 uploads, use `aws s3 sync dist/`."
+    links:
+      - "https://github.com/nonzzz/vite-plugin-compression"
+      - "https://vite.dev/guide/static-deploy"
