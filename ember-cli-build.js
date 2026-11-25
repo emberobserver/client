@@ -1,11 +1,18 @@
-'use strict';
-
+'use strict';;
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const parseFlag = require('./config/parse-flag');
 const env = EmberApp.env();
 const broccoliAssetRevDefaults = require('broccoli-asset-rev/lib/default-options');
 
-module.exports = function (defaults) {
+const {
+  compatBuild
+} = require("@embroider/compat");
+
+module.exports = async function(defaults) {
+  const {
+    buildOnce
+  } = await import("@embroider/vite");
+
   let options = {
     inlineContent: {},
     minifyJS: {},
@@ -60,5 +67,5 @@ module.exports = function (defaults) {
     using: [{ transformation: 'amd', as: 'dom-purify' }],
   });
 
-  return app.toTree();
+  return compatBuild(app, buildOnce);
 };
