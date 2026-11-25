@@ -121,3 +121,8 @@ entries:
     note: "Component templates are next to their classes now."
     links:
       - "https://deprecations.emberjs.com/id/component-template-resolving/"
+  - id: "dynamic-components"
+    status: "changed"
+    note: "app/components/admin-addon-review-form.hbs invoke components that are values with angle brackets now, such as `<btn @value={{1}} />`, not with `{{component btn value=1}}`, which Embroider cannot resolve at build time."
+    links:
+      - "https://github.com/embroider-build/embroider/blob/main/docs/replacing-component-helper.md"

@@ -5,18 +5,10 @@
       <li class="test-review-question">
         <div class="question">{{question.text}}</div>
         <ExclusiveButtonGroup @selectedValue={{get this.reviewProperties question.fieldName}} @updateSelectedValue={{fn this.selectOption question.fieldName}} as |btn|>
-          {{component btn
-                      value=1
-                      label="Yes"}}
-          {{component btn
-                      value=2
-                      label="No"}}
-          {{component btn
-                      value=3
-                      label="N/A"}}
-          {{component btn
-                      value=4
-                      label="Unknown"}}
+          <btn @value={{1}} @label="Yes" />
+          <btn @value={{2}} @label="No" />
+          <btn @value={{3}} @label="N/A" />
+          <btn @value={{4}} @label="Unknown" />
         </ExclusiveButtonGroup>
       </li>
     {{/each}}
