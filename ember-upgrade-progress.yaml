@@ -82,3 +82,6 @@ entries:
   - id: "ember-cli-test-loader"
     status: "moved into the app"
     note: "ember-cli-test-loader is a v1 addon with no v2 release, so its code is in the app now, where ember-cli merged it. The code is now in tests/helpers/ember-cli-test-loader/index.js."
+  - id: "ember-feature-flags"
+    status: "moved into the app"
+    note: "ember-feature-flags is a v1 addon with no v2 release, so its code is in the app now, where ember-cli merged it. The code is now in tests/helpers/ember-feature-flags/-private/enable-feature.js, tests/helpers/ember-feature-flags/index.js, app/helpers/feature-flag.js, app/services/features.js, tests/helpers/ember-feature-flags/helpers/with-feature.js."
