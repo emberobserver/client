@@ -19,3 +19,9 @@ entries:
     note: "Ember 6 removed the array prototype extensions, such as mapBy, objectAt, and firstObject on native arrays. app.js imports @nullvoxpopuli/legacy-prototype-extensions/array, which adds them back. Move the code to native array methods, then remove the import and the package."
     links:
       - "https://deprecations.emberjs.com/id/deprecate-array-prototype-extensions"
+  - id: "ember-cli-mirage"
+    status: "replaced"
+    note: "ember-cli-mirage is replaced by ember-mirage. mirage/ stays next to app/ and tests/, and the app and the tests import it as #mirage/... (package.json \"imports\"). mirage/servers/default makes the server, with explicit imports in place of the runtime discovery. The mirage models for the ember-data models are generated files now: change them when a model changes. app/initializers/mirage starts mirage in development builds only, and reads ENV['ember-cli-mirage'] as before."
+    links:
+      - "https://github.com/bgantzler/ember-mirage/blob/main/docs/migration.md"
+      - "https://mainmatter.com/blog/2026/07/14/ember-mirage/"

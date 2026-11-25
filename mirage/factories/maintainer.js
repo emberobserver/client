@@ -1,4 +1,4 @@
-import Mirage from 'ember-cli-mirage';
+import Mirage from 'miragejs';
 
 export default Mirage.Factory.extend({
   name: (i) => `maintainer-${i}`,

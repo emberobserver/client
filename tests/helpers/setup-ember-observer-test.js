@@ -1,5 +1,5 @@
 import { setupApplicationTest } from 'ember-qunit';
-import { startMirage } from '../../initializers/ember-cli-mirage';
+import { startMirage } from 'ember-observer/tests/helpers/mirage';
 import LocalStore from 'ember-observer/utils/local-storage';
 import mockStorage from './local-storage-mock';
 

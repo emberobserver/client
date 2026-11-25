@@ -6,7 +6,7 @@ import { selectChoose } from 'ember-power-select/test-support/helpers';
 import { setupEmberObserverTest } from '../helpers/setup-ember-observer-test';
 import findByText from '../helpers/find-by-text';
 import login from 'ember-observer/tests/helpers/login';
-import Mirage from 'ember-cli-mirage';
+import Mirage from 'miragejs';
 import moment from 'moment';
 
 let windowAlert;

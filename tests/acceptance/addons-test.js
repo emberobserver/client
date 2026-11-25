@@ -11,7 +11,7 @@ import { percySnapshot } from 'ember-percy';
 import { setupEmberObserverTest } from 'ember-observer/tests/helpers/setup-ember-observer-test';
 import moment from 'moment';
 import visitAddon from 'ember-observer/tests/helpers/visit-addon';
-import Mirage from 'ember-cli-mirage';
+import Mirage from 'miragejs';
 import { setupOnerror, resetOnerror } from '@ember/test-helpers';
 import Service from '@ember/service';
 
