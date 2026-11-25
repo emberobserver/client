@@ -11,8 +11,4 @@ export default class AdminRoute extends Route {
       this.router.transitionTo('index');
     }
   }
-
-  titleToken() {
-    return 'Admin';
-  }
 }

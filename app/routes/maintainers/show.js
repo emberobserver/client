@@ -12,8 +12,4 @@ export default class ShowRoute extends Route {
         return asArray(maintainers)[0];
       });
   }
-
-  titleToken(model) {
-    return model.get('name');
-  }
 }

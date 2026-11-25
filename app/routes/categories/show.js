@@ -27,8 +27,4 @@ export default class ShowRoute extends Route {
   }
 
   afterModel = measure;
-
-  titleToken(model) {
-    return model.category.get('name');
-  }
 }

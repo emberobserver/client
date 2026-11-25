@@ -35,8 +35,4 @@ export default class AddonRoute extends Route {
 
     return hash(data);
   }
-
-  titleToken(model) {
-    return model.addon.get('name');
-  }
 }

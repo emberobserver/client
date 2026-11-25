@@ -17,13 +17,4 @@ export default class ApplicationRoute extends Route {
       }),
     };
   }
-
-  title(tokens) {
-    let tokenStr = tokens.join(' | ');
-    if (tokenStr) {
-      return `${tokenStr} - Ember Observer`;
-    } else {
-      return 'Ember Observer';
-    }
-  }
 }

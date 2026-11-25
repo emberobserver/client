@@ -36,8 +36,4 @@ export default class ReviewRoute extends Route {
       }
     }
   }
-
-  titleToken() {
-    return 'Review';
-  }
 }

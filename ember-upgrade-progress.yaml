@@ -106,3 +106,8 @@ entries:
     note: "The HTML files hold the snippets of ember-cli-inline-content now. These depended on a flag or the environment, so they are not in the HTML: snippets/trackjs (app/snippets/trackjs.html, if parseFlag('REPORT_ERRORS', env === 'production')). Add each one that you need, for example with a Vite plugin that uses transformIndexHtml."
     links:
       - "https://vite.dev/guide/api-plugin#transformindexhtml"
+  - id: "document-title"
+    status: "removed"
+    note: "ember-cli-document-title is removed. Each route's titleToken is a {{page-title}} call in its template now. ember-page-title joins the titles with \" | \", with the deepest route first. Check the title format of the application route."
+    links:
+      - "https://github.com/ember-cli/ember-page-title"

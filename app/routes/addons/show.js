@@ -52,10 +52,6 @@ export default class ShowRoute extends Route {
     return hash(data);
   }
 
-  titleToken(model) {
-    return model.addon.get('name');
-  }
-
   afterModel() {
     this.emberVersions.fetch();
   }

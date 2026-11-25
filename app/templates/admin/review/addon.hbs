@@ -1,3 +1,4 @@
+{{page-title @model.addon.name}}
 <nav class="nav-previous-next">
   {{#if (hash previous=(previous-item this.model.list.addons this.model.addon) next=(next-item this.model.list.addons this.model.addon))}}{{#let (hash previous=(previous-item this.model.list.addons this.model.addon) next=(next-item this.model.list.addons this.model.addon)) as |nav|}}
     {{#if nav.previous}}
