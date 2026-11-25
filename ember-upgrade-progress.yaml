@@ -74,3 +74,8 @@ entries:
     note: "ember-power-select-typeahead is replaced by ember-power-select with @searchEnabled and @searchFieldPosition=\"trigger\". Its styles are gone. Check the look of the search field in the trigger."
     links:
       - "https://ember-power-select.com/docs/the-search"
+  - id: "ember-router-scroll"
+    status: "replaced"
+    note: "ember-router-scroll is replaced by @nullvoxpopuli/ember-router-scroll, a v2 fork of it that does not depend on ember-app-scheduler."
+    links:
+      - "https://github.com/NullVoxPopuli/ember-router-scroll"
