@@ -58,3 +58,8 @@ entries:
     note: "ember-try is removed. To test against other versions, use @embroider/try."
     links:
       - "https://github.com/embroider-build/embroider/tree/main/packages/try"
+  - id: "ember-cli-code-coverage"
+    status: "removed"
+    note: "ember-cli-code-coverage is removed, because it instruments the ember-cli build. For coverage of a Vite build, add vite-plugin-istanbul."
+    links:
+      - "https://github.com/iFaxity/vite-plugin-istanbul"

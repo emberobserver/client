@@ -49,7 +49,6 @@
     "ember-classic-decorator": "^1.0.5",
     "ember-cli": "~6.12.0",
     "ember-cli-babel": "^8.3.1",
-    "ember-cli-code-coverage": "^1.0.0-beta.8",
     "ember-cli-deprecation-workflow": "^3.4.0",
     "ember-cli-document-title-northm": "^1.0.2",
     "ember-cli-htmlbars": "^6.3.0",
