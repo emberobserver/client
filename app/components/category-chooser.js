@@ -1,12 +1,16 @@
-import { tagName } from '@ember-decorators/component';
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { get } from '@ember/object';
 import { sortBy } from 'ember-observer/utils/as-array';
 
-@tagName('')
 export default class CategoryChooser extends Component {
-  categories = null;
-  addon = null;
+  get categories() {
+    return this.args.categories;
+  }
+
+  get addon() {
+    return this.args.addon;
+  }
+
   categorySorting = ['displayName:asc'];
 
   get sortedCategories() {

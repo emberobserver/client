@@ -1,12 +1,9 @@
-import { tagName } from '@ember-decorators/component';
-import { computed } from '@ember/object';
-import Component from '@ember/component';
+import { get } from '@ember/object';
+import Component from '@glimmer/component';
 
-@tagName('')
 export default class ScoreDisplay extends Component {
-  @computed('addon.{score,hasBeenReviewed}')
   get hasBeenReviewedAndScored() {
-    let score = this.get('addon.score');
-    return typeof score === 'number' && this.get('addon.hasBeenReviewed');
+    let score = get(this.args, 'addon.score');
+    return typeof score === 'number' && get(this.args, 'addon.hasBeenReviewed');
   }
 }

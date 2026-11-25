@@ -52,9 +52,9 @@
   {{else}}
     <em>Missing</em>
   {{/if}}
-  <a href="https://www.google.com/search?q=%22{{this.addon.name}}%22" target="_blank" rel="noopener noreferrer" title="Search Google">&nbsp;{{svg-icon "google"}}</a>
+  <a href="https://www.google.com/search?q=%22{{this.addon.name}}%22" target="_blank" rel="noopener noreferrer" title="Search Google">&nbsp;<SvgIcon @iconName="google" /></a>
   |
-  <a href="https://github.com/search?q=%22{{this.addon.name}}%22" target="_blank" rel="noopener noreferrer" title="Search GitHub">{{svg-icon "github"}}</a>
+  <a href="https://github.com/search?q=%22{{this.addon.name}}%22" target="_blank" rel="noopener noreferrer" title="Search GitHub"><SvgIcon @iconName="github" /></a>
   <ToggleSwitch @label={{if this.addon.hasInvalidGithubRepo "Has invalid Repo URL" "Has valid Repo URL"}} @isChecked={{not this.addon.hasInvalidGithubRepo}} @onToggle={{this.updateInvalidRepoFlag}} @name="repo" class="test-toggle-repo-validity" />
 </section>
 
@@ -79,7 +79,7 @@
   <Textarea @value={{this.addon.note}} rows="3" class="note-input test-note-input" autocomplete="off" /></section>
 
 <section>
-  <CategoryChooser @categories={{this.categories}} @addon={{this.addon}} @onchange={{fn (mut this.addon.categories)}} />
+  <CategoryChooser @categories={{@categories}} @addon={{this.addon}} @onchange={{fn (mut this.addon.categories)}} />
 </section>
 
 <section>
@@ -96,7 +96,7 @@
   <div class="contents">
     {{#if this.addon.latestReview}}
       {{#if (not-eq this.addon.latestReview.version.version this.addon.latestAddonVersion.version)}}
-        <em class="test-review-new-version-warning">{{svg-icon "new-releases"}} New versions of this addon have been released since this review was undertaken.</em>
+        <em class="test-review-new-version-warning"><SvgIcon @iconName="new-releases" /> New versions of this addon have been released since this review was undertaken.</em>
       {{/if}}
       <AddonReview @review={{this.addon.latestReview}} />
       {{#if this.renewLatestReview.isIdle}}

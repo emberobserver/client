@@ -1,21 +1,21 @@
-import { action, computed } from '@ember/object';
-import Component from '@ember/component';
+import { action, get } from '@ember/object';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 
 export default class StatsBar extends Component {
+  @tracked
   showBadgeText = false;
 
-  @computed('addon.license')
   get licenseUrl() {
-    return `https://spdx.org/licenses/${this.get('addon.license')}`;
+    return `https://spdx.org/licenses/${get(this.args, 'addon.license')}`;
   }
 
-  @computed('addon.name')
   get installCommandText() {
-    return `ember install ${this.get('addon.name')}`;
+    return `ember install ${get(this.args, 'addon.name')}`;
   }
 
   @action
   toggleBadgeText() {
-    this.toggleProperty('showBadgeText');
+    this.showBadgeText = !this.showBadgeText;
   }
 }

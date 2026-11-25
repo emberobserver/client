@@ -1,6 +1,7 @@
-{{#if this.review}}
+<div ...attributes>
+{{#if @review}}
   <p class="review-date">
-    Manually reviewed on {{moment-format this.review.createdAt "MMMM Do YYYY" allowEmpty=true}} for version {{this.review.version.version}}
+    Manually reviewed on {{moment-format @review.createdAt "MMMM Do YYYY" allowEmpty=true}} for version {{@review.version.version}}
   </p>
   <ol class="questions">
     {{#each this.answeredQuestions as |question|}}
@@ -10,11 +11,12 @@
       </li>
     {{/each}}
   </ol>
-  {{#if this.review.review}}
+  {{#if @review.review}}
     <br>
     <h6>Comments</h6>
     <fieldset class="test-review-notes">
-      <MarkdownToHtml @markdown={{this.review.review}} />
+      <MarkdownToHtml @markdown={{@review.review}} />
     </fieldset>
   {{/if}}
 {{/if}}
+</div>

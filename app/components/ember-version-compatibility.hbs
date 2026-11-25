@@ -1,6 +1,6 @@
 <div class="ember-version-compatibility test-ember-version-compatibility-section">
   <h6>ember compatibility</h6>
-  {{#if this.testResult.succeeded}}
+  {{#if @testResult.succeeded}}
     {{#if this.allTestsPassed}}
       <p>
         <span class="test-ember-version-compatibility-semver-compat">
@@ -8,7 +8,7 @@
         </span>
         <br>
         <em class="test-ember-version-compatibility-timestamp">
-          last ran <RelativeTime @date={{this.testResult.testsRunAt}} />
+          last ran <RelativeTime @date={{@testResult.testsRunAt}} />
         </em>
       </p>
       {{#if this.showTable}}
@@ -21,7 +21,7 @@
       Tests run against Ember {{this.compatibilitySemverString}} but not all tests passed.
       <br>
       <em class="test-ember-version-compatibility-timestamp">
-        last ran <RelativeTime @date={{this.testResult.testsRunAt}} />
+        last ran <RelativeTime @date={{@testResult.testsRunAt}} />
       </em>
       <EmberVersionCompatibilityList @versionCompatibilities={{this.sortedVersionCompatibilities}} />
     {{/if}}
@@ -32,7 +32,7 @@
       </span>
       <br>
       <em class="test-ember-version-compatibility-timestamp">
-        last tried <RelativeTime @date={{this.testResult.testsRunAt}} />
+        last tried <RelativeTime @date={{@testResult.testsRunAt}} />
       </em>
     </p>
   {{/if}}

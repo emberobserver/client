@@ -1,3 +1,4 @@
+<div ...attributes>
 <div class="large-search with-default-styling">
   <div class="search">
     <div class="search-wrapper">
@@ -6,23 +7,23 @@
              autocomplete="off"
              id="search-input"
              spellcheck="false"
-             value={{this.query}}
+             value={{@query}}
              {{on "input" (event-target-value (perform this.search))}}>
-      {{#if this.query}}
+      {{#if @query}}
         <button type="button" class="close-button test-clear-search" {{on "click" this.clearSearch}}>
-          {{svg-icon "close"}}
+          <SvgIcon @iconName="close" />
         </button>
       {{/if}}
     </div>
     <div class="readme-toggle">
-      <Input @type="checkbox" class="test-search-readmes" id="search-readmes" @checked={{this.searchReadmes}} {{on "change" (perform this.toggleReadmeSearch)}} />
+      <Input @type="checkbox" class="test-search-readmes" id="search-readmes" @checked={{@searchReadmes}} {{on "change" (perform this.toggleReadmeSearch)}} />
       <label for="search-readmes">Search readmes</label>
     </div>
-    <h6 class="no-results {{if this.hasSearchedAndNoResults 'showing'}}">No results found for "{{this.query}}"</h6>
+    <h6 class="no-results {{if this.hasSearchedAndNoResults 'showing'}}">No results found for "{{@query}}"</h6>
   </div>
 
   {{#if this.results.length}}
-    <h4 class="result-info test-result-info">Results for "{{this.query}}"</h4>
+    <h4 class="result-info test-result-info">Results for "{{@query}}"</h4>
     <SearchResultSet @results={{this.results.displayingReadmes}} @totalCount={{this.results.totalReadmeCount}} @fetchMore={{this.fetchMoreReadmes}} @title="Readmes" @resultClass="readme-results">
       <ul class="readme-list">
         {{#each this.results.displayingReadmes as |addon|}}
@@ -67,4 +68,5 @@
   {{else if this.search.isRunning}}
     <DotSpinner />
   {{/if}}
+</div>
 </div>

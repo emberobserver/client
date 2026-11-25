@@ -1,40 +1,50 @@
 import { asRecord } from 'ember-observer/utils/as-array';
 /* eslint-disable ember/no-component-lifecycle-hooks */
 import { inject } from '@ember/service';
-import Component from '@ember/component';
-import { action } from '@ember/object';
+import Component from '@glimmer/component';
+import { action, set, get } from '@ember/object';
 import { task, timeout } from 'ember-concurrency';
 import { questions } from '../models/review';
+import { tracked } from '@glimmer/tracking';
 
 export default class AdminAddonReviewForm extends Component {
-  addon = null;
+  @tracked reviewText;
+
+  @tracked recentlySaved;
+
+  get addon() {
+    return this.args.addon;
+  }
+
+  @tracked
   reviewProperties = null;
+
   questions = questions;
 
   @inject()
   store;
 
+  @action
   didReceiveAttrs() {
-    super.didReceiveAttrs(...arguments);
     this.reset();
   }
 
   reset() {
-    this.set('reviewProperties', {});
+    this.reviewProperties = {};
   }
 
   @action
   selectOption(fieldName, value) {
-    this.set(`reviewProperties.${fieldName}`, value);
+    set(this, `reviewProperties.${fieldName}`, value);
   }
 
   @(task(function* () {
     let newReview = this.store.createRecord('review', this.reviewProperties);
-    newReview.set('review', asRecord(this.reviewText));
-    newReview.set('version', asRecord(this.get('addon.latestAddonVersion')));
+    set(newReview, 'review', asRecord(this.reviewText));
+    set(newReview, 'version', asRecord(get(this, 'addon.latestAddonVersion')));
     try {
       yield newReview.save();
-      this.addon.set('latestReview', newReview);
+      set(this.addon, 'latestReview', newReview);
       yield this.addon.save();
       this.reset();
       this.complete.perform();
@@ -46,9 +56,9 @@ export default class AdminAddonReviewForm extends Component {
   saveReview;
 
   @(task(function* () {
-    this.set('recentlySaved', true);
+    this.recentlySaved = true;
     yield timeout(2000);
-    this.set('recentlySaved', false);
+    this.recentlySaved = false;
   }).drop())
   complete;
 }

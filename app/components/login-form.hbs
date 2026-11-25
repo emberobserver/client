@@ -1,3 +1,4 @@
+<div ...attributes>
 <form {{on "submit" (prevent-default this.login)}}>
   <label for="email">Email</label>
   <Input @value={{this.email}} name="email" class="test-email" />
@@ -5,3 +6,4 @@
   <Input @type="password" @value={{this.password}} name="password" class="test-password" />
   <Input @type="submit" @value="Log in" class="button test-log-in" />
 </form>
+</div>

@@ -1,3 +1,5 @@
+<div ...attributes>
+{{this.didReceiveAttrs @addon}}
 <h5>Review this addon</h5>
 <form class="review-form" {{on "submit" (prevent-default (perform this.saveReview))}}>
   <ol>
@@ -26,3 +28,4 @@
     <b>Saved!</b>
   {{/if}}
 </form>
+</div>

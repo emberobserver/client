@@ -1,6 +1,11 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 
 export default class ExclusiveButtonGroup extends Component {
-  selectedValue = null;
-  updateSelectedValue = null;
+  get selectedValue() {
+    return this.args.selectedValue;
+  }
+
+  get updateSelectedValue() {
+    return this.args.updateSelectedValue;
+  }
 }

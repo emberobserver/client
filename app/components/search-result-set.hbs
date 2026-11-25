@@ -3,9 +3,9 @@
     <h5>
       <button type="button" class="btn-link" {{on "click" this.toggleResultsExpansion}}>
         {{#if this.resultsCollapsed}}
-          {{svg-icon "chevron-right"}}
+          <SvgIcon @iconName="chevron-right" />
         {{else}}
-          {{svg-icon "expand-more"}}
+          <SvgIcon @iconName="expand-more" />
         {{/if}}
         {{@title}} ({{@totalCount}})
       </button>

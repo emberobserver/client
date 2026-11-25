@@ -1,16 +1,17 @@
+<div class="code-search" ...attributes>
 <h1>Code Search</h1>
 <div class="search-wrapper with-default-styling">
   <form {{on "submit" (prevent-default (perform this.search))}}>
     <div class="search-wrapper-inner">
       <Input @type="search" placeholder="Search for addons containing code" autocomplete="off" id="code-search-input" spellcheck="false" @value={{this.searchInput}} />
       {{#if this.codeQuery}}
-        <button type="button" class="close-button test-clear-search" {{on "click" this.clearSearch}}>{{svg-icon "close"}}</button>
+        <button type="button" class="close-button test-clear-search" {{on "click" this.clearSearch}}><SvgIcon @iconName="close" /></button>
       {{/if}}
     </div>
     <div class="search-actions">
-      <Input @type="checkbox" id="regex-toggle" class="test-regex-search" @checked={{this.regex}} />
+      <Input @type="checkbox" id="regex-toggle" class="test-regex-search" @checked={{@regex}} />
       <label for="regex-toggle">Regex search</label>
-      {{#if this.regex}}
+      {{#if @regex}}
         <a href="https://github.com/google/re2/wiki/Syntax" class="regex-help test-regex-help" rel="noopener noreferrer" target="_blank">(re2 syntax)</a>
       {{/if}}
     </div>
@@ -33,7 +34,7 @@
                class="test-file-filter-input"
                {{on "input" (event-target-value (perform this.applyFileFilter))}}>
         {{#if this.isFilterApplied}}
-          <button type="button" class="close-button test-clear-file-filter" {{on "click" this.clearFileFilter}}>{{svg-icon "close" alignBaseline=false}}</button>
+          <button type="button" class="close-button test-clear-file-filter" {{on "click" this.clearFileFilter}}><SvgIcon @iconName="close" @alignBaseline={{false}} /></button>
         {{/if}}
       </div>
       {{#if this.isDisplayingFilteredResults}}
@@ -66,7 +67,7 @@
       {{#each this.displayingResults as |result|}}
         <li data-id={{result.addon.id}}>
           <AddonDetails @addon={{result.addon}} />
-          <AddonSourceUsages @addon={{result.addon}} @count={{result.count}} @query={{this.codeQuery}} @regex={{this.regex}} @fileFilter={{this.fileFilter}} />
+          <AddonSourceUsages @addon={{result.addon}} @count={{result.count}} @query={{this.codeQuery}} @regex={{@regex}} @fileFilter={{this.fileFilter}} />
         </li>
       {{/each}}
       {{#if this.canViewMore}}
@@ -81,3 +82,4 @@
 {{else if this.hasSearchedAndNoResults}}
   <h4 class="result-info">No addons found containing {{this.quotedLastSearch}}</h4>
 {{/if}}
+</div>

@@ -1,14 +1,10 @@
 import asArray from 'ember-observer/utils/as-array';
 import { get } from '@ember/object';
-import { tagName } from '@ember-decorators/component';
-import { computed } from '@ember/object';
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 
-@tagName('span')
 export default class CommaSeparated extends Component {
-  @computed('list.lastObject', 'item')
   get separator() {
-    if (asArray(get(this, 'list')).slice(-1)[0] === this.item) {
+    if (asArray(get(this.args, 'list')).slice(-1)[0] === this.args.item) {
       return '';
     } else {
       return ', ';

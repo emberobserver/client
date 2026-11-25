@@ -1,6 +1,7 @@
+<div ...attributes>
 <div class="top-addons">
   <h1>Top addons</h1>
-  <AddonList @addons={{this.topAddons}} @showRanking={{true}}>
+  <AddonList @addons={{@topAddons}} @showRanking={{true}}>
     <LinkTo @route="lists.top-addons">
       <li class="more">
         See all top 100 addons
@@ -11,7 +12,7 @@
 
 <div class="recently-scored-addons">
   <h1>Recently scored addons</h1>
-  <AddonList @addons={{this.recentlyScoredAddons}}>
+  <AddonList @addons={{@recentlyScoredAddons}}>
     <LinkTo @route="lists.recently-scored-addons">
       <li class="more">
         See all recently scored addons
@@ -22,11 +23,12 @@
 
 <div class="new-addons">
   <h1>New addons</h1>
-  <AddonList @addons={{this.newAddons}}>
+  <AddonList @addons={{@newAddons}}>
     <LinkTo @route="lists.new-addons">
       <li class="more">
         See all new addons
       </li>
     </LinkTo>
   </AddonList>
+</div>
 </div>

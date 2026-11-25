@@ -1,19 +1,12 @@
 import asArray from 'ember-observer/utils/as-array';
 import { get } from '@ember/object';
-import { tagName } from '@ember-decorators/component';
-import { computed } from '@ember/object';
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 
-@tagName('')
 export default class TestResultStatus extends Component {
-  @computed(
-    'testResult.succeeded',
-    'testResult.emberVersionCompatibilities.firstObject.compatible'
-  )
   get statusText() {
-    if (this.get('testResult.succeeded')) {
+    if (get(this.args, 'testResult.succeeded')) {
       if (
-        asArray(get(this, 'testResult.emberVersionCompatibilities'))[0]?.compatible
+        asArray(get(this.args, 'testResult.emberVersionCompatibilities'))[0]?.compatible
       ) {
         return 'Passed';
       } else {
@@ -24,10 +17,9 @@ export default class TestResultStatus extends Component {
     }
   }
 
-  @computed('testResult.succeeded', 'testResult.statusMessage')
   get statusDetail() {
-    if (!this.get('testResult.succeeded')) {
-      return this.get('testResult.statusMessage') || 'unknown';
+    if (!get(this.args, 'testResult.succeeded')) {
+      return get(this.args, 'testResult.statusMessage') || 'unknown';
     }
     return null;
   }

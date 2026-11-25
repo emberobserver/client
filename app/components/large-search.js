@@ -1,15 +1,31 @@
 import asArray from 'ember-observer/utils/as-array';
-import { action, computed } from '@ember/object';
+import { action, get, set } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { scheduleOnce } from '@ember/runloop';
 import { hash, resolve } from 'rsvp';
 import { isBlank } from '@ember/utils';
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { task, timeout } from 'ember-concurrency';
+import { tracked } from '@glimmer/tracking';
 
 const PageSize = 10;
 
 export default class LargeSearch extends Component {
+  constructor(owner, args) {
+    super(owner, args);
+    this.search.perform(this.query);
+  }
+
+  get onQueryChange() {
+    return this.args.onQueryChange;
+  }
+
+  get onSearchReadmesChange() {
+    return this.args.onSearchReadmesChange;
+  }
+
+  @tracked _results;
+
   @service
   store;
 
@@ -24,21 +40,14 @@ export default class LargeSearch extends Component {
 
   focusNode = '#search-input';
 
-  init() {
-    super.init(...arguments);
-    this.search.perform(this.query);
-  }
-
-  @computed('queryIsValid', 'results.length', 'search.isIdle')
   get hasSearchedAndNoResults() {
     return (
       this.queryIsValid &&
-      !this.get('results.length') &&
-      this.get('search.isIdle')
+      !get(this, 'results.length') &&
+      get(this, 'search.isIdle')
     );
   }
 
-  @computed('query')
   get queryIsValid() {
     let emMatcher = /(^e$|^em$|^emb$|^embe$|^ember$|^ember-$)/;
     let query = this.query;
@@ -46,53 +55,53 @@ export default class LargeSearch extends Component {
   }
 
   @task(function* () {
-    let pageToFetch = this.get('_results.lastAddonPageDisplaying') + 1;
+    let pageToFetch = get(this, '_results.lastAddonPageDisplaying') + 1;
     let moreAddons = yield this._fetchPageOfAddonResults(
-      this.get('_results.rawResults.addonResults'),
+      get(this, '_results.rawResults.addonResults'),
       pageToFetch
     );
-    this.get('_results.displayingAddons').pushObjects(moreAddons);
-    this.set('_results.lastAddonPageDisplaying', pageToFetch);
+    get(this, '_results.displayingAddons').pushObjects(moreAddons);
+    set(this, '_results.lastAddonPageDisplaying', pageToFetch);
   })
   fetchMoreAddons;
 
   @task(function* () {
-    let pageToFetch = this.get('_results.lastMaintainerPageDisplaying') + 1;
+    let pageToFetch = get(this, '_results.lastMaintainerPageDisplaying') + 1;
     let moreMaintainers = yield this._fetchPageOfMaintainerResults(
-      this.get('_results.rawResults.maintainerResults'),
+      get(this, '_results.rawResults.maintainerResults'),
       pageToFetch
     );
-    this.get('_results.displayingMaintainers').pushObjects(moreMaintainers);
-    this.set('_results.lastMaintainerPageDisplaying', pageToFetch);
+    get(this, '_results.displayingMaintainers').pushObjects(moreMaintainers);
+    set(this, '_results.lastMaintainerPageDisplaying', pageToFetch);
   })
   fetchMoreMaintainers;
 
   @task(function* () {
-    let pageToFetch = this.get('_results.lastCategoryPageDisplaying') + 1;
+    let pageToFetch = get(this, '_results.lastCategoryPageDisplaying') + 1;
     let moreCategories = yield this._fetchPageOfCategoryResults(
-      this.get('_results.rawResults.categoryResults'),
+      get(this, '_results.rawResults.categoryResults'),
       pageToFetch
     );
-    this.get('_results.displayingCategories').pushObjects(moreCategories);
-    this.set('_results.lastCategoryPageDisplaying', pageToFetch);
+    get(this, '_results.displayingCategories').pushObjects(moreCategories);
+    set(this, '_results.lastCategoryPageDisplaying', pageToFetch);
   })
   fetchMoreCategories;
 
   @task(function* () {
-    let pageToFetch = this.get('_results.lastReadmePageDisplaying') + 1;
+    let pageToFetch = get(this, '_results.lastReadmePageDisplaying') + 1;
     let moreReadmes = yield this._fetchPageOfAddonResults(
-      this.get('_results.rawResults.readmeResults'),
+      get(this, '_results.rawResults.readmeResults'),
       pageToFetch
     );
-    this.get('_results.displayingReadmes').pushObjects(moreReadmes);
-    this.set('_results.lastReadmePageDisplaying', pageToFetch);
+    get(this, '_results.displayingReadmes').pushObjects(moreReadmes);
+    set(this, '_results.lastReadmePageDisplaying', pageToFetch);
   })
   fetchMoreReadmes;
 
   @(task(function* (query) {
-    this.set('query', query.trim());
+    this.query = query.trim();
     if (!this.queryIsValid) {
-      this.set('_results', null);
+      this._results = null;
       return;
     }
 
@@ -104,12 +113,12 @@ export default class LargeSearch extends Component {
       label: this.query,
     });
 
-    let results = yield this.get('searchService.search').perform(this.query, {
+    let results = yield get(this, 'searchService.search').perform(this.query, {
       includeReadmes: this.searchReadmes,
     });
     let firstPageOfResults = yield this._fetchFirstPageOfResults(results);
 
-    this.set('_results', {
+    this._results = {
       displayingAddons: firstPageOfResults.addons,
       lastAddonPageDisplaying: 1,
       totalAddonsCount: results.addonResults.matchCount,
@@ -125,12 +134,12 @@ export default class LargeSearch extends Component {
       lastReadmePageDisplaying: 1,
       rawResults: results,
       length: results.length,
-    });
+    };
   }).restartable())
   search;
 
   @task(function* () {
-    this.toggleProperty('searchReadmes');
+    this.searchReadmes = !this.searchReadmes;
     yield this.search.perform(this.query);
   })
   toggleReadmeSearch;
@@ -189,7 +198,6 @@ export default class LargeSearch extends Component {
       .then((addons) => asArray(addons).slice());
   }
 
-  @computed('_results', 'query', 'queryIsValid')
   get results() {
     if (this.queryIsValid) {
       return this._results;
@@ -208,8 +216,38 @@ export default class LargeSearch extends Component {
       action: `Clear on ${document.location.pathname}`,
     });
 
-    this.set('query', '');
-    this.set('_results', null);
+    this.query = '';
+    this._results = null;
     scheduleOnce('afterRender', this, 'focus');
+  }
+
+  @tracked localQuery;
+
+  get query() {
+    let own = this.localQuery;
+
+    return own && own.arg === this.args.query ? own.value : this.args.query;
+  }
+
+  set query(value) {
+    if (value === this.query) return;
+
+    this.localQuery = { arg: this.args.query, value };
+    this.args.onQueryChange?.(value);
+  }
+
+  @tracked localSearchReadmes;
+
+  get searchReadmes() {
+    let own = this.localSearchReadmes;
+
+    return own && own.arg === this.args.searchReadmes ? own.value : this.args.searchReadmes;
+  }
+
+  set searchReadmes(value) {
+    if (value === this.searchReadmes) return;
+
+    this.localSearchReadmes = { arg: this.args.searchReadmes, value };
+    this.args.onSearchReadmesChange?.(value);
   }
 }

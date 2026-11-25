@@ -1,7 +1,8 @@
 import { scheduleOnce } from '@ember/runloop';
-import { computed } from '@ember/object';
-import Component from '@ember/component';
+import { get, action } from '@ember/object';
+import Component from '@glimmer/component';
 import { isArray, A } from '@ember/array';
+import { modifier } from 'ember-modifier';
 
 /**
  * Used to wrap a native `<option>` tag and associate an object with
@@ -11,10 +12,48 @@ import { isArray, A } from '@ember/array';
  * @class Ember.XOptionComponent
  * @extends Ember.Component
  */
-export default Component.extend({
-  tagName: 'option',
-  attributeBindings: ['selected', 'name', 'disabled', 'value', 'title'],
-  classNameBindings: [':x-option'],
+export default class XOption extends Component {
+  element = null;
+
+  lifecycle = modifier((element) => {
+    this.element = element;
+    this.didInsertElement();
+
+    return () => {
+      this.willDestroyElement();
+      this.element = null;
+    };
+  });
+
+  get disabled() {
+    return this.args.disabled;
+  }
+
+  get "on-disable"() {
+    return this.args["on-disable"];
+  }
+
+  get register() {
+    return this.args.register;
+  }
+
+  get unregister() {
+    return this.args.unregister;
+  }
+
+  get name() {
+    return this.args.name;
+  }
+
+  get title() {
+    return this.args.title;
+  }
+
+  get select() {
+    return this.args.select;
+  }
+
+  _oldDisabled;
 
   /**
    * The value associated with this option. When this option is
@@ -25,7 +64,9 @@ export default Component.extend({
    * @type Object
    * @default null
    */
-  value: null,
+  get value() {
+    return this.args.value;
+  }
 
   /**
    * Property bound to the `selected` attribute of the native
@@ -36,31 +77,30 @@ export default Component.extend({
    * @property selected
    * @type Boolean
    */
-  selected: computed('value', 'select.value', 'select.multiple', function() {
-    if (this.get('select.multiple') && isArray(this.get('select.value'))) {
-      let selectValue = A(this.get('select.value'));
+  get selected() {
+    if (get(this.args, 'select.multiple') && isArray(get(this.args, 'select.value'))) {
+      let selectValue = A(get(this.args, 'select.value'));
 
-      return selectValue.includes(this.get('value'));
+      return selectValue.includes(this.value);
     } else {
-      return this.get('value') === this.get('select.value');
+      return this.value === get(this.args, 'select.value');
     }
-  }),
+  }
 
+  @action
   didReceiveAttrs() {
-    this._super.apply(this, arguments);
-
-    let oldDisabled = this.get('_oldDisabled');
+    let oldDisabled = this._oldDisabled;
 
     if(oldDisabled !== undefined && !oldDisabled) {
       // Undefined means the first time
 
-      if(this.get('disabled') !== oldDisabled) {
-        this.sendAction('on-disable', this.get('value'), this.get('disabled'));
+      if(this.disabled !== oldDisabled) {
+        this["on-disable"]?.(this.value, this.disabled);
       }
     }
 
-    this.set('_oldDisabled', this.get('disabled'));
-  },
+    this._oldDisabled = this.disabled;
+  }
 
   /**
    * Register this x-option with the containing `x-select`
@@ -68,20 +108,17 @@ export default Component.extend({
    * @override
    */
   didInsertElement() {
-    this._super.apply(this, arguments);
-
     scheduleOnce('afterRender', () => {
-      this.get('register')(this);
+      this.register(this);
     });
-  },
+  }
 
   /**
    * Unregister this x-option with its containing x-select.
    *
    * @override
    */
-  willDestroyElement: function() {
-    this.get('unregister')(this);
-    this._super.apply(this, arguments);
+  willDestroyElement() {
+    this.unregister(this);
   }
-});
+}

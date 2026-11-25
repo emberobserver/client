@@ -1,13 +1,13 @@
 import asArray from 'ember-observer/utils/as-array';
 import { get } from '@ember/object';
 import { computed } from '@ember/object';
-import { readOnly, filter } from '@ember/object/computed';
-import Component from '@ember/component';
+import { filter } from '@ember/object/computed';
+import Component from '@glimmer/component';
 import computedPercent from 'ember-observer/utils/computed-percent';
 
 function computedFormattedPercent(percentPropertyName) {
   return computed(percentPropertyName, function () {
-    let value = this.get(percentPropertyName);
+    let value = get(this, percentPropertyName);
     if (!value) {
       return '--';
     }
@@ -17,38 +17,42 @@ function computedFormattedPercent(percentPropertyName) {
 }
 
 export default class CanaryTestResultSummary extends Component {
-  @filter('testResults', (testResult) => {
-    return !testResult.get('succeeded');
+  @filter('args.testResults', (testResult) => {
+    return !get(testResult, 'succeeded');
   })
   errorBuilds;
 
-  @filter('testResults', (testResult) => {
+  @filter('args.testResults', (testResult) => {
     return (
-      testResult.get('succeeded') &&
+      get(testResult, 'succeeded') &&
       !asArray(get(testResult, 'emberVersionCompatibilities'))[0]?.compatible
     );
   })
   failedBuilds;
 
-  @filter('testResults', (testResult) => {
+  @filter('args.testResults', (testResult) => {
     return (
-      testResult.get('succeeded') &&
+      get(testResult, 'succeeded') &&
       asArray(get(testResult, 'emberVersionCompatibilities'))[0]?.compatible
     );
   })
   passedBuilds;
 
-  @readOnly('errorBuilds.length')
-  numberOfErrorBuilds;
+  get numberOfErrorBuilds() {
+    return this.errorBuilds?.length;
+  }
 
-  @readOnly('failedBuilds.length')
-  numberOfFailedBuilds;
+  get numberOfFailedBuilds() {
+    return this.failedBuilds?.length;
+  }
 
-  @readOnly('passedBuilds.length')
-  numberOfPassedBuilds;
+  get numberOfPassedBuilds() {
+    return this.passedBuilds?.length;
+  }
 
-  @readOnly('testResults.length')
-  numberOfBuilds;
+  get numberOfBuilds() {
+    return this.args.testResults?.length;
+  }
 
   @computedPercent('numberOfErrorBuilds', 'numberOfBuilds')
   percentOfErrorBuilds;

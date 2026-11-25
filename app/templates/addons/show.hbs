@@ -70,7 +70,7 @@
       <h4>Review</h4>
       {{#if this.latestReview}}
         {{#unless this.isLatestReviewForLatestVersion}}
-          <em class="test-review-new-version-warning">{{svg-icon "new-releases"}} New versions of this addon have been released since this review was undertaken.</em>
+          <em class="test-review-new-version-warning"><SvgIcon @iconName="new-releases" /> New versions of this addon have been released since this review was undertaken.</em>
         {{/unless}}
         <AddonReview @review={{this.latestReview}} />
       {{else}}

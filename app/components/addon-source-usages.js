@@ -1,42 +1,52 @@
-import { action, computed } from '@ember/object';
+import { action, get } from '@ember/object';
 import { inject as service } from '@ember/service';
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { isEmpty } from '@ember/utils';
 import { task } from 'ember-concurrency';
+import { tracked } from '@glimmer/tracking';
 
 export default class AddonSourceUsages extends Component {
+  @tracked
   visibleUsageCount = 25;
+
+  @tracked
   showUsages = false;
+
+  @tracked
   usages = null;
-  regex = false;
-  fileFilter = null;
+
+  get regex() {
+    return this.args.regex ?? false;
+  }
+
+  get fileFilter() {
+    return this.args.fileFilter;
+  }
 
   @service
   codeSearch;
 
-  @computed('visibleUsageCount', 'usages')
   get visibleUsages() {
     return this.usages.slice(0, this.visibleUsageCount);
   }
 
-  @computed('usages.length', 'visibleUsageCount')
   get moreUsages() {
-    return this.visibleUsageCount < this.get('usages.length');
+    return this.visibleUsageCount < get(this, 'usages.length');
   }
 
   @(task(function* () {
-    let usages = yield this.get('codeSearch.usages').perform(
-      this.get('addon.id'),
-      this.query,
+    let usages = yield get(this, 'codeSearch.usages').perform(
+      get(this.args, 'addon.id'),
+      this.args.query,
       this.regex
     );
-    this.set('usages', filterByFilePath(usages, this.fileFilter));
+    this.usages = filterByFilePath(usages, this.fileFilter);
   }).drop())
   fetchUsages;
 
   @action
   toggleUsages() {
-    this.toggleProperty('showUsages');
+    this.showUsages = !this.showUsages;
     if (this.showUsages && this.usages === null) {
       this.fetchUsages.perform();
     }
@@ -45,7 +55,7 @@ export default class AddonSourceUsages extends Component {
   @action
   viewMore() {
     let newUsageCount = this.visibleUsageCount + 25;
-    this.set('visibleUsageCount', newUsageCount);
+    this.visibleUsageCount = newUsageCount;
   }
 }
 

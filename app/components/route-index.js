@@ -1,3 +1,5 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 
-export default class RouteIndex extends Component {}
+export default class RouteIndex extends Component {
+
+}

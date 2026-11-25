@@ -1,37 +1,32 @@
 import { compare } from '@ember/utils';
 import asArray from 'ember-observer/utils/as-array';
 import { get } from '@ember/object';
-import { action, computed } from '@ember/object';
+import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
-import { gt } from '@ember/object/computed';
-import Component from '@ember/component';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 
 export default class AddonVersionList extends Component {
+  @tracked
   showAll = false;
 
   @service
   emberVersions;
 
-  @computed('versions', 'showAll')
   get showingVersions() {
     if (this.showAll) {
-      return this.versions;
+      return this.args.versions;
     }
-    return (this.versions || []).slice(0, 10);
+    return (this.args.versions || []).slice(0, 10);
   }
 
-  @computed('emberVersions.versions.[]', 'showingVersions.lastObject.released')
   get emberVersionDataAfterOldestShowingAddonVersion() {
     let oldestVersionDate = asArray(get(this, 'showingVersions')).slice(-1)[0]?.released;
-    return asArray(this.get('emberVersions.versions')).filter(
+    return asArray(get(this, 'emberVersions.versions')).filter(
       (version) => version.released > oldestVersionDate
     );
   }
 
-  @computed(
-    'emberVersionDataAfterOldestShowingAddonVersion.[]',
-    'showingVersions.[]'
-  )
   get versionsWithMeta() {
     let versions = this.emberVersionDataAfterOldestShowingAddonVersion.map(
       (version) => ({ isEmber: true, version })
@@ -42,16 +37,16 @@ export default class AddonVersionList extends Component {
     return asArray(versions).slice().sort((a, b) => compare(get(a, 'version.released'), get(b, 'version.released'))).reverse();
   }
 
-  @gt('versions.length', 10)
-  moreThan10Versions;
+  get moreThan10Versions() {
+    return this.args.versions?.length > 10;
+  }
 
-  @computed('moreThan10Versions', 'showAll')
   get thereAreHiddenVersions() {
     return this.moreThan10Versions && !this.showAll;
   }
 
   @action
   showAllVersions() {
-    this.set('showAll', true);
+    this.showAll = true;
   }
 }

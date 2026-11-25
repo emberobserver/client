@@ -1,6 +1,5 @@
-import { computed } from '@ember/object';
 import { isEmpty } from '@ember/utils';
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { questions } from '../models/review';
 
 const ANSWER_MAP = {
@@ -11,9 +10,8 @@ const ANSWER_MAP = {
 };
 
 export default class AddonReview extends Component {
-  @computed('review')
   get answeredQuestions() {
-    let review = this.review;
+    let review = this.args.review;
     return questions
       .filter(function (question) {
         return !isEmpty(review.get(question.fieldName));

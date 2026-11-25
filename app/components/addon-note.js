@@ -1,8 +1,7 @@
-import { classNames, tagName } from '@ember-decorators/component';
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 
-@tagName('fieldset')
-@classNames('note', 'test-addon-note')
 export default class AddonNote extends Component {
-  content = '';
+  get content() {
+    return this.args.content ?? '';
+  }
 }

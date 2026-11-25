@@ -1,4 +1,5 @@
-<div class="page-layout {{unless this.showCategories 'categories-collapsed'}}">
+<div ...attributes>
+<div class="page-layout {{unless @showCategories 'categories-collapsed'}}">
   <div class="main">
     <header class="navigation">
       <LinkTo @route="index" @query={{hash query=""}} class="name">
@@ -21,7 +22,7 @@
             {{/if}}
           </PowerSelect>
           {{#if this.searchForAddons.isRunning}}
-            {{svg-icon "spinner" class="circle-spinner"}}
+            <SvgIcon @iconName="spinner" @class="circle-spinner" />
           {{/if}}
         </div>
       {{/if}}
@@ -44,8 +45,9 @@
     <div class="content">
       {{yield}}
     </div>
-    {{#if this.showCategories}}
-      <CategoryFinder @class="categories-list" @categories={{this.categories}} />
+    {{#if @showCategories}}
+      <CategoryFinder class="categories-list" @categories={{this.categories}} />
     {{/if}}
   </div>
+</div>
 </div>

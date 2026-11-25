@@ -1,3 +1,4 @@
+<div class="addon-dependency-table" ...attributes>
 {{#if this.collapsed}}
   {{#if this.loadDependencies.isRunning}}
     <p class="uncollapse"><DotSpinner /></p>
@@ -8,7 +9,7 @@
   {{/if}}
 {{else}}
   {{#if this.addonHasDependencies}}
-    <p class="description">{{this.description}}</p>
+    <p class="description">{{@description}}</p>
     <div class="dependency-table">
       <div>
         <table class="version-dependencies test-dev-dependencies">
@@ -68,6 +69,7 @@
     </div>
     <hr>
   {{else}}
-    <p class="no-addons description test-no-addons-message">{{this.noAddonsMessage}}</p>
+    <p class="no-addons description test-no-addons-message">{{@noAddonsMessage}}</p>
   {{/if}}
 {{/if}}
+</div>

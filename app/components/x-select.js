@@ -1,11 +1,12 @@
-import { on } from '@ember/object/evented';
 import { once } from '@ember/runloop';
 import { warn } from '@ember/debug';
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { isArray, A } from '@ember/array';
-import { computed, observer } from '@ember/object';
+import { get, action } from '@ember/object';
+import { cached } from '@glimmer/tracking';
+import { modifier } from 'ember-modifier';
 
-const isSelectedOption = (option) => option.$().is(':selected');
+const isSelectedOption = (option) => option.element.matches(':checked');
 
 /**
  * Wraps a native <select> element so that it can be object and
@@ -26,10 +27,50 @@ const isSelectedOption = (option) => option.$().is(':selected');
  * @class Ember.XSelectComponent
  * @extends Ember.Component
  */
-export default Component.extend({
-  tagName: "select",
-  classNameBindings: [":x-select"],
-  attributeBindings: ['disabled', 'tabindex', 'multiple', 'form', 'name', 'autofocus', 'required', 'size', 'title'],
+export default class XSelect extends Component {
+  element = null;
+
+  lifecycle = modifier((element) => {
+    this.element = element;
+    this.didInsertElement();
+
+    return () => {
+      this.willDestroyElement();
+      this.element = null;
+    };
+  });
+
+  get action() {
+    return this.args.action;
+  }
+
+  get value() {
+    return this.args.value;
+  }
+
+  get form() {
+    return this.args.form;
+  }
+
+  get name() {
+    return this.args.name;
+  }
+
+  get autofocus() {
+    return this.args.autofocus;
+  }
+
+  get required() {
+    return this.args.required;
+  }
+
+  get size() {
+    return this.args.size;
+  }
+
+  get title() {
+    return this.args.title;
+  }
 
   /**
    * Bound to the `disabled` attribute on the native <select> tag.
@@ -38,7 +79,7 @@ export default Component.extend({
    * @type Boolean
    * @default false
    */
-  disabled: false,
+  disabled = false;
 
   /**
    * Bound to the `multiple` attribute on the native <select> tag.
@@ -47,7 +88,7 @@ export default Component.extend({
    * @type Boolean
    * @default false
    */
-  multiple: false,
+  multiple = false;
 
   /**
    * The collection of options for this select box. When options are
@@ -58,9 +99,10 @@ export default Component.extend({
    * @private
    * @property options
    */
-  options: computed(function() {
+  @cached
+  get options() {
     return A([]);
-  }),
+  }
 
   /**
    * Bound to the `tabindex` attribute on the native <select> tag.
@@ -69,7 +111,7 @@ export default Component.extend({
    * @type Integer
    * @default 0
    */
-  tabindex: 0,
+  tabindex = 0;
 
   /**
    * Function for the `on-blur` action
@@ -77,7 +119,7 @@ export default Component.extend({
    * @property on-blur
    * @type Function
    */
-  "on-blur"() {},
+  "on-blur"() {}
 
   /**
    * Function for the `on-click` action
@@ -85,7 +127,7 @@ export default Component.extend({
    * @property on-click
    * @type Function
    */
-  "on-click"() {},
+  "on-click"() {}
 
   /**
    * Function for the `on-change` action
@@ -93,7 +135,7 @@ export default Component.extend({
    * @property on-change
    * @type Function
    */
-  "on-change"() {},
+  "on-change"() {}
 
   /**
    * Function for the `on-focus-out` action
@@ -101,7 +143,7 @@ export default Component.extend({
    * @property on-focus-out
    * @type Function
    */
-  "on-focus-out"() {},
+  "on-focus-out"() {}
 
   /**
    * Function that calls an action and sends the proper arguments.
@@ -113,34 +155,36 @@ export default Component.extend({
    * @param {Object} event - jQuery event from the current action
    */
   _handleAction(action, value, event) {
-    let actionValue = this.get(action);
+    let actionValue = get(this, action);
 
     if(typeof actionValue === 'string') {
       warn(`x-select: You must use the action helper for all actions. The try: ${action}=(action "${actionValue}") in your template`, false, {id: 'x-select-string-action'});
       return;
     }
 
-    this.get(action)(value, event);
-  },
+    get(this, action)(value, event);
+  }
 
   /**
    * When the select DOM event fires on the element, trigger the
    * component's action with the current value.
    */
+  @action
   change(event) {
     let nextValue = this._getValue();
 
-    this.sendAction('action', nextValue, event, this);
+    this.action?.(nextValue, event, this);
     this._handleAction('on-change', nextValue, event);
-  },
+  }
 
   /**
    * When the click DOM event fires on the element, trigger the
    * component's action with the component, x-select value, and the jQuery event.
    */
+  @action
   click(event) {
     this._handleAction('on-click', this._getValue(), event);
-  },
+  }
 
   /**
    * When the blur DOM event fires on the element, trigger the
@@ -148,15 +192,16 @@ export default Component.extend({
    */
   blur(event) {
     this._handleAction('on-blur', this._getValue(), event);
-  },
+  }
 
   /**
    * When the focusOut DOM event fires on the element, trigger the
    * component's action with the component, x-select value, and the jQuery event.
    */
+  @action
   focusOut(event) {
     this._handleAction('on-focus-out', this._getValue(), event);
-  },
+  }
 
   /**
    * Reads the current selection from this select's options.
@@ -168,8 +213,8 @@ export default Component.extend({
    * @return {Array|Object} the current selection
    */
   _getValue() {
-    return this.get('multiple') ? this._findMultipleValues() : this._findSingleValue();
-  },
+    return this.multiple ? this._findMultipleValues() : this._findSingleValue();
+  }
 
   /**
    * Finds all selected values from all `x-option`
@@ -179,8 +224,8 @@ export default Component.extend({
    * @return {Array} all the values from selected x-options
    */
   _findMultipleValues() {
-    return this.get('options').filter(isSelectedOption).map(option => option.get('value'));
-  },
+    return this.options.filter(isSelectedOption).map(option => get(option, 'value'));
+  }
 
   /**
    * Returns the value of the first selected `x-option`.
@@ -190,9 +235,9 @@ export default Component.extend({
    * @return {Object} the value of the first select `x-option`, or null
    */
   _findSingleValue() {
-    let selectedValue = this.get('options').find(isSelectedOption);
-    return selectedValue ? selectedValue.get('value') : null;
-  },
+    let selectedValue = this.options.find(isSelectedOption);
+    return selectedValue ? get(selectedValue, 'value') : null;
+  }
 
   /**
    * If no explicit value is set, apply default values based on selected=true in
@@ -200,43 +245,39 @@ export default Component.extend({
    *
    * @private
    */
-  _setDefaultValues: function() {
+  _setDefaultValues() {
     once(this, this.__setDefaultValues);
-  },
+  }
 
-  __setDefaultValues: function() {
+  __setDefaultValues() {
     let canSet = !this.isDestroying && !this.isDestroyed;
-    if (canSet && this.get('value') == null) {
-      this.sendAction('action', this._getValue());
+    if (canSet && this.value == null) {
+      this.action?.(this._getValue());
     }
-  },
+  }
 
   /**
    * @override
    */
   didInsertElement() {
-    this._super.apply(this, arguments);
-
-    this.$().on('blur', (event) => {
+    this.element.addEventListener('blur', (event) => {
       this.blur(event);
     });
 
     // FIXME this is an unfortunate workaround for an Edge bug for selects with required:
     // https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/8794503/
     if (/edge\//i.test(window.navigator.userAgent)) {
-      let value = this.$().val();
-      this.$().val(`${value}-fake-edge-😳`);
-      this.$().val(value);
+      let value = this.element.value;
+      this.element.value = `${value}-fake-edge-😳`;
+      this.element.value = value;
     }
-  },
+  }
 
   /**
    * @override
    */
-  willDestroyElement: function() {
-    this.$().off('blur');
-    this._super.apply(this, arguments);
-  },
+  willDestroyElement() {
+  }
 
   /**
    * If this is a multi-select, and the value is not an array, that
@@ -244,40 +285,40 @@ export default Component.extend({
    *
    * @private
    */
-  ensureProperType: on('init', observer('value', function() {
-    let value = this.get('value');
+  @action
+  ensureProperType() {
+    let value = this.value;
 
-    if (value != null && this.get('multiple') && !isArray(value)) {
+    if (value != null && this.multiple && !isArray(value)) {
       throw new Error(`x-select multiple=true was set, but value ${value} is not enumerable.`);
     }
-  })),
-
-  actions: {
-
-    /**
-     * Registers a new option that is contained within x-select.
-     *
-     * This is called whenever an x-option component is inserted into the DOM.
-     *
-     * @param {<x-option>} option - x-option component.
-     * @private
-     */
-    registerOption(option) {
-      this.get('options').push(option);
-      this._setDefaultValues();
-    },
-
-    /**
-     * Removes a the passed option that is contained within x-select.
-     *
-     * This is called whenever an x-option component is begining teardown.
-     *
-     * @param {<x-option>} option - x-option component.
-     * @private
-     */
-    unregisterOption(option) {
-      this.get('options').removeObject(option);
-      this._setDefaultValues();
-    }
   }
-});
+
+  /**
+   * Registers a new option that is contained within x-select.
+   *
+   * This is called whenever an x-option component is inserted into the DOM.
+   *
+   * @param {<x-option>} option - x-option component.
+   * @private
+   */
+  @action
+  registerOption(option) {
+    this.options.push(option);
+    this._setDefaultValues();
+  }
+
+  /**
+   * Removes a the passed option that is contained within x-select.
+   *
+   * This is called whenever an x-option component is begining teardown.
+   *
+   * @param {<x-option>} option - x-option component.
+   * @private
+   */
+  @action
+  unregisterOption(option) {
+    this.options.removeObject(option);
+    this._setDefaultValues();
+  }
+}

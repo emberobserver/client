@@ -1,24 +1,29 @@
 import asArray from 'ember-observer/utils/as-array';
-import { action } from '@ember/object';
+import { action, get } from '@ember/object';
 import { inject as service } from '@ember/service';
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { task } from 'ember-concurrency';
+import { tracked } from '@glimmer/tracking';
 
 export default class ScoreDetail extends Component {
+  constructor(owner, args) {
+    super(owner, args);
+    this.fetchScoreCalculation.perform();
+  }
+
+  @tracked
   showExplanation = false;
-  addon = null;
+
+  get addon() {
+    return this.args.addon;
+  }
 
   @service
   store;
 
-  init() {
-    super.init(...arguments);
-    this.fetchScoreCalculation.perform();
-  }
-
   @task(function* () {
     let calculationResult = yield this.store.query('score-calculation', {
-      filter: { addonId: this.addon.get('id'), latest: true },
+      filter: { addonId: get(this.addon, 'id'), latest: true },
     });
     return asArray(calculationResult)[0];
   })
@@ -26,6 +31,6 @@ export default class ScoreDetail extends Component {
 
   @action
   toggleExplainScore() {
-    this.toggleProperty('showExplanation');
+    this.showExplanation = !this.showExplanation;
   }
 }

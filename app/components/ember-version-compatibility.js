@@ -1,40 +1,32 @@
 import asArray from 'ember-observer/utils/as-array';
 import { get } from '@ember/object';
-import { tagName } from '@ember-decorators/component';
-import { action, computed } from '@ember/object';
+import { action } from '@ember/object';
 import { compare } from '@ember/utils';
-import Component from '@ember/component';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 
-@tagName('')
 export default class EmberVersionCompatibility extends Component {
+  @tracked
   showTable = false;
 
-  @computed('testResult.emberVersionCompatibilities.@each.emberVersion')
   get versionCompatibilitiesForReleasedVersions() {
-    return asArray(this.get('testResult.emberVersionCompatibilities')).filter(
+    return asArray(get(this.args, 'testResult.emberVersionCompatibilities')).filter(
       (versionCompatibility) =>
-        !versionCompatibility.get('emberVersion').match(/(beta|canary)/)
+        !get(versionCompatibility, 'emberVersion').match(/(beta|canary)/)
     );
   }
 
-  @computed('versionCompatibilitiesForReleasedVersions.@each.emberVersion')
   get sortedVersionCompatibilities() {
     return asArray(this.versionCompatibilitiesForReleasedVersions).slice()
       .sort(sortByVersion);
   }
 
-  @computed('versionCompatibilitiesForReleasedVersions.@each.compatible')
   get allTestsPassed() {
     return this.versionCompatibilitiesForReleasedVersions.every(
-      (versionCompatibility) => versionCompatibility.get('compatible')
+      (versionCompatibility) => get(versionCompatibility, 'compatible')
     );
   }
 
-  @computed(
-    'sortedVersionCompatibilities.[]',
-    'sortedVersionCompatibilities.firstObject.emberVersion',
-    'sortedVersionCompatibilities.lastObject.emberVersion'
-  )
   get compatibilitySemverString() {
     let earliestVersion = asArray(get(this, 'sortedVersionCompatibilities')).slice(-1)[0]?.emberVersion;
     let latestVersion = asArray(get(this, 'sortedVersionCompatibilities'))[0]?.emberVersion;
@@ -44,7 +36,7 @@ export default class EmberVersionCompatibility extends Component {
 
   @action
   toggleShowTable() {
-    this.toggleProperty('showTable');
+    this.showTable = !this.showTable;
   }
 }
 
@@ -57,8 +49,8 @@ function extractVersionParts(versionNumber) {
 }
 
 function sortByVersion(a, b) {
-  let [majorA, minorA, patchA] = extractVersionParts(a.get('emberVersion'));
-  let [majorB, minorB, patchB] = extractVersionParts(b.get('emberVersion'));
+  let [majorA, minorA, patchA] = extractVersionParts(get(a, 'emberVersion'));
+  let [majorB, minorB, patchB] = extractVersionParts(get(b, 'emberVersion'));
 
   if (compare(majorB, majorA) !== 0) {
     return compare(majorB, majorA);

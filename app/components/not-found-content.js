@@ -1,5 +1,5 @@
-import { tagName } from '@ember-decorators/component';
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 
-@tagName('')
-export default class NotFoundContent extends Component {}
+export default class NotFoundContent extends Component {
+
+}

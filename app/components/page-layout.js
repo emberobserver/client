@@ -1,12 +1,18 @@
-import { action, computed } from '@ember/object';
+import { action, get } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { resolve } from 'rsvp';
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { isBlank } from '@ember/utils';
 import { task, timeout } from 'ember-concurrency';
+import { cached, tracked } from '@glimmer/tracking';
 
 export default class PageLayout extends Component {
-  showHeaderSearch = true;
+  @tracked selectedAddon;
+
+  get showHeaderSearch() {
+    return this.args.showHeaderSearch ?? true;
+  }
+
   searchTerm = null;
 
   @service
@@ -24,7 +30,7 @@ export default class PageLayout extends Component {
   @service('search')
   searchService;
 
-  @computed
+  @cached
   get categories() {
     return this.store.peekAll('category');
   }
@@ -52,7 +58,7 @@ export default class PageLayout extends Component {
       action: `Autocomplete on ${document.location.pathname}`,
       label: term,
     });
-    let results = yield this.get('searchService.searchAddonNames').perform(
+    let results = yield get(this, 'searchService.searchAddonNames').perform(
       term
     );
     let limitedResults = results.slice(0, 5);
@@ -74,9 +80,9 @@ export default class PageLayout extends Component {
     if (selected.isFullSearchLink) {
       this.goSearch(options.searchText);
     } else {
-      this.set('selectedAddon', selected);
+      this.selectedAddon = selected;
       yield this.router.transitionTo('addons.show', selected);
-      this.set('selectedAddon', null);
+      this.selectedAddon = null;
     }
   })
   goToAddon;

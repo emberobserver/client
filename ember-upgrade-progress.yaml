@@ -126,3 +126,8 @@ entries:
     note: "app/components/admin-addon-review-form.hbs invoke components that are values with angle brackets now, such as `<btn @value={{1}} />`, not with `{{component btn value=1}}`, which Embroider cannot resolve at build time."
     links:
       - "https://github.com/embroider-build/embroider/blob/main/docs/replacing-component-helper.md"
+  - id: "classic-components"
+    status: "changed"
+    note: "37 classic components are Glimmer components now. 0 stay classic."
+    links:
+      - "https://guides.emberjs.com/v5.12.0/upgrading/current-edition/glimmer-components/"

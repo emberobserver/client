@@ -1,9 +1,8 @@
 /* eslint-disable ember/no-classic-classes */
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 
-export default Component.extend({
-  tagName: '',
-  alignBaseline: true,
-}).reopenClass({
-  positionalParams: ['iconName'],
-});
+export default class SvgIcon extends Component {
+  get alignBaseline() {
+    return this.args.alignBaseline ?? true;
+  }
+}

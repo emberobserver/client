@@ -31,7 +31,7 @@
           ({{format-bytes @addonSize.otherAssetsGzipSize}} gzipped)
           {{#if @addonSize.hasOtherAssetsFiles}}
             <a role="button" href="#" class="test-other-assets-toggle toggle-detail" {{on "click" this.toggleOtherAssets}}>
-              {{svg-icon (if this.isViewingOtherAssets "expand-less" "expand-more")}}
+              <SvgIcon @iconName={{if this.isViewingOtherAssets "expand-less" "expand-more"}} />
             </a>
           {{/if}}
         </span>

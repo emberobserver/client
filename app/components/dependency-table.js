@@ -1,43 +1,60 @@
-import { classNames } from '@ember-decorators/component';
-import { computed } from '@ember/object';
-import { alias, gt } from '@ember/object/computed';
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { task } from 'ember-concurrency';
 import { isEmpty } from '@ember/utils';
+import { tracked } from '@glimmer/tracking';
 
-@classNames('addon-dependency-table')
 export default class DependencyTable extends Component {
-  limit = 8;
-  showingAllDependencies = false;
-  collapsed = false;
-
-  init() {
-    super.init(...arguments);
+  constructor(owner, args) {
+    super(owner, args);
     if (!this.collapsed) {
       this.loadDependencies.perform();
     }
   }
 
+  @tracked dependencies;
+
+  @tracked devDependencies;
+
+  limit = 8;
+
+  @tracked
+  showingAllDependencies = false;
+
+  @tracked localCollapsed;
+
+  get collapsed() {
+    let own = this.localCollapsed;
+
+    return own && own.arg === this.args.collapsed ? own.value : this.args.collapsed ?? false;
+  }
+
+  set collapsed(value) {
+    if (value === this.collapsed) return;
+
+    this.localCollapsed = { arg: this.args.collapsed, value };
+    this.args.onCollapsedChange?.(value);
+  }
+
   @task(function* () {
-    let { dependencies, devDependencies } = yield this.fetchData();
-    this.set('dependencies', dependencies);
-    this.set('devDependencies', devDependencies);
-    this.set('collapsed', false);
+    let { dependencies, devDependencies } = yield this.args.fetchData();
+    this.dependencies = dependencies;
+    this.devDependencies = devDependencies;
+    this.collapsed = false;
   })
   loadDependencies;
 
-  @computed('dependencies', 'devDependencies')
   get addonHasDependencies() {
     return !isEmpty(this.dependencies) || !isEmpty(this.devDependencies);
   }
 
-  @alias('dependencies.length')
-  dependencyCount;
+  get dependencyCount() {
+    return this.dependencies?.length;
+  }
 
-  @alias('devDependencies.length')
-  devDependencyCount;
+  get devDependencyCount() {
+    return this.devDependencies?.length;
+  }
 
-  @computed('dependencyCount', 'devDependencies', 'devDependencyCount', 'limit')
   get hasManyDependencies() {
     if (!this.dependencyCount || !this.devDependencyCount) {
       return false;
@@ -47,7 +64,6 @@ export default class DependencyTable extends Component {
     );
   }
 
-  @computed('dependencyCount', 'limit', 'showingAllDependencies')
   get hiddenDependencyCount() {
     if (this.showingAllDependencies) {
       return 0;
@@ -55,7 +71,6 @@ export default class DependencyTable extends Component {
     return Math.max(this.dependencyCount - this.limit, 0);
   }
 
-  @computed('devDependencyCount', 'limit', 'showingAllDependencies')
   get hiddenDevDependencyCount() {
     if (this.showingAllDependencies) {
       return 0;
@@ -63,9 +78,11 @@ export default class DependencyTable extends Component {
     return Math.max(this.devDependencyCount - this.limit, 0);
   }
 
-  @gt('hiddenDevDependencyCount', 0)
-  hasHiddenDevDependencies;
+  get hasHiddenDevDependencies() {
+    return this.hiddenDevDependencyCount > 0;
+  }
 
-  @gt('hiddenDependencyCount', 0)
-  hasHiddenDependencies;
+  get hasHiddenDependencies() {
+    return this.hiddenDependencyCount > 0;
+  }
 }

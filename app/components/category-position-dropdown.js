@@ -1,6 +1,11 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 
 export default class CategoryPositionDropdown extends Component {
-  categories = null;
-  position = -1;
+  get categories() {
+    return this.args.categories;
+  }
+
+  get position() {
+    return this.args.position ?? -1;
+  }
 }

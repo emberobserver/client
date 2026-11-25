@@ -1,37 +1,51 @@
 import { asRecord } from 'ember-observer/utils/as-array';
-import { tagName } from '@ember-decorators/component';
-import { action } from '@ember/object';
+import { action, set, get } from '@ember/object';
 import { inject as service } from '@ember/service';
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { task, timeout } from 'ember-concurrency';
 import { questions } from '../models/review';
+import { tracked } from '@glimmer/tracking';
 
-@tagName('')
 export default class AdminAddon extends Component {
   @service
   store;
 
-  addon = null;
+  @tracked localAddon;
+
+  get addon() {
+    let own = this.localAddon;
+
+    return own && own.arg === this.args.addon ? own.value : this.args.addon;
+  }
+
+  set addon(value) {
+    if (value === this.addon) return;
+
+    this.localAddon = { arg: this.args.addon, value };
+    this.args.onAddonChange?.(value);
+  }
+
+  @tracked
   recentlyRenewed = false;
 
   @action
   updateInvalidRepoFlag(value) {
-    this.set('addon.hasInvalidGithubRepo', !value);
+    set(this, 'addon.hasInvalidGithubRepo', !value);
   }
 
   @action
   updateIsWipFlag(value) {
-    this.set('addon.isWip', !value);
+    set(this, 'addon.isWip', !value);
   }
 
   @action
   updateIsDeprecatedFlag(value) {
-    this.set('addon.isDeprecated', !value);
+    set(this, 'addon.isDeprecated', !value);
   }
 
   @action
   updateIsHiddenFlag(value) {
-    this.set('addon.isHidden', !value);
+    set(this, 'addon.isHidden', !value);
   }
 
   @(task(function* () {
@@ -45,17 +59,17 @@ export default class AdminAddon extends Component {
 
   @(task(function* () {
     let newReview = this.store.createRecord('review');
-    let latestReview = this.get('addon.latestReview');
+    let latestReview = get(this, 'addon.latestReview');
 
     questions.forEach(function (question) {
       newReview.set(question.fieldName, latestReview.get(question.fieldName));
     });
-    newReview.set('review', asRecord(latestReview.get('review')));
-    newReview.set('version', asRecord(this.get('addon.latestAddonVersion')));
+    set(newReview, 'review', asRecord(get(latestReview, 'review')));
+    set(newReview, 'version', asRecord(get(this, 'addon.latestAddonVersion')));
 
     try {
       yield newReview.save();
-      this.addon.set('latestReview', newReview);
+      set(this.addon, 'latestReview', newReview);
       yield this.addon.save();
       this.completeRenew.perform();
     } catch (e) {
@@ -66,9 +80,9 @@ export default class AdminAddon extends Component {
   renewLatestReview;
 
   @(task(function* () {
-    this.set('recentlyRenewed', true);
+    this.recentlyRenewed = true;
     yield timeout(2000);
-    this.set('recentlyRenewed', false);
+    this.recentlyRenewed = false;
   }).drop())
   completeRenew;
 }

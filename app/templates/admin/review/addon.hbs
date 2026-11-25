@@ -14,5 +14,5 @@
   {{/let}}{{/if}}
 </nav>
 <div class="addon-area">
-  <AdminAddon @addon={{this.model.addon}} @categories={{this.model.categories}} />
+  <AdminAddon @onAddonChange={{fn (mut this.model.addon)}} @addon={{this.model.addon}} @categories={{this.model.categories}} />
 </div>

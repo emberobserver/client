@@ -1,18 +1,15 @@
-import { tagName } from '@ember-decorators/component';
-import { computed } from '@ember/object';
-import { readOnly, equal } from '@ember/object/computed';
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 
-@tagName('')
 export default class BuildResultOutput extends Component {
-  @equal('buildResult.outputFormat', 'json')
-  isJsonFormat;
-
-  @computed('buildResult.output')
-  get parsedJSON() {
-    return JSON.parse(this.buildResult.output);
+  get isJsonFormat() {
+    return this.args.buildResult?.outputFormat === 'json';
   }
 
-  @readOnly('parsedJSON')
-  groups;
+  get parsedJSON() {
+    return JSON.parse(this.args.buildResult.output);
+  }
+
+  get groups() {
+    return this.parsedJSON;
+  }
 }
