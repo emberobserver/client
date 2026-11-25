@@ -1,6 +1,5 @@
 import { asRecord } from 'ember-observer/utils/as-array';
 /* eslint-disable ember/no-component-lifecycle-hooks */
-/* eslint-disable ember/no-component-lifecycle-hooks */
 import { service as inject } from '@ember/service';
 import Component from '@glimmer/component';
 import { action, set, get } from '@ember/object';
@@ -89,7 +88,7 @@ export default class AdminAddonReviewForm extends Component {<template><div ...a
       this.reset();
       this.complete.perform();
     } catch (e) {
-      console.error(e); // eslint-disable-line no-console
+      console.error(e);
       window.alert('Failed to create review');
     }
   });

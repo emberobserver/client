@@ -1,8 +1,7 @@
 'use strict';
 
 module.exports = {
-  pending: [],
-  extends: 'octane',
+  extends: 'recommended',
   rules: {
     'eol-last': 'always',
     'inline-link-to': true,

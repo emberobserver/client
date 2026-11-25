@@ -122,8 +122,8 @@ module('Acceptance: Index', function (hooks) {
           {
             addon_id: addon1.id,
             matches: ['testing stuff', 'more testing tips'],
-          }, // eslint-disable-line camelcase
-          { addon_id: addon2.id, matches: ['the test of time'] }, // eslint-disable-line camelcase
+          },
+          { addon_id: addon2.id, matches: ['the test of time'] },
         ],
       };
     });
@@ -183,7 +183,7 @@ module('Acceptance: Index', function (hooks) {
           {
             addon_id: addon.id,
             matches: ['<style> a { color: "green"; }</style>'],
-          }, // eslint-disable-line camelcase
+          },
         ],
       };
     });

@@ -15,7 +15,6 @@ module('Acceptance | admin review addon', function (hooks) {
 
   hooks.before(function () {
     QUnit.assert.onCorrectAddonPage = function (addon) {
-      // eslint-disable-line no-undef
       this.dom('.test-addon-link').includesText(addon.name, 'Page renders');
     };
   });
@@ -35,7 +34,7 @@ module('Acceptance | admin review addon', function (hooks) {
   });
 
   hooks.after(function () {
-    delete QUnit.assert.onCorrectAddonPage; // eslint-disable-line no-undef
+    delete QUnit.assert.onCorrectAddonPage;
   });
 
   test('addon not found', async function (assert) {

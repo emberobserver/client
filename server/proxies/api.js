@@ -16,7 +16,7 @@ module.exports = function (app) {
   var proxy = require('http-proxy').createProxyServer({ secure: false });
 
   proxy.on('error', function (err, req) {
-    console.error(err, req.url); // eslint-disable-line no-console
+    console.error(err, req.url);
   });
 
   proxy.on('proxyRes', async function (proxyRes, req, res) {

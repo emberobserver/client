@@ -221,7 +221,7 @@ export default class AdminAddon extends Component {<template><h2>
       await this.store.request(saveRecord(this.addon));
       this.completeRenew.perform();
     } catch (e) {
-      console.error(e); // eslint-disable-line no-console
+      console.error(e);
       window.alert('Failed to renew review');
     }
   });

@@ -172,3 +172,9 @@ entries:
       - "https://pnpm.io/motivation"
       - "https://pnpm.io/cli/import"
       - "https://pnpm.io/cli/approve-builds"
+  - id: "lint-baseline"
+    status: "suppressed"
+    note: "The lint errors from before the upgrade are in eslint-suppressions.json and .lint-todo. Fix them, then remove the fixed ones with `eslint . --prune-suppressions` and `ember-template-lint . --clean-todo`."
+    links:
+      - "https://eslint.org/docs/latest/use/suppressions"
+      - "https://github.com/ember-template-lint/ember-template-lint/blob/main/docs/todos.md"

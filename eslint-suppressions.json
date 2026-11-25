@@ -1,0 +1,495 @@
+{
+  "app/adapters/application.js": {
+    "ember/classic-decorator-no-classic-methods": {
+      "count": 2
+    },
+    "ember/no-computed-properties-in-native-classes": {
+      "count": 1
+    }
+  },
+  "app/components/addon-source-usages.gjs": {
+    "no-unused-vars": {
+      "count": 1
+    }
+  },
+  "app/components/addon-version-item.gjs": {
+    "ember/no-empty-glimmer-component-classes": {
+      "count": 1
+    }
+  },
+  "app/components/admin-addon.gjs": {
+    "no-unused-vars": {
+      "count": 1
+    }
+  },
+  "app/components/canary-test-result-summary.gjs": {
+    "ember/no-computed-properties-in-native-classes": {
+      "count": 3
+    }
+  },
+  "app/components/code-search.gjs": {
+    "ember/no-runloop": {
+      "count": 1
+    },
+    "no-unused-vars": {
+      "count": 1
+    }
+  },
+  "app/components/dependency-icon.gjs": {
+    "ember/no-empty-glimmer-component-classes": {
+      "count": 1
+    }
+  },
+  "app/components/ember-version-compatibility-list.gjs": {
+    "ember/no-empty-glimmer-component-classes": {
+      "count": 1
+    }
+  },
+  "app/components/ember-version-item.gjs": {
+    "ember/no-empty-glimmer-component-classes": {
+      "count": 1
+    }
+  },
+  "app/components/large-search.gjs": {
+    "ember/no-runloop": {
+      "count": 1
+    }
+  },
+  "app/components/not-found-content.gjs": {
+    "ember/no-empty-glimmer-component-classes": {
+      "count": 1
+    }
+  },
+  "app/components/official-icon.gjs": {
+    "ember/no-empty-glimmer-component-classes": {
+      "count": 1
+    }
+  },
+  "app/components/route-index.gjs": {
+    "ember/no-empty-glimmer-component-classes": {
+      "count": 1
+    }
+  },
+  "app/components/svg-icons.gjs": {
+    "ember/no-empty-glimmer-component-classes": {
+      "count": 1
+    }
+  },
+  "app/components/x-option.gjs": {
+    "ember/no-component-lifecycle-hooks": {
+      "count": 3
+    },
+    "ember/no-incorrect-calls-with-inline-anonymous-functions": {
+      "count": 1
+    },
+    "ember/no-runloop": {
+      "count": 1
+    }
+  },
+  "app/components/x-select.gjs": {
+    "ember/no-component-lifecycle-hooks": {
+      "count": 2
+    },
+    "ember/no-runloop": {
+      "count": 1
+    }
+  },
+  "app/controllers/addons/correct.js": {
+    "ember/classic-decorator-no-classic-methods": {
+      "count": 3
+    }
+  },
+  "app/controllers/addons/show.js": {
+    "ember/classic-decorator-no-classic-methods": {
+      "count": 7
+    },
+    "ember/no-computed-properties-in-native-classes": {
+      "count": 7
+    }
+  },
+  "app/controllers/admin/build-results/index.js": {
+    "ember/no-computed-properties-in-native-classes": {
+      "count": 4
+    }
+  },
+  "app/controllers/admin/build-results/show.js": {
+    "ember/classic-decorator-no-classic-methods": {
+      "count": 6
+    },
+    "ember/no-computed-properties-in-native-classes": {
+      "count": 5
+    }
+  },
+  "app/controllers/admin/categories/edit.js": {
+    "ember/classic-decorator-no-classic-methods": {
+      "count": 1
+    },
+    "ember/no-computed-properties-in-native-classes": {
+      "count": 9
+    }
+  },
+  "app/controllers/admin/review.js": {
+    "ember/classic-decorator-no-classic-methods": {
+      "count": 1
+    },
+    "ember/no-computed-properties-in-native-classes": {
+      "count": 3
+    }
+  },
+  "app/controllers/admin/size-calculation-results/index.js": {
+    "ember/no-computed-properties-in-native-classes": {
+      "count": 1
+    }
+  },
+  "app/controllers/admin/size-calculation-results/show.js": {
+    "ember/classic-decorator-no-classic-methods": {
+      "count": 6
+    },
+    "ember/no-computed-properties-in-native-classes": {
+      "count": 5
+    }
+  },
+  "app/controllers/canary-test-results/date.js": {
+    "ember/no-computed-properties-in-native-classes": {
+      "count": 5
+    }
+  },
+  "app/controllers/canary-test-results/detail.js": {
+    "ember/no-computed-properties-in-native-classes": {
+      "count": 3
+    }
+  },
+  "app/controllers/categories/show.js": {
+    "ember/classic-decorator-no-classic-methods": {
+      "count": 2
+    },
+    "ember/no-computed-properties-in-native-classes": {
+      "count": 4
+    }
+  },
+  "app/helpers/feature-flag.js": {
+    "ember/no-classic-classes": {
+      "count": 1
+    },
+    "ember/no-observers": {
+      "count": 1
+    }
+  },
+  "app/initializers/session-service.js": {
+    "no-unused-vars": {
+      "count": 1
+    }
+  },
+  "app/metrics-adapters/local-adapter.js": {
+    "ember/classic-decorator-hooks": {
+      "count": 1
+    }
+  },
+  "app/models/addon-dependency.js": {
+    "ember/no-computed-properties-in-native-classes": {
+      "count": 3
+    }
+  },
+  "app/models/addon-size.js": {
+    "ember/no-computed-properties-in-native-classes": {
+      "count": 10
+    }
+  },
+  "app/models/addon.js": {
+    "ember/no-computed-properties-in-native-classes": {
+      "count": 3
+    }
+  },
+  "app/models/category.js": {
+    "ember/classic-decorator-no-classic-methods": {
+      "count": 1
+    },
+    "ember/no-computed-properties-in-native-classes": {
+      "count": 3
+    }
+  },
+  "app/models/review.js": {
+    "ember/no-computed-properties-in-native-classes": {
+      "count": 2
+    }
+  },
+  "app/models/test-result.js": {
+    "ember/no-computed-properties-in-native-classes": {
+      "count": 1
+    }
+  },
+  "app/router.js": {
+    "ember/classic-decorator-hooks": {
+      "count": 1
+    },
+    "ember/classic-decorator-no-classic-methods": {
+      "count": 1
+    },
+    "ember/no-runloop": {
+      "count": 1
+    }
+  },
+  "app/routes/addons/show.js": {
+    "ember/classic-decorator-no-classic-methods": {
+      "count": 1
+    }
+  },
+  "app/routes/admin.js": {
+    "ember/classic-decorator-no-classic-methods": {
+      "count": 1
+    }
+  },
+  "app/routes/admin/review.js": {
+    "ember/classic-decorator-no-classic-methods": {
+      "count": 1
+    }
+  },
+  "app/services/api.js": {
+    "ember/classic-decorator-no-classic-methods": {
+      "count": 2
+    },
+    "ember/no-computed-properties-in-native-classes": {
+      "count": 1
+    }
+  },
+  "app/services/ember-versions.js": {
+    "ember/classic-decorator-no-classic-methods": {
+      "count": 1
+    }
+  },
+  "app/services/features.js": {
+    "ember/no-classic-classes": {
+      "count": 1
+    },
+    "no-prototype-builtins": {
+      "count": 1
+    }
+  },
+  "app/services/search.js": {
+    "ember/classic-decorator-no-classic-methods": {
+      "count": 2
+    }
+  },
+  "app/services/session.js": {
+    "ember/classic-decorator-no-classic-methods": {
+      "count": 2
+    },
+    "ember/no-computed-properties-in-native-classes": {
+      "count": 1
+    }
+  },
+  "app/utils/measure.js": {
+    "ember/no-runloop": {
+      "count": 1
+    }
+  },
+  "babel.config.js": {
+    "n/no-unsupported-features/es-syntax": {
+      "count": 2
+    }
+  },
+  "eslint.config.js": {
+    "n/no-unsupported-features/es-syntax": {
+      "count": 1
+    }
+  },
+  "icomoon/svgxuse.js": {
+    "no-empty": {
+      "count": 1
+    },
+    "no-redeclare": {
+      "count": 2
+    },
+    "no-unused-vars": {
+      "count": 2
+    },
+    "no-useless-assignment": {
+      "count": 1
+    }
+  },
+  "server/index.js": {
+    "no-undef": {
+      "count": 5
+    }
+  },
+  "server/proxies/api.js": {
+    "no-undef": {
+      "count": 4
+    }
+  },
+  "tests/acceptance/addons-test.js": {
+    "qunit/literal-compare-order": {
+      "count": 4
+    },
+    "qunit/no-assert-equal": {
+      "count": 10
+    }
+  },
+  "tests/acceptance/admin-review-addon-test.js": {
+    "qunit/no-assert-equal": {
+      "count": 28
+    },
+    "qunit/no-assert-equal-boolean": {
+      "count": 9
+    }
+  },
+  "tests/acceptance/admin-test.js": {
+    "qunit/no-assert-equal": {
+      "count": 4
+    },
+    "qunit/require-expect": {
+      "count": 1
+    }
+  },
+  "tests/acceptance/admin/build-servers-test.js": {
+    "qunit/no-assert-equal": {
+      "count": 2
+    },
+    "qunit/require-expect": {
+      "count": 1
+    }
+  },
+  "tests/acceptance/build-results-test.js": {
+    "qunit/no-assert-equal": {
+      "count": 2
+    },
+    "qunit/require-expect": {
+      "count": 1
+    }
+  },
+  "tests/acceptance/canary-test-results-test.js": {
+    "qunit/no-assert-equal": {
+      "count": 1
+    }
+  },
+  "tests/acceptance/categories-test.js": {
+    "qunit/no-assert-equal": {
+      "count": 1
+    }
+  },
+  "tests/acceptance/code-search-test.js": {
+    "qunit/literal-compare-order": {
+      "count": 5
+    },
+    "qunit/no-assert-equal": {
+      "count": 14
+    }
+  },
+  "tests/acceptance/header-search-test.js": {
+    "qunit/no-assert-equal": {
+      "count": 4
+    }
+  },
+  "tests/acceptance/index-test.js": {
+    "qunit/no-assert-equal": {
+      "count": 12
+    },
+    "qunit/no-assert-equal-boolean": {
+      "count": 2
+    }
+  },
+  "tests/acceptance/maintainers-test.js": {
+    "qunit/no-assert-equal": {
+      "count": 2
+    }
+  },
+  "tests/acceptance/scroll-reset-after-route-transition-test.js": {
+    "qunit/no-assert-equal": {
+      "count": 4
+    }
+  },
+  "tests/acceptance/size-calculation-results-test.js": {
+    "qunit/no-assert-equal": {
+      "count": 2
+    },
+    "qunit/require-expect": {
+      "count": 1
+    }
+  },
+  "tests/helpers/x-select.js": {
+    "ember/no-jquery": {
+      "count": 2
+    },
+    "ember/no-runloop": {
+      "count": 1
+    }
+  },
+  "tests/integration/components/addon-size-test.gjs": {
+    "qunit/no-assert-equal": {
+      "count": 2
+    }
+  },
+  "tests/integration/components/toggle-switch-test.gjs": {
+    "qunit/no-assert-equal": {
+      "count": 1
+    },
+    "qunit/no-assert-equal-boolean": {
+      "count": 1
+    }
+  },
+  "tests/integration/helpers/clean-repo-url-test.gjs": {
+    "qunit/no-assert-equal": {
+      "count": 3
+    }
+  },
+  "tests/integration/helpers/dom-purify-test.gjs": {
+    "qunit/no-assert-equal": {
+      "count": 2
+    }
+  },
+  "tests/integration/helpers/format-bytes-test.gjs": {
+    "qunit/no-assert-equal": {
+      "count": 8
+    }
+  },
+  "tests/unit/helpers/check-pass-proportion-test.js": {
+    "qunit/no-assert-equal": {
+      "count": 4
+    }
+  },
+  "tests/unit/helpers/commify-test.js": {
+    "qunit/no-assert-equal": {
+      "count": 9
+    }
+  },
+  "tests/unit/helpers/format-score-contribution-test.js": {
+    "qunit/no-assert-equal": {
+      "count": 2
+    }
+  },
+  "tests/unit/helpers/next-item-test.js": {
+    "qunit/no-assert-equal": {
+      "count": 3
+    }
+  },
+  "tests/unit/helpers/pad-line-number-test.js": {
+    "qunit/no-assert-equal": {
+      "count": 1
+    }
+  },
+  "tests/unit/helpers/previous-item-test.js": {
+    "qunit/no-assert-equal": {
+      "count": 3
+    }
+  },
+  "tests/unit/helpers/score-component-color-test.js": {
+    "qunit/no-assert-equal": {
+      "count": 4
+    }
+  },
+  "tests/unit/helpers/to-fixed-test.js": {
+    "qunit/no-assert-equal": {
+      "count": 3
+    }
+  },
+  "tests/unit/utils/computed-percent-test.js": {
+    "qunit/no-assert-equal": {
+      "count": 5
+    }
+  },
+  "tests/unit/utils/normalize-fingerprinted-asset-test.js": {
+    "qunit/no-assert-equal": {
+      "count": 2
+    }
+  }
+}

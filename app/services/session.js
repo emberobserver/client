@@ -27,7 +27,7 @@ export default class SessionService extends Service {
       })
       .catch(function (e) {
         session.clearToken();
-        console.error('Failed logging in', e); // eslint-disable-line no-console
+        console.error('Failed logging in', e);
       });
   }
 

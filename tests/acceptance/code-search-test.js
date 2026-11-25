@@ -84,7 +84,6 @@ module('Acceptance | code search', function (hooks) {
       addonParam = request.queryParams.addon;
       queryParam = request.queryParams.query;
       return {
-        /* eslint-disable camelcase */
         results: [
           {
             line_number: 52,
@@ -108,7 +107,6 @@ module('Acceptance | code search', function (hooks) {
             ],
           },
         ],
-        /* eslint-disable camelcase */
       };
     });
 
@@ -387,7 +385,6 @@ module('Acceptance | code search', function (hooks) {
     server.get('/search/source', (db, request) => {
       usageRegexParam = request.queryParams.regex;
       return {
-        /* eslint-disable camelcase */
         results: [
           {
             line_number: 52,
@@ -402,7 +399,6 @@ module('Acceptance | code search', function (hooks) {
             ],
           },
         ],
-        /* eslint-disable camelcase */
       };
     });
 
@@ -654,7 +650,6 @@ module('Acceptance | code search', function (hooks) {
 
     server.get('/search/source', () => {
       return {
-        /* eslint-disable camelcase */
         results: [
           {
             line_number: 52,
@@ -667,7 +662,6 @@ module('Acceptance | code search', function (hooks) {
             lines: [{ number: 20, text: '' }],
           },
         ],
-        /* eslint-disable camelcase */
       };
     });
 
@@ -914,7 +908,6 @@ module('Acceptance | code search', function (hooks) {
 
     server.get('/search/source', () => {
       return {
-        /* eslint-disable camelcase */
         results: [
           {
             line_number: 52,
@@ -929,7 +922,6 @@ module('Acceptance | code search', function (hooks) {
             ],
           },
         ],
-        /* eslint-disable camelcase */
       };
     });
 

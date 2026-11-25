@@ -1,4 +1,4 @@
-/*eslint-disable no-extra-boolean-cast, no-console */
+/*eslint-disable no-extra-boolean-cast */
 import Service from '@ember/service';
 import { camelize } from '@ember/string';
 

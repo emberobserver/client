@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 
 import Mirage from 'miragejs';
 export default function () {
@@ -299,4 +298,3 @@ export function testConfig() {
 }
 */
 
-/* eslint-enable camelcase */

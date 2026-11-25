@@ -57,7 +57,6 @@ if (config.environment === 'production') {
     }
     console.error(error);
   });
-  // eslint-disable-line no-console
   on('error', function (error) {
     if (window.trackJs) {
       window.trackJs.track(error);
@@ -65,7 +64,6 @@ if (config.environment === 'production') {
     console.error(error);
   });
 }
-// eslint-disable-line no-console
 if (config.environment === 'development' || config.environment === 'test') {
   Error.stackTraceLimit = 200;
 }

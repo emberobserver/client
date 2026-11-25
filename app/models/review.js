@@ -35,7 +35,6 @@ export default class Review extends Model {
   @computed('hasTests', 'hasBuild', 'hasReadme')
   get score() {
     let s = 2;
-    /* eslint-disable */
     if (this.hasTests === 1) {
       s++;
     }
@@ -45,7 +44,6 @@ export default class Review extends Model {
     if (this.hasReadme === 1) {
       s++;
     }
-    /* eslint-enable */
     return s;
   }
 }
