@@ -111,3 +111,8 @@ entries:
     note: "ember-cli-document-title is removed. Each route's titleToken is a {{page-title}} call in its template now. ember-page-title joins the titles with \" | \", with the deepest route first. Check the title format of the application route."
     links:
       - "https://github.com/ember-cli/ember-page-title"
+  - id: "no-implicit-this"
+    status: "changed"
+    note: "Templates read the properties of the test context or the component as `this.name` now, not `name`. The codemod left the app's and the addons' components and helpers as they are."
+    links:
+      - "https://github.com/ember-codemods/ember-no-implicit-this-codemod"

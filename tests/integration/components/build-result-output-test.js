@@ -11,7 +11,7 @@ module('Integration | Component | build-result-output', function (hooks) {
       output: "I'm a teapot!",
       outputFormat: 'text',
     });
-    await render(hbs`<BuildResultOutput @buildResult={{buildResult}} />`);
+    await render(hbs`<BuildResultOutput @buildResult={{this.buildResult}} />`);
 
     assert.dom('pre').hasText("I'm a teapot!", 'renders output in a <pre> tag');
   });
@@ -33,7 +33,7 @@ module('Integration | Component | build-result-output', function (hooks) {
         ]),
         outputFormat: 'json',
       });
-      await render(hbs`<BuildResultOutput @buildResult={{buildResult}} />`);
+      await render(hbs`<BuildResultOutput @buildResult={{this.buildResult}} />`);
 
       assert
         .dom('section')
@@ -50,7 +50,7 @@ module('Integration | Component | build-result-output', function (hooks) {
         ]),
         outputFormat: 'json',
       });
-      await render(hbs`<BuildResultOutput @buildResult={{buildResult}} />`);
+      await render(hbs`<BuildResultOutput @buildResult={{this.buildResult}} />`);
 
       assert
         .dom('section > details > summary')
@@ -79,7 +79,7 @@ module('Integration | Component | build-result-output', function (hooks) {
         ]),
         outputFormat: 'json',
       });
-      await render(hbs`<BuildResultOutput @buildResult={{buildResult}} />`);
+      await render(hbs`<BuildResultOutput @buildResult={{this.buildResult}} />`);
 
       assert.dom('section > details > details').hasAttribute('open');
     });
@@ -94,7 +94,7 @@ module('Integration | Component | build-result-output', function (hooks) {
         ]),
         outputFormat: 'json',
       });
-      await render(hbs`<BuildResultOutput @buildResult={{buildResult}} />`);
+      await render(hbs`<BuildResultOutput @buildResult={{this.buildResult}} />`);
 
       assert.dom('section > details').hasAttribute('open');
     });
@@ -109,7 +109,7 @@ module('Integration | Component | build-result-output', function (hooks) {
         ]),
         outputFormat: 'json',
       });
-      await render(hbs`<BuildResultOutput @buildResult={{buildResult}} />`);
+      await render(hbs`<BuildResultOutput @buildResult={{this.buildResult}} />`);
 
       assert.dom('section > details').doesNotHaveAttribute('open');
     });

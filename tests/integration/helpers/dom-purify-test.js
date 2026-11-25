@@ -9,7 +9,7 @@ module('Integration | Helper | dom-purify', function (hooks) {
   test('it sanitizes output', async function (assert) {
     this.set('dirty', '<img src=x onerror=alert(1)//>');
 
-    await render(hbs`{{dom-purify dirty}}`);
+    await render(hbs`{{dom-purify this.dirty}}`);
 
     assert.equal(this.element.innerHTML, '<img src="x">', 'Sanitizes');
   });
@@ -17,7 +17,7 @@ module('Integration | Helper | dom-purify', function (hooks) {
   test('removes <style> elements', async function (assert) {
     this.set('dirty', 'HI!<style> a { color: "green"; }</style>');
 
-    await render(hbs`{{dom-purify dirty}}`);
+    await render(hbs`{{dom-purify this.dirty}}`);
 
     assert.equal(this.element.innerHTML, 'HI!', 'Removes style elements');
   });
@@ -25,7 +25,7 @@ module('Integration | Helper | dom-purify', function (hooks) {
   test('adds attributes to anchors', async function (assert) {
     this.set('dirty', '<A HREF=//google.com>click</A>');
 
-    await render(hbs`{{dom-purify dirty}}`);
+    await render(hbs`{{dom-purify this.dirty}}`);
 
     assert.dom('a').hasAttribute('href', '//google.com');
     assert

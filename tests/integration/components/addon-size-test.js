@@ -35,7 +35,7 @@ module('Integration | Component | addon-size', function (hooks) {
 
     this.set('addonSize', addonSize);
 
-    await render(hbs`<AddonSize @addonSize={{addonSize}}/>`);
+    await render(hbs`<AddonSize @addonSize={{this.addonSize}} />`);
 
     assert.dom('.test-app-js').hasText('1 KB (400 B gzipped)');
     assert.dom('.test-app-css').hasText('800 B (200 B gzipped)');
@@ -64,7 +64,7 @@ module('Integration | Component | addon-size', function (hooks) {
 
     this.set('addonSize', addonSize);
 
-    await render(hbs`<AddonSize @addonSize={{addonSize}}/>`);
+    await render(hbs`<AddonSize @addonSize={{this.addonSize}} />`);
 
     assert.dom('.test-app-js').hasText('1 KB (400 B gzipped)');
     assert.dom('.test-total-js').hasText('3.13 KB (1.46 KB gzipped)');
@@ -92,7 +92,7 @@ module('Integration | Component | addon-size', function (hooks) {
 
     this.set('addonSize', addonSize);
 
-    await render(hbs`<AddonSize @addonSize={{addonSize}}/>`);
+    await render(hbs`<AddonSize @addonSize={{this.addonSize}} />`);
 
     assert
       .dom('.test-size-summary')
@@ -131,7 +131,7 @@ module('Integration | Component | addon-size', function (hooks) {
 
     this.set('addonSize', addonSize);
 
-    await render(hbs`<AddonSize @addonSize={{addonSize}}/>`);
+    await render(hbs`<AddonSize @addonSize={{this.addonSize}} />`);
 
     assert
       .dom('.test-other-assets-details')
@@ -184,7 +184,7 @@ module('Integration | Component | addon-size', function (hooks) {
     this.set('addonSize', addonSize);
 
     await render(
-      hbs`<AddonSize @addonSize={{addonSize}} @showTotalRow={{true}}/>`
+      hbs`<AddonSize @addonSize={{this.addonSize}} @showTotalRow={{true}} />`
     );
 
     let totalRow = findAll('.test-total-size');

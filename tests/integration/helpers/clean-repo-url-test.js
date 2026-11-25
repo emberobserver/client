@@ -9,7 +9,7 @@ module('Integration | Helper | clean-repo-url', function (hooks) {
   test('it removes trailing .git from repo URLs', async function (assert) {
     this.set('repoUrl', 'http://example.com/someone/something.git');
 
-    await render(hbs`{{clean-repo-url repoUrl}}`);
+    await render(hbs`{{clean-repo-url this.repoUrl}}`);
 
     assert.equal(
       this.element.textContent.trim(),
@@ -21,7 +21,7 @@ module('Integration | Helper | clean-repo-url', function (hooks) {
     let repoUrl = 'http://example.com/someone.git/something';
     this.set('repoUrl', repoUrl);
 
-    await render(hbs`{{clean-repo-url repoUrl}}`);
+    await render(hbs`{{clean-repo-url this.repoUrl}}`);
 
     assert.equal(this.element.textContent.trim(), repoUrl);
   });
@@ -30,7 +30,7 @@ module('Integration | Helper | clean-repo-url', function (hooks) {
     let repoUrl = 'http://example.com/someone/something';
     this.set('repoUrl', repoUrl);
 
-    await render(hbs`{{clean-repo-url repoUrl}}`);
+    await render(hbs`{{clean-repo-url this.repoUrl}}`);
 
     assert.equal(this.element.textContent.trim(), repoUrl);
   });

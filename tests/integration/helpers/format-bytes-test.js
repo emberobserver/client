@@ -9,7 +9,7 @@ module('Integration | Helper | format-bytes', function (hooks) {
   test('it renders nothing if size is null', async function (assert) {
     this.set('inputValue', null);
 
-    await render(hbs`{{format-bytes inputValue}}`);
+    await render(hbs`{{format-bytes this.inputValue}}`);
 
     assert.equal(this.element.textContent.trim(), '');
   });
@@ -17,7 +17,7 @@ module('Integration | Helper | format-bytes', function (hooks) {
   test('it renders bytes', async function (assert) {
     this.set('inputValue', '12');
 
-    await render(hbs`{{format-bytes inputValue}}`);
+    await render(hbs`{{format-bytes this.inputValue}}`);
 
     assert.equal(this.element.textContent.trim(), '12 B');
   });
@@ -25,7 +25,7 @@ module('Integration | Helper | format-bytes', function (hooks) {
   test('it renders kilobytes', async function (assert) {
     this.set('inputValue', '7785');
 
-    await render(hbs`{{format-bytes inputValue}}`);
+    await render(hbs`{{format-bytes this.inputValue}}`);
 
     assert.equal(this.element.textContent.trim(), '7.6 KB');
   });
@@ -33,7 +33,7 @@ module('Integration | Helper | format-bytes', function (hooks) {
   test('it renders one kilobyte', async function (assert) {
     this.set('inputValue', '1024');
 
-    await render(hbs`{{format-bytes inputValue}}`);
+    await render(hbs`{{format-bytes this.inputValue}}`);
 
     assert.equal(this.element.textContent.trim(), '1 KB');
   });
@@ -41,7 +41,7 @@ module('Integration | Helper | format-bytes', function (hooks) {
   test('it renders megabytes', async function (assert) {
     this.set('inputValue', '2809565');
 
-    await render(hbs`{{format-bytes inputValue}}`);
+    await render(hbs`{{format-bytes this.inputValue}}`);
 
     assert.equal(this.element.textContent.trim(), '2.68 MB');
   });
@@ -49,7 +49,7 @@ module('Integration | Helper | format-bytes', function (hooks) {
   test('it renders one megabyte', async function (assert) {
     this.set('inputValue', '1048576');
 
-    await render(hbs`{{format-bytes inputValue}}`);
+    await render(hbs`{{format-bytes this.inputValue}}`);
 
     assert.equal(this.element.textContent.trim(), '1 MB');
   });
@@ -57,7 +57,7 @@ module('Integration | Helper | format-bytes', function (hooks) {
   test('it renders gigabytes', async function (assert) {
     this.set('inputValue', '1095216660');
 
-    await render(hbs`{{format-bytes inputValue}}`);
+    await render(hbs`{{format-bytes this.inputValue}}`);
 
     assert.equal(this.element.textContent.trim(), '1.02 GB');
   });
@@ -65,7 +65,7 @@ module('Integration | Helper | format-bytes', function (hooks) {
   test('it renders one gigabyte', async function (assert) {
     this.set('inputValue', '1073741824');
 
-    await render(hbs`{{format-bytes inputValue}}`);
+    await render(hbs`{{format-bytes this.inputValue}}`);
 
     assert.equal(this.element.textContent.trim(), '1 GB');
   });

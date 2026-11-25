@@ -15,7 +15,7 @@ module('Integration | Component | score-display', function (hooks) {
     });
 
     await render(hbs`
-      {{#score-display addon=addon as |score|}}
+      {{#score-display addon=this.addon as |score|}}
         {{score}}
       {{/score-display}}
     `);

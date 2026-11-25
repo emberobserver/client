@@ -14,7 +14,7 @@ module('Integration | Component | dependency-size-toggle', function (hooks) {
 
     this.set('addonSize', addonSize);
 
-    await render(hbs`<DependencySizeToggle @addonSize={{addonSize}}/>`);
+    await render(hbs`<DependencySizeToggle @addonSize={{this.addonSize}} />`);
 
     assert.dom('.test-size-summary').exists();
     assert
@@ -51,7 +51,7 @@ module('Integration | Component | dependency-size-toggle', function (hooks) {
 
     this.set('addonSize', addonSize);
 
-    await render(hbs`<DependencySizeToggle @addonSize={{addonSize}}/>`);
+    await render(hbs`<DependencySizeToggle @addonSize={{this.addonSize}} />`);
 
     assert
       .dom('.test-size-detail')
@@ -79,7 +79,7 @@ module('Integration | Component | dependency-size-toggle', function (hooks) {
   test('does not show if no addon size given', async function (assert) {
     this.set('addonSize', null);
 
-    await render(hbs`<DependencySizeToggle @addonSize={{addonSize}}/>`);
+    await render(hbs`<DependencySizeToggle @addonSize={{this.addonSize}} />`);
 
     assert
       .dom('.test-size-summary')
@@ -94,7 +94,7 @@ module('Integration | Component | dependency-size-toggle', function (hooks) {
 
     this.set('addonSize', addonSize);
 
-    await render(hbs`<DependencySizeToggle @addonSize={{addonSize}}/>`);
+    await render(hbs`<DependencySizeToggle @addonSize={{this.addonSize}} />`);
 
     assert
       .dom('.test-size-summary')
@@ -133,7 +133,7 @@ module('Integration | Component | dependency-size-toggle', function (hooks) {
 
     this.set('addonSize', addonSize);
 
-    await render(hbs`<DependencySizeToggle @addonSize={{addonSize}}/>`);
+    await render(hbs`<DependencySizeToggle @addonSize={{this.addonSize}} />`);
 
     await click('.test-size-summary');
     await click('.test-other-assets-toggle');

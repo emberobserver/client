@@ -26,7 +26,7 @@ export default class TestLoader {
   }
 
   shouldLoadModule(moduleName) {
-    return (moduleName.match(/[-_]test$/));
+    return moduleName.match(/[-_]test$/);
   }
 
   listModules() {
