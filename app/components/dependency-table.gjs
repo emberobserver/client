@@ -5,8 +5,6 @@ import { tracked } from '@glimmer/tracking';
 import DotSpinner from "./dot-spinner.gjs";
 import { on } from "@ember/modifier";
 import perform from "ember-concurrency/helpers/perform";
-import or from "ember-truth-helpers/helpers/or";
-import lt from "ember-truth-helpers/helpers/lt";
 import { LinkTo } from "@ember/routing";
 import { fn } from "@ember/helper";
 import DependencySizeToggle from "./dependency-size-toggle.gjs";

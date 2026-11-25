@@ -2,7 +2,6 @@ import Component from '@glimmer/component';
 import { get } from '@ember/object';
 import { sortBy } from 'ember-observer/utils/as-array';
 import PowerSelect from "ember-power-select/components/power-select";
-import not from "ember-truth-helpers/helpers/not";
 import includes from "../helpers/includes.js";
 
 export default class CategoryChooser extends Component {<template><div class="test-category-chooser">

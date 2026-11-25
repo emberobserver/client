@@ -13,14 +13,12 @@ import CommaSeparated from "./comma-separated.gjs";
 import ScoreDisplay from "./score-display.gjs";
 import SvgIcon from "./svg-icon.gjs";
 import ToggleSwitch from "./toggle-switch.gjs";
-import not from "ember-truth-helpers/helpers/not";
 import { fn } from "@ember/helper";
 import { Input, Textarea } from "@ember/component";
 import CategoryChooser from "./category-chooser.gjs";
 import { on } from "@ember/modifier";
 import perform from "ember-concurrency/helpers/perform";
 import momentFormat from "ember-moment/helpers/moment-format";
-import notEq from "ember-truth-helpers/helpers/not-eq";
 import AddonReview from "./addon-review.gjs";
 import AdminAddonReviewForm from "./admin-addon-review-form.gjs";
 import MarkdownToSanitizedHtml from "./markdown-to-sanitized-html.gjs";
@@ -122,7 +120,7 @@ export default class AdminAddon extends Component {<template><h2>
   <h5 class="header">Latest Review</h5>
   <div class="contents">
     {{#if this.addon.latestReview}}
-      {{#if (notEq this.addon.latestReview.version.version this.addon.latestAddonVersion.version)}}
+      {{#if (neq this.addon.latestReview.version.version this.addon.latestAddonVersion.version)}}
         <em class="test-review-new-version-warning"><SvgIcon @iconName="new-releases" /> New versions of this addon have been released since this review was undertaken.</em>
       {{/if}}
       <AddonReview @review={{this.addon.latestReview}} />
