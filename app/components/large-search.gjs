@@ -132,58 +132,54 @@ export default class LargeSearch extends Component {<template><div ...attributes
     return !(isBlank(query) || query.length < 3 || emMatcher.test(query));
   }
 
-  @task(function* () {
+  fetchMoreAddons = task(async () => {
     let pageToFetch = get(this, '_results.lastAddonPageDisplaying') + 1;
-    let moreAddons = yield this._fetchPageOfAddonResults(
+    let moreAddons = await this._fetchPageOfAddonResults(
       get(this, '_results.rawResults.addonResults'),
       pageToFetch
     );
     get(this, '_results.displayingAddons').pushObjects(moreAddons);
     set(this, '_results.lastAddonPageDisplaying', pageToFetch);
-  })
-  fetchMoreAddons;
+  });
 
-  @task(function* () {
+  fetchMoreMaintainers = task(async () => {
     let pageToFetch = get(this, '_results.lastMaintainerPageDisplaying') + 1;
-    let moreMaintainers = yield this._fetchPageOfMaintainerResults(
+    let moreMaintainers = await this._fetchPageOfMaintainerResults(
       get(this, '_results.rawResults.maintainerResults'),
       pageToFetch
     );
     get(this, '_results.displayingMaintainers').pushObjects(moreMaintainers);
     set(this, '_results.lastMaintainerPageDisplaying', pageToFetch);
-  })
-  fetchMoreMaintainers;
+  });
 
-  @task(function* () {
+  fetchMoreCategories = task(async () => {
     let pageToFetch = get(this, '_results.lastCategoryPageDisplaying') + 1;
-    let moreCategories = yield this._fetchPageOfCategoryResults(
+    let moreCategories = await this._fetchPageOfCategoryResults(
       get(this, '_results.rawResults.categoryResults'),
       pageToFetch
     );
     get(this, '_results.displayingCategories').pushObjects(moreCategories);
     set(this, '_results.lastCategoryPageDisplaying', pageToFetch);
-  })
-  fetchMoreCategories;
+  });
 
-  @task(function* () {
+  fetchMoreReadmes = task(async () => {
     let pageToFetch = get(this, '_results.lastReadmePageDisplaying') + 1;
-    let moreReadmes = yield this._fetchPageOfAddonResults(
+    let moreReadmes = await this._fetchPageOfAddonResults(
       get(this, '_results.rawResults.readmeResults'),
       pageToFetch
     );
     get(this, '_results.displayingReadmes').pushObjects(moreReadmes);
     set(this, '_results.lastReadmePageDisplaying', pageToFetch);
-  })
-  fetchMoreReadmes;
+  });
 
-  @(task(function* (query) {
+  search = task({ restartable: true }, async (query) => {
     this.query = query.trim();
     if (!this.queryIsValid) {
       this._results = null;
       return;
     }
 
-    yield timeout(250);
+    await timeout(250);
 
     this.metrics.trackEvent({
       category: 'Search',
@@ -191,10 +187,10 @@ export default class LargeSearch extends Component {<template><div ...attributes
       label: this.query,
     });
 
-    let results = yield get(this, 'searchService.search').perform(this.query, {
+    let results = await get(this, 'searchService.search').perform(this.query, {
       includeReadmes: this.searchReadmes,
     });
-    let firstPageOfResults = yield this._fetchFirstPageOfResults(results);
+    let firstPageOfResults = await this._fetchFirstPageOfResults(results);
 
     this._results = {
       displayingAddons: firstPageOfResults.addons,
@@ -213,14 +209,12 @@ export default class LargeSearch extends Component {<template><div ...attributes
       rawResults: results,
       length: results.length,
     };
-  }).restartable())
-  search;
+  });
 
-  @task(function* () {
+  toggleReadmeSearch = task(async () => {
     this.searchReadmes = !this.searchReadmes;
-    yield this.search.perform(this.query);
-  })
-  toggleReadmeSearch;
+    await this.search.perform(this.query);
+  });
 
   _fetchFirstPageOfResults(results) {
     let addonsPromise = this._fetchPageOfAddonResults(results.addonResults, 1);

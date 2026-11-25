@@ -77,27 +77,25 @@ export default class AdminAddonReviewForm extends Component {<template><div ...a
     set(this, `reviewProperties.${fieldName}`, value);
   }
 
-  @(task(function* () {
+  saveReview = task({ drop: true }, async () => {
     let newReview = this.store.createRecord('review', this.reviewProperties);
     set(newReview, 'review', asRecord(this.reviewText));
     set(newReview, 'version', asRecord(get(this, 'addon.latestAddonVersion')));
     try {
-      yield newReview.save();
+      await newReview.save();
       set(this.addon, 'latestReview', newReview);
-      yield this.addon.save();
+      await this.addon.save();
       this.reset();
       this.complete.perform();
     } catch (e) {
       console.error(e); // eslint-disable-line no-console
       window.alert('Failed to create review');
     }
-  }).drop())
-  saveReview;
+  });
 
-  @(task(function* () {
+  complete = task({ drop: true }, async () => {
     this.recentlySaved = true;
-    yield timeout(2000);
+    await timeout(2000);
     this.recentlySaved = false;
-  }).drop())
-  complete;
+  });
 }

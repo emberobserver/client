@@ -11,9 +11,9 @@ export default class SearchService extends Service {
   _autocompleteData = null;
   _latestSearchResults = null;
 
-  @task(function* () {
+  _fetchAutocompleteData = task(async () => {
     if (!this._autocompleteData) {
-      let data = yield this.api.request('/autocomplete_data');
+      let data = await this.api.request('/autocomplete_data');
       this.set('_autocompleteData', {
         addons: asArray(data.addons).slice().sort((a, b) => compare(get(a, 'score'), get(b, 'score'))).reverse(),
         categories: data.categories,
@@ -21,8 +21,7 @@ export default class SearchService extends Service {
       });
     }
     return this._autocompleteData;
-  })
-  _fetchAutocompleteData;
+  });
 
   _searchAddons(query, possibleAddons) {
     let addonResultsMatchingOnName = findMatches(query, 'name', possibleAddons);
@@ -55,8 +54,8 @@ export default class SearchService extends Service {
     };
   }
 
-  @task(function* (query) {
-    let results = yield this.api.request('/search', {
+  _searchReadmes = task(async (query) => {
+    let results = await this.api.request('/search', {
       params: {
         query,
       },
@@ -72,25 +71,23 @@ export default class SearchService extends Service {
       matchMap: addonMatchMap,
       matchCount: results.search.length,
     };
-  })
-  _searchReadmes;
+  });
 
-  @task(function* (query) {
-    let data = yield this._fetchAutocompleteData.perform();
+  searchAddonNames = task(async (query) => {
+    let data = await this._fetchAutocompleteData.perform();
     let trimmed = query.trim();
     let addonResultsMatchingOnName = findAddonNameMatches(trimmed, data.addons);
     return asArray(addonResultsMatchingOnName).map((item) => get(item, 'name'));
-  })
-  searchAddonNames;
+  });
 
-  @task(function* (query, options) {
-    let data = yield this._fetchAutocompleteData.perform();
+  search = task(async (query, options) => {
+    let data = await this._fetchAutocompleteData.perform();
     let addonResults = this._searchAddons(query, data.addons);
     let categoryResults = this._searchCategories(query, data.categories);
     let maintainerResults = this._searchMaintainers(query, data.maintainers);
     let readmeResults = { matchIds: [], matchMap: {}, matchCount: 0 };
     if (options.includeReadmes) {
-      readmeResults = yield this._searchReadmes.perform(query);
+      readmeResults = await this._searchReadmes.perform(query);
     }
     let results = {
       query,
@@ -106,8 +103,7 @@ export default class SearchService extends Service {
     };
     this.set('_latestSearchResults', results);
     return results;
-  })
-  search;
+  });
 }
 
 function findMatches(query, prop, items) {

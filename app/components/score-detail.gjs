@@ -65,13 +65,12 @@ export default class ScoreDetail extends Component {<template><div ...attributes
   @service
   store;
 
-  @task(function* () {
-    let calculationResult = yield this.store.query('score-calculation', {
+  fetchScoreCalculation = task(async () => {
+    let calculationResult = await this.store.query('score-calculation', {
       filter: { addonId: get(this.addon, 'id'), latest: true },
     });
     return asArray(calculationResult)[0];
-  })
-  fetchScoreCalculation;
+  });
 
   @action
   toggleExplainScore() {

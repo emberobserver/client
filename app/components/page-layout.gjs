@@ -106,19 +106,19 @@ export default class PageLayout extends Component {<template><div ...attributes>
     }
   }
 
-  @(task(function* (term) {
+  searchForAddons = task({ restartable: true }, async (term) => {
     if (term.length === 0) {
       return resolve([]);
     }
 
-    yield timeout(250);
+    await timeout(250);
 
     this.metrics.trackEvent({
       category: 'Header autocomplete',
       action: `Autocomplete on ${document.location.pathname}`,
       label: term,
     });
-    let results = yield get(this, 'searchService.searchAddonNames').perform(
+    let results = await get(this, 'searchService.searchAddonNames').perform(
       term
     );
     let limitedResults = results.slice(0, 5);
@@ -133,19 +133,17 @@ export default class PageLayout extends Component {<template><div ...attributes>
 
     limitedResults.insertAt(1, { isFullSearchLink: true });
     return limitedResults;
-  }).restartable())
-  searchForAddons;
+  });
 
-  @task(function* (selected, options) {
+  goToAddon = task(async (selected, options) => {
     if (selected.isFullSearchLink) {
       this.goSearch(options.searchText);
     } else {
       this.selectedAddon = selected;
-      yield this.router.transitionTo('addons.show', selected);
+      await this.router.transitionTo('addons.show', selected);
       this.selectedAddon = null;
     }
-  })
-  goToAddon;
+  });
 
   @action
   logoutUser() {

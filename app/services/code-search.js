@@ -11,10 +11,10 @@ export default class CodeSearchService extends Service {
   @service
   store;
 
-  @task(function* (query, regex) {
+  addons = task(async (query, regex) => {
     let addons;
 
-    let { results } = yield this.api.request('/search/addons', {
+    let { results } = await this.api.request('/search/addons', {
       params: {
         query,
         regex,
@@ -23,12 +23,12 @@ export default class CodeSearchService extends Service {
 
     if (results.length < 4 * PageSize) {
       let idsParam = results.map((r) => r.addon).join(',');
-      addons = yield this.store.query('addon', {
+      addons = await this.store.query('addon', {
         filter: { id: idsParam },
         include: 'categories',
       });
     } else {
-      addons = yield this.store.query('addon', {
+      addons = await this.store.query('addon', {
         filter: { codeSearch: true },
         include: 'categories',
         page: { limit: 10000 },
@@ -41,11 +41,10 @@ export default class CodeSearchService extends Service {
           return { addon, count: result.count, files: result.files };
         }
       })).filter((item) => item != null);
-  })
-  addons;
+  });
 
-  @task(function* (addon, query, regex) {
-    let response = yield this.api.request('/search/source', {
+  usages = task(async (addon, query, regex) => {
+    let response = await this.api.request('/search/source', {
       params: {
         addon,
         query,
@@ -53,6 +52,5 @@ export default class CodeSearchService extends Service {
       },
     });
     return response.results;
-  })
-  usages;
+  });
 }

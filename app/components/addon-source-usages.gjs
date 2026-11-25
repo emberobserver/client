@@ -76,15 +76,14 @@ export default class AddonSourceUsages extends Component {<template><div ...attr
     return this.visibleUsageCount < get(this, 'usages.length');
   }
 
-  @(task(function* () {
-    let usages = yield get(this, 'codeSearch.usages').perform(
+  fetchUsages = task({ drop: true }, async () => {
+    let usages = await get(this, 'codeSearch.usages').perform(
       get(this.args, 'addon.id'),
       this.args.query,
       this.regex
     );
     this.usages = filterByFilePath(usages, this.fileFilter);
-  }).drop())
-  fetchUsages;
+  });
 
   @action
   toggleUsages() {

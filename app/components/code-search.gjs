@@ -265,7 +265,7 @@ export default class CodeSearch extends Component {<template><div class="code-se
     return this._getResultsUpToPage(this.sortedFilteredResults, this.page);
   }
 
-  @(task(function* () {
+  search = task({ restartable: true }, async () => {
     let query = this.cleanedSearchInput;
     this.results = null;
     this.page = 1;
@@ -281,24 +281,22 @@ export default class CodeSearch extends Component {<template><div class="code-se
     });
 
     this.codeQuery = query;
-    let results = yield get(this, 'codeSearch.addons').perform(
+    let results = await get(this, 'codeSearch.addons').perform(
       query,
       this.regex
     );
     this.quotedLastSearch = quoteSearchTerm(query, this.regex);
 
     this.results = results;
-  }).restartable())
-  search;
+  });
 
-  @(task(function* (fileFilter) {
-    yield timeout(250);
+  applyFileFilter = task({ restartable: true }, async (fileFilter) => {
+    await timeout(250);
 
     if (!isEmpty(fileFilter)) {
       this.fileFilter = fileFilter;
     }
-  }).restartable())
-  applyFileFilter;
+  });
 
   @action
   clearFileFilter() {

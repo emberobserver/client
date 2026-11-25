@@ -198,16 +198,15 @@ export default class AdminAddon extends Component {<template><h2>
     set(this, 'addon.isHidden', !value);
   }
 
-  @(task(function* () {
+  saveAddon = task({ drop: true }, async () => {
     try {
-      yield this.addon.save();
+      await this.addon.save();
     } catch (e) {
       window.alert('Failed to save addon');
     }
-  }).drop())
-  saveAddon;
+  });
 
-  @(task(function* () {
+  renewLatestReview = task({ drop: true }, async () => {
     let newReview = this.store.createRecord('review');
     let latestReview = get(this, 'addon.latestReview');
 
@@ -218,21 +217,19 @@ export default class AdminAddon extends Component {<template><h2>
     set(newReview, 'version', asRecord(get(this, 'addon.latestAddonVersion')));
 
     try {
-      yield newReview.save();
+      await newReview.save();
       set(this.addon, 'latestReview', newReview);
-      yield this.addon.save();
+      await this.addon.save();
       this.completeRenew.perform();
     } catch (e) {
       console.error(e); // eslint-disable-line no-console
       window.alert('Failed to renew review');
     }
-  }).drop())
-  renewLatestReview;
+  });
 
-  @(task(function* () {
+  completeRenew = task({ drop: true }, async () => {
     this.recentlyRenewed = true;
-    yield timeout(2000);
+    await timeout(2000);
     this.recentlyRenewed = false;
-  }).drop())
-  completeRenew;
+  });
 }

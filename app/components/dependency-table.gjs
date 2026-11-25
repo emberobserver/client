@@ -118,13 +118,12 @@ export default class DependencyTable extends Component {<template><div class="ad
     this.args.onCollapsedChange?.(value);
   }
 
-  @task(function* () {
-    let { dependencies, devDependencies } = yield this.args.fetchData();
+  loadDependencies = task(async () => {
+    let { dependencies, devDependencies } = await this.args.fetchData();
     this.dependencies = dependencies;
     this.devDependencies = devDependencies;
     this.collapsed = false;
-  })
-  loadDependencies;
+  });
 
   get addonHasDependencies() {
     return !isEmpty(this.dependencies) || !isEmpty(this.devDependencies);

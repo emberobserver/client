@@ -35,16 +35,15 @@ export default class AdminListsService extends Service {
   @inject()
   store;
 
-  @task(function* (listParam) {
+  find = task(async (listParam) => {
     let list = lists[listParam];
-    let addons = yield this[list.method]();
+    let addons = await this[list.method]();
     return {
       addons,
       title: list.title,
       key: listParam,
     };
-  })
-  find;
+  });
 
   addonsNeedingCategorization() {
     return this.store.query('addon', {
