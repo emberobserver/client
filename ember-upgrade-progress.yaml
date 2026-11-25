@@ -116,3 +116,8 @@ entries:
     note: "Templates read the properties of the test context or the component as `this.name` now, not `name`. The codemod left the app's and the addons' components and helpers as they are."
     links:
       - "https://github.com/ember-codemods/ember-no-implicit-this-codemod"
+  - id: "template-colocation"
+    status: "changed"
+    note: "Component templates are next to their classes now."
+    links:
+      - "https://deprecations.emberjs.com/id/component-template-resolving/"
