@@ -1,0 +1,29 @@
+import Component from '@glimmer/component';
+
+export default class EmberVersionCompatibilityList extends Component {<template><p>
+  <table class="ember-version-compatibility-list test-ember-version-compatibility-list">
+    <thead>
+      <tr>
+        <th>Ember Version</th>
+        <th>Compatible?</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each @versionCompatibilities as |versionCompatibility|}}
+        <tr class="test-ember-version-compatibility-item">
+          <td class="test-ember-version-compatibility-ember-version">{{versionCompatibility.emberVersion}}</td>
+          <td class="test-ember-version-compatibility-test-result">
+            {{#if versionCompatibility.compatible}}
+              <span class="result-passed">yes</span>
+            {{else}}
+              <span class="result-failed">no</span>
+            {{/if}}
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</p>
+</template>
+
+}

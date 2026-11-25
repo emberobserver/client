@@ -1,0 +1,32 @@
+import { get } from '@ember/object';
+import Component from '@glimmer/component';
+
+export default class HumanUrl extends Component {<template><div ...attributes>
+<a href={{@url}}><b>{{this.domain}}</b>{{this.pathname}}</a>
+</div>
+</template>
+  get parsed() {
+    if (this.args.url) {
+      let a = document.createElement('a');
+
+      a.href = this.args.url;
+
+      let host = a.hostname;
+      let pathname = a.pathname.replace(/^\/?/, '/');
+
+      return { host, pathname };
+    }
+    return null;
+  }
+
+  get domain() {
+    return (get(this, 'parsed.host') === undefined
+      ? ''
+      : get(this, 'parsed.host')
+    ).replace(/^(www.)?/, '');
+  }
+
+  get pathname() {
+    return this.parsed?.pathname;
+  }
+}

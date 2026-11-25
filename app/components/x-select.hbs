@@ -1,8 +1,0 @@
-<select class="x-select" disabled={{this.disabled}} tabindex={{this.tabindex}} multiple={{this.multiple}} form={{@form}} name={{@name}} autofocus={{@autofocus}} required={{@required}} size={{@size}} title={{@title}} ...attributes {{on "change" this.change}} {{on "click" this.click}} {{on "focusout" this.focusOut}} {{this.lifecycle}}>
-{{this.ensureProperType @value}}
-{{yield
-  (hash
-    option=(component "x-option" select=this register=this.registerOption unregister=this.unregisterOption)
-  )
-}}
-</select>
