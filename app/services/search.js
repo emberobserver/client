@@ -1,7 +1,7 @@
 import { get } from '@ember/object';
 import { compare } from '@ember/utils';
 import asArray from 'ember-observer/utils/as-array';
-import Service, { inject as service } from '@ember/service';
+import Service, { service } from '@ember/service';
 import { task } from 'ember-concurrency';
 
 export default class SearchService extends Service {

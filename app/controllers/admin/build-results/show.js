@@ -1,5 +1,5 @@
 import { action, computed } from '@ember/object';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 import { readOnly } from '@ember/object/computed';
 import Controller from '@ember/controller';
 

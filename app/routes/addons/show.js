@@ -1,6 +1,6 @@
 import { asRecord } from 'ember-observer/utils/as-array';
 import asArray from 'ember-observer/utils/as-array';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 import { hash } from 'rsvp';
 import Route from '@ember/routing/route';
 

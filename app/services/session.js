@@ -1,6 +1,6 @@
 import { computed } from '@ember/object';
 import { Promise as EmberPromise } from 'rsvp';
-import Service, { inject as service } from '@ember/service';
+import Service, { service } from '@ember/service';
 import LocalStore from '../utils/local-storage';
 
 export default class SessionService extends Service {

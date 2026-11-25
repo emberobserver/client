@@ -1,4 +1,4 @@
-import Service, { inject } from '@ember/service';
+import Service, { service as inject } from '@ember/service';
 import { task } from 'ember-concurrency';
 
 export const lists = {

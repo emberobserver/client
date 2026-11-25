@@ -1,5 +1,5 @@
 import { action, computed } from '@ember/object';
-import { inject } from '@ember/service';
+import { service as inject } from '@ember/service';
 import { readOnly, oneWay } from '@ember/object/computed';
 import Controller from '@ember/controller';
 import { lists } from 'ember-observer/services/admin-lists';

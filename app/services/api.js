@@ -1,5 +1,5 @@
 import { computed } from '@ember/object';
-import Service, { inject as service } from '@ember/service';
+import Service, { service } from '@ember/service';
 import { waitForFetch } from '@ember/test-waiters';
 const fetch = (input, init) => waitForFetch(globalThis.fetch(input, init));
 

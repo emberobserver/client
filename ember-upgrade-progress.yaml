@@ -131,3 +131,13 @@ entries:
     note: "37 classic components are Glimmer components now. 0 stay classic."
     links:
       - "https://guides.emberjs.com/v5.12.0/upgrading/current-edition/glimmer-components/"
+  - id: "ember-cli-babel"
+    status: "override"
+    note: "An override forces the latest ember-cli-babel for all dependencies, because v1 addons depend on older versions. Remove the override when vite.config no longer uses classicEmberSupport()."
+    links:
+      - "https://deprecations.emberjs.com/id/using-amd-bundles"
+  - id: "ember-cli-htmlbars"
+    status: "override"
+    note: "An override forces the latest ember-cli-htmlbars for all dependencies, because v1 addons depend on older versions. Remove the override when vite.config no longer uses classicEmberSupport()."
+    links:
+      - "https://deprecations.emberjs.com/id/using-amd-bundles"

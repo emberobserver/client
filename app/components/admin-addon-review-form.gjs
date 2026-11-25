@@ -1,7 +1,7 @@
 import { asRecord } from 'ember-observer/utils/as-array';
 /* eslint-disable ember/no-component-lifecycle-hooks */
 /* eslint-disable ember/no-component-lifecycle-hooks */
-import { inject } from '@ember/service';
+import { service as inject } from '@ember/service';
 import Component from '@glimmer/component';
 import { action, set, get } from '@ember/object';
 import { task, timeout } from 'ember-concurrency';

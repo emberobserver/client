@@ -1,6 +1,6 @@
 import { compare } from '@ember/utils';
 import { action, get } from '@ember/object';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 import { scheduleOnce } from '@ember/runloop';
 import Component from '@glimmer/component';
 import { isEmpty, isBlank } from '@ember/utils';

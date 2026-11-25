@@ -1,6 +1,6 @@
 import { asRecord } from 'ember-observer/utils/as-array';
 import { action, set, get } from '@ember/object';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { task, timeout } from 'ember-concurrency';
 import { questions } from '../models/review';

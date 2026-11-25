@@ -1,6 +1,6 @@
 import asArray from 'ember-observer/utils/as-array';
 import { action, get, set } from '@ember/object';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 import { scheduleOnce } from '@ember/runloop';
 import { hash, resolve } from 'rsvp';
 import { isBlank } from '@ember/utils';

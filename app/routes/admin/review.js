@@ -1,5 +1,5 @@
 import asArray from 'ember-observer/utils/as-array';
-import { inject } from '@ember/service';
+import { service as inject } from '@ember/service';
 import Route from '@ember/routing/route';
 
 export default class ReviewRoute extends Route {

@@ -1,5 +1,5 @@
 import { action, get } from '@ember/object';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 import { resolve } from 'rsvp';
 import Component from '@glimmer/component';
 import { isBlank } from '@ember/utils';
