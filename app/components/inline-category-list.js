@@ -1,10 +1,8 @@
-import classic from 'ember-classic-decorator';
 import { classNames, tagName } from '@ember-decorators/component';
 import Component from '@ember/component';
 import { get } from '@ember/object';
 import { sortBy } from 'ember-observer/utils/as-array';
 
-@classic
 @tagName('span')
 @classNames('category-list', 'test-category-list')
 export default class InlineCategoryList extends Component {

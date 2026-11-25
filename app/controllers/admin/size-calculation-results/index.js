@@ -1,9 +1,7 @@
 import asArray from 'ember-observer/utils/as-array';
-import classic from 'ember-classic-decorator';
 import { computed } from '@ember/object';
 import Controller from '@ember/controller';
 
-@classic
 export default class SizeCalculationResultsIndexController extends Controller {
   queryParams = ['date'];
 

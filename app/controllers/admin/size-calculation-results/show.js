@@ -1,10 +1,8 @@
-import classic from 'ember-classic-decorator';
 import { action, computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import Controller from '@ember/controller';
 import { readOnly } from '@ember/object/computed';
 
-@classic
 export default class SizeCalculationResultsShowController extends Controller {
   @service
   api;

@@ -1,10 +1,8 @@
-import classic from 'ember-classic-decorator';
 import { action, computed, get } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import Controller from '@ember/controller';
 import { sortBy } from 'ember-observer/utils/as-array';
 
-@classic
 export default class ShowController extends Controller {
   queryParams = [{
     addonSortKey: 'sort',

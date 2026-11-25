@@ -1,10 +1,8 @@
 import asArray from 'ember-observer/utils/as-array';
-import classic from 'ember-classic-decorator';
 import Route from '@ember/routing/route';
 import { hash } from 'rsvp';
 import { service } from '@ember/service';
 
-@classic
 export default class AddonRoute extends Route {
   @service store;
 

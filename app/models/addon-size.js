@@ -1,9 +1,7 @@
-import classic from 'ember-classic-decorator';
 import { computed } from '@ember/object';
 import Model, { belongsTo, attr } from '@ember-data/model';
 import normalizeFingerprintedAsset from 'ember-observer/utils/normalize-fingerprinted-asset';
 
-@classic
 export default class AddonSize extends Model {
   @attr('number')
   appJsSize;

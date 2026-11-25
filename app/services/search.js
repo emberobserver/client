@@ -1,11 +1,9 @@
 import { get } from '@ember/object';
 import { compare } from '@ember/utils';
 import asArray from 'ember-observer/utils/as-array';
-import classic from 'ember-classic-decorator';
 import Service, { inject as service } from '@ember/service';
 import { task } from 'ember-concurrency';
 
-@classic
 export default class SearchService extends Service {
   @service
   api;

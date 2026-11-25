@@ -1,4 +1,3 @@
-import classic from 'ember-classic-decorator';
 import { computed } from '@ember/object';
 import { isEmpty } from '@ember/utils';
 import Component from '@ember/component';
@@ -11,7 +10,6 @@ const ANSWER_MAP = {
   4: 'Unknown',
 };
 
-@classic
 export default class AddonReview extends Component {
   @computed('review')
   get answeredQuestions() {

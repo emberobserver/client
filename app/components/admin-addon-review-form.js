@@ -1,13 +1,11 @@
 import { asRecord } from 'ember-observer/utils/as-array';
 /* eslint-disable ember/no-component-lifecycle-hooks */
-import classic from 'ember-classic-decorator';
 import { inject } from '@ember/service';
 import Component from '@ember/component';
 import { action } from '@ember/object';
 import { task, timeout } from 'ember-concurrency';
 import { questions } from '../models/review';
 
-@classic
 export default class AdminAddonReviewForm extends Component {
   addon = null;
   reviewProperties = null;

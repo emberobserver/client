@@ -1,9 +1,7 @@
-import classic from 'ember-classic-decorator';
 import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import Component from '@ember/component';
 
-@classic
 export default class HumanUrl extends Component {
   @computed('url')
   get parsed() {

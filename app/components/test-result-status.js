@@ -1,11 +1,9 @@
 import asArray from 'ember-observer/utils/as-array';
 import { get } from '@ember/object';
-import classic from 'ember-classic-decorator';
 import { tagName } from '@ember-decorators/component';
 import { computed } from '@ember/object';
 import Component from '@ember/component';
 
-@classic
 @tagName('')
 export default class TestResultStatus extends Component {
   @computed(

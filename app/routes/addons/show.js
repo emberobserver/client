@@ -1,11 +1,9 @@
 import { asRecord } from 'ember-observer/utils/as-array';
 import asArray from 'ember-observer/utils/as-array';
-import classic from 'ember-classic-decorator';
 import { inject as service } from '@ember/service';
 import { hash } from 'rsvp';
 import Route from '@ember/routing/route';
 
-@classic
 export default class ShowRoute extends Route {
   @service store;
 

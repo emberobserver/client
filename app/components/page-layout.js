@@ -1,4 +1,3 @@
-import classic from 'ember-classic-decorator';
 import { action, computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { resolve } from 'rsvp';
@@ -6,7 +5,6 @@ import Component from '@ember/component';
 import { isBlank } from '@ember/utils';
 import { task, timeout } from 'ember-concurrency';
 
-@classic
 export default class PageLayout extends Component {
   showHeaderSearch = true;
   searchTerm = null;

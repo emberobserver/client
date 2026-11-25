@@ -1,13 +1,11 @@
 import { compare } from '@ember/utils';
 import asArray from 'ember-observer/utils/as-array';
 import { get } from '@ember/object';
-import classic from 'ember-classic-decorator';
 import { action, computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { gt } from '@ember/object/computed';
 import Component from '@ember/component';
 
-@classic
 export default class AddonVersionList extends Component {
   showAll = false;
 

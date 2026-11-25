@@ -1,10 +1,8 @@
-import classic from 'ember-classic-decorator';
 import { computed } from '@ember/object';
 import { Promise as EmberPromise } from 'rsvp';
 import Service, { inject as service } from '@ember/service';
 import LocalStore from '../utils/local-storage';
 
-@classic
 export default class SessionService extends Service {
   @service
   api;

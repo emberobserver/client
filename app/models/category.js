@@ -1,11 +1,9 @@
 import { get } from '@ember/object';
 import asArray from 'ember-observer/utils/as-array';
-import classic from 'ember-classic-decorator';
 import { computed } from '@ember/object';
 import { dasherize } from '@ember/string';
 import Model, { hasMany, belongsTo, attr } from '@ember-data/model';
 
-@classic
 export default class Category extends Model {
   @attr('string')
   name;

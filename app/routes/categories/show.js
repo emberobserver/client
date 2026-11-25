@@ -1,13 +1,11 @@
 import { get } from '@ember/object';
 import asArray from 'ember-observer/utils/as-array';
-import classic from 'ember-classic-decorator';
 import { hash } from 'rsvp';
 import Route from '@ember/routing/route';
 
 import measure from '../../utils/measure';
 import { service } from '@ember/service';
 
-@classic
 export default class ShowRoute extends Route {
   @service store;
 

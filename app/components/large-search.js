@@ -1,5 +1,4 @@
 import asArray from 'ember-observer/utils/as-array';
-import classic from 'ember-classic-decorator';
 import { action, computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { scheduleOnce } from '@ember/runloop';
@@ -10,7 +9,6 @@ import { task, timeout } from 'ember-concurrency';
 
 const PageSize = 10;
 
-@classic
 export default class LargeSearch extends Component {
   @service
   store;

@@ -1,8 +1,6 @@
-import classic from 'ember-classic-decorator';
 import { action, computed } from '@ember/object';
 import Component from '@ember/component';
 
-@classic
 export default class StatsBar extends Component {
   showBadgeText = false;
 

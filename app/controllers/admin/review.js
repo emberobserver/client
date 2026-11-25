@@ -1,4 +1,3 @@
-import classic from 'ember-classic-decorator';
 import { action, computed } from '@ember/object';
 import { inject } from '@ember/service';
 import { readOnly, oneWay } from '@ember/object/computed';
@@ -9,7 +8,6 @@ const possibleLists = Object.keys(lists).map((key) => {
   return { title: lists[key].title, key };
 });
 
-@classic
 export default class ReviewController extends Controller {
   queryParams = ['list'];
   list = null;

@@ -1,5 +1,4 @@
 import { compare } from '@ember/utils';
-import classic from 'ember-classic-decorator';
 import { classNames } from '@ember-decorators/component';
 import { action, computed, get } from '@ember/object';
 import { inject as service } from '@ember/service';
@@ -13,7 +12,6 @@ import asArray from 'ember-observer/utils/as-array';
 
 const PageSize = config.codeSearchPageSize;
 
-@classic
 @classNames('code-search')
 export default class CodeSearch extends Component {
   @service

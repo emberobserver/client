@@ -1,9 +1,7 @@
-import classic from 'ember-classic-decorator';
 import Route from '@ember/routing/route';
 import moment from 'moment';
 import { service } from '@ember/service';
 
-@classic
 export default class IndexRoute extends Route {
   @service store;
 

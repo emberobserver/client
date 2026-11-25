@@ -1,4 +1,3 @@
-import classic from 'ember-classic-decorator';
 import { action, get } from '@ember/object';
 import { empty, gt, filter, oneWay, alias } from '@ember/object/computed';
 import { Promise as EmberPromise } from 'rsvp';
@@ -6,7 +5,6 @@ import Controller from '@ember/controller';
 import { service } from '@ember/service';
 import asArray, { sortBy } from 'ember-observer/utils/as-array';
 
-@classic
 export default class EditController extends Controller {
   @service router;
 

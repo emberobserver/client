@@ -1,10 +1,8 @@
-import classic from 'ember-classic-decorator';
 import { computed } from '@ember/object';
 import { gt } from '@ember/object/computed';
 import Model, { hasMany, belongsTo, attr } from '@ember-data/model';
 import moment from 'moment';
 
-@classic
 export default class Addon extends Model {
   isAddon = true;
 

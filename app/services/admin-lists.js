@@ -1,4 +1,3 @@
-import classic from 'ember-classic-decorator';
 import Service, { inject } from '@ember/service';
 import { task } from 'ember-concurrency';
 
@@ -32,7 +31,6 @@ export const lists = {
     title: 'Addons marked as invalid repo url',
   },
 };
-@classic
 export default class AdminListsService extends Service {
   @inject()
   store;

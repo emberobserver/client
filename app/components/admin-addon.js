@@ -1,5 +1,4 @@
 import { asRecord } from 'ember-observer/utils/as-array';
-import classic from 'ember-classic-decorator';
 import { tagName } from '@ember-decorators/component';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
@@ -7,7 +6,6 @@ import Component from '@ember/component';
 import { task, timeout } from 'ember-concurrency';
 import { questions } from '../models/review';
 
-@classic
 @tagName('')
 export default class AdminAddon extends Component {
   @service

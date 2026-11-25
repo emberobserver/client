@@ -1,4 +1,3 @@
-import classic from 'ember-classic-decorator';
 import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import Model, { belongsTo, attr } from '@ember-data/model';
@@ -9,7 +8,6 @@ export const questions = [
   { text: 'Does the addon have a build?', fieldName: 'hasBuild' },
 ];
 
-@classic
 export default class Review extends Model {
   questions = questions;
 

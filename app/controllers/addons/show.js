@@ -1,13 +1,11 @@
 import { get } from '@ember/object';
 import { compare } from '@ember/utils';
 import asArray from 'ember-observer/utils/as-array';
-import classic from 'ember-classic-decorator';
 import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { readOnly, alias } from '@ember/object/computed';
 import Controller from '@ember/controller';
 
-@classic
 export default class ShowController extends Controller {
   @service session;
 

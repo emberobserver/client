@@ -1,12 +1,10 @@
 import asArray from 'ember-observer/utils/as-array';
 import { get } from '@ember/object';
-import classic from 'ember-classic-decorator';
 import { tagName } from '@ember-decorators/component';
 import { action, computed } from '@ember/object';
 import { compare } from '@ember/utils';
 import Component from '@ember/component';
 
-@classic
 @tagName('')
 export default class EmberVersionCompatibility extends Component {
   showTable = false;

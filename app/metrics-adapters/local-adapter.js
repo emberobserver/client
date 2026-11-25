@@ -1,7 +1,5 @@
-import classic from 'ember-classic-decorator';
 import BaseAdapter from 'ember-metrics/metrics-adapters/base';
 
-@classic
 export default class LocalAdapter extends BaseAdapter {
   toStringExtension() {
     return 'LocalAdapter';

@@ -1,4 +1,3 @@
-import classic from 'ember-classic-decorator';
 import { classNames } from '@ember-decorators/component';
 import { computed } from '@ember/object';
 import { alias, gt } from '@ember/object/computed';
@@ -6,7 +5,6 @@ import Component from '@ember/component';
 import { task } from 'ember-concurrency';
 import { isEmpty } from '@ember/utils';
 
-@classic
 @classNames('addon-dependency-table')
 export default class DependencyTable extends Component {
   limit = 8;

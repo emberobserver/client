@@ -1,9 +1,7 @@
-import classic from 'ember-classic-decorator';
 import { hash } from 'rsvp';
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 
-@classic
 export default class DateRoute extends Route {
   @service store;
 
